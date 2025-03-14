@@ -1,0 +1,175 @@
+/* Reset dan dasar styling */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+body {
+    background-color: #f4f4f4;
+    color: #333;
+}
+
+/* Header styling */
+header {
+    display: flex;
+    align-items: center;
+    background-color: #fff;
+    padding: 20px 50px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.logo {
+    font-size: 24px;
+    font-weight: bold;
+    color: #028A56;
+}
+
+/* Navigasi */
+.about-page-container nav ul {
+    list-style: none;
+    display: flex;
+    margin-right: auto;
+}
+
+.about-page-container nav ul li {
+    margin-right: 20px;
+}
+
+.about-page-container nav ul li a {
+    text-decoration: none;
+    color: #333;
+}
+
+/* Tombol Profil */
+.about-page-container .auth-buttons {
+    margin-left: auto;
+}
+
+.about-page-container .auth-buttons button {
+    background-color: #147A63;
+    color: #fff;
+    border: 2px solid #147A63;
+    border-radius: 15px;
+    padding: 10px 25px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.about-page-container .auth-buttons button:hover {
+    background-color: #E3F2ED;
+    color: #147A63;
+}
+
+/* About Page Styling */
+.about-page-container section {
+    background-color: #EAF5F2;
+    background-image: url('assets/images/bgaboutus.png');
+    text-align: center;
+    padding: 50px;
+    min-height: 60vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.about-page-container .about-us {
+    font-size: 30px;
+    font-weight: bold;
+    color: #3b3b3b;
+    margin-bottom: 20px;
+}
+
+.about-page-container .content-aboutus {
+    font-size: 20px;
+    line-height: 1.3;
+    color: #333;
+    text-align: justify;
+    max-width: 750px;
+    margin-bottom: 20px;
+}
+
+.about-page-container .content-welcome {
+    font-size: 20px;
+    color: #333;
+    margin-top: 10px;
+}
+
+.about-page-container h1 {
+    color: #3b3b3b;
+}
+
+/* Footer */
+.about-page-container footer {
+    background-color: #EAF5F2;
+    line-height: 1.5;
+}
+
+/* Thicker Footer Separator Line */
+.about-page-container .footer-separator {
+    width: 100%;
+    height: 10px; /* Increased height for a thicker line */
+    background-color: #147A63;
+}
+
+.about-page-container .footer-container {
+    display: flex;
+    justify-content: space-between;
+    max-width: 1500px;
+    margin: 0 auto;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.about-page-container .footer-logo img {
+    width: 150px;
+    margin-left: 75px;
+    margin-top: 10px;
+}
+
+.about-page-container .footer-content {
+    display: flex;
+    gap: 40px;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    width: 100%;
+    margin-left: 75px;
+}
+
+.about-page-container .customer-care, .account, .social-media {
+    flex: 1;
+    min-width: 200px;
+}
+
+.about-page-container .customer-care h3, .account h3, .social-media h3 {
+    font-size: 16px;
+    margin-bottom: 10px;
+}
+
+.about-page-container .customer-care p, .account p, .social-media p {
+    font-size: 14px;
+    margin-bottom: 8px;
+}
+
+/* Footer Bottom */
+.about-page-container .footer-bottom {
+    margin-left: 75px;
+    margin-top: 20px;
+    font-size: 14px;
+    color: #666;
+}
+
+/* Social Media Icons */
+.about-page-container .social-icons {
+    display: flex;
+}
+
+.about-page-container .social-icons a {
+    margin-right: 15px;
+}
+
+.about-page-container .account {
+    text-decoration: none;
+}
