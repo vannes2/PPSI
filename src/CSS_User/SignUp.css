@@ -1,5 +1,6 @@
 /* CSS for Signup Page Body */
 
+
 .signup-page {
     background-color: #eaf5f2;
     color: #333;
@@ -69,6 +70,7 @@
   
   .signup-page .container {
     width: 45%;
+    max-width: 1000px;
     margin: 0 auto;
     background-color: #e3f2ed;
     padding: 20px;

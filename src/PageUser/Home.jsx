@@ -9,7 +9,6 @@ const Home = () => {
             {/* Navbar */}
           <Header />
 
-
             {/* Hero Section */}
             <section className="hero">
                 <div className="hero-text">
