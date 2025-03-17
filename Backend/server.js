@@ -1,37 +1,37 @@
-require("dotenv").config();
 const express = require("express");
+const mysql = require("mysql");
 const cors = require("cors");
-const mysql = require("mysql2");
 
 const app = express();
-const port = process.env.PORT || 5000;
-
-// Middleware
 app.use(cors());
-app.use(express.json());
 
-// Koneksi ke Database
+// Koneksi ke database
 const db = mysql.createConnection({
-  host: process.env.DB_HOST,
-  user: process.env.DB_USER,
-  password: process.env.DB_PASSWORD,
-  database: process.env.DB_NAME,
+    host: "localhost",
+    user: "root",
+    password: "pass",
+    database: "cerdas_hukum"
 });
 
-db.connect((err) => {
-  if (err) {
-    console.error("Database connection failed: " + err.stack);
-    return;
-  }
-  console.log("Connected to database.");
+db.connect(err => {
+    if (err) {
+        console.error("Database connection failed:", err);
+        return;
+    }
+    console.log("Database connected...");
 });
 
-// API Endpoint Contoh
-app.get("/", (req, res) => {
-  res.send("Backend is running!");
+// Endpoint untuk mengambil data pengacara
+app.get("/api/pengacara", (req, res) => {
+    db.query("SELECT * FROM pengacara", (err, result) => {
+        if (err) {
+            res.status(500).json({ error: err.message });
+        } else {
+            res.json(result);
+        }
+    });
 });
 
-// Jalankan Server
-app.listen(port, () => {
-  console.log(`Server running on http://localhost:${port}`);
+app.listen(5000, () => {
+    console.log("Server running on port 5000");
 });
