@@ -29,7 +29,7 @@ const Login = () => {
         // Simpan user ke local storage
         localStorage.setItem("user", JSON.stringify(result.user));
 
-        navigate("/HomeAfterLogin");
+        navigate("/HomeAfter");
       } else {
         alert(result.message);
       }
