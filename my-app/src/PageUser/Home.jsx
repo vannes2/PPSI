@@ -6,12 +6,21 @@ import Footer from "../components/Footer";
 
 const Home = () => {
     const [pengacara, setPengacara] = useState([]);
+    const [error, setError] = useState(null);
 
     useEffect(() => {
         fetch("http://localhost:5000/api/pengacara")  // Pastikan URL backend benar
-            .then(response => response.json())
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error(`HTTP error! Status: ${response.status}`);
+                }
+                return response.json();
+            })
             .then(data => setPengacara(data))
-            .catch(error => console.error("Error fetching data:", error));
+            .catch(error => {
+                console.error("Error fetching data:", error);
+                setError(error.message);
+            });
     }, []);
 
     return (
@@ -43,15 +52,17 @@ const Home = () => {
                     </div>
                 </div>
                 <div className="product-list">
-                    {pengacara.length > 0 ? (
+                    {error ? (
+                        <p style={{ color: "red" }}>Gagal mengambil data: {error}</p>
+                    ) : pengacara.length > 0 ? (
                         pengacara.map((advokat, index) => (
-                            <div key={index} className="product-item">
+                            <div key={advokat.id} className="product-item">
                                 <img src={`/assets/images/advokat${index + 1}.png`} alt="Advokat" />
                                 <p><strong>{advokat.nama}</strong><br />{advokat.spesialisasi}<br />Pengalaman: {advokat.pengalaman} tahun</p>
                             </div>
                         ))
                     ) : (
-                        <p>Tidak ada advokat tersedia</p>
+                        <p>Belum ada advokat terdaftar</p>
                     )}
                 </div>
             </section>
