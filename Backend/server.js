@@ -1,37 +1,19 @@
 const express = require("express");
-const mysql = require("mysql");
 const cors = require("cors");
+const bodyParser = require("body-parser");
+const authRoutes = require("./routes/authRoutes"); // Import route login
 
 const app = express();
+
+// Middleware
 app.use(cors());
+app.use(bodyParser.json());
 
-// Koneksi ke database
-const db = mysql.createConnection({
-    host: "localhost",
-    user: "root",
-    password: "",
-    database: "cerdas_hukum"
-});
+// Gunakan Route Login
+app.use("/api", authRoutes); // Semua route di authRoutes akan berada di /api
 
-db.connect(err => {
-    if (err) {
-        console.error("Database connection failed:", err);
-        return;
-    }
-    console.log("Database connected...");
-});
-
-// Endpoint untuk mengambil data pengacara
-app.get("/api/pengacara", (req, res) => {
-    db.query("SELECT * FROM pengacara", (err, result) => {
-        if (err) {
-            res.status(500).json({ error: err.message });
-        } else {
-            res.json(result);
-        }
-    });
-});
-
-app.listen(5000, () => {
-    console.log("Server running on port 5000");
+// Jalankan Server
+const PORT = 5000;
+app.listen(PORT, () => {
+  console.log(`Server berjalan di http://localhost:${PORT}`);
 });
