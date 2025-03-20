@@ -36,7 +36,7 @@ const SignUp = () => {
     const result = await response.json();
     if (response.ok) {
       alert("Pendaftaran berhasil");
-      navigate("/HomeAfterLogin");
+      navigate("/HomeAfter");
     } else {
       alert(result.message);
     }

@@ -1,7 +1,8 @@
 const express = require("express");
 const cors = require("cors");
 const bodyParser = require("body-parser");
-const authRoutes = require("./routes/authRoutes"); // Import route login
+const authRoutes = require("./routes/authRoutes");
+const pengacaraRoutes = require("./routes/pengacaraRoutes");
 
 const app = express();
 
@@ -9,11 +10,12 @@ const app = express();
 app.use(cors());
 app.use(bodyParser.json());
 
-// Gunakan Route Login
-app.use("/api", authRoutes); // Semua route di authRoutes akan berada di /api
+// Gunakan rute API
+app.use("/api", authRoutes);
+app.use("/api", pengacaraRoutes); // Rute pengacara sudah benar
 
-// Jalankan Server
+// Jalankan server
 const PORT = 5000;
 app.listen(PORT, () => {
-  console.log(`Server berjalan di http://localhost:${PORT}`);
+    console.log(`Server berjalan di http://localhost:${PORT}`);
 });
