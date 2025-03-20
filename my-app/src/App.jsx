@@ -8,6 +8,7 @@ import SignUp from "./PageUser/SignUp";
 import HomeAfter from "./PageUser/HomeAfter";
 import AboutUsAfter from "./PageUser/AboutUsAfter";
 import HeaderAfter from "./components/HeaderAfter";
+import ProfilePage from "./PageUser/ProfilePage";
 
 function App() {
     return (
@@ -22,6 +23,7 @@ function App() {
                 <Route path="HomeAfter" element={<HomeAfter />}/>
                 <Route path="AboutUsAfter" element={<AboutUsAfter />} />
                 <Route path="HeaderAfter" element={<HeaderAfter />} />
+                <Route path="ProfilePage" element={<ProfilePage />} />
             </Routes>
         </Router>
     );
