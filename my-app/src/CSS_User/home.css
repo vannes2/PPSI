@@ -7,7 +7,7 @@
 }
 
 body {
-    background-color: #f4f4f4;
+    background-color: #000000;
     color: #B31312;
 }
 
@@ -16,7 +16,7 @@ header {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    background-color: #fff;
+    background-color: #000000;
     padding: 15px 50px;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
     width: 100%;
