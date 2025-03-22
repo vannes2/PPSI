@@ -1,28 +1,29 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { User } from "lucide-react"; 
+import { User } from "lucide-react";
 import HeaderAfter from "../components/HeaderAfter";
 import Footer from "../components/Footer";
 import "../CSS_User/Profil.css";
 
 const ProfileEdit = () => {
   const navigate = useNavigate();
+  const userId = localStorage.getItem("userId") || 1; // Ambil userId dari localStorage
+
   const [profileData, setProfileData] = useState({
     name: "",
     email: "",
     phone: "",
-    dob: "",
+    birthdate: "",
     gender: "",
-    address: "",
+    address: "", // ✅ Tambahkan kembali address
   });
 
   const [showPopup, setShowPopup] = useState(false);
   const [isSaved, setIsSaved] = useState(false);
   const [error, setError] = useState(null);
+  const [loading, setLoading] = useState(true);
 
-  const userId = 1; // Gantilah dengan ID user yang sesuai (bisa dari localStorage atau context)
-
-  // Ambil data user dari backend saat komponen dimuat
+  // Ambil data user saat komponen dimuat
   useEffect(() => {
     fetch(`http://localhost:5000/api/profile/id/${userId}`)
       .then((response) => {
@@ -33,9 +34,11 @@ const ProfileEdit = () => {
       })
       .then((data) => {
         setProfileData(data);
+        setLoading(false);
       })
       .catch((error) => {
         setError(error.message);
+        setLoading(false);
       });
   }, [userId]);
 
@@ -44,6 +47,7 @@ const ProfileEdit = () => {
   };
 
   const handleLogout = () => {
+    localStorage.removeItem("userId");
     navigate("/");
   };
 
@@ -63,12 +67,16 @@ const ProfileEdit = () => {
       })
       .then(() => {
         setIsSaved(true);
-        setTimeout(() => setIsSaved(false), 2000); // Notifikasi hilang setelah 2 detik
+        setTimeout(() => setIsSaved(false), 3000);
       })
       .catch((error) => {
         setError(error.message);
       });
   };
+
+  if (loading) {
+    return <p className="loading-message">Memuat data...</p>;
+  }
 
   return (
     <div className="profile-page">
@@ -131,22 +139,33 @@ const ProfileEdit = () => {
                 </div>
 
                 <div className="form-group">
-                  <label htmlFor="dob">Tanggal Lahir</label>
+                  <label htmlFor="birthdate">Tanggal Lahir</label>
                   <input
-                    id="dob"
+                    id="birthdate"
                     type="date"
-                    value={profileData.dob}
+                    value={profileData.birthdate}
                     onChange={(e) =>
-                      setProfileData({ ...profileData, dob: e.target.value })
+                      setProfileData({ ...profileData, birthdate: e.target.value })
                     }
                   />
                 </div>
 
                 <div className="form-group">
                   <label htmlFor="gender">Jenis Kelamin</label>
-                  <input id="gender" type="text" value={profileData.gender} readOnly />
+                  <select
+                    id="gender"
+                    value={profileData.gender}
+                    onChange={(e) =>
+                      setProfileData({ ...profileData, gender: e.target.value })
+                    }
+                  >
+                    <option value="">Pilih Jenis Kelamin</option>
+                    <option value="Laki-laki">Laki-laki</option>
+                    <option value="Perempuan">Perempuan</option>
+                  </select>
                 </div>
 
+                {/* ✅ Tambahkan kembali input alamat */}
                 <div className="form-group">
                   <label htmlFor="address">Alamat</label>
                   <input
@@ -164,7 +183,7 @@ const ProfileEdit = () => {
                 Simpan
               </button>
             </form>
-
+=
             {isSaved && <p className="save-message">Profil berhasil disimpan!</p>}
           </div>
         </div>
