@@ -1,6 +1,6 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { User } from "lucide-react"; // Import ikon user dari Lucide
+import { User } from "lucide-react"; 
 import HeaderAfter from "../components/HeaderAfter";
 import Footer from "../components/Footer";
 import "../CSS_User/Profil.css";
@@ -8,6 +8,29 @@ import "../CSS_User/Profil.css";
 const ProfileView = () => {
   const navigate = useNavigate();
   const [showPopup, setShowPopup] = useState(false);
+  const [profileData, setProfileData] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  const userId = 1; // Gantilah dengan ID user yang sesuai (dari context atau localStorage)
+
+  useEffect(() => {
+    fetch(`http://localhost:5000/api/profile/id/${userId}`)
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error("Gagal mengambil data profil");
+        }
+        return response.json();
+      })
+      .then((data) => {
+        setProfileData(data);
+        setLoading(false);
+      })
+      .catch((error) => {
+        setError(error.message);
+        setLoading(false);
+      });
+  }, [userId]);
 
   const togglePopup = () => {
     setShowPopup(!showPopup);
@@ -21,23 +44,19 @@ const ProfileView = () => {
     navigate("/ProfileEdit");
   };
 
-  // Contoh data profil (bisa diganti dengan data dari API)
-  const profileData = {
-    name: "Ayyunie",
-    email: "Ayyunie99@gmail.com",
-    phone: "081971876762",
-    dob: "1999-09-09",
-    gender: "Perempuan",
-    balance: "3,500 AYUNE COINS",
-    address: "Jl. Mawar No. 10, Jakarta",
-  };
+  if (loading) {
+    return <div className="loading">Memuat data...</div>;
+  }
+
+  if (error) {
+    return <div className="error">Terjadi kesalahan: {error}</div>;
+  }
 
   return (
     <div className="profile-page">
       <HeaderAfter />
       <div className="container">
         <div className="profile-container">
-          {/* Sidebar Profile */}
           <div className="profile-sidebar">
             <div className="profile-picture">
               <img
@@ -47,20 +66,19 @@ const ProfileView = () => {
               />
               <User size={80} color="#666" strokeWidth={1.5} />
             </div>
-            <p className="profile-balance">{profileData.balance}</p>
+            <p className="profile-balance">
+              {profileData.balance ? profileData.balance : "0 AYUNE COINS"}
+            </p>
 
-            {/* Tombol Edit Profil */}
             <button className="edit-profile-btn" onClick={handleEditProfile}>
               Edit Profil
             </button>
 
-            {/* Tombol Keluar Akun */}
             <button className="logout-btn" onClick={togglePopup}>
               Keluar Akun
             </button>
           </div>
 
-          {/* Profile Main */}
           <div className="profile-main">
             <h1 className="section-title">Informasi Profil</h1>
             <div className="profile-info">
@@ -81,7 +99,7 @@ const ProfileView = () => {
 
               <div className="form-group">
                 <label>Tanggal Lahir</label>
-                <p>{profileData.dob}</p>
+                <p>{profileData.birthdate}</p>
               </div>
 
               <div className="form-group">
@@ -90,15 +108,14 @@ const ProfileView = () => {
               </div>
 
               <div className="form-group">
-                <label>Alamat:</label>
-                <p>{profileData.address}</p>
+                <label>Alamat</label>
+                <p>{profileData.alamat}</p>
               </div>
             </div>
           </div>
         </div>
       </div>
 
-      {/* Popup Konfirmasi Logout */}
       {showPopup && (
         <div className="popup-overlay">
           <div className="popup-content">

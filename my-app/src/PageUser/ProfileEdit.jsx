@@ -1,23 +1,43 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { User } from "lucide-react"; // Import ikon user dari Lucide
+import { User } from "lucide-react"; 
 import HeaderAfter from "../components/HeaderAfter";
 import Footer from "../components/Footer";
 import "../CSS_User/Profil.css";
 
 const ProfileEdit = () => {
+  const navigate = useNavigate();
   const [profileData, setProfileData] = useState({
-    name: "Ayyunie",
-    email: "Ayyunie99@gmail.com",
-    phone: "081971876762",
-    dob: "1999-09-09",
-    gender: "Perempuan",
-    address: "Jl. Mawar No. 10, Jakarta",
+    name: "",
+    email: "",
+    phone: "",
+    dob: "",
+    gender: "",
+    address: "",
   });
 
   const [showPopup, setShowPopup] = useState(false);
   const [isSaved, setIsSaved] = useState(false);
-  const navigate = useNavigate();
+  const [error, setError] = useState(null);
+
+  const userId = 1; // Gantilah dengan ID user yang sesuai (bisa dari localStorage atau context)
+
+  // Ambil data user dari backend saat komponen dimuat
+  useEffect(() => {
+    fetch(`http://localhost:5000/api/profile/id/${userId}`)
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error("Gagal mengambil data profil");
+        }
+        return response.json();
+      })
+      .then((data) => {
+        setProfileData(data);
+      })
+      .catch((error) => {
+        setError(error.message);
+      });
+  }, [userId]);
 
   const togglePopup = () => {
     setShowPopup(!showPopup);
@@ -28,8 +48,26 @@ const ProfileEdit = () => {
   };
 
   const handleSave = () => {
-    setIsSaved(true);
-    setTimeout(() => setIsSaved(false), 2000); // Notifikasi hilang setelah 2 detik
+    fetch(`http://localhost:5000/api/profile/update/${userId}`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(profileData),
+    })
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error("Gagal menyimpan perubahan");
+        }
+        return response.json();
+      })
+      .then(() => {
+        setIsSaved(true);
+        setTimeout(() => setIsSaved(false), 2000); // Notifikasi hilang setelah 2 detik
+      })
+      .catch((error) => {
+        setError(error.message);
+      });
   };
 
   return (
@@ -37,7 +75,6 @@ const ProfileEdit = () => {
       <HeaderAfter />
       <div className="container">
         <div className="profile-container">
-          {/* Sidebar Profil */}
           <div className="profile-sidebar">
             <div className="profile-picture">
               <img
@@ -47,15 +84,14 @@ const ProfileEdit = () => {
               />
               <User size={80} color="#666" strokeWidth={1.5} />
             </div>
-            <p className="profile-balance"></p>
             <button className="logout-btn" onClick={togglePopup}>
               Keluar Akun
             </button>
           </div>
 
-          {/* Bagian Informasi Profil */}
           <div className="profile-main">
-            <h1 className="section-title">Profil Edit</h1>
+            <h1 className="section-title">Edit Profil</h1>
+            {error && <p className="error-message">Error: {error}</p>}
             <form>
               <div className="profile-info">
                 <div className="form-group">
@@ -108,12 +144,7 @@ const ProfileEdit = () => {
 
                 <div className="form-group">
                   <label htmlFor="gender">Jenis Kelamin</label>
-                  <input
-                    id="gender"
-                    type="text"
-                    value={profileData.gender}
-                    readOnly
-                  />
+                  <input id="gender" type="text" value={profileData.gender} readOnly />
                 </div>
 
                 <div className="form-group">
@@ -129,19 +160,16 @@ const ProfileEdit = () => {
                 </div>
               </div>
 
-              {/* Tombol Simpan */}
               <button type="button" className="save-btn" onClick={handleSave}>
                 Simpan
               </button>
             </form>
 
-            {/* Notifikasi Simpan */}
             {isSaved && <p className="save-message">Profil berhasil disimpan!</p>}
           </div>
         </div>
       </div>
 
-      {/* Popup Konfirmasi Logout */}
       {showPopup && (
         <div className="popup-overlay">
           <div className="popup-content">
