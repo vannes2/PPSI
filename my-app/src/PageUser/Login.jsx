@@ -36,12 +36,32 @@ const Login = () => {
     } catch (error) {
       console.error("Terjadi kesalahan:", error);
       alert("Gagal terhubung ke server");
+
+    const response = await fetch("http://localhost:5000/api/login", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ email, password }),
+    });
+
+    const result = await response.json();
+    if (response.ok) {
+      alert("Login berhasil");
+      navigate("/HomeAfterLogin");
+    } else {
+      alert(result.message);
+
     }
   };
 
   return (
     <div className="Login-page">
+
       {/* Header */}
+
+      {/* header */}
+
       <Header />
 
       <div className="container">
@@ -83,9 +103,15 @@ const Login = () => {
             <h2 className="subtext">&quot;Mari kita mulai perjalanan kulit anda&quot;</h2>
             <h2>Buat Akun Anda</h2>
             <Link to="/signup" className="btn">
+
               MENDAFTAR
             </Link>
           </div>
+
+                MENDAFTAR
+            </Link>
+            </div>
+
         </div>
       </div>
 

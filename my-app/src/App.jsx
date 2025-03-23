@@ -9,11 +9,13 @@ import HomeAfter from "./PageUser/HomeAfter";
 import AboutUsAfter from "./PageUser/AboutUsAfter";
 import HeaderAfter from "./components/HeaderAfter";
 
+
 function App() {
     return (
         <Router>
             <Routes>
                 <Route path="/" element={<Home />} />
+
                 <Route path="Header" element={<Header />} />
                 <Route path="Footer" element={<Footer />} />
                 <Route path="AboutUs" element={<AboutUs />} />
@@ -22,6 +24,13 @@ function App() {
                 <Route path="HomeAfter" element={<HomeAfter />}/>
                 <Route path="AboutUsAfter" element={<AboutUsAfter />} />
                 <Route path="HeaderAfter" element={<HeaderAfter />} />
+
+                {/* <Route path="Header" element={<Header />} />
+                <Route path="Footer" element={<Footer />} /> */}
+                <Route path="AboutUs" element={<AboutUs />} />
+                <Route path="Login" element={<Login />} />
+                <Route path="SignUp" element={<SignUp />} />
+
             </Routes>
         </Router>
     );

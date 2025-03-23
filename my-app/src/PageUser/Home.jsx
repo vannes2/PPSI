@@ -6,6 +6,7 @@ import Footer from "../components/Footer";
 
 const Home = () => {
     const [pengacara, setPengacara] = useState([]);
+<<<<<<< HEAD
     const [error, setError] = useState(null);
 
     useEffect(() => {
@@ -21,6 +22,14 @@ const Home = () => {
                 console.error("Error fetching data:", error);
                 setError(error.message);
             });
+=======
+
+    useEffect(() => {
+        fetch("http://localhost:5000/api/pengacara")  // Pastikan URL backend benar
+            .then(response => response.json())
+            .then(data => setPengacara(data))
+            .catch(error => console.error("Error fetching data:", error));
+>>>>>>> bc7c383fa9acf27e86a4064b8bf87e4e7ba65f02
     }, []);
 
     return (
@@ -52,17 +61,27 @@ const Home = () => {
                     </div>
                 </div>
                 <div className="product-list">
+<<<<<<< HEAD
                     {error ? (
                         <p style={{ color: "red" }}>Gagal mengambil data: {error}</p>
                     ) : pengacara.length > 0 ? (
                         pengacara.map((advokat, index) => (
                             <div key={advokat.id} className="product-item">
+=======
+                    {pengacara.length > 0 ? (
+                        pengacara.map((advokat, index) => (
+                            <div key={index} className="product-item">
+>>>>>>> bc7c383fa9acf27e86a4064b8bf87e4e7ba65f02
                                 <img src={`/assets/images/advokat${index + 1}.png`} alt="Advokat" />
                                 <p><strong>{advokat.nama}</strong><br />{advokat.spesialisasi}<br />Pengalaman: {advokat.pengalaman} tahun</p>
                             </div>
                         ))
                     ) : (
+<<<<<<< HEAD
                         <p>Belum ada advokat terdaftar</p>
+=======
+                        <p>Tidak ada advokat tersedia</p>
+>>>>>>> bc7c383fa9acf27e86a4064b8bf87e4e7ba65f02
                     )}
                 </div>
             </section>
