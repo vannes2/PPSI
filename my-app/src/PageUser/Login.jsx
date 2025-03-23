@@ -25,10 +25,8 @@ const Login = () => {
 
       if (response.ok) {
         alert("Login berhasil");
-        
         // Simpan user ke local storage
         localStorage.setItem("user", JSON.stringify(result.user));
-
         navigate("/HomeAfter");
       } else {
         alert(result.message);
@@ -36,37 +34,15 @@ const Login = () => {
     } catch (error) {
       console.error("Terjadi kesalahan:", error);
       alert("Gagal terhubung ke server");
-
-    const response = await fetch("http://localhost:5000/api/login", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ email, password }),
-    });
-
-    const result = await response.json();
-    if (response.ok) {
-      alert("Login berhasil");
-      navigate("/HomeAfterLogin");
-    } else {
-      alert(result.message);
-
     }
   };
 
   return (
     <div className="Login-page">
-
-      {/* Header */}
-
-      {/* header */}
-
       <Header />
 
       <div className="container">
         <div className="main">
-          {/* Login Section */}
           <div className="login">
             <h2>Selamat Datang Kembali</h2>
             <form onSubmit={handleSubmit}>
@@ -97,26 +73,20 @@ const Login = () => {
               </button>
             </form>
           </div>
-          <div className="divider"></div> {/* Divider line */}
-          {/* Signup Section */}
+
+          <div className="divider"></div>
+
           <div className="signup">
             <h2 className="subtext">&quot;Mari kita mulai perjalanan kulit anda&quot;</h2>
             <h2>Buat Akun Anda</h2>
             <Link to="/signup" className="btn">
-
               MENDAFTAR
             </Link>
           </div>
-
-                MENDAFTAR
-            </Link>
-            </div>
-
         </div>
       </div>
 
       <div className="footer-separator"></div>
-      {/* Footer */}
       <Footer />
     </div>
   );

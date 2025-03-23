@@ -6,14 +6,14 @@ const Footer = () => {
         <footer className="footer">
             <div className="footer-container">
                 <div className="footer-logo">
-                    <img src="/assets/img/LogoKecil.png" alt="Logo Ayune" />
+                    <img src="/assets/img/LogoKecil.png" alt="Logo Cerdas Hukum" />
                 </div>
                 <div className="footer-content">
                     <div className="customer-care">
                         <h3>Layanan Pelanggan</h3>
                         <p>Whatsapp: +62-851-6564-4356</p>
-                        <p>Instagram: @ayunneconsultation</p>
-                        <p>Email: ayunneconsultation@gmail.com</p>
+                        <p>Instagram: @cerdashukum</p>
+                        <p>Email: cerdashukum@gmail.com</p>
                         <p><strong>Jam Operasional:</strong><br />Senin-Jumat: 10:00 - 21:00 WIB<br />Sabtu: 10:00 - 17:00 WIB</p>
                     </div>
                     <div className="account">
@@ -33,7 +33,7 @@ const Footer = () => {
                 </div>
             </div>
             <div className="footer-bottom">
-                <p>©AYUNNE, 2024. SEMUA HAK DILINDUNGI</p>
+                <p>©CERASHUKUM, 2025. SEMUA HAK DILINDUNGI</p>
             </div>
         </footer>
     );

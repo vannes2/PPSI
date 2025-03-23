@@ -1,13 +1,14 @@
-/* Footer */
+/* Footer Styles */
 footer {
-    background-color: #EAF5F2;
+    background-color: #fefff0;
     line-height: 1.5;
+    padding: 20px 0;
 }
 
 /* Thicker Footer Separator Line */
 .footer-separator {
     width: 100%;
-    height: 10px; /* Increased height for a thicker line */
+    height: 10px;
     background-color: #B31312;
 }
 
@@ -18,11 +19,11 @@ footer {
     margin: 0 auto;
     flex-wrap: wrap;
     gap: 20px;
+    padding: 20px 75px;
 }
 
 .footer-logo img {
     width: 150px;
-    margin-left: 75px;
     margin-top: 10px;
 }
 
@@ -32,7 +33,6 @@ footer {
     flex-wrap: wrap;
     justify-content: space-between;
     width: 100%;
-    margin-left: 75px;
 }
 
 .customer-care, .account, .social-media {
@@ -52,21 +52,19 @@ footer {
 
 /* Footer Bottom */
 .footer-bottom {
-    margin-left: 75px;
-    margin-top: 20px;
+    text-align: center;
     font-size: 14px;
     color: #666;
+    padding-top: 20px;
 }
 
 /* Social Media Icons */
 .social-icons {
     display: flex;
+    gap: 15px;
 }
 
-.social-icons a {
-    margin-right: 15px;
-}
-
-.account {
-    text-decoration: none;
+.social-icons a img {
+    width: 24px;
+    height: 24px;
 }

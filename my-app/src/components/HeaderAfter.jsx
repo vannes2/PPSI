@@ -16,7 +16,7 @@ const HeaderAfter = () => {
           </ul>
         </nav>
         <div className="auth-buttons">
-          <Link to="/Profil"><button>Profil</button></Link>
+          <Link to="/ProfileView"><button>Profil</button></Link>
         </div>
       </header>
   );
