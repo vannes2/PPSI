@@ -7,7 +7,7 @@ import "../CSS_User/Profil.css";
 
 const ProfileEdit = () => {
   const navigate = useNavigate();
-  const userId = localStorage.getItem("userId") || 1; // Ambil userId dari localStorage
+  const userId = localStorage.getItem("userId") || 2; // Ambil userId dari localStorage
 
   const [profileData, setProfileData] = useState({
     name: "",

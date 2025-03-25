@@ -8,6 +8,8 @@ import SignUp from "./PageUser/SignUp";
 import HomeAfter from "./PageUser/HomeAfter";
 import AboutUsAfter from "./PageUser/AboutUsAfter";
 import HeaderAfter from "./components/HeaderAfter";
+import ProfileEdit from "./PageUser/ProfileEdit";
+import ProfileView from "./PageUser/ProfileView";
 
 
 function App() {
@@ -25,11 +27,14 @@ function App() {
                 <Route path="AboutUsAfter" element={<AboutUsAfter />} />
                 <Route path="HeaderAfter" element={<HeaderAfter />} />
 
+
                 {/* <Route path="Header" element={<Header />} />
                 <Route path="Footer" element={<Footer />} /> */}
                 <Route path="AboutUs" element={<AboutUs />} />
                 <Route path="Login" element={<Login />} />
                 <Route path="SignUp" element={<SignUp />} />
+                <Route path="ProfileEdit" element={<ProfileEdit />} />
+                <Route path="ProfileView" element={<ProfileView/>}/>
 
             </Routes>
         </Router>
