@@ -20,7 +20,7 @@ db.connect((err) => {
 
 // Route untuk mendapatkan daftar pengacara
 router.get("/pengacara", (req, res) => {
-    const sql = "SELECT id, nama, spesialisasi, pengalaman FROM pengacara";
+    const sql = "SELECT id, nama, spesialisasi, pengalaman, email, pendidikan, tanggal_daftar FROM pengacara";
     db.query(sql, (err, results) => {
         if (err) {
             console.error("Gagal mengambil data pengacara:", err);
@@ -30,5 +30,39 @@ router.get("/pengacara", (req, res) => {
         }
     });
 });
+
+// Route untuk menghapus pengacara berdasarkan ID
+router.delete("/pengacara/:id", (req, res) => {
+    const { id } = req.params;
+    const sql = "DELETE FROM pengacara WHERE id = ?";
+    db.query(sql, [id], (err, result) => {
+        if (err) {
+            console.error("Gagal menghapus pengacara:", err);
+            res.status(500).json({ error: "Gagal menghapus pengacara" });
+        } else if (result.affectedRows === 0) {
+            res.status(404).json({ error: "Pengacara tidak ditemukan" });
+        } else {
+            res.json({ message: "Pengacara berhasil dihapus" });
+        }
+    });
+});
+
+// Route untuk memperbarui data pengacara berdasarkan ID
+router.put("/pengacara/:id", (req, res) => {
+    const { id } = req.params;
+    const { nama, email, spesialisasi, pengalaman, pendidikan } = req.body;
+    const sql = "UPDATE pengacara SET nama = ?, email = ?, spesialisasi = ?, pengalaman = ?, pendidikan = ? WHERE id = ?";
     
+    db.query(sql, [nama, email, spesialisasi, pengalaman, pendidikan, id], (err, result) => {
+        if (err) {
+            console.error("Gagal memperbarui pengacara:", err);
+            res.status(500).json({ error: "Gagal memperbarui pengacara" });
+        } else if (result.affectedRows === 0) {
+            res.status(404).json({ error: "Pengacara tidak ditemukan" });
+        } else {
+            res.json({ message: "Pengacara berhasil diperbarui" });
+        }
+    });
+});
+
 module.exports = router;

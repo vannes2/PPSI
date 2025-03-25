@@ -13,11 +13,13 @@ import ProfileView from "./PageUser/ProfileView";
 import Konsultasi from "./PageUser/konsultasi";
 import HomeAdmin from "./PageAdmin/HomeAdmin";
 
+
 function App() {
     return (
         <Router>
             <Routes>
                 <Route path="/" element={<Home />} />
+
                 <Route path="Header" element={<Header />} />
                 <Route path="Footer" element={<Footer />} />
                 <Route path="AboutUs" element={<AboutUs />} />
@@ -26,6 +28,13 @@ function App() {
                 <Route path="HomeAfter" element={<HomeAfter />}/>
                 <Route path="AboutUsAfter" element={<AboutUsAfter />} />
                 <Route path="HeaderAfter" element={<HeaderAfter />} />
+
+
+                {/* <Route path="Header" element={<Header />} />
+                <Route path="Footer" element={<Footer />} /> */}
+                <Route path="AboutUs" element={<AboutUs />} />
+                <Route path="Login" element={<Login />} />
+                <Route path="SignUp" element={<SignUp />} />
                 <Route path="ProfileEdit" element={<ProfileEdit />} />
                 <Route path="ProfileView" element={<ProfileView/>}/>
                 <Route path="konsultasi" element={<Konsultasi />} />

@@ -12,7 +12,7 @@ const ProfileView = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  const userId = 1; // Gantilah dengan ID user yang sesuai (dari context atau localStorage)
+  const userId = 2; // Gantilah dengan ID user yang sesuai (dari context atau localStorage)
 
   useEffect(() => {
     fetch(`http://localhost:5000/api/profile/id/${userId}`)

@@ -25,10 +25,8 @@ const Login = () => {
 
       if (response.ok) {
         alert("Login berhasil");
-        
         // Simpan user ke local storage
         localStorage.setItem("user", JSON.stringify(result.user));
-
         navigate("/HomeAfter");
       } else {
         alert(result.message);
@@ -41,12 +39,10 @@ const Login = () => {
 
   return (
     <div className="Login-page">
-      {/* Header */}
       <Header />
 
       <div className="container">
         <div className="main">
-          {/* Login Section */}
           <div className="login">
             <h2>Selamat Datang Kembali</h2>
             <form onSubmit={handleSubmit}>
@@ -77,8 +73,9 @@ const Login = () => {
               </button>
             </form>
           </div>
-          <div className="divider"></div> {/* Divider line */}
-          {/* Signup Section */}
+
+          <div className="divider"></div>
+
           <div className="signup">
             <h2 className="subtext">&quot;Mari kita mulai perjuangan bersama advokat&quot;</h2>
             <h2>Buat Akun Anda</h2>
@@ -90,7 +87,6 @@ const Login = () => {
       </div>
 
       <div className="footer-separator"></div>
-      {/* Footer */}
       <Footer />
     </div>
   );
