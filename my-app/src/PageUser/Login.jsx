@@ -77,7 +77,7 @@ const Login = () => {
           <div className="divider"></div>
 
           <div className="signup">
-            <h2 className="subtext">&quot;Mari kita mulai perjalanan kulit anda&quot;</h2>
+            <h2 className="subtext">&quot;Mari kita mulai perjuangan bersama advokat&quot;</h2>
             <h2>Buat Akun Anda</h2>
             <Link to="/signup" className="btn">
               MENDAFTAR

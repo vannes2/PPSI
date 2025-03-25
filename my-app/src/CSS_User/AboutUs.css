@@ -6,11 +6,6 @@
     font-family: Arial, sans-serif;
 }
 
-body {
-    background-color: #f4f4f4; /* Abu-abu Terang */
-    color: #666; /* Abu-abu Sedang */
-}
-
 header {
     display: flex;
     align-items: center;
@@ -29,20 +24,20 @@ header {
 }
 
 /* Navigasi */
-.home-before-page nav ul {
+.about-page-container nav ul {
     list-style: none;
     display: flex;
     gap: 20px;
 }
 
-.home-before-page nav ul li a {
+.about-page-container nav ul li a {
     text-decoration: none;
     color: #B31312;
     font-weight: bold;
     transition: color 0.3s ease-in-out;
 }
 
-.home-before-page nav ul li a:hover {
+.about-page-container nav ul li a:hover {
     color: #ffc6c6;
     text-decoration: none;
 }
