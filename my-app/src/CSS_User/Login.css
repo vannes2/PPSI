@@ -35,7 +35,7 @@
 .Login-page nav ul {
   list-style: none;
   display: flex;
-  margin-right: auto;
+  margin-right: 20px;
 }
 
 .Login-page nav ul li {
@@ -44,7 +44,7 @@
 
 .Login-page nav ul li a {
   text-decoration: none;
-  color: #3b3b3b; /* Abu-abu Gelap */
+  color: #B31312; /* Abu-abu Gelap */
 }
 
 .Login-page nav ul li a:hover {

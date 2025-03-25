@@ -55,8 +55,8 @@ const Home = () => {
                     {error ? (
                         <p style={{ color: "red" }}>Gagal mengambil data: {error}</p>
                     ) : pengacara.length > 0 ? (
-                        pengacara.map((advokat, index) => (
-                            <div key={advokat.id} className="product-item">
+                        pengacara.slice(0, 4).map((advokat, index) => (
+                            <div key={advokat.id || index} className="product-item">
                                 <img src={`/assets/images/advokat${index + 1}.png`} alt="Advokat" />
                                 <p><strong>{advokat.nama}</strong><br />{advokat.spesialisasi}<br />Pengalaman: {advokat.pengalaman} tahun</p>
                             </div>
