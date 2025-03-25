@@ -7,6 +7,8 @@ const AdminDashboard = () => {
   const [activeTab, setActiveTab] = useState("pengacara");
   const [pengacara, setPengacara] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
+  const [editModalOpen, setEditModalOpen] = useState(false);
+  const [selectedPengacara, setSelectedPengacara] = useState(null);
   const tableRef = useRef(null);
 
   useEffect(() => {
@@ -14,18 +16,59 @@ const AdminDashboard = () => {
   }, []);
 
   const fetchPengacara = () => {
-    axios.get("http://localhost:5000/api/pengacara")
+    axios
+      .get("http://localhost:5000/api/pengacara")
       .then((response) => {
-        console.log("Data dari backend:", response.data); // Debugging
         setPengacara(response.data);
       })
       .catch((error) => console.error("Error fetching data:", error));
   };
 
   const handleDelete = (id) => {
-    axios.delete(`http://localhost:5000/api/pengacara/${id}`)
-      .then(() => fetchPengacara())
-      .catch((error) => console.error("Error deleting data:", error));
+    if (window.confirm("Apakah Anda yakin ingin menghapus data ini?")) {
+      axios
+        .delete(`http://localhost:5000/api/pengacara/${id}`)
+        .then(() => {
+          alert("Data berhasil dihapus");
+          fetchPengacara();
+        })
+        .catch((error) => {
+          console.error("Error deleting data:", error);
+          alert("Terjadi kesalahan saat menghapus data");
+        });
+    }
+  };
+
+  const handleEditClick = (pengacara) => {
+    setSelectedPengacara(pengacara);
+    setEditModalOpen(true);
+  };
+
+  const handleInputChange = (e) => {
+    setSelectedPengacara({
+      ...selectedPengacara,
+      [e.target.name]: e.target.value,
+    });
+  };
+
+  const handleUpdate = (e) => {
+    e.preventDefault();
+    if (!selectedPengacara.nama || !selectedPengacara.email) {
+      alert("Nama dan Email harus diisi!");
+      return;
+    }
+
+    axios
+      .put(`http://localhost:5000/api/pengacara/${selectedPengacara.id}`, selectedPengacara)
+      .then(() => {
+        alert("Data berhasil diperbarui");
+        fetchPengacara();
+        setEditModalOpen(false);
+      })
+      .catch((error) => {
+        console.error("Error updating data:", error);
+        alert("Terjadi kesalahan saat memperbarui data");
+      });
   };
 
   const filteredPengacara = pengacara.filter((lawyer) =>
@@ -66,7 +109,10 @@ const AdminDashboard = () => {
               <button className="bg-blue-500 text-white p-2 rounded">
                 <FaPlus /> Tambah
               </button>
-              <button onClick={fetchPengacara} className="bg-black text-white p-2 rounded ml-2">
+              <button
+                onClick={fetchPengacara}
+                className="bg-black text-white p-2 rounded ml-2"
+              >
                 Refresh Data
               </button>
             </div>
@@ -92,12 +138,12 @@ const AdminDashboard = () => {
                         <tr key={lawyer.id}>
                           <td>{lawyer.id}</td>
                           <td>{lawyer.nama}</td>
-                          <td>{lawyer.email && lawyer.email.trim() !== "" ? lawyer.email : "-"}</td>
+                          <td>{lawyer.email ?? "-"}</td>
                           <td>{lawyer.spesialisasi ?? "-"}</td>
                           <td>{lawyer.pengalaman ?? "-"}</td>
-                          <td>{lawyer.pendidikan && lawyer.pendidikan.trim() !== "" ? lawyer.pendidikan : "-"}</td>
+                          <td>{lawyer.pendidikan ?? "-"}</td>
                           <td>
-                            {lawyer.tanggal_daftar && lawyer.tanggal_daftar !== "0000-00-00"
+                            {lawyer.tanggal_daftar !== "0000-00-00"
                               ? new Date(lawyer.tanggal_daftar).toLocaleDateString("id-ID")
                               : "-"}
                           </td>
@@ -106,10 +152,16 @@ const AdminDashboard = () => {
                               <button className="btn-view">
                                 <FaEye /> View
                               </button>
-                              <button className="btn-edit">
+                              <button
+                                className="btn-edit"
+                                onClick={() => handleEditClick(lawyer)}
+                              >
                                 <FaEdit /> Edit
                               </button>
-                              <button className="btn-delete" onClick={() => handleDelete(lawyer.id)}>
+                              <button
+                                className="btn-delete"
+                                onClick={() => handleDelete(lawyer.id)}
+                              >
                                 <FaTrash /> Delete
                               </button>
                             </div>
@@ -124,6 +176,61 @@ const AdminDashboard = () => {
                   </tbody>
                 </table>
               </div>
+            </div>
+          </div>
+        )}
+
+        {editModalOpen && selectedPengacara && (
+          <div className="modal">
+            <div className="modal-content">
+              <h2>Edit Pengacara</h2>
+              <form onSubmit={handleUpdate}>
+                <input
+                  type="text"
+                  name="nama"
+                  placeholder="Nama"
+                  value={selectedPengacara.nama}
+                  onChange={handleInputChange}
+                  required
+                />
+                <input
+                  type="email"
+                  name="email"
+                  placeholder="Email"
+                  value={selectedPengacara.email}
+                  onChange={handleInputChange}
+                  required
+                />
+                <input
+                  type="text"
+                  name="spesialisasi"
+                  placeholder="Spesialisasi"
+                  value={selectedPengacara.spesialisasi || ""}
+                  onChange={handleInputChange}
+                />
+                <input
+                  type="text"
+                  name="pengalaman"
+                  placeholder="Pengalaman"
+                  value={selectedPengacara.pengalaman || ""}
+                  onChange={handleInputChange}
+                />
+                <input
+                  type="text"
+                  name="pendidikan"
+                  placeholder="Pendidikan"
+                  value={selectedPengacara.pendidikan || ""}
+                  onChange={handleInputChange}
+                />
+                <button type="submit" className="btn-save">Simpan</button>
+                <button
+                  type="button"
+                  className="btn-cancel"
+                  onClick={() => setEditModalOpen(false)}
+                >
+                  Batal
+                </button>
+              </form>
             </div>
           </div>
         )}
