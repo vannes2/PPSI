@@ -16,7 +16,6 @@ const HomeAfter = () => {
 
     return (
         <div className="home-before-page">
-            {/* Navbar */}
             <HeaderAfter />
 
             {/* Hero Section */}
@@ -38,13 +37,13 @@ const HomeAfter = () => {
                 <div className="product-section">
                     <h2 className="product-title">Advokat Yang Tersedia</h2>
                     <div className="auth-buttons">
-                        <Link to="/Login" className="btn-right"><button>Selengkapnya &gt;</button></Link>
+                        <Link to="/konsultasi" className="btn-right"><button>Selengkapnya &gt;</button></Link>
                     </div>
                 </div>
                 <div className="product-list">
                     {pengacara.length > 0 ? (
-                        pengacara.map((advokat, index) => (
-                            <div key={index} className="product-item">
+                        pengacara.slice(0, 4).map((advokat, index) => (
+                            <div key={advokat.id || index} className="product-item">
                                 <img src={`/assets/images/advokat${index + 1}.png`} alt="Advokat" />
                                 <p><strong>{advokat.nama}</strong><br />{advokat.spesialisasi}<br />Pengalaman: {advokat.pengalaman} tahun</p>
                             </div>

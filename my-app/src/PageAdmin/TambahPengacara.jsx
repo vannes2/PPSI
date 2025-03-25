@@ -1,13 +1,15 @@
+import Header from "../components/Header";
 import Footer from "../components/Footer";
 import '../CSS_User/AboutUs.css';
-import HeaderAfter from "../components/HeaderAfter";
 
-const AboutUsAfter = () => {
+const AboutUs = () => {
   return (
     <div className="about-page-container">
       {/* header */}
-      <HeaderAfter />
+      <Header />
+
       <br></br>
+
       <main>
         <section>
           <div className="about-us">
@@ -33,4 +35,4 @@ const AboutUsAfter = () => {
   );
 };
 
-export default AboutUsAfter;
+export default AboutUs;

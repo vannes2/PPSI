@@ -8,6 +8,8 @@ const AboutUs = () => {
       {/* header */}
       <Header />
 
+      <br></br>
+
       <main>
         <section>
           <div className="about-us">

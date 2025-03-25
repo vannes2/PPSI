@@ -10,6 +10,8 @@ import AboutUsAfter from "./PageUser/AboutUsAfter";
 import HeaderAfter from "./components/HeaderAfter";
 import ProfileEdit from "./PageUser/ProfileEdit";
 import ProfileView from "./PageUser/ProfileView";
+import Konsultasi from "./PageUser/konsultasi";
+import HomeAdmin from "./PageAdmin/HomeAdmin";
 
 function App() {
     return (
@@ -26,6 +28,8 @@ function App() {
                 <Route path="HeaderAfter" element={<HeaderAfter />} />
                 <Route path="ProfileEdit" element={<ProfileEdit />} />
                 <Route path="ProfileView" element={<ProfileView/>}/>
+                <Route path="konsultasi" element={<Konsultasi />} />
+                <Route path="HomeAdmin" element={<HomeAdmin />} />
             </Routes>
         </Router>
     );
