@@ -1,9 +1,10 @@
-import { useState } from "react";
-import { useNavigate, Link } from "react-router-dom";
+import { useState, useEffect } from "react";
+import { useParams, useNavigate, Link } from "react-router-dom";
 import { FaGavel, FaHome } from "react-icons/fa";
 import axios from "axios";
 
-const TambahPengacara = () => {
+const EditPengacara = () => {
+  const { id } = useParams(); 
   const navigate = useNavigate();
   const [pengacara, setPengacara] = useState({
     nama: "",
@@ -15,19 +16,33 @@ const TambahPengacara = () => {
     tanggal_daftar: "",
   });
 
+  useEffect(() => {
+    const fetchPengacaraById = async () => {
+      try {
+        const response = await axios.get(`http://localhost:5000/api/pengacara/${id}`);
+        setPengacara(response.data);
+      } catch (error) {
+        console.error("Gagal mengambil data pengacara:", error);
+      }
+    };
+
+    if (id) {
+      fetchPengacaraById();
+    }
+  }, [id]);
+
   const handleChange = (e) => {
     setPengacara({ ...pengacara, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = async (e) => {
+  const handleUpdate = async (e) => {
     e.preventDefault();
     try {
-      await axios.post("http://localhost:5000/api/pengacara", pengacara);
-      alert("Data pengacara berhasil ditambahkan!");
-      navigate("/HomeAdmin"); // Redirect ke halaman HomeAdmin setelah berhasil
+      await axios.put(`http://localhost:5000/api/pengacara/${id}`, pengacara);
+      alert("Data pengacara berhasil diperbarui!");
+      navigate("/HomeAdmin"); 
     } catch (error) {
-      console.error("Gagal menambahkan data:", error);
-      alert("Terjadi kesalahan saat menambahkan data");
+      console.error("Gagal memperbarui data:", error);
     }
   };
 
@@ -52,9 +67,11 @@ const TambahPengacara = () => {
 
       {/* Main Content */}
       <main className="content p-4 flex-grow">
-        <h2 className="text-2xl font-bold mb-4">Tambah Pengacara</h2>
-
-        <form onSubmit={handleSubmit} className="flex flex-col gap-4 max-w-lg">
+        <h2 className="text-2xl font-bold mb-4">Edit Pengacara</h2>
+        
+        {!pengacara.nama && <p>Memuat data...</p>}
+        
+        <form onSubmit={handleUpdate} className="flex flex-col gap-4 max-w-lg">
           <input
             type="text"
             name="nama"
@@ -146,4 +163,4 @@ const TambahPengacara = () => {
   );
 };
 
-export default TambahPengacara;
+export default EditPengacara;
