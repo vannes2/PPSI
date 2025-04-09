@@ -18,16 +18,25 @@ const Login = () => {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ email, password }), // Password dikirim langsung tanpa hashing
+        body: JSON.stringify({ email, password }),
       });
 
       const result = await response.json();
 
       if (response.ok) {
         alert("Login berhasil");
+
         // Simpan user ke local storage
         localStorage.setItem("user", JSON.stringify(result.user));
-        navigate("/HomeAfter");
+
+        // Redirect sesuai role
+        if (result.user.role === "admin") {
+          navigate("/HomeAdmin");
+        } else if (result.user.role === "user") {
+          navigate("/HomeAfter");
+        } else {
+          alert("Role tidak dikenal");
+        }
       } else {
         alert(result.message);
       }

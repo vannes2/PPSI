@@ -39,8 +39,6 @@ const SignUp = () => {
 
       navigate("/HomeAfter");
 
-      navigate("/HomeAfterLogin");
-
     } else {
       alert(result.message);
     }
