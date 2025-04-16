@@ -12,9 +12,17 @@ const ProfileView = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  const userId = 2; // Gantilah dengan ID user yang sesuai (dari context atau localStorage)
+  // Ambil user dari localStorage
+  const user = JSON.parse(localStorage.getItem("user"));
+  const userId = user?.id;
 
   useEffect(() => {
+    if (!userId) {
+      setError("User tidak ditemukan. Silakan login ulang.");
+      setLoading(false);
+      return;
+    }
+
     fetch(`http://localhost:5000/api/profile/id/${userId}`)
       .then((response) => {
         if (!response.ok) {
@@ -37,6 +45,7 @@ const ProfileView = () => {
   };
 
   const handleLogout = () => {
+    localStorage.removeItem("user");
     navigate("/");
   };
 
@@ -106,11 +115,6 @@ const ProfileView = () => {
                 <label>Jenis Kelamin</label>
                 <p>{profileData.gender}</p>
               </div>
-
-              <div className="form-group">
-                <label>Alamat</label>
-                <p>{profileData.alamat}</p>
-              </div>
             </div>
           </div>
         </div>
@@ -132,6 +136,8 @@ const ProfileView = () => {
         </div>
       )}
 
+      <div className="footer-separator"></div>
+      
       <Footer />
     </div>
   );

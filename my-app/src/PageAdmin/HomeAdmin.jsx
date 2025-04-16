@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from "react";
-import { FaGavel, FaHome, FaTrash, FaPlus, FaEye, FaEdit } from "react-icons/fa";
+import { FaGavel, FaHome, FaTrash, FaPlus, FaEye, FaEdit, FaFileAlt } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import "../CSS_Admin/Pengacara.css";
@@ -9,7 +9,7 @@ const HomeAdmin = () => {
   const [pengacara, setPengacara] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
   const tableRef = useRef(null);
-  const navigate = useNavigate(); // Hook untuk navigasi
+  const navigate = useNavigate();
 
   useEffect(() => {
     fetchPengacara();
@@ -47,9 +47,12 @@ const HomeAdmin = () => {
     navigate(`/ViewPengacara/${id}`);
   };
 
-  // Fungsi untuk pindah ke halaman TambahPengacara
   const handleAddClick = () => {
     navigate("/TambahPengacara");
+  };
+
+  const handleAddArtikelClick = () => {
+    navigate("/TambahArtikel");
   };
 
   const filteredPengacara = pengacara.filter((lawyer) =>
@@ -63,13 +66,18 @@ const HomeAdmin = () => {
         <h2>Admin Panel</h2>
         <ul>
           <li className={activeTab === "dashboard" ? "bg-gray-700" : ""}>
-            <button onClick={() => setActiveTab("dashboard")}>
+            <button onClick={() => { setActiveTab("dashboard"); navigate("/"); }}>
               <FaHome className="mr-2" /> Dashboard
             </button>
           </li>
           <li className={activeTab === "pengacara" ? "bg-gray-700" : ""}>
             <button onClick={() => setActiveTab("pengacara")}>
               <FaGavel className="mr-2" /> Pengacara
+            </button>
+          </li>
+          <li className={activeTab === "tambahArtikel" ? "bg-gray-700" : ""}>
+            <button onClick={handleAddArtikelClick}>
+              <FaFileAlt className="mr-2" /> Tambah Artikel
             </button>
           </li>
         </ul>

@@ -15,6 +15,7 @@ import HomeAdmin from "./PageAdmin/HomeAdmin";
 import EditPengacara from "./PageAdmin/EditPengacara";
 import ViewPengacara from "./PageAdmin/ViewPengacara";
 import TambahPengacara from "./PageAdmin/TambahPengacara";
+import TambahArtikel from "./PageAdmin/TambahArtikel";
 
 
 function App() {
@@ -45,6 +46,7 @@ function App() {
                 <Route path="EditPengacara/:id" element={<EditPengacara />}/>
                 <Route path="ViewPengacara/:id" element={<ViewPengacara />}/>
                 <Route path="TambahPengacara" element={<TambahPengacara />}/>
+                <Route path="TambahArtikel" element={<TambahArtikel />}/>
                
             </Routes>
         </Router>
