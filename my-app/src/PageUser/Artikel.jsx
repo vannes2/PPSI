@@ -2,31 +2,7 @@ import { useEffect, useState } from 'react';
 import axios from 'axios';
 import HeaderAfter from "../components/HeaderAfter";
 import Footer from "../components/Footer";
-
-const styles = {
-  table: {
-    borderCollapse: 'collapse',
-    width: '80%',
-    marginLeft: 'auto',
-    marginRight: 'auto',
-    marginTop: '1rem',
-  },
-  th: {
-    border: '1px solid #ddd',
-    padding: '0.75rem',
-    textAlign: 'left',
-    backgroundColor: '#f3f4f6',
-    fontWeight: 'bold',
-  },
-  td: {
-    border: '1px solid #ddd',
-    padding: '0.75rem',
-    textAlign: 'left',
-  },
-  trHover: {
-    backgroundColor: '#f9fafb',
-  },
-};
+import '../CSS_User/Artikel.css';
 
 const Artikel = () => {
   const [artikels, setArtikels] = useState([]);
@@ -48,18 +24,15 @@ const Artikel = () => {
   };
 
   const handleDownload = (filePath) => {
-    const fileName = filePath.split(/[\\/]/).pop(); // agar path Windows/Linux aman
+    const fileName = filePath.split(/[\\/]/).pop();
     window.open(`http://localhost:5000/uploads/${fileName}`, '_blank');
   };
 
   return (
     <div>
       <HeaderAfter />
-      <br></br>
-      <h1
-        className="text-3xl font-bold mb-6"
-        style={{ width: '80%', marginLeft: 'auto', marginRight: 'auto', textAlign: 'left' }}
-      >
+      <br />
+      <h1 className="text-3xl font-bold mb-6 artikel-heading">
         Daftar Artikel
       </h1>
       {loading ? (
@@ -68,25 +41,30 @@ const Artikel = () => {
         <p className="text-center text-gray-500">Belum ada artikel tersedia.</p>
       ) : (
         <div className="overflow-x-auto">
-          <table style={styles.table}>
+          <table className="artikel-table">
             <thead>
               <tr>
-                <th style={styles.th}>Judul</th>
-                <th style={{ ...styles.th, textAlign: 'center' }}>Aksi</th>
+                <th className="artikel-th artikel-th-rounded">
+                  Judul & Deskripsi
+                </th>
               </tr>
             </thead>
             <tbody>
-              {artikels.map((artikel) => (
+              {artikels.map((artikel, index) => (
                 <tr
                   key={artikel.id}
-                  onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = styles.trHover.backgroundColor)}
-                  onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = '')}
+                  className="artikel-tr artikel-tr-hover"
                 >
-                  <td style={styles.td}>{artikel.judul}</td>
-                  <td style={{ ...styles.td, textAlign: 'center' }}>
+                  <td
+                    className={`artikel-td ${
+                      index === artikels.length - 1 ? 'artikel-td-rounded' : ''
+                    }`}
+                  >
+                    <div className="artikel-judul">{artikel.judul}</div>
+                    <div className="artikel-deskripsi">{artikel.deskripsi}</div>
                     <button
                       onClick={() => handleDownload(artikel.filePath)}
-                      className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700"
+                      className="artikel-download-btn"
                     >
                       Download PDF
                     </button>
@@ -97,9 +75,7 @@ const Artikel = () => {
           </table>
         </div>
       )}
-
-      <br></br>
-
+      <br />
       <div className="footer-separator"></div>
       <Footer />
     </div>

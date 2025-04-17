@@ -1,9 +1,9 @@
 const db = require("../config/database");
 
 const Artikel = {
-  createArtikel: (judul, filePath, callback) => {
-    const sql = "INSERT INTO artikel (judul, filePath) VALUES (?, ?)";
-    db.query(sql, [judul, filePath], (err, result) => {
+  createArtikel: (judul, deskripsi, filePath, callback) => {
+    const sql = "INSERT INTO artikel (judul, deskripsi, filePath) VALUES (?, ?, ?)";
+    db.query(sql, [judul, deskripsi, filePath], (err, result) => {
       if (err) {
         console.error("Error saat insert artikel:", err);
         return callback(err);
@@ -21,7 +21,7 @@ const Artikel = {
       }
       callback(null, results);
     });
-  }
+  },
 };
 
 module.exports = Artikel;

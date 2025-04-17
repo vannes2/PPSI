@@ -1,18 +1,17 @@
 const Artikel = require("../models/Artikel");
 
-// Fungsi upload artikel jika kamu pakai controller terpisah
 exports.uploadArtikel = async (req, res) => {
   try {
-    const { judul } = req.body;
+    const { judul, deskripsi } = req.body;
     const file = req.file;
 
-    if (!judul || !file) {
-      return res.status(400).json({ message: "Judul dan file wajib diisi." });
+    if (!judul || !deskripsi || !file) {
+      return res.status(400).json({ message: "Judul, deskripsi, dan file wajib diisi." });
     }
 
     const filePath = file.path;
 
-    Artikel.createArtikel(judul, filePath, (err, result) => {
+    Artikel.createArtikel(judul, deskripsi, filePath, (err, result) => {
       if (err) {
         return res.status(500).json({ message: "Gagal menyimpan artikel." });
       }
@@ -24,7 +23,6 @@ exports.uploadArtikel = async (req, res) => {
   }
 };
 
-// Fungsi ambil semua artikel dari database
 exports.getAllArtikel = (req, res) => {
   Artikel.getAllArtikel((err, results) => {
     if (err) {

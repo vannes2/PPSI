@@ -6,6 +6,7 @@ import "../CSS_Admin/Pengacara.css";
 
 const TambahArtikel = () => {
   const [judul, setJudul] = useState("");
+  const [deskripsi, setDeskripsi] = useState("");
   const [filePdf, setFilePdf] = useState(null);
   const [activeTab, setActiveTab] = useState("tambahArtikel");
   const navigate = useNavigate();
@@ -13,13 +14,14 @@ const TambahArtikel = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (!judul || !filePdf) {
-      return alert("Judul dan file PDF wajib diisi!");
+    if (!judul || !deskripsi || !filePdf) {
+      return alert("Judul, deskripsi, dan file PDF wajib diisi!");
     }
 
     const formData = new FormData();
     formData.append("judul", judul);
-    formData.append("file", filePdf); // 'file' sesuai dengan nama di multer (backend)
+    formData.append("deskripsi", deskripsi);
+    formData.append("file", filePdf); // 'file' sesuai dengan multer field name
 
     try {
       await axios.post("http://localhost:5000/api/artikel", formData, {
@@ -29,8 +31,10 @@ const TambahArtikel = () => {
       });
 
       alert("Artikel berhasil ditambahkan!");
-      window.location.reload();
-      navigate("/TambahArtikel"); // Ganti dengan route yang kamu gunakan untuk melihat artikel
+      // Reset form setelah submit
+      setJudul("");
+      setDeskripsi("");
+      setFilePdf(null);
     } catch (error) {
       console.error("Gagal menambahkan artikel:", error);
       alert("Terjadi kesalahan saat menambahkan artikel");
@@ -90,6 +94,16 @@ const TambahArtikel = () => {
             value={judul}
             onChange={(e) => setJudul(e.target.value)}
             className="input"
+            required
+          />
+
+          <input
+            type="text"
+            placeholder="Deskripsi Artikel"
+            value={deskripsi}
+            onChange={(e) => setDeskripsi(e.target.value)}
+            className="input"
+            required
           />
 
           <input
@@ -97,9 +111,10 @@ const TambahArtikel = () => {
             accept="application/pdf"
             onChange={(e) => setFilePdf(e.target.files[0])}
             className="input"
+            required
           />
 
-          <div><br></br></div>
+          <div><br /></div>
 
           <button
             type="submit"
