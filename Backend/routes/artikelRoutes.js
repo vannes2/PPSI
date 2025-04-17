@@ -1,11 +1,11 @@
 const express = require("express");
 const router = express.Router();
-const ArtikelController = require("../controllers/artikelController"); // pastikan ini benar
+const ArtikelController = require("../controllers/artikelController");
 const Artikel = require("../models/Artikel");
 const multer = require("multer");
 const path = require("path");
 
-// Setup multer
+// Setup penyimpanan multer
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
     cb(null, "uploads/");
@@ -17,10 +17,10 @@ const storage = multer.diskStorage({
 
 const upload = multer({ storage: storage });
 
-// ✅ Tambahkan endpoint GET untuk mengambil semua artikel
+// ✅ GET semua artikel
 router.get("/artikel", ArtikelController.getAllArtikel);
 
-// Endpoint untuk upload artikel
+// ✅ POST upload artikel
 router.post("/artikel", upload.single("file"), (req, res) => {
   try {
     const { judul } = req.body;
