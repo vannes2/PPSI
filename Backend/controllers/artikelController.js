@@ -1,32 +1,34 @@
 const Artikel = require("../models/Artikel");
-const path = require("path");
 
 exports.uploadArtikel = async (req, res) => {
   try {
-    const { judul } = req.body;
+    const { judul, deskripsi } = req.body;
     const file = req.file;
 
-    if (!judul || !file) {
-      return res.status(400).json({ message: "Judul dan file wajib diisi." });
+    if (!judul || !deskripsi || !file) {
+      return res.status(400).json({ message: "Judul, deskripsi, dan file wajib diisi." });
     }
 
-    const newArtikel = await Artikel.create({
-      judul,
-      filePath: file.filename,
-    });
+    const filePath = file.path;
 
-    res.status(201).json(newArtikel);
+    Artikel.createArtikel(judul, deskripsi, filePath, (err, result) => {
+      if (err) {
+        return res.status(500).json({ message: "Gagal menyimpan artikel." });
+      }
+      res.status(201).json({ message: "Artikel berhasil ditambahkan." });
+    });
   } catch (err) {
     console.error("Upload gagal:", err);
-    res.status(500).json({ message: "Gagal mengupload artikel." });
+    res.status(500).json({ message: "Terjadi kesalahan saat upload artikel." });
   }
 };
 
-exports.getAllArtikel = async (req, res) => {
-  try {
-    const artikels = await Artikel.findAll();
-    res.json(artikels);
-  } catch (err) {
-    res.status(500).json({ message: "Gagal mengambil data artikel." });
-  }
+exports.getAllArtikel = (req, res) => {
+  Artikel.getAllArtikel((err, results) => {
+    if (err) {
+      console.error("Gagal ambil artikel:", err);
+      return res.status(500).json({ message: "Gagal mengambil data artikel." });
+    }
+    res.json(results);
+  });
 };
