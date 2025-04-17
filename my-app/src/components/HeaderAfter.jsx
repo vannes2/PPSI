@@ -13,12 +13,13 @@ const HeaderAfter = () => {
             <li><Link to="/AboutUsAfter">TENTANG KAMI</Link></li>
             <li><Link to="/Konsultasi">KONSULTASI</Link></li>
             <li><Link to="/Konsultasi">RIWAYAT</Link></li>
+            <li><Link to="/Artikel">ARTIKEL</Link></li>
           </ul>
         </nav>
         <div className="auth-buttons">
           <Link to="/ProfileView"><button>Profil</button></Link>
         </div>
-      </header>
+    </header>
   );
 };
 

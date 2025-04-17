@@ -1,7 +1,7 @@
 import { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import { FaGavel, FaHome } from "react-icons/fa";
+import { FaGavel, FaHome, FaFileAlt } from "react-icons/fa";
 import "../CSS_Admin/Pengacara.css";
 
 const TambahArtikel = () => {
@@ -47,7 +47,7 @@ const TambahArtikel = () => {
             <button
               onClick={() => {
                 setActiveTab("dashboard");
-                navigate("/");
+                navigate("/HomeAdmin");
               }}
             >
               <FaHome className="mr-2" /> Dashboard
@@ -70,7 +70,7 @@ const TambahArtikel = () => {
                 navigate("/TambahArtikel");
               }}
             >
-              <FaGavel className="mr-2" /> Tambah Artikel
+              <FaFileAlt className="mr-2" /> Tambah Artikel
             </button>
           </li>
         </ul>
