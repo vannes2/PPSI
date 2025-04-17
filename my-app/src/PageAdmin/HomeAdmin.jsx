@@ -1,15 +1,15 @@
 import { useState, useEffect, useRef } from "react";
-import { FaGavel, FaHome, FaTrash, FaPlus, FaEye, FaEdit } from "react-icons/fa";
+import { FaGavel, FaHome, FaTrash, FaPlus, FaEye, FaEdit, FaFileAlt } from "react-icons/fa";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
-import "../CSS_Admin/HomeAdmin.css";
+import "../CSS_Admin/Pengacara.css";
 
-const AdminDashboard = () => {
+const HomeAdmin = () => {
   const [activeTab, setActiveTab] = useState("pengacara");
   const [pengacara, setPengacara] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
-  const [editModalOpen, setEditModalOpen] = useState(false);
-  const [selectedPengacara, setSelectedPengacara] = useState(null);
   const tableRef = useRef(null);
+  const navigate = useNavigate();
 
   useEffect(() => {
     fetchPengacara();
@@ -39,36 +39,20 @@ const AdminDashboard = () => {
     }
   };
 
-  const handleEditClick = (pengacara) => {
-    setSelectedPengacara(pengacara);
-    setEditModalOpen(true);
+  const handleEditClick = (id) => {
+    navigate(`/EditPengacara/${id}`);
   };
 
-  const handleInputChange = (e) => {
-    setSelectedPengacara({
-      ...selectedPengacara,
-      [e.target.name]: e.target.value,
-    });
+  const handleViewClick = (id) => {
+    navigate(`/ViewPengacara/${id}`);
   };
 
-  const handleUpdate = (e) => {
-    e.preventDefault();
-    if (!selectedPengacara.nama || !selectedPengacara.email) {
-      alert("Nama dan Email harus diisi!");
-      return;
-    }
+  const handleAddClick = () => {
+    navigate("/TambahPengacara");
+  };
 
-    axios
-      .put(`http://localhost:5000/api/pengacara/${selectedPengacara.id}`, selectedPengacara)
-      .then(() => {
-        alert("Data berhasil diperbarui");
-        fetchPengacara();
-        setEditModalOpen(false);
-      })
-      .catch((error) => {
-        console.error("Error updating data:", error);
-        alert("Terjadi kesalahan saat memperbarui data");
-      });
+  const handleAddArtikelClick = () => {
+    navigate("/TambahArtikel");
   };
 
   const filteredPengacara = pengacara.filter((lawyer) =>
@@ -77,11 +61,12 @@ const AdminDashboard = () => {
 
   return (
     <div className="admin-container flex">
+      {/* Sidebar */}
       <aside className="sidebar">
         <h2>Admin Panel</h2>
         <ul>
           <li className={activeTab === "dashboard" ? "bg-gray-700" : ""}>
-            <button onClick={() => setActiveTab("dashboard")}>
+            <button onClick={() => { setActiveTab("dashboard"); navigate("/"); }}>
               <FaHome className="mr-2" /> Dashboard
             </button>
           </li>
@@ -90,9 +75,15 @@ const AdminDashboard = () => {
               <FaGavel className="mr-2" /> Pengacara
             </button>
           </li>
+          <li className={activeTab === "tambahArtikel" ? "bg-gray-700" : ""}>
+            <button onClick={handleAddArtikelClick}>
+              <FaFileAlt className="mr-2" /> Tambah Artikel
+            </button>
+          </li>
         </ul>
       </aside>
 
+      {/* Main Content */}
       <main className="content">
         {activeTab === "pengacara" && (
           <div>
@@ -105,18 +96,25 @@ const AdminDashboard = () => {
               onChange={(e) => setSearchTerm(e.target.value)}
             />
 
-            <div className="mb-4">
-              <button className="bg-blue-500 text-white p-2 rounded">
+            {/* Tombol Tambah & Refresh */}
+            <div className="mb-4 flex items-center gap-4">
+              <button
+                className="bg-blue-500 text-white px-4 py-2 rounded flex items-center gap-2 shadow-md hover:bg-blue-600 transition"
+                onClick={handleAddClick}
+              >
                 <FaPlus /> Tambah
               </button>
+
               <button
                 onClick={fetchPengacara}
-                className="bg-black text-white p-2 rounded ml-2"
+                className="bg-black text-white px-4 py-2 rounded shadow-md hover:bg-gray-800 transition"
+                style={{ marginLeft: "16px" }}
               >
-                Refresh Data
+                Refresh
               </button>
             </div>
 
+            {/* Table */}
             <div className="table-container">
               <div ref={tableRef} className="overflow-y-auto max-h-[500px]">
                 <table>
@@ -149,19 +147,13 @@ const AdminDashboard = () => {
                           </td>
                           <td>
                             <div className="action-buttons">
-                              <button className="btn-view">
+                              <button className="btn-view" onClick={() => handleViewClick(lawyer.id)}>
                                 <FaEye /> View
                               </button>
-                              <button
-                                className="btn-edit"
-                                onClick={() => handleEditClick(lawyer)}
-                              >
+                              <button className="btn-edit" onClick={() => handleEditClick(lawyer.id)}>
                                 <FaEdit /> Edit
                               </button>
-                              <button
-                                className="btn-delete"
-                                onClick={() => handleDelete(lawyer.id)}
-                              >
+                              <button className="btn-delete" onClick={() => handleDelete(lawyer.id)}>
                                 <FaTrash /> Delete
                               </button>
                             </div>
@@ -179,64 +171,9 @@ const AdminDashboard = () => {
             </div>
           </div>
         )}
-
-        {editModalOpen && selectedPengacara && (
-          <div className="modal">
-            <div className="modal-content">
-              <h2>Edit Pengacara</h2>
-              <form onSubmit={handleUpdate}>
-                <input
-                  type="text"
-                  name="nama"
-                  placeholder="Nama"
-                  value={selectedPengacara.nama}
-                  onChange={handleInputChange}
-                  required
-                />
-                <input
-                  type="email"
-                  name="email"
-                  placeholder="Email"
-                  value={selectedPengacara.email}
-                  onChange={handleInputChange}
-                  required
-                />
-                <input
-                  type="text"
-                  name="spesialisasi"
-                  placeholder="Spesialisasi"
-                  value={selectedPengacara.spesialisasi || ""}
-                  onChange={handleInputChange}
-                />
-                <input
-                  type="text"
-                  name="pengalaman"
-                  placeholder="Pengalaman"
-                  value={selectedPengacara.pengalaman || ""}
-                  onChange={handleInputChange}
-                />
-                <input
-                  type="text"
-                  name="pendidikan"
-                  placeholder="Pendidikan"
-                  value={selectedPengacara.pendidikan || ""}
-                  onChange={handleInputChange}
-                />
-                <button type="submit" className="btn-save">Simpan</button>
-                <button
-                  type="button"
-                  className="btn-cancel"
-                  onClick={() => setEditModalOpen(false)}
-                >
-                  Batal
-                </button>
-              </form>
-            </div>
-          </div>
-        )}
       </main>
     </div>
   );
 };
 
-export default AdminDashboard;
+export default HomeAdmin;

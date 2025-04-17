@@ -37,9 +37,7 @@ const SignUp = () => {
     if (response.ok) {
       alert("Pendaftaran berhasil");
 
-      navigate("/HomeAfter");
-
-      navigate("/HomeAfterLogin");
+      navigate("/Login");
 
     } else {
       alert(result.message);

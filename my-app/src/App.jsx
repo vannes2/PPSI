@@ -12,6 +12,11 @@ import ProfileEdit from "./PageUser/ProfileEdit";
 import ProfileView from "./PageUser/ProfileView";
 import Konsultasi from "./PageUser/konsultasi";
 import HomeAdmin from "./PageAdmin/HomeAdmin";
+import EditPengacara from "./PageAdmin/EditPengacara";
+import ViewPengacara from "./PageAdmin/ViewPengacara";
+import TambahPengacara from "./PageAdmin/TambahPengacara";
+import TambahArtikel from "./PageAdmin/TambahArtikel";
+import Artikel from "./PageUser/Artikel";
 
 
 function App() {
@@ -39,6 +44,12 @@ function App() {
                 <Route path="ProfileView" element={<ProfileView/>}/>
                 <Route path="konsultasi" element={<Konsultasi />} />
                 <Route path="HomeAdmin" element={<HomeAdmin />} />
+                <Route path="EditPengacara/:id" element={<EditPengacara />}/>
+                <Route path="ViewPengacara/:id" element={<ViewPengacara />}/>
+                <Route path="TambahPengacara" element={<TambahPengacara />}/>
+                <Route path="TambahArtikel" element={<TambahArtikel />}/>
+                <Route path="Artikel" element={<Artikel />}/>
+               
             </Routes>
         </Router>
     );

@@ -17,9 +17,9 @@ const AboutUs = () => {
           </div>
           <div className="content-aboutus">
             <p>
-            Cerdas Hukum adalah platform yang memberikan akses mudah bagi masyarakat untuk memahami hukum dan mendapatkan konsultasi gratis dari para ahli. 
-            Dengan tujuan meningkatkan kesadaran dan literasi hukum, Cerdas Hukum menyediakan berbagai layanan, seperti artikel edukatif, tanya jawab hukum,
-            serta konsultasi langsung dengan pengacara profesional.
+            Cerdas Hukum adalah nama yang dirancang untuk merepresentasikan gabungan antara intelektualitas (cerdas) dan sistem hukum yang kuat dan terpercaya (hukum). Nama ini mencerminkan tujuan utama aplikasi, yaitu menghadirkan solusi digital yang pintar, akurat, dan terintegrasi dalam membantu pengguna menjelajahi dan memahami aspek hukum secara mudah.
+            Dengan mengintegrasikan teknologi seperti machine learning, pengolahan data hukum, dan otomatisasi keputusan, Cerdas Hukum bertujuan menjadi asisten hukum digital yang tidak hanya cepat, tapi juga dapat diandalkan—baik untuk masyarakat umum, praktisi hukum, maupun pembuat kebijakan.
+            Nama ini menyiratkan komitmen kuat terhadap inovasi, keterjangkauan, serta penyederhanaan akses terhadap informasi hukum yang kompleks, menjadikan hukum lebih ramah, jelas, dan cerdas untuk semua kalangan.
             </p>
           </div>
           <div className="content-welcome">
