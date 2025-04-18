@@ -74,9 +74,6 @@ const Login = () => {
               <Link to="/forgotpass" className="login-admin">
                 Lupa Password anda? Klik di sini
               </Link>
-              <Link to="/Loginadmin" className="login-admin">
-                Login sebagai Admin
-              </Link>
               <button type="submit" className="btn">
                 MASUK
               </button>

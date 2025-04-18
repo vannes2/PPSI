@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import "./Header.css";
 
-const HeaderAfter = () => {
+const Header = () => {
   const [menuOpen, setMenuOpen] = useState(false);
 
   const toggleDrawer = () => setMenuOpen(!menuOpen);
@@ -15,6 +15,7 @@ const HeaderAfter = () => {
           <img src="/assets/img/LogoKecil.png" alt="Cerdas Hukum" />
         </div>
 
+        {/* Hamburger hanya muncul di mobile */}
         <div className={`hamburger ${menuOpen ? "open" : ""}`} onClick={toggleDrawer}>
           <div></div>
           <div></div>
@@ -22,24 +23,32 @@ const HeaderAfter = () => {
         </div>
       </div>
 
+      {/* Navigasi: drawer (mobile), inline nav (desktop) */}
       <nav className={`drawer ${menuOpen ? "active" : ""}`}>
         <ul onClick={closeDrawer}>
           <li><Link to="/HomeAfter">BERANDA</Link></li>
           <li><Link to="/AboutUsAfter">TENTANG KAMI</Link></li>
           <li><Link to="/Konsultasi">KONSULTASI</Link></li>
-          <li><Link to="/Konsultasi">RIWAYAT</Link></li>
+          <li><Link to="/Riwayat">RIWAYAT</Link></li>
           <li><Link to="/Artikel">ARTIKEL</Link></li>
+
+          {/* Tombol profil di mobile */}
           <li className="drawer-profile-btn">
-            <Link to="/ProfileView"><button>Profil</button></Link>
+            <Link to="/ProfileView">
+              <button>Profil</button>
+            </Link>
           </li>
         </ul>
       </nav>
 
+      {/* Tombol profil di desktop */}
       <div className="auth-buttons">
-        <Link to="/ProfileView"><button>Profil</button></Link>
+        <Link to="/ProfileView">
+          <button>Profil</button>
+        </Link>
       </div>
     </header>
   );
 };
 
-export default HeaderAfter;
+export default Header;
