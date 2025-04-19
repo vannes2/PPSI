@@ -118,7 +118,8 @@ nav.drawer ul li a:hover {
 
 /* AUTH BUTTON (Desktop only) */
 .auth-buttons {
-  margin-left: auto;
+  display: flex;
+  justify-content: flex-end;
 }
 
 .auth-buttons button {

@@ -1,71 +1,119 @@
+/* === JUDUL ARTIKEL === */
 .artikel-heading {
-    width: 80%;
-    margin: 0 auto;
-    text-align: left;
-  }
-  
-  .artikel-table {
-    border-collapse: separate;
-    border-spacing: 0;
-    width: 50%;
-    margin: 2rem auto;
-    border-radius: 12px;
-    overflow: hidden;
-    box-shadow: 0 2px 8px rgba(240, 14, 14, 0.05);
-  }
-  
-  .artikel-th {
-    border: 1px solid #ddd;
-    padding: 2rem;
-    text-align: left;
-    background-color: #f3f4f6;
-    font-weight: bold;
-  }
-  
-  .artikel-th-rounded {
-    border-top-left-radius: 12px;
-    border-top-right-radius: 12px;
-    border-bottom: 1px solid #ddd;
-  }
-  
-  .artikel-td {
-    border: 1px solid #ddd;
-    padding: 2rem;
-    text-align: left;
-    vertical-align: top;
-    background-color: white;
-  }
-  
-  .artikel-td-rounded {
-    border-bottom-left-radius: 12px;
-    border-bottom-right-radius: 12px;
-  }
-  
-  .artikel-tr-hover:hover {
-    background-color: #f9fafb;
-  }
-  
-  .artikel-judul {
-    font-weight: bold;
-    margin-bottom: 0.5rem;
-  }
-  
-  .artikel-deskripsi {
-    font-size: 0.9rem;
-    color: #555;
-    margin-bottom: 1rem;
-  }
-  
-  .artikel-download-btn {
-    background-color: #2563eb;
-    color: white;
-    padding: 0.5rem 1rem;
-    border-radius: 0.375rem;
-    font-size: 0.95rem;
-    border: none;
-    cursor: pointer;
-  }
-  
-  .artikel-download-btn:hover {
-    background-color: #1d4ed8;
-  }  
+  width: 60%; /* Sesuai dengan lebar tabel */
+  margin: 0 auto 2rem auto; /* Tengah dan beri jarak bawah */
+  text-align: left;
+  color: #3b3b3b; /* Abu-abu Gelap */
+  font-weight: bold;
+}
+
+/* === WRAPPER UNTUK SCROLL === */
+.artikel-scroll-wrapper {
+  width: 60%;
+  margin: 0 auto;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(179, 19, 18, 0.1);
+  background-color: #fff;
+  max-height: 500px;
+}
+
+.artikel-scroll-inner {
+  overflow-y: auto;
+  max-height: 500px;
+}
+
+/* === HIDE SCROLLBAR UNTUK ARTIKEL === */
+.artikel-scroll-inner {
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* IE/Edge */
+}
+
+.artikel-scroll-inner::-webkit-scrollbar {
+  display: none; /* Chrome, Safari, Opera */
+}
+
+/* === TABEL === */
+.artikel-table {
+  border-collapse: separate;
+  border-spacing: 0;
+  width: 100%;
+  border-radius: 12px;
+  background-color: #fff;
+}
+
+.artikel-th {
+  border: 1px solid #ccc; /* Abu-abu Muda */
+  padding: 2rem;
+  text-align: left;
+  background-color: #fff;
+  font-weight: bold;
+  color: #B31312; /* Merah Gelap */
+  position: sticky;
+  top: 0;
+  z-index: 1;
+}
+
+.artikel-th-rounded {
+  border-top-left-radius: 12px;
+  border-top-right-radius: 12px;
+  border-bottom: 1px solid #ccc;
+}
+
+.artikel-td {
+  border: 1px solid #ccc;
+  padding: 2rem;
+  text-align: left;
+  vertical-align: top;
+  background-color: transparent;
+  color: #666;
+}
+
+.artikel-td-rounded {
+  border-bottom-left-radius: 12px;
+  border-bottom-right-radius: 12px;
+}
+
+/* === WARNA SELANG-SELING BARIS TABEL === */
+.artikel-table tbody tr:nth-child(odd) {
+  background-color: #ffffff; /* putih */
+}
+
+.artikel-table tbody tr:nth-child(even) {
+  background-color: #f5f5f5; /* abu-abu terang */
+}
+
+/* === HOVER BARIS === */
+.artikel-tr-hover:hover {
+  background-color: #ffc6c6;
+}
+
+/* === ISI TABEL === */
+.artikel-judul {
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+  color: #B31312;
+  font-size: 20px;
+}
+
+.artikel-deskripsi {
+  font-size: 14px;
+  color: #666;
+  margin-bottom: 1rem;
+}
+
+/* === TOMBOL DOWNLOAD === */
+.artikel-download-btn {
+  background-color: #B31312;
+  color: white;
+  padding: 0.5rem 1rem;
+  border-radius: 0.375rem;
+  font-size: 0.95rem;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.artikel-download-btn:hover {
+  background-color: #92100f;
+}

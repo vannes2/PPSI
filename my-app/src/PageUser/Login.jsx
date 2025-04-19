@@ -88,6 +88,9 @@ const Login = () => {
             <Link to="/signup" className="btn">
               MENDAFTAR
             </Link>
+            <Link to="/RegisterLawyerPage" className="btn">
+              MENDAFTAR LAWYER
+            </Link>
           </div>
         </div>
       </div>

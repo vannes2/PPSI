@@ -1,0 +1,96 @@
+.register-lawyer-page {
+    padding: 40px 20px;
+    background-color: #f4f4f4;
+  }
+  
+  /* Judul Form */
+  .register-lawyer-page .title {
+    text-align: center;
+    font-size: 28px;
+    color: #3b3b3b;
+    margin-top: 40px;
+    margin-bottom: 30px;
+    font-family: Arial, sans-serif;
+  }
+  
+  /* Form Card */
+  .register-lawyer-page .form-register-lawyer {
+    background-color: #fefff0;
+    border-radius: 10px;
+    padding: 30px;
+    max-width: 900px;
+    margin: 0 auto;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    font-family: Arial, sans-serif;
+  }
+  
+  /* Form Container */
+  .register-lawyer-page .container-form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+  
+  /* Form Row */
+  .register-lawyer-page .container-form-row {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+  }
+  
+  /* Input Group */
+  .register-lawyer-page .form-group {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    min-width: 250px;
+  }
+  
+  .register-lawyer-page .form-group label {
+    margin-bottom: 6px;
+    color: #3b3b3b;
+    font-weight: 500;
+  }
+  
+  .register-lawyer-page .form-group input,
+  .register-lawyer-page .form-group select {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    background-color: white;
+    font-size: 14px;
+  }
+  
+  /* Checkbox */
+  .register-lawyer-page .checkbox-group {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 14px;
+    color: #666;
+  }
+  
+  /* Submit Button */
+  .register-lawyer-page .submit-btn {
+    padding: 12px;
+    background-color: #B31312;
+    color: #fff;
+    font-weight: bold;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    margin-top: 10px;
+  }
+  
+  .register-lawyer-page .submit-btn:hover {
+    background-color: #990f0f;
+  }
+  
+  /* Responsive Mobile */
+  @media (max-width: 768px) {
+    .register-lawyer-page .container-form-row {
+      flex-direction: column;
+    }
+  }
+  
