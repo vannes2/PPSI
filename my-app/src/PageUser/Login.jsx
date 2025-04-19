@@ -49,7 +49,6 @@ const Login = () => {
   return (
     <div className="Login-page">
       <Header />
-
       <div className="container">
         <div className="main">
           <div className="login">
@@ -89,7 +88,7 @@ const Login = () => {
               MENDAFTAR
             </Link>
             <Link to="/RegisterLawyerPage" className="btn">
-              MENDAFTAR LAWYER
+              PENDAFTARAN LAWYER
             </Link>
           </div>
         </div>

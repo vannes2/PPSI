@@ -1,9 +1,9 @@
 /* === JUDUL ARTIKEL === */
 .artikel-heading {
-  width: 60%; /* Sesuai dengan lebar tabel */
-  margin: 0 auto 2rem auto; /* Tengah dan beri jarak bawah */
+  width: 60%;
+  margin: 0 auto 2rem auto;
   text-align: left;
-  color: #3b3b3b; /* Abu-abu Gelap */
+  color: #3b3b3b;
   font-weight: bold;
 }
 
@@ -21,16 +21,12 @@
 .artikel-scroll-inner {
   overflow-y: auto;
   max-height: 500px;
-}
-
-/* === HIDE SCROLLBAR UNTUK ARTIKEL === */
-.artikel-scroll-inner {
-  scrollbar-width: none; /* Firefox */
-  -ms-overflow-style: none; /* IE/Edge */
+  scrollbar-width: none;
+  -ms-overflow-style: none;
 }
 
 .artikel-scroll-inner::-webkit-scrollbar {
-  display: none; /* Chrome, Safari, Opera */
+  display: none;
 }
 
 /* === TABEL === */
@@ -43,12 +39,12 @@
 }
 
 .artikel-th {
-  border: 1px solid #ccc; /* Abu-abu Muda */
+  border: 1px solid #ccc;
   padding: 2rem;
   text-align: left;
   background-color: #fff;
   font-weight: bold;
-  color: #B31312; /* Merah Gelap */
+  color: #B31312;
   position: sticky;
   top: 0;
   z-index: 1;
@@ -74,21 +70,21 @@
   border-bottom-right-radius: 12px;
 }
 
-/* === WARNA SELANG-SELING BARIS TABEL === */
+/* === WARNA SELANG-SELING === */
 .artikel-table tbody tr:nth-child(odd) {
-  background-color: #ffffff; /* putih */
+  background-color: #ffffff;
 }
 
 .artikel-table tbody tr:nth-child(even) {
-  background-color: #f5f5f5; /* abu-abu terang */
+  background-color: #f5f5f5;
 }
 
-/* === HOVER BARIS === */
+/* === HOVER === */
 .artikel-tr-hover:hover {
   background-color: #ffc6c6;
 }
 
-/* === ISI TABEL === */
+/* === ISI === */
 .artikel-judul {
   font-weight: bold;
   margin-bottom: 0.5rem;
@@ -102,7 +98,13 @@
   margin-bottom: 1rem;
 }
 
-/* === TOMBOL DOWNLOAD === */
+.footer-separator {
+  width: 100%;
+  height: 10px;
+  background-color: #B31312;
+}
+
+/* === TOMBOL === */
 .artikel-download-btn {
   background-color: #B31312;
   color: white;
@@ -116,4 +118,57 @@
 
 .artikel-download-btn:hover {
   background-color: #92100f;
+}
+
+/* === RESPONSIVE === */
+@media (max-width: 768px) {
+  .artikel-heading,
+  .artikel-scroll-wrapper {
+    width: 90%;
+  }
+
+  .artikel-th,
+  .artikel-td {
+    padding: 1rem;
+    font-size: 14px;
+  }
+
+  .artikel-judul {
+    font-size: 18px;
+  }
+
+  .artikel-deskripsi {
+    font-size: 13px;
+  }
+
+  .artikel-download-btn {
+    font-size: 0.85rem;
+    padding: 0.4rem 0.8rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .artikel-heading,
+  .artikel-scroll-wrapper {
+    width: 95%;
+  }
+
+  .artikel-th,
+  .artikel-td {
+    padding: 0.75rem;
+    font-size: 13px;
+  }
+
+  .artikel-judul {
+    font-size: 16px;
+  }
+
+  .artikel-deskripsi {
+    font-size: 12px;
+  }
+
+  .artikel-download-btn {
+    font-size: 0.8rem;
+    padding: 0.4rem 0.7rem;
+  }
 }
