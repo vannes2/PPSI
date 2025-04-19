@@ -216,8 +216,10 @@ nav.drawer ul li a {
 @media (max-width: 768px) {
   .header-left {
     gap: 400px;
+    padding-left: 20px;
   }
 }
+
 
 /* Mobile (≤480px) → kembali ke 260px */
 @media (max-width: 480px) {
@@ -236,5 +238,29 @@ nav.drawer ul li a {
 @media (max-width: 480px) {
   .header-left {
     padding-left: 1px; /* lebih rapat di mobile */
+  }
+}
+
+@media (max-width: 650px) {
+  .header-left {
+    gap: 10px !important;         /* Kurangi gap besar */
+    padding-left: 10px !important;
+    flex-wrap: wrap;              /* Biar tidak mepet dan bisa turun */
+    justify-content: space-between;
+    width: 100%;
+  }
+
+  .logo img {
+    width: 80px; /* Sedikit lebih kecil agar muat */
+    height: 80px;
+  }
+
+  .hamburger {
+    position: relative;
+    margin-left: auto;
+  }
+
+  header {
+    padding: 10px 15px;
   }
 }
