@@ -89,7 +89,7 @@ const Login = () => {
               MENDAFTAR
             </Link>
             <Link to="/RegisterLawyerPage" className="btn">
-              MENDAFTAR LAWYER
+              PENDAFTARAN LAWYER
             </Link>
           </div>
         </div>

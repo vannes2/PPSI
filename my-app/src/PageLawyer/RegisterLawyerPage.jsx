@@ -139,14 +139,20 @@ const RegisterLawyerPage = () => {
               <input type="checkbox" id="syarat" required />
               <label htmlFor="syarat">Saya menyetujui syarat dan ketentuan</label>
             </div>
-
+            {/* Informasi tambahan */}
+            <p className="info-pendaftaran">
+            Setelah Anda menekan tombol daftar, data akan diproses maksimal selama 3 hari kerja.
+            Notifikasi akan dikirimkan melalui email apabila akun Anda berhasil diproses.
+            </p>
             {/* Submit */}
             <button type="submit" className="submit-btn">Daftar</button>
           </div>
         </form>
       </div>
 
-      <Footer />
+      <div className="footer-separator"></div>
+    {/* Footer */}
+    <Footer />
     </>
   );
 };
