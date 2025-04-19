@@ -211,3 +211,30 @@ nav.drawer ul li a {
     font-size: 14px;
   }
 }
+
+/* Tablet (≤768px) → gap lebih besar biar lebih renggang */
+@media (max-width: 768px) {
+  .header-left {
+    gap: 400px;
+  }
+}
+
+/* Mobile (≤480px) → kembali ke 260px */
+@media (max-width: 480px) {
+  .header-left {
+    gap: 260px;
+  }
+}
+
+@media (max-width: 768px) {
+  .header-left {
+    padding-left: 50px; /* agak ke kanan di tablet */
+  }
+}
+
+/* Override khusus untuk 480px ke bawah */
+@media (max-width: 480px) {
+  .header-left {
+    padding-left: 1px; /* lebih rapat di mobile */
+  }
+}

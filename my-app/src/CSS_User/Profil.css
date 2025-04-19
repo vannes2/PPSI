@@ -266,3 +266,130 @@ input {
   from { opacity: 0; transform: scale(0.9); }
   to { opacity: 1; transform: scale(1); }
 }
+
+/* ========== Responsif untuk ukuran layar maksimal 1024px ========== */
+@media (max-width: 1024px) {
+  .profile-page .profile-container {
+    flex-direction: column;
+    width: 90%;
+  }
+
+  .profile-page .profile-sidebar {
+    flex-direction: row;
+    justify-content: space-between;
+    width: 100%;
+    border-right: none;
+    border-bottom: 1px solid #b0bec5;
+    padding-bottom: 20px;
+    margin-bottom: 20px;
+  }
+
+  .profile-page .profile-sidebar .logout-btn {
+    width: auto;
+    margin-top: 0;
+  }
+
+  .profile-page .profile-main {
+    padding-left: 0;
+  }
+
+  .profile-page .container {
+    padding: 10px;
+  }
+}
+
+/* ========== Responsif untuk ukuran layar maksimal 768px ========== */
+@media (max-width: 768px) {
+  .profile-page header {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 15px 20px;
+  }
+
+  .profile-page .nav-menu ul {
+    flex-direction: column;
+    gap: 10px;
+    padding-top: 10px;
+  }
+
+  .profile-page .auth-buttons {
+    margin-top: 10px;
+  }
+
+  .profile-page .profile-sidebar {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  .profile-page .profile-sidebar .logout-btn {
+    width: 100%;
+    margin-top: 10px;
+  }
+
+  .profile-page .popup-content {
+    width: 90%;
+    padding: 20px;
+  }
+
+  .profile-page .popup-button-container {
+    flex-direction: column;
+  }
+
+  .profile-page .popup-button {
+    width: 100%;
+  }
+}
+
+/* ========== Responsif untuk ukuran layar maksimal 480px ========== */
+@media (max-width: 480px) {
+  .profile-page .logo {
+    font-size: 20px;
+  }
+
+  .profile-page .profile-container {
+    width: 100%;
+    padding: 10px;
+  }
+
+  .profile-page .profile-sidebar {
+    padding-right: 0;
+  }
+
+  .profile-page .profile-picture {
+    width: 80px;
+    height: 80px;
+    font-size: 40px;
+  }
+
+  .profile-page .profile-main {
+    padding-left: 0;
+  }
+
+  .profile-page .section-title {
+    font-size: 18px;
+  }
+
+  .profile-page .form-group label {
+    font-size: 14px;
+  }
+
+  .profile-page input {
+    font-size: 13px;
+    padding: 8px;
+  }
+
+  .profile-page .save-btn {
+    font-size: 14px;
+    padding: 8px 12px;
+  }
+
+  .profile-page .popup-header {
+    font-size: 18px;
+  }
+
+  .profile-page .popup-button {
+    font-size: 14px;
+    padding: 10px;
+  }
+}

@@ -1,70 +1,97 @@
 /* Footer Styles */
 footer {
-    background-color: #fefff0;
-    line-height: 1.5;
-    padding: 20px 0;
-}
-
-/* Thicker Footer Separator Line */
-.footer-separator {
-    width: 100%;
-    height: 10px;
-    background-color: #B31312;
+  background-color: #fefff0;
+  line-height: 1.5;
+  padding: 20px 0;
 }
 
 .footer-container {
-    display: flex;
-    justify-content: space-between;
-    max-width: 1500px;
-    margin: 0 auto;
-    flex-wrap: wrap;
-    gap: 20px;
-    padding: 20px 75px;
+  display: flex;
+  justify-content: space-between;
+  max-width: 1500px;
+  margin: 0 auto;
+  flex-wrap: wrap;
+  gap: 20px;
+  padding: 20px 75px;
 }
 
 .footer-logo img {
-    width: 150px;
-    margin-top: 10px;
+  width: 150px;
+  margin-top: 10px;
 }
 
 .footer-content {
-    display: flex;
-    gap: 40px;
-    flex-wrap: wrap;
-    justify-content: space-between;
-    width: 100%;
+  display: flex;
+  gap: 40px;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  width: 100%;
 }
 
 .customer-care, .account, .social-media {
-    flex: 1;
-    min-width: 200px;
+  flex: 1;
+  min-width: 200px;
+  text-align: left; /* Text rata kiri */
 }
 
 .customer-care h3, .account h3, .social-media h3 {
-    font-size: 16px;
-    margin-bottom: 10px;
+  font-size: 16px;
+  margin-bottom: 10px;
 }
 
 .customer-care p, .account p, .social-media p {
-    font-size: 14px;
-    margin-bottom: 8px;
+  font-size: 14px;
+  margin-bottom: 8px;
 }
 
 /* Footer Bottom */
 .footer-bottom {
-    text-align: center;
-    font-size: 14px;
-    color: #666;
-    padding-top: 20px;
+  text-align: center;
+  font-size: 14px;
+  color: #666;
+  padding-top: 20px;
 }
 
 /* Social Media Icons */
 .social-icons {
-    display: flex;
-    gap: 15px;
+  display: flex;
+  gap: 15px;
 }
 
 .social-icons a img {
-    width: 24px;
-    height: 24px;
+  width: 24px;
+  height: 24px;
+}
+
+/* ============================ */
+/* === RESPONSIVE FOR MOBILE === */
+/* ============================ */
+
+@media (max-width: 768px) {
+  .footer-container {
+      flex-direction: column;
+      align-items: flex-start;       /* Mepet ke kiri */
+      padding: 20px 20px;            /* Padding kiri dikurangi */
+      text-align: left;
+  }
+
+  .footer-logo img {
+      margin: 0 0 20px 0;
+  }
+
+  .footer-content {
+      flex-direction: column;
+      align-items: flex-start;       /* Konten footer mepet kiri */
+      gap: 20px;
+  }
+
+  .customer-care, .account, .social-media {
+      width: 100%;
+      max-width: 100%;
+      text-align: left;              /* Text rata kiri */
+  }
+
+  .social-icons {
+      justify-content: flex-start;   /* Ikon sosmed juga ikut ke kiri */
+  }
 }
