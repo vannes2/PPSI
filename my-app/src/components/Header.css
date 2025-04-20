@@ -9,6 +9,7 @@
 body {
   background-color: #f4f4f4;
   color: #B31312;
+  padding-top: 120px; /* Tambahan agar konten tidak ketimpa header */
 }
 
 header {
@@ -19,8 +20,12 @@ header {
   padding: 15px 30px;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
   width: 100%;
-  position: relative;
+  position: fixed;     /* Sticky navbar */
+  top: 0;
+  left: 0;
+  right: 0;
   z-index: 1000;
+  transition: box-shadow 0.3s ease-in-out;
 }
 
 /* LEFT SIDE */
@@ -74,6 +79,7 @@ nav.drawer {
   box-shadow: -2px 0 10px rgba(0,0,0,0.1);
   padding-top: 100px;
   transition: right 0.3s ease-in-out;
+  z-index: 999;
 }
 
 nav.drawer.active {
@@ -100,27 +106,7 @@ nav.drawer ul li a:hover {
   color: #ffc6c6;
 }
 
-.drawer-profile-btn button {
-  background-color: #B31312;
-  color: white;
-  border: 2px solid #B31312;
-  border-radius: 15px;
-  padding: 10px 25px;
-  cursor: pointer;
-  font-weight: bold;
-  transition: all 0.3s ease-in-out;
-}
-
-.drawer-profile-btn button:hover {
-  background-color: #ffffff;
-  color: #B31312;
-}
-
-/* AUTH BUTTON (Desktop only) */
-.auth-buttons {
-  margin-left: auto;
-}
-
+.drawer-profile-btn button,
 .auth-buttons button {
   background-color: #B31312;
   color: white;
@@ -132,9 +118,15 @@ nav.drawer ul li a:hover {
   transition: all 0.3s ease-in-out;
 }
 
+.drawer-profile-btn button:hover,
 .auth-buttons button:hover {
   background-color: #ffffff;
   color: #B31312;
+}
+
+/* AUTH BUTTON (Desktop only) */
+.auth-buttons {
+  margin-left: auto;
 }
 
 /* Responsive */
@@ -148,7 +140,6 @@ nav.drawer ul li a:hover {
   }
 
   nav.drawer {
-    position: fixed;
     right: -250px;
   }
 
@@ -181,14 +172,9 @@ nav.drawer ul li a:hover {
   }
 }
 
-
 /* Font size default (desktop) */
 nav.drawer ul li a {
-  text-decoration: none;
-  color: #B31312;
-  font-weight: bold;
   font-size: 18px;
-  transition: color 0.3s ease;
 }
 
 /* Tablet */
@@ -205,14 +191,14 @@ nav.drawer ul li a {
   }
 }
 
-/* Extra small devices (optional) */
+/* Extra small devices */
 @media (max-width: 480px) {
   nav.drawer ul li a {
     font-size: 14px;
   }
 }
 
-/* Tablet (≤768px) → gap lebih besar biar lebih renggang */
+/* Header Left Adjustments for Various Sizes */
 @media (max-width: 768px) {
   .header-left {
     gap: 350px;
@@ -222,36 +208,28 @@ nav.drawer ul li a {
 
 @media (max-width: 768px) {
   .header-left {
-    padding-left: 50px; /* agak ke kanan di tablet */
+    padding-left: 50px;
   }
 }
 
-/* Mobile (≤480px) → kembali ke 260px */
 @media (max-width: 480px) {
   .header-left {
     gap: 260px;
-  }
-}
-
-
-/* Override khusus untuk 480px ke bawah */
-@media (max-width: 480px) {
-  .header-left {
-    padding-left: 1px; /* lebih rapat di mobile */
+    padding-left: 1px;
   }
 }
 
 @media (max-width: 650px) {
   .header-left {
-    gap: 10px !important;         /* Kurangi gap besar */
+    gap: 10px !important;
     padding-left: 10px !important;
-    flex-wrap: wrap;              /* Biar tidak mepet dan bisa turun */
+    flex-wrap: wrap;
     justify-content: space-between;
     width: 100%;
   }
 
   .logo img {
-    width: 80px; /* Sedikit lebih kecil agar muat */
+    width: 80px;
     height: 80px;
   }
 
