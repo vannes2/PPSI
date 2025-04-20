@@ -148,7 +148,7 @@ const SignUp = () => {
             <div className="checkbox-label">
               <input type="checkbox" id="terms" name="terms" required />
               <label htmlFor="terms" className="terms">
-                Dengan mendaftar ke Ayune, Anda telah menyetujui{" "}
+                Dengan mendaftar ke Cerdas Hukum, Anda telah menyetujui{" "}
                 <a href="#">syarat &amp; ketentuan</a> dan{" "}
                 <a href="#">kebijakan privasi</a>
               </label>

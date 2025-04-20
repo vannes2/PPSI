@@ -49,7 +49,6 @@ const Login = () => {
   return (
     <div className="Login-page">
       <Header />
-
       <div className="container">
         <div className="main">
           <div className="login">
@@ -87,6 +86,9 @@ const Login = () => {
             <h2>Buat Akun Anda</h2>
             <Link to="/signup" className="btn">
               MENDAFTAR
+            </Link>
+            <Link to="/RegisterLawyerPage" className="btn">
+              PENDAFTARAN LAWYER
             </Link>
           </div>
         </div>

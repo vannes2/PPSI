@@ -12,14 +12,19 @@ footer {
     background-color: #B31312;
 }
 
+/* Main Footer Container */
 .footer-container {
-    display: flex;
-    justify-content: space-between;
     max-width: 1500px;
     margin: 0 auto;
-    flex-wrap: wrap;
-    gap: 20px;
     padding: 20px 75px;
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}
+
+/* Footer Logo */
+.footer-logo {
+    text-align: left;
 }
 
 .footer-logo img {
@@ -27,30 +32,52 @@ footer {
     margin-top: 10px;
 }
 
+/* Footer Content (3 columns, horizontal on desktop) */
 .footer-content {
     display: flex;
-    gap: 40px;
-    flex-wrap: wrap;
     justify-content: space-between;
-    width: 100%;
+    flex-wrap: wrap;
+    gap: 40px;
 }
 
-.customer-care, .account, .social-media {
+/* Individual Footer Sections */
+.customer-care,
+.account,
+.social-media {
     flex: 1;
     min-width: 200px;
+    text-align: left;
 }
 
-.customer-care h3, .account h3, .social-media h3 {
+.customer-care h3,
+.account h3,
+.social-media h3 {
     font-size: 16px;
     margin-bottom: 10px;
+    color: #3b3b3b;
 }
 
-.customer-care p, .account p, .social-media p {
+.customer-care p,
+.account p,
+.social-media p {
     font-size: 14px;
     margin-bottom: 8px;
+    color: #666;
 }
 
-/* Footer Bottom */
+/* Social Media Icons */
+.social-icons {
+    display: flex;
+    gap: 15px;
+    justify-content: flex-start;
+}
+
+.social-icons a img {
+    width: 24px;
+    height: 24px;
+}
+
+/* Footer Bottom (Copyright) */
 .footer-bottom {
     text-align: center;
     font-size: 14px;
@@ -58,13 +85,36 @@ footer {
     padding-top: 20px;
 }
 
-/* Social Media Icons */
-.social-icons {
-    display: flex;
-    gap: 15px;
-}
+/* ============================ */
+/* === RESPONSIVE FOR MOBILE === */
+/* ============================ */
+@media (max-width: 768px) {
+    .footer-container {
+        padding: 20px 20px;
+    }
 
-.social-icons a img {
-    width: 24px;
-    height: 24px;
+    .footer-logo {
+        text-align: left;
+    }
+
+    .footer-content {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 20px;
+    }
+
+    .customer-care,
+    .account,
+    .social-media {
+        width: 100%;
+    }
+
+    .social-icons {
+        justify-content: flex-start;
+    }
+
+    .footer-bottom {
+        text-align: center;
+        padding-top: 20px;
+    }
 }

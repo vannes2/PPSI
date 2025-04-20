@@ -17,6 +17,7 @@ import ViewPengacara from "./PageAdmin/ViewPengacara";
 import TambahPengacara from "./PageAdmin/TambahPengacara";
 import TambahArtikel from "./PageAdmin/TambahArtikel";
 import Artikel from "./PageUser/Artikel";
+import RegisterLawyerPage from "./PageLawyer/RegisterLawyerPage";
 
 
 function App() {
@@ -49,7 +50,7 @@ function App() {
                 <Route path="TambahPengacara" element={<TambahPengacara />}/>
                 <Route path="TambahArtikel" element={<TambahArtikel />}/>
                 <Route path="Artikel" element={<Artikel />}/>
-               
+                <Route path="/RegisterLawyerPage" element={<RegisterLawyerPage />} />
             </Routes>
         </Router>
     );

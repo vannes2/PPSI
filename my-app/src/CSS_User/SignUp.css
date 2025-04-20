@@ -1,271 +1,162 @@
-/* CSS for Signup Page Body */
+/* ======== SignUp.css ======== */
 
 .signup-page {
-  color: #3b3b3b; /* Abu-abu Gelap */
-  font-family: Arial, sans-serif;
+  font-family: "Segoe UI", sans-serif;
+  color: #3b3b3b; /* Abu-abu gelap untuk teks */
+  background-color: #fefff0; /* Background putih kekuningan */
+  padding-bottom: 50px;
 }
 
-.signup-page * {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
-/* Header styling */
-.signup-page header {
-  display: flex;
-  align-items: center;
-  background-color: #fff; /* Putih */
-  padding: 20px 50px;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-}
-
-.signup-page .logo {
-  font-size: 24px;
-  font-weight: bold;
-  color: #B31312; /* Merah Gelap */
-}
-
-.signup-page nav ul {
-  list-style: none;
-  display: flex;
-  margin-right: auto;
-}
-
-.signup-page nav ul li {
-  margin-right: 20px;
-}
-
-.signup-page nav ul li a {
-  text-decoration: none;
-  color: #B31312; /* Abu-abu Gelap */
-}
-
-.signup-page nav ul li a:hover {
-  color: #ffc6c6; /* Merah Muda Muda */
-}
-
-.signup-page .auth-buttons {
-  margin-left: auto;
-}
-
-.signup-page .auth-buttons button {
-  background-color: #B31312; /* Merah Gelap */
-  color: #fff; /* Putih */
-  border: 2px solid #B31312; /* Merah Gelap */
-  border-radius: 15px;
-  padding: 10px 25px;
-  cursor: pointer;
-  font-weight: bold;
-}
-
-.signup-page .auth-buttons button:hover {
-  background-color: #ffc6c6; /* Merah Muda Muda */
-  color: #B31312; /* Merah Gelap */
-}
-
-.signup-page .signup-title {
-  margin-top: 50px;
+.signup-title h1 {
   text-align: center;
-  font-size: 40px;
-  color: #3b3b3b; /* Abu-abu Gelap */
+  font-size: 42px; /* Lebih besar */
+  margin-top: 40px;
+  color: #000000; /* Merah gelap */
+  text-transform: uppercase; /* Huruf kapital semua */
+  letter-spacing: 1px;
 }
 
 .signup-page .container {
-  width: 70%;
-  margin: 0 auto;
-  background-color: #fefff0; /* Putih Kekuningan */
-  padding: 20px;
-  border-radius: 10px;
+  width: 60%;
+  margin: 30px auto;
+  background-color: #fefff0; /* Putih kekuningan */
+  padding: 30px;
+  border-radius: 12px;
+  box-shadow: 0 0 10px rgba(255, 228, 228, 0.2); /* Merah gelap transparan */
 }
 
 .signup-page label {
-  font-weight: bold;
   display: block;
-  margin-bottom: 5px;
+  font-weight: 600;
+  margin-bottom: 6px;
+  color: #3b3b3b;
 }
 
-.signup-page input[type="text"],
-.signup-page input[type="email"],
-.signup-page input[type="password"],
-.signup-page input[type="date"] {
+.signup-page input,
+.signup-page select {
   width: 100%;
-  padding: 10px;
-  margin-bottom: 15px;
-  border: 1px solid #ccc; /* Abu-abu Muda */
-  border-radius: 5px;
+  padding: 10px 12px;
+  margin-bottom: 18px;
+  border: 1px solid #ccc; /* Abu-abu muda */
+  border-radius: 8px;
+  font-size: 16px;
   background-color: #fff; /* Putih */
-  color: #3b3b3b; /* Abu-abu Gelap */
+  color: #3b3b3b;
+}
+
+.signup-page input[type="checkbox"] {
+  width: 14px;
+  height: 14px;
+  margin-top: 3px;
+  accent-color: #B31312; /* Warna checkbox sesuai tema */
 }
 
 .signup-page .form-row {
   display: flex;
   justify-content: space-between;
+  gap: 20px;
 }
 
-.signup-page .form-row .form-column {
-  width: 48%;
+.signup-page .form-column {
+  flex: 1;
 }
 
 .signup-page .checkbox-label {
   display: flex;
-  align-items: center;
+  align-items: flex-start;
+  gap: 10px;
+  margin-top: 15px;
 }
 
 .signup-page .terms {
-  color: #666; /* Abu-abu Sedang */
-  padding: 10px;
+  font-size: 14px;
+  color: #666; /* Abu-abu sedang */
 }
 
 .signup-page .terms a {
-  color: #B31312; /* Merah Gelap */
+  color: #B31312; /* Merah gelap */
+  text-decoration: underline;
+}
+
+.signup-page .terms a:hover {
+  color: #ffc6c6; /* Merah muda muda saat hover */
 }
 
 .signup-page .btn {
-  display: inline-block;
   width: 100%;
-  padding: 10px;
-  background-color: #B31312; /* Merah Gelap */
+  background-color: #B31312; /* Merah gelap */
   color: white;
+  padding: 12px;
+  font-size: 18px;
+  font-weight: bold;
   border: none;
-  border-radius: 10px;
-  font-size: 24px;
-  text-align: center;
-  text-decoration: none;
-  margin-top: 10px;
-  margin-bottom: 67px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
 }
 
 .signup-page .btn:hover {
-  background-color: #ffc6c6; /* Merah Muda Muda */
-  color: #B31312; /* Merah Gelap */
+  background-color: #a00e0e; /* Versi lebih gelap dari merah gelap */
 }
 
-/* Footer */
-.signup-page footer {
-  background-color: #fefff0; /* Putih Kekuningan */
-  line-height: 1.5;
-}
-
-/* Thicker Footer Separator Line */
-.signup-page .footer-separator {
+.footer-separator {
   width: 100%;
-  height: 10px; /* Increased height for a thicker line */
-  background-color: #B31312; /* Merah Gelap */
+  height: 8px;
+  background-color: #B31312; /* Merah gelap */
+  margin-top: 50px;
 }
 
-.signup-page .footer-container {
-  display: flex;
-  justify-content: space-between;
-  max-width: 1500px;
-  margin: 0 auto;
-  flex-wrap: wrap;
-  gap: 20px;
+/* ========== Responsive Breakpoints ========== */
+
+/* Tablet */
+@media (max-width: 768px) {
+  .signup-page .container {
+    width: 90%;
+    padding: 25px;
+  }
+
+  .signup-title h1 {
+    font-size: 32px;
+  }
+
+  .signup-page .form-row {
+    flex-direction: column;
+    gap: 0;
+  }
+
+  .signup-page .btn {
+    font-size: 16px;
+  }
 }
 
-.signup-page .footer-logo img {
-  width: 150px;
-  margin-left: 75px;
-  margin-top: 10px;
-}
+/* Mobile */
+@media (max-width: 480px) {
+  .signup-title h1 {
+    font-size: 26px;
+  }
 
-.signup-page .footer-content {
-  display: flex;
-  gap: 40px;
-  flex-wrap: wrap;
-  justify-content: space-between;
-  width: 100%;
-  margin-left: 75px;
-}
+  .signup-page .container {
+    width: 95%;
+    padding: 20px;
+  }
 
-.signup-page .customer-care,
-.signup-page .account,
-.signup-page .social-media {
-  flex: 1;
-  min-width: 200px;
-}
+  .signup-page input,
+  .signup-page select {
+    font-size: 14px;
+    padding: 8px;
+  }
 
-.signup-page .customer-care h3,
-.signup-page .account h3,
-.signup-page .social-media h3 {
-  font-size: 16px;
-  margin-bottom: 10px;
-}
+  .signup-page .btn {
+    font-size: 14px;
+    padding: 10px;
+  }
 
-.signup-page .customer-care p,
-.signup-page .account p,
-.signup-page .social-media p {
-  font-size: 14px;
-  margin-bottom: 8px;
-  color: #666; /* Abu-abu Sedang */
-}
+  .signup-page .terms {
+    font-size: 12px;
+  }
 
-/* Footer Bottom */
-.signup-page .footer-bottom {
-  margin-left: 75px;
-  margin-top: 20px;
-  font-size: 14px;
-  color: #666; /* Abu-abu Sedang */
-}
-
-/* Social Media Icons */
-.signup-page .social-icons {
-  display: flex;
-}
-
-.signup-page .social-icons a {
-  margin-right: 15px;
-}
-
-.signup-page .account {
-  text-decoration: none;
-}
-
-/* Untuk memastikan tampilan tetap konsisten di semua browser */
-.signup-page select:focus {
-  border-color: #B31312; /* Merah Gelap saat fokus */
-  outline: none;
-}
-
-.signup-page input[type="checkbox"] {
-  accent-color: white; /* Mengubah warna checkbox menjadi putih */
-}
-
-.signup-page select {
-  background-color: white;  /* Warna latar belakang putih */
-  color: black;  /* Warna teks hitam */
-  border: 1px solid #ccc; /* Border abu-abu muda */
-  padding: 10px;
-  border-radius: 5px;
-  font-size: 16px;
-  cursor: pointer;
-  appearance: none; /* Menghilangkan default style browser */
-}
-
-.signup-page input[type="checkbox"] {
-  width: 25px; /* Lebar dan tinggi sama */
-  background-color: white; /* Warna background putih */
-  border: 2px solid #B31312; /* Border merah gelap */
-  border-radius: 0; /* Menghilangkan sudut membulat agar persegi sempurna */
-  cursor: pointer;
-  appearance: none; /* Menghilangkan style default checkbox browser */
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  overflow: hidden;
-}
-
-.signup-page input[type="checkbox"]:checked {
-  background-color: #B31312; /* Merah Gelap saat dicentang */
-  border-color: #B31312;
-}
-
-.signup-page input[type="checkbox"]:checked::before {
-  content: "✔"; /* Menampilkan tanda centang */
-  color: white;
-  font-size: 12px; /* Ukuran centang */
-  font-weight: bold;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  .signup-page input[type="checkbox"] {
+    width: 12px;
+    height: 12px;
+  }
 }

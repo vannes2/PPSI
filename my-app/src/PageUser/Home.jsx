@@ -68,7 +68,6 @@ const Home = () => {
             </section>
 
             <div className="footer-separator"></div>
-
             {/* Footer */}
             <Footer />
         </div>
