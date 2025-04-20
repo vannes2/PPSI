@@ -19,7 +19,6 @@ import TambahArtikel from "./PageAdmin/TambahArtikel";
 import Artikel from "./PageUser/Artikel";
 import RegisterLawyerPage from "./PageLawyer/RegisterLawyerPage";
 
-
 function App() {
     return (
         <Router>

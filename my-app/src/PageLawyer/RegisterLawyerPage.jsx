@@ -7,19 +7,49 @@ import "../CSS_Lawyer/RegisterLawyerPage.css";
 const RegisterLawyerPage = () => {
   const navigate = useNavigate();
   const [formData, setFormData] = useState({});
+  const [error, setError] = useState("");
 
   const handleChange = (e) => {
     const { name, value, files, type } = e.target;
-    setFormData({
-      ...formData,
+    setFormData((prev) => ({
+      ...prev,
       [name]: type === "file" ? files[0] : value,
-    });
+    }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log("Data yang dikirim:", formData);
-    // Kirim data ke backend di sini
+    setError("");
+
+    if (formData.password !== formData.konfirmasi_password) {
+      setError("Password dan konfirmasi password tidak sama.");
+      return;
+    }
+
+    try {
+      const dataToSend = new FormData();
+      for (const key in formData) {
+        if (key !== "konfirmasi_password") {
+          dataToSend.append(key, formData[key]);
+        }
+      }
+
+      const response = await fetch("http://localhost:5000/api/lawyers/register", {
+        method: "POST",
+        body: dataToSend,
+      });
+
+      const result = await response.json();
+      if (!response.ok) {
+        throw new Error(result.message || "Pendaftaran gagal.");
+      }
+
+      alert("Pendaftaran berhasil! Silakan cek email untuk informasi selanjutnya.");
+      navigate("/login");
+    } catch (err) {
+      console.error("Error:", err);
+      setError(err.message);
+    }
   };
 
   return (
@@ -28,9 +58,9 @@ const RegisterLawyerPage = () => {
 
       <div className="register-lawyer-page">
         <h2 className="title">Pendaftaran Advokat</h2>
+        {error && <div className="error-message">{error}</div>}
         <form className="form-register-lawyer" onSubmit={handleSubmit}>
           <div className="container-form">
-
             {/* Row 1 */}
             <div className="container-form-row">
               <div className="form-group">
@@ -90,8 +120,20 @@ const RegisterLawyerPage = () => {
                 <input name="universitas" onChange={handleChange} required />
               </div>
               <div className="form-group">
-                <label>Tahun Lulus</label>
-                <input type="number" name="tahunLulus" onChange={handleChange} required />
+                <label>Pendidikan</label>
+                <input name="pendidikan" onChange={handleChange} required />
+              </div>
+            </div>
+
+            {/* Row 6 */}
+            <div className="container-form-row">
+              <div className="form-group">
+                <label>Spesialisasi</label>
+                <input name="spesialisasi" onChange={handleChange} placeholder="Contoh: Hukum Perdata, Hukum Pidana" required />
+              </div>
+              <div className="form-group">
+                <label>Pengalaman (dalam tahun)</label>
+                <input type="number" name="pengalaman" onChange={handleChange} required />
               </div>
             </div>
 
@@ -130,7 +172,7 @@ const RegisterLawyerPage = () => {
               </div>
               <div className="form-group">
                 <label>Konfirmasi Password</label>
-                <input type="password" name="konfirmasiPassword" onChange={handleChange} required />
+                <input type="password" name="konfirmasi_password" onChange={handleChange} required />
               </div>
             </div>
 
@@ -139,20 +181,18 @@ const RegisterLawyerPage = () => {
               <input type="checkbox" id="syarat" required />
               <label htmlFor="syarat">Saya menyetujui syarat dan ketentuan</label>
             </div>
-            {/* Informasi tambahan */}
-            <p className="info-pendaftaran">
-            Setelah Anda menekan tombol daftar, data akan diproses maksimal selama 3 hari kerja.
-            Notifikasi akan dikirimkan melalui email apabila akun Anda berhasil diproses.
-            </p>
-            {/* Submit */}
-            <button type="submit" className="submit-btn">Daftar</button>
+
+            <p className="info-pendaftaran">Setelah Anda menekan tombol daftar, data akan diproses maksimal selama 3 hari kerja. Notifikasi akan dikirimkan melalui email apabila akun Anda berhasil diproses.</p>
+
+            <button type="submit" className="submit-btn">
+              Daftar
+            </button>
           </div>
         </form>
       </div>
 
       <div className="footer-separator"></div>
-    {/* Footer */}
-    <Footer />
+      <Footer />
     </>
   );
 };
