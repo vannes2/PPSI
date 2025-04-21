@@ -214,6 +214,87 @@
   background-color: #7b0f0e; /* Merah lebih gelap */
 }
 
+/* Modal Popup Styling */
+.Login-page .popup-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 999;
+}
+
+.Login-page .popup-box {
+  background-color: #fff8f0;
+  padding: 30px;
+  border-radius: 15px;
+  max-width: 400px;
+  width: 90%;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+  text-align: center;
+}
+
+.Login-page .popup-box p {
+  font-size: 16px;
+  color: #333;
+  margin-bottom: 20px;
+}
+
+.Login-page .popup-box button {
+  background-color: #B31312;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 10px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.Login-page .popup-box button:hover {
+  background-color: #7b0f0e;
+}
+
+/* Perbesar ikon di popup */
+.Login-page .popup-icon {
+  font-size: 48px; /* Ukuran ikon lebih besar */
+  color: green; /* Opsional, bisa sesuaikan warna */
+  margin-bottom: 15px;
+}
+
+/* Perbesar teks pesan di popup */
+.Login-page .popup-message {
+  font-size: 20px; /* Ukuran teks pesan lebih besar */
+  font-weight: bold;
+  color: #333;
+}
+
+.Login-page .popup-icon {
+  width: 70px;
+  height: 70px;
+  background-color: #4CAF50; /* Warna latar belakang lingkaran (hijau untuk sukses) */
+  color: white;
+  font-size: 36px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 20px auto;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+}
+
+.input-error {
+  color: red;
+  font-size: 14px;
+  margin-top: -10px;
+  margin-bottom: 10px;
+}
+
+
 /* MOBILE */
 @media (max-width: 425px) {
   .Login-page .container {

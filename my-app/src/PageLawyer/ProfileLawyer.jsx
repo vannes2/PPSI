@@ -1,11 +1,11 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { User } from "lucide-react"; 
-import HeaderAfter from "../components/HeaderAfter";
+import HeaderLawyer from "../components/HeaderLawyer";
 import Footer from "../components/Footer";
 import "../CSS_User/Profil.css";
 
-const ProfileView = () => {
+const ProfileLawyer = () => {
   const navigate = useNavigate();
   const [showPopup, setShowPopup] = useState(false);
   const [profileData, setProfileData] = useState(null);
@@ -63,7 +63,7 @@ const ProfileView = () => {
 
   return (
     <div className="profile-page">
-      <HeaderAfter />
+      <HeaderLawyer />
       <br /><br />
       <div className="container">
         <div className="profile-container">
@@ -144,4 +144,4 @@ const ProfileView = () => {
   );
 };
 
-export default ProfileView;
+export default ProfileLawyer;

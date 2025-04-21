@@ -7,7 +7,14 @@ import "../CSS_User/Login.css";
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [popupMessage, setPopupMessage] = useState("");
+  const [showPopup, setShowPopup] = useState(false);
   const navigate = useNavigate();
+
+  const showPopupAlert = (message) => {
+    setPopupMessage(message);
+    setShowPopup(true);
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -24,25 +31,26 @@ const Login = () => {
       const result = await response.json();
 
       if (response.ok) {
-        alert("Login berhasil");
+        showPopupAlert("Login berhasil");
 
-        // Simpan user ke local storage
         localStorage.setItem("user", JSON.stringify(result.user));
 
-        // Redirect sesuai role
-        if (result.user.role === "admin") {
-          navigate("/HomeAdmin");
-        } else if (result.user.role === "user") {
-          navigate("/HomeAfter");
-        } else {
-          alert("Role tidak dikenal");
-        }
+        setTimeout(() => {
+          setShowPopup(false);
+          if (result.user.role === "admin") {
+            navigate("/HomeAdmin");
+          } else if (result.user.role === "user") {
+            navigate("/HomeAfter");
+          } else {
+            showPopupAlert("Role tidak dikenal");
+          }
+        }, 2000);
       } else {
-        alert(result.message);
+        showPopupAlert(result.message);
       }
     } catch (error) {
       console.error("Terjadi kesalahan:", error);
-      alert("Gagal terhubung ke server");
+      showPopupAlert("Gagal terhubung ke server");
     }
   };
 
@@ -96,6 +104,15 @@ const Login = () => {
 
       <div className="footer-separator"></div>
       <Footer />
+
+      {showPopup && (
+      <div className="popup-overlay">
+          <div className="popup-box">
+            <div className="popup-icon">✔</div>
+            <p className="popup-message">{popupMessage}</p>
+          </div>
+        </div>
+)}
     </div>
   );
 };

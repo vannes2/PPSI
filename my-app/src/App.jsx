@@ -18,6 +18,11 @@ import TambahPengacara from "./PageAdmin/TambahPengacara";
 import TambahArtikel from "./PageAdmin/TambahArtikel";
 import Artikel from "./PageUser/Artikel";
 import RegisterLawyerPage from "./PageLawyer/RegisterLawyerPage";
+import HomeLawyer from "./PageLawyer/HomeLawyer";
+import ArtikelLawyer from "./PageLawyer/ArtikelLawyer";
+import AboutLawyer from "./PageLawyer/AboutLawyer";
+import ProfileLawyer from "./PageLawyer/ProfileLawyer";
+// import KonsultasiLawyer from "./PageUser/konsultasiLawyer";
 
 function App() {
     return (
@@ -49,7 +54,12 @@ function App() {
                 <Route path="TambahPengacara" element={<TambahPengacara />}/>
                 <Route path="TambahArtikel" element={<TambahArtikel />}/>
                 <Route path="Artikel" element={<Artikel />}/>
-                <Route path="/RegisterLawyerPage" element={<RegisterLawyerPage />} />
+                <Route path="RegisterLawyerPage" element={<RegisterLawyerPage />} />
+                <Route path="HomeLawyer" element={<HomeLawyer />} />
+                <Route path="ArtikelLawyer" element={<ArtikelLawyer />} />
+                <Route path="AboutLawyer"element={<AboutLawyer />} />
+                <Route path="ProfileLawyer" element={<ProfileLawyer />} />
+                {/* <Route path="KonsultasiLawyer" element={<KonsultasiLawyer />}/> */}
             </Routes>
         </Router>
     );
