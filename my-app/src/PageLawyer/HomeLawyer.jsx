@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 
 const HomeLawyer = () => {
   return (
-    <div className="about-page-container">
+    <div className="HomeLawyer">
       {/* Header */}
       <HeaderLawyer />
 

@@ -2,8 +2,7 @@ import { useEffect, useState } from 'react';
 import io from 'socket.io-client';
 import HeaderLawyer from "../components/HeaderLawyer";
 import Footer from "../components/Footer";
-import '../CSS_Lawyer/HomeLawyer.css';
-import '../CSS_Lawyer/KonsultasiLawyer.css'; // Buat file ini untuk styling chat-nya
+import '../CSS_Lawyer/KonsultasiLawyer.css'; 
 
 const socket = io('http://localhost:3001'); // default koneksi ke backend sama origin
 

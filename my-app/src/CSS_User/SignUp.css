@@ -106,6 +106,12 @@
   margin-top: 50px;
 }
 
+.signup-page form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;  /* Atur jarak antar elemen form */
+}
+
 
 /* ======= POPUP SUCCESS ======= */
 .popup-overlay {
@@ -175,8 +181,7 @@
   }
 
   .signup-page .form-row {
-    flex-direction: column;
-    gap: 0;
+    display: block;
   }
 
   .signup-page .btn {
