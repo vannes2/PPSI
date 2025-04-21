@@ -16,7 +16,7 @@
   font-size: 16px;
   font-weight: bold;
   border-radius: 15px;
-  background-color: #B31312;
+  background-color: a#B31312;
   color: white;
   border: 2px solid #B31312;
   cursor: pointer;
@@ -286,14 +286,6 @@
   margin: 0 auto 20px auto;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
 }
-
-.input-error {
-  color: red;
-  font-size: 14px;
-  margin-top: -10px;
-  margin-bottom: 10px;
-}
-
 
 /* MOBILE */
 @media (max-width: 425px) {

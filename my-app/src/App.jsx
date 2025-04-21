@@ -22,7 +22,8 @@ import HomeLawyer from "./PageLawyer/HomeLawyer";
 import ArtikelLawyer from "./PageLawyer/ArtikelLawyer";
 import AboutLawyer from "./PageLawyer/AboutLawyer";
 import ProfileLawyer from "./PageLawyer/ProfileLawyer";
-// import KonsultasiLawyer from "./PageUser/konsultasiLawyer";
+import KonsultasiLawyer from "./PageLawyer/KonsultasiLawyer";
+import SelectUser from "./PageLawyer/selectUser";
 
 function App() {
     return (
@@ -57,9 +58,10 @@ function App() {
                 <Route path="RegisterLawyerPage" element={<RegisterLawyerPage />} />
                 <Route path="HomeLawyer" element={<HomeLawyer />} />
                 <Route path="ArtikelLawyer" element={<ArtikelLawyer />} />
-                <Route path="AboutLawyer"element={<AboutLawyer />} />
+                <Route path="AboutLawyer" element={<AboutLawyer />} />
                 <Route path="ProfileLawyer" element={<ProfileLawyer />} />
-                {/* <Route path="KonsultasiLawyer" element={<KonsultasiLawyer />}/> */}
+                <Route path="KonsultasiLawyer" element={<KonsultasiLawyer />} />
+                <Route path="SelectUser" element={<SelectUser />} />
             </Routes>
         </Router>
     );
