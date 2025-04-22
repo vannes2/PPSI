@@ -6,9 +6,10 @@
   font-family: Arial, sans-serif;
 }
 
-body {
-  background-color: #f4f4f4;
-  color: #B31312;
+.profile-page {
+  background-color: #fefff0;
+  min-height: 100vh;
+  padding: 20px 0;
 }
 
 /* Header Styling (Sama seperti Home Page) */
@@ -168,7 +169,10 @@ label {
 }
 
 /* Input Fields */
-input {
+input,
+select,
+textarea {
+  width: 500px;
   padding: 10px;
   border: 1px solid #000000;
   border-radius: 5px;

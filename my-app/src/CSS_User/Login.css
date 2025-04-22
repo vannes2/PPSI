@@ -12,6 +12,12 @@
   font-family: Arial, sans-serif;
 }
 
+.Login-page {
+  background-color: #fefff0;
+  min-height: 100vh;
+}
+
+
 /* Drawer Masuk Button */
 .Login-page .drawer-profile-btn button {
   padding: 10px 25px;
@@ -31,7 +37,7 @@
 }
 
 .Login-page body {
-  background-color: #f4f4f4; /* Abu-abu terang */
+  background-color: #ffffff; /* Abu-abu terang */
 }
 
 .Login-page .container {

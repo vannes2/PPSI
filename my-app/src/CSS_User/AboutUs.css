@@ -2,6 +2,12 @@
   /* === ABOUT PAGE SECTION   === */
   /* ============================= */
   
+  .about-page-container {
+    background-color: #fefff0;
+    min-height: 100vh;
+    padding: 20px 0;
+  }
+
   .about-page-container main section {
     background-color: #fefff0;
     background-image: url('/assets/images/bgaboutus.png');

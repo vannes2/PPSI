@@ -178,11 +178,11 @@ const ProfileEdit = () => {
                     }
                   />
                 </div>
-              </div>
-
+                
               <button type="button" className="save-btn" onClick={handleSave}>
                 Simpan
               </button>
+              </div>
             </form>
             {isSaved && <p className="save-message">Profil berhasil disimpan!</p>}
           </div>

@@ -1,7 +1,7 @@
 /* ------------------------------------------ */
 /* LAYOUT DASAR */
 /* ------------------------------------------ */
-.dashboard-wrapper {
+.Tambah-Artikel .dashboard-wrapper {
   display: flex;
   min-height: 100vh;
   overflow-x: hidden;
@@ -10,79 +10,10 @@
   box-sizing: border-box;
 }
 
-body {
-  background-color: #f3f4f6;
-}
-
-/* ------------------------------------------ */
-/* SIDEBAR */
-/* ------------------------------------------ */
-.dashboard-sidebar {
-  width: 240px;
-  background: #1f2937;
-  color: white;
-  padding: 20px;
-  flex-shrink: 0;
-  display: flex;
-  flex-direction: column;
-  box-sizing: border-box;
-  min-height: 100vh;
-}
-
-.dashboard-sidebar h2 {
-  font-size: 24px;
-  font-weight: bold;
-  margin-bottom: 40px;
-  text-align: center;
-}
-
-.dashboard-sidebar ul {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-}
-
-.dashboard-sidebar li {
-  display: flex;
-}
-
-.dashboard-sidebar a,
-.dashboard-sidebar button {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  padding: 12px 16px;
-  color: white;
-  background: none;
-  border: none;
-  width: 100%;
-  text-align: left;
-  border-radius: 8px;
-  cursor: pointer;
-  font-size: 16px;
-  font-weight: 500;
-  transition: background-color 0.3s ease;
-  text-decoration: none;
-}
-
-.dashboard-sidebar a:hover,
-.dashboard-sidebar button:hover,
-.nav-active {
-  background-color: #374151;
-}
-
-.dashboard-sidebar a i,
-.dashboard-sidebar button i {
-  font-size: 18px;
-}
-
 /* ------------------------------------------ */
 /* KONTEN UTAMA */
 /* ------------------------------------------ */
-.dashboard-content {
+.Tambah-Artikel .dashboard-content {
   flex-grow: 1;
   padding: 24px;
   background-color: #f3f4f6;
@@ -91,85 +22,31 @@ body {
 }
 
 /* ------------------------------------------ */
-/* TOOLBAR */
-/* ------------------------------------------ */
-.toolbar {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 10px;
-  margin-bottom: 20px;
-}
-
-.search-input {
-  flex: 1;
-  min-width: 180px;
-  padding: 10px;
-  border: 1px solid #ccc;
-  border-radius: 6px;
-  font-size: 14px;
-  background-color: #f3f4f6;
-}
-
-/* BUTTONS */
-.btn-primary,
-.btn-refresh {
-  padding: 8px 16px;
-  font-weight: 600;
-  font-size: 14px;
-  border: none;
-  border-radius: 6px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  cursor: pointer;
-  transition: background-color 0.3s, transform 0.2s;
-}
-
-.btn-primary {
-  background-color: #3b82f6;
-  color: white;
-}
-
-.btn-primary:hover {
-  background-color: #2563eb;
-  transform: scale(1.05);
-}
-
-.btn-refresh {
-  background-color: #111827;
-  color: white;
-}
-
-.btn-refresh:hover {
-  background-color: #1f2937;
-  transform: scale(1.05);
-}
-
-/* ------------------------------------------ */
 /* TABEL */
 /* ------------------------------------------ */
-.table-wrapper {
+.Tambah-Artikel .table-wrapper {
   overflow-x: auto;
   background-color: transparent;
   border-radius: 8px;
   box-shadow: none;
 }
 
-.table-wrapper table {
+.Tambah-Artikel .table-wrapper table {
   width: 100%;
   border-collapse: collapse;
   min-width: 800px;
   background-color: transparent;
 }
 
-.table-wrapper thead {
+.Tambah-Artikel .table-wrapper thead {
   background-color: #e5e7eb;
   position: sticky;
   top: 0;
   z-index: 1;
 }
 
-.table-wrapper th,
-.table-wrapper td {
+.Tambah-Artikel .table-wrapper th,
+.Tambah-Artikel .table-wrapper td {
   border: 1px solid #ddd;
   padding: 10px 14px;
   text-align: left;
@@ -178,52 +55,14 @@ body {
   background-color: #f3f4f6;
 }
 
-.table-wrapper tbody tr:hover {
+.Tambah-Artikel .table-wrapper tbody tr:hover {
   background-color: #e5e7eb;
-}
-
-/* ------------------------------------------ */
-/* AKSI TABEL */
-/* ------------------------------------------ */
-.table-actions {
-  display: flex;
-  gap: 6px;
-  justify-content: center;
-  flex-wrap: wrap;
-}
-
-.table-actions button {
-  padding: 6px 12px;
-  font-size: 13px;
-  font-weight: 500;
-  border: none;
-  border-radius: 4px;
-  color: white;
-  cursor: pointer;
-  transition: transform 0.2s ease-in-out, opacity 0.2s;
-}
-
-.btn-view {
-  background-color: #3b82f6;
-}
-
-.btn-edit {
-  background-color: #06b6d4;
-}
-
-.btn-delete {
-  background-color: #ef4444;
-}
-
-.table-actions button:hover {
-  transform: scale(1.05);
-  opacity: 0.9;
 }
 
 /* ------------------------------------------ */
 /* FORM TAMBAH ARTIKEL */
 /* ------------------------------------------ */
-.form-artikel {
+.Tambah-Artikel .form-artikel {
   display: flex;
   flex-direction: column;
   gap: 16px;
@@ -235,8 +74,8 @@ body {
   margin-top: 20px;
 }
 
-.form-artikel input,
-.form-artikel textarea {
+.Tambah-Artikel .form-artikel input,
+.Tambah-Artikel .form-artikel textarea {
   background-color: #f3f4f6; /* Ganti dari putih */
   color: #111827;
   border: 1px solid #ccc;
@@ -246,56 +85,137 @@ body {
   transition: border 0.3s ease;
 }
 
-input[type="file"] {
+.Tambah-Artikel input[type="file"] {
   background-color: #f3f4f6; /* Ganti warna file input juga */
   color: #111827;
+}
+
+/* ------------------------------------------ */
+/* LAYOUT TAMBAH ARTIKEL - PUSATKAN FORM */
+/* ------------------------------------------ */
+.Tambah-Artikel .dashboard-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  overflow-x: hidden;
+  font-family: sans-serif;
+  background-color: #f3f4f6;
+  box-sizing: border-box;
+}
+
+.Tambah-Artikel .dashboard-content {
+  flex-grow: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 24px;
+  background-color: #f3f4f6;
+  overflow-x: auto;
+  box-sizing: border-box;
+}
+
+/* ------------------------------------------ */
+/* FORM TAMBAH ARTIKEL - PUSATKAN FORM */
+/* ------------------------------------------ */
+.Tambah-Artikel .form-artikel {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  background-color: #e5e7eb; /* Ganti dari putih */
+  padding: 24px;
+  border-radius: 8px;
+  box-shadow: none; /* Hilangkan efek putih dari shadow */
+  max-width: 600px;
+  margin: 0;
+  width: 100%;
+}
+
+/* ------------------------------------------ */
+/* LAYOUT TAMBAH ARTIKEL - LEBIH DEMPET KE SIDEBAR */
+/* ------------------------------------------ */
+.Tambah-Artikel .admin-container {
+  display: flex;
+  min-height: 100vh;
+  background-color: #f3f4f6;
+}
+
+.Tambah-Artikel .admin-content {
+  flex-grow: 1;
+  padding: 20px;
+  margin-left: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center; /* Dari center jadi start */
+}
+
+.Tambah-Artikel .admin-content {
+  padding-top: 40px;
+}
+
+
+.Tambah-Artikel .form-artikel {
+  margin-top: 0px; /* Tambahan margin dari atas */
+}
+
+
+/* FORM TETAP DI TENGAH DALAM MAIN */
+.Tambah-Artikel .form-artikel {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  background-color: #e5e7eb;
+  padding: 24px;
+  border-radius: 8px;
+  max-width: 600px;
+  width: 100%;
 }
 
 /* ------------------------------------------ */
 /* RESPONSIVENESS */
 /* ------------------------------------------ */
 @media (max-width: 1024px) {
-  .table-wrapper table {
+  .Tambah-Artikel .table-wrapper table {
     min-width: 100%;
   }
 }
 
 @media (max-width: 768px) {
-  .dashboard-content {
+  .Tambah-Artikel .dashboard-content {
     padding: 16px;
   }
 
-  .toolbar {
+  .Tambah-Artikel .toolbar {
     flex-direction: column;
     align-items: stretch;
   }
 
-  .search-input {
+  .Tambah-Artikel .search-input {
     width: 100%;
   }
 
-  .table-wrapper {
+  .Tambah-Artikel .table-wrapper {
     border-radius: 0;
   }
 
-  .form-artikel {
+  .Tambah-Artikel .form-artikel {
     padding: 16px;
     max-width: 100%;
   }
 }
 
 @media (max-width: 480px) {
-  .table-wrapper table {
+  .Tambah-Artikel .table-wrapper table {
     min-width: 600px;
   }
 
-  .table-wrapper th,
-  .table-wrapper td {
+  .Tambah-Artikel .table-wrapper th,
+  .Tambah-Artikel .table-wrapper td {
     font-size: 12px;
     padding: 8px 10px;
   }
 
-  .table-actions button {
+  .Tambah-Artikel .table-actions button {
     padding: 5px 10px;
     font-size: 12px;
   }
