@@ -4,8 +4,8 @@
   font-weight: 400;
 
   color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
+  color: rgba(33, 53, 71, 1);
+  background-color: #ffffff;
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
@@ -16,7 +16,7 @@
 a {
   font-weight: 500;
   color: #646cff;
-  text-decoration: inherit;
+  text-decoration: none;
 }
 a:hover {
   color: #535bf2;
@@ -25,19 +25,28 @@ a:hover {
 body {
   margin: 0;
   width: 100%;
-  min-height: 200vh; /* Diperbesar agar halaman terasa lebih panjang */
+  min-height: 100vh;
   overflow-x: hidden;
   display: flex;
   flex-direction: column;
+  background-color: #f9f9f9;
 }
 
 #root {
   display: flex;
   flex-direction: column;
-  min-height: 200vh; /* Sama dengan body agar mengikuti tingginya */
-  max-width: 1600px; /* Membuatnya lebih lebar */
-  margin: 0 auto; /* Tengahin konten */
+  min-height: 100vh;
+  width: 100%; /* Ubah dari max-width: 1200px menjadi 100% */
+  margin: 0;
+  padding: 0;
+}
+
+/* Jika butuh container tengah yang responsive, gunakan class terpisah */
+.container {
   width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1rem;
 }
 
 main {
@@ -46,12 +55,15 @@ main {
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 2rem; /* Tambahan ruang agar tidak terlalu sempit */
+  padding: 2rem 1rem;
 }
 
 h1 {
-  font-size: 3.6em; /* Sedikit lebih besar */
-  line-height: 1.1;
+  font-size: 2.5em;
+  line-height: 1.2;
+  text-align: center;
+  margin-bottom: 1rem;
+  color: #213547;
 }
 
 button {
@@ -62,6 +74,7 @@ button {
   font-weight: 500;
   font-family: inherit;
   background-color: #1a1a1a;
+  color: white;
   cursor: pointer;
   transition: border-color 0.25s;
 }
@@ -78,11 +91,29 @@ button:focus-visible {
     color: #213547;
     background-color: #ffffff;
   }
+
   a:hover {
     color: #747bff;
   }
+
   button {
     background-color: #f9f9f9;
+    color: #213547;
   }
 }
 
+/* Responsive layout */
+@media (max-width: 768px) {
+  h1 {
+    font-size: 2em;
+  }
+
+  main {
+    padding: 1.5rem 1rem;
+  }
+
+  button {
+    padding: 0.5em 1.2em;
+    font-size: 0.9em;
+  }
+}

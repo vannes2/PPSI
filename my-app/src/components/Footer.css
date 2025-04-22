@@ -1,38 +1,44 @@
-/* Footer Styles */
-footer {
-    background-color: #fefff0;
-    line-height: 1.5;
-    padding: 20px 0;
+/* Global Reset */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
 }
 
-/* Thicker Footer Separator Line */
-.footer-separator {
+/* Wrapper to force full width */
+.footer-wrapper {
     width: 100%;
-    height: 10px;
-    background-color: #B31312;
+    background-color: #fefff0;
 }
 
-/* Main Footer Container */
+/* Footer Background (penuh layar) */
+.footer-background {
+    width: 100%;
+    background-color: #fefff0;
+    padding: 40px 0;
+}
+
+/* Container content tetap tengah dan max width */
 .footer-container {
-    max-width: 1500px;
+    max-width: 1300px;
     margin: 0 auto;
-    padding: 20px 75px;
+    padding: 0 40px;
     display: flex;
     flex-direction: column;
     gap: 30px;
 }
 
-/* Footer Logo */
+/* Logo */
 .footer-logo {
     text-align: left;
 }
 
 .footer-logo img {
-    width: 150px;
-    margin-top: 10px;
+    width: 140px;
+    margin-top: 5px;
 }
 
-/* Footer Content (3 columns, horizontal on desktop) */
+/* Main content area */
 .footer-content {
     display: flex;
     justify-content: space-between;
@@ -40,13 +46,12 @@ footer {
     gap: 40px;
 }
 
-/* Individual Footer Sections */
 .customer-care,
 .account,
 .social-media {
     flex: 1;
-    min-width: 200px;
-    text-align: left;
+    min-width: 250px;
+    max-width: 100%;
 }
 
 .customer-care h3,
@@ -54,7 +59,7 @@ footer {
 .social-media h3 {
     font-size: 16px;
     margin-bottom: 10px;
-    color: #3b3b3b;
+    color: #333;
 }
 
 .customer-care p,
@@ -62,14 +67,26 @@ footer {
 .social-media p {
     font-size: 14px;
     margin-bottom: 8px;
-    color: #666;
+    color: #555;
 }
 
-/* Social Media Icons */
+/* Link Styling */
+.account a,
+.social-media a {
+    color: #3b3b3b;
+    text-decoration: none;
+}
+
+.account a:hover,
+.social-media a:hover {
+    text-decoration: underline;
+}
+
+/* Social media icon styling */
 .social-icons {
     display: flex;
     gap: 15px;
-    justify-content: flex-start;
+    margin-top: 8px;
 }
 
 .social-icons a img {
@@ -77,30 +94,33 @@ footer {
     height: 24px;
 }
 
-/* Footer Bottom (Copyright) */
+/* Footer Bottom */
 .footer-bottom {
+    width: 100%;
+    background-color: #fefff0;
+    border-top: 1px solid #ddd;
     text-align: center;
-    font-size: 14px;
-    color: #666;
-    padding-top: 20px;
+    padding: 20px 0;
+    font-size: 13px;
+    color: #777;
 }
 
 /* ============================ */
-/* === RESPONSIVE FOR MOBILE === */
+/* === RESPONSIVE BREAKPOINTS === */
 /* ============================ */
 @media (max-width: 768px) {
     .footer-container {
-        padding: 20px 20px;
-    }
-
-    .footer-logo {
-        text-align: left;
+        padding: 0 20px;
     }
 
     .footer-content {
         flex-direction: column;
         align-items: flex-start;
-        gap: 20px;
+        gap: 30px;
+    }
+
+    .footer-logo {
+        text-align: center;
     }
 
     .customer-care,
@@ -109,12 +129,33 @@ footer {
         width: 100%;
     }
 
-    .social-icons {
-        justify-content: flex-start;
+    .footer-bottom {
+        font-size: 12px;
+    }
+}
+
+@media (max-width: 480px) {
+    .footer-logo img {
+        width: 120px;
+    }
+
+    .footer-container {
+        padding: 0 15px;
+    }
+
+    .customer-care h3,
+    .account h3,
+    .social-media h3 {
+        font-size: 15px;
+    }
+
+    .customer-care p,
+    .account p,
+    .social-media p {
+        font-size: 13px;
     }
 
     .footer-bottom {
-        text-align: center;
-        padding-top: 20px;
+        font-size: 11px;
     }
 }
