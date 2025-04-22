@@ -31,54 +31,54 @@ const Login = () => {
       const result = await response.json();
 
       if (response.ok) {
-        showPopupAlert("Login berhasil");
+        if (result.user && result.user.role) {
+          showPopupAlert("Login berhasil");
 
-        localStorage.setItem("user", JSON.stringify(result.user));
+          localStorage.setItem("user", JSON.stringify(result.user));
 
-        setTimeout(() => {
-          setShowPopup(false);
-          if (result.user.role === "admin") {
-            navigate("/HomeAdmin");
-          } else if (result.user.role === "user") {
-            navigate("/HomeAfter");
-          } else {
-            showPopupAlert("Role tidak dikenal");
-          }
-        }, 2000);
+          setTimeout(() => {
+            setShowPopup(false);
+
+            const userRole = result.user.role?.toLowerCase().trim();
+
+            if (userRole === "admin") {
+              navigate("/HomeAdmin");
+            } else if (userRole === "user") {
+              navigate("/HomeAfter");
+            } else if (userRole === "pengacara") {
+              navigate("/HomeLawyer");
+            } else {
+              showPopupAlert("Role tidak dikenal");
+            }
+          }, 2000);
+        } else {
+          showPopupAlert("Login gagal: data user tidak valid.");
+        }
       } else {
-        showPopupAlert(result.message);
+        showPopupAlert(result.message || "Login gagal, silakan cek data Anda.");
       }
     } catch (error) {
       console.error("Terjadi kesalahan:", error);
-      showPopupAlert("Gagal terhubung ke server");
+      showPopupAlert("Gagal terhubung ke server.");
     }
   };
 
   return (
     <div className="Login-page">
       <Header />
-      <br/><br/><br/><br/>
+      <br />
+      <br />
+      <br />
+      <br />
       <div className="container">
         <div className="main">
           <div className="login">
             <h2>Selamat Datang Kembali</h2>
             <form onSubmit={handleSubmit}>
               <p>E-mail</p>
-              <input
-                type="email"
-                placeholder="Input your email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                required
-              />
+              <input type="email" placeholder="Input your email" value={email} onChange={(e) => setEmail(e.target.value)} required />
               <p>Kata sandi</p>
-              <input
-                type="password"
-                placeholder="Input your password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                required
-              />
+              <input type="password" placeholder="Input your password" value={password} onChange={(e) => setPassword(e.target.value)} required />
               <Link to="/forgotpass" className="login-admin">
                 Lupa Password anda? Klik di sini
               </Link>
@@ -104,16 +104,21 @@ const Login = () => {
       </div>
 
       {showPopup && (
-      <div className="popup-overlay">
+        <div className="popup-overlay">
           <div className="popup-box">
             <div className="popup-icon">✔</div>
             <p className="popup-message">{popupMessage}</p>
           </div>
         </div>
-)}
-<br/><br/><br/><br/><br/>
-<div className="footer-separator"></div>
-<Footer />
+      )}
+
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <div className="footer-separator"></div>
+      <Footer />
     </div>
   );
 };
