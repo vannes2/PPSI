@@ -55,8 +55,8 @@ const RegisterLawyerPage = () => {
   return (
     <>
       <HeaderAfter />
-
       <div className="register-lawyer-page">
+      <br/><br/><br/><br/><br/>
         <h2 className="title">Pendaftaran Advokat</h2>
         {error && <div className="error-message">{error}</div>}
         <form className="form-register-lawyer" onSubmit={handleSubmit}>

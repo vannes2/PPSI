@@ -83,16 +83,16 @@
 }
 
 /* Social media icon styling */
-.social-icons {
-    display: flex;
-    gap: 15px;
-    margin-top: 8px;
+.social-icons a {
+    margin-right: 10px;
+    color: black; /* Atau warna yang kamu inginkan */
+    transition: color 0.3s;
 }
 
-.social-icons a img {
-    width: 24px;
-    height: 24px;
+.social-icons a:hover {
+    color: gray; /* Warna saat hover */
 }
+
 
 /* Footer Bottom */
 .footer-bottom {

@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import { FaInstagram, FaTwitter, FaYoutube } from "react-icons/fa";
 import "./Footer.css";
 
 const Footer = () => {
@@ -27,9 +28,9 @@ const Footer = () => {
                         <div className="social-media">
                             <h3>Ikuti Kami:</h3>
                             <div className="social-icons">
-                                <a href="#"><img src="/assets/images/instagram.png" alt="Instagram" /></a>
-                                <a href="#"><img src="/assets/images/twt.png" alt="Twitter" /></a>
-                                <a href="#"><img src="/assets/images/yt.png" alt="YouTube" /></a>
+                                <a href="https://instagram.com/cerdashukum" target="_blank" rel="noopener noreferrer"><FaInstagram size={34} /></a>
+                                <a href="#" target="_blank" rel="noopener noreferrer"><FaTwitter size={34} /></a>
+                                <a href="#" target="_blank" rel="noopener noreferrer"><FaYoutube size={34} /></a>
                             </div>
                         </div>
                     </div>
