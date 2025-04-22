@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { FaGavel, FaHome, FaFileAlt } from "react-icons/fa";
 import "../CSS_Admin/Pengacara.css";
 
+
 const TambahArtikel = () => {
   const [judul, setJudul] = useState("");
   const [deskripsi, setDeskripsi] = useState("");
@@ -21,7 +22,7 @@ const TambahArtikel = () => {
     const formData = new FormData();
     formData.append("judul", judul);
     formData.append("deskripsi", deskripsi);
-    formData.append("file", filePdf); // 'file' sesuai dengan multer field name
+    formData.append("file", filePdf);
 
     try {
       await axios.post("http://localhost:5000/api/artikel", formData, {
@@ -31,7 +32,6 @@ const TambahArtikel = () => {
       });
 
       alert("Artikel berhasil ditambahkan!");
-      // Reset form setelah submit
       setJudul("");
       setDeskripsi("");
       setFilePdf(null);
@@ -42,46 +42,46 @@ const TambahArtikel = () => {
   };
 
   return (
-    <div className="admin-container flex">
+    <div className="dashboard-wrapper">
       {/* Sidebar */}
-      <aside className="sidebar">
+      <aside className="dashboard-sidebar">
         <h2>Admin Panel</h2>
         <ul>
-          <li className={activeTab === "dashboard" ? "bg-gray-700" : ""}>
+          <li className={activeTab === "dashboard" ? "nav-active" : ""}>
             <button
               onClick={() => {
                 setActiveTab("dashboard");
                 navigate("/HomeAdmin");
               }}
             >
-              <FaHome className="mr-2" /> Dashboard
+              <FaHome /> Dashboard
             </button>
           </li>
-          <li className={activeTab === "pengacara" ? "bg-gray-700" : ""}>
+          <li className={activeTab === "pengacara" ? "nav-active" : ""}>
             <button
               onClick={() => {
                 setActiveTab("pengacara");
                 navigate("/HomeAdmin");
               }}
             >
-              <FaGavel className="mr-2" /> Pengacara
+              <FaGavel /> Pengacara
             </button>
           </li>
-          <li className={activeTab === "tambahArtikel" ? "bg-gray-700" : ""}>
+          <li className={activeTab === "tambahArtikel" ? "nav-active" : ""}>
             <button
               onClick={() => {
                 setActiveTab("tambahArtikel");
                 navigate("/TambahArtikel");
               }}
             >
-              <FaFileAlt className="mr-2" /> Tambah Artikel
+              <FaFileAlt /> Tambah Artikel
             </button>
           </li>
         </ul>
       </aside>
 
       {/* Main Content */}
-      <main className="content">
+      <main className="dashboard-content">
         <h2>Tambah Artikel Baru</h2>
         <form
           onSubmit={handleSubmit}
@@ -118,7 +118,7 @@ const TambahArtikel = () => {
 
           <button
             type="submit"
-            className="bg-blue-500 text-white px-4 py-2 rounded shadow-md hover:bg-blue-600"
+            className="btn-primary"
           >
             Simpan Artikel
           </button>
