@@ -27,7 +27,7 @@ const Home = () => {
         <div className="home-before-page">
             {/* Navbar */}
             <Header />
-
+            <br/><br/><br/>
             {/* Hero Section */}
             <section className="hero">
                 <div className="hero-text">

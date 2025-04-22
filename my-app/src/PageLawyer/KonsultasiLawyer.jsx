@@ -41,9 +41,10 @@ const KonsultasiLawyer = () => {
     <div className="about-page-container">
       {/* Header */}
       <HeaderLawyer />
-
+      <br/><br/><br/><br/><br/><br/><br/><br/>
       {/* Chat Container */}
       <div className="chat-container">
+      <br/><br/><br/><br/>
         <ul id="messages">
           {messages.map((data, index) => {
             const isSelf = data.username === username;
@@ -88,7 +89,7 @@ const KonsultasiLawyer = () => {
           <button type="submit">Send</button>
         </form>
       </div>
-
+      <br/><br/><br/><br/><br/><br/><br/><br/>
       {/* Footer */}
       <div className="footer-separator"></div>
       <Footer />

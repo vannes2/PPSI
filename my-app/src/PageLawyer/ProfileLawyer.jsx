@@ -64,7 +64,7 @@ const ProfileLawyer = () => {
   return (
     <div className="profile-page">
       <HeaderLawyer />
-      <br /><br />
+      <br /><br /><br/><br/><br/><br/>
       <div className="container">
         <div className="profile-container">
           <div className="profile-sidebar">

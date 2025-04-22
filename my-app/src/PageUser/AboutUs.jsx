@@ -8,7 +8,7 @@ const AboutUs = () => {
       {/* header */}
       <Header />
 
-      <br></br>
+      <br></br>   <br/><br/><br/> 
 
       <main>
         <section>
@@ -27,9 +27,10 @@ const AboutUs = () => {
           </div>
         </section>
       </main>
-
-      <div className="footer-separator"></div>
-      {/* Footer */}
+    {/* Footer */}
+    <br/><br/><br/> 
+    
+    <div className="footer-separator"></div>
       <Footer />
     </div>
   );

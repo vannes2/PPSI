@@ -31,7 +31,7 @@ const Artikel = () => {
   return (
     <div>
       <HeaderAfter />
-      <br />
+      <br /><br/><br/><br/><br/>
       <h1 className="text-3xl font-bold mb-6 artikel-heading text-center">
         Daftar Artikel
       </h1>
@@ -76,8 +76,9 @@ const Artikel = () => {
         </div>
       )}
 
-      <br />
+      <br /><br/><br/><br/><br/>
       <div className="footer-separator"></div>
+
       <Footer />
     </div>
   );

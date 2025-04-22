@@ -8,8 +8,7 @@ const AboutLawyer = () => {
       {/* header */}
       <HeaderLawyer />
 
-      <br></br>
-
+      <br></br><br/><br/><br/><br/>
       <main>
         <section>
           <div className="about-us">

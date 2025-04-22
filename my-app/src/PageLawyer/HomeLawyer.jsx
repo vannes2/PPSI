@@ -11,6 +11,7 @@ const HomeLawyer = () => {
 
       {/* Hero Section */}
       <section className="hero-lawyer">
+      <br/><br/><br/><br/><br/><br/><br/>
         <div className="hero-content">
           <h1>Selamat Datang, Pengacara Profesional</h1>
           <p>Gabung bersama platform kami untuk membantu masyarakat mendapatkan konsultasi hukum yang mudah dan cepat.</p>

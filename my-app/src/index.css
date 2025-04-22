@@ -25,7 +25,7 @@ a:hover {
 body {
   margin: 0;
   width: 100%;
-  min-height: 100vh;
+  min-height: 200vh; /* Diperbesar agar halaman terasa lebih panjang */
   overflow-x: hidden;
   display: flex;
   flex-direction: column;
@@ -34,7 +34,10 @@ body {
 #root {
   display: flex;
   flex-direction: column;
-  min-height: 100vh;
+  min-height: 200vh; /* Sama dengan body agar mengikuti tingginya */
+  max-width: 1600px; /* Membuatnya lebih lebar */
+  margin: 0 auto; /* Tengahin konten */
+  width: 100%;
 }
 
 main {
@@ -43,17 +46,18 @@ main {
   display: flex;
   flex-direction: column;
   align-items: center;
+  padding: 2rem; /* Tambahan ruang agar tidak terlalu sempit */
 }
 
 h1 {
-  font-size: 3.2em;
+  font-size: 3.6em; /* Sedikit lebih besar */
   line-height: 1.1;
 }
 
 button {
   border-radius: 8px;
   border: 1px solid transparent;
-  padding: 0.6em 1.2em;
+  padding: 0.6em 1.5em;
   font-size: 1em;
   font-weight: 500;
   font-family: inherit;
@@ -81,3 +85,4 @@ button:focus-visible {
     background-color: #f9f9f9;
   }
 }
+

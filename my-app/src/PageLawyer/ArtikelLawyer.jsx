@@ -31,7 +31,7 @@ const ArtikelLawyer = () => {
   return (
     <div>
       <HeaderLawyer />
-      <br />
+      <br /><br/><br/><br/><br/>
       <h1 className="text-3xl font-bold mb-6 artikel-heading text-center">
         Daftar Artikel
       </h1>

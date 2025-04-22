@@ -57,6 +57,7 @@ const Login = () => {
   return (
     <div className="Login-page">
       <Header />
+      <br/><br/><br/><br/>
       <div className="container">
         <div className="main">
           <div className="login">
@@ -102,9 +103,6 @@ const Login = () => {
         </div>
       </div>
 
-      <div className="footer-separator"></div>
-      <Footer />
-
       {showPopup && (
       <div className="popup-overlay">
           <div className="popup-box">
@@ -113,6 +111,9 @@ const Login = () => {
           </div>
         </div>
 )}
+<br/><br/><br/><br/><br/>
+<div className="footer-separator"></div>
+<Footer />
     </div>
   );
 };

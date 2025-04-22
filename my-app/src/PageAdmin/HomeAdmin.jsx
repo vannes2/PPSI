@@ -66,7 +66,6 @@ const HomeAdmin = () => {
         onTabChange={setActiveTab}
         onNavigate={navigate}
       />
-
       {/* Main Content */}
       <main className="dashboard-content">
         {activeTab === "pengacara" && (

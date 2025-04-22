@@ -49,7 +49,7 @@ const SignUp = () => {
   return (
     <div className="signup-page">
       <Header />
-
+      <br/><br/><br/><br/>
       <section>
         <div className="signup-title">
           <h1>Buat Akun</h1>
@@ -173,6 +173,7 @@ const SignUp = () => {
       )}
 
       <div className="footer-separator"></div>
+      
       <Footer />
     </div>
   );

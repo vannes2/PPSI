@@ -17,7 +17,7 @@ const HomeAfter = () => {
     return (
         <div className="home-before-page">
             <HeaderAfter />
-
+            <br/><br/><br/>
             {/* Hero Section */}
             <section className="hero">
                 <div className="hero-text">

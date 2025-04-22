@@ -1,3 +1,7 @@
+:root {
+  --header-height: 100px;
+}
+
 /* Reset dan Font Styling */
 * {
   margin: 0;
@@ -6,29 +10,30 @@
   font-family: Arial, sans-serif;
 }
 
+/* Body */
 body {
   background-color: #f4f4f4;
   color: #B31312;
-  padding-top: 120px; /* Tambahan agar konten tidak ketimpa header */
 }
 
+/* HEADER */
 header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  background-color: #fff;
-  padding: 15px 30px;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-  width: 100%;
-  position: fixed;     /* Sticky navbar */
+  position: fixed;
   top: 0;
   left: 0;
   right: 0;
+  height: var(--header-height);
+  background-color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 20px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
   z-index: 1000;
   transition: box-shadow 0.3s ease-in-out;
 }
 
-/* LEFT SIDE */
+/* Header Left Section */
 .header-left {
   display: flex;
   align-items: center;
@@ -36,8 +41,8 @@ header {
 }
 
 .logo img {
-  width: 100px;
-  height: 100px;
+  width: 80px;
+  height: 80px;
 }
 
 /* HAMBURGER ICON */
@@ -68,7 +73,7 @@ header {
   transform: rotate(-45deg) translate(5px, -5px);
 }
 
-/* DRAWER (RIGHT SLIDE MENU) */
+/* DRAWER MENU */
 nav.drawer {
   position: fixed;
   top: 0;
@@ -76,8 +81,8 @@ nav.drawer {
   height: 100vh;
   width: 250px;
   background-color: #fff;
-  box-shadow: -2px 0 10px rgba(0,0,0,0.1);
-  padding-top: 100px;
+  box-shadow: -2px 0 10px rgba(0, 0, 0, 0.1);
+  padding-top: var(--header-height);
   transition: right 0.3s ease-in-out;
   z-index: 999;
 }
@@ -106,6 +111,7 @@ nav.drawer ul li a:hover {
   color: #ffc6c6;
 }
 
+/* Buttons */
 .drawer-profile-btn button,
 .auth-buttons button {
   background-color: #B31312;
@@ -124,12 +130,17 @@ nav.drawer ul li a:hover {
   color: #B31312;
 }
 
-/* AUTH BUTTON (Desktop only) */
 .auth-buttons {
   margin-left: auto;
 }
 
-/* Responsive */
+/* MAIN CONTENT */
+.main-content {
+  margin-top: var(--header-height); /* Menghindari ketutupan header */
+  padding: 20px;
+}
+
+/* RESPONSIVE STYLES */
 @media (max-width: 768px) {
   .hamburger {
     display: flex;
@@ -145,6 +156,56 @@ nav.drawer ul li a:hover {
 
   nav.drawer.active {
     right: 0;
+  }
+
+  .header-left {
+    gap: 300px;
+    padding-left: 20px;
+  }
+
+  nav.drawer ul li a {
+    font-size: 15px;
+  }
+}
+
+@media (max-width: 650px) {
+  .header-left {
+    gap: 10px !important;
+    padding-left: 10px !important;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    width: 100%;
+  }
+
+  .logo img {
+    width: 50px;
+    height: 50px;
+  }
+
+  .hamburger {
+    position: relative;
+    margin-left: auto;
+  }
+
+  header {
+    padding: 8px 15px;
+  }
+}
+
+@media (max-width: 480px) {
+  .header-left {
+    gap: 200px;
+    padding-left: 10px;
+  }
+
+  nav.drawer ul li a {
+    font-size: 14px;
+  }
+}
+
+@media (max-width: 1024px) {
+  nav.drawer ul li a {
+    font-size: 16px;
   }
 }
 
@@ -169,76 +230,5 @@ nav.drawer ul li a:hover {
 
   .drawer-profile-btn {
     display: none;
-  }
-}
-
-/* Font size default (desktop) */
-nav.drawer ul li a {
-  font-size: 18px;
-}
-
-/* Tablet */
-@media (max-width: 1024px) {
-  nav.drawer ul li a {
-    font-size: 16px;
-  }
-}
-
-/* Mobile */
-@media (max-width: 768px) {
-  nav.drawer ul li a {
-    font-size: 15px;
-  }
-}
-
-/* Extra small devices */
-@media (max-width: 480px) {
-  nav.drawer ul li a {
-    font-size: 14px;
-  }
-}
-
-/* Header Left Adjustments for Various Sizes */
-@media (max-width: 768px) {
-  .header-left {
-    gap: 350px;
-    padding-left: 20px;
-  }
-}
-
-@media (max-width: 768px) {
-  .header-left {
-    padding-left: 50px;
-  }
-}
-
-@media (max-width: 480px) {
-  .header-left {
-    gap: 260px;
-    padding-left: 1px;
-  }
-}
-
-@media (max-width: 650px) {
-  .header-left {
-    gap: 10px !important;
-    padding-left: 10px !important;
-    flex-wrap: wrap;
-    justify-content: space-between;
-    width: 100%;
-  }
-
-  .logo img {
-    width: 80px;
-    height: 80px;
-  }
-
-  .hamburger {
-    position: relative;
-    margin-left: auto;
-  }
-
-  header {
-    padding: 10px 15px;
   }
 }
