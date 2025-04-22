@@ -24,6 +24,7 @@ import AboutLawyer from "./PageLawyer/AboutLawyer";
 import ProfileLawyer from "./PageLawyer/ProfileLawyer";
 import KonsultasiLawyer from "./PageLawyer/KonsultasiLawyer";
 import SelectUser from "./PageLawyer/selectUser";
+import SidebarAdmin from "./components/SidebarAdmin";
 
 function App() {
     return (
@@ -62,6 +63,7 @@ function App() {
                 <Route path="ProfileLawyer" element={<ProfileLawyer />} />
                 <Route path="KonsultasiLawyer" element={<KonsultasiLawyer />} />
                 <Route path="SelectUser" element={<SelectUser />} />
+                <Route path="SidebarAdmin" element={<SidebarAdmin/>} />
             </Routes>
         </Router>
     );

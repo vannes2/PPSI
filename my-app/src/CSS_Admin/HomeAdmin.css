@@ -4,21 +4,20 @@
 .dashboard-wrapper {
   display: flex;
   height: 100vh;
-  overflow: hidden;
+  overflow-x: hidden;
+  font-family: sans-serif;
+  background-color: #f3f4f6;
 }
 
 /* ------------------------------------------ */
 /* SIDEBAR */
 /* ------------------------------------------ */
 .dashboard-sidebar {
+  flex-shrink: 0;
   width: 250px;
   background: #1f2937;
   color: #ffffff;
   padding: 20px;
-  position: fixed;
-  left: 0;
-  top: 0;
-  bottom: 0;
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
@@ -28,6 +27,7 @@
   font-size: 1.5rem;
   font-weight: bold;
   margin-bottom: 30px;
+  text-align: center;
 }
 
 .dashboard-sidebar ul {
@@ -69,7 +69,6 @@
 /* MAIN CONTENT */
 /* ------------------------------------------ */
 .dashboard-content {
-  margin-left: 250px;
   flex-grow: 1;
   padding: 40px 50px;
   background: #f3f4f6;
@@ -100,7 +99,9 @@
   flex-wrap: wrap;
 }
 
-/* Button Styles */
+/* ------------------------------------------ */
+/* BUTTON STYLES */
+/* ------------------------------------------ */
 .btn-primary,
 .btn-refresh,
 .btn-view,
@@ -210,7 +211,6 @@
   }
 
   .dashboard-content {
-    margin-left: 200px;
     padding: 30px 20px;
   }
 

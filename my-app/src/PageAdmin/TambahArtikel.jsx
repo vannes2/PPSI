@@ -1,15 +1,13 @@
 import { useState } from "react";
-import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import { FaGavel, FaHome, FaFileAlt } from "react-icons/fa";
+import axios from "axios";
+import SidebarAdmin from "../components/SidebarAdmin";
 import "../CSS_Admin/Pengacara.css";
-
 
 const TambahArtikel = () => {
   const [judul, setJudul] = useState("");
   const [deskripsi, setDeskripsi] = useState("");
   const [filePdf, setFilePdf] = useState(null);
-  const [activeTab, setActiveTab] = useState("tambahArtikel");
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
@@ -42,50 +40,17 @@ const TambahArtikel = () => {
   };
 
   return (
-    <div className="dashboard-wrapper">
-      {/* Sidebar */}
-      <aside className="dashboard-sidebar">
-        <h2>Admin Panel</h2>
-        <ul>
-          <li className={activeTab === "dashboard" ? "nav-active" : ""}>
-            <button
-              onClick={() => {
-                setActiveTab("dashboard");
-                navigate("/HomeAdmin");
-              }}
-            >
-              <FaHome /> Dashboard
-            </button>
-          </li>
-          <li className={activeTab === "pengacara" ? "nav-active" : ""}>
-            <button
-              onClick={() => {
-                setActiveTab("pengacara");
-                navigate("/HomeAdmin");
-              }}
-            >
-              <FaGavel /> Pengacara
-            </button>
-          </li>
-          <li className={activeTab === "tambahArtikel" ? "nav-active" : ""}>
-            <button
-              onClick={() => {
-                setActiveTab("tambahArtikel");
-                navigate("/TambahArtikel");
-              }}
-            >
-              <FaFileAlt /> Tambah Artikel
-            </button>
-          </li>
-        </ul>
-      </aside>
+    <div className="admin-container flex">
+      {/* Sidebar diganti komponen */}
+      <SidebarAdmin />
 
       {/* Main Content */}
-      <main className="dashboard-content">
-        <h2>Tambah Artikel Baru</h2>
+      <main className="admin-content">
+        <h2 className="admin-title">Tambah Artikel Baru</h2>
+
         <form
           onSubmit={handleSubmit}
-          className="form-artikel"
+          className="admin-form"
           encType="multipart/form-data"
         >
           <input
@@ -93,7 +58,7 @@ const TambahArtikel = () => {
             placeholder="Judul Artikel"
             value={judul}
             onChange={(e) => setJudul(e.target.value)}
-            className="input"
+            className="admin-input"
             required
           />
 
@@ -102,7 +67,7 @@ const TambahArtikel = () => {
             placeholder="Deskripsi Artikel"
             value={deskripsi}
             onChange={(e) => setDeskripsi(e.target.value)}
-            className="input"
+            className="admin-input"
             required
           />
 
@@ -110,16 +75,11 @@ const TambahArtikel = () => {
             type="file"
             accept="application/pdf"
             onChange={(e) => setFilePdf(e.target.files[0])}
-            className="input"
+            className="admin-input"
             required
           />
 
-          <div><br /></div>
-
-          <button
-            type="submit"
-            className="btn-primary"
-          >
+          <button type="submit" className="admin-submit-button">
             Simpan Artikel
           </button>
         </form>

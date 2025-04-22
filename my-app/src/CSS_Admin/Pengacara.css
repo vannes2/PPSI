@@ -1,226 +1,39 @@
-/* --- Konten Utama --- */
-.dashboard-content {
-  flex-grow: 1;
-  padding: 24px;
+/* ------------------------------------------ */
+/* LAYOUT DASAR */
+/* ------------------------------------------ */
+.dashboard-wrapper {
+  display: flex;
+  min-height: 100vh;
+  overflow-x: hidden;
+  font-family: sans-serif;
   background-color: #f3f4f6;
-  overflow-x: auto;
   box-sizing: border-box;
 }
 
-/* --- Toolbar (Cari, Tambah, Refresh) --- */
-.toolbar {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 10px;
-  margin-bottom: 20px;
+body {
+  background-color: #f3f4f6;
 }
 
-.search-input {
-  flex: 1;
-  min-width: 180px;
-  padding: 10px;
-  border: 1px solid #ccc;
-  border-radius: 6px;
-  font-size: 14px;
-}
-
-.btn-primary,
-.btn-refresh {
-  padding: 8px 16px;
-  font-weight: 600;
-  font-size: 14px;
-  border: none;
-  border-radius: 6px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  cursor: pointer;
-  transition: background-color 0.3s, transform 0.2s;
-}
-
-.btn-primary {
-  background-color: #3b82f6;
-  color: white;
-}
-
-.btn-primary:hover {
-  background-color: #2563eb;
-  transform: scale(1.05);
-}
-
-.btn-refresh {
-  background-color: #111827;
-  color: white;
-}
-
-.btn-refresh:hover {
-  background-color: #1f2937;
-  transform: scale(1.05);
-}
-
-/* --- Tabel --- */
-.table-wrapper {
-  overflow-x: auto;
-  background-color: white;
-  border-radius: 8px;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-}
-
-.table-wrapper table {
-  width: 100%;
-  border-collapse: collapse;
-  min-width: 800px;
-}
-
-.table-wrapper thead {
-  background-color: #e5e7eb;
-  position: sticky;
-  top: 0;
-  z-index: 1;
-}
-
-.table-wrapper th,
-.table-wrapper td {
-  border: 1px solid #ddd;
-  padding: 10px 14px;
-  text-align: left;
-  white-space: nowrap;
-  font-size: 14px;
-}
-
-.table-wrapper tbody tr:hover {
-  background-color: #f9fafb;
-}
-
-/* --- Tombol Aksi di Tabel --- */
-.table-actions {
-  display: flex;
-  gap: 6px;
-  justify-content: center;
-  flex-wrap: wrap;
-}
-
-.table-actions button {
-  padding: 6px 12px;
-  font-size: 13px;
-  font-weight: 500;
-  border: none;
-  border-radius: 4px;
-  color: white;
-  cursor: pointer;
-  transition: transform 0.2s ease-in-out, opacity 0.2s;
-}
-
-.btn-view {
-  background-color: #3b82f6;
-}
-
-.btn-edit {
-  background-color: #06b6d4;
-}
-
-.btn-delete {
-  background-color: #ef4444;
-}
-
-.table-actions button:hover {
-  transform: scale(1.05);
-  opacity: 0.9;
-}
-
-/* --- RESPONSIVE FULL --- */
-@media (max-width: 1024px) {
-  .table-wrapper table {
-    min-width: 100%;
-  }
-}
-
-@media (max-width: 768px) {
-  .toolbar {
-    flex-direction: column;
-    align-items: stretch;
-  }
-
-  .dashboard-content {
-    padding: 16px;
-  }
-
-  .search-input {
-    width: 100%;
-  }
-
-  .table-wrapper {
-    border-radius: 0;
-  }
-}
-
-@media (max-width: 480px) {
-  .table-wrapper table {
-    min-width: 600px;
-  }
-
-  .table-wrapper th,
-  .table-wrapper td {
-    font-size: 12px;
-    padding: 8px 10px;
-  }
-
-  .table-actions button {
-    padding: 5px 10px;
-    font-size: 12px;
-  }
-}
-
-/* --- Form Tambah Artikel --- */
-.form-artikel {
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-  background-color: white;
-  padding: 24px;
-  border-radius: 8px;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
-  max-width: 600px;
-  margin-top: 20px;
-}
-
-.input {
-  padding: 10px 14px;
-  border: 1px solid #ccc;
-  border-radius: 6px;
-  font-size: 14px;
-  transition: border 0.3s ease;
-  background-color: #fff;
-}
-
-.input:focus {
-  border-color: #3b82f6;
-  outline: none;
-}
-
-/* Responsiveness */
-@media (max-width: 768px) {
-  .form-artikel {
-    padding: 16px;
-    max-width: 100%;
-  }
-}
-
+/* ------------------------------------------ */
+/* SIDEBAR */
+/* ------------------------------------------ */
 .dashboard-sidebar {
   width: 240px;
   background: #1f2937;
   color: white;
   padding: 20px;
   flex-shrink: 0;
-  box-sizing: border-box;
-  min-height: 100vh;
   display: flex;
   flex-direction: column;
+  box-sizing: border-box;
+  min-height: 100vh;
 }
 
 .dashboard-sidebar h2 {
   font-size: 24px;
   font-weight: bold;
   margin-bottom: 40px;
+  text-align: center;
 }
 
 .dashboard-sidebar ul {
@@ -261,9 +74,229 @@
   background-color: #374151;
 }
 
-/* Icon Style */
 .dashboard-sidebar a i,
 .dashboard-sidebar button i {
   font-size: 18px;
 }
 
+/* ------------------------------------------ */
+/* KONTEN UTAMA */
+/* ------------------------------------------ */
+.dashboard-content {
+  flex-grow: 1;
+  padding: 24px;
+  background-color: #f3f4f6;
+  overflow-x: auto;
+  box-sizing: border-box;
+}
+
+/* ------------------------------------------ */
+/* TOOLBAR */
+/* ------------------------------------------ */
+.toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.search-input {
+  flex: 1;
+  min-width: 180px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 14px;
+  background-color: #f3f4f6;
+}
+
+/* BUTTONS */
+.btn-primary,
+.btn-refresh {
+  padding: 8px 16px;
+  font-weight: 600;
+  font-size: 14px;
+  border: none;
+  border-radius: 6px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.2s;
+}
+
+.btn-primary {
+  background-color: #3b82f6;
+  color: white;
+}
+
+.btn-primary:hover {
+  background-color: #2563eb;
+  transform: scale(1.05);
+}
+
+.btn-refresh {
+  background-color: #111827;
+  color: white;
+}
+
+.btn-refresh:hover {
+  background-color: #1f2937;
+  transform: scale(1.05);
+}
+
+/* ------------------------------------------ */
+/* TABEL */
+/* ------------------------------------------ */
+.table-wrapper {
+  overflow-x: auto;
+  background-color: transparent;
+  border-radius: 8px;
+  box-shadow: none;
+}
+
+.table-wrapper table {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 800px;
+  background-color: transparent;
+}
+
+.table-wrapper thead {
+  background-color: #e5e7eb;
+  position: sticky;
+  top: 0;
+  z-index: 1;
+}
+
+.table-wrapper th,
+.table-wrapper td {
+  border: 1px solid #ddd;
+  padding: 10px 14px;
+  text-align: left;
+  white-space: nowrap;
+  font-size: 14px;
+  background-color: #f3f4f6;
+}
+
+.table-wrapper tbody tr:hover {
+  background-color: #e5e7eb;
+}
+
+/* ------------------------------------------ */
+/* AKSI TABEL */
+/* ------------------------------------------ */
+.table-actions {
+  display: flex;
+  gap: 6px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.table-actions button {
+  padding: 6px 12px;
+  font-size: 13px;
+  font-weight: 500;
+  border: none;
+  border-radius: 4px;
+  color: white;
+  cursor: pointer;
+  transition: transform 0.2s ease-in-out, opacity 0.2s;
+}
+
+.btn-view {
+  background-color: #3b82f6;
+}
+
+.btn-edit {
+  background-color: #06b6d4;
+}
+
+.btn-delete {
+  background-color: #ef4444;
+}
+
+.table-actions button:hover {
+  transform: scale(1.05);
+  opacity: 0.9;
+}
+
+/* ------------------------------------------ */
+/* FORM TAMBAH ARTIKEL */
+/* ------------------------------------------ */
+.form-artikel {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  background-color: #e5e7eb; /* Ganti dari putih */
+  padding: 24px;
+  border-radius: 8px;
+  box-shadow: none; /* Hilangkan efek putih dari shadow */
+  max-width: 600px;
+  margin-top: 20px;
+}
+
+.form-artikel input,
+.form-artikel textarea {
+  background-color: #f3f4f6; /* Ganti dari putih */
+  color: #111827;
+  border: 1px solid #ccc;
+  padding: 10px 14px;
+  border-radius: 6px;
+  font-size: 14px;
+  transition: border 0.3s ease;
+}
+
+input[type="file"] {
+  background-color: #f3f4f6; /* Ganti warna file input juga */
+  color: #111827;
+}
+
+/* ------------------------------------------ */
+/* RESPONSIVENESS */
+/* ------------------------------------------ */
+@media (max-width: 1024px) {
+  .table-wrapper table {
+    min-width: 100%;
+  }
+}
+
+@media (max-width: 768px) {
+  .dashboard-content {
+    padding: 16px;
+  }
+
+  .toolbar {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .search-input {
+    width: 100%;
+  }
+
+  .table-wrapper {
+    border-radius: 0;
+  }
+
+  .form-artikel {
+    padding: 16px;
+    max-width: 100%;
+  }
+}
+
+@media (max-width: 480px) {
+  .table-wrapper table {
+    min-width: 600px;
+  }
+
+  .table-wrapper th,
+  .table-wrapper td {
+    font-size: 12px;
+    padding: 8px 10px;
+  }
+
+  .table-actions button {
+    padding: 5px 10px;
+    font-size: 12px;
+  }
+}

@@ -1,0 +1,158 @@
+/* Layout wrapper */
+body, html {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: sans-serif;
+    background-color: #f8fafc;
+  }
+  
+  .app-container {
+    display: flex;
+    min-height: 100vh;
+    background-color: #f8fafc;
+    overflow-x: hidden;
+  }
+  
+  .main-content {
+    flex: 1;
+    background-color: #f8fafc;
+    padding: 24px;
+    overflow-x: auto;
+  }
+  
+  .content-wrapper {
+    max-width: 1200px;
+    margin: auto;
+  }
+  
+  /* Sidebar */
+  .dashboard-sidebar {
+    width: 250px;
+    background-color: #1e293b;
+    color: #f8fafc;
+    padding: 24px 16px;
+    box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
+    position: sticky;
+    top: 0;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .dashboard-sidebar h2 {
+    font-size: 22px;
+    font-weight: 600;
+    margin-bottom: 32px;
+    text-align: center;
+    color: #e2e8f0;
+  }
+  
+  .dashboard-sidebar ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  
+  .dashboard-sidebar li {
+    margin-bottom: 12px;
+  }
+  
+  .dashboard-sidebar button {
+    background: none;
+    border: none;
+    color: #f1f5f9;
+    width: 100%;
+    text-align: left;
+    padding: 12px 14px;
+    border-radius: 10px;
+    cursor: pointer;
+    font-size: 16px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    transition: background-color 0.2s ease, transform 0.1s ease;
+  }
+  
+  .dashboard-sidebar button:hover {
+    background-color: #334155;
+    transform: translateX(2px);
+  }
+  
+  .icon-spacing {
+    font-size: 18px;
+  }
+  
+  .nav-active button {
+    background-color: #475569;
+    font-weight: 600;
+    box-shadow: inset 4px 0 0 #38bdf8;
+  }
+  
+  /* Table Styling */
+  .table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 24px;
+  }
+  
+  .table th, .table td {
+    padding: 12px;
+    border: 1px solid #cbd5e1;
+    text-align: left;
+  }
+  
+  .table th {
+    background-color: #f1f5f9;
+  }
+  
+  .search-input {
+    padding: 10px;
+    margin: 16px 0;
+    width: 100%;
+    max-width: 300px;
+    border-radius: 8px;
+    border: 1px solid #cbd5e1;
+  }
+  
+  .button-group {
+    margin-bottom: 16px;
+  }
+  
+  .btn {
+    padding: 8px 14px;
+    border: none;
+    border-radius: 8px;
+    margin-right: 8px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: background 0.2s;
+  }
+  
+  .btn-primary {
+    background-color: #3b82f6;
+    color: white;
+  }
+  
+  .btn-secondary {
+    background-color: #334155;
+    color: white;
+  }
+  
+  .btn-view {
+    background-color: #3b82f6;
+    color: white;
+    margin-right: 4px;
+  }
+  
+  .btn-edit {
+    background-color: #14b8a6;
+    color: white;
+    margin-right: 4px;
+  }
+  
+  .btn-delete {
+    background-color: #ef4444;
+    color: white;
+  }
+  

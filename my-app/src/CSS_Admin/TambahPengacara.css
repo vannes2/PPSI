@@ -1,0 +1,156 @@
+/* ------------------------------------------ */
+/* WRAPPER LAYOUT */
+/* ------------------------------------------ */
+.admin-container {
+    display: flex;
+    height: 100vh;
+    overflow: hidden;
+}
+  
+/* ------------------------------------------ */
+/* SIDEBAR */
+/* ------------------------------------------ */
+.admin-sidebar {
+    width: 250px;
+    background: #1f2937;
+    color: #ffffff;
+    padding: 20px;
+    position: fixed;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+}
+  
+.admin-sidebar-title {
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin-bottom: 30px;
+}
+  
+.admin-sidebar-menu {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+  
+.admin-sidebar-menu li {
+    margin-bottom: 15px;
+}
+  
+.admin-sidebar-link {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    color: inherit;
+    text-decoration: none;
+    border-radius: 6px;
+    transition: background 0.3s ease;
+}
+  
+.admin-sidebar-link:hover {
+    background: #374151;
+}
+  
+.admin-sidebar-icon {
+    margin-right: 10px;
+    font-size: 1.2rem;
+}
+  
+/* ------------------------------------------ */
+/* MAIN CONTENT */
+/* ------------------------------------------ */
+.admin-content {
+    margin-left: 250px;
+    flex-grow: 1;
+    padding: 40px 50px;
+    background: #f3f4f6;
+    min-height: 100vh;
+    box-sizing: border-box;
+    overflow-x: auto;
+}
+  
+.admin-title {
+    font-size: 2rem;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+  
+/* ------------------------------------------ */
+/* FORM STYLING */
+/* ------------------------------------------ */
+.admin-form {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    max-width: 600px;
+    background: #ffffff;
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+  
+.admin-input {
+    padding: 10px 14px;
+    border: 1px solid #d1d5db;
+    border-radius: 6px;
+    font-size: 14px;
+    background: #fff;
+    transition: border-color 0.2s;
+}
+  
+.admin-input:focus {
+    border-color: #3b82f6;
+    outline: none;
+}
+  
+/* ------------------------------------------ */
+/* BUTTON */
+/* ------------------------------------------ */
+.admin-submit-button {
+    background-color: #10b981;
+    color: #ffffff;
+    font-weight: bold;
+    padding: 12px;
+    font-size: 16px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+}
+  
+.admin-submit-button:hover {
+    background-color: #059669;
+    transform: scale(1.05);
+}
+  
+/* ------------------------------------------ */
+/* RESPONSIVE */
+/* ------------------------------------------ */
+@media (max-width: 768px) {
+    .admin-sidebar {
+      width: 200px;
+    }
+  
+    .admin-content {
+      margin-left: 200px;
+      padding: 30px 20px;
+    }
+}
+  
+@media (max-width: 480px) {
+    .admin-sidebar {
+      display: none;
+    }
+  
+    .admin-content {
+      margin-left: 0;
+      padding: 20px;
+    }
+  
+    .admin-form {
+      padding: 20px;
+    }
+}

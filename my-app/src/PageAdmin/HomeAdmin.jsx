@@ -1,8 +1,9 @@
 import { useState, useEffect, useRef } from "react";
-import { FaGavel, FaHome, FaTrash, FaPlus, FaEye, FaEdit, FaFileAlt } from "react-icons/fa";
+import { FaTrash, FaPlus, FaEye, FaEdit } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import "../CSS_Admin/HomeAdmin.css";
+import SidebarAdmin from "../components/SidebarAdmin";
 
 const HomeAdmin = () => {
   const [activeTab, setActiveTab] = useState("pengacara");
@@ -53,46 +54,18 @@ const HomeAdmin = () => {
     navigate("/TambahPengacara");
   };
 
-  const handleAddArtikelClick = () => {
-    navigate("/TambahArtikel");
-  };
-
-  const handleDashboardClick = () => {
-    setActiveTab("dashboard");
-    navigate("/");
-  };
-
-  const handleTabChange = (tab) => {
-    setActiveTab(tab);
-  };
-
   const filteredPengacara = pengacara.filter((lawyer) =>
     lawyer.nama.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
   return (
     <div className="dashboard-wrapper flex">
-      {/* Sidebar */}
-      <aside className="dashboard-sidebar">
-        <h2>Admin Panel</h2>
-        <ul>
-          <li className={activeTab === "dashboard" ? "nav-active" : ""}>
-            <button onClick={handleDashboardClick}>
-              <FaHome className="icon-spacing" /> Dashboard
-            </button>
-          </li>
-          <li className={activeTab === "pengacara" ? "nav-active" : ""}>
-            <button onClick={() => handleTabChange("pengacara")}>
-              <FaGavel className="icon-spacing" /> Pengacara
-            </button>
-          </li>
-          <li className={activeTab === "tambahArtikel" ? "nav-active" : ""}>
-            <button onClick={() => { handleTabChange("tambahArtikel"); handleAddArtikelClick(); }}>
-              <FaFileAlt className="icon-spacing" /> Tambah Artikel
-            </button>
-          </li>
-        </ul>
-      </aside>
+      {/* Sidebar dipisah jadi komponen tersendiri */}
+      <SidebarAdmin
+        activeTab={activeTab}
+        onTabChange={setActiveTab}
+        onNavigate={navigate}
+      />
 
       {/* Main Content */}
       <main className="dashboard-content">
