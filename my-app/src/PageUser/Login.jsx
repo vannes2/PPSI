@@ -8,12 +8,15 @@ const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [popupMessage, setPopupMessage] = useState("");
+  const [popupType, setPopupType] = useState("success"); // 'success' or 'error'
   const [showPopup, setShowPopup] = useState(false);
   const navigate = useNavigate();
 
-  const showPopupAlert = (message) => {
+  const showPopupAlert = (message, type = "success") => {
     setPopupMessage(message);
+    setPopupType(type);
     setShowPopup(true);
+    setTimeout(() => setShowPopup(false), 2000);
   };
 
   const handleSubmit = async (e) => {
@@ -32,13 +35,11 @@ const Login = () => {
 
       if (response.ok) {
         if (result.user && result.user.role) {
-          showPopupAlert("Login berhasil");
+          showPopupAlert("Login berhasil", "success");
 
           localStorage.setItem("user", JSON.stringify(result.user));
 
           setTimeout(() => {
-            setShowPopup(false);
-
             const userRole = result.user.role?.toLowerCase().trim();
 
             if (userRole === "admin") {
@@ -48,18 +49,18 @@ const Login = () => {
             } else if (userRole === "pengacara") {
               navigate("/HomeLawyer");
             } else {
-              showPopupAlert("Role tidak dikenal");
+              showPopupAlert("Role tidak dikenal", "error");
             }
           }, 2000);
         } else {
-          showPopupAlert("Login gagal: data user tidak valid.");
+          showPopupAlert("Login gagal: data user tidak valid.", "error");
         }
       } else {
-        showPopupAlert(result.message || "Login gagal, silakan cek data Anda.");
+        showPopupAlert(result.message || "Login gagal, silakan cek data Anda.", "error");
       }
     } catch (error) {
       console.error("Terjadi kesalahan:", error);
-      showPopupAlert("Gagal terhubung ke server.");
+      showPopupAlert("Gagal terhubung ke server.", "error");
     }
   };
 
@@ -76,9 +77,21 @@ const Login = () => {
             <h2>Selamat Datang Kembali</h2>
             <form onSubmit={handleSubmit}>
               <p>E-mail</p>
-              <input type="email" placeholder="Input your email" value={email} onChange={(e) => setEmail(e.target.value)} required />
+              <input
+                type="email"
+                placeholder="Input your email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                required
+              />
               <p>Kata sandi</p>
-              <input type="password" placeholder="Input your password" value={password} onChange={(e) => setPassword(e.target.value)} required />
+              <input
+                type="password"
+                placeholder="Input your password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                required
+              />
               <Link to="/forgotpass" className="login-admin">
                 Lupa Password anda? Klik di sini
               </Link>
@@ -91,7 +104,9 @@ const Login = () => {
           <div className="divider"></div>
 
           <div className="signup">
-            <h2 className="subtext">&quot;Mari kita mulai perjuangan bersama advokat&quot;</h2>
+            <h2 className="subtext">
+              &quot;Mari kita mulai perjuangan bersama advokat&quot;
+            </h2>
             <h2>Buat Akun Anda</h2>
             <Link to="/signup" className="btn">
               MENDAFTAR
@@ -106,7 +121,9 @@ const Login = () => {
       {showPopup && (
         <div className="popup-overlay">
           <div className="popup-box">
-            <div className="popup-icon">✔</div>
+            <div className={`popup-icon ${popupType === "error" ? "error" : ""}`}>
+              {popupType === "error" ? "✖" : "✔"}
+            </div>
             <p className="popup-message">{popupMessage}</p>
           </div>
         </div>

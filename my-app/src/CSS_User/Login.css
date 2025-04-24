@@ -284,6 +284,10 @@
   color: #333;
 }
 
+.popup-icon.error {
+  background-color: #FF3B30;
+}
+
 /* RESPONSIVE */
 
 /* Mobile */
