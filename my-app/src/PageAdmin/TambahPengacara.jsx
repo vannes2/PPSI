@@ -63,7 +63,7 @@ const TambahPengacara = () => {
 
   const fetchPengacara = async () => {
     try {
-      const response = await axios.get("http://localhost:5000/api/pengacara");
+      const response = await axios.get("http://localhost:5000/api/pendaftaran_pengacara");
       setDataPengacara(response.data);
     } catch (error) {
       console.error("Gagal mengambil data:", error);
@@ -130,7 +130,6 @@ const TambahPengacara = () => {
           </button>
         </form>
 
-        {/* Tabel Data Pengacara */}
         <h3 className="admin-title">Daftar Pengacara</h3>
         <div className="table-container">
           <table className="admin-table">
@@ -138,13 +137,13 @@ const TambahPengacara = () => {
               <tr>
                 <th>Nama</th>
                 <th>Email</th>
-                <th>Telepon</th>
+                <th>No HP</th>
                 <th>KTP</th>
                 <th>Tgl Lahir</th>
                 <th>JK</th>
                 <th>Alamat</th>
                 <th>Nomor Induk</th>
-                <th>Univ</th>
+                <th>Universitas</th>
                 <th>Pendidikan</th>
                 <th>Spesialisasi</th>
                 <th>Pengalaman</th>
@@ -162,10 +161,10 @@ const TambahPengacara = () => {
                   <td>{item.tanggal_lahir}</td>
                   <td>{item.jenis_kelamin}</td>
                   <td>{item.alamat}</td>
-                  <td>{item.nomor_induk_advokat}</td>
+                  <td>{item.nomor_induk_advokat || "-"}</td>
                   <td>{item.universitas}</td>
                   <td>{item.pendidikan}</td>
-                  <td>{item.spesialisasi}</td>
+                  <td>{item.spesialisasi || "-"}</td>
                   <td>{item.pengalaman}</td>
                   <td>{item.username}</td>
                   <td>{item.tanggal_daftar}</td>
