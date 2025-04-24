@@ -1,5 +1,4 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import SidebarAdmin from "../components/SidebarAdmin";
 import "../CSS_Admin/Pengacara.css";
@@ -8,7 +7,7 @@ const TambahArtikel = () => {
   const [judul, setJudul] = useState("");
   const [deskripsi, setDeskripsi] = useState("");
   const [filePdf, setFilePdf] = useState(null);
-  const navigate = useNavigate();
+
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -40,7 +39,7 @@ const TambahArtikel = () => {
   };
 
   return (
-    <div className="admin-container flex">
+    <div className="Tambah-Artikel">
       {/* Sidebar diganti komponen */}
       <SidebarAdmin />
 
