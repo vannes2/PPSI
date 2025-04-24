@@ -70,7 +70,7 @@
 /* ------------------------------------------ */
 .dashboard-content {
   flex-grow: 1;
-  padding: 40px 50px;
+  padding: 40px 1000px;
   background: #f3f4f6;
   min-height: 100vh;
   box-sizing: border-box;

@@ -109,6 +109,87 @@ const TambahPengacara = () => {
     <div className="admin-container flex">
       <SidebarAdmin />
       <main className="admin-content">
+
+      <h3 className="admin-title">Daftar Pengacara</h3>
+        <div className="table-container">
+          <table className="admin-table">
+            <thead>
+              <tr>
+                <th>Nama</th>
+                <th>Email</th>
+                <th>No HP</th>
+                <th>KTP</th>
+                <th>Tanggal Lahir</th>
+                <th>JK</th>
+                <th>Alamat</th>
+                <th>Nomor Induk</th>
+                <th>Universitas</th>
+                <th>Pendidikan</th>
+                <th>Spesialisasi</th>
+                <th>Pengalaman</th>
+                <th>Username</th>
+                <th>Tanggal Daftar</th>
+                <th>Dokumen</th>
+                <th>Aksi</th>
+              </tr>
+            </thead>
+            <tbody>
+              {dataPengacara.map((item) => (
+                <tr key={item.id}>
+                  <td>{item.nama}</td>
+                  <td>{item.email}</td>
+                  <td>{item.no_hp}</td>
+                  <td>{item.ktp}</td>
+                  <td>{new Date(item.tanggal_lahir).toLocaleDateString()}</td>
+                  <td>{item.jenis_kelamin}</td>
+                  <td>{item.alamat}</td>
+                  <td>{item.nomor_induk_advokat || "-"}</td>
+                  <td>{item.universitas}</td>
+                  <td>{item.pendidikan}</td>
+                  <td>{item.spesialisasi || "-"}</td>
+                  <td>{item.pengalaman}</td>
+                  <td>{item.username}</td>
+                  <td>{new Date(item.tanggal_daftar).toLocaleDateString()}</td>
+                  <td>
+                    <div className="flex-center gap-4">
+                      {item.upload_ktp && (
+                        <a 
+                          href={`http://localhost:5000/uploads/${item.upload_ktp}`} 
+                          target="_blank" 
+                          rel="noreferrer"
+                          className="doc-link"
+                        >
+                          KTP
+                        </a>
+                      )}
+                      {item.upload_foto && (
+                        <a 
+                          href={`http://localhost:5000/uploads/${item.upload_foto}`} 
+                          target="_blank" 
+                          rel="noreferrer"
+                          className="doc-link"
+                        >
+                          Foto
+                        </a>
+                      )}
+                    </div>
+                  </td>
+                  <td>
+                    <div className="flex-center gap-4">
+                      <button className="action-btn edit-btn">
+                        <i className="fas fa-edit"></i> Edit
+                      </button>
+                      <button className="action-btn delete-btn">
+                        <i className="fas fa-trash"></i> Hapus
+                      </button>
+                    </div>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+        <br /> <br />
         <h2 className="admin-title">Tambah Pengacara</h2>
 
         {successMessage && (
@@ -388,86 +469,6 @@ const TambahPengacara = () => {
             {isLoading ? 'Menyimpan...' : 'Simpan Data'}
           </button>
         </form>
-
-        <h3 className="admin-title">Daftar Pengacara</h3>
-        <div className="table-container">
-          <table className="admin-table">
-            <thead>
-              <tr>
-                <th>Nama</th>
-                <th>Email</th>
-                <th>No HP</th>
-                <th>KTP</th>
-                <th>Tanggal Lahir</th>
-                <th>JK</th>
-                <th>Alamat</th>
-                <th>Nomor Induk</th>
-                <th>Universitas</th>
-                <th>Pendidikan</th>
-                <th>Spesialisasi</th>
-                <th>Pengalaman</th>
-                <th>Username</th>
-                <th>Tanggal Daftar</th>
-                <th>Dokumen</th>
-                <th>Aksi</th>
-              </tr>
-            </thead>
-            <tbody>
-              {dataPengacara.map((item) => (
-                <tr key={item.id}>
-                  <td>{item.nama}</td>
-                  <td>{item.email}</td>
-                  <td>{item.no_hp}</td>
-                  <td>{item.ktp}</td>
-                  <td>{new Date(item.tanggal_lahir).toLocaleDateString()}</td>
-                  <td>{item.jenis_kelamin}</td>
-                  <td>{item.alamat}</td>
-                  <td>{item.nomor_induk_advokat || "-"}</td>
-                  <td>{item.universitas}</td>
-                  <td>{item.pendidikan}</td>
-                  <td>{item.spesialisasi || "-"}</td>
-                  <td>{item.pengalaman}</td>
-                  <td>{item.username}</td>
-                  <td>{new Date(item.tanggal_daftar).toLocaleDateString()}</td>
-                  <td>
-                    <div className="flex-center gap-4">
-                      {item.upload_ktp && (
-                        <a 
-                          href={`http://localhost:5000/uploads/${item.upload_ktp}`} 
-                          target="_blank" 
-                          rel="noreferrer"
-                          className="doc-link"
-                        >
-                          KTP
-                        </a>
-                      )}
-                      {item.upload_foto && (
-                        <a 
-                          href={`http://localhost:5000/uploads/${item.upload_foto}`} 
-                          target="_blank" 
-                          rel="noreferrer"
-                          className="doc-link"
-                        >
-                          Foto
-                        </a>
-                      )}
-                    </div>
-                  </td>
-                  <td>
-                    <div className="flex-center gap-4">
-                      <button className="action-btn edit-btn">
-                        <i className="fas fa-edit"></i> Edit
-                      </button>
-                      <button className="action-btn delete-btn">
-                        <i className="fas fa-trash"></i> Hapus
-                      </button>
-                    </div>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
       </main>
     </div>
   );
