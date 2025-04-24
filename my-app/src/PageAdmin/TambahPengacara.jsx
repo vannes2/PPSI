@@ -53,7 +53,7 @@ const TambahPengacara = () => {
         }
       }
 
-      await axios.post("http://localhost:5000/api/pengacara", formData, {
+      await axios.post("http://localhost:8080/api/pengacara", formData, {
         headers: {
           "Content-Type": "multipart/form-data",
         },
@@ -93,7 +93,7 @@ const TambahPengacara = () => {
 
   const fetchPengacara = async () => {
     try {
-      const response = await axios.get("http://localhost:5000/api/pendaftaran_pengacara");
+      const response = await axios.get("http://localhost:8080/api/pendaftaran_pengacara");
       setDataPengacara(response.data);
     } catch (error) {
       console.error("Gagal mengambil data:", error);

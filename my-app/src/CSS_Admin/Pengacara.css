@@ -13,8 +13,10 @@
 /* Konten admin di kanan sidebar */
 .admin-content {
   flex: 1;
-  padding: 40px;
+  padding: 20px; /* Padding diperkecil */
   background-color: #ffffff;
+  margin-left: 0; /* Hilangkan margin kiri */
+  box-shadow: none; /* Hilangkan shadow jika ada */
 }
 
 /* Judul */
@@ -23,6 +25,7 @@
   font-weight: bold;
   margin-bottom: 30px;
   color: #1e293b;
+  padding-left: 0; 
 }
 
 /* Form */
@@ -31,6 +34,7 @@
   flex-direction: column;
   gap: 20px;
   max-width: 600px;
+  margin-left: 0; 
 }
 
 /* Input dan file upload */
