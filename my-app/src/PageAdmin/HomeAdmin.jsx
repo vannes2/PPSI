@@ -60,19 +60,19 @@ const HomeAdmin = () => {
 
   return (
     <div className="dashboard-wrapper flex">
-      {/* Sidebar dipisah jadi komponen tersendiri */}
       <SidebarAdmin
         activeTab={activeTab}
         onTabChange={setActiveTab}
         onNavigate={navigate}
       />
-      {/* Main Content */}
+
       <main className="dashboard-content">
         {activeTab === "pengacara" && (
           <div>
             <h2>Daftar Pengacara</h2>
+            <p><strong>Tabel:</strong> pengacara</p>
+            <p><strong>Jumlah Data:</strong> {filteredPengacara.length}</p>
 
-            {/* Search Input */}
             <input
               type="text"
               placeholder="Cari pengacara..."
@@ -81,7 +81,6 @@ const HomeAdmin = () => {
               onChange={(e) => setSearchTerm(e.target.value)}
             />
 
-            {/* Toolbar: Tambah dan Refresh */}
             <div className="toolbar">
               <button className="btn-primary" onClick={handleAddClick}>
                 <FaPlus /> Tambah
@@ -91,7 +90,6 @@ const HomeAdmin = () => {
               </button>
             </div>
 
-            {/* Table */}
             <div className="table-wrapper">
               <div ref={tableRef} className="table-scroll">
                 <table>
@@ -99,10 +97,23 @@ const HomeAdmin = () => {
                     <tr>
                       <th>ID</th>
                       <th>Nama</th>
+                      <th>KTP</th>
+                      <th>Tanggal Lahir</th>
+                      <th>Jenis Kelamin</th>
+                      <th>Alamat</th>
                       <th>Email</th>
+                      <th>No HP</th>
+                      <th>Nomor Induk Advokat</th>
+                      <th>Universitas</th>
+                      <th>Pendidikan</th>
                       <th>Spesialisasi</th>
                       <th>Pengalaman</th>
-                      <th>Pendidikan</th>
+                      <th>Upload KTP</th>
+                      <th>Upload Foto</th>
+                      <th>Upload Kartu Advokat</th>
+                      <th>Upload PKPA</th>
+                      <th>Username</th>
+                      <th>Password</th>
                       <th>Tanggal Daftar</th>
                       <th>Aksi</th>
                     </tr>
@@ -113,10 +124,23 @@ const HomeAdmin = () => {
                         <tr key={lawyer.id}>
                           <td>{lawyer.id}</td>
                           <td>{lawyer.nama ?? "-"}</td>
+                          <td>{lawyer.ktp ?? "-"}</td>
+                          <td>{lawyer.tanggal_lahir ?? "-"}</td>
+                          <td>{lawyer.jenis_kelamin ?? "-"}</td>
+                          <td>{lawyer.alamat ?? "-"}</td>
                           <td>{lawyer.email ?? "-"}</td>
+                          <td>{lawyer.no_hp ?? "-"}</td>
+                          <td>{lawyer.nomor_induk_advokat ?? "-"}</td>
+                          <td>{lawyer.universitas ?? "-"}</td>
+                          <td>{lawyer.pendidikan ?? "-"}</td>
                           <td>{lawyer.spesialisasi ?? "-"}</td>
                           <td>{lawyer.pengalaman ? `${lawyer.pengalaman} tahun` : "-"}</td>
-                          <td>{lawyer.pendidikan ?? "-"}</td>
+                          <td>{lawyer.upload_ktp ?? "-"}</td>
+                          <td>{lawyer.upload_foto ?? "-"}</td>
+                          <td>{lawyer.upload_kartu_advokat ?? "-"}</td>
+                          <td>{lawyer.upload_pkpa ?? "-"}</td>
+                          <td>{lawyer.username ?? "-"}</td>
+                          <td>{lawyer.password ?? "-"}</td>
                           <td>
                             {lawyer.tanggal_daftar !== "0000-00-00"
                               ? new Date(lawyer.tanggal_daftar).toLocaleDateString("id-ID")
@@ -139,7 +163,7 @@ const HomeAdmin = () => {
                       ))
                     ) : (
                       <tr>
-                        <td colSpan="8">Tidak ada data pengacara.</td>
+                        <td colSpan="21">Tidak ada data pengacara.</td>
                       </tr>
                     )}
                   </tbody>

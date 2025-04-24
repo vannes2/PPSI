@@ -158,16 +158,18 @@
 /* ------------------------------------------ */
 .table-wrapper {
   width: 100%;
+  height: calc(100vh - 200px);
   background: #ffffff;
   border-radius: 8px;
-  overflow-x: auto;
+  overflow: auto;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
 }
 
 .table-scroll {
-  min-width: 900px;
-  max-height: 500px;
-  overflow-y: auto;
+  min-width: 1300px;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
 }
 
 .table-scroll table {
@@ -215,11 +217,54 @@
   }
 
   .table-scroll {
-    min-width: 600px;
+    min-width: 100%;
   }
 
   .search-input {
     width: 100%;
+  }
+
+  .table-scroll table,
+  .table-scroll thead,
+  .table-scroll tbody,
+  .table-scroll th,
+  .table-scroll td,
+  .table-scroll tr {
+    display: block;
+  }
+
+  .table-scroll thead {
+    display: none;
+  }
+
+  .table-scroll tr {
+    margin-bottom: 16px;
+    border: 1px solid #e5e7eb;
+    border-radius: 8px;
+    background: #ffffff;
+    padding: 12px;
+  }
+
+  .table-scroll td {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    border: none;
+    border-bottom: 1px solid #e5e7eb;
+    font-size: 14px;
+  }
+
+  .table-scroll td:last-child {
+    border-bottom: none;
+  }
+
+  .table-scroll td::before {
+    content: attr(data-label);
+    font-weight: bold;
+    flex-shrink: 0;
+    margin-right: 10px;
+    color: #374151;
   }
 }
 
