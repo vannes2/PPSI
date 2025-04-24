@@ -6,7 +6,7 @@
     height: 100vh;
     overflow: hidden;
 }
-  
+
 /* ------------------------------------------ */
 /* SIDEBAR */
 /* ------------------------------------------ */
@@ -23,23 +23,23 @@
     display: flex;
     flex-direction: column;
 }
-  
+
 .admin-sidebar-title {
     font-size: 1.5rem;
     font-weight: bold;
     margin-bottom: 30px;
 }
-  
+
 .admin-sidebar-menu {
     list-style: none;
     padding: 0;
     margin: 0;
 }
-  
+
 .admin-sidebar-menu li {
     margin-bottom: 15px;
 }
-  
+
 .admin-sidebar-link {
     display: flex;
     align-items: center;
@@ -49,16 +49,16 @@
     border-radius: 6px;
     transition: background 0.3s ease;
 }
-  
+
 .admin-sidebar-link:hover {
     background: #374151;
 }
-  
+
 .admin-sidebar-icon {
     margin-right: 10px;
     font-size: 1.2rem;
 }
-  
+
 /* ------------------------------------------ */
 /* MAIN CONTENT */
 /* ------------------------------------------ */
@@ -71,13 +71,13 @@
     box-sizing: border-box;
     overflow-x: auto;
 }
-  
+
 .admin-title {
     font-size: 2rem;
     font-weight: bold;
     margin-bottom: 20px;
 }
-  
+
 /* ------------------------------------------ */
 /* FORM STYLING */
 /* ------------------------------------------ */
@@ -91,7 +91,7 @@
     border-radius: 8px;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
 }
-  
+
 .admin-input {
     padding: 10px 14px;
     border: 1px solid #d1d5db;
@@ -100,12 +100,20 @@
     background: #fff;
     transition: border-color 0.2s;
 }
-  
+
 .admin-input:focus {
     border-color: #3b82f6;
     outline: none;
 }
-  
+
+/* File input preview */
+.file-preview {
+    font-size: 13px;
+    color: #6b7280;
+    margin-top: -10px;
+    margin-bottom: 8px;
+}
+
 /* ------------------------------------------ */
 /* BUTTON */
 /* ------------------------------------------ */
@@ -120,37 +128,116 @@
     cursor: pointer;
     transition: all 0.3s ease-in-out;
 }
-  
+
 .admin-submit-button:hover {
     background-color: #059669;
     transform: scale(1.05);
 }
-  
+
+/* ------------------------------------------ */
+/* TABEL PENGACARA */
+/* ------------------------------------------ */
+.admin-table {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: #ffffff;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+    border-radius: 8px;
+    overflow: hidden;
+    margin-top: 20px;
+}
+
+.admin-table thead {
+    background-color: #f9fafb;
+}
+
+.admin-table th,
+.admin-table td {
+    text-align: left;
+    padding: 12px 16px;
+    border-bottom: 1px solid #e5e7eb;
+    font-size: 14px;
+}
+
+.admin-table th {
+    font-weight: 600;
+    color: #374151;
+}
+
+.admin-table tbody tr:hover {
+    background-color: #f3f4f6;
+}
+
+/* ------------------------------------------ */
+/* NOTIFIKASI */
+/* ------------------------------------------ */
+.alert-success {
+    background-color: #d1fae5;
+    color: #065f46;
+    padding: 12px 16px;
+    border-radius: 6px;
+    margin-bottom: 16px;
+    font-weight: 500;
+}
+
+.alert-error {
+    background-color: #fee2e2;
+    color: #991b1b;
+    padding: 12px 16px;
+    border-radius: 6px;
+    margin-bottom: 16px;
+    font-weight: 500;
+}
+
 /* ------------------------------------------ */
 /* RESPONSIVE */
 /* ------------------------------------------ */
 @media (max-width: 768px) {
     .admin-sidebar {
-      width: 200px;
+        width: 200px;
     }
-  
+
     .admin-content {
-      margin-left: 200px;
-      padding: 30px 20px;
+        margin-left: 200px;
+        padding: 30px 20px;
     }
 }
-  
+
 @media (max-width: 480px) {
     .admin-sidebar {
-      display: none;
+        display: none;
     }
-  
+
     .admin-content {
-      margin-left: 0;
-      padding: 20px;
+        margin-left: 0;
+        padding: 20px;
     }
-  
+
     .admin-form {
-      padding: 20px;
+        padding: 20px;
     }
+}
+
+/* ------------------------------------------ */
+/* DARK MODE */
+/* ------------------------------------------ */
+body.dark .admin-content {
+    background-color: #1e293b;
+    color: #f1f5f9;
+}
+
+body.dark .admin-form,
+body.dark .admin-table {
+    background-color: #334155;
+    color: #f1f5f9;
+}
+
+body.dark .admin-input {
+    background-color: #475569;
+    color: #f8fafc;
+    border-color: #64748b;
+}
+
+body.dark .admin-input:focus {
+    border-color: #38bdf8;
 }
