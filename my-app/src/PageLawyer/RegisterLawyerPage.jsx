@@ -161,7 +161,7 @@ const RegisterLawyerPage = () => {
             </div>
 
             {/* Akun */}
-            <div className="container-form-row">
+            <div className="akun-row">
               <div className="form-group">
                 <label>Username</label>
                 <input name="username" onChange={handleChange} required />
@@ -175,6 +175,7 @@ const RegisterLawyerPage = () => {
                 <input type="password" name="konfirmasi_password" onChange={handleChange} required />
               </div>
             </div>
+
 
             {/* Checkbox */}
             <div className="checkbox-group">
