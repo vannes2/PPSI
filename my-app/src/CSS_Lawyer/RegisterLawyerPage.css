@@ -37,7 +37,20 @@
     display: flex;
     gap: 20px;
     flex-wrap: wrap;
+    justify-content: space-between;
   }
+
+  .register-lawyer-page .akun-row {
+    display: flex;
+    gap: 20px;
+    justify-content: space-between;
+    flex-wrap: wrap;
+  }
+  
+  .register-lawyer-page .akun-row .form-group input {
+    width: 200px !important;
+  }
+  
   
   /* Input Group */
   .register-lawyer-page .form-group {
@@ -62,6 +75,7 @@
     background-color: #fdfcf8; /* putih tulang */
     font-size: 14px;
     color: #333;
+    width:  400px;
   }
   
   /* Input file (Browse button) */
@@ -72,6 +86,7 @@
     border: 1px solid #ccc;
     font-family: Arial, sans-serif;
     font-size: 13px;
+    width:  400px;
   }
   
   /* Checkbox */
@@ -123,7 +138,7 @@
   .register-lawyer-page .submit-btn:hover {
     background-color: #990f0f;
   }
-  
+    
   /* Responsive Mobile */
   @media (max-width: 768px) {
     .register-lawyer-page .container-form-row {

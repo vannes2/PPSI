@@ -1,222 +1,73 @@
-/* ------------------------------------------ */
-/* LAYOUT DASAR */
-/* ------------------------------------------ */
-.Tambah-Artikel .dashboard-wrapper {
+.Tambah-Artikel {
   display: flex;
   min-height: 100vh;
-  overflow-x: hidden;
-  font-family: sans-serif;
-  background-color: #f3f4f6;
-  box-sizing: border-box;
+  background-color: #f9f9f9;
 }
 
-/* ------------------------------------------ */
-/* KONTEN UTAMA */
-/* ------------------------------------------ */
-.Tambah-Artikel .dashboard-content {
-  flex-grow: 1;
-  padding: 24px;
-  background-color: #f3f4f6;
-  overflow-x: auto;
-  box-sizing: border-box;
+/* Sidebar tetap */
+.Tambah-Artikel .sidebar {
+  width: 250px;
+  background-color: #1e293b;
 }
 
-/* ------------------------------------------ */
-/* TABEL */
-/* ------------------------------------------ */
-.Tambah-Artikel .table-wrapper {
-  overflow-x: auto;
-  background-color: transparent;
-  border-radius: 8px;
-  box-shadow: none;
+/* Konten admin di kanan sidebar */
+.admin-content {
+  flex: 1;
+  padding: 40px;
+  background-color: #ffffff;
 }
 
-.Tambah-Artikel .table-wrapper table {
-  width: 100%;
-  border-collapse: collapse;
-  min-width: 800px;
-  background-color: transparent;
+/* Judul */
+.admin-title {
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 30px;
+  color: #1e293b;
 }
 
-.Tambah-Artikel .table-wrapper thead {
-  background-color: #e5e7eb;
-  position: sticky;
-  top: 0;
-  z-index: 1;
-}
-
-.Tambah-Artikel .table-wrapper th,
-.Tambah-Artikel .table-wrapper td {
-  border: 1px solid #ddd;
-  padding: 10px 14px;
-  text-align: left;
-  white-space: nowrap;
-  font-size: 14px;
-  background-color: #f3f4f6;
-}
-
-.Tambah-Artikel .table-wrapper tbody tr:hover {
-  background-color: #e5e7eb;
-}
-
-/* ------------------------------------------ */
-/* FORM TAMBAH ARTIKEL */
-/* ------------------------------------------ */
-.Tambah-Artikel .form-artikel {
+/* Form */
+.admin-form {
   display: flex;
   flex-direction: column;
-  gap: 16px;
-  background-color: #e5e7eb; /* Ganti dari putih */
-  padding: 24px;
-  border-radius: 8px;
-  box-shadow: none; /* Hilangkan efek putih dari shadow */
+  gap: 20px;
   max-width: 600px;
-  margin-top: 20px;
 }
 
-.Tambah-Artikel .form-artikel input,
-.Tambah-Artikel .form-artikel textarea {
-  background-color: #f3f4f6; /* Ganti dari putih */
-  color: #111827;
-  border: 1px solid #ccc;
-  padding: 10px 14px;
-  border-radius: 6px;
-  font-size: 14px;
-  transition: border 0.3s ease;
-}
-
-.Tambah-Artikel input[type="file"] {
-  background-color: #f3f4f6; /* Ganti warna file input juga */
-  color: #111827;
-}
-
-/* ------------------------------------------ */
-/* LAYOUT TAMBAH ARTIKEL - PUSATKAN FORM */
-/* ------------------------------------------ */
-.Tambah-Artikel .dashboard-wrapper {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  min-height: 100vh;
-  overflow-x: hidden;
-  font-family: sans-serif;
-  background-color: #f3f4f6;
-  box-sizing: border-box;
-}
-
-.Tambah-Artikel .dashboard-content {
-  flex-grow: 1;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 24px;
-  background-color: #f3f4f6;
-  overflow-x: auto;
-  box-sizing: border-box;
-}
-
-/* ------------------------------------------ */
-/* FORM TAMBAH ARTIKEL - PUSATKAN FORM */
-/* ------------------------------------------ */
-.Tambah-Artikel .form-artikel {
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-  background-color: #e5e7eb; /* Ganti dari putih */
-  padding: 24px;
+/* Input dan file upload */
+.admin-input {
+  padding: 12px 16px;
+  border: 1px solid #cbd5e1;
   border-radius: 8px;
-  box-shadow: none; /* Hilangkan efek putih dari shadow */
-  max-width: 600px;
-  margin: 0;
-  width: 100%;
+  font-size: 16px;
 }
 
-/* ------------------------------------------ */
-/* LAYOUT TAMBAH ARTIKEL - LEBIH DEMPET KE SIDEBAR */
-/* ------------------------------------------ */
-.Tambah-Artikel .admin-container {
-  display: flex;
-  min-height: 100vh;
-  background-color: #f3f4f6;
-}
-
-.Tambah-Artikel .admin-content {
-  flex-grow: 1;
-  padding: 20px;
-  margin-left: 0;
-  display: flex;
-  justify-content: center;
-  align-items: center; /* Dari center jadi start */
-}
-
-.Tambah-Artikel .admin-content {
-  padding-top: 40px;
-}
-
-
-.Tambah-Artikel .form-artikel {
-  margin-top: 0px; /* Tambahan margin dari atas */
-}
-
-
-/* FORM TETAP DI TENGAH DALAM MAIN */
-.Tambah-Artikel .form-artikel {
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-  background-color: #e5e7eb;
-  padding: 24px;
+/* Tombol submit */
+.admin-submit-button {
+  background-color: #1e40af;
+  color: white;
+  border: none;
+  padding: 12px 20px;
   border-radius: 8px;
-  max-width: 600px;
-  width: 100%;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
 }
 
-/* ------------------------------------------ */
-/* RESPONSIVENESS */
-/* ------------------------------------------ */
-@media (max-width: 1024px) {
-  .Tambah-Artikel .table-wrapper table {
-    min-width: 100%;
-  }
+.admin-submit-button:hover {
+  background-color: #1d4ed8;
 }
 
+/* Responsif */
 @media (max-width: 768px) {
-  .Tambah-Artikel .dashboard-content {
-    padding: 16px;
-  }
-
-  .Tambah-Artikel .toolbar {
+  .Tambah-Artikel {
     flex-direction: column;
-    align-items: stretch;
   }
 
-  .Tambah-Artikel .search-input {
-    width: 100%;
+  .admin-content {
+    padding: 20px;
   }
 
-  .Tambah-Artikel .table-wrapper {
-    border-radius: 0;
-  }
-
-  .Tambah-Artikel .form-artikel {
-    padding: 16px;
+  .admin-form {
     max-width: 100%;
-  }
-}
-
-@media (max-width: 480px) {
-  .Tambah-Artikel .table-wrapper table {
-    min-width: 600px;
-  }
-
-  .Tambah-Artikel .table-wrapper th,
-  .Tambah-Artikel .table-wrapper td {
-    font-size: 12px;
-    padding: 8px 10px;
-  }
-
-  .Tambah-Artikel .table-actions button {
-    padding: 5px 10px;
-    font-size: 12px;
   }
 }
