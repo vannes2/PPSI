@@ -11,6 +11,7 @@ const storage = multer.diskStorage({
 
 const upload = multer({ storage: storage });
 
+// Register lawyer
 router.post(
     '/lawyers/register',
     upload.fields([
@@ -21,5 +22,14 @@ router.post(
     ]),
     lawyerController.register
 );
+
+// List pendaftar
+router.get('/lawyers/registrations', lawyerController.getRegistrations);
+
+// Approve lawyer
+router.post('/lawyers/approve/:id', lawyerController.approveLawyer);
+
+// Route baru untuk tolak pendaftaran
+router.delete("/lawyers/reject/:id", lawyerController.rejectLawyer);
 
 module.exports = router;

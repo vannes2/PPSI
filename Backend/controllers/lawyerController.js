@@ -1,5 +1,6 @@
 const Lawyer = require('../models/lawyerModel');
 const bcrypt = require('bcrypt');
+const db = require('../config/database'); // pastikan file ini mengatur koneksi MySQL
 
 exports.register = async (req, res) => {
     const {
@@ -44,3 +45,50 @@ exports.register = async (req, res) => {
         res.status(500).json({ error: error.message });
     }
 };
+
+exports.getRegistrations = (req, res) => {
+    const query = "SELECT * FROM pendaftaran_pengacara";
+  
+    db.query(query, (err, results) => {
+      if (err) {
+        console.error("Database error:", err);
+        return res.status(500).json({ error: err.message });
+      }
+  
+      res.json(results);
+    });
+  };
+  
+
+exports.approveLawyer = (req, res) => {
+    const { id } = req.params;
+
+    Lawyer.approveLawyer(id, (err) => {
+        if (err) return res.status(500).json({ error: err.message });
+        res.json({ message: 'Pendaftaran berhasil disetujui.' });
+    });
+};
+
+// DELETE /api/lawyers/reject/:id
+exports.rejectLawyer = async (req, res) => {
+    const { id } = req.params;
+
+    if (!id) {
+        return res.status(400).json({ error: "ID tidak ditemukan dalam permintaan." });
+    }
+
+    try {
+        const [result] = await db.query("DELETE FROM pendaftaran_pengacara WHERE id = ?", [id]);
+
+        if (result.affectedRows === 0) {
+            return res.status(404).json({ message: "Pendaftaran tidak ditemukan atau sudah dihapus." });
+        }
+
+        res.status(200).json({ message: "Pendaftaran ditolak dan dihapus." });
+    } catch (error) {
+        console.error("Error rejecting lawyer:", error);
+        res.status(500).json({ error: "Gagal menolak pendaftaran." });
+    }
+};
+
+  

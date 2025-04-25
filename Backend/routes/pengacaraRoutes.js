@@ -13,7 +13,7 @@ const db = mysql.createConnection({
 db.connect((err) => {
     if (err) {
         console.error("Koneksi database gagal:", err);
-    } else {
+    } else {    
         console.log("Terhubung ke database MySQL");
     }
 });
