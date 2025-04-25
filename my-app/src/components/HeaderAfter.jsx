@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import "./Header.css";
 
-const HeaderAfter = () => {
+const Header = () => {
   const [menuOpen, setMenuOpen] = useState(false);
 
   const toggleDrawer = () => setMenuOpen(!menuOpen);
@@ -51,4 +51,4 @@ const HeaderAfter = () => {
   );
 };
 
-export default HeaderAfter;
+export default Header;

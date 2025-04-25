@@ -304,11 +304,7 @@ textarea {
 
 /* ========== Responsif untuk ukuran layar maksimal 768px ========== */
 @media (max-width: 768px) {
-  .profile-page header {
-    flex-direction: column;
-    align-items: flex-start;
-    padding: 15px 20px;
-  }
+
 
   .profile-page .nav-menu ul {
     flex-direction: column;

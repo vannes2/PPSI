@@ -67,13 +67,10 @@ const Login = () => {
   return (
     <div className="Login-page">
       <Header />
-<<<<<<< HEAD
-=======
       <br />
       <br />
       <br />
       <br />
->>>>>>> 602db27a48100fa421bec302fcc23020649fac8b
       <div className="container">
         <div className="main">
           <div className="login">

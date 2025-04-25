@@ -31,11 +31,7 @@ const Artikel = () => {
   return (
     <div className="artikel-page">
       <HeaderAfter />
-<<<<<<< HEAD
-      <br />
-=======
       <br /><br/><br/><br/><br/>
->>>>>>> 602db27a48100fa421bec302fcc23020649fac8b
       <h1 className="text-3xl font-bold mb-6 artikel-heading text-center">
         Daftar Artikel
       </h1>
@@ -80,11 +76,7 @@ const Artikel = () => {
         </div>
       )}
 
-<<<<<<< HEAD
-      <br />
-=======
       <br /><br/><br/><br/><br/>
->>>>>>> 602db27a48100fa421bec302fcc23020649fac8b
       <div className="footer-separator"></div>
 
       <Footer />

@@ -1,9 +1,9 @@
 /* Reset dan font */
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: Arial, sans-serif;
 }
 
 body {
@@ -11,22 +11,26 @@ body {
   color: #333;
 }
 
-/* Header */
-
-.home-before-page .auth-buttons button {
-    background-color: #B31312;
-    color: white;
-    border: 2px solid #B31312;
-    border-radius: 15px;
-    padding: 10px 25px;
-    cursor: pointer;
-    font-weight: bold;
-    transition: all 0.3s ease-in-out;
+/* Header Button */
+.home-before-page .auth-buttons button,
+.home-before-page .btn-right button,
+.home-before-page .buttons button {
+  background-color: #B31312;
+  color: white;
+  border: none;
+  border-radius: 15px;
+  padding: 10px 25px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: all 0.3s ease-in-out;
 }
 
-.home-before-page .auth-buttons button:hover {
-    background-color: #ffffff;
-    color: #B31312;
+.home-before-page .auth-buttons button:hover,
+.home-before-page .btn-right button:hover,
+.home-before-page .buttons button:hover {
+  background-color: white;
+  color: #B31312;
+  border: 2px solid #B31312;
 }
 
 /* Hero Section */
@@ -40,9 +44,9 @@ body {
 }
 
 .home-before-page .hero-text {
-    flex: 1;
-    min-width: 250px;
-    text-align: left;
+  flex: 1;
+  min-width: 280px;
+  text-align: left;
 }
 
 .home-before-page .hero-text h1 {
@@ -59,22 +63,21 @@ body {
 }
 
 .home-before-page .buttons {
-    display: flex;
-    flex-wrap: wrap;
-    margin-top: 20px;
-    gap: 10px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 20px;
 }
 
-.home-before-page .buttons button {
-    background-color: #B31312;
-    color: white;
-    border: none;
-    padding: 10px 35px;
-    cursor: pointer;
-    border-radius: 15px;
-    font-size: 14px;
-    font-weight: bold;
-    transition: background-color 0.3s;
+.home-before-page .hero-image {
+  flex: 1;
+  text-align: center;
+  min-width: 280px;
+}
+
+.home-before-page .hero-image img {
+  max-width: 100%;
+  height: auto;
 }
 
 /* Produk Section */
@@ -130,9 +133,9 @@ body {
 
 /* Tombol Selengkapnya */
 .home-before-page .btn-right {
-    display: flex;
-    justify-content: flex-end;
-    margin-top: 20px;
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 20px;
 }
 
 /* Footer Separator */
@@ -143,86 +146,63 @@ body {
   margin-top: 40px;
 }
 
-.home-before-page .btn-right button:hover {
-    background-color: #ffffff;
-    color: #B31312;
-    border: 2px solid #B31312;
-    border-radius: 20px; /* radius lebih besar saat hover */
-  }
-
-/* Footer Separator */
-.home-before-page .footer-separator {
-    width: 100%;
-    height: 10px;
-    background-color: #B31312;
-}
-
-
-
-/* ======================= RESPONSIVE STYLES ======================= */
-
-/* --- Tambahan Responsive Design --- */
+/* ======================= RESPONSIVE ======================= */
 @media (max-width: 1024px) {
-    .home-before-page .hero {
+  .home-before-page .hero {
       flex-direction: column;
       text-align: center;
-      padding: 30px;
-    }
-  
-    .home-before-page .hero-text {
+      padding: 40px 5%;
+  }
+
+  .home-before-page .hero-text {
       text-align: center;
-    }
-  
-    .home-before-page .hero-text h1 {
-      font-size: 28px;
-    }
-  
-    .home-before-page .buttons {
+  }
+
+  .home-before-page .hero-text h1 {
+      font-size: 30px;
+  }
+
+  .home-before-page .buttons {
       justify-content: center;
-    }
-  
-    .home-before-page .product-list {
+  }
+
+  .home-before-page .product-list {
       justify-content: center;
-    }
-  
-    .home-before-page .product-item {
+  }
+
+  .home-before-page .product-item {
       width: 45%;
-    }
-  
-    .home-before-page .btn-right {
+  }
+
+  .home-before-page .btn-right {
       justify-content: center;
-    }
   }
-  
-  @media (max-width: 768px) {
-    .home-before-page .hero {
-      padding: 20px;
-    }
-  
-    .home-before-page .hero-text h1 {
-      font-size: 22px;
-    }
-  
-    .home-before-page .hero-text p {
+}
+
+@media (max-width: 768px) {
+  .home-before-page .hero-text h1 {
+      font-size: 24px;
+  }
+
+  .home-before-page .hero-text p {
       font-size: 14px;
-    }
-  
-    .home-before-page .buttons button {
-      font-size: 12px;
-      padding: 8px 20px;
-    }
-  
-    .home-before-page .product-item {
-      width: 100%;
-    }
-  
-    .home-before-page .product-item p {
-      font-size: 12px;
-    }
-  
-    .home-before-page .btn-right button {
-      padding: 8px 16px;
-      font-size: 13px;
-    }
   }
-  
+
+  .home-before-page .buttons button {
+      font-size: 13px;
+      padding: 8px 20px;
+  }
+
+  .home-before-page .product-item {
+      width: 100%;
+  }
+
+  .home-before-page .product-item p {
+      font-size: 13px;
+  }
+
+  .home-before-page .btn-right button {
+      font-size: 13px;
+      padding: 8px 16px;
+  }
+}
