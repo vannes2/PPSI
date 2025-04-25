@@ -1,7 +1,7 @@
 const Lawyer = require('../models/lawyerModel');
-const bcrypt = require('bcrypt');
-const db = require('../config/database'); // pastikan file ini mengatur koneksi MySQL
+const db = require('../config/database'); // koneksi database
 
+// POST /api/lawyers/register
 exports.register = async (req, res) => {
     const {
         nama, ktp, tanggalLahir, jenisKelamin, alamat, email,
@@ -15,7 +15,7 @@ exports.register = async (req, res) => {
     }
 
     try {
-        const hashedPassword = await bcrypt.hash(password, 10);
+        // Password tidak di-hash, langsung simpan seperti apa adanya
         const data = {
             nama,
             ktp,
@@ -34,7 +34,7 @@ exports.register = async (req, res) => {
             upload_kartu_advokat: files.uploadKartuAdvokat[0].filename,
             upload_pkpa: files.uploadPKPA[0].filename,
             username,
-            password: hashedPassword
+            password // <-- simpan langsung
         };
 
         Lawyer.registerLawyer(data, (err, results) => {
@@ -46,20 +46,21 @@ exports.register = async (req, res) => {
     }
 };
 
+// GET /api/lawyers/registrations
 exports.getRegistrations = (req, res) => {
     const query = "SELECT * FROM pendaftaran_pengacara";
-  
-    db.query(query, (err, results) => {
-      if (err) {
-        console.error("Database error:", err);
-        return res.status(500).json({ error: err.message });
-      }
-  
-      res.json(results);
-    });
-  };
-  
 
+    db.query(query, (err, results) => {
+        if (err) {
+            console.error("Database error:", err);
+            return res.status(500).json({ error: err.message });
+        }
+
+        res.json(results);
+    });
+};
+
+// POST /api/lawyers/approve/:id
 exports.approveLawyer = (req, res) => {
     const { id } = req.params;
 
@@ -90,5 +91,3 @@ exports.rejectLawyer = async (req, res) => {
         res.status(500).json({ error: "Gagal menolak pendaftaran." });
     }
 };
-
-  
