@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 20 Apr 2025 pada 16.03
+-- Waktu pembuatan: 25 Apr 2025 pada 05.14
 -- Versi server: 10.4.28-MariaDB
 -- Versi PHP: 8.2.4
 
@@ -105,6 +105,42 @@ CREATE TABLE `log_aktivitas` (
 -- --------------------------------------------------------
 
 --
+-- Struktur dari tabel `pendaftaran_pengacara`
+--
+
+CREATE TABLE `pendaftaran_pengacara` (
+  `id` int(11) NOT NULL,
+  `nama` varchar(100) NOT NULL,
+  `ktp` varchar(30) NOT NULL,
+  `tanggal_lahir` date NOT NULL,
+  `jenis_kelamin` enum('Laki-laki','Perempuan') NOT NULL,
+  `alamat` text NOT NULL,
+  `email` varchar(100) NOT NULL,
+  `no_hp` varchar(20) NOT NULL,
+  `nomor_induk_advokat` varchar(50) NOT NULL,
+  `universitas` varchar(100) NOT NULL,
+  `pendidikan` varchar(100) NOT NULL,
+  `spesialisasi` varchar(150) NOT NULL,
+  `pengalaman` int(11) NOT NULL,
+  `upload_ktp` varchar(255) DEFAULT NULL,
+  `upload_foto` varchar(255) DEFAULT NULL,
+  `upload_kartu_advokat` varchar(255) DEFAULT NULL,
+  `upload_pkpa` varchar(255) DEFAULT NULL,
+  `username` varchar(100) NOT NULL,
+  `password` varchar(255) NOT NULL,
+  `tanggal_daftar` datetime DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data untuk tabel `pendaftaran_pengacara`
+--
+
+INSERT INTO `pendaftaran_pengacara` (`id`, `nama`, `ktp`, `tanggal_lahir`, `jenis_kelamin`, `alamat`, `email`, `no_hp`, `nomor_induk_advokat`, `universitas`, `pendidikan`, `spesialisasi`, `pengalaman`, `upload_ktp`, `upload_foto`, `upload_kartu_advokat`, `upload_pkpa`, `username`, `password`, `tanggal_daftar`) VALUES
+(7, 'hello', '127718819', '2025-04-25', 'Perempuan', 'jalan cemani', 'hello@gmail.com', '081919188', 'ADV12', 'Universitas Trisakti', 'S2 Ilmu Hukum', 'Hukum Bisnis', 3, '1745550576140-1745546224183-zitline_ip.sql', '1745550576141-1745546224183-zitline_ip.sql', '1745550576144-1745549490864-TM 4 KP Inna Sabily karima.pptx', '1745550576152-1745549490864-TM 4 KP Inna Sabily karima.pptx', 'hello', '$2b$10$07HBfTIqu3l4oLsTWvZYC.o4zAnh2ra.j6uwqf2nOGdxZnRNc4vrO', '2025-04-25 10:09:36');
+
+-- --------------------------------------------------------
+
+--
 -- Struktur dari tabel `pengacara`
 --
 
@@ -155,8 +191,9 @@ INSERT INTO `pengacara` (`id`, `nama`, `ktp`, `tanggal_lahir`, `jenis_kelamin`, 
 (17, 'Louis', '3201010401010017', '1995-02-17', 'Perempuan', 'Jl. Lenteng Agung No.17 Jakarta', 'louis@gmail.com', '081234567806', 'ADV017', 'Universitas Mercu Buana', 'S2 Hukum', 'Hukum Perdata', 4, 'ktp17.png', 'foto17.png', 'kartu17.png', 'pkpa17.png', 'liliss', 'hashedpassword17', '2025-04-20 20:03:57'),
 (19, 'Fitri Yuliani', '3201010401010019', '1992-06-14', 'Perempuan', 'Jl. Pasar Rebo No.19 Jakarta', 'fitri.yuliani@example.com', '081234567808', 'ADV019', 'Universitas Lampung', 'S1 Hukum', 'Hukum Waris', 5, 'ktp19.png', 'foto19.png', 'kartu19.png', 'pkpa19.png', 'fitriy', 'hashedpassword19', '2025-04-20 20:03:57'),
 (20, 'Agus Saputra', '3201010401010020', '1988-01-01', 'Laki-laki', 'Jl. Condet No.20 Jakarta', 'agus.saputra@example.com', '081234567809', 'ADV020', 'Universitas Mulawarman', 'S1 Hukum', 'Hukum Ketenagakerjaan', 8, 'ktp20.png', 'foto20.png', 'kartu20.png', 'pkpa20.png', 'aguss', 'hashedpassword20', '2025-04-20 20:03:57'),
-(21, 'steve', '12818811992', '2025-04-20', 'Laki-laki', 'jawa', 'steve@gmail.com', '089977661661', 'ADV100', 'Universitas Indonesia', 'S2 Hukum', 'Hukum Internasional', 5, '1745156923607-pengacara (1).sql', '1745156923611-pengacara (1).sql', '1745156923609-pengacara (1).sql', '1745156923611-pengacara (1).sql', 'steve', '$2b$10$QAU6K4ov2naaCELI3Jjd1eEt/YPgtBSVndB35M.DVjJb1n8SdOD/e', '2025-04-20 20:48:43'),
-(22, 'jamaludin', '31829201010', '1980-01-15', 'Laki-laki', 'Jl Kedaton', 'jamaludin@yahoo.com', '088812123456', 'ADV77', 'UPH', 'S2 Ilmu Hukum', 'Hukum Bisnis', 12, '1745157508818-ChatGPT Image Apr 17, 2025, 10_53_20 AM.png', '1745157508841-ChatGPT Image Apr 17, 2025, 10_53_20 AM.png', '1745157508828-ChatGPT Image Apr 17, 2025, 10_53_20 AM.png', '1745157508853-ChatGPT Image Apr 17, 2025, 10_51_55 AM.png', 'jamal', '$2b$10$XFIk/eKfkfDA0hZkYYy3Jen1KjieWOCWfGp1u3eG1qPBRn4aj.7E2', '2025-04-20 20:58:28');
+(22, 'jamaludin', '31829201010', '1980-01-15', 'Laki-laki', 'Jl Kedaton', 'jamaludin@yahoo.com', '088812123456', 'ADV77', 'UPH', 'S2 Ilmu Hukum', 'Hukum Bisnis', 12, '1745157508818-ChatGPT Image Apr 17, 2025, 10_53_20 AM.png', '1745157508841-ChatGPT Image Apr 17, 2025, 10_53_20 AM.png', '1745157508828-ChatGPT Image Apr 17, 2025, 10_53_20 AM.png', '1745157508853-ChatGPT Image Apr 17, 2025, 10_51_55 AM.png', 'jamal', '$2b$10$XFIk/eKfkfDA0hZkYYy3Jen1KjieWOCWfGp1u3eG1qPBRn4aj.7E2', '2025-04-20 20:58:28'),
+(23, 'Anwar', '41627818199', '2025-04-25', 'Laki-laki', 'Jakbar', 'anwar@gmail.com', '0877617718819', 'ADV99', 'Universitas Trisakti', 'S2 Hukum', 'Hukum Perdata', 5, '1745544909164-zitline_ip.sql', '1745544909167-zitline_ip.sql', '1745544909165-zitline_ip.sql', '1745544909168-zitline_ip.sql', 'anwar', '$2b$10$3nRZ/7rNL3S3i0dV8DjFfe0Y4aND4Y/bG1Dx2dY8L1arp27WYpcsm', '2025-04-25 09:22:02'),
+(25, 'komangs', '12818811992', '2025-04-25', 'Laki-laki', 'jawa', 'steve@gmail.com', '089977661661', 'ADV107', 'UPH', 'S2 Hukum', 'Hukum Alam', 4, '1745549642332-zitline_ip.sql', '1745549642332-zitline_ip.sql', '1745549642333-zitline_ip.sql', '1745549642333-zitline_ip.sql', 'nvidia', '$2b$10$HlIj4Qkq.ygFXTWaQ8rCBuWXKGCRY9B6yBnHhTaXrXUzHF0ixCjrK', '2025-04-25 09:56:47');
 
 -- --------------------------------------------------------
 
@@ -265,6 +302,13 @@ ALTER TABLE `log_aktivitas`
   ADD KEY `id_pengguna` (`id_pengguna`);
 
 --
+-- Indeks untuk tabel `pendaftaran_pengacara`
+--
+ALTER TABLE `pendaftaran_pengacara`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `email` (`email`);
+
+--
 -- Indeks untuk tabel `pengacara`
 --
 ALTER TABLE `pengacara`
@@ -322,10 +366,16 @@ ALTER TABLE `log_aktivitas`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
+-- AUTO_INCREMENT untuk tabel `pendaftaran_pengacara`
+--
+ALTER TABLE `pendaftaran_pengacara`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+
+--
 -- AUTO_INCREMENT untuk tabel `pengacara`
 --
 ALTER TABLE `pengacara`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
 
 --
 -- AUTO_INCREMENT untuk tabel `pengguna`
