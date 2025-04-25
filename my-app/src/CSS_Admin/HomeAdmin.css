@@ -1,148 +1,280 @@
-/* ---- Wrapper untuk halaman admin ---- */
-.admin-container {
+/* ------------------------------------------ */
+/* WRAPPER LAYOUT */
+/* ------------------------------------------ */
+.dashboard-wrapper {
   display: flex;
   height: 100vh;
+  overflow-x: hidden;
+  font-family: sans-serif;
+  background-color: #f3f4f6;
 }
 
-/* ---- Sidebar ---- */
-.sidebar {
+/* ------------------------------------------ */
+/* SIDEBAR */
+/* ------------------------------------------ */
+.dashboard-sidebar {
+  flex-shrink: 0;
   width: 250px;
   background: #1f2937;
-  color: white;
+  color: #ffffff;
   padding: 20px;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
 }
 
-.sidebar h2 {
+.dashboard-sidebar h2 {
   font-size: 1.5rem;
   font-weight: bold;
-  margin-bottom: 20px;
+  margin-bottom: 30px;
+  text-align: center;
 }
 
-.sidebar ul {
+.dashboard-sidebar ul {
   list-style: none;
   padding: 0;
+  margin: 0;
 }
 
-.sidebar li {
-  margin-bottom: 10px;
-}
-
-.sidebar a,
-.sidebar button {
-  display: flex;
-  align-items: center;
-  padding: 10px;
-  color: white;
-  text-decoration: none;
-  background: none;
-  border: none;
-  width: 100%;
-  text-align: left;
-  cursor: pointer;
-  transition: background 0.3s;
-}
-
-.sidebar a:hover,
-.sidebar button:hover {
-  background: #374151;
-  border-radius: 5px;
-}
-
-/* ---- Main Content ---- */
-.content {
-  flex-grow: 1;
-  padding: 20px;
-  background: #f3f4f6;
-  overflow-y: auto;
-}
-
-/* ---- Tabel Container ---- */
-.table-container {
-  border-radius: 8px;
-  overflow: hidden;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-  background: white;
-}
-
-.table-container .overflow-y-auto {
-  max-height: 500px;
-  overflow-y: auto;
-}
-
-.table-container table {
-  width: 100%;
-  border-collapse: collapse;
-}
-
-.table-container th,
-.table-container td {
-  border: 1px solid #ddd;
-  padding: 10px;
-  text-align: left;
-}
-
-.table-container thead {
-  background: #e5e7eb;
-  position: sticky;
-  top: 0;
-  z-index: 10;
-}
-
-.table-container tbody tr:hover {
-  background: #f9fafb;
-}
-
-/* ---- Input Search ---- */
-input[type="text"] {
-  width: 100%;
-  padding: 10px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
+.dashboard-sidebar li {
   margin-bottom: 15px;
 }
 
-/* ---- Tombol Aksi ---- */
-.action-buttons {
+.dashboard-sidebar button {
   display: flex;
-  gap: 8px; /* Jarak antar tombol */
-  justify-content: center;
   align-items: center;
+  width: 100%;
+  padding: 10px;
+  background: none;
+  border: none;
+  color: inherit;
+  font-size: 1rem;
+  cursor: pointer;
+  border-radius: 6px;
+  text-align: left;
+  transition: background 0.3s ease;
 }
 
-/* ---- Style untuk semua tombol ---- */
-.action-buttons button {
+.dashboard-sidebar button:hover,
+.dashboard-sidebar .nav-active button {
+  background: #374151;
+}
+
+.icon-spacing {
+  margin-right: 10px;
+  font-size: 1.2rem;
+}
+
+/* ------------------------------------------ */
+/* MAIN CONTENT */
+/* ------------------------------------------ */
+.dashboard-content {
+  flex-grow: 1;
+  padding: 40px 1000px;
+  background: #f3f4f6;
+  min-height: 100vh;
+  box-sizing: border-box;
+  overflow-x: auto;
+}
+
+/* ------------------------------------------ */
+/* SEARCH & TOOLBAR */
+/* ------------------------------------------ */
+.search-input {
+  width: 100%;
+  max-width: 320px;
+  padding: 10px 12px;
+  border: 1px solid #d1d5db;
+  border-radius: 6px;
+  margin-bottom: 20px;
+  font-size: 14px;
+  background: #fff;
+}
+
+.toolbar {
   display: flex;
   align-items: center;
-  justify-content: center;
+  gap: 12px;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+}
+
+/* ------------------------------------------ */
+/* BUTTON STYLES */
+/* ------------------------------------------ */
+.btn-primary,
+.btn-refresh,
+.btn-view,
+.btn-edit,
+.btn-delete {
+  display: inline-flex;
+  align-items: center;
   gap: 6px;
   padding: 8px 14px;
   font-size: 14px;
   font-weight: 600;
   border: none;
-  border-radius: 4px;
+  border-radius: 6px;
   cursor: pointer;
   transition: all 0.2s ease-in-out;
-  min-width: 80px; /* Pastikan tombol punya ukuran konsisten */
 }
 
-/* ---- Style tombol individual ---- */
+.btn-primary {
+  background-color: #10b981;
+  color: #ffffff;
+}
+
+.btn-refresh {
+  background-color: #111827;
+  color: #ffffff;
+}
+
 .btn-view {
-  background-color: #3b82f6; /* Biru */
-  color: white;
+  background-color: #3b82f6;
+  color: #ffffff;
 }
 
 .btn-edit {
-  background-color: #06b6d4; /* Biru muda */
-  color: white;
+  background-color: #06b6d4;
+  color: #ffffff;
 }
 
 .btn-delete {
-  background-color: #ef4444; /* Merah */
-  color: white;
+  background-color: #ef4444;
+  color: #ffffff;
 }
 
-/* ---- Hover Effect ---- */
-.action-buttons button:hover {
-  opacity: 0.85;
+.btn-primary:hover,
+.btn-refresh:hover,
+.btn-view:hover,
+.btn-edit:hover,
+.btn-delete:hover {
+  opacity: 0.9;
   transform: scale(1.05);
+}
+
+/* ------------------------------------------ */
+/* TABLE */
+/* ------------------------------------------ */
+.table-wrapper {
+  width: 100%;
+  height: calc(100vh - 200px);
+  background: #ffffff;
+  border-radius: 8px;
+  overflow: auto;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+.table-scroll {
+  min-width: 1300px;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+}
+
+.table-scroll table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 14px;
+}
+
+.table-scroll thead {
+  background: #e5e7eb;
+  position: sticky;
+  top: 0;
+  z-index: 5;
+}
+
+.table-scroll th,
+.table-scroll td {
+  padding: 12px 14px;
+  border: 1px solid #e5e7eb;
+  text-align: left;
+}
+
+.table-scroll tbody tr:hover {
+  background-color: #f9fafb;
+}
+
+.table-actions {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+/* ------------------------------------------ */
+/* RESPONSIVE */
+/* ------------------------------------------ */
+@media (max-width: 768px) {
+  .dashboard-sidebar {
+    width: 200px;
+  }
+
+  .dashboard-content {
+    padding: 30px 20px;
+  }
+
+  .table-scroll {
+    min-width: 100%;
+  }
+
+  .search-input {
+    width: 100%;
+  }
+
+  .table-scroll table,
+  .table-scroll thead,
+  .table-scroll tbody,
+  .table-scroll th,
+  .table-scroll td,
+  .table-scroll tr {
+    display: block;
+  }
+
+  .table-scroll thead {
+    display: none;
+  }
+
+  .table-scroll tr {
+    margin-bottom: 16px;
+    border: 1px solid #e5e7eb;
+    border-radius: 8px;
+    background: #ffffff;
+    padding: 12px;
+  }
+
+  .table-scroll td {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    border: none;
+    border-bottom: 1px solid #e5e7eb;
+    font-size: 14px;
+  }
+
+  .table-scroll td:last-child {
+    border-bottom: none;
+  }
+
+  .table-scroll td::before {
+    content: attr(data-label);
+    font-weight: bold;
+    flex-shrink: 0;
+    margin-right: 10px;
+    color: #374151;
+  }
+}
+
+@media (max-width: 480px) {
+  .dashboard-sidebar {
+    display: none;
+  }
+
+  .dashboard-content {
+    margin-left: 0;
+    padding: 20px;
+  }
 }

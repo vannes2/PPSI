@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
-import "../CSS_User/SignUp.css"; 
+import "../CSS_User/SignUp.css";
 
 const SignUp = () => {
   const [name, setName] = useState("");
@@ -12,6 +12,7 @@ const SignUp = () => {
   const [confirmPassword, setConfirmPassword] = useState("");
   const [gender, setGender] = useState("");
   const [birthdate, setBirthdate] = useState("");
+  const [showSuccessPopup, setShowSuccessPopup] = useState(false);
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
@@ -35,10 +36,11 @@ const SignUp = () => {
 
     const result = await response.json();
     if (response.ok) {
-      alert("Pendaftaran berhasil");
-
-      navigate("/Login");
-
+      setShowSuccessPopup(true); // Tampilkan popup
+      setTimeout(() => {
+        setShowSuccessPopup(false); // Sembunyikan popup
+        navigate("/Login"); // Redirect ke login
+      }, 2000);
     } else {
       alert(result.message);
     }
@@ -47,7 +49,7 @@ const SignUp = () => {
   return (
     <div className="signup-page">
       <Header />
-
+      <br/><br/><br/><br/>
       <section>
         <div className="signup-title">
           <h1>Buat Akun</h1>
@@ -118,18 +120,18 @@ const SignUp = () => {
               <div className="form-column">
                 <label htmlFor="gender">Gender</label>
                 <select
-                    id="gender"
-                    name="gender"
-                    value={gender}
-                    onChange={(e) => setGender(e.target.value)}
-                    required
-                    >
-                    <option value="" disabled hidden>
-                        Pilih Gender
-                    </option>
-                    <option value="L">Laki-laki</option>
-                    <option value="P">Perempuan</option>
-                    </select>
+                  id="gender"
+                  name="gender"
+                  value={gender}
+                  onChange={(e) => setGender(e.target.value)}
+                  required
+                >
+                  <option value="" disabled hidden>
+                    Pilih Gender
+                  </option>
+                  <option value="L">Laki-laki</option>
+                  <option value="P">Perempuan</option>
+                </select>
               </div>
               <div className="form-column">
                 <label htmlFor="birthdate">Birth Date</label>
@@ -148,7 +150,7 @@ const SignUp = () => {
             <div className="checkbox-label">
               <input type="checkbox" id="terms" name="terms" required />
               <label htmlFor="terms" className="terms">
-                Dengan mendaftar ke Ayune, Anda telah menyetujui{" "}
+                Dengan mendaftar ke Cerdas Hukum, Anda telah menyetujui{" "}
                 <a href="#">syarat &amp; ketentuan</a> dan{" "}
                 <a href="#">kebijakan privasi</a>
               </label>
@@ -161,8 +163,17 @@ const SignUp = () => {
         </div>
       </section>
 
-        <div className="footer-separator"></div>
-      {/* footer */}
+      {showSuccessPopup && (
+        <div className="popup-overlay">
+          <div className="popup-content">
+            <div className="checkmark">✔</div>
+            <p>Daftar berhasil</p>
+          </div>
+        </div>
+      )}
+
+      <div className="footer-separator"></div>
+      
       <Footer />
     </div>
   );

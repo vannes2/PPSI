@@ -1,10 +1,11 @@
 import { useState, useEffect } from "react";
-import { useParams, useNavigate, Link } from "react-router-dom";
-import { FaGavel, FaHome } from "react-icons/fa";
+import { useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
+import "../CSS_Admin/EditPengacara.css";
+import SidebarAdmin from "../components/SidebarAdmin";
 
 const EditPengacara = () => {
-  const { id } = useParams(); 
+  const { id } = useParams();
   const navigate = useNavigate();
   const [pengacara, setPengacara] = useState({
     nama: "",
@@ -15,6 +16,8 @@ const EditPengacara = () => {
     pendidikan: "",
     tanggal_daftar: "",
   });
+
+  const [activeTab, setActiveTab] = useState("pengacara");
 
   useEffect(() => {
     const fetchPengacaraById = async () => {
@@ -40,37 +43,27 @@ const EditPengacara = () => {
     try {
       await axios.put(`http://localhost:5000/api/pengacara/${id}`, pengacara);
       alert("Data pengacara berhasil diperbarui!");
-      navigate("/HomeAdmin"); 
+      navigate("/HomeAdmin");
     } catch (error) {
       console.error("Gagal memperbarui data:", error);
     }
   };
 
   return (
-    <div className="admin-container flex">
-      {/* Sidebar */}
-      <aside className="sidebar w-64 h-screen bg-gray-800 text-white p-4">
-        <h2 className="text-xl font-bold mb-4">Admin Panel</h2>
-        <ul>
-          <li>
-            <Link to="/admin" className="flex items-center p-2 hover:bg-gray-700 rounded">
-              <FaHome className="mr-2" /> Dashboard
-            </Link>
-          </li>
-          <li>
-            <Link to="/HomeAdmin" className="flex items-center p-2 hover:bg-gray-700 rounded">
-              <FaGavel className="mr-2" /> Pengacara
-            </Link>
-          </li>
-        </ul>
-      </aside>
+    <div className="dashboard-wrapper flex">
+      {/* Sidebar diseragamkan */}
+      <SidebarAdmin
+        activeTab={activeTab}
+        onTabChange={setActiveTab}
+        onNavigate={navigate}
+      />
 
       {/* Main Content */}
-      <main className="content p-4 flex-grow">
+      <main className="dashboard-content p-6">
         <h2 className="text-2xl font-bold mb-4">Edit Pengacara</h2>
-        
+
         {!pengacara.nama && <p>Memuat data...</p>}
-        
+
         <form onSubmit={handleUpdate} className="flex flex-col gap-4 max-w-lg">
           <input
             type="text"
@@ -85,17 +78,8 @@ const EditPengacara = () => {
             name="email"
             value={pengacara.email}
             onChange={handleChange}
+            className="border p-2 w-full"
             placeholder="Email"
-            style={{
-              width: "100%",
-              padding: "8px",
-              border: "1px solid #ccc",
-              borderRadius: "4px",
-              outline: "none",
-              marginBottom: "16px",
-            }}
-            onFocus={(e) => (e.target.style.border = "1px solid black")}
-            onBlur={(e) => (e.target.style.border = "1px solid #ccc")}
           />
           <input
             type="text"
@@ -113,7 +97,6 @@ const EditPengacara = () => {
             className="border p-2 w-full"
             placeholder="Spesialisasi"
           />
-          <br></br>
           <input
             type="text"
             name="pengalaman"
@@ -122,7 +105,6 @@ const EditPengacara = () => {
             className="border p-2 w-full"
             placeholder="Pengalaman"
           />
-          <br></br>
           <input
             type="text"
             name="pendidikan"
@@ -131,32 +113,29 @@ const EditPengacara = () => {
             className="border p-2 w-full"
             placeholder="Pendidikan"
           />
-          <br></br>
-          
           <input
             type="date"
             name="tanggal_daftar"
             value={
-                pengacara.tanggal_daftar
-                ? new Date(pengacara.tanggal_daftar).toISOString().split("T")[0] 
+              pengacara.tanggal_daftar
+                ? new Date(pengacara.tanggal_daftar).toISOString().split("T")[0]
                 : ""
             }
             onChange={(e) => {
-                setPengacara({ ...pengacara, tanggal_daftar: e.target.value });
+              setPengacara({ ...pengacara, tanggal_daftar: e.target.value });
             }}
             className="border p-2 w-full rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400"
             placeholder="Tanggal Daftar"
-            />
+          />
 
-          <div><br></br></div>
           <div className="mt-4">
             <button
-                type="submit"
-                className="bg-blue-500 hover:bg-blue-600 text-white font-semibold p-3 text-lg rounded-md transition duration-300 w-full"
-                >
-                Simpan Perubahan
+              type="submit"
+              className="bg-blue-500 hover:bg-blue-600 text-white font-semibold p-3 text-lg rounded-md transition duration-300 w-full"
+            >
+              Simpan Perubahan
             </button>
-        </div>
+          </div>
         </form>
       </main>
     </div>

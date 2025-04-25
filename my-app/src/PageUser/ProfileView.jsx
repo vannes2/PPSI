@@ -64,6 +64,7 @@ const ProfileView = () => {
   return (
     <div className="profile-page">
       <HeaderAfter />
+      <br /><br/><br/><br/><br/><br/>
       <div className="container">
         <div className="profile-container">
           <div className="profile-sidebar">
@@ -135,7 +136,7 @@ const ProfileView = () => {
           </div>
         </div>
       )}
-
+<br/><br/><br/><br/>
       <div className="footer-separator"></div>
       
       <Footer />

@@ -7,7 +7,7 @@ const AboutUsAfter = () => {
     <div className="about-page-container">
       {/* header */}
       <HeaderAfter />
-      <br></br>
+      <br></br><br/><br/><br/><br/>
       <main>
         <section>
           <div className="about-us">
@@ -25,6 +25,7 @@ const AboutUsAfter = () => {
           </div>
         </section>
       </main>
+      <br/><br/><br/><br/><br/>
 
       <div className="footer-separator"></div>
       {/* Footer */}

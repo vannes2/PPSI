@@ -81,6 +81,7 @@ const ProfileEdit = () => {
   return (
     <div className="profile-page">
       <HeaderAfter />
+      <br /><br /><br/><br/>
       <div className="container">
         <div className="profile-container">
           <div className="profile-sidebar">
@@ -177,13 +178,12 @@ const ProfileEdit = () => {
                     }
                   />
                 </div>
-              </div>
-
+                
               <button type="button" className="save-btn" onClick={handleSave}>
                 Simpan
               </button>
+              </div>
             </form>
-=
             {isSaved && <p className="save-message">Profil berhasil disimpan!</p>}
           </div>
         </div>
@@ -204,7 +204,8 @@ const ProfileEdit = () => {
           </div>
         </div>
       )}
-
+      <div className="footer-separator"></div>
+      
       <Footer />
     </div>
   );

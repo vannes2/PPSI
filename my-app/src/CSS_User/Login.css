@@ -28,8 +28,32 @@
   color: #B31312;
 }
 
+.Login-page {
+  background-color: #fefff0;
+  min-height: 100vh;
+}
+
+
+/* Drawer Masuk Button */
+.Login-page .drawer-profile-btn button {
+  padding: 10px 25px;
+  font-size: 16px;
+  font-weight: bold;
+  border-radius: 15px;
+  background-color: #B31312;
+  color: white;
+  border: 2px solid #B31312;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+}
+
+.Login-page .drawer-profile-btn button:hover {
+  background-color: #ffffff;
+  color: #B31312;
+}
+
 .Login-page body {
-  background-color: #f4f4f4; /* Abu-abu terang */
+  background-color: #ffffff; /* Abu-abu terang */
 }
 
 .Login-page .container {
@@ -43,15 +67,15 @@
 /* Main content styling */
 .Login-page .main {
   display: flex;
+  flex-direction: row; /* Ini bikin login dan signup sejajar horizontal */
   justify-content: space-between;
-  padding: 50px 0;
-  position: relative;
+  align-items: flex-start;
+  gap: 40px; /* Jarak antar login dan signup */
 }
-
-/* Login & Signup sections */
+/* Login & Signup Sections */
 .Login-page .main .login,
 .Login-page .main .signup {
-  width: 45%;
+  width: 100%; /* Full width */
   background-color: #fefff0; /* Putih Kekuningan */
   padding: 30px;
   border-radius: 10px;
@@ -69,19 +93,19 @@
   color: #B31312; /* Merah Gelap */
 }
 
-/* Vertical Divider */
+/* Hilangkan garis pemisah tengah */
 .Login-page .main::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  left: 50%;
-  width: 2px;
-  background-color: #ccc; /* Abu-abu Muda */
-  transform: translateX(-50%);
+  display: none;
 }
 
-/* Input & Button styles */
+/* Form Layout: Mengatur elemen form agar tersusun vertikal */
+.Login-page form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;  /* Atur jarak antar elemen form */
+}
+
+/* Input & Button Styles */
 .Login-page .main input {
   width: 100%;
   padding: 15px;
@@ -126,10 +150,10 @@
 .Login-page .footer-separator {
   width: 100%;
   height: 10px;
-  background-color: #B31312; /* Merah Gelap */
+  background-color: #B31312;
 }
 
-/* Footer styling */
+/* Footer Styling */
 .Login-page .footer-container {
   display: flex;
   justify-content: space-between;
@@ -166,7 +190,7 @@
 .Login-page .social-media h3 {
   font-size: 16px;
   margin-bottom: 10px;
-  color: #3b3b3b; /* Abu-abu Gelap */
+  color: #3b3b3b;
 }
 
 .Login-page .customer-care p,
@@ -174,15 +198,14 @@
 .Login-page .social-media p {
   font-size: 14px;
   margin-bottom: 8px;
-  color: #666; /* Abu-abu Sedang */
+  color: #666;
 }
 
-/* Footer bottom */
 .Login-page .footer-bottom {
   margin-left: 75px;
   margin-top: 20px;
   font-size: 14px;
-  color: #666; /* Abu-abu Sedang */
+  color: #666;
 }
 
 /* Social Media Icons */
@@ -194,13 +217,13 @@
   margin-right: 15px;
 }
 
-/* Button links */
+/* Button Links */
 .Login-page .btn {
   display: inline-block;
   text-align: center;
   width: 100%;
   padding: 15px;
-  background-color: #B31312; /* Merah Gelap */
+  background-color: #B31312;
   color: white;
   border: none;
   border-radius: 10px;
@@ -211,7 +234,7 @@
 }
 
 .Login-page .btn:hover {
-  background-color: #7b0f0e; /* Merah lebih gelap */
+  background-color: #7b0f0e;
 }
 
 /* MOBILE */

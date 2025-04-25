@@ -1,15 +1,13 @@
 import { useState } from "react";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
-import { FaGavel, FaHome, FaFileAlt } from "react-icons/fa";
+import SidebarAdmin from "../components/SidebarAdmin";
 import "../CSS_Admin/Pengacara.css";
 
 const TambahArtikel = () => {
   const [judul, setJudul] = useState("");
   const [deskripsi, setDeskripsi] = useState("");
   const [filePdf, setFilePdf] = useState(null);
-  const [activeTab, setActiveTab] = useState("tambahArtikel");
-  const navigate = useNavigate();
+
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -21,7 +19,7 @@ const TambahArtikel = () => {
     const formData = new FormData();
     formData.append("judul", judul);
     formData.append("deskripsi", deskripsi);
-    formData.append("file", filePdf); // 'file' sesuai dengan multer field name
+    formData.append("file", filePdf);
 
     try {
       await axios.post("http://localhost:5000/api/artikel", formData, {
@@ -31,7 +29,6 @@ const TambahArtikel = () => {
       });
 
       alert("Artikel berhasil ditambahkan!");
-      // Reset form setelah submit
       setJudul("");
       setDeskripsi("");
       setFilePdf(null);
@@ -42,50 +39,17 @@ const TambahArtikel = () => {
   };
 
   return (
-    <div className="admin-container flex">
-      {/* Sidebar */}
-      <aside className="sidebar">
-        <h2>Admin Panel</h2>
-        <ul>
-          <li className={activeTab === "dashboard" ? "bg-gray-700" : ""}>
-            <button
-              onClick={() => {
-                setActiveTab("dashboard");
-                navigate("/HomeAdmin");
-              }}
-            >
-              <FaHome className="mr-2" /> Dashboard
-            </button>
-          </li>
-          <li className={activeTab === "pengacara" ? "bg-gray-700" : ""}>
-            <button
-              onClick={() => {
-                setActiveTab("pengacara");
-                navigate("/HomeAdmin");
-              }}
-            >
-              <FaGavel className="mr-2" /> Pengacara
-            </button>
-          </li>
-          <li className={activeTab === "tambahArtikel" ? "bg-gray-700" : ""}>
-            <button
-              onClick={() => {
-                setActiveTab("tambahArtikel");
-                navigate("/TambahArtikel");
-              }}
-            >
-              <FaFileAlt className="mr-2" /> Tambah Artikel
-            </button>
-          </li>
-        </ul>
-      </aside>
+    <div className="Tambah-Artikel">
+      {/* Sidebar diganti komponen */}
+      <SidebarAdmin />
 
       {/* Main Content */}
-      <main className="content">
-        <h2>Tambah Artikel Baru</h2>
+      <main className="admin-content">
+        <h2 className="admin-title">Tambah Artikel Baru</h2>
+
         <form
           onSubmit={handleSubmit}
-          className="form-artikel"
+          className="admin-form"
           encType="multipart/form-data"
         >
           <input
@@ -93,7 +57,7 @@ const TambahArtikel = () => {
             placeholder="Judul Artikel"
             value={judul}
             onChange={(e) => setJudul(e.target.value)}
-            className="input"
+            className="admin-input"
             required
           />
 
@@ -102,7 +66,7 @@ const TambahArtikel = () => {
             placeholder="Deskripsi Artikel"
             value={deskripsi}
             onChange={(e) => setDeskripsi(e.target.value)}
-            className="input"
+            className="admin-input"
             required
           />
 
@@ -110,16 +74,11 @@ const TambahArtikel = () => {
             type="file"
             accept="application/pdf"
             onChange={(e) => setFilePdf(e.target.files[0])}
-            className="input"
+            className="admin-input"
             required
           />
 
-          <div><br /></div>
-
-          <button
-            type="submit"
-            className="bg-blue-500 text-white px-4 py-2 rounded shadow-md hover:bg-blue-600"
-          >
+          <button type="submit" className="admin-submit-button">
             Simpan Artikel
           </button>
         </form>

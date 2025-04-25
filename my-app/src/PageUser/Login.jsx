@@ -7,7 +7,17 @@ import "../CSS_User/Login.css";
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [popupMessage, setPopupMessage] = useState("");
+  const [popupType, setPopupType] = useState("success"); // 'success' or 'error'
+  const [showPopup, setShowPopup] = useState(false);
   const navigate = useNavigate();
+
+  const showPopupAlert = (message, type = "success") => {
+    setPopupMessage(message);
+    setPopupType(type);
+    setShowPopup(true);
+    setTimeout(() => setShowPopup(false), 2000);
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -24,31 +34,46 @@ const Login = () => {
       const result = await response.json();
 
       if (response.ok) {
-        alert("Login berhasil");
+        if (result.user && result.user.role) {
+          showPopupAlert("Login berhasil", "success");
 
-        // Simpan user ke local storage
-        localStorage.setItem("user", JSON.stringify(result.user));
+          localStorage.setItem("user", JSON.stringify(result.user));
 
-        // Redirect sesuai role
-        if (result.user.role === "admin") {
-          navigate("/HomeAdmin");
-        } else if (result.user.role === "user") {
-          navigate("/HomeAfter");
+          setTimeout(() => {
+            const userRole = result.user.role?.toLowerCase().trim();
+
+            if (userRole === "admin") {
+              navigate("/HomeAdmin");
+            } else if (userRole === "user") {
+              navigate("/HomeAfter");
+            } else if (userRole === "pengacara") {
+              navigate("/HomeLawyer");
+            } else {
+              showPopupAlert("Role tidak dikenal", "error");
+            }
+          }, 2000);
         } else {
-          alert("Role tidak dikenal");
+          showPopupAlert("Login gagal: data user tidak valid.", "error");
         }
       } else {
-        alert(result.message);
+        showPopupAlert(result.message || "Login gagal, silakan cek data Anda.", "error");
       }
     } catch (error) {
       console.error("Terjadi kesalahan:", error);
-      alert("Gagal terhubung ke server");
+      showPopupAlert("Gagal terhubung ke server.", "error");
     }
   };
 
   return (
     <div className="Login-page">
       <Header />
+<<<<<<< HEAD
+=======
+      <br />
+      <br />
+      <br />
+      <br />
+>>>>>>> 602db27a48100fa421bec302fcc23020649fac8b
       <div className="container">
         <div className="main">
           <div className="login">
@@ -82,15 +107,36 @@ const Login = () => {
           <div className="divider"></div>
 
           <div className="signup">
-            <h2 className="subtext">&quot;Mari kita mulai perjuangan bersama advokat&quot;</h2>
+            <h2 className="subtext">
+              &quot;Mari kita mulai perjuangan bersama advokat&quot;
+            </h2>
             <h2>Buat Akun Anda</h2>
             <Link to="/signup" className="btn">
               MENDAFTAR
+            </Link>
+            <Link to="/RegisterLawyerPage" className="btn">
+              PENDAFTARAN LAWYER
             </Link>
           </div>
         </div>
       </div>
 
+      {showPopup && (
+        <div className="popup-overlay">
+          <div className="popup-box">
+            <div className={`popup-icon ${popupType === "error" ? "error" : ""}`}>
+              {popupType === "error" ? "✖" : "✔"}
+            </div>
+            <p className="popup-message">{popupMessage}</p>
+          </div>
+        </div>
+      )}
+
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
       <div className="footer-separator"></div>
       <Footer />
     </div>

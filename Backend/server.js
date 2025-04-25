@@ -7,6 +7,7 @@ const authRoutes = require("./routes/authRoutes");
 const pengacaraRoutes = require("./routes/pengacaraRoutes");
 const userRoutes = require("./routes/userRoutes");
 const artikelRoutes = require("./routes/artikelRoutes"); // Pastikan file ini ada
+const lawyerRoutes = require("./routes/lawyerRoutes"); 
 
 const app = express();
 
@@ -20,6 +21,7 @@ app.use("/api", pengacaraRoutes);
 app.use("/api", userRoutes);
 app.use("/api", artikelRoutes);
 app.use("/uploads", express.static("uploads"));
+app.use("/api", lawyerRoutes); 
 
 // Jalankan server
 const PORT = 5000;

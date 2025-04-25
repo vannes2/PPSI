@@ -1,0 +1,148 @@
+.register-lawyer-page {
+    padding: 40px 20px;
+    background-color: #fefff0;
+  }
+  
+  /* Judul Form */
+  .register-lawyer-page .title {
+    text-align: center;
+    font-size: 42px;
+    color: #3b3b3b;
+    margin-top: 40px;
+    margin-bottom: 30px;
+    font-family: Arial, sans-serif;
+  }
+  
+  /* Form Card */
+  .register-lawyer-page .form-register-lawyer {
+    background-color: #fefff0;
+    border-radius: 20px;
+    padding: 30px;
+    max-width: 900px;
+    margin: 0 auto;
+    border: 2px solid #a7a6a6;
+    box-shadow: 0 2px 20px rgba(241, 241, 241, 0.1);
+    font-family: Arial, sans-serif;
+  }
+  
+  /* Form Container */
+  .register-lawyer-page .container-form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+  
+  /* Form Row */
+  .register-lawyer-page .container-form-row {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+    justify-content: space-between;
+  }
+
+  .register-lawyer-page .akun-row {
+    display: flex;
+    gap: 20px;
+    justify-content: space-between;
+    flex-wrap: wrap;
+  }
+  
+  .register-lawyer-page .akun-row .form-group input {
+    width: 200px !important;
+  }
+  
+  
+  /* Input Group */
+  .register-lawyer-page .form-group {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    min-width: 250px;
+  }
+  
+  .register-lawyer-page .form-group label {
+    margin-bottom: 6px;
+    color: #3b3b3b;
+    font-weight: 500;
+  }
+  
+  /* Semua input dan select */
+  .register-lawyer-page .form-group input,
+  .register-lawyer-page .form-group select {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    background-color: #fdfcf8; /* putih tulang */
+    font-size: 14px;
+    color: #333;
+    width:  400px;
+  }
+  
+  /* Input file (Browse button) */
+  .register-lawyer-page .form-group input[type="file"] {
+    background-color: #fdfcf8;
+    padding: 8px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+    font-family: Arial, sans-serif;
+    font-size: 13px;
+    width:  400px;
+  }
+  
+  /* Checkbox */
+  .register-lawyer-page .checkbox-group {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 14px;
+    color: #444;
+  }
+  
+  .register-lawyer-page .checkbox-group input[type="checkbox"] {
+    accent-color: #B31312;
+    background-color: #fdfcf8;
+    border: 1px solid #ccc;
+    width: 16px;
+    height: 16px;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  /* Informasi tambahan */
+  .register-lawyer-page .info-pendaftaran {
+    font-size: 14px;
+    color: #444;
+    background-color: #fff3cd;
+    border: 1px solid #ffeeba;
+    padding: 12px 16px;
+    border-radius: 6px;
+    margin-top: -10px;
+    margin-bottom: 10px;
+    font-family: Arial, sans-serif;
+    line-height: 1.5;
+  }
+  
+  /* Submit Button */
+  .register-lawyer-page .submit-btn {
+    padding: 12px;
+    background-color: #B31312;
+    color: #fff;
+    font-weight: bold;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    margin-top: 10px;
+  }
+  
+  .register-lawyer-page .submit-btn:hover {
+    background-color: #990f0f;
+  }
+    
+  /* Responsive Mobile */
+  @media (max-width: 768px) {
+    .register-lawyer-page .container-form-row {
+      flex-direction: column;
+    }
+  }
+  

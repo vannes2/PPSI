@@ -34,12 +34,13 @@ const Konsultasi = () => {
     );
 
     return (
+
         <div className="konsultasi-page">
             {/* Navbar */}
             <HeaderAfter />
-
             {/* Section Advokat + Search + Filter */}
             <section className="advokat-section">
+            <br/><br/><br/><br/>
                 <div className="advokat-header">
                     <h2 className="product-title">Advokat Yang Tersedia</h2>
                     <div className="search-filter-container">
@@ -54,7 +55,7 @@ const Konsultasi = () => {
                             className="filter-select"
                             value={selectedSpesialisasi}
                             onChange={(e) => setSelectedSpesialisasi(e.target.value)}
-                        >
+                          >
                             <option value="">Semua Spesialisasi</option>
                             {spesialisasiList.map((spesialisasi, index) => (
                                 <option key={index} value={spesialisasi}>{spesialisasi}</option>

@@ -5,6 +5,14 @@ footer {
   padding: 20px 0;
 }
 
+/* Footer Background (penuh layar) */
+.footer-background {
+    width: 100%;
+    background-color: #fefff0;
+    padding: 40px 0;
+}
+
+/* Container content tetap tengah dan max width */
 .footer-container {
   display: flex;
   justify-content: space-between;
@@ -20,6 +28,7 @@ footer {
   margin-top: 10px;
 }
 
+/* Main content area */
 .footer-content {
   display: flex;
   gap: 40px;
@@ -43,6 +52,30 @@ footer {
   font-size: 14px;
   margin-bottom: 8px;
 }
+
+/* Link Styling */
+.account a,
+.social-media a {
+    color: #3b3b3b;
+    text-decoration: none;
+}
+
+.account a:hover,
+.social-media a:hover {
+    text-decoration: underline;
+}
+
+/* Social media icon styling */
+.social-icons a {
+    margin-right: 10px;
+    color: black; /* Atau warna yang kamu inginkan */
+    transition: color 0.3s;
+}
+
+.social-icons a:hover {
+    color: gray; /* Warna saat hover */
+}
+
 
 /* Footer Bottom */
 .footer-bottom {
