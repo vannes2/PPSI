@@ -19,7 +19,27 @@ const TambahPengacara = () => {
   const fetchRegistrations = async () => {
     try {
       const response = await axios.get("http://localhost:5000/api/lawyers/registrations");
-      setRegistrations(response.data);
+      
+      // Tambahkan deadline di frontend (7 hari setelah createdAt)
+      const registrationsWithDeadline = response.data.map(reg => {
+        const registrationDate = new Date(reg.createdAt || new Date());
+        const deadlineDate = new Date(registrationDate);
+        deadlineDate.setDate(deadlineDate.getDate() + 7);
+        
+        return {
+          ...reg,
+          deadline: deadlineDate,
+          isExpired: new Date() > deadlineDate
+        };
+      });
+      
+      setRegistrations(registrationsWithDeadline);
+      
+      // Auto-reject pendaftaran yang sudah expired
+      const expiredRegistrations = registrationsWithDeadline.filter(reg => reg.isExpired);
+      for (const reg of expiredRegistrations) {
+        await autoReject(reg.id);
+      }
     } catch (error) {
       console.error("Error fetching registrations:", error);
     }
@@ -52,6 +72,7 @@ const TambahPengacara = () => {
   };
 
   const formatDate = (isoDate) => {
+    if (!isoDate) return "-";
     const date = new Date(isoDate);
     return date.toLocaleDateString("id-ID", {
       day: "2-digit",
@@ -60,15 +81,41 @@ const TambahPengacara = () => {
     });
   };
 
+  const calculateRemainingDays = (deadline) => {
+    if (!deadline) return "-";
+    const now = new Date();
+    const deadlineDate = new Date(deadline);
+    const diffTime = deadlineDate - now;
+    const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+    
+    return diffDays > 0 ? `${diffDays} hari lagi` : "Kadaluarsa";
+  };
+
+  const autoReject = async (id) => {
+    try {
+      await axios.delete(`http://localhost:5000/api/lawyers/reject/${id}`);
+      console.log(`Pendaftaran ID ${id} sudah auto-reject (kadaluarsa).`);
+    } catch (error) {
+      console.error(`Gagal auto-reject ID ${id}:`, error);
+    }
+  };
+
   useEffect(() => {
     fetchPengacaras();
     fetchRegistrations();
+    
+    // Cek setiap 6 jam untuk pendaftaran yang expired
+    const interval = setInterval(() => {
+      fetchRegistrations();
+    }, 6 * 60 * 60 * 1000);
+    
+    return () => clearInterval(interval);
   }, []);
 
   return (
     <div style={{ display: "flex" }}>
       <SidebarAdmin />
-      <div style={{ flex: 1, padding: "20px" }}>
+      <div style={{ flex: 1, padding: "20px" }} className="Main-Content">
         <h2>Daftar Pendaftaran Pengacara (Belum Disetujui)</h2>
         <table border="1" cellPadding="10" style={{ borderCollapse: "collapse", width: "100%", marginBottom: "40px" }}>
           <thead>
@@ -88,19 +135,20 @@ const TambahPengacara = () => {
               <th>Foto</th>
               <th>Kartu Advokat</th>
               <th>PKPA</th>
+              <th>Batas Waktu</th>
               <th>Aksi</th>
             </tr>
           </thead>
           <tbody>
             {registrations.length === 0 ? (
               <tr>
-                <td colSpan="16" style={{ textAlign: "center" }}>
+                <td colSpan="17" style={{ textAlign: "center" }}>
                   Tidak ada pendaftaran.
                 </td>
               </tr>
             ) : (
               registrations.map((lawyer) => (
-                <tr key={lawyer.id}>
+                <tr key={lawyer.id} style={{ backgroundColor: lawyer.isExpired ? '#ffebee' : 'inherit' }}>
                   <td>{lawyer.nama}</td>
                   <td>{lawyer.email}</td>
                   <td>{lawyer.no_hp}</td>
@@ -125,8 +173,26 @@ const TambahPengacara = () => {
                     <a href={`http://localhost:5000/uploads/${lawyer.upload_pkpa}`} target="_blank" rel="noopener noreferrer">Lihat</a>
                   </td>
                   <td>
-                    <button onClick={() => handleApprove(lawyer.id)}>Setujui</button>
-                    <button onClick={() => handleReject(lawyer.id)} style={{ marginLeft: "8px", backgroundColor: "red", color: "white" }}>
+                    {lawyer.isExpired ? (
+                      "Kadaluarsa"
+                    ) : (
+                      <>
+                        {formatDate(lawyer.deadline)} <br />
+                        <small>({calculateRemainingDays(lawyer.deadline)})</small>
+                      </>
+                    )}
+                  </td>
+                  <td>
+                    <button 
+                      onClick={() => handleApprove(lawyer.id)} 
+                      disabled={lawyer.isExpired}
+                    >
+                      Setujui
+                    </button>
+                    <button 
+                      onClick={() => handleReject(lawyer.id)} 
+                      style={{ marginLeft: "8px", backgroundColor: "red", color: "white" }}
+                    >
                       Tolak
                     </button>
                   </td>
