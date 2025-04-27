@@ -19,24 +19,30 @@ const TambahPengacara = () => {
   const fetchRegistrations = async () => {
     try {
       const response = await axios.get("http://localhost:5000/api/lawyers/registrations");
-      
-      // Tambahkan deadline di frontend (7 hari setelah createdAt)
-      const registrationsWithDeadline = response.data.map(reg => {
-        const registrationDate = new Date(reg.createdAt || new Date());
-        const deadlineDate = new Date(registrationDate);
-        deadlineDate.setDate(deadlineDate.getDate() + 7);
-        
+
+      const currentYear = new Date().getFullYear();
+
+      const registrationsWithDeadline = response.data.map((reg) => {
+        const originalDate = new Date(reg.createdAt || new Date());
+
+        // Set tahun ke tahun saat ini
+        const adjustedDate = new Date(originalDate);
+        adjustedDate.setFullYear(currentYear);
+
+        // Deadline 3 hari setelah tanggal adjusted
+        const deadlineDate = new Date(adjustedDate);
+        deadlineDate.setDate(adjustedDate.getDate() + 3);
+
         return {
           ...reg,
           deadline: deadlineDate,
-          isExpired: new Date() > deadlineDate
+          isExpired: new Date() > deadlineDate,
         };
       });
-      
+
       setRegistrations(registrationsWithDeadline);
-      
-      // Auto-reject pendaftaran yang sudah expired
-      const expiredRegistrations = registrationsWithDeadline.filter(reg => reg.isExpired);
+
+      const expiredRegistrations = registrationsWithDeadline.filter((reg) => reg.isExpired);
       for (const reg of expiredRegistrations) {
         await autoReject(reg.id);
       }
@@ -87,7 +93,7 @@ const TambahPengacara = () => {
     const deadlineDate = new Date(deadline);
     const diffTime = deadlineDate - now;
     const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
-    
+
     return diffDays > 0 ? `${diffDays} hari lagi` : "Kadaluarsa";
   };
 
@@ -103,12 +109,11 @@ const TambahPengacara = () => {
   useEffect(() => {
     fetchPengacaras();
     fetchRegistrations();
-    
-    // Cek setiap 6 jam untuk pendaftaran yang expired
+
     const interval = setInterval(() => {
       fetchRegistrations();
-    }, 6 * 60 * 60 * 1000);
-    
+    }, 6 * 60 * 60 * 1000); // setiap 6 jam
+
     return () => clearInterval(interval);
   }, []);
 
