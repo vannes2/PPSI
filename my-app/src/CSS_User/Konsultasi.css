@@ -6,11 +6,6 @@
     font-family: Arial, sans-serif;
 }
 
-body {
-    background-color: #fefff0;
-    color: #333;
-}
-
 /* Kontainer utama khusus halaman Konsultasi */
 .konsultasi-page {
     display: flex;

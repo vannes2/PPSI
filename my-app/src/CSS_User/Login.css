@@ -15,6 +15,7 @@
 .Login-page {
   background-color: #fefff0;
   min-height: 100vh;
+  overflow-x: hidden;
 }
 
 
@@ -37,7 +38,7 @@
 }
 
 .Login-page body {
-  background-color: #ffffff; /* Abu-abu terang */
+  background-color: #fefde9;
 }
 
 .Login-page .container {
