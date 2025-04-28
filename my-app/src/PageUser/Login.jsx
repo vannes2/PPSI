@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
@@ -8,9 +8,14 @@ const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [popupMessage, setPopupMessage] = useState("");
-  const [popupType, setPopupType] = useState("success"); // 'success' or 'error'
+  const [popupType, setPopupType] = useState("success");
   const [showPopup, setShowPopup] = useState(false);
   const navigate = useNavigate();
+
+  // Scroll otomatis ke atas saat halaman Login dibuka
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
 
   const showPopupAlert = (message, type = "success") => {
     setPopupMessage(message);
@@ -25,9 +30,7 @@ const Login = () => {
     try {
       const response = await fetch("http://localhost:5000/api/login", {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email, password }),
       });
 
@@ -36,21 +39,14 @@ const Login = () => {
       if (response.ok) {
         if (result.user && result.user.role) {
           showPopupAlert("Login berhasil", "success");
-
           localStorage.setItem("user", JSON.stringify(result.user));
 
           setTimeout(() => {
             const userRole = result.user.role?.toLowerCase().trim();
-
-            if (userRole === "admin") {
-              navigate("/HomeAdmin");
-            } else if (userRole === "user") {
-              navigate("/HomeAfter");
-            } else if (userRole === "pengacara") {
-              navigate("/HomeLawyer");
-            } else {
-              showPopupAlert("Role tidak dikenal", "error");
-            }
+            if (userRole === "admin") navigate("/HomeAdmin");
+            else if (userRole === "user") navigate("/HomeAfter");
+            else if (userRole === "pengacara") navigate("/HomeLawyer");
+            else showPopupAlert("Role tidak dikenal", "error");
           }, 2000);
         } else {
           showPopupAlert("Login gagal: data user tidak valid.", "error");
@@ -67,10 +63,7 @@ const Login = () => {
   return (
     <div className="Login-page">
       <Header />
-      <br />
-      <br />
-      <br />
-      <br />
+      <br /><br /><br /><br />
       <div className="container">
         <div className="main">
           <div className="login">
@@ -95,25 +88,17 @@ const Login = () => {
               <Link to="/forgotpass" className="login-admin">
                 Lupa Password anda? Klik di sini
               </Link>
-              <button type="submit" className="btn">
-                MASUK
-              </button>
+              <button type="submit" className="btn">MASUK</button>
             </form>
           </div>
 
           <div className="divider"></div>
 
           <div className="signup">
-            <h2 className="subtext">
-              &quot;Mari kita mulai perjuangan bersama advokat&quot;
-            </h2>
+            <h2 className="subtext">Mari kita mulai perjuangan bersama advokat</h2>
             <h2>Buat Akun Anda</h2>
-            <Link to="/signup" className="btn">
-              MENDAFTAR
-            </Link>
-            <Link to="/RegisterLawyerPage" className="btn">
-              PENDAFTARAN LAWYER
-            </Link>
+            <Link to="/signup" className="btn">MENDAFTAR</Link>
+            <Link to="/RegisterLawyerPage" className="btn">PENDAFTARAN LAWYER</Link>
           </div>
         </div>
       </div>
@@ -129,11 +114,7 @@ const Login = () => {
         </div>
       )}
 
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
+      <br /><br /><br /><br /><br />
       <div className="footer-separator"></div>
       <Footer />
     </div>

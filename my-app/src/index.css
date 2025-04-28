@@ -26,7 +26,7 @@ body {
   margin: 0;
   width: 100%;
   min-height: 100vh;
-  overflow-x: hidden;
+  overflow-x: auto;
   display: flex;
   flex-direction: column;
   background-color: #f9f9f9;

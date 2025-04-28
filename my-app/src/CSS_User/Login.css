@@ -15,191 +15,74 @@
 .Login-page {
   background-color: #fefff0;
   min-height: 100vh;
+  overflow-x: hidden;
 }
 
-
-/* Drawer Masuk Button */
-.Login-page .drawer-profile-btn button {
-  padding: 10px 25px;
-  font-size: 16px;
-  font-weight: bold;
-  border-radius: 15px;
-  background-color: #B31312;
-  color: white;
-  border: 2px solid #B31312;
-  cursor: pointer;
-  transition: all 0.3s ease-in-out;
-}
-
-.Login-page .drawer-profile-btn button:hover {
-  background-color: #ffffff;
-  color: #B31312;
-}
-
-.Login-page body {
-  background-color: #ffffff; /* Abu-abu terang */
-}
-
+/* Container */
 .Login-page .container {
   width: 100%;
   max-width: 1200px;
   margin: 0 auto;
   padding: 20px;
+  background-color: #fefff0;  /* Tambahkan background */
+  border-radius: 10px;
 }
 
 /* Main Content */
 .Login-page .main {
   display: flex;
-  flex-direction: row; /* Ini bikin login dan signup sejajar horizontal */
+  flex-direction: row;
   justify-content: space-between;
   align-items: flex-start;
-  gap: 40px; /* Jarak antar login dan signup */
-}
-/* Login & Signup Sections */
-.Login-page .main .login,
-.Login-page .main .signup {
-  width: 100%; /* Full width */
-  background-color: #fefff0; /* Putih Kekuningan */
+  gap: 40px;
+  background-color: #fefff0;  /* Tambahkan background */
   padding: 30px;
   border-radius: 10px;
 }
 
+/* Login & Signup Sections */
+.Login-page .main .login,
+.Login-page .main .signup {
+  width: 100%;
+  background-color: #ffffff;  /* Supaya form dalamnya lebih terang */
+  padding: 30px;
+  border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
 .Login-page .main h2 {
   margin-bottom: 30px;
-  color: #3b3b3b; /* Abu-abu Gelap */
+  color: #3b3b3b;
 }
 
-.Login-page .selamat,
-.Login-page .buat {
-  font-size: 35px;
-  font-weight: bold;
-  color: #B31312; /* Merah Gelap */
-}
-
-/* Hilangkan garis pemisah tengah */
-.Login-page .main::before {
-  display: none;
-}
-
-/* Form Layout: Mengatur elemen form agar tersusun vertikal */
+/* Form Layout */
 .Login-page form {
   display: flex;
   flex-direction: column;
-  gap: 15px;  /* Atur jarak antar elemen form */
+  gap: 15px;
 }
 
-/* Input & Button Styles */
 .Login-page .main input {
   width: 100%;
   padding: 15px;
-  border: 1px solid #ccc; /* Abu-abu Muda */
+  border: 1px solid #ccc;
   border-radius: 5px;
   background-color: white;
   color: black;
 }
 
-.Login-page .forgot-password,
+/* Link & Button */
 .Login-page .login-admin {
   font-size: 14px;
-  color: #B31312; /* Merah Gelap */
+  color: #B31312;
   text-decoration: none;
 }
 
-.Login-page .forgot-password:hover,
 .Login-page .login-admin:hover {
   text-decoration: underline;
-  color: #ffc6c6; /* Merah Muda Muda */
+  color: #ffc6c6;
 }
 
-/* Signup button */
-.Login-page .signup button {
-  width: 100%;
-  padding: 15px;
-  background-color: #B31312; /* Merah Gelap */
-  color: white;
-  border: none;
-  border-radius: 20px;
-  font-size: 18px;
-  cursor: pointer;
-  margin-top: 10px;
-}
-
-.Login-page .signup button:hover {
-  background-color: #7b0f0e; /* Merah lebih gelap */
-}
-
-/* Footer Separator */
-.Login-page .footer-separator {
-  width: 100%;
-  height: 10px;
-  background-color: #B31312;
-}
-
-/* Footer Styling */
-.Login-page .footer-container {
-  display: flex;
-  justify-content: space-between;
-  max-width: 1500px;
-  margin: 0 auto;
-  flex-wrap: wrap;
-  gap: 20px;
-}
-
-.Login-page .footer-logo img {
-  width: 150px;
-  margin-left: 75px;
-  margin-top: 10px;
-}
-
-.Login-page .footer-content {
-  display: flex;
-  gap: 40px;
-  flex-wrap: wrap;
-  justify-content: space-between;
-  width: 100%;
-  margin-left: 75px;
-}
-
-.Login-page .customer-care,
-.Login-page .account,
-.Login-page .social-media {
-  flex: 1;
-  min-width: 200px;
-}
-
-.Login-page .customer-care h3,
-.Login-page .account h3,
-.Login-page .social-media h3 {
-  font-size: 16px;
-  margin-bottom: 10px;
-  color: #3b3b3b;
-}
-
-.Login-page .customer-care p,
-.Login-page .account p,
-.Login-page .social-media p {
-  font-size: 14px;
-  margin-bottom: 8px;
-  color: #666;
-}
-
-.Login-page .footer-bottom {
-  margin-left: 75px;
-  margin-top: 20px;
-  font-size: 14px;
-  color: #666;
-}
-
-/* Social Media Icons */
-.Login-page .social-icons {
-  display: flex;
-}
-
-.Login-page .social-icons a {
-  margin-right: 15px;
-}
-
-/* Button Links */
 .Login-page .btn {
   display: inline-block;
   text-align: center;
@@ -219,13 +102,30 @@
   background-color: #7b0f0e;
 }
 
-/* Modal Popup Styling */
+/* Divider */
+.Login-page .divider {
+  width: 2px;
+  background-color: #ccc;
+  margin: 0 20px;
+}
+
+/* Responsive: Hide Divider on Mobile */
+@media (max-width: 768px) {
+  .Login-page .main {
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+  }
+
+  .Login-page .divider {
+    display: none;
+  }
+}
+
+/* Popup Styling */
 .Login-page .popup-overlay {
   position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
+  top: 0; left: 0; right: 0; bottom: 0;
   background-color: rgba(0, 0, 0, 0.5);
   display: flex;
   justify-content: center;
@@ -239,29 +139,8 @@
   border-radius: 15px;
   max-width: 400px;
   width: 90%;
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
   text-align: center;
-}
-
-.Login-page .popup-box p {
-  font-size: 16px;
-  color: #333;
-  margin-bottom: 20px;
-}
-
-.Login-page .popup-box button {
-  background-color: #B31312;
-  color: white;
-  border: none;
-  padding: 10px 20px;
-  border-radius: 10px;
-  font-weight: bold;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-}
-
-.Login-page .popup-box button:hover {
-  background-color: #7b0f0e;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
 }
 
 .Login-page .popup-icon {
@@ -275,7 +154,10 @@
   align-items: center;
   justify-content: center;
   margin: 0 auto 20px auto;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+}
+
+.popup-icon.error {
+  background-color: #FF3B30;
 }
 
 .Login-page .popup-message {
@@ -284,228 +166,11 @@
   color: #333;
 }
 
-.popup-icon.error {
-  background-color: #FF3B30;
+/* Footer */
+.Login-page .footer-separator {
+  width: 100%;
+  height: 10px;
+  background-color: #B31312;
 }
 
-/* RESPONSIVE */
-
-/* Mobile */
-@media (max-width: 425px) {
-  .Login-page .container {
-    padding: 10px;
-  }
-
-  .Login-page .logo {
-    font-size: 20px;
-  }
-
-  .Login-page nav ul {
-    flex-direction: column;
-    margin: 10px 0;
-    padding: 0;
-  }
-
-  .Login-page nav ul li {
-    margin: 5px 0;
-  }
-
-  .Login-page .auth-buttons {
-    width: 100%;
-    margin-top: 10px;
-    flex-direction: column;
-    gap: 10px;
-  }
-
-  .Login-page .auth-buttons button {
-    width: 100%;
-    font-size: 14px;
-    padding: 10px;
-  }
-
-  .Login-page .selamat,
-  .Login-page .buat {
-    font-size: 24px;
-    text-align: center;
-  }
-
-  .Login-page .main h2 {
-    font-size: 18px;
-    text-align: center;
-  }
-
-  .Login-page input {
-    font-size: 14px;
-    padding: 12px;
-  }
-
-  .Login-page .signup button,
-  .Login-page .btn {
-    font-size: 16px;
-    padding: 12px;
-    border-radius: 10px;
-  }
-
-  .Login-page .footer-container {
-    flex-direction: column;
-    align-items: center;
-    margin-left: 0;
-    padding: 20px;
-    gap: 30px;
-  }
-
-  .Login-page .footer-logo img {
-    margin: 0;
-    width: 120px;
-  }
-
-  .Login-page .footer-content {
-    flex-direction: column;
-    align-items: center;
-    margin-left: 0;
-    text-align: center;
-  }
-
-  .Login-page .footer-bottom {
-    text-align: center;
-    margin-left: 0;
-    margin-top: 15px;
-  }
-
-  .Login-page .social-icons {
-    justify-content: center;
-  }
-}
-
-/* Tablet */
-@media (max-width: 768px) {
-  .Login-page .container {
-    padding: 15px;
-  }
-
-  .Login-page nav ul {
-    flex-direction: column;
-    margin-top: 2px;
-    gap: 20px;
-  }
-
-  .Login-page .auth-buttons {
-    width: 100%;
-    margin-top: 10px;
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-  }
-
-  .Login-page .selamat,
-  .Login-page .buat {
-    font-size: 28px;
-    text-align: center;
-  }
-
-  .Login-page .main h2 {
-    font-size: 20px;
-    text-align: center;
-  }
-
-  .Login-page input {
-    font-size: 15px;
-    padding: 14px;
-  }
-
-  .Login-page .signup button,
-  .Login-page .btn {
-    font-size: 17px;
-    padding: 14px;
-  }
-
-  .Login-page .footer-container {
-    flex-direction: column;
-    align-items: left;
-    margin-left: 0;
-    padding: 30px 20px;
-    gap: 30px;
-  }
-
-  .Login-page .footer-logo img {
-    margin: 0 auto;
-    width: 130px;
-  }
-
-  .Login-page .footer-content {
-    flex-direction: column;
-    align-items: center;
-    margin-left: 0;
-    text-align: center;
-  }
-
-  .Login-page .footer-bottom {
-    text-align: center;
-    margin-left: 0;
-    margin-top: 15px;
-  }
-
-  .Login-page .social-icons {
-    justify-content: left;
-  }
-}
-
-
-/* Sembunyikan tombol masuk di header saat tablet */
-@media (max-width: 768px) {
-  .Login-page header .auth-buttons {
-    display: none !important;
-  }
-}
-
-/* Header khusus login */
-@media (max-width: 768px) {
-  .Login-page header {
-    justify-content: space-between;
-  }
-}
-
-/* Tambahan RESPONSIVE Layout untuk Login & Signup */
-
-/* Tablet & Mobile (stacked layout) */
-
-@media (max-width: 768px) {
-  .Login-page .main {
-    flex-direction: column; /* tumpuk ke bawah */
-    align-items: center;
-    gap: 20px;
-  }
-
-  .Login-page .main .login,
-  .Login-page .main .signup {
-    width: 100%;
-  }
-}
-
-@media (max-width: 425px) {
-  .Login-page .main .login,
-  .Login-page .main .signup {
-    padding: 20px 15px;
-  }
-}
-
-/* Divider Vertikal */
-.Login-page .divider {
-  width: 2px;
-  background-color: #ccc; /* Abu-abu muda */
-  margin: 0 20px;
-}
-
-/* Di desktop, divider akan terlihat vertikal */
-@media (min-width: 769px) {
-  .Login-page .divider {
-    height: auto;
-  }
-}
-
-/* Di tablet dan mobile, sembunyikan divider */
-@media (max-width: 768px) {
-  .Login-page .divider {
-    display: none;
-  }
-}
+/* Tambahan responsive lainnya bisa disesuaikan seperti sebelumnya */

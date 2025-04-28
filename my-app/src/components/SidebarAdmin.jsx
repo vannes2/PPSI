@@ -1,6 +1,6 @@
-import React from "react";
-import { FaGavel, FaHome, FaFileAlt } from "react-icons/fa";
+import { FaGavel, FaHome, FaFileAlt, FaUserCircle } from "react-icons/fa";  // Tambah ikon profil
 import { Link } from "react-router-dom";
+import PropTypes from "prop-types";
 import "./SidebarAdmin.css";
 
 const SidebarAdmin = ({ activeTab, onTabChange }) => {
@@ -24,8 +24,24 @@ const SidebarAdmin = ({ activeTab, onTabChange }) => {
           </Link>
         </li>
       </ul>
+
+      {/* Tambahkan Profil Admin di bagian bawah */}
+      <div style={{ marginTop: "auto" }}>
+        <ul>
+          <li className={activeTab === "profilAdmin" ? "nav-active" : ""}>
+            <Link to="/ProfilAdmin" onClick={() => onTabChange("profilAdmin")}>
+              <FaUserCircle className="icon-spacing" /> Profil Admin
+            </Link>
+          </li>
+        </ul>
+      </div>
     </aside>
   );
+};
+
+SidebarAdmin.propTypes = {
+  activeTab: PropTypes.string.isRequired,
+  onTabChange: PropTypes.func.isRequired,
 };
 
 export default SidebarAdmin;
