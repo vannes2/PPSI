@@ -111,12 +111,12 @@ nav.drawer ul li a:hover {
   color: #ffc6c6;
 }
 
-/* Buttons */
+/* Buttons dengan Gradasi */
 .drawer-profile-btn button,
 .auth-buttons button {
-  background-color: #B31312;
+  background: linear-gradient(to right, #B31312, #ff4d4d);
   color: white;
-  border: 2px solid #B31312;
+  border: none;
   border-radius: 15px;
   padding: 10px 25px;
   cursor: pointer;
@@ -126,8 +126,9 @@ nav.drawer ul li a:hover {
 
 .drawer-profile-btn button:hover,
 .auth-buttons button:hover {
-  background-color: #ffffff;
+  background: white;
   color: #B31312;
+  border: 2px solid #B31312;
 }
 
 .auth-buttons {
@@ -136,7 +137,7 @@ nav.drawer ul li a:hover {
 
 /* MAIN CONTENT */
 .main-content {
-  margin-top: var(--header-height); /* Menghindari ketutupan header */
+  margin-top: var(--header-height); 
   padding: 20px;
 }
 

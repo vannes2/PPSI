@@ -9,7 +9,7 @@ const Home = () => {
     const [error, setError] = useState(null);
 
     useEffect(() => {
-        fetch("http://localhost:5000/api/pengacara")  // Pastikan URL backend benar
+        fetch("http://localhost:5000/api/pengacara")
             .then(response => {
                 if (!response.ok) {
                     throw new Error(`HTTP error! Status: ${response.status}`);
@@ -31,7 +31,7 @@ const Home = () => {
             {/* Hero Section */}
             <section className="hero">
                 <div className="hero-text">
-                    <h1>Selesaikan Masalah Hukum Anda Bersama Kami</h1>
+                    <h1 id="top-hero">Selesaikan Masalah Hukum Anda Bersama Kami</h1>
                     <p>Segera daftarkan diri Anda dan selesaikan masalah hukum Anda bersama Advokat terpercaya dari Kami</p>
                     <div className="buttons">
                         <Link to="/Login"><button>Masuk</button></Link>

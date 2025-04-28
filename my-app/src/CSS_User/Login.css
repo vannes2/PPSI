@@ -24,7 +24,7 @@
   max-width: 1200px;
   margin: 0 auto;
   padding: 20px;
-  background-color: #fefff0;  /* Tambahkan background */
+  background-color: #fefff0;
   border-radius: 10px;
 }
 
@@ -35,7 +35,7 @@
   justify-content: space-between;
   align-items: flex-start;
   gap: 40px;
-  background-color: #fefff0;  /* Tambahkan background */
+  background-color: #fefff0;
   padding: 30px;
   border-radius: 10px;
 }
@@ -44,7 +44,7 @@
 .Login-page .main .login,
 .Login-page .main .signup {
   width: 100%;
-  background-color: #ffffff;  /* Supaya form dalamnya lebih terang */
+  background-color: #ffffff;
   padding: 30px;
   border-radius: 10px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
@@ -71,7 +71,7 @@
   color: black;
 }
 
-/* Link & Button */
+/* Link */
 .Login-page .login-admin {
   font-size: 14px;
   color: #B31312;
@@ -83,12 +83,13 @@
   color: #ffc6c6;
 }
 
+/* BUTTON dengan GRADASI */
 .Login-page .btn {
   display: inline-block;
   text-align: center;
   width: 100%;
   padding: 15px;
-  background-color: #B31312;
+  background: linear-gradient(to right, #b31217, #e52d27);
   color: white;
   border: none;
   border-radius: 10px;
@@ -96,10 +97,13 @@
   cursor: pointer;
   text-decoration: none;
   margin-top: 10px;
+  transition: all 0.3s ease-in-out;
 }
 
 .Login-page .btn:hover {
-  background-color: #7b0f0e;
+  background: white;
+  color: #B31312;
+  border: 2px solid #B31312;
 }
 
 /* Divider */
@@ -173,4 +177,3 @@
   background-color: #B31312;
 }
 
-/* Tambahan responsive lainnya bisa disesuaikan seperti sebelumnya */

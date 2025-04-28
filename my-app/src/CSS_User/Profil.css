@@ -1,12 +1,11 @@
 /* Global Reset */
-
 .profile-page {
   background-color: #fefff0;
   min-height: 100vh;
   padding: 20px 0;
 }
 
-/* Header Styling (Sama seperti Home Page) */
+/* Header */
 header {
   display: flex;
   align-items: center;
@@ -40,28 +39,13 @@ header {
   color: #ffc6c6;
 }
 
-.auth-buttons button {
-  background-color: #B31312;
-  color: white;
-  border: 2px solid #B31312;
-  border-radius: 15px;
-  padding: 10px 25px;
-  cursor: pointer;
-  font-weight: bold;
-  transition: all 0.3s ease-in-out;
-}
-
-.auth-buttons button:hover {
-  background-color: #ffffff;
-  color: #B31312;
-}
-
-/* Profile Page Container */
-.container {
+/* Profile Container */
+.profile-page .container {
   display: flex;
   justify-content: center;
   align-items: center;
   padding: 20px;
+  background: #fefff0;
 }
 
 .profile-container {
@@ -104,31 +88,49 @@ header {
   display: block;
 }
 
-.profile-picture img.default {
-  display: none;
-}
-
 .profile-balance {
   font-size: 14px;
   color: #333;
   margin: 10px 0;
 }
 
-.logout-btn {
-  width: 100%;
-  background: #B31312;
+/* ================= ALL BUTTONS WITH GRADIENT ================= */
+.logout-btn,
+.save-btn,
+.edit-profile-btn,
+.popup-button,
+.auth-buttons button {
+  background: linear-gradient(to right, #b31217, #e52d27);
   color: white;
   border: none;
-  padding: 10px;
+  padding: 10px 20px;
   cursor: pointer;
-  border-radius: 5px;
+  border-radius: 8px;
   font-size: 16px;
-  transition: background 0.3s;
+  font-weight: bold;
+  transition: all 0.3s ease-in-out;
   margin-top: 10px;
 }
 
-.logout-btn:hover {
-  background: #ff1010;
+.logout-btn:hover,
+.save-btn:hover,
+.edit-profile-btn:hover,
+.popup-button:hover,
+.auth-buttons button:hover {
+  background: white;
+  color: #B31312;
+  border: 2px solid #B31312;
+}
+
+/* KECUALI tombol Batal */
+.btn-cancel {
+  background: #cccccc;
+  color: #333;
+}
+
+.btn-cancel:hover {
+  background: #b0b0b0;
+  color: #000;
 }
 
 /* Profile Main Section */
@@ -150,7 +152,6 @@ header {
   gap: 15px;
 }
 
-/* Form Group */
 .form-group {
   display: flex;
   flex-direction: column;
@@ -162,7 +163,6 @@ label {
   color: #333;
 }
 
-/* Input Fields */
 input,
 select,
 textarea {
@@ -176,24 +176,7 @@ textarea {
   min-height: 40px;
 }
 
-/* Save Button */
-.save-btn {
-  background: #B31312;
-  color: white;
-  border: none;
-  padding: 10px 15px;
-  cursor: pointer;
-  border-radius: 5px;
-  font-size: 16px;
-  transition: background 0.3s;
-  margin-top: 15px;
-}
-
-.save-btn:hover {
-  background: #900d0d;
-}
-
-/* Popup Konfirmasi Logout */
+/* Popup */
 .popup-overlay {
   position: fixed;
   top: 0;
@@ -232,40 +215,12 @@ textarea {
   margin-top: 20px;
 }
 
-.popup-button {
-  flex: 1;
-  padding: 12px;
-  border: none;
-  cursor: pointer;
-  border-radius: 6px;
-  font-size: 16px;
-  transition: all 0.3s ease;
-}
-
-.btn-cancel {
-  background: #cccccc;
-  color: #333;
-}
-
-.btn-cancel:hover {
-  background: #b0b0b0;
-}
-
-.btn-exit {
-  background: #B31312;
-  color: white;
-}
-
-.btn-exit:hover {
-  background: #900d0d;
-}
-
 @keyframes fadeIn {
   from { opacity: 0; transform: scale(0.9); }
   to { opacity: 1; transform: scale(1); }
 }
 
-/* ========== Responsif untuk ukuran layar maksimal 1024px ========== */
+/* ================= RESPONSIVE ================= */
 @media (max-width: 1024px) {
   .profile-page .profile-container {
     flex-direction: column;
@@ -281,109 +236,30 @@ textarea {
     padding-bottom: 20px;
     margin-bottom: 20px;
   }
-
-  .profile-page .profile-sidebar .logout-btn {
-    width: auto;
-    margin-top: 0;
-  }
-
-  .profile-page .profile-main {
-    padding-left: 0;
-  }
-
-  .profile-page .container {
-    padding: 10px;
-  }
 }
 
-/* ========== Responsif untuk ukuran layar maksimal 768px ========== */
 @media (max-width: 768px) {
-
-
-  .profile-page .nav-menu ul {
-    flex-direction: column;
-    gap: 10px;
-    padding-top: 10px;
-  }
-
-  .profile-page .auth-buttons {
-    margin-top: 10px;
-  }
-
   .profile-page .profile-sidebar {
     flex-direction: column;
     align-items: center;
-    text-align: center;
   }
 
-  .profile-page .profile-sidebar .logout-btn {
-    width: 100%;
-    margin-top: 10px;
-  }
-
-  .profile-page .popup-content {
-    width: 90%;
-    padding: 20px;
-  }
-
-  .profile-page .popup-button-container {
+  .popup-button-container {
     flex-direction: column;
   }
 
-  .profile-page .popup-button {
+  .popup-button {
     width: 100%;
   }
 }
 
-/* ========== Responsif untuk ukuran layar maksimal 480px ========== */
 @media (max-width: 480px) {
-  .profile-page .logo {
-    font-size: 20px;
-  }
-
   .profile-page .profile-container {
     width: 100%;
-    padding: 10px;
-  }
-
-  .profile-page .profile-sidebar {
-    padding-right: 0;
   }
 
   .profile-page .profile-picture {
     width: 80px;
     height: 80px;
-    font-size: 40px;
-  }
-
-  .profile-page .profile-main {
-    padding-left: 0;
-  }
-
-  .profile-page .section-title {
-    font-size: 18px;
-  }
-
-  .profile-page .form-group label {
-    font-size: 14px;
-  }
-
-  .profile-page input {
-    font-size: 13px;
-    padding: 8px;
-  }
-
-  .profile-page .save-btn {
-    font-size: 14px;
-    padding: 8px 12px;
-  }
-
-  .profile-page .popup-header {
-    font-size: 18px;
-  }
-
-  .profile-page .popup-button {
-    font-size: 14px;
-    padding: 10px;
   }
 }
