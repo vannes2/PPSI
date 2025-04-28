@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import io from "socket.io-client";
 import HeaderLawyer from "../components/HeaderLawyer";
 import Footer from "../components/Footer";
@@ -13,6 +13,7 @@ const KonsultasiLawyer = () => {
   const [input, setInput] = useState("");
   const [error, setError] = useState("");
 
+  const messagesEndRef = useRef(null);
   const lawyer = JSON.parse(localStorage.getItem("user"));
 
   useEffect(() => {
@@ -24,7 +25,7 @@ const KonsultasiLawyer = () => {
     fetch(`http://localhost:5000/api/chat/contacts/lawyer/${lawyer.id}`)
       .then((res) => res.json())
       .then((data) => setContacts(data))
-      .catch((err) => setError("Gagal mengambil kontak"));
+      .catch(() => setError("Gagal mengambil kontak"));
 
     socket.on(`receive_message_pengacara_${lawyer.id}`, (data) => {
       if (selectedUser && data.sender_id == selectedUser.id) {
@@ -35,12 +36,16 @@ const KonsultasiLawyer = () => {
     return () => socket.off();
   }, [lawyer?.id, selectedUser]);
 
+  useEffect(() => {
+    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+  }, [messages]);
+
   const loadMessages = (user) => {
     setSelectedUser(user);
     fetch(`http://localhost:5000/api/chat/messages/user/${user.id}?userId=${lawyer.id}&userRole=pengacara`)
       .then((res) => res.json())
       .then((data) => setMessages(data))
-      .catch((err) => setError("Gagal mengambil pesan"));
+      .catch(() => setError("Gagal mengambil pesan"));
   };
 
   const handleSubmit = (e) => {
@@ -62,7 +67,7 @@ const KonsultasiLawyer = () => {
   return (
     <div className="chat-app">
       <HeaderLawyer />
-      {error && <div style={{ color: "red", textAlign: "center" }}>{error}</div>}
+      {error && <div className="error-message">{error}</div>}
       <div className="chat-container">
         <div className="sidebar">
           <div className="search-box">
@@ -89,11 +94,18 @@ const KonsultasiLawyer = () => {
                     <div className="time">{new Date(msg.timestamp).toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })}</div>
                   </div>
                 ))}
+                <div ref={messagesEndRef} />
               </div>
               <form className="chat-input" onSubmit={handleSubmit}>
-                <input value={input} onChange={(e) => setInput(e.target.value)} placeholder="Tulis pesan..." />
-                <button type="submit">Kirim</button>
-              </form>
+              <input 
+                value={input} 
+                onChange={(e) => setInput(e.target.value)} 
+                placeholder="Tulis pesan..." 
+              />
+              <button type="submit">
+                  <i className="fas fa-paper-plane"></i>
+              </button>
+          </form>
             </>
           ) : (
             <div className="no-chat">Pilih user untuk memulai chat</div>

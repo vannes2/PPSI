@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 25 Apr 2025 pada 05.14
+-- Waktu pembuatan: 28 Apr 2025 pada 13.20
 -- Versi server: 10.4.28-MariaDB
 -- Versi PHP: 8.2.4
 
@@ -105,6 +105,36 @@ CREATE TABLE `log_aktivitas` (
 -- --------------------------------------------------------
 
 --
+-- Struktur dari tabel `messages`
+--
+
+CREATE TABLE `messages` (
+  `id` int(11) NOT NULL,
+  `sender_id` int(11) NOT NULL,
+  `sender_role` enum('user','pengacara') NOT NULL,
+  `receiver_id` int(11) NOT NULL,
+  `receiver_role` enum('user','pengacara') NOT NULL,
+  `message` text NOT NULL,
+  `timestamp` datetime DEFAULT current_timestamp(),
+  `is_read` tinyint(1) DEFAULT 0
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data untuk tabel `messages`
+--
+
+INSERT INTO `messages` (`id`, `sender_id`, `sender_role`, `receiver_id`, `receiver_role`, `message`, `timestamp`, `is_read`) VALUES
+(1, 2, 'user', 1, 'pengacara', 'go', '2025-04-28 17:31:25', 0),
+(2, 2, 'user', 3, 'pengacara', 'hello', '2025-04-28 17:32:07', 0),
+(3, 1, 'pengacara', 1, 'pengacara', 'tes', '2025-04-28 17:48:59', 1),
+(4, 1, 'pengacara', 1, 'pengacara', 'hello', '2025-04-28 17:49:37', 1),
+(5, 2, 'user', 1, 'pengacara', 'hello', '2025-04-28 17:55:36', 0),
+(6, 3, 'user', 1, 'pengacara', 'hallo', '2025-04-28 18:15:04', 0),
+(7, 17, 'user', 1, 'pengacara', 'woi kontol', '2025-04-28 18:18:05', 0);
+
+-- --------------------------------------------------------
+
+--
 -- Struktur dari tabel `pendaftaran_pengacara`
 --
 
@@ -193,7 +223,9 @@ INSERT INTO `pengacara` (`id`, `nama`, `ktp`, `tanggal_lahir`, `jenis_kelamin`, 
 (20, 'Agus Saputra', '3201010401010020', '1988-01-01', 'Laki-laki', 'Jl. Condet No.20 Jakarta', 'agus.saputra@example.com', '081234567809', 'ADV020', 'Universitas Mulawarman', 'S1 Hukum', 'Hukum Ketenagakerjaan', 8, 'ktp20.png', 'foto20.png', 'kartu20.png', 'pkpa20.png', 'aguss', 'hashedpassword20', '2025-04-20 20:03:57'),
 (22, 'jamaludin', '31829201010', '1980-01-15', 'Laki-laki', 'Jl Kedaton', 'jamaludin@yahoo.com', '088812123456', 'ADV77', 'UPH', 'S2 Ilmu Hukum', 'Hukum Bisnis', 12, '1745157508818-ChatGPT Image Apr 17, 2025, 10_53_20 AM.png', '1745157508841-ChatGPT Image Apr 17, 2025, 10_53_20 AM.png', '1745157508828-ChatGPT Image Apr 17, 2025, 10_53_20 AM.png', '1745157508853-ChatGPT Image Apr 17, 2025, 10_51_55 AM.png', 'jamal', '$2b$10$XFIk/eKfkfDA0hZkYYy3Jen1KjieWOCWfGp1u3eG1qPBRn4aj.7E2', '2025-04-20 20:58:28'),
 (23, 'Anwar', '41627818199', '2025-04-25', 'Laki-laki', 'Jakbar', 'anwar@gmail.com', '0877617718819', 'ADV99', 'Universitas Trisakti', 'S2 Hukum', 'Hukum Perdata', 5, '1745544909164-zitline_ip.sql', '1745544909167-zitline_ip.sql', '1745544909165-zitline_ip.sql', '1745544909168-zitline_ip.sql', 'anwar', '$2b$10$3nRZ/7rNL3S3i0dV8DjFfe0Y4aND4Y/bG1Dx2dY8L1arp27WYpcsm', '2025-04-25 09:22:02'),
-(25, 'komangs', '12818811992', '2025-04-25', 'Laki-laki', 'jawa', 'steve@gmail.com', '089977661661', 'ADV107', 'UPH', 'S2 Hukum', 'Hukum Alam', 4, '1745549642332-zitline_ip.sql', '1745549642332-zitline_ip.sql', '1745549642333-zitline_ip.sql', '1745549642333-zitline_ip.sql', 'nvidia', '$2b$10$HlIj4Qkq.ygFXTWaQ8rCBuWXKGCRY9B6yBnHhTaXrXUzHF0ixCjrK', '2025-04-25 09:56:47');
+(25, 'komangs', '12818811992', '2025-04-25', 'Laki-laki', 'jawa', 'steve@gmail.com', '089977661661', 'ADV107', 'UPH', 'S2 Hukum', 'Hukum Alam', 4, '1745549642332-zitline_ip.sql', '1745549642332-zitline_ip.sql', '1745549642333-zitline_ip.sql', '1745549642333-zitline_ip.sql', 'nvidia', '$2b$10$HlIj4Qkq.ygFXTWaQ8rCBuWXKGCRY9B6yBnHhTaXrXUzHF0ixCjrK', '2025-04-25 09:56:47'),
+(26, 'blues', '1181881919', '2025-05-02', 'Perempuan', 'jalan cemani', 'blues@gmail.com', '1234156161718', 'ADV13', 'UPH', 'S2 Ilmu Hukum', 'Hukum Bisnis', 10, '1745584134806-pendaftaran_pengacara.sql', '1745584134807-pendaftaran_pengacara.sql', '1745584134807-pendaftaran_pengacara.sql', '1745584134807-pendaftaran_pengacara.sql', 'blues', '$2b$10$KNCZrCH99bHeiddM2yMpNeXaJ0yrIxA9xQrt1Ib0vTB5L6D4Y6eNa', '2025-04-25 19:30:23'),
+(27, 'black', '31829201010', '2025-04-25', 'Laki-laki', 'jalan cemani', 'black@gmail.com', '1234156161718', 'ADV79', 'UPH', 'S2 Hukum', 'Hukum Internasional', 10, '1745585634296-pendaftaran_pengacara.sql', '1745585634297-pendaftaran_pengacara.sql', '1745585634297-pendaftaran_pengacara.sql', '1745585634298-pendaftaran_pengacara.sql', 'black', '123', '2025-04-25 19:54:15');
 
 -- --------------------------------------------------------
 
@@ -302,6 +334,12 @@ ALTER TABLE `log_aktivitas`
   ADD KEY `id_pengguna` (`id_pengguna`);
 
 --
+-- Indeks untuk tabel `messages`
+--
+ALTER TABLE `messages`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indeks untuk tabel `pendaftaran_pengacara`
 --
 ALTER TABLE `pendaftaran_pengacara`
@@ -366,16 +404,22 @@ ALTER TABLE `log_aktivitas`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
+-- AUTO_INCREMENT untuk tabel `messages`
+--
+ALTER TABLE `messages`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+
+--
 -- AUTO_INCREMENT untuk tabel `pendaftaran_pengacara`
 --
 ALTER TABLE `pendaftaran_pengacara`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT untuk tabel `pengacara`
 --
 ALTER TABLE `pengacara`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
 
 --
 -- AUTO_INCREMENT untuk tabel `pengguna`

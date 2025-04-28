@@ -1,6 +1,9 @@
 import { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { io } from "socket.io-client";
+import HeaderLawyer from "../components/HeaderAfter";
+import Footer from "../components/Footer";
+import "../CSS_User/ChatPage.css";
 
 const socket = io("http://localhost:5000");
 
@@ -21,7 +24,6 @@ const ChatPage = () => {
             return;
         }
 
-        // Ambil nama pengacara dari API
         fetch(`http://localhost:5000/api/pengacara/${contactId}`)
             .then(res => {
                 if (!res.ok) throw new Error("Gagal mengambil data pengacara");
@@ -30,7 +32,6 @@ const ChatPage = () => {
             .then(data => setContactName(data.nama))
             .catch(err => setError(err.message));
 
-        // Ambil histori chat
         fetch(`http://localhost:5000/api/chat/messages/${contactRole}/${contactId}?userId=${user.id}&userRole=${user.role}`)
             .then(res => {
                 if (!res.ok) throw new Error("Gagal mengambil pesan");
@@ -40,7 +41,6 @@ const ChatPage = () => {
             .catch(err => setError(err.message))
             .finally(() => setLoading(false));
 
-        // Emit mark_read ke socket
         socket.emit('mark_read', {
             receiver_id: user.id,
             receiver_role: user.role,
@@ -73,31 +73,37 @@ const ChatPage = () => {
         setNewMessage("");
     };
 
-    if (loading) return <p>Loading chat...</p>;
-    if (error) return <p style={{ color: "red" }}>Error: {error}</p>;
+    if (loading) return <p className="status-message">Loading chat...</p>;
+    if (error) return <p className="status-message error">Error: {error}</p>;
 
     return (
-        <div style={{ padding: "20px" }}>
-            <h2>Chat dengan {contactName || `${contactRole} ID ${contactId}`}</h2>
-            <div style={{ height: '300px', overflowY: 'scroll', border: '1px solid #ccc', padding: '10px' }}>
-                {messages.length > 0 ? messages.map((msg, idx) => (
-                    <div key={idx} style={{ textAlign: msg.sender_id == user.id ? "right" : "left", margin: "10px 0" }}>
-                        <div style={{ display: "inline-block", background: "#f1f1f1", padding: "8px", borderRadius: "5px" }}>
-                            {msg.message}
+        <>
+            <HeaderLawyer />
+            <div className="chat-wrapper">
+                <h2>Chat dengan {contactName || `${contactRole} ID ${contactId}`}</h2>
+                <div className="chat-box">
+                    {messages.length > 0 ? messages.map((msg, idx) => (
+                        <div 
+                            key={idx} 
+                            className={`message ${msg.sender_id == user.id ? "sent" : "received"}`}
+                        >
+                            <div className="bubble">
+                                {msg.message}
+                            </div>
                         </div>
-                    </div>
-                )) : <p>Tidak ada pesan.</p>}
+                    )) : <p className="no-message">Tidak ada pesan.</p>}
+                </div>
+                <div className="input-area">
+                    <input 
+                        value={newMessage} 
+                        onChange={(e) => setNewMessage(e.target.value)} 
+                        placeholder="Tulis pesan..." 
+                    />
+                    <button onClick={sendMessage}>Kirim</button>
+                </div>
             </div>
-            <div style={{ marginTop: "10px" }}>
-                <input 
-                    value={newMessage} 
-                    onChange={(e) => setNewMessage(e.target.value)} 
-                    placeholder="Tulis pesan..." 
-                    style={{ width: "80%", padding: "8px" }} 
-                />
-                <button onClick={sendMessage} style={{ padding: "8px 16px" }}>Kirim</button>
-            </div>
-        </div>
+            <Footer />
+        </>
     );
 };
 

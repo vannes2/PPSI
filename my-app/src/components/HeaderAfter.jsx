@@ -28,7 +28,7 @@ const Header = () => {
         <ul onClick={closeDrawer}>
           <li><Link to="/HomeAfter">BERANDA</Link></li>
           <li><Link to="/AboutUsAfter">TENTANG KAMI</Link></li>
-          <li><Link to="/Konsultasi">KONSULTASI</Link></li>
+          <li><Link to="/">KONSULTASI</Link></li>
           <li><Link to="/Riwayat">RIWAYAT</Link></li>
           <li><Link to="/Artikel">ARTIKEL</Link></li>
 
