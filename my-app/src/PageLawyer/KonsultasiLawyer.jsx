@@ -1,5 +1,6 @@
 import { useEffect, useState, useRef } from "react";
 import io from "socket.io-client";
+import { FaLocationArrow } from "react-icons/fa";
 import HeaderLawyer from "../components/HeaderLawyer";
 import Footer from "../components/Footer";
 import "../CSS_Lawyer/KonsultasiLawyer.css";
@@ -102,9 +103,9 @@ const KonsultasiLawyer = () => {
                 onChange={(e) => setInput(e.target.value)} 
                 placeholder="Tulis pesan..." 
               />
-              <button type="submit">
-                  <i className="fas fa-paper-plane"></i>
-              </button>
+            <button type="submit">
+                <FaLocationArrow />
+            </button>
           </form>
             </>
           ) : (

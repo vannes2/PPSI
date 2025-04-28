@@ -27,6 +27,8 @@ import SelectUser from "./PageLawyer/selectUser";
 import SidebarAdmin from "./components/SidebarAdmin";
 import LawyerRegistrations from "./PageAdmin/LawyerRegistrations";
 import ChatPage from "./PageUser/ChatPage";
+import '@fortawesome/fontawesome-free/css/all.min.css';
+
 
 function App() {
     return (
