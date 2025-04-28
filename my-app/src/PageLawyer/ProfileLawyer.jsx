@@ -12,7 +12,6 @@ const ProfileLawyer = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  // Ambil user dari localStorage
   const user = JSON.parse(localStorage.getItem("user"));
   const userId = user?.id;
 
@@ -23,7 +22,7 @@ const ProfileLawyer = () => {
       return;
     }
 
-    fetch(`http://localhost:5000/api/profile/id/${userId}`)
+    fetch(`http://localhost:5000/api/lawyer/profile/${userId}`)
       .then((response) => {
         if (!response.ok) {
           throw new Error("Gagal mengambil data profil");
@@ -50,7 +49,7 @@ const ProfileLawyer = () => {
   };
 
   const handleEditProfile = () => {
-    navigate("/ProfileEdit");
+    navigate("/ProfileEditLawyer");
   };
 
   if (loading) {
@@ -77,7 +76,7 @@ const ProfileLawyer = () => {
               <User size={80} color="#666" strokeWidth={1.5} />
             </div>
             <p className="profile-balance">
-              {profileData.balance ? profileData.balance : "0 AYUNE COINS"}
+              {profileData.balance ? `${profileData.balance} AYUNE COINS` : "0 AYUNE COINS"}
             </p>
 
             <button className="edit-profile-btn" onClick={handleEditProfile}>
@@ -90,11 +89,27 @@ const ProfileLawyer = () => {
           </div>
 
           <div className="profile-main">
-            <h1 className="section-title">Informasi Profil</h1>
+            <h1 className="section-title">Informasi Profil Pengacara</h1>
             <div className="profile-info">
+
               <div className="form-group">
                 <label>Nama</label>
-                <p>{profileData.name}</p>
+                <p>{profileData.nama}</p>
+              </div>
+
+              <div className="form-group">
+                <label>Tanggal Lahir</label>
+                <p>{profileData.tanggal_lahir}</p>
+              </div>
+
+              <div className="form-group">
+                <label>Jenis Kelamin</label>
+                <p>{profileData.jenis_kelamin}</p>
+              </div>
+
+              <div className="form-group">
+                <label>Alamat</label>
+                <p>{profileData.alamat}</p>
               </div>
 
               <div className="form-group">
@@ -103,19 +118,40 @@ const ProfileLawyer = () => {
               </div>
 
               <div className="form-group">
-                <label>Nomor Telepon</label>
-                <p>{profileData.phone}</p>
+                <label>No HP</label>
+                <p>{profileData.no_hp}</p>
               </div>
 
               <div className="form-group">
-                <label>Tanggal Lahir</label>
-                <p>{profileData.birthdate}</p>
+                <label>Nomor Induk Advokat</label>
+                <p>{profileData.nomor_induk_advokat}</p>
               </div>
 
               <div className="form-group">
-                <label>Jenis Kelamin</label>
-                <p>{profileData.gender}</p>
+                <label>Universitas</label>
+                <p>{profileData.universitas}</p>
               </div>
+
+              <div className="form-group">
+                <label>Pendidikan</label>
+                <p>{profileData.pendidikan}</p>
+              </div>
+
+              <div className="form-group">
+                <label>Spesialisasi</label>
+                <p>{profileData.spesialisasi}</p>
+              </div>
+
+              <div className="form-group">
+                <label>Pengalaman</label>
+                <p>{profileData.pengalaman} Tahun</p>
+              </div>
+
+              <div className="form-group">
+                <label>Username</label>
+                <p>{profileData.username}</p>
+              </div>
+
             </div>
           </div>
         </div>
@@ -138,7 +174,6 @@ const ProfileLawyer = () => {
       )}
 
       <div className="footer-separator"></div>
-      
       <Footer />
     </div>
   );
