@@ -26,6 +26,7 @@ import KonsultasiLawyer from "./PageLawyer/KonsultasiLawyer";
 import SelectUser from "./PageLawyer/selectUser";
 import SidebarAdmin from "./components/SidebarAdmin";
 import LawyerRegistrations from "./PageAdmin/LawyerRegistrations";
+import ChatPage from "./PageUser/ChatPage";
 
 function App() {
     return (
@@ -66,6 +67,8 @@ function App() {
                 <Route path="SelectUser" element={<SelectUser />} />
                 <Route path="SidebarAdmin" element={<SidebarAdmin/>} />
                 <Route path="LawyerRegistrations" element={<LawyerRegistrations/>} />
+                <Route path="/chat/:contactRole/:contactId" element={<ChatPage />} />
+
             </Routes>
         </Router>
     );

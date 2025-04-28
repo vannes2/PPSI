@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import Footer from "../components/Footer";
 import HeaderAfter from "../components/HeaderAfter";
 import "../CSS_User/konsultasi.css";
@@ -8,6 +9,7 @@ const Konsultasi = () => {
     const [searchTerm, setSearchTerm] = useState("");
     const [selectedSpesialisasi, setSelectedSpesialisasi] = useState("");
     const [error, setError] = useState(null);
+    const navigate = useNavigate();
 
     useEffect(() => {
         fetch("http://localhost:5000/api/pengacara")
@@ -30,6 +32,11 @@ const Konsultasi = () => {
         advokat.nama.toLowerCase().includes(searchTerm.toLowerCase()) &&
         (selectedSpesialisasi === "" || advokat.spesialisasi === selectedSpesialisasi)
     );
+
+    // Fungsi navigasi ke halaman chat
+    const handleKonsultasiClick = (advokatId) => {
+        navigate(`/chat/pengacara/${advokatId}`);
+    };
 
     return (
         <div className="konsultasi-page">
@@ -72,8 +79,12 @@ const Konsultasi = () => {
                                     {advokat.spesialisasi}<br />
                                     Pengalaman: {advokat.pengalaman} tahun
                                 </p>
-                                {/* Tombol Klik Konsultasi */}
-                                <button className="btn-konsultasi">Klik Konsultasi</button>
+                                <button 
+                                    className="btn-konsultasi"
+                                    onClick={() => handleKonsultasiClick(advokat.id)}
+                                >
+                                    Klik Konsultasi
+                                </button>
                             </div>
                         ))
                     ) : (

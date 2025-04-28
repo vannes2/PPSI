@@ -5,9 +5,9 @@ const router = express.Router();
 // Koneksi ke database
 const db = mysql.createConnection({
     host: "localhost",
-    user: "root", // Sesuaikan dengan user database Anda
-    password: "", // Sesuaikan dengan password database Anda
-    database: "cerdas_hukum" // Ganti dengan nama database Anda
+    user: "root",
+    password: "",
+    database: "cerdas_hukum"
 });
 
 db.connect((err) => {
@@ -18,7 +18,7 @@ db.connect((err) => {
     }
 });
 
-// Route untuk mendapatkan daftar pengacara
+// GET: Daftar semua pengacara
 router.get("/pengacara", (req, res) => {
     const sql = "SELECT id, nama, spesialisasi, pengalaman, email, pendidikan, tanggal_daftar FROM pengacara";
     db.query(sql, (err, results) => {
@@ -31,7 +31,23 @@ router.get("/pengacara", (req, res) => {
     });
 });
 
-// Route untuk menghapus pengacara berdasarkan ID
+// ✅ Tambahan: GET pengacara by ID
+router.get("/pengacara/:id", (req, res) => {
+    const { id } = req.params;
+    const sql = "SELECT id, nama, spesialisasi, pengalaman FROM pengacara WHERE id = ?";
+    db.query(sql, [id], (err, results) => {
+        if (err) {
+            console.error("Gagal mengambil pengacara:", err);
+            return res.status(500).json({ error: "Gagal mengambil data pengacara" });
+        }
+        if (results.length === 0) {
+            return res.status(404).json({ error: "Pengacara tidak ditemukan" });
+        }
+        res.json(results[0]);
+    });
+});
+
+// DELETE: Hapus pengacara
 router.delete("/pengacara/:id", (req, res) => {
     const { id } = req.params;
     const sql = "DELETE FROM pengacara WHERE id = ?";
@@ -47,7 +63,7 @@ router.delete("/pengacara/:id", (req, res) => {
     });
 });
 
-// Route untuk memperbarui data pengacara berdasarkan ID
+// PUT: Update pengacara
 router.put("/pengacara/:id", (req, res) => {
     const { id } = req.params;
     const { nama, email, spesialisasi, pengalaman, pendidikan } = req.body;
