@@ -138,6 +138,26 @@ body {
   margin-top: 20px;
 }
 
+
+.home-before-page .btn-konsultasi {
+  margin-top: 15px;
+  background-color: #B31312;
+  color: white;
+  border: none;
+  border-radius: 10px;
+  padding: 8px 16px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: all 0.3s ease-in-out;
+}
+
+.home-before-page .btn-konsultasi:hover {
+  background-color: white;
+  color: #B31312;
+  border: 2px solid #B31312;
+}
+
+
 /* Footer Separator */
 .home-before-page .footer-separator {
   width: 100%;

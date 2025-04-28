@@ -171,6 +171,26 @@
     font-size: 14px;
 }
 
+/* Button di dalam card pengacara */
+.konsultasi-page .btn-konsultasi {
+    margin-top: 15px;
+    background-color: #B31312;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    padding: 10px 20px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: all 0.3s ease-in-out;
+}
+
+.konsultasi-page .btn-konsultasi:hover {
+    background-color: white;
+    color: #B31312;
+    border: 2px solid #B31312;
+}
+
+
 /* Responsif */
 @media (max-width: 768px) {
     .konsultasi-page .hero {

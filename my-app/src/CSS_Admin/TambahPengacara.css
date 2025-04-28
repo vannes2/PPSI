@@ -7,7 +7,7 @@
   background-color: #f9f9f9;
 }
 
-.Main-Content{
+.Main-Content {
   background-color: #f9f9f9;
 }
 
@@ -29,6 +29,7 @@ td {
   border: 1px solid #ddd;
   padding: 12px;
   text-align: left;
+  color: #000000;   /* Warna tulisan tabel jadi hitam */
 }
 
 th {
@@ -37,6 +38,7 @@ th {
   font-weight: bold;
 }
 
+/* Link di dalam tabel */
 td a {
   color: #007bff;
   text-decoration: none;
@@ -46,38 +48,65 @@ td a:hover {
   text-decoration: underline;
 }
 
+/* ============================== */
+/* BUTTON STYLING */
+/* ============================== */
+
+/* General Button Style */
 td button {
-  padding: 6px 12px;
+  padding: 8px 16px;
   border: none;
-  border-radius: 4px;
+  border-radius: 8px;
   cursor: pointer;
-  font-size: 0.9rem;
-  transition: background-color 0.3s ease;
+  font-size: 1rem;
+  font-weight: bold;
+  transition: all 0.3s ease;
+  color: white;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
 }
 
+/* Button View - Biru Muda */
+button.view {
+  background-color: #2D9CDB;
+}
+
+/* Button Edit - Hijau Tua */
+button.Edit {
+  background-color: #27AE60;
+}
+
+/* Button Delete - Merah */
+button.delete {
+  background-color: #EB5757;
+}
+
+/* Button Approve (Setujui) - Hijau */
+button.approve {
+  background-color: #27AE60;
+}
+
+/* Button Reject (Tolak) - Merah */
+button.reject {
+  background-color: #EB5757;
+}
+
+/* Hover Effect */
 td button:hover {
   opacity: 0.9;
+  transform: scale(1.05);
 }
 
-button {
-  background-color: #007bff;
-  color: white;
-}
-
-button.edit {
-  background-color: #ffc107;
-  color: white;
-}
-
-button.delete {
-  background-color: #dc3545;
-  color: white;
-}
-
+/* Jarak antar tombol */
 button + button {
   margin-left: 8px;
 }
 
+
+/* ============================== */
+/* EMPTY STATE */
+/* ============================== */
 td[colspan] {
   text-align: center;
   font-style: italic;

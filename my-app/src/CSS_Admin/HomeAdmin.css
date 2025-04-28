@@ -77,6 +77,11 @@
   overflow-x: auto;
 }
 
+/* Pastikan semua teks <p> di dashboard hitam */
+.dashboard-content p {
+  color: #000000;
+}
+
 /* ------------------------------------------ */
 /* SEARCH & TOOLBAR */
 /* ------------------------------------------ */
@@ -178,6 +183,7 @@
   font-size: 14px;
 }
 
+/* Header tabel */
 .table-scroll thead {
   background: #e5e7eb;
   position: sticky;
@@ -185,11 +191,13 @@
   z-index: 5;
 }
 
+/* Pastikan teks tabel hitam */
 .table-scroll th,
 .table-scroll td {
   padding: 12px 14px;
   border: 1px solid #e5e7eb;
   text-align: left;
+  color: #000000;  /* Ubah warna teks menjadi hitam */
 }
 
 .table-scroll tbody tr:hover {

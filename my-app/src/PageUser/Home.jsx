@@ -59,6 +59,11 @@ const Home = () => {
                             <div key={advokat.id || index} className="product-item">
                                 <img src={`/assets/images/advokat${index + 1}.png`} alt="Advokat" />
                                 <p><strong>{advokat.nama}</strong><br />{advokat.spesialisasi}<br />Pengalaman: {advokat.pengalaman} tahun</p>
+
+                                <Link to="/Login">
+                                    <button className="btn-konsultasi">Klik Konsultasi</button>
+                                </Link>
+
                             </div>
                         ))
                     ) : (
