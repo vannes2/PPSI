@@ -2,96 +2,109 @@ import { useEffect, useState } from 'react';
 import io from 'socket.io-client';
 import HeaderLawyer from "../components/HeaderLawyer";
 import Footer from "../components/Footer";
-import '../CSS_Lawyer/KonsultasiLawyer.css'; 
+import '../CSS_Lawyer/KonsultasiLawyer.css';
 
-const socket = io('http://localhost:3001'); // default koneksi ke backend sama origin
+const socket = io('http://localhost:5000');
 
 const KonsultasiLawyer = () => {
+  const [contacts, setContacts] = useState([]);
+  const [selectedUser, setSelectedUser] = useState(null);
   const [messages, setMessages] = useState([]);
   const [input, setInput] = useState('');
-  const [username, setUsername] = useState('');
+  const [error, setError] = useState('');
+
+  const lawyer = JSON.parse(localStorage.getItem('user'));
 
   useEffect(() => {
-    let name = localStorage.getItem('chatUsername');
-    if (!name) {
-      name = prompt('Masukkan nama anda:');
-      localStorage.setItem('chatUsername', name);
+    if (!lawyer) {
+      setError("Pengacara belum login.");
+      return;
     }
-    setUsername(name);
-    socket.emit('set username', name);
-  
-    socket.on('chat message', (data) => {
-      setMessages((prevMessages) => [...prevMessages, data]);
+
+    fetch(`http://localhost:5000/api/chat/contacts/lawyer/${lawyer.id}`)
+      .then(res => {
+        if (!res.ok) throw new Error("Gagal mengambil kontak");
+        return res.json();
+      })
+      .then(data => setContacts(data))
+      .catch(err => setError(err.message));
+
+    socket.on(`receive_message_pengacara_${lawyer.id}`, (data) => {
+      if (selectedUser && data.sender_id == selectedUser.id) {
+        setMessages(prev => [...prev, data]);
+      }
     });
-  
-    return () => {
-      socket.off('chat message');
-    };
-  }, []);
-  
+
+    return () => socket.disconnect();
+  }, [lawyer?.id, selectedUser]);
+
+  const loadMessages = (user) => {
+    setSelectedUser(user);
+    fetch(`http://localhost:5000/api/chat/messages/user/${user.id}?userId=${lawyer.id}&userRole=pengacara`)
+      .then(res => {
+        if (!res.ok) throw new Error("Gagal mengambil pesan");
+        return res.json();
+      })
+      .then(data => setMessages(data))
+      .catch(err => setError(err.message));
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (input.trim() !== '') {
-      socket.emit('chat message', input);
-      setInput('');
-    }
+    if (input.trim() === '' || !selectedUser) return;
+
+    const msgData = {
+      sender_id: lawyer.id,
+      sender_role: 'pengacara',
+      receiver_id: selectedUser.id,
+      receiver_role: 'user',
+      message: input
+    };
+    socket.emit('send_message', msgData);
+    setMessages([...messages, { ...msgData, timestamp: new Date() }]);
+    setInput('');
   };
 
   return (
-    <div className="about-page-container">
-      {/* Header */}
+    <div className="chat-app">
       <HeaderLawyer />
-      <br/><br/><br/><br/><br/><br/><br/><br/>
-      {/* Chat Container */}
+      {error && <div style={{color: "red", textAlign: "center"}}>{error}</div>}
       <div className="chat-container">
-      <br/><br/><br/><br/>
-        <ul id="messages">
-          {messages.map((data, index) => {
-            const isSelf = data.username === username;
+        <div className="sidebar">
+          <div className="search-box">
+            <input type="text" placeholder="Search or start a new chat" />
+          </div>
+          <ul className="contact-list">
+            {contacts.map(user => (
+              <li key={user.id} onClick={() => loadMessages(user)} className={selectedUser?.id === user.id ? 'active' : ''}>
+                <div className="contact-name">{user.name}</div>
+              </li>
+            ))}
+          </ul>
+        </div>
 
-            if (data.username === 'System') {
-              return (
-                <li key={index} className="system">
-                  <div className="system-text">{data.message}</div>
-                  <div className="time">{data.time}</div>
-                </li>
-              );
-            } else {
-              return (
-                <li key={index} className={`chat-message ${isSelf ? 'self' : ''}`}>
-                  {!isSelf && (
-                    <img
-                      className="avatar"
-                      src={`https://api.dicebear.com/7.x/initials/svg?seed=${data.username}`}
-                      alt={data.username}
-                    />
-                  )}
-                  <div className="bubble">
-                    {!isSelf && <div className="name">{data.username}</div>}
-                    <div className="text">{data.message}</div>
-                    <div className="bubble-footer">
-                      <span className="time">{data.time}</span>
-                    </div>
+        <div className="chat-window">
+          {selectedUser ? (
+            <>
+              <div className="chat-header">{selectedUser.name}</div>
+              <div className="chat-messages">
+                {messages.map((msg, idx) => (
+                  <div key={idx} className={`message ${msg.sender_role === 'pengacara' ? 'sent' : 'received'}`}>
+                    {msg.message}
+                    <div className="time">{new Date(msg.timestamp).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})}</div>
                   </div>
-                </li>
-              );
-            }
-          })}
-        </ul>
-        <form id="form" onSubmit={handleSubmit}>
-          <input
-            id="input"
-            value={input}
-            onChange={(e) => setInput(e.target.value)}
-            placeholder="Type your message..."
-            autoComplete="off"
-          />
-          <button type="submit">Send</button>
-        </form>
+                ))}
+              </div>
+              <form className="chat-input" onSubmit={handleSubmit}>
+                <input value={input} onChange={(e) => setInput(e.target.value)} placeholder="Type a message" />
+                <button type="submit">Send</button>
+              </form>
+            </>
+          ) : (
+            <div className="no-chat">Pilih user untuk memulai chat</div>
+          )}
+        </div>
       </div>
-      <br/><br/><br/><br/><br/><br/><br/><br/>
-      {/* Footer */}
-      <div className="footer-separator"></div>
       <Footer />
     </div>
   );

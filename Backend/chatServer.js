@@ -1,52 +1,25 @@
-// Backend/chatServer.js
-const express = require('express');
 const http = require('http');
 const socketIo = require('socket.io');
-const cors = require('cors');
 
-const app = express();
 const server = http.createServer(app);
-const io = socketIo(server, {
-  cors: {
-    origin: "*", // Ganti dengan domain frontend kamu kalau perlu
-    methods: ["GET", "POST"]
-  }
-});
+const io = socketIo(server, { cors: { origin: '*' } });
 
-const users = {};
+const db = require('./config/database');
 
 io.on('connection', (socket) => {
-  console.log('User connected');
+    console.log('Client connected:', socket.id);
 
-  socket.on('set username', (username) => {
-    users[socket.id] = username;
-    socket.broadcast.emit('chat message', {
-      username: 'System',
-      message: `${username} telah bergabung.`,
-      time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
+    socket.on('send_message', (data) => {
+        const { sender_id, sender_role, receiver_id, receiver_role, message } = data;
+        db.query('INSERT INTO messages SET ?', { sender_id, sender_role, receiver_id, receiver_role, message }, (err) => {
+            if (!err) {
+                io.emit(`receive_message_${receiver_role}_${receiver_id}`, data);
+            }
+        });
     });
-  });
 
-  socket.on('chat message', (msg) => {
-    const user = users[socket.id] || 'Anonymous';
-    const time = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
-    io.emit('chat message', { username: user, message: msg, time });
-  });
-
-  socket.on('disconnect', () => {
-    const user = users[socket.id];
-    if (user) {
-      io.emit('chat message', {
-        username: 'System',
-        message: `${user} telah keluar.`,
-        time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
-      });
-      delete users[socket.id];
-    }
-  });
-});
-
-const PORT = 3001;
-server.listen(PORT, () => {
-  console.log(`💬 Chat server running at http://localhost:${PORT}`);
+    socket.on('mark_read', ({ receiver_id, receiver_role, sender_id, sender_role }) => {
+        db.query('UPDATE messages SET is_read = 1 WHERE receiver_id = ? AND receiver_role = ? AND sender_id = ? AND sender_role = ?', 
+                 [receiver_id, receiver_role, sender_id, sender_role]);
+    });
 });
