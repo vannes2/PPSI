@@ -145,7 +145,8 @@ const ProfileLawyer = () => {
           </div>
         </div>
       )}
-      <Footer />
+            <div className="footer-separator"></div>
+            <Footer />
     </div>
   );
 };

@@ -1,9 +1,15 @@
+import { useEffect } from "react";
 import HeaderLawyer from "../components/HeaderLawyer";
 import Footer from "../components/Footer";
 import '../CSS_Lawyer/HomeLawyer.css';
 import { Link } from 'react-router-dom';
 
 const HomeLawyer = () => {
+
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: "instant" }); // Scroll ke paling atas saat load
+  }, []);
+
   return (
     <div className="HomeLawyer">
       {/* Header */}
@@ -11,13 +17,13 @@ const HomeLawyer = () => {
 
       {/* Hero Section */}
       <section className="hero-lawyer">
-      <br/><br/><br/><br/><br/><br/><br/>
+        <br/><br/><br/><br/><br/><br/><br/>
         <div className="hero-content">
           <h1>Selamat Datang, Pengacara Profesional</h1>
           <p>Gabung bersama platform kami untuk membantu masyarakat mendapatkan konsultasi hukum yang mudah dan cepat.</p>
-        <Link to="/KonsultasiLawyer">
+          <Link to="/KonsultasiLawyer">
             <button className="cta-button">Mulai Konsultasi</button>
-        </Link>
+          </Link>
         </div>
       </section>
 

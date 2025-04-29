@@ -65,6 +65,10 @@ const KonsultasiLawyer = () => {
     setInput("");
   };
 
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: "instant" }); // Scroll ke paling atas saat load
+  }, []);
+
   return (
     <div className="chat-app">
       <HeaderLawyer />
@@ -113,6 +117,7 @@ const KonsultasiLawyer = () => {
           )}
         </div>
       </div>
+      <div className="footer-separator"></div>
       <Footer />
     </div>
   );

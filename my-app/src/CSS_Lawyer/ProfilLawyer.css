@@ -172,6 +172,14 @@
     margin-top: 20px;
 }
 
+/* footer */
+/* .profile-page .footer-separator {
+    width: 100%;            Memastikan footer separator mengisi lebar penuh 
+    height: 8px;            Ukuran tinggi footer separator 
+    background-color: #B31312;  Warna merah gelap untuk footer separator 
+    margin: 0;              Menghapus margin agar tidak ada jarak 
+} */
+ 
 /* Animations */
 @keyframes fadeIn {
     from { opacity: 0; transform: scale(0.9); }

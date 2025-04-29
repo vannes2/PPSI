@@ -28,6 +28,11 @@ const ArtikelLawyer = () => {
     window.open(`http://localhost:5000/uploads/${fileName}`, '_blank');
   };
 
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: 'instant' }); // Scroll ke atas saat masuk halaman
+    fetchArtikels();
+  }, []);
+
   return (
     <div className="artikel-page">
       <HeaderLawyer />
