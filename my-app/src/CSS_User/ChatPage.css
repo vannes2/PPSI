@@ -1,59 +1,149 @@
-.chat-wrapper {
-    max-width: 800px;
-    margin: 100px auto 50px auto;
-    padding: 20px;
-    background: #fff;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-    border-radius: 10px;
-    font-family: 'Arial', sans-serif;
-}
-
-.chat-wrapper h2 {
-    text-align: center;
-    margin-bottom: 20px;
-}
-
-.chat-box {
-    height: 400px;
-    overflow-y: auto;
-    border: 1px solid #ccc;
-    padding: 15px;
-    background: #fafafa;
-    border-radius: 8px;
-}
-
-
-.input-area {
-    margin-top: 15px;
+.chat-app {
     display: flex;
-    gap: 10px;
-}
-
-.input-area input {
-    flex: 1;
-    padding: 10px 15px;
-    border: 1px solid #ccc;
-    border-radius: 25px;
-}
-
-.input-area button {
-    padding: 10px 20px;
-    background: #25D366;
-    color: white;
-    border: none;
-    border-radius: 25px;
-    cursor: pointer;
-}
-
-.input-area button:hover {
-    background: #128C7E;
-}
-
-.status-message {
+    flex-direction: column;
+    min-height: 100vh;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f0f2f5;
+    margin-top: 120px; /* Jarak dari header */
+    margin-bottom: 40px; /* Jarak dari footer */
+  }
+  
+  .status-message {
     text-align: center;
     margin-top: 50px;
-}
-
-.status-message.error {
+    font-size: 18px;
+  }
+  
+  .status-message.error {
     color: red;
-}
+  }
+  
+  .chat-container {
+    display: flex;
+    justify-content: center;
+    padding: 20px; /* Tambahan untuk beri ruang bawah/atas konten */
+  }
+  
+  .chat-window {
+    width: 100%;
+    max-width: 800px;
+    background: #fff;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+  }
+  
+  .chat-header {
+    padding: 15px;
+    background: #f0f2f5;
+    border-bottom: 1px solid #d1d7db;
+    font-weight: bold;
+    text-align: center;
+  }
+  
+  .chat-messages {
+    flex: 1;
+    padding: 20px;
+    overflow-y: auto;
+    background: #ece5dd;
+    background-image: url('https://i.ibb.co/6y7ZtLw/whatsapp-bg.png');
+    background-size: cover;
+    background-position: center;
+    max-height: 400px; /* Agar tidak melebar tak terbatas */
+  }
+  
+  .message {
+    max-width: 60%;
+    margin: 10px 0;
+    padding: 10px 15px;
+    border-radius: 8px;
+    word-wrap: break-word;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.15);
+    font-size: 14px;
+  }
+  
+  .sent {
+    background: #dcf8c6;
+    margin-left: auto;
+  }
+  
+  .received {
+    background: #fff;
+    margin-right: auto;
+  }
+  
+  .time {
+    font-size: 11px;
+    text-align: right;
+    margin-top: 5px;
+    color: #999;
+  }
+  
+  .chat-input {
+    display: flex;
+    padding: 10px 15px;
+    background: #f0f2f5;
+    border-top: 1px solid #d1d7db;
+    align-items: center;
+    gap: 10px;
+  }
+  
+  .chat-input input {
+    flex: 1;
+    padding: 12px 18px;
+    border: none;
+    border-radius: 25px;
+    background: #fff;
+    outline: none;
+    font-size: 14px;
+    box-shadow: inset 0 1px 2px rgba(0,0,0,0.1);
+  }
+  
+  .chat-input button {
+    width: 45px;
+    height: 45px;
+    background: #25D366;
+    border: none;
+    border-radius: 50%;
+    color: white;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.3s, transform 0.2s;
+  }
+  
+  .chat-input button:hover {
+    background: #128C7E;
+    transform: scale(1.1);
+  }
+  
+  .no-chat {
+    text-align: center;
+    color: #777;
+    margin-top: 20px;
+  }
+
+  .chat-page-wrapper {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+  }
+  
+  
+  footer {
+    margin-top: auto;
+  }
+  
+  @media (max-width: 768px) {
+    .chat-container {
+      padding: 10px;
+    }
+  
+    .chat-window {
+      width: 100%;
+    }
+  }
+  

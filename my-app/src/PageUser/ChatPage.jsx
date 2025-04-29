@@ -1,108 +1,138 @@
-import { useEffect, useState } from "react";
-import { useParams, useNavigate } from "react-router-dom";
-import { io } from "socket.io-client";
-import HeaderLawyer from "../components/HeaderAfter";
+import { useEffect, useState, useRef } from "react";
+import io from "socket.io-client";
+import { FaLocationArrow } from "react-icons/fa";
+import HeaderAfter from "../components/HeaderAfter";
 import Footer from "../components/Footer";
 import "../CSS_User/ChatPage.css";
 
 const socket = io("http://localhost:5000");
 
 const ChatPage = () => {
-    const { contactRole, contactId } = useParams();
-    const navigate = useNavigate();
-    const user = JSON.parse(localStorage.getItem("user"));
+  const [contacts, setContacts] = useState([]);
+  const [selectedLawyer, setSelectedLawyer] = useState(null);
+  const [messages, setMessages] = useState([]);
+  const [input, setInput] = useState("");
+  const [error, setError] = useState("");
 
-    const [messages, setMessages] = useState([]);
-    const [newMessage, setNewMessage] = useState("");
-    const [contactName, setContactName] = useState("");
-    const [loading, setLoading] = useState(true);
-    const [error, setError] = useState("");
+  const messagesEndRef = useRef(null);
+  const user = JSON.parse(localStorage.getItem("user"));
 
-    useEffect(() => {
-        if (!user) {
-            navigate("/login");
-            return;
-        }
+  useEffect(() => {
+    if (!user) {
+      setError("User belum login.");
+      return;
+    }
 
-        fetch(`http://localhost:5000/api/pengacara/${contactId}`)
-            .then(res => {
-                if (!res.ok) throw new Error("Gagal mengambil data pengacara");
-                return res.json();
-            })
-            .then(data => setContactName(data.nama))
-            .catch(err => setError(err.message));
+    fetch(`http://localhost:5000/api/chat/contacts`)
+      .then((res) => res.json())
+      .then((data) => {
+        const pengacaraOnly = data.filter((c) => c.role === "pengacara");
+        setContacts(pengacaraOnly);
+      })
+      .catch(() => setError("Gagal mengambil kontak"));
 
-        fetch(`http://localhost:5000/api/chat/messages/${contactRole}/${contactId}?userId=${user.id}&userRole=${user.role}`)
-            .then(res => {
-                if (!res.ok) throw new Error("Gagal mengambil pesan");
-                return res.json();
-            })
-            .then(data => setMessages(data))
-            .catch(err => setError(err.message))
-            .finally(() => setLoading(false));
+    socket.on(`receive_message_user_${user.id}`, (data) => {
+      if (selectedLawyer && data.sender_id == selectedLawyer.id) {
+        setMessages((prev) => [...prev, data]);
+      }
+    });
 
-        socket.emit('mark_read', {
-            receiver_id: user.id,
-            receiver_role: user.role,
-            sender_id: contactId,
-            sender_role: contactRole
-        });
+    return () => socket.off();
+  }, [user?.id, selectedLawyer]);
 
-        socket.on(`receive_message_${user.role}_${user.id}`, (data) => {
-            if (data.sender_id == contactId && data.sender_role == contactRole) {
-                setMessages(prev => [...prev, data]);
-            }
-        });
+  useEffect(() => {
+    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+  }, [messages]);
 
-        return () => socket.off(`receive_message_${user.role}_${user.id}`);
-    }, [contactId, contactRole, user, navigate]);
+  const loadMessages = (lawyer) => {
+    setSelectedLawyer(lawyer);
+    fetch(
+      `http://localhost:5000/api/chat/messages/pengacara/${lawyer.id}?userId=${user.id}&userRole=user`
+    )
+      .then((res) => res.json())
+      .then((data) => setMessages(data))
+      .catch(() => setError("Gagal mengambil pesan"));
+  };
 
-    const sendMessage = () => {
-        if (newMessage.trim() === "") return;
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if (input.trim() === "" || !selectedLawyer) return;
 
-        const messageData = {
-            sender_id: user.id,
-            sender_role: user.role,
-            receiver_id: contactId,
-            receiver_role: contactRole,
-            message: newMessage
-        };
-
-        socket.emit('send_message', messageData);
-        setMessages([...messages, { ...messageData, timestamp: new Date() }]);
-        setNewMessage("");
+    const msgData = {
+      sender_id: user.id,
+      sender_role: "user",
+      receiver_id: selectedLawyer.id,
+      receiver_role: "pengacara",
+      message: input,
     };
+    socket.emit("send_message", msgData);
+    setMessages([...messages, { ...msgData, timestamp: new Date() }]);
+    setInput("");
+  };
 
-    if (loading) return <p className="status-message">Loading chat...</p>;
-    if (error) return <p className="status-message error">Error: {error}</p>;
+  return (
+    <div className="chat-app">
+      <HeaderAfter />
+      {error && <div className="error-message">{error}</div>}
+      <div className="chat-container">
+        <div className="sidebar">
+          <div className="search-box">
+            <input type="text" placeholder="Cari pengacara..." />
+          </div>
+          <ul className="contact-list">
+            {contacts.map((lawyer) => (
+              <li
+                key={lawyer.id}
+                onClick={() => loadMessages(lawyer)}
+                className={selectedLawyer?.id === lawyer.id ? "active" : ""}
+              >
+                <div className="contact-name">{lawyer.name}</div>
+                <div className="last-message">Klik untuk lihat chat</div>
+              </li>
+            ))}
+          </ul>
+        </div>
 
-    return (
-        <>
-            <HeaderLawyer />
-            <div className="chat-wrapper">
-                <h2>Chat dengan {contactName || `${contactRole} ID ${contactId}`}</h2>
-                <div className="chat-box">
-                    {messages.length > 0 ? messages.map((msg, idx) => (
-                        <div className={`message ${msg.sender_id == user.id ? "sent" : "received"}`}>
-    <div className="bubble">
-        {msg.message}
+        <div className="chat-window">
+          {selectedLawyer ? (
+            <>
+              <div className="chat-header">{selectedLawyer.name}</div>
+              <div className="chat-messages">
+                {messages.map((msg, idx) => (
+                  <div
+                    key={idx}
+                    className={`message ${msg.sender_role === "user" ? "sent" : "received"}`}
+                  >
+                    {msg.message}
+                    <div className="time">
+                      {new Date(msg.timestamp).toLocaleTimeString([], {
+                        hour: "2-digit",
+                        minute: "2-digit",
+                      })}
+                    </div>
+                  </div>
+                ))}
+                <div ref={messagesEndRef} />
+              </div>
+              <form className="chat-input" onSubmit={handleSubmit}>
+                <input
+                  value={input}
+                  onChange={(e) => setInput(e.target.value)}
+                  placeholder="Tulis pesan..."
+                />
+                <button type="submit">
+                  <FaLocationArrow />
+                </button>
+              </form>
+            </>
+          ) : (
+            <div className="no-chat">Pilih pengacara untuk memulai chat</div>
+          )}
+        </div>
+      </div>
+      <Footer />
     </div>
-</div>
-
-                    )) : <p className="no-message">Tidak ada pesan.</p>}
-                </div>
-                <div className="input-area">
-                    <input 
-                        value={newMessage} 
-                        onChange={(e) => setNewMessage(e.target.value)} 
-                        placeholder="Tulis pesan..." 
-                    />
-                    <button onClick={sendMessage}>Kirim</button>
-                </div>
-            </div>
-            <Footer />
-        </>
-    );
+  );
 };
 
 export default ChatPage;
