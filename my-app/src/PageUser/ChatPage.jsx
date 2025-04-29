@@ -130,6 +130,7 @@ const ChatPage = () => {
           )}
         </div>
       </div>
+      <div className="footer-separator"></div>
       <Footer />
     </div>
   );

@@ -74,4 +74,24 @@ router.get('/contacts/lawyer/:lawyerId', (req, res) => {
     });
 });
 
+// Ambil list pengacara yang pernah dihubungi user
+router.get('/contacts/user/:userId', (req, res) => {
+    const { userId } = req.params;
+    const sql = `
+      SELECT DISTINCT p.id, p.nama AS name, p.email
+      FROM messages m
+      JOIN pengacara p ON (
+        (m.sender_id = p.id AND m.sender_role = 'pengacara' AND m.receiver_id = ? AND m.receiver_role = 'user') OR
+        (m.receiver_id = p.id AND m.receiver_role = 'pengacara' AND m.sender_id = ? AND m.sender_role = 'user')
+      )
+    `;
+    db.query(sql, [userId, userId], (err, results) => {
+      if (err) {
+        console.error("Gagal ambil kontak:", err);
+        return res.status(500).json({ message: "Gagal ambil kontak" });
+      }
+      res.json(results);
+    });
+  });
+  
 module.exports = router;

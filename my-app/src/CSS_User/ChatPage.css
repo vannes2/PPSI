@@ -2,37 +2,35 @@
     display: flex;
     flex-direction: column;
     min-height: 100vh;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background-color: #f0f2f5;
     margin-top: 120px; /* Jarak dari header */
-    margin-bottom: 40px; /* Jarak dari footer */
-  }
-  
-  .status-message {
-    text-align: center;
-    margin-top: 50px;
-    font-size: 18px;
-  }
-  
-  .status-message.error {
-    color: red;
+    background-color: #ffffff;
   }
   
   .chat-container {
     display: flex;
-    justify-content: center;
-    padding: 20px; /* Tambahan untuk beri ruang bawah/atas konten */
+    flex: 1;
+    padding: 0 20px;
+    gap: 20px;
+  }
+  
+  .sidebar {
+    width: 250px;
+    background: #f9f9f9;
+    border-right: 1px solid #ddd;
+    display: flex;
+    flex-direction: column;
+    max-height: 500px;
+    overflow-y: auto;
   }
   
   .chat-window {
-    width: 100%;
-    max-width: 800px;
+    flex: 1;
     background: #fff;
     border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
     display: flex;
     flex-direction: column;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-    overflow: hidden;
+    max-height: 500px;
   }
   
   .chat-header {
@@ -45,13 +43,12 @@
   
   .chat-messages {
     flex: 1;
-    padding: 20px;
     overflow-y: auto;
+    padding: 20px;
     background: #ece5dd;
     background-image: url('https://i.ibb.co/6y7ZtLw/whatsapp-bg.png');
     background-size: cover;
     background-position: center;
-    max-height: 400px; /* Agar tidak melebar tak terbatas */
   }
   
   .message {
@@ -83,10 +80,10 @@
   
   .chat-input {
     display: flex;
+    align-items: center;
     padding: 10px 15px;
     background: #f0f2f5;
     border-top: 1px solid #d1d7db;
-    align-items: center;
     gap: 10px;
   }
   
@@ -123,27 +120,29 @@
   .no-chat {
     text-align: center;
     color: #777;
-    margin-top: 20px;
-  }
-
-  .chat-page-wrapper {
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh;
+    padding: 30px;
   }
   
+  .footer-separator {
+    height: 10px;
+  }
   
   footer {
-    margin-top: auto;
+    margin-top: 0 !important;
   }
   
   @media (max-width: 768px) {
     .chat-container {
-      padding: 10px;
+      flex-direction: column;
+    }
+  
+    .sidebar {
+      width: 100%;
+      max-height: 200px;
     }
   
     .chat-window {
-      width: 100%;
+      max-height: 400px;
     }
   }
   
