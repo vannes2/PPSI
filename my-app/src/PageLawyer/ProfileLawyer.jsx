@@ -1,9 +1,9 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { User } from "lucide-react"; 
+import { User } from "lucide-react";
 import HeaderLawyer from "../components/HeaderLawyer";
 import Footer from "../components/Footer";
-import "../CSS_User/Profil.css";
+import "../CSS_Lawyer/ProfilLawyer.css";
 
 const ProfileLawyer = () => {
   const navigate = useNavigate();
@@ -52,128 +52,99 @@ const ProfileLawyer = () => {
     navigate("/ProfileEditLawyer");
   };
 
+  const formatTanggal = (tanggal) => {
+    if (!tanggal) return "-";
+    const date = new Date(tanggal);
+    return date.toISOString().split('T')[0]; // hasil: 1988-05-11
+  };
+
   if (loading) {
-    return <div className="loading">Memuat data...</div>;
+    return <div className="profile-page"><p className="loading">Memuat data...</p></div>;
   }
 
   if (error) {
-    return <div className="error">Terjadi kesalahan: {error}</div>;
+    return <div className="profile-page"><p className="error">Terjadi kesalahan: {error}</p></div>;
   }
 
   return (
     <div className="profile-page">
       <HeaderLawyer />
-      <br /><br /><br/><br/><br/><br/>
-      <div className="container">
-        <div className="profile-container">
-          <div className="profile-sidebar">
-            <div className="profile-picture">
-              <img
-                src="/assets/images/emptyprofile.png"
-                alt="Profile"
-                onError={(e) => (e.target.style.display = "none")}
-              />
-              <User size={80} color="#666" strokeWidth={1.5} />
+      <div className="profile-page-container">
+        <div className="profile-page-profile-container">
+          <div className="profile-page-profile-sidebar">
+            <div className="profile-page-profile-picture">
+              {profileData.upload_foto ? (
+                <img
+                  src={`http://localhost:5000/uploads/${profileData.upload_foto}`}
+                  alt="Profile"
+                  onError={(e) => (e.target.src = "/assets/images/emptyprofile.png")}
+                />
+              ) : (
+                <>
+                  <img
+                    src="/assets/images/emptyprofile.png"
+                    alt="Profile Default"
+                  />
+                  <User size={80} color="#666" strokeWidth={1.5} />
+                </>
+              )}
             </div>
-            <p className="profile-balance">
+
+            <p className="profile-page-profile-balance">
               {profileData.balance ? `${profileData.balance} AYUNE COINS` : "0 AYUNE COINS"}
             </p>
 
-            <button className="edit-profile-btn" onClick={handleEditProfile}>
+            <button className="profile-page-edit-profile-btn" onClick={handleEditProfile}>
               Edit Profil
             </button>
 
-            <button className="logout-btn" onClick={togglePopup}>
+            <button className="profile-page-logout-btn" onClick={togglePopup}>
               Keluar Akun
             </button>
           </div>
 
-          <div className="profile-main">
-            <h1 className="section-title">Informasi Profil Pengacara</h1>
-            <div className="profile-info">
-
-              <div className="form-group">
-                <label>Nama</label>
-                <p>{profileData.nama}</p>
-              </div>
-
-              <div className="form-group">
-                <label>Tanggal Lahir</label>
-                <p>{profileData.tanggal_lahir}</p>
-              </div>
-
-              <div className="form-group">
-                <label>Jenis Kelamin</label>
-                <p>{profileData.jenis_kelamin}</p>
-              </div>
-
-              <div className="form-group">
-                <label>Alamat</label>
-                <p>{profileData.alamat}</p>
-              </div>
-
-              <div className="form-group">
-                <label>Email</label>
-                <p>{profileData.email}</p>
-              </div>
-
-              <div className="form-group">
-                <label>No HP</label>
-                <p>{profileData.no_hp}</p>
-              </div>
-
-              <div className="form-group">
-                <label>Nomor Induk Advokat</label>
-                <p>{profileData.nomor_induk_advokat}</p>
-              </div>
-
-              <div className="form-group">
-                <label>Universitas</label>
-                <p>{profileData.universitas}</p>
-              </div>
-
-              <div className="form-group">
-                <label>Pendidikan</label>
-                <p>{profileData.pendidikan}</p>
-              </div>
-
-              <div className="form-group">
-                <label>Spesialisasi</label>
-                <p>{profileData.spesialisasi}</p>
-              </div>
-
-              <div className="form-group">
-                <label>Pengalaman</label>
-                <p>{profileData.pengalaman} Tahun</p>
-              </div>
-
-              <div className="form-group">
-                <label>Username</label>
-                <p>{profileData.username}</p>
-              </div>
-
+          <div className="profile-page-profile-main">
+            <h1 className="profile-page-section-title">Informasi Profil Pengacara</h1>
+            <div className="profile-page-profile-info">
+              {[
+                { label: "Nama", value: profileData.nama },
+                { label: "Tanggal Lahir", value: formatTanggal(profileData.tanggal_lahir) },
+                { label: "Jenis Kelamin", value: profileData.jenis_kelamin },
+                { label: "Alamat", value: profileData.alamat },
+                { label: "Email", value: profileData.email },
+                { label: "No HP", value: profileData.no_hp },
+                { label: "Nomor Induk Advokat", value: profileData.nomor_induk_advokat },
+                { label: "Universitas", value: profileData.universitas },
+                { label: "Pendidikan", value: profileData.pendidikan },
+                { label: "Spesialisasi", value: profileData.spesialisasi },
+                { label: "Pengalaman", value: `${profileData.pengalaman} Tahun` },
+                { label: "Username", value: profileData.username }
+              ].map((item, index) => (
+                <div className="profile-page-form-group" key={index}>
+                  <label>{item.label}</label>
+                  <p>{item.value || "-"}</p>
+                </div>
+              ))}
             </div>
           </div>
         </div>
       </div>
 
       {showPopup && (
-        <div className="popup-overlay">
-          <div className="popup-content">
-            <div className="popup-header">Anda Yakin Ingin Keluar?</div>
-            <div className="popup-button-container">
-              <button className="popup-button btn-cancel" onClick={togglePopup}>
+        <div className="profile-page-popup-overlay">
+          <div className="profile-page-popup-content">
+            <div className="profile-page-popup-header">Anda Yakin Ingin Keluar?</div>
+            <div className="profile-page-popup-button-container">
+              <button className="profile-page-popup-button profile-page-btn-cancel" onClick={togglePopup}>
                 Batal
               </button>
-              <button className="popup-button btn-exit" onClick={handleLogout}>
+              <button className="profile-page-popup-button profile-page-btn-exit" onClick={handleLogout}>
                 Keluar
               </button>
             </div>
           </div>
         </div>
       )}
-
-      <div className="footer-separator"></div>
       <Footer />
     </div>
   );

@@ -1,0 +1,244 @@
+/* Global Reset khusus profile-page */
+.profile-page {
+    background-color: #fefff0;
+    min-height: 100vh;
+    padding: 40px 20px 20px;
+    font-family: 'Poppins', sans-serif;
+}
+
+/* Container */
+.profile-page-container {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    padding: 20px;
+    margin-top: 100px; /* tambahkan jarak dari header */
+}
+
+
+/* Profile Container */
+.profile-page-profile-container {
+    display: flex;
+    width: 100%;
+    max-width: 1000px;
+    border: 1px solid #dcdcdc;
+    border-radius: 15px;
+    background: #ffffff;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    padding: 30px;
+    gap: 30px;
+}
+
+/* Sidebar Profile */
+.profile-page-profile-sidebar {
+    flex: 0 0 280px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    border-right: 1px solid #eee;
+    padding-right: 20px;
+}
+
+.profile-page-profile-picture {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    overflow: hidden;
+    background: #ddd;
+    margin-bottom: 15px;
+    position: relative;
+}
+
+.profile-page-profile-picture img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.profile-page-profile-balance {
+    font-size: 14px;
+    color: #555;
+    margin: 10px 0 20px;
+}
+
+/* Buttons */
+.profile-page-logout-btn,
+.profile-page-save-btn,
+.profile-page-edit-profile-btn,
+.profile-page-popup-button,
+.profile-page-auth-buttons button {
+    background: linear-gradient(to right, #b31217, #e52d27);
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 10px;
+    font-size: 15px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    width: 100%;
+    margin-top: 10px;
+}
+
+.profile-page-logout-btn:hover,
+.profile-page-save-btn:hover,
+.profile-page-edit-profile-btn:hover,
+.profile-page-popup-button:hover,
+.profile-page-auth-buttons button:hover {
+    background: #fff;
+    color: #b31217;
+    border: 2px solid #b31217;
+}
+
+/* Tombol Batal */
+.profile-page-btn-cancel {
+    background: #ccc;
+    color: #333;
+}
+
+.profile-page-btn-cancel:hover {
+    background: #bbb;
+}
+
+/* Profile Main Section */
+.profile-page-profile-main {
+    flex: 1;
+}
+
+.profile-page-section-title {
+    font-size: 22px;
+    font-weight: bold;
+    margin-bottom: 25px;
+    text-align: center;
+    color: #B31312;
+}
+
+.profile-page-profile-info {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+}
+
+.profile-page-form-group {
+    display: flex;
+    flex-direction: column;
+}
+
+.profile-page-form-group label {
+    font-weight: 600;
+    margin-bottom: 5px;
+    color: #444;
+    font-size: 14px;
+}
+
+.profile-page-form-group p {
+    margin: 0;
+    font-size: 15px;
+    color: #666;
+}
+
+/* Popup */
+.profile-page-popup-overlay {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background: rgba(0, 0, 0, 0.6);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 999;
+}
+
+.profile-page-popup-content {
+    background: #fff;
+    padding: 30px;
+    border-radius: 15px;
+    width: 350px;
+    text-align: center;
+    animation: fadeIn 0.3s ease;
+}
+
+.profile-page-popup-header {
+    font-size: 20px;
+    font-weight: bold;
+    color: #B31312;
+    margin-bottom: 20px;
+}
+
+.profile-page-popup-button-container {
+    display: flex;
+    gap: 15px;
+    margin-top: 20px;
+}
+
+/* Animations */
+@keyframes fadeIn {
+    from { opacity: 0; transform: scale(0.9); }
+    to { opacity: 1; transform: scale(1); }
+}
+
+/* Responsive */
+@media (max-width: 1024px) {
+    .profile-page-profile-container {
+        flex-direction: column;
+        align-items: center;
+    }
+    .profile-page-profile-sidebar {
+        border-right: none;
+        border-bottom: 1px solid #eee;
+        padding-bottom: 20px;
+        margin-bottom: 20px;
+        width: 100%;
+    }
+    .profile-page-profile-main {
+        padding-top: 20px;
+    }
+}
+
+@media (max-width: 768px) {
+    .profile-page-profile-info {
+        grid-template-columns: 1fr;
+    }
+    .profile-page-popup-button-container {
+        flex-direction: column;
+    }
+    .profile-page-popup-button {
+        width: 100%;
+    }
+}
+
+@media (max-width: 480px) {
+    .profile-page-profile-picture {
+        width: 90px;
+        height: 90px;
+    }
+    .profile-page-container {
+        padding: 10px;
+    }
+}
+/* Tambahan untuk form input di Edit Profile Lawyer */
+.profile-page-form-group input {
+    width: 100%;
+    padding: 10px 15px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-size: 14px;
+    background: #fff;
+    color: #333;
+    transition: border-color 0.3s ease;
+    margin-top: 5px;
+}
+
+.profile-page-form-group input:focus {
+    border-color: #b31217;
+    outline: none;
+}
+
+/* Responsive Form untuk layar kecil */
+@media (max-width: 768px) {
+    .profile-page-form-group input {
+        font-size: 13px;
+        padding: 8px 12px;
+    }
+}

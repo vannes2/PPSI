@@ -27,7 +27,9 @@ import SelectUser from "./PageLawyer/selectUser";
 import SidebarAdmin from "./components/SidebarAdmin";
 import LawyerRegistrations from "./PageAdmin/LawyerRegistrations";
 import ChatPage from "./PageUser/ChatPage";
+import ProfileEditLawyer from "./PageLawyer/ProfileEditLawyer";
 import '@fortawesome/fontawesome-free/css/all.min.css';
+
 
 
 function App() {
@@ -70,6 +72,7 @@ function App() {
                 <Route path="SidebarAdmin" element={<SidebarAdmin/>} />
                 <Route path="LawyerRegistrations" element={<LawyerRegistrations/>} />
                 <Route path="/chat/:contactRole/:contactId" element={<ChatPage />} />
+                <Route path="ProfileEditLawyer" element={<ProfileEditLawyer />} />
 
             </Routes>
         </Router>

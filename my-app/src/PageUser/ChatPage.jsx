@@ -83,14 +83,12 @@ const ChatPage = () => {
                 <h2>Chat dengan {contactName || `${contactRole} ID ${contactId}`}</h2>
                 <div className="chat-box">
                     {messages.length > 0 ? messages.map((msg, idx) => (
-                        <div 
-                            key={idx} 
-                            className={`message ${msg.sender_id == user.id ? "sent" : "received"}`}
-                        >
-                            <div className="bubble">
-                                {msg.message}
-                            </div>
-                        </div>
+                        <div className={`message ${msg.sender_id == user.id ? "sent" : "received"}`}>
+    <div className="bubble">
+        {msg.message}
+    </div>
+</div>
+
                     )) : <p className="no-message">Tidak ada pesan.</p>}
                 </div>
                 <div className="input-area">

@@ -91,3 +91,31 @@ exports.rejectLawyer = async (req, res) => {
         res.status(500).json({ error: "Gagal menolak pendaftaran." });
     }
 };
+
+
+// Ambil profil lawyer berdasarkan ID
+exports.getLawyerProfile = (req, res) => {
+    const { id } = req.params;
+
+    const sql = `
+        SELECT 
+            id, nama, tanggal_lahir, jenis_kelamin, alamat, email, no_hp, 
+            nomor_induk_advokat, universitas, pendidikan, spesialisasi, pengalaman, username
+        FROM pengacara
+        WHERE id = ?
+    `;
+
+    db.query(sql, [id], (err, results) => {
+        if (err) {
+            console.error("Gagal mengambil profil pengacara:", err);
+            return res.status(500).json({ message: "Gagal mengambil data" });
+        }
+
+        if (results.length === 0) {
+            return res.status(404).json({ message: "Pengacara tidak ditemukan" });
+        }
+
+        res.json(results[0]);
+    });
+};
+

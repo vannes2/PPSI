@@ -32,4 +32,6 @@ router.post('/lawyers/approve/:id', lawyerController.approveLawyer);
 // Route baru untuk tolak pendaftaran
 router.delete("/lawyers/reject/:id", lawyerController.rejectLawyer);
 
+router.get('/lawyer/profile/:id', lawyerController.getLawyerProfile);
+
 module.exports = router;
