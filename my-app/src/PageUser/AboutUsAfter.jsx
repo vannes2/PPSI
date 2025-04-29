@@ -1,13 +1,19 @@
+import { useEffect } from "react";
 import Footer from "../components/Footer";
-import '../CSS_User/AboutUs.css';
 import HeaderAfter from "../components/HeaderAfter";
+import '../CSS_User/AboutUs.css';
 
 const AboutUsAfter = () => {
+  // Scroll ke atas saat halaman dimuat
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
   return (
     <div className="about-page-container">
-      {/* header */}
       <HeaderAfter />
-      <br></br><br/><br/><br/><br/>
+      <br /><br /><br /><br /><br />
+
       <main>
         <section>
           <div className="about-us">
@@ -15,9 +21,9 @@ const AboutUsAfter = () => {
           </div>
           <div className="content-aboutus">
             <p>
-            Cerdas Hukum adalah platform yang memberikan akses mudah bagi masyarakat untuk memahami hukum dan mendapatkan konsultasi gratis dari para ahli. 
-            Dengan tujuan meningkatkan kesadaran dan literasi hukum, Cerdas Hukum menyediakan berbagai layanan, seperti artikel edukatif, tanya jawab hukum,
-            serta konsultasi langsung dengan pengacara profesional.
+              Cerdas Hukum adalah platform yang memberikan akses mudah bagi masyarakat untuk memahami hukum dan mendapatkan konsultasi gratis dari para ahli. 
+              Dengan tujuan meningkatkan kesadaran dan literasi hukum, Cerdas Hukum menyediakan berbagai layanan, seperti artikel edukatif, tanya jawab hukum,
+              serta konsultasi langsung dengan pengacara profesional.
             </p>
           </div>
           <div className="content-welcome">
@@ -25,10 +31,9 @@ const AboutUsAfter = () => {
           </div>
         </section>
       </main>
-      <br/><br/><br/><br/><br/>
 
+      <br /><br /><br /><br /><br />
       <div className="footer-separator"></div>
-      {/* Footer */}
       <Footer />
     </div>
   );

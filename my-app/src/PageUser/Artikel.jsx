@@ -28,6 +28,10 @@ const Artikel = () => {
     window.open(`http://localhost:5000/uploads/${fileName}`, '_blank');
   };
 
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
   return (
     <div className="artikel-page">
       <HeaderAfter />

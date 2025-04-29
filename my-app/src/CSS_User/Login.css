@@ -48,6 +48,7 @@
   padding: 30px;
   border-radius: 10px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  border: 2px solid #000; /* buat border di login kalau gak mau bisa di hapus*/
 }
 
 .Login-page .main h2 {
