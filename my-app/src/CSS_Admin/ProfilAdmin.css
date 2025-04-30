@@ -1,0 +1,117 @@
+/* Main Profil Admin Page */
+.profil-admin-page {
+  background-color: #f4f4f4; /* Light background color */
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;  /* Align the content at the top */
+  padding: 30px;
+}
+
+/* Container for the Admin Profile */
+.profil-admin-container {
+  background-color: #ffffff;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1); /* Subtle shadow for the container */
+  width: 100%;
+  max-width: 600px;
+  padding: 25px;
+  border-radius: 8px;
+  text-align: center;
+  margin-left: 20px; /* Add some space from the left edge */
+  margin-right: 20px; /* Add margin to the right to make it look balanced */
+}
+
+/* Header Styling */
+h1 {
+  color: #333;
+  font-size: 28px; /* Bigger font size for heading */
+  margin-bottom: 30px;
+  font-weight: 600; /* Making it bold */
+}
+
+/* Styling for the Admin Details Section */
+.admin-details {
+  margin-bottom: 30px;
+}
+
+/* Admin Information */
+.admin-info p {
+  font-size: 16px;
+  color: #555;
+  margin: 10px 0;
+}
+
+.admin-info strong {
+  font-weight: 600; /* Make the labels bold */
+  color: #333; /* Darker color for labels */
+}
+
+/* Logout Button Section */
+.logout-button {
+  display: flex;
+  justify-content: center;
+}
+
+.logout-button button {
+  background-color: #b31217; /* Red background */
+  color: white;
+  border: none;
+  padding: 12px 25px; /* Increased padding for better UI */
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: background-color 0.3s ease;
+}
+
+/* Hover effect for logout button */
+.logout-button button:hover {
+  background-color: #e52d27;
+}
+
+/* Logout Icon spacing */
+.logout-button button svg {
+  margin-right: 10px;
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+  /* Mobile devices */
+  .profil-admin-container {
+    width: 80%; /* Less width for smaller screens */
+    padding: 20px; /* Reduced padding */
+  }
+
+  h1 {
+    font-size: 24px; /* Adjusted font size for smaller devices */
+  }
+
+  .admin-info p {
+    font-size: 14px; /* Slightly smaller font for mobile */
+  }
+
+  .logout-button button {
+    padding: 10px 20px; /* Smaller button size for mobile */
+    font-size: 14px; /* Reduced font size for mobile */
+  }
+}
+
+@media (max-width: 480px) {
+  /* Very small screens */
+  .profil-admin-container {
+    padding: 15px; /* Even smaller padding */
+  }
+
+  h1 {
+    font-size: 22px; /* Smaller font size for very small screens */
+  }
+
+  .admin-info p {
+    font-size: 13px; /* Smaller text for mobile */
+  }
+
+  .logout-button button {
+    padding: 8px 18px; /* Even smaller buttons */
+    font-size: 13px; /* Reduced font size further */
+  }
+}

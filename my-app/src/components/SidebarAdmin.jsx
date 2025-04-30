@@ -1,4 +1,4 @@
-import { FaGavel, FaHome, FaFileAlt, FaUserCircle } from "react-icons/fa";  // Tambah ikon profil
+import { FaGavel, FaHome, FaFileAlt, FaUserCircle, FaUser } from "react-icons/fa"; // Tambah ikon profil dan user
 import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
 import "./SidebarAdmin.css";
@@ -13,6 +13,11 @@ const SidebarAdmin = ({ activeTab, onTabChange }) => {
             <FaHome className="icon-spacing" /> Dashboard
           </Link>
         </li>
+          <li className={activeTab === "user" ? "nav-active" : ""}>
+            <Link to="/UserManagement" onClick={() => onTabChange("user")}>
+              <FaUser className="icon-spacing" /> User Management
+            </Link>
+          </li>
         <li className={activeTab === "pengacara" ? "nav-active" : ""}>
           <Link to="/HomeAdmin" onClick={() => onTabChange("pengacara")}>
             <FaGavel className="icon-spacing" /> Pengacara

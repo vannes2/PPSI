@@ -1,5 +1,3 @@
-/* TambahPengacara.css */
-
 .container {
   flex: 1;
   padding: 20px;
@@ -16,20 +14,27 @@ h2 {
   color: #333;
 }
 
+/* Scrollable Container for the Table */
+.table-container {
+  max-height: 400px; /* Limit the height of the table */
+  overflow-y: auto; /* Enable vertical scrolling */
+  margin-bottom: 40px;
+}
+
 table {
-  width: 100%;
+  width: 80%; /* Decrease width to make the table more compact */
+  margin: 20px auto; /* Center align the table */
   border-collapse: collapse;
   background-color: #fff;
-  margin-bottom: 40px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
 }
 
-th,
-td {
+/* Table Header and Cells Styling */
+th, td {
   border: 1px solid #ddd;
   padding: 12px;
   text-align: left;
-  color: #000000;   /* Warna tulisan tabel jadi hitam */
+  color: #000;
 }
 
 th {
@@ -38,7 +43,7 @@ th {
   font-weight: bold;
 }
 
-/* Link di dalam tabel */
+/* Links in the table */
 td a {
   color: #007bff;
   text-decoration: none;
@@ -48,11 +53,7 @@ td a:hover {
   text-decoration: underline;
 }
 
-/* ============================== */
-/* BUTTON STYLING */
-/* ============================== */
-
-/* General Button Style */
+/* Button Styling */
 td button {
   padding: 8px 16px;
   border: none;
@@ -67,48 +68,53 @@ td button {
   gap: 8px;
 }
 
-/* Button View - Biru Muda */
 button.view {
   background-color: #2D9CDB;
 }
 
-/* Button Edit - Hijau Tua */
 button.Edit {
   background-color: #27AE60;
 }
 
-/* Button Delete - Merah */
 button.delete {
   background-color: #EB5757;
 }
 
-/* Button Approve (Setujui) - Hijau */
 button.approve {
   background-color: #27AE60;
 }
 
-/* Button Reject (Tolak) - Merah */
 button.reject {
   background-color: #EB5757;
 }
 
-/* Hover Effect */
 td button:hover {
   opacity: 0.9;
   transform: scale(1.05);
 }
 
-/* Jarak antar tombol */
 button + button {
   margin-left: 8px;
 }
 
-
-/* ============================== */
-/* EMPTY STATE */
-/* ============================== */
+/* Empty State */
 td[colspan] {
   text-align: center;
   font-style: italic;
   color: #666;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  table {
+    width: 100%;
+  }
+
+  th, td {
+    padding: 8px;
+  }
+
+  button {
+    font-size: 0.8rem;
+  }
 }

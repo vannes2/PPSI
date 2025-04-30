@@ -114,121 +114,125 @@ const TambahPengacara = () => {
       <SidebarAdmin />
       <div style={{ flex: 1, padding: "20px" }} className="Main-Content">
         <h2>Daftar Pendaftaran Pengacara (Belum Disetujui)</h2>
-        <table border="1" cellPadding="10" style={{ borderCollapse: "collapse", width: "100%", marginBottom: "40px" }}>
-          <thead>
-            <tr>
-              <th>Nama</th>
-              <th>Email</th>
-              <th>No. HP</th>
-              <th>Alamat</th>
-              <th>Tanggal Lahir</th>
-              <th>Jenis Kelamin</th>
-              <th>Spesialisasi</th>
-              <th>Universitas</th>
-              <th>Pendidikan</th>
-              <th>Pengalaman</th>
-              <th>Nomor Induk Advokat</th>
-              <th>KTP</th>
-              <th>Foto</th>
-              <th>Kartu Advokat</th>
-              <th>PKPA</th>
-              <th>Batas Waktu</th>
-              <th>Aksi</th>
-            </tr>
-          </thead>
-          <tbody>
-            {registrations.length === 0 ? (
+        <div className="table-container">
+          <table border="1" cellPadding="10" style={{ borderCollapse: "collapse", width: "100%", marginBottom: "40px" }}>
+            <thead>
               <tr>
-                <td colSpan="17" style={{ textAlign: "center" }}>
-                  Tidak ada pendaftaran.
-                </td>
+                <th>Nama</th>
+                <th>Email</th>
+                <th>No. HP</th>
+                <th>Alamat</th>
+                <th>Tanggal Lahir</th>
+                <th>Jenis Kelamin</th>
+                <th>Spesialisasi</th>
+                <th>Universitas</th>
+                <th>Pendidikan</th>
+                <th>Pengalaman</th>
+                <th>Nomor Induk Advokat</th>
+                <th>KTP</th>
+                <th>Foto</th>
+                <th>Kartu Advokat</th>
+                <th>PKPA</th>
+                <th>Batas Waktu</th>
+                <th>Aksi</th>
               </tr>
-            ) : (
-              registrations.map((lawyer) => (
-                <tr key={lawyer.id} style={{ backgroundColor: lawyer.isExpired ? '#ffebee' : 'inherit' }}>
-                  <td>{lawyer.nama}</td>
-                  <td>{lawyer.email}</td>
-                  <td>{lawyer.no_hp}</td>
-                  <td>{lawyer.alamat}</td>
-                  <td>{formatDate(lawyer.tanggal_lahir)}</td>
-                  <td>{lawyer.jenis_kelamin}</td>
-                  <td>{lawyer.spesialisasi}</td>
-                  <td>{lawyer.universitas}</td>
-                  <td>{lawyer.pendidikan}</td>
-                  <td>{lawyer.pengalaman} tahun</td>
-                  <td>{lawyer.nomor_induk_advokat}</td>
-                  <td><a href={`http://localhost:5000/uploads/${lawyer.upload_ktp}`} target="_blank" rel="noopener noreferrer">Lihat</a></td>
-                  <td><a href={`http://localhost:5000/uploads/${lawyer.upload_foto}`} target="_blank" rel="noopener noreferrer">Lihat</a></td>
-                  <td><a href={`http://localhost:5000/uploads/${lawyer.upload_kartu_advokat}`} target="_blank" rel="noopener noreferrer">Lihat</a></td>
-                  <td><a href={`http://localhost:5000/uploads/${lawyer.upload_pkpa}`} target="_blank" rel="noopener noreferrer">Lihat</a></td>
-                  <td>
-                    {lawyer.isExpired ? (
-                      "Kadaluarsa"
-                    ) : (
-                      <>
-                        {formatDate(lawyer.deadline)} <br />
-                        <small>({calculateRemainingDays(lawyer.deadline)})</small>
-                      </>
-                    )}
-                  </td>
-                  <td>
-                    <button 
-                      onClick={() => handleApprove(lawyer.id)} 
-                      style={{ marginLeft: "8px", backgroundColor: "#27AE60" , color: "white" }}
-                      disabled={lawyer.isExpired}
-                    >
-                      Setujui
-                    </button>
-                    <button 
-                      onClick={() => handleReject(lawyer.id)} 
-                      style={{ marginLeft: "8px", backgroundColor: "red", color: "white" }}
-                    >
-                      Tolak
-                    </button>
+            </thead>
+            <tbody>
+              {registrations.length === 0 ? (
+                <tr>
+                  <td colSpan="17" style={{ textAlign: "center" }}>
+                    Tidak ada pendaftaran.
                   </td>
                 </tr>
-              ))
-            )}
-          </tbody>
-        </table>
+              ) : (
+                registrations.map((lawyer) => (
+                  <tr key={lawyer.id} style={{ backgroundColor: lawyer.isExpired ? '#ffebee' : 'inherit' }}>
+                    <td>{lawyer.nama}</td>
+                    <td>{lawyer.email}</td>
+                    <td>{lawyer.no_hp}</td>
+                    <td>{lawyer.alamat}</td>
+                    <td>{formatDate(lawyer.tanggal_lahir)}</td>
+                    <td>{lawyer.jenis_kelamin}</td>
+                    <td>{lawyer.spesialisasi}</td>
+                    <td>{lawyer.universitas}</td>
+                    <td>{lawyer.pendidikan}</td>
+                    <td>{lawyer.pengalaman} tahun</td>
+                    <td>{lawyer.nomor_induk_advokat}</td>
+                    <td><a href={`http://localhost:5000/uploads/${lawyer.upload_ktp}`} target="_blank" rel="noopener noreferrer">Lihat</a></td>
+                    <td><a href={`http://localhost:5000/uploads/${lawyer.upload_foto}`} target="_blank" rel="noopener noreferrer">Lihat</a></td>
+                    <td><a href={`http://localhost:5000/uploads/${lawyer.upload_kartu_advokat}`} target="_blank" rel="noopener noreferrer">Lihat</a></td>
+                    <td><a href={`http://localhost:5000/uploads/${lawyer.upload_pkpa}`} target="_blank" rel="noopener noreferrer">Lihat</a></td>
+                    <td>
+                      {lawyer.isExpired ? (
+                        "Kadaluarsa"
+                      ) : (
+                        <>
+                          {formatDate(lawyer.deadline)} <br />
+                          <small>({calculateRemainingDays(lawyer.deadline)})</small>
+                        </>
+                      )}
+                    </td>
+                    <td>
+                      <button 
+                        onClick={() => handleApprove(lawyer.id)} 
+                        style={{ marginLeft: "8px", backgroundColor: "#27AE60" , color: "white" }}
+                        disabled={lawyer.isExpired}
+                      >
+                        Setujui
+                      </button>
+                      <button 
+                        onClick={() => handleReject(lawyer.id)} 
+                        style={{ marginLeft: "8px", backgroundColor: "red", color: "white" }}
+                      >
+                        Tolak
+                      </button>
+                    </td>
+                  </tr>
+                ))
+              )}
+            </tbody>
+          </table>
+        </div>
 
         <h2>Daftar Pengacara (Sudah Disetujui)</h2>
-        <table border="1" cellPadding="10" style={{ borderCollapse: "collapse", width: "100%" }}>
-          <thead>
-            <tr>
-              <th>Nama</th>
-              <th>Email</th>
-              <th>Spesialisasi</th>
-              <th>No. HP</th>
-              <th>Alamat</th>
-              <th>Aksi</th>
-            </tr>
-          </thead>
-          <tbody>
-            {pengacaras.length === 0 ? (
+        <div className="table-container">
+          <table border="1" cellPadding="10" style={{ borderCollapse: "collapse", width: "100%" }}>
+            <thead>
               <tr>
-                <td colSpan="6" style={{ textAlign: "center" }}>
-                  Tidak ada data pengacara.
-                </td>
+                <th>Nama</th>
+                <th>Email</th>
+                <th>Spesialisasi</th>
+                <th>No. HP</th>
+                <th>Alamat</th>
+                <th>Aksi</th>
               </tr>
-            ) : (
-              pengacaras.map((pengacara) => (
-                <tr key={pengacara._id}>
-                  <td>{pengacara.nama}</td>
-                  <td>{pengacara.email}</td>
-                  <td>{pengacara.spesialisasi}</td>
-                  <td>{pengacara.no_hp}</td>
-                  <td>{pengacara.alamat}</td>
-                  <td>
-                    <button className="view">Lihat</button>
-                    <button className="Edit">Edit</button>
-                    <button className="delete">Hapus</button>
+            </thead>
+            <tbody>
+              {pengacaras.length === 0 ? (
+                <tr>
+                  <td colSpan="6" style={{ textAlign: "center" }}>
+                    Tidak ada data pengacara.
                   </td>
                 </tr>
-              ))
-            )}
-          </tbody>
-        </table>
+              ) : (
+                pengacaras.map((pengacara) => (
+                  <tr key={pengacara._id}>
+                    <td>{pengacara.nama}</td>
+                    <td>{pengacara.email}</td>
+                    <td>{pengacara.spesialisasi}</td>
+                    <td>{pengacara.no_hp}</td>
+                    <td>{pengacara.alamat}</td>
+                    <td>
+                      <button className="view">Lihat</button>
+                      <button className="Edit">Edit</button>
+                      <button className="delete">Hapus</button>
+                    </td>
+                  </tr>
+                ))
+              )}
+            </tbody>
+          </table>
+        </div>
       </div>
     </div>
   );

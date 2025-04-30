@@ -28,6 +28,8 @@ import SidebarAdmin from "./components/SidebarAdmin";
 import LawyerRegistrations from "./PageAdmin/LawyerRegistrations";
 import ChatPage from "./PageUser/ChatPage";
 import ProfileEditLawyer from "./PageLawyer/ProfileEditLawyer";
+import ProfilAdmin from "./PageAdmin/ProfilAdmin";
+import UserManagement from './PageAdmin/UserManagement'; 
 import '@fortawesome/fontawesome-free/css/all.min.css';
 
 
@@ -73,6 +75,8 @@ function App() {
                 <Route path="LawyerRegistrations" element={<LawyerRegistrations/>} />
                 <Route path="/chat/:contactRole/:contactId" element={<ChatPage />} />
                 <Route path="ProfileEditLawyer" element={<ProfileEditLawyer />} />
+                <Route path="ProfilAdmin" element={<ProfilAdmin/>}/>
+                <Route path="/UserManagement" element={<UserManagement />} />
 
             </Routes>
         </Router>
