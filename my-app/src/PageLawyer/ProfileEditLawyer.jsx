@@ -2,18 +2,15 @@ import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import HeaderLawyer from "../components/HeaderLawyer";
 import Footer from "../components/Footer";
-import "../CSS_Lawyer/ProfilLawyer.css"; // Kita pakai CSS yang sama, biar konsisten styling.
+import "../CSS_Lawyer/ProfilLawyer.css";
 
 const ProfileEditLawyer = () => {
   const navigate = useNavigate();
   const [profileData, setProfileData] = useState({
     nama: "",
-    tanggal_lahir: "",
-    jenis_kelamin: "",
     alamat: "",
     email: "",
     no_hp: "",
-    nomor_induk_advokat: "",
     universitas: "",
     pendidikan: "",
     spesialisasi: "",
@@ -98,12 +95,9 @@ const ProfileEditLawyer = () => {
             <div className="profile-page-profile-info">
               {[
                 { label: "Nama", name: "nama" },
-                { label: "Tanggal Lahir", name: "tanggal_lahir", type: "date" },
-                { label: "Jenis Kelamin", name: "jenis_kelamin" },
                 { label: "Alamat", name: "alamat" },
                 { label: "Email", name: "email" },
                 { label: "No HP", name: "no_hp" },
-                { label: "Nomor Induk Advokat", name: "nomor_induk_advokat" },
                 { label: "Universitas", name: "universitas" },
                 { label: "Pendidikan", name: "pendidikan" },
                 { label: "Spesialisasi", name: "spesialisasi" },
@@ -113,7 +107,7 @@ const ProfileEditLawyer = () => {
                 <div className="profile-page-form-group" key={index}>
                   <label>{field.label}</label>
                   <input
-                    type={field.type || "text"}
+                    type="text"
                     name={field.name}
                     value={profileData[field.name] || ""}
                     onChange={handleChange}

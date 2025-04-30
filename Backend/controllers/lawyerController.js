@@ -119,3 +119,52 @@ exports.getLawyerProfile = (req, res) => {
     });
 };
 
+// PUT /api/lawyer/profile/update/:id
+exports.updateLawyerProfile = (req, res) => {
+    const { id } = req.params;
+    const {
+        nama,
+        alamat,
+        email,
+        no_hp,
+        universitas,
+        pendidikan,
+        spesialisasi,
+        pengalaman,
+        username
+    } = req.body;
+
+    const sql = `
+        UPDATE pengacara SET 
+            nama = ?, alamat = ?, email = ?, no_hp = ?, 
+            universitas = ?, pendidikan = ?, spesialisasi = ?, 
+            pengalaman = ?, username = ? 
+        WHERE id = ?
+    `;
+
+    const values = [
+        nama,
+        alamat,
+        email,
+        no_hp,
+        universitas,
+        pendidikan,
+        spesialisasi,
+        pengalaman,
+        username,
+        id
+    ];
+
+    db.query(sql, values, (err, result) => {
+        if (err) {
+            console.error("❌ Gagal update profil:", err);
+            return res.status(500).json({ message: "Gagal memperbarui profil" });
+        }
+
+        if (result.affectedRows === 0) {
+            return res.status(404).json({ message: "Pengacara tidak ditemukan" });
+        }
+
+        res.status(200).json({ message: "Profil berhasil diperbarui" });
+    });
+};
