@@ -38,21 +38,15 @@ const ProfilAdmin = () => {
       <SidebarAdmin
         activeTab={activeTab}
         onTabChange={setActiveTab}
+        onNavigate={navigate}
       />
-
       <main className="dashboard-content">
         <div className="profil-admin-page">
           <div className="profil-admin-container">
             <h1>Profil Admin</h1>
             <div className="admin-details">
               <div className="admin-info">
-                {/* <p><strong>ID:</strong> {adminData.id}</p> */}
                 <p><strong>Nama:</strong> {adminData.name}</p>
-                {/* Removed the following fields */}
-                {/* <p><strong>Email:</strong> {adminData.email}</p> */}
-                {/* <p><strong>No. HP:</strong> {adminData.phone}</p> */}
-                {/* <p><strong>Jenis Kelamin:</strong> {adminData.gender}</p> */}
-                {/* <p><strong>Tanggal Lahir:</strong> {new Date(adminData.birthdate).toLocaleDateString()}</p> */}
                 <p><strong>Terdaftar Sejak:</strong> {new Date(adminData.created_at).toLocaleDateString()}</p>
               </div>
             </div>

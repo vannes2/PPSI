@@ -1,3 +1,4 @@
+// File: controllers/adminController.js
 const db = require('../config/database');
 
 const getAdminProfile = (req, res) => {

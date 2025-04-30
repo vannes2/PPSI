@@ -12,9 +12,7 @@ const userRoutes = require("./routes/userRoutes");
 const artikelRoutes = require("./routes/artikelRoutes");
 const lawyerRoutes = require("./routes/lawyerRoutes");
 const chatRoutes = require("./routes/chatRoutes");   // Tambahkan route chat
-const adminRoutes = require("./routes/adminRoutes");
-
-
+const adminRoutes = require("./routes/adminRoutes"); 
 const app = express();
 
 // Middleware
