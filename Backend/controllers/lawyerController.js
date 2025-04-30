@@ -168,3 +168,25 @@ exports.updateLawyerProfile = (req, res) => {
         res.status(200).json({ message: "Profil berhasil diperbarui" });
     });
 };
+
+
+// GET /api/pengacara
+exports.getAllLawyers = (req, res) => {
+    const sql = `
+        SELECT 
+            id, nama, ktp, tanggal_lahir, jenis_kelamin, alamat, email, no_hp,
+            nomor_induk_advokat, universitas, pendidikan, spesialisasi, pengalaman,
+            upload_ktp, upload_foto, upload_kartu_advokat, upload_pkpa,
+            username, password, tanggal_daftar
+        FROM pengacara
+    `;
+
+    db.query(sql, (err, results) => {
+        if (err) {
+            console.error("❌ Gagal mengambil data pengacara:", err);
+            return res.status(500).json({ message: "Gagal mengambil data pengacara" });
+        }
+
+        res.json(results);
+    });
+};

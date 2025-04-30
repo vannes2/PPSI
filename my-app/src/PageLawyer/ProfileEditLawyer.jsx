@@ -17,8 +17,11 @@ const ProfileEditLawyer = () => {
     pengalaman: "",
     username: "",
   });
+
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [successMessage, setSuccessMessage] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
 
   const user = JSON.parse(localStorage.getItem("user"));
   const userId = user?.id;
@@ -64,17 +67,24 @@ const ProfileEditLawyer = () => {
       },
       body: JSON.stringify(profileData)
     })
-    .then((response) => {
-      if (!response.ok) {
-        throw new Error("Gagal memperbarui profil");
-      }
-      alert("Profil berhasil diperbarui!");
-      navigate("/ProfileLawyer");
-    })
-    .catch((error) => {
-      console.error("Error updating profile:", error);
-      alert("Terjadi kesalahan saat memperbarui profil");
-    });
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error("Gagal memperbarui profil");
+        }
+        return response.json();
+      })
+      .then(() => {
+        setSuccessMessage("Profil berhasil diperbarui!");
+        setTimeout(() => {
+          setSuccessMessage("");
+          navigate("/ProfileLawyer");
+        }, 2000);
+      })
+      .catch((error) => {
+        console.error("Error updating profile:", error);
+        setErrorMessage("Terjadi kesalahan saat memperbarui profil");
+        setTimeout(() => setErrorMessage(""), 3000);
+      });
   };
 
   if (loading) {
@@ -88,6 +98,14 @@ const ProfileEditLawyer = () => {
   return (
     <div className="profile-page">
       <HeaderLawyer />
+
+      {successMessage && (
+        <div className="profile-page-toast success">{successMessage}</div>
+      )}
+      {errorMessage && (
+        <div className="profile-page-toast error">{errorMessage}</div>
+      )}
+
       <div className="profile-page-container">
         <form className="profile-page-profile-container" onSubmit={handleSubmit}>
           <div className="profile-page-profile-main">
@@ -132,6 +150,7 @@ const ProfileEditLawyer = () => {
           </div>
         </form>
       </div>
+
       <Footer />
     </div>
   );

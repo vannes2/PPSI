@@ -1,3 +1,4 @@
+// File: models/lawyerModel.js
 const db = require('../config/database');
 
 // Simpan ke tabel pendaftaran_pengacara
@@ -33,13 +34,14 @@ exports.approveLawyer = (id, callback) => {
         if (results.length === 0) return callback(new Error('Data tidak ditemukan'));
 
         const data = results[0];
+
         const insertQuery = `
             INSERT INTO pengacara (
                 nama, ktp, tanggal_lahir, jenis_kelamin, alamat, email, no_hp,
                 nomor_induk_advokat, universitas, pendidikan, spesialisasi, pengalaman,
                 upload_ktp, upload_foto, upload_kartu_advokat, upload_pkpa,
-                username, password
-            ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+                username, password, tanggal_daftar
+            ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, NOW())
         `;
         const values = [
             data.nama, data.ktp, data.tanggal_lahir, data.jenis_kelamin, data.alamat,

@@ -7,15 +7,13 @@ import "../CSS_User/Profil.css";
 
 const ProfileEdit = () => {
   const navigate = useNavigate();
-  const userId = localStorage.getItem("userId") || 2; // Ambil userId dari localStorage
+  const userId = localStorage.getItem("userId") || 2;
 
   const [profileData, setProfileData] = useState({
     name: "",
     email: "",
     phone: "",
-    birthdate: "",
-    gender: "",
-    address: "", // ✅ Tambahkan kembali address
+    address: "", // ✅ tetap digunakan
   });
 
   const [showPopup, setShowPopup] = useState(false);
@@ -23,7 +21,6 @@ const ProfileEdit = () => {
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(true);
 
-  // Ambil data user saat komponen dimuat
   useEffect(() => {
     fetch(`http://localhost:5000/api/profile/id/${userId}`)
       .then((response) => {
@@ -42,9 +39,7 @@ const ProfileEdit = () => {
       });
   }, [userId]);
 
-  const togglePopup = () => {
-    setShowPopup(!showPopup);
-  };
+  const togglePopup = () => setShowPopup(!showPopup);
 
   const handleLogout = () => {
     localStorage.removeItem("userId");
@@ -54,34 +49,26 @@ const ProfileEdit = () => {
   const handleSave = () => {
     fetch(`http://localhost:5000/api/profile/update/${userId}`, {
       method: "PUT",
-      headers: {
-        "Content-Type": "application/json",
-      },
+      headers: { "Content-Type": "application/json" },
       body: JSON.stringify(profileData),
     })
       .then((response) => {
-        if (!response.ok) {
-          throw new Error("Gagal menyimpan perubahan");
-        }
+        if (!response.ok) throw new Error("Gagal menyimpan perubahan");
         return response.json();
       })
       .then(() => {
         setIsSaved(true);
         setTimeout(() => setIsSaved(false), 3000);
       })
-      .catch((error) => {
-        setError(error.message);
-      });
+      .catch((error) => setError(error.message));
   };
 
-  if (loading) {
-    return <p className="loading-message">Memuat data...</p>;
-  }
+  if (loading) return <p className="loading-message">Memuat data...</p>;
 
   return (
     <div className="profile-page">
       <HeaderAfter />
-      <br /><br /><br/><br/>
+      <br /><br /><br /><br />
       <div className="container">
         <div className="profile-container">
           <div className="profile-sidebar">
@@ -93,9 +80,7 @@ const ProfileEdit = () => {
               />
               <User size={80} color="#666" strokeWidth={1.5} />
             </div>
-            <button className="logout-btn" onClick={togglePopup}>
-              Keluar Akun
-            </button>
+            <button className="logout-btn" onClick={togglePopup}>Keluar Akun</button>
           </div>
 
           <div className="profile-main">
@@ -109,9 +94,7 @@ const ProfileEdit = () => {
                     id="name"
                     type="text"
                     value={profileData.name}
-                    onChange={(e) =>
-                      setProfileData({ ...profileData, name: e.target.value })
-                    }
+                    onChange={(e) => setProfileData({ ...profileData, name: e.target.value })}
                   />
                 </div>
 
@@ -121,9 +104,7 @@ const ProfileEdit = () => {
                     id="email"
                     type="email"
                     value={profileData.email}
-                    onChange={(e) =>
-                      setProfileData({ ...profileData, email: e.target.value })
-                    }
+                    onChange={(e) => setProfileData({ ...profileData, email: e.target.value })}
                   />
                 </div>
 
@@ -133,55 +114,23 @@ const ProfileEdit = () => {
                     id="phone"
                     type="text"
                     value={profileData.phone}
-                    onChange={(e) =>
-                      setProfileData({ ...profileData, phone: e.target.value })
-                    }
+                    onChange={(e) => setProfileData({ ...profileData, phone: e.target.value })}
                   />
                 </div>
 
-                <div className="form-group">
-                  <label htmlFor="birthdate">Tanggal Lahir</label>
-                  <input
-                    id="birthdate"
-                    type="date"
-                    value={profileData.birthdate}
-                    onChange={(e) =>
-                      setProfileData({ ...profileData, birthdate: e.target.value })
-                    }
-                  />
-                </div>
-
-                <div className="form-group">
-                  <label htmlFor="gender">Jenis Kelamin</label>
-                  <select
-                    id="gender"
-                    value={profileData.gender}
-                    onChange={(e) =>
-                      setProfileData({ ...profileData, gender: e.target.value })
-                    }
-                  >
-                    <option value="">Pilih Jenis Kelamin</option>
-                    <option value="Laki-laki">Laki-laki</option>
-                    <option value="Perempuan">Perempuan</option>
-                  </select>
-                </div>
-
-                {/* ✅ Tambahkan kembali input alamat */}
                 <div className="form-group">
                   <label htmlFor="address">Alamat</label>
                   <input
                     id="address"
                     type="text"
                     value={profileData.address}
-                    onChange={(e) =>
-                      setProfileData({ ...profileData, address: e.target.value })
-                    }
+                    onChange={(e) => setProfileData({ ...profileData, address: e.target.value })}
                   />
                 </div>
-                
-              <button type="button" className="save-btn" onClick={handleSave}>
-                Simpan
-              </button>
+
+                <button type="button" className="save-btn" onClick={handleSave}>
+                  Simpan
+                </button>
               </div>
             </form>
             {isSaved && <p className="save-message">Profil berhasil disimpan!</p>}
@@ -194,18 +143,13 @@ const ProfileEdit = () => {
           <div className="popup-content">
             <div className="popup-header">Anda Yakin Ingin Keluar?</div>
             <div className="popup-button-container">
-              <button className="popup-button btn-cancel" onClick={togglePopup}>
-                Batal
-              </button>
-              <button className="popup-button btn-exit" onClick={handleLogout}>
-                Keluar
-              </button>
+              <button className="popup-button btn-cancel" onClick={togglePopup}>Batal</button>
+              <button className="popup-button btn-exit" onClick={handleLogout}>Keluar</button>
             </div>
           </div>
         </div>
       )}
       <div className="footer-separator"></div>
-      
       <Footer />
     </div>
   );

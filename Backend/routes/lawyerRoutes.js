@@ -38,6 +38,7 @@ router.get('/lawyer/profile/:id', lawyerController.getLawyerProfile);
 // Update profil Edit pengacara
 router.put('/lawyer/profile/update/:id', lawyerController.updateLawyerProfile);
 
+router.get('/pengacara', lawyerController.getAllLawyers);
 
 
 module.exports = router;
