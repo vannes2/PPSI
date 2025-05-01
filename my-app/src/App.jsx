@@ -7,7 +7,6 @@ import Login from "./PageUser/Login";
 import SignUp from "./PageUser/SignUp";
 import HomeAfter from "./PageUser/HomeAfter";
 import AboutUsAfter from "./PageUser/AboutUsAfter";
-import HeaderAfter from "./components/HeaderAfter";
 import ProfileEdit from "./PageUser/ProfileEdit";
 import ProfileView from "./PageUser/ProfileView";
 import Konsultasi from "./PageUser/konsultasi";
@@ -32,52 +31,50 @@ import ProfilAdmin from "./PageAdmin/ProfilAdmin";
 import UserManagement from './PageAdmin/UserManagement'; 
 import '@fortawesome/fontawesome-free/css/all.min.css';
 
-
-
 function App() {
     return (
         <Router>
             <Routes>
+                {/* Public Routes */}
                 <Route path="/" element={<Home />} />
-
-                <Route path="Header" element={<Header />} />
-                <Route path="Footer" element={<Footer />} />
-                <Route path="AboutUs" element={<AboutUs />} />
-                <Route path="Login" element={<Login />} />
-                <Route path="SignUp" element={<SignUp />} />
-                <Route path="HomeAfter" element={<HomeAfter />}/>
-                <Route path="AboutUsAfter" element={<AboutUsAfter />} />
-                <Route path="HeaderAfter" element={<HeaderAfter />} />
-
-
-                {/* <Route path="Header" element={<Header />} />
-                <Route path="Footer" element={<Footer />} /> */}
-                <Route path="AboutUs" element={<AboutUs />} />
-                <Route path="Login" element={<Login />} />
-                <Route path="SignUp" element={<SignUp />} />
-                <Route path="ProfileEdit" element={<ProfileEdit />} />
-                <Route path="ProfileView" element={<ProfileView/>}/>
-                <Route path="konsultasi" element={<Konsultasi />} />
-                <Route path="HomeAdmin" element={<HomeAdmin />} />
-                <Route path="EditPengacara/:id" element={<EditPengacara />}/>
-                <Route path="ViewPengacara/:id" element={<ViewPengacara />}/>
-                <Route path="TambahPengacara" element={<TambahPengacara />}/>
-                <Route path="TambahArtikel" element={<TambahArtikel />}/>
-                <Route path="Artikel" element={<Artikel />}/>
-                <Route path="RegisterLawyerPage" element={<RegisterLawyerPage />} />
-                <Route path="HomeLawyer" element={<HomeLawyer />} />
-                <Route path="ArtikelLawyer" element={<ArtikelLawyer />} />
-                <Route path="AboutLawyer" element={<AboutLawyer />} />
-                <Route path="ProfileLawyer" element={<ProfileLawyer />} />
-                <Route path="KonsultasiLawyer" element={<KonsultasiLawyer />} />
-                <Route path="SelectUser" element={<SelectUser />} />
-                <Route path="SidebarAdmin" element={<SidebarAdmin/>} />
-                <Route path="LawyerRegistrations" element={<LawyerRegistrations/>} />
+                <Route path="/Header" element={<Header />} />
+                <Route path="/Footer" element={<Footer />} />
+                <Route path="/AboutUs" element={<AboutUs />} />
+                <Route path="/Login" element={<Login />} />
+                <Route path="/SignUp" element={<SignUp />} />
+                <Route path="/HomeAfter" element={<HomeAfter />} />
+                <Route path="/AboutUsAfter" element={<AboutUsAfter />} />
+                
+                {/* User Routes */}
+                <Route path="/ProfileEdit" element={<ProfileEdit />} />
+                <Route path="/ProfileView" element={<ProfileView />} />
+                <Route path="/konsultasi" element={<Konsultasi />} />
+                <Route path="/Artikel" element={<Artikel />} />
                 <Route path="/chat/:contactRole/:contactId" element={<ChatPage />} />
-                <Route path="ProfileEditLawyer" element={<ProfileEditLawyer />} />
-                <Route path="ProfilAdmin" element={<ProfilAdmin/>}/>
+                
+                {/* Admin Routes */}
+                <Route path="/HomeAdmin" element={<HomeAdmin />} />
+                <Route path="/EditPengacara/:id" element={<EditPengacara />} />
+                <Route path="/ViewPengacara/:id" element={<ViewPengacara />} />
+                <Route path="/TambahPengacara" element={<TambahPengacara />} />
+                <Route path="/TambahArtikel" element={<TambahArtikel />} />
+                <Route path="/LawyerRegistrations" element={<LawyerRegistrations />} />
+                <Route path="/ProfilAdmin" element={<ProfilAdmin />} />
                 <Route path="/UserManagement" element={<UserManagement />} />
+                <Route path="SidebarAdmin" element={<SidebarAdmin/>} />
 
+                {/* Lawyer Routes */}
+                <Route path="/RegisterLawyerPage" element={<RegisterLawyerPage />} />
+                <Route path="/HomeLawyer" element={<HomeLawyer />} />
+                <Route path="/ArtikelLawyer" element={<ArtikelLawyer />} />
+                <Route path="/AboutLawyer" element={<AboutLawyer />} />
+                <Route path="/ProfileLawyer" element={<ProfileLawyer />} />
+                <Route path="/KonsultasiLawyer" element={<KonsultasiLawyer />} />
+                <Route path="/SelectUser" element={<SelectUser />} />
+                <Route path="/ProfileEditLawyer" element={<ProfileEditLawyer />} />
+
+                {/* Chat Routes */}
+                <Route path="/chat/pengacara/:lawyerId" element={<ChatPage />} />
             </Routes>
         </Router>
     );

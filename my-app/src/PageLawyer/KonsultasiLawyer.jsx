@@ -29,7 +29,7 @@ const KonsultasiLawyer = () => {
       .catch(() => setError("Gagal mengambil kontak"));
 
     socket.on(`receive_message_pengacara_${lawyer.id}`, (data) => {
-      if (selectedUser && data.sender_id == selectedUser.id) {
+      if (selectedUser && data.sender_id === selectedUser.id) {
         setMessages((prev) => [...prev, data]);
       }
     });
@@ -61,13 +61,41 @@ const KonsultasiLawyer = () => {
       message: input,
     };
     socket.emit("send_message", msgData);
-    setMessages([...messages, { ...msgData, timestamp: new Date() }]);
+    setMessages([
+      ...messages,
+      { ...msgData, timestamp: new Date(), is_read: 0 }
+    ]);
     setInput("");
   };
 
   useEffect(() => {
-    window.scrollTo({ top: 0, behavior: "instant" }); // Scroll ke paling atas saat load
+    window.scrollTo({ top: 0, behavior: "instant" });
   }, []);
+
+  const formatTime = (timestamp) => {
+    const now = new Date();
+    const time = new Date(timestamp);
+    const diffInDays = (now - time) / (1000 * 60 * 60 * 24);
+
+    if (diffInDays < 1) {
+      return "Hari ini";
+    } else if (diffInDays < 7) {
+      return time.toLocaleDateString("id-ID", { weekday: "long" });
+    } else {
+      return time.toLocaleDateString("id-ID", {
+        day: "2-digit",
+        month: "short",
+        year: "numeric",
+      });
+    }
+  };
+
+  const formatClock = (timestamp) => {
+    return new Date(timestamp).toLocaleTimeString([], {
+      hour: "2-digit",
+      minute: "2-digit",
+    });
+  };
 
   return (
     <div className="chat-app">
@@ -80,7 +108,11 @@ const KonsultasiLawyer = () => {
           </div>
           <ul className="contact-list">
             {contacts.map((user) => (
-              <li key={user.id} onClick={() => loadMessages(user)} className={selectedUser?.id === user.id ? "active" : ""}>
+              <li
+                key={user.id}
+                onClick={() => loadMessages(user)}
+                className={selectedUser?.id === user.id ? "active" : ""}
+              >
                 <div className="contact-name">{user.name}</div>
                 <div className="last-message">Klik untuk lihat chat</div>
               </li>
@@ -94,23 +126,35 @@ const KonsultasiLawyer = () => {
               <div className="chat-header">{selectedUser.name}</div>
               <div className="chat-messages">
                 {messages.map((msg, idx) => (
-                  <div key={idx} className={`message ${msg.sender_role === "pengacara" ? "sent" : "received"}`}>
-                    {msg.message}
-                    <div className="time">{new Date(msg.timestamp).toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })}</div>
+                  <div
+                    key={idx}
+                    className={`message ${
+                      msg.sender_role === "pengacara" ? "sent" : "received"
+                    }`}
+                  >
+                    <div>{msg.message}</div>
+                    <div className="time">
+                      {formatClock(msg.timestamp)} • {formatTime(msg.timestamp)}
+                    </div>
+                    {msg.sender_role === "pengacara" && (
+                      <div className="status">
+                        {msg.is_read ? "Dibaca" : "Terkirim"}
+                      </div>
+                    )}
                   </div>
                 ))}
                 <div ref={messagesEndRef} />
               </div>
               <form className="chat-input" onSubmit={handleSubmit}>
-              <input 
-                value={input} 
-                onChange={(e) => setInput(e.target.value)} 
-                placeholder="Tulis pesan..." 
-              />
-            <button type="submit">
-                <FaLocationArrow />
-            </button>
-          </form>
+                <input
+                  value={input}
+                  onChange={(e) => setInput(e.target.value)}
+                  placeholder="Tulis pesan..."
+                />
+                <button type="submit">
+                  <FaLocationArrow />
+                </button>
+              </form>
             </>
           ) : (
             <div className="no-chat">Pilih user untuk memulai chat</div>
