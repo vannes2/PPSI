@@ -1,44 +1,69 @@
-/* Main Profil Admin Page */
-.profil-admin-page {
-  background-color: #f9f9f9; /* Soft light gray for background */
-  min-height: 100vh;
+/* Main Admin Page */
+.dashboard-wrapper {
   display: flex;
-  justify-content: center; /* Centering the content */
-  padding: 40px 0; /* Added padding for top and bottom */
-  box-sizing: border-box;
+  min-height: 100vh;
+  background-color: #f7f7f7;
 }
 
-/* Container for the Admin Profile */
+/* Sidebar Style */
+.sidebar-admin {
+  width: 250px;
+  background-color: #1e293b;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Profil Admin Container */
+.admin-page {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  padding: 20px;
+}
+
+/* Profil Admin Container */
 .profil-admin-container {
   background-color: #ffffff;
-  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1); /* More prominent shadow */
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1); /* Added box shadow */
   width: 100%;
-  max-width: 600px; /* Tightened container width for a more compact design */
-  padding: 40px; /* Spacious padding for comfortable content */
-  border-radius: 15px; /* Rounded corners for modern design */
+  max-width: 650px;
+  padding: 40px;
+  border-radius: 12px;
   text-align: left;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  margin-top: 20px;
+  margin-bottom: 20px;
 }
 
-/* Header Styling */
+/* Heading */
 h1 {
   color: #333;
-  font-size: 28px; /* Slightly smaller font for better balance */
+  font-size: 32px;
   font-weight: 600;
-  margin-bottom: 20px;
   text-align: center;
+  margin-bottom: 25px;
+  width: 100%;
+  line-height: 1.3;
 }
 
-/* Styling for Admin Details Section */
+/* Admin Details Section */
 .admin-details {
-  margin-bottom: 30px;
+  width: 100%;
+  margin-bottom: 35px;
 }
 
-/* Admin Information */
 .admin-info p {
-  font-size: 16px;
+  font-size: 18px;
   color: #555;
-  margin: 10px 0;
-  line-height: 1.6;
+  margin: 12px 0;
+  line-height: 1.8;
 }
 
 .admin-info strong {
@@ -46,55 +71,76 @@ h1 {
   color: #333;
 }
 
-/* Logout Button Section */
+/* Registered Date and Login Time Styling */
+.registered-date, .login-time {
+  color: #1e40af;
+  font-weight: 600;
+}
+
+/* Logout Button */
 .logout-button {
   display: flex;
   justify-content: center;
-  margin-top: 30px;
+  width: 100%;
 }
 
 .logout-button button {
-  background-color: #1e40af; /* Blue background for better contrast */
+  background-color: #1e40af;
   color: white;
   border: none;
-  padding: 12px 25px; /* Adjusted padding for better proportion */
+  padding: 16px 32px;
   border-radius: 8px;
   font-size: 16px;
   cursor: pointer;
   font-weight: 600;
-  transition: background-color 0.3s ease;
+  transition: background-color 0.3s ease, transform 0.3s ease;
   display: flex;
   align-items: center;
+  justify-content: center;
 }
 
 /* Hover effect for logout button */
 .logout-button button:hover {
   background-color: #2563eb;
+  transform: scale(1.05);
 }
 
-/* Logout Icon spacing */
 .logout-button button svg {
-  margin-right: 10px;
+  margin-right: 12px;
 }
 
-/* Responsive Styles */
+/* Loading State */
+.loading {
+  color: #333;
+  font-size: 18px;
+  text-align: center;
+  margin-top: 40px;
+  font-weight: 600;
+}
+
+/* Sidebar adjustments for smaller screens */
 @media (max-width: 768px) {
+  .dashboard-wrapper {
+    flex-direction: column;
+  }
+
   .profil-admin-container {
-    width: 90%; /* Reduced width for smaller screens */
-    padding: 30px; /* Adjusted padding for better responsiveness */
+    width: 90%;
+    padding: 25px;
+    margin-top: 40px;
   }
 
   h1 {
-    font-size: 26px; /* Smaller font size on mobile */
+    font-size: 30px;
   }
 
   .admin-info p {
-    font-size: 15px; /* Reduced font size for mobile screens */
+    font-size: 16px;
   }
 
   .logout-button button {
-    padding: 12px 22px; /* Adjusted button padding */
-    font-size: 14px; /* Smaller font for mobile */
+    padding: 14px 28px;
+    font-size: 15px;
   }
 }
 
@@ -104,15 +150,15 @@ h1 {
   }
 
   h1 {
-    font-size: 22px; /* Reduced font for very small screens */
+    font-size: 26px;
   }
 
   .admin-info p {
-    font-size: 14px;
+    font-size: 15px;
   }
 
   .logout-button button {
-    padding: 10px 20px;
-    font-size: 13px;
+    padding: 12px 24px;
+    font-size: 14px;
   }
 }
