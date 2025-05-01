@@ -247,3 +247,10 @@ footer {
 form {
   display: block;
 }
+
+.status {
+  font-size: 11px;
+  color: #666;
+  text-align: right;
+  margin-top: 2px;
+}

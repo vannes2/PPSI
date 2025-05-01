@@ -33,25 +33,26 @@ const Konsultasi = () => {
         (selectedSpesialisasi === "" || advokat.spesialisasi === selectedSpesialisasi)
     );
 
-    // Fungsi navigasi ke halaman chat
+    // Fungsi navigasi ke halaman chat sesuai dengan ID pengacara
     const handleKonsultasiClick = (advokatId) => {
+        // Navigasi ke halaman chat dengan pengacara yang dipilih berdasarkan ID
         navigate(`/chat/pengacara/${advokatId}`);
     };
 
     useEffect(() => {
         window.scrollTo(0, 0);
-      }, []);
+    }, []);
 
     return (
         <div className="konsultasi-page">
             <HeaderAfter />
 
             <section className="advokat-section">
-                <br/><br/><br/><br/>
+                <br /><br /><br /><br />
                 <div className="advokat-header">
                     <h2 className="product-title">Advokat Yang Tersedia</h2>
                     <div className="search-filter-container">
-                        <input 
+                        <input
                             type="text"
                             placeholder="Cari nama pengacara..."
                             value={searchTerm}
@@ -83,7 +84,7 @@ const Konsultasi = () => {
                                     {advokat.spesialisasi}<br />
                                     Pengalaman: {advokat.pengalaman} tahun
                                 </p>
-                                <button 
+                                <button
                                     className="btn-konsultasi"
                                     onClick={() => handleKonsultasiClick(advokat.id)}
                                 >

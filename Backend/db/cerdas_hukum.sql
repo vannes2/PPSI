@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.2.1
+-- version 5.2.0
 -- https://www.phpmyadmin.net/
 --
--- Host: 127.0.0.1
--- Waktu pembuatan: 25 Apr 2025 pada 05.14
--- Versi server: 10.4.28-MariaDB
--- Versi PHP: 8.2.4
+-- Host: localhost:3306
+-- Generation Time: May 01, 2025 at 04:12 AM
+-- Server version: 8.0.30
+-- PHP Version: 8.3.16
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -24,22 +24,22 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `admin`
+-- Table structure for table `admin`
 --
 
 CREATE TABLE `admin` (
-  `id` int(11) NOT NULL,
-  `name` varchar(100) NOT NULL,
-  `email` varchar(100) NOT NULL,
-  `phone` varchar(20) DEFAULT NULL,
-  `password` varchar(255) NOT NULL,
-  `gender` enum('laki-laki','perempuan') NOT NULL,
+  `id` int NOT NULL,
+  `name` varchar(100) COLLATE utf8mb4_general_ci NOT NULL,
+  `email` varchar(100) COLLATE utf8mb4_general_ci NOT NULL,
+  `phone` varchar(20) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `password` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
+  `gender` enum('laki-laki','perempuan') COLLATE utf8mb4_general_ci NOT NULL,
   `birthdate` date DEFAULT NULL,
-  `created_at` timestamp NOT NULL DEFAULT current_timestamp()
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data untuk tabel `admin`
+-- Dumping data for table `admin`
 --
 
 INSERT INTO `admin` (`id`, `name`, `email`, `phone`, `password`, `gender`, `birthdate`, `created_at`) VALUES
@@ -48,18 +48,18 @@ INSERT INTO `admin` (`id`, `name`, `email`, `phone`, `password`, `gender`, `birt
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `artikel`
+-- Table structure for table `artikel`
 --
 
 CREATE TABLE `artikel` (
-  `id` int(11) NOT NULL,
-  `judul` varchar(255) NOT NULL,
-  `deskripsi` varchar(255) NOT NULL,
-  `filePath` varchar(255) NOT NULL
+  `id` int NOT NULL,
+  `judul` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
+  `deskripsi` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
+  `filePath` varchar(255) COLLATE utf8mb4_general_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data untuk tabel `artikel`
+-- Dumping data for table `artikel`
 --
 
 INSERT INTO `artikel` (`id`, `judul`, `deskripsi`, `filePath`) VALUES
@@ -77,98 +77,153 @@ INSERT INTO `artikel` (`id`, `judul`, `deskripsi`, `filePath`) VALUES
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `konsultasi`
+-- Table structure for table `konsultasi`
 --
 
 CREATE TABLE `konsultasi` (
-  `id` int(11) NOT NULL,
-  `id_pengguna` int(11) NOT NULL,
-  `id_pengacara` int(11) NOT NULL,
+  `id` int NOT NULL,
+  `id_pengguna` int NOT NULL,
+  `id_pengacara` int NOT NULL,
   `tanggal_konsultasi` datetime NOT NULL,
-  `status` enum('Dijadwalkan','Selesai','Dibatalkan') DEFAULT 'Dijadwalkan',
-  `catatan` text DEFAULT NULL
+  `status` enum('Dijadwalkan','Selesai','Dibatalkan') COLLATE utf8mb4_general_ci DEFAULT 'Dijadwalkan',
+  `catatan` text COLLATE utf8mb4_general_ci
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `log_aktivitas`
+-- Table structure for table `log_aktivitas`
 --
 
 CREATE TABLE `log_aktivitas` (
-  `id` int(11) NOT NULL,
-  `id_pengguna` int(11) NOT NULL,
-  `aktivitas` text NOT NULL,
-  `waktu` timestamp NOT NULL DEFAULT current_timestamp()
+  `id` int NOT NULL,
+  `id_pengguna` int NOT NULL,
+  `aktivitas` text COLLATE utf8mb4_general_ci NOT NULL,
+  `waktu` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `pendaftaran_pengacara`
+-- Table structure for table `messages`
+--
+
+CREATE TABLE `messages` (
+  `id` int NOT NULL,
+  `sender_id` int NOT NULL,
+  `sender_role` enum('user','pengacara') COLLATE utf8mb4_general_ci NOT NULL,
+  `receiver_id` int NOT NULL,
+  `receiver_role` enum('user','pengacara') COLLATE utf8mb4_general_ci NOT NULL,
+  `message` text COLLATE utf8mb4_general_ci NOT NULL,
+  `timestamp` datetime DEFAULT CURRENT_TIMESTAMP,
+  `is_read` tinyint(1) DEFAULT '0'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `messages`
+--
+
+INSERT INTO `messages` (`id`, `sender_id`, `sender_role`, `receiver_id`, `receiver_role`, `message`, `timestamp`, `is_read`) VALUES
+(1, 2, 'user', 1, 'pengacara', 'go', '2025-04-28 17:31:25', 0),
+(2, 2, 'user', 3, 'pengacara', 'hello', '2025-04-28 17:32:07', 0),
+(3, 1, 'pengacara', 1, 'pengacara', 'tes', '2025-04-28 17:48:59', 1),
+(4, 1, 'pengacara', 1, 'pengacara', 'hello', '2025-04-28 17:49:37', 1),
+(5, 2, 'user', 1, 'pengacara', 'hello', '2025-04-28 17:55:36', 0),
+(6, 3, 'user', 1, 'pengacara', 'hallo', '2025-04-28 18:15:04', 0),
+(7, 17, 'user', 1, 'pengacara', 'woi kontol', '2025-04-28 18:18:05', 0),
+(8, 14, 'user', 1, 'pengacara', 'woi', '2025-04-28 19:56:46', 0),
+(9, 1, 'pengacara', 1, 'pengacara', 'tes', '2025-04-28 19:57:58', 1),
+(10, 1, 'pengacara', 2, 'user', 'apa', '2025-04-28 19:58:19', 0),
+(11, 1, 'pengacara', 14, 'user', 'apa', '2025-04-28 20:07:54', 0),
+(12, 1, 'pengacara', 1, 'pengacara', 'tes', '2025-04-28 20:08:16', 1),
+(13, 1, 'pengacara', 1, 'pengacara', 'hLLO', '2025-04-28 20:08:52', 1),
+(14, 1, 'user', 1, 'pengacara', 'haii', '2025-04-28 20:11:03', 0),
+(15, 1, 'pengacara', 1, 'user', 'tes', '2025-04-28 20:11:17', 1),
+(16, 1, 'user', 1, 'pengacara', 'hola', '2025-04-28 20:11:28', 0),
+(17, 1, 'pengacara', 1, 'user', 'button', '2025-04-28 20:22:24', 1),
+(18, 1, 'user', 1, 'pengacara', 'oit', '2025-04-28 23:05:01', 0),
+(19, 1, 'user', 2, 'pengacara', 'hai', '2025-04-29 00:03:36', 0),
+(20, 2, 'pengacara', 1, 'user', 'hallo', '2025-04-29 00:03:50', 1),
+(21, 1, 'user', 2, 'pengacara', 'kamu lagi apa?', '2025-04-29 00:04:04', 0),
+(22, 2, 'pengacara', 1, 'user', 'nguli', '2025-04-29 00:04:12', 1),
+(23, 1, 'user', 2, 'pengacara', 'emg iyaaa', '2025-04-29 00:04:24', 0),
+(24, 1, 'user', 2, 'pengacara', 'woi', '2025-04-29 00:16:26', 0),
+(25, 2, 'pengacara', 1, 'user', 'apa cok', '2025-04-29 00:16:37', 1),
+(26, 1, 'user', 1, 'pengacara', 'hallo', '2025-04-29 02:06:52', 0),
+(27, 1, 'pengacara', 1, 'user', 'oit', '2025-04-29 02:07:04', 1),
+(28, 1, 'user', 2, 'pengacara', 'woi pepek', '2025-04-29 02:28:25', 0),
+(29, 1, 'user', 2, 'pengacara', 'woiiiii ribut yuk cina', '2025-04-29 02:30:12', 0),
+(30, 2, 'pengacara', 1, 'user', 'ayokkk mmk', '2025-04-29 02:30:36', 1),
+(31, 1, 'user', 2, 'pengacara', 'gass', '2025-04-29 02:30:51', 0),
+(32, 1, 'pengacara', 1, 'user', 'woi', '2025-04-29 14:18:31', 1),
+(33, 1, 'user', 30, 'pengacara', 'hallo', '2025-04-30 15:38:46', 0),
+(34, 30, 'pengacara', 1, 'user', 'iya', '2025-04-30 15:38:59', 0),
+(35, 1, 'user', 1, 'pengacara', 'tes', '2025-04-30 20:14:06', 0),
+(36, 1, 'user', 1, 'pengacara', 'woi', '2025-04-30 20:15:20', 0),
+(37, 1, 'pengacara', 1, 'user', 'oi', '2025-05-01 00:51:37', 0),
+(38, 1, 'pengacara', 1, 'user', 'hari ini cerah ya', '2025-05-01 00:51:45', 0),
+(39, 1, 'user', 1, 'pengacara', 'iyaaa yaaa', '2025-05-01 00:52:03', 0);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `pendaftaran_pengacara`
 --
 
 CREATE TABLE `pendaftaran_pengacara` (
-  `id` int(11) NOT NULL,
-  `nama` varchar(100) NOT NULL,
-  `ktp` varchar(30) NOT NULL,
+  `id` int NOT NULL,
+  `nama` varchar(100) COLLATE utf8mb4_general_ci NOT NULL,
+  `ktp` varchar(30) COLLATE utf8mb4_general_ci NOT NULL,
   `tanggal_lahir` date NOT NULL,
-  `jenis_kelamin` enum('Laki-laki','Perempuan') NOT NULL,
-  `alamat` text NOT NULL,
-  `email` varchar(100) NOT NULL,
-  `no_hp` varchar(20) NOT NULL,
-  `nomor_induk_advokat` varchar(50) NOT NULL,
-  `universitas` varchar(100) NOT NULL,
-  `pendidikan` varchar(100) NOT NULL,
-  `spesialisasi` varchar(150) NOT NULL,
-  `pengalaman` int(11) NOT NULL,
-  `upload_ktp` varchar(255) DEFAULT NULL,
-  `upload_foto` varchar(255) DEFAULT NULL,
-  `upload_kartu_advokat` varchar(255) DEFAULT NULL,
-  `upload_pkpa` varchar(255) DEFAULT NULL,
-  `username` varchar(100) NOT NULL,
-  `password` varchar(255) NOT NULL,
-  `tanggal_daftar` datetime DEFAULT current_timestamp()
+  `jenis_kelamin` enum('Laki-laki','Perempuan') COLLATE utf8mb4_general_ci NOT NULL,
+  `alamat` text COLLATE utf8mb4_general_ci NOT NULL,
+  `email` varchar(100) COLLATE utf8mb4_general_ci NOT NULL,
+  `no_hp` varchar(20) COLLATE utf8mb4_general_ci NOT NULL,
+  `nomor_induk_advokat` varchar(50) COLLATE utf8mb4_general_ci NOT NULL,
+  `universitas` varchar(100) COLLATE utf8mb4_general_ci NOT NULL,
+  `pendidikan` varchar(100) COLLATE utf8mb4_general_ci NOT NULL,
+  `spesialisasi` varchar(150) COLLATE utf8mb4_general_ci NOT NULL,
+  `pengalaman` int NOT NULL,
+  `upload_ktp` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `upload_foto` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `upload_kartu_advokat` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `upload_pkpa` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `username` varchar(100) COLLATE utf8mb4_general_ci NOT NULL,
+  `password` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
+  `tanggal_daftar` datetime DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data untuk tabel `pendaftaran_pengacara`
---
-
-INSERT INTO `pendaftaran_pengacara` (`id`, `nama`, `ktp`, `tanggal_lahir`, `jenis_kelamin`, `alamat`, `email`, `no_hp`, `nomor_induk_advokat`, `universitas`, `pendidikan`, `spesialisasi`, `pengalaman`, `upload_ktp`, `upload_foto`, `upload_kartu_advokat`, `upload_pkpa`, `username`, `password`, `tanggal_daftar`) VALUES
-(7, 'hello', '127718819', '2025-04-25', 'Perempuan', 'jalan cemani', 'hello@gmail.com', '081919188', 'ADV12', 'Universitas Trisakti', 'S2 Ilmu Hukum', 'Hukum Bisnis', 3, '1745550576140-1745546224183-zitline_ip.sql', '1745550576141-1745546224183-zitline_ip.sql', '1745550576144-1745549490864-TM 4 KP Inna Sabily karima.pptx', '1745550576152-1745549490864-TM 4 KP Inna Sabily karima.pptx', 'hello', '$2b$10$07HBfTIqu3l4oLsTWvZYC.o4zAnh2ra.j6uwqf2nOGdxZnRNc4vrO', '2025-04-25 10:09:36');
 
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `pengacara`
+-- Table structure for table `pengacara`
 --
 
 CREATE TABLE `pengacara` (
-  `id` int(11) NOT NULL,
-  `nama` varchar(100) NOT NULL,
-  `ktp` varchar(30) NOT NULL,
+  `id` int NOT NULL,
+  `nama` varchar(100) COLLATE utf8mb4_general_ci NOT NULL,
+  `ktp` varchar(30) COLLATE utf8mb4_general_ci NOT NULL,
   `tanggal_lahir` date NOT NULL,
-  `jenis_kelamin` enum('Laki-laki','Perempuan') NOT NULL,
-  `alamat` text NOT NULL,
-  `email` varchar(100) NOT NULL,
-  `no_hp` varchar(20) NOT NULL,
-  `nomor_induk_advokat` varchar(50) NOT NULL,
-  `universitas` varchar(100) NOT NULL,
-  `pendidikan` varchar(100) NOT NULL,
-  `spesialisasi` varchar(150) NOT NULL,
-  `pengalaman` int(11) NOT NULL,
-  `upload_ktp` varchar(255) DEFAULT NULL,
-  `upload_foto` varchar(255) DEFAULT NULL,
-  `upload_kartu_advokat` varchar(255) DEFAULT NULL,
-  `upload_pkpa` varchar(255) DEFAULT NULL,
-  `username` varchar(50) NOT NULL,
-  `password` varchar(255) NOT NULL,
-  `tanggal_daftar` datetime DEFAULT current_timestamp()
+  `jenis_kelamin` enum('Laki-laki','Perempuan') COLLATE utf8mb4_general_ci NOT NULL,
+  `alamat` text COLLATE utf8mb4_general_ci NOT NULL,
+  `email` varchar(100) COLLATE utf8mb4_general_ci NOT NULL,
+  `no_hp` varchar(20) COLLATE utf8mb4_general_ci NOT NULL,
+  `nomor_induk_advokat` varchar(50) COLLATE utf8mb4_general_ci NOT NULL,
+  `universitas` varchar(100) COLLATE utf8mb4_general_ci NOT NULL,
+  `pendidikan` varchar(100) COLLATE utf8mb4_general_ci NOT NULL,
+  `spesialisasi` varchar(150) COLLATE utf8mb4_general_ci NOT NULL,
+  `pengalaman` int NOT NULL,
+  `upload_ktp` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `upload_foto` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `upload_kartu_advokat` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `upload_pkpa` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `username` varchar(50) COLLATE utf8mb4_general_ci NOT NULL,
+  `password` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
+  `tanggal_daftar` datetime DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data untuk tabel `pengacara`
+-- Dumping data for table `pengacara`
 --
 
 INSERT INTO `pengacara` (`id`, `nama`, `ktp`, `tanggal_lahir`, `jenis_kelamin`, `alamat`, `email`, `no_hp`, `nomor_induk_advokat`, `universitas`, `pendidikan`, `spesialisasi`, `pengalaman`, `upload_ktp`, `upload_foto`, `upload_kartu_advokat`, `upload_pkpa`, `username`, `password`, `tanggal_daftar`) VALUES
@@ -193,101 +248,106 @@ INSERT INTO `pengacara` (`id`, `nama`, `ktp`, `tanggal_lahir`, `jenis_kelamin`, 
 (20, 'Agus Saputra', '3201010401010020', '1988-01-01', 'Laki-laki', 'Jl. Condet No.20 Jakarta', 'agus.saputra@example.com', '081234567809', 'ADV020', 'Universitas Mulawarman', 'S1 Hukum', 'Hukum Ketenagakerjaan', 8, 'ktp20.png', 'foto20.png', 'kartu20.png', 'pkpa20.png', 'aguss', 'hashedpassword20', '2025-04-20 20:03:57'),
 (22, 'jamaludin', '31829201010', '1980-01-15', 'Laki-laki', 'Jl Kedaton', 'jamaludin@yahoo.com', '088812123456', 'ADV77', 'UPH', 'S2 Ilmu Hukum', 'Hukum Bisnis', 12, '1745157508818-ChatGPT Image Apr 17, 2025, 10_53_20 AM.png', '1745157508841-ChatGPT Image Apr 17, 2025, 10_53_20 AM.png', '1745157508828-ChatGPT Image Apr 17, 2025, 10_53_20 AM.png', '1745157508853-ChatGPT Image Apr 17, 2025, 10_51_55 AM.png', 'jamal', '$2b$10$XFIk/eKfkfDA0hZkYYy3Jen1KjieWOCWfGp1u3eG1qPBRn4aj.7E2', '2025-04-20 20:58:28'),
 (23, 'Anwar', '41627818199', '2025-04-25', 'Laki-laki', 'Jakbar', 'anwar@gmail.com', '0877617718819', 'ADV99', 'Universitas Trisakti', 'S2 Hukum', 'Hukum Perdata', 5, '1745544909164-zitline_ip.sql', '1745544909167-zitline_ip.sql', '1745544909165-zitline_ip.sql', '1745544909168-zitline_ip.sql', 'anwar', '$2b$10$3nRZ/7rNL3S3i0dV8DjFfe0Y4aND4Y/bG1Dx2dY8L1arp27WYpcsm', '2025-04-25 09:22:02'),
-(25, 'komangs', '12818811992', '2025-04-25', 'Laki-laki', 'jawa', 'steve@gmail.com', '089977661661', 'ADV107', 'UPH', 'S2 Hukum', 'Hukum Alam', 4, '1745549642332-zitline_ip.sql', '1745549642332-zitline_ip.sql', '1745549642333-zitline_ip.sql', '1745549642333-zitline_ip.sql', 'nvidia', '$2b$10$HlIj4Qkq.ygFXTWaQ8rCBuWXKGCRY9B6yBnHhTaXrXUzHF0ixCjrK', '2025-04-25 09:56:47');
+(25, 'komangs', '12818811992', '2025-04-25', 'Laki-laki', 'jawa', 'steve@gmail.com', '089977661661', 'ADV107', 'UPH', 'S2 Hukum', 'Hukum Alam', 4, '1745549642332-zitline_ip.sql', '1745549642332-zitline_ip.sql', '1745549642333-zitline_ip.sql', '1745549642333-zitline_ip.sql', 'nvidia', '$2b$10$HlIj4Qkq.ygFXTWaQ8rCBuWXKGCRY9B6yBnHhTaXrXUzHF0ixCjrK', '2025-04-25 09:56:47'),
+(26, 'blues', '1181881919', '2025-05-02', 'Perempuan', 'jalan cemani', 'blues@gmail.com', '1234156161718', 'ADV13', 'UPH', 'S2 Ilmu Hukum', 'Hukum Bisnis', 10, '1745584134806-pendaftaran_pengacara.sql', '1745584134807-pendaftaran_pengacara.sql', '1745584134807-pendaftaran_pengacara.sql', '1745584134807-pendaftaran_pengacara.sql', 'blues', '$2b$10$KNCZrCH99bHeiddM2yMpNeXaJ0yrIxA9xQrt1Ib0vTB5L6D4Y6eNa', '2025-04-25 19:30:23'),
+(27, 'black', '31829201010', '2025-04-25', 'Laki-laki', 'jalan cemani', 'black@gmail.com', '1234156161718', 'ADV79', 'UPH', 'S2 Hukum', 'Hukum Internasional', 10, '1745585634296-pendaftaran_pengacara.sql', '1745585634297-pendaftaran_pengacara.sql', '1745585634297-pendaftaran_pengacara.sql', '1745585634298-pendaftaran_pengacara.sql', 'black', '123', '2025-04-25 19:54:15'),
+(29, 'hello', '127718819', '2025-04-25', 'Perempuan', 'jalan cemani', 'hello@gmail.com', '081919188', 'ADV12', 'Universitas Trisakti', 'S2 Ilmu Hukum', 'Hukum Bisnis', 3, '1745550576140-1745546224183-zitline_ip.sql', '1745550576141-1745546224183-zitline_ip.sql', '1745550576144-1745549490864-TM 4 KP Inna Sabily karima.pptx', '1745550576152-1745549490864-TM 4 KP Inna Sabily karima.pptx', 'hello', '$2b$10$07HBfTIqu3l4oLsTWvZYC.o4zAnh2ra.j6uwqf2nOGdxZnRNc4vrO', '2025-04-30 08:52:46'),
+(30, 'Azzikra Praqastaa', '1231231234342', '2003-09-15', 'Laki-laki', 'Jakarta Barat', 'manusia@gmail.com', '081316227734', '213123132', 'Mercu', 'S2', 'Hukum Koruptor', 3, '1746002165913-Anggota1.pdf', '1746002165957-Anggota1.pdf', '1746002165933-Anggota1.pdf', '1746002165973-Anggota1.pdf', 'Zikra', '1234', '2025-04-30 15:37:17');
 
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `pengguna`
+-- Table structure for table `pengguna`
 --
 
 CREATE TABLE `pengguna` (
-  `id` int(11) NOT NULL,
-  `nama` varchar(100) NOT NULL,
-  `email` varchar(100) NOT NULL,
-  `password_hash` varchar(255) NOT NULL,
-  `no_hp` varchar(15) DEFAULT NULL,
-  `alamat` text DEFAULT NULL,
-  `tanggal_daftar` timestamp NOT NULL DEFAULT current_timestamp()
+  `id` int NOT NULL,
+  `nama` varchar(100) COLLATE utf8mb4_general_ci NOT NULL,
+  `email` varchar(100) COLLATE utf8mb4_general_ci NOT NULL,
+  `password_hash` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
+  `no_hp` varchar(15) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `alamat` text COLLATE utf8mb4_general_ci,
+  `tanggal_daftar` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `tanya_jawab`
+-- Table structure for table `tanya_jawab`
 --
 
 CREATE TABLE `tanya_jawab` (
-  `id` int(11) NOT NULL,
-  `id_pengguna` int(11) NOT NULL,
-  `id_pengacara` int(11) NOT NULL,
-  `pertanyaan` text NOT NULL,
-  `jawaban` text DEFAULT NULL,
-  `status` enum('Menunggu','Dijawab') DEFAULT 'Menunggu',
-  `tanggal_tanya` timestamp NOT NULL DEFAULT current_timestamp(),
+  `id` int NOT NULL,
+  `id_pengguna` int NOT NULL,
+  `id_pengacara` int NOT NULL,
+  `pertanyaan` text COLLATE utf8mb4_general_ci NOT NULL,
+  `jawaban` text COLLATE utf8mb4_general_ci,
+  `status` enum('Menunggu','Dijawab') COLLATE utf8mb4_general_ci DEFAULT 'Menunggu',
+  `tanggal_tanya` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `tanggal_jawab` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `users`
+-- Table structure for table `users`
 --
 
 CREATE TABLE `users` (
-  `id` int(11) NOT NULL,
-  `name` varchar(100) NOT NULL,
-  `email` varchar(100) NOT NULL,
-  `phone` varchar(20) NOT NULL,
-  `password` varchar(255) NOT NULL,
-  `gender` enum('L','P') NOT NULL,
+  `id` int NOT NULL,
+  `name` varchar(100) COLLATE utf8mb4_general_ci NOT NULL,
+  `email` varchar(100) COLLATE utf8mb4_general_ci NOT NULL,
+  `phone` varchar(20) COLLATE utf8mb4_general_ci NOT NULL,
+  `password` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
+  `gender` enum('L','P') COLLATE utf8mb4_general_ci NOT NULL,
   `birthdate` date NOT NULL,
-  `created_at` timestamp NOT NULL DEFAULT current_timestamp()
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `address` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data untuk tabel `users`
+-- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`id`, `name`, `email`, `phone`, `password`, `gender`, `birthdate`, `created_at`) VALUES
-(1, 'zikra', 'zikra@gmail.com', '089918181819', '$2b$10$meP0OIBJlWfsma88P9Sd.u5QYUgKDYZr7tdiRrJlKwbYV/QjF04uC', 'L', '1888-02-01', '2025-03-20 07:09:05'),
-(2, 'fajri', 'fajri30.r@gmail.com', '085706125411', '12345678', 'L', '1988-03-01', '2025-03-20 07:13:06'),
-(3, 'vanes', 'vanes@gmail.com', '08928188192', '12345678', 'L', '2025-10-03', '2025-03-20 07:26:06'),
-(4, 'human', 'human@gmail.com', '1234156161718', '12345678', 'L', '1888-01-01', '2025-03-20 07:32:57'),
-(5, 'newest', 'newest@gmail.com', '09891817182', '12345678', 'P', '2000-10-10', '2025-03-20 08:48:30'),
-(6, 'baru', 'baru@gmail.com', '12345678', '12345678', 'P', '2025-03-20', '2025-03-20 09:08:23'),
-(7, 'newbie', 'newbie@gmail.com', '12345678', '12345678', 'L', '2025-03-20', '2025-03-20 09:11:59'),
-(8, 'black', 'black@gmail.com', '1234156161718', '$2b$10$ITbuKjaBTFRvNxjOIjgZHummJGSjMra30jFR9.fdm.Sr4QPeGji5q', 'L', '2000-10-02', '2025-03-25 15:26:48'),
-(9, 'demon', 'demon@gmail.com', '089918181819', '12345678', 'L', '1898-02-01', '2025-03-25 15:48:10'),
-(10, 'abc', 'abc@gmail.com', '123456', '12345678', 'L', '1222-11-11', '2025-03-27 03:18:49'),
-(11, 'Vannes vernando ', 'vanesvernando72@gmail.com', '085781086148', '222', 'L', '2222-02-22', '2025-04-09 11:05:26'),
-(13, 'Vannes vernando ', 'vanesvernando@gmail.com', '085781086148', '333', 'L', '0033-03-31', '2025-04-09 11:07:27'),
-(14, 'Vannes vernando ', 'vns@gmail.com', '085781086148', '222', 'L', '2222-02-22', '2025-04-09 11:30:29'),
-(15, 'Vannes vernando ', 'cba@gmail.com', '085781086148', '222', 'L', '2222-02-22', '2025-04-09 14:20:19'),
-(16, 'manusia', 'manusia@gmail.com', '089967372738', '222', 'L', '2025-05-01', '2025-04-15 08:23:51'),
-(17, 'ihsan', 'ihsan@gmail.com', '8789907788', '333', 'L', '2025-04-15', '2025-04-15 08:26:36'),
-(18, 'Ayunnie', 'sukagelay299@gmail.com', '0857061254118', '222', 'P', '2222-02-22', '2025-04-15 08:28:08'),
-(19, 'ihsan', 'sukagelay9@gmail.com', '0857061254113', '222', 'P', '0002-02-22', '2025-04-15 08:29:35');
+INSERT INTO `users` (`id`, `name`, `email`, `phone`, `password`, `gender`, `birthdate`, `created_at`, `address`) VALUES
+(1, 'zikra', 'zikra@gmail.com', '089918181819', '123', 'L', '1888-02-01', '2025-03-20 07:09:05', 'Jakarta Barat'),
+(2, 'fajri', 'fajri30.r@gmail.com', '085706125411', '12345678', 'L', '1988-03-01', '2025-03-20 07:13:06', NULL),
+(3, 'vanes', 'vanes@gmail.com', '08928188192', '12345678', 'L', '2025-10-03', '2025-03-20 07:26:06', NULL),
+(4, 'human', 'human@gmail.com', '1234156161718', '12345678', 'L', '1888-01-01', '2025-03-20 07:32:57', NULL),
+(5, 'newest', 'newest@gmail.com', '09891817182', '12345678', 'P', '2000-10-10', '2025-03-20 08:48:30', NULL),
+(6, 'baru', 'baru@gmail.com', '12345678', '12345678', 'P', '2025-03-20', '2025-03-20 09:08:23', NULL),
+(7, 'newbie', 'newbie@gmail.com', '12345678', '12345678', 'L', '2025-03-20', '2025-03-20 09:11:59', NULL),
+(8, 'black', 'black@gmail.com', '1234156161718', '$2b$10$ITbuKjaBTFRvNxjOIjgZHummJGSjMra30jFR9.fdm.Sr4QPeGji5q', 'L', '2000-10-02', '2025-03-25 15:26:48', NULL),
+(9, 'demon', 'demon@gmail.com', '089918181819', '12345678', 'L', '1898-02-01', '2025-03-25 15:48:10', NULL),
+(10, 'abc', 'abc@gmail.com', '123456', '12345678', 'L', '1222-11-11', '2025-03-27 03:18:49', NULL),
+(11, 'Vannes vernando ', 'vanesvernando72@gmail.com', '085781086148', '222', 'L', '2222-02-22', '2025-04-09 11:05:26', NULL),
+(13, 'Vannes vernando ', 'vanesvernando@gmail.com', '085781086148', '333', 'L', '0033-03-31', '2025-04-09 11:07:27', NULL),
+(14, 'Vannes vernando ', 'vns@gmail.com', '085781086148', '222', 'L', '2222-02-22', '2025-04-09 11:30:29', NULL),
+(15, 'Vannes vernando ', 'cba@gmail.com', '085781086148', '222', 'L', '2222-02-22', '2025-04-09 14:20:19', NULL),
+(16, 'manusia', 'manusia@gmail.com', '089967372738', '222', 'L', '2025-05-01', '2025-04-15 08:23:51', NULL),
+(17, 'ihsan', 'ihsan@gmail.com', '8789907788', '333', 'L', '2025-04-15', '2025-04-15 08:26:36', NULL),
+(18, 'Ayunnie', 'sukagelay299@gmail.com', '0857061254118', '222', 'P', '2222-02-22', '2025-04-15 08:28:08', NULL),
+(19, 'ihsan', 'sukagelay9@gmail.com', '0857061254113', '222', 'P', '0002-02-22', '2025-04-15 08:29:35', NULL);
 
 --
 -- Indexes for dumped tables
 --
 
 --
--- Indeks untuk tabel `admin`
+-- Indexes for table `admin`
 --
 ALTER TABLE `admin`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `email` (`email`);
 
 --
--- Indeks untuk tabel `artikel`
+-- Indexes for table `artikel`
 --
 ALTER TABLE `artikel`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indeks untuk tabel `konsultasi`
+-- Indexes for table `konsultasi`
 --
 ALTER TABLE `konsultasi`
   ADD PRIMARY KEY (`id`),
@@ -295,35 +355,41 @@ ALTER TABLE `konsultasi`
   ADD KEY `id_pengacara` (`id_pengacara`);
 
 --
--- Indeks untuk tabel `log_aktivitas`
+-- Indexes for table `log_aktivitas`
 --
 ALTER TABLE `log_aktivitas`
   ADD PRIMARY KEY (`id`),
   ADD KEY `id_pengguna` (`id_pengguna`);
 
 --
--- Indeks untuk tabel `pendaftaran_pengacara`
+-- Indexes for table `messages`
+--
+ALTER TABLE `messages`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `pendaftaran_pengacara`
 --
 ALTER TABLE `pendaftaran_pengacara`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `email` (`email`);
 
 --
--- Indeks untuk tabel `pengacara`
+-- Indexes for table `pengacara`
 --
 ALTER TABLE `pengacara`
   ADD PRIMARY KEY (`id`),
   ADD KEY `email` (`email`);
 
 --
--- Indeks untuk tabel `pengguna`
+-- Indexes for table `pengguna`
 --
 ALTER TABLE `pengguna`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `email` (`email`);
 
 --
--- Indeks untuk tabel `tanya_jawab`
+-- Indexes for table `tanya_jawab`
 --
 ALTER TABLE `tanya_jawab`
   ADD PRIMARY KEY (`id`),
@@ -331,89 +397,95 @@ ALTER TABLE `tanya_jawab`
   ADD KEY `id_pengacara` (`id_pengacara`);
 
 --
--- Indeks untuk tabel `users`
+-- Indexes for table `users`
 --
 ALTER TABLE `users`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `email` (`email`);
 
 --
--- AUTO_INCREMENT untuk tabel yang dibuang
+-- AUTO_INCREMENT for dumped tables
 --
 
 --
--- AUTO_INCREMENT untuk tabel `admin`
+-- AUTO_INCREMENT for table `admin`
 --
 ALTER TABLE `admin`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
--- AUTO_INCREMENT untuk tabel `artikel`
+-- AUTO_INCREMENT for table `artikel`
 --
 ALTER TABLE `artikel`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
--- AUTO_INCREMENT untuk tabel `konsultasi`
+-- AUTO_INCREMENT for table `konsultasi`
 --
 ALTER TABLE `konsultasi`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT untuk tabel `log_aktivitas`
+-- AUTO_INCREMENT for table `log_aktivitas`
 --
 ALTER TABLE `log_aktivitas`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT untuk tabel `pendaftaran_pengacara`
+-- AUTO_INCREMENT for table `messages`
+--
+ALTER TABLE `messages`
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=40;
+
+--
+-- AUTO_INCREMENT for table `pendaftaran_pengacara`
 --
 ALTER TABLE `pendaftaran_pengacara`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
--- AUTO_INCREMENT untuk tabel `pengacara`
+-- AUTO_INCREMENT for table `pengacara`
 --
 ALTER TABLE `pengacara`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
 
 --
--- AUTO_INCREMENT untuk tabel `pengguna`
+-- AUTO_INCREMENT for table `pengguna`
 --
 ALTER TABLE `pengguna`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT untuk tabel `tanya_jawab`
+-- AUTO_INCREMENT for table `tanya_jawab`
 --
 ALTER TABLE `tanya_jawab`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT untuk tabel `users`
+-- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 
 --
--- Ketidakleluasaan untuk tabel pelimpahan (Dumped Tables)
+-- Constraints for dumped tables
 --
 
 --
--- Ketidakleluasaan untuk tabel `konsultasi`
+-- Constraints for table `konsultasi`
 --
 ALTER TABLE `konsultasi`
   ADD CONSTRAINT `konsultasi_ibfk_1` FOREIGN KEY (`id_pengguna`) REFERENCES `pengguna` (`id`) ON DELETE CASCADE,
   ADD CONSTRAINT `konsultasi_ibfk_2` FOREIGN KEY (`id_pengacara`) REFERENCES `pengacara` (`id`) ON DELETE CASCADE;
 
 --
--- Ketidakleluasaan untuk tabel `log_aktivitas`
+-- Constraints for table `log_aktivitas`
 --
 ALTER TABLE `log_aktivitas`
   ADD CONSTRAINT `log_aktivitas_ibfk_1` FOREIGN KEY (`id_pengguna`) REFERENCES `pengguna` (`id`) ON DELETE CASCADE;
 
 --
--- Ketidakleluasaan untuk tabel `tanya_jawab`
+-- Constraints for table `tanya_jawab`
 --
 ALTER TABLE `tanya_jawab`
   ADD CONSTRAINT `tanya_jawab_ibfk_1` FOREIGN KEY (`id_pengguna`) REFERENCES `pengguna` (`id`) ON DELETE CASCADE,
