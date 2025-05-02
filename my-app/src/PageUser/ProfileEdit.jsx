@@ -7,30 +7,39 @@ import "../CSS_User/Profil.css";
 
 const ProfileEdit = () => {
   const navigate = useNavigate();
-  const userId = localStorage.getItem("userId") || 2;
+  const storedUser = JSON.parse(localStorage.getItem("user"));
+  const userId = storedUser?.id;
 
   const [profileData, setProfileData] = useState({
     name: "",
     email: "",
     phone: "",
-    address: "", // ✅ tetap digunakan
+    address: "",
   });
 
-  const [showPopup, setShowPopup] = useState(false);
-  const [isSaved, setIsSaved] = useState(false);
-  const [error, setError] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+  const [successMessage, setSuccessMessage] = useState("");
 
   useEffect(() => {
+    if (!userId) {
+      setError("User tidak ditemukan. Silakan login ulang.");
+      setLoading(false);
+      return;
+    }
+
     fetch(`http://localhost:5000/api/profile/id/${userId}`)
       .then((response) => {
-        if (!response.ok) {
-          throw new Error("Gagal mengambil data profil");
-        }
+        if (!response.ok) throw new Error("Gagal mengambil data profil");
         return response.json();
       })
       .then((data) => {
-        setProfileData(data);
+        setProfileData({
+          name: data.name,
+          email: data.email,
+          phone: data.phone,
+          address: data.address || "",
+        });
         setLoading(false);
       })
       .catch((error) => {
@@ -39,14 +48,13 @@ const ProfileEdit = () => {
       });
   }, [userId]);
 
-  const togglePopup = () => setShowPopup(!showPopup);
-
-  const handleLogout = () => {
-    localStorage.removeItem("userId");
-    navigate("/");
+  const handleChange = (e) => {
+    setProfileData({ ...profileData, [e.target.name]: e.target.value });
   };
 
-  const handleSave = () => {
+  const handleSave = (e) => {
+    e.preventDefault();
+
     fetch(`http://localhost:5000/api/profile/update/${userId}`, {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
@@ -57,10 +65,21 @@ const ProfileEdit = () => {
         return response.json();
       })
       .then(() => {
-        setIsSaved(true);
-        setTimeout(() => setIsSaved(false), 3000);
+        setSuccessMessage("Profil berhasil disimpan!");
+        setTimeout(() => {
+          setSuccessMessage("");
+          navigate("/ProfileView");
+        }, 2000);
       })
-      .catch((error) => setError(error.message));
+      .catch((error) => {
+        setError("Gagal menyimpan perubahan");
+        setTimeout(() => setError(null), 3000);
+      });
+  };
+
+  const handleLogout = () => {
+    localStorage.removeItem("user");
+    navigate("/");
   };
 
   if (loading) return <p className="loading-message">Memuat data...</p>;
@@ -80,21 +99,25 @@ const ProfileEdit = () => {
               />
               <User size={80} color="#666" strokeWidth={1.5} />
             </div>
-            <button className="logout-btn" onClick={togglePopup}>Keluar Akun</button>
+            <button className="logout-btn" onClick={handleLogout}>Keluar Akun</button>
           </div>
 
           <div className="profile-main">
             <h1 className="section-title">Edit Profil</h1>
-            {error && <p className="error-message">Error: {error}</p>}
-            <form>
+            {error && <p className="error-message">{error}</p>}
+            {successMessage && <p className="save-message">{successMessage}</p>}
+
+            <form onSubmit={handleSave}>
               <div className="profile-info">
                 <div className="form-group">
                   <label htmlFor="name">Nama</label>
                   <input
                     id="name"
+                    name="name"
                     type="text"
                     value={profileData.name}
-                    onChange={(e) => setProfileData({ ...profileData, name: e.target.value })}
+                    onChange={handleChange}
+                    required
                   />
                 </div>
 
@@ -102,9 +125,11 @@ const ProfileEdit = () => {
                   <label htmlFor="email">Email</label>
                   <input
                     id="email"
+                    name="email"
                     type="email"
                     value={profileData.email}
-                    onChange={(e) => setProfileData({ ...profileData, email: e.target.value })}
+                    onChange={handleChange}
+                    required
                   />
                 </div>
 
@@ -112,9 +137,11 @@ const ProfileEdit = () => {
                   <label htmlFor="phone">Nomor Telepon</label>
                   <input
                     id="phone"
+                    name="phone"
                     type="text"
                     value={profileData.phone}
-                    onChange={(e) => setProfileData({ ...profileData, phone: e.target.value })}
+                    onChange={handleChange}
+                    required
                   />
                 </div>
 
@@ -122,33 +149,22 @@ const ProfileEdit = () => {
                   <label htmlFor="address">Alamat</label>
                   <input
                     id="address"
+                    name="address"
                     type="text"
                     value={profileData.address}
-                    onChange={(e) => setProfileData({ ...profileData, address: e.target.value })}
+                    onChange={handleChange}
                   />
                 </div>
 
-                <button type="button" className="save-btn" onClick={handleSave}>
+                <button type="submit" className="save-btn">
                   Simpan
                 </button>
               </div>
             </form>
-            {isSaved && <p className="save-message">Profil berhasil disimpan!</p>}
           </div>
         </div>
       </div>
 
-      {showPopup && (
-        <div className="popup-overlay">
-          <div className="popup-content">
-            <div className="popup-header">Anda Yakin Ingin Keluar?</div>
-            <div className="popup-button-container">
-              <button className="popup-button btn-cancel" onClick={togglePopup}>Batal</button>
-              <button className="popup-button btn-exit" onClick={handleLogout}>Keluar</button>
-            </div>
-          </div>
-        </div>
-      )}
       <div className="footer-separator"></div>
       <Footer />
     </div>

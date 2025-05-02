@@ -12,7 +12,6 @@ const ProfileView = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  // Ambil user dari localStorage
   const user = JSON.parse(localStorage.getItem("user"));
   const userId = user?.id;
 
@@ -25,9 +24,7 @@ const ProfileView = () => {
 
     fetch(`http://localhost:5000/api/profile/id/${userId}`)
       .then((response) => {
-        if (!response.ok) {
-          throw new Error("Gagal mengambil data profil");
-        }
+        if (!response.ok) throw new Error("Gagal mengambil data profil");
         return response.json();
       })
       .then((data) => {
@@ -40,9 +37,7 @@ const ProfileView = () => {
       });
   }, [userId]);
 
-  const togglePopup = () => {
-    setShowPopup(!showPopup);
-  };
+  const togglePopup = () => setShowPopup(!showPopup);
 
   const handleLogout = () => {
     localStorage.removeItem("user");
@@ -53,13 +48,8 @@ const ProfileView = () => {
     navigate("/ProfileEdit");
   };
 
-  if (loading) {
-    return <div className="loading">Memuat data...</div>;
-  }
-
-  if (error) {
-    return <div className="error">Terjadi kesalahan: {error}</div>;
-  }
+  if (loading) return <div className="loading">Memuat data...</div>;
+  if (error) return <div className="error">Terjadi kesalahan: {error}</div>;
 
   return (
     <div className="profile-page">
@@ -91,30 +81,30 @@ const ProfileView = () => {
 
           <div className="profile-main">
             <h1 className="section-title">Informasi Profil</h1>
-            <div className="profile-info">
-              <div className="form-group">
-                <label>Nama</label>
-                <p>{profileData.name}</p>
+            <div className="profile-info-grid">
+              <div className="profile-field">
+                <span className="profile-label">Nama</span>
+                <span className="profile-value">{profileData.name}</span>
               </div>
-
-              <div className="form-group">
-                <label>Email</label>
-                <p>{profileData.email}</p>
+              <div className="profile-field">
+                <span className="profile-label">Email</span>
+                <span className="profile-value">{profileData.email}</span>
               </div>
-
-              <div className="form-group">
-                <label>Nomor Telepon</label>
-                <p>{profileData.phone}</p>
+              <div className="profile-field">
+                <span className="profile-label">Nomor Telepon</span>
+                <span className="profile-value">{profileData.phone}</span>
               </div>
-
-              <div className="form-group">
-                <label>Tanggal Lahir</label>
-                <p>{profileData.birthdate}</p>
+              <div className="profile-field">
+                <span className="profile-label">Tanggal Lahir</span>
+                <span className="profile-value">{profileData.birthdate}</span>
               </div>
-
-              <div className="form-group">
-                <label>Jenis Kelamin</label>
-                <p>{profileData.gender}</p>
+              <div className="profile-field">
+                <span className="profile-label">Jenis Kelamin</span>
+                <span className="profile-value">{profileData.gender}</span>
+              </div>
+              <div className="profile-field">
+                <span className="profile-label">Alamat</span>
+                <span className="profile-value">{profileData.address || "Belum diisi"}</span>
               </div>
             </div>
           </div>
@@ -126,19 +116,15 @@ const ProfileView = () => {
           <div className="popup-content">
             <div className="popup-header">Anda Yakin Ingin Keluar?</div>
             <div className="popup-button-container">
-              <button className="popup-button btn-cancel" onClick={togglePopup}>
-                Batal
-              </button>
-              <button className="popup-button btn-exit" onClick={handleLogout}>
-                Keluar
-              </button>
+              <button className="popup-button btn-cancel" onClick={togglePopup}>Batal</button>
+              <button className="popup-button btn-exit" onClick={handleLogout}>Keluar</button>
             </div>
           </div>
         </div>
       )}
-<br/><br/><br/><br/>
+
+      <br /><br /><br /><br />
       <div className="footer-separator"></div>
-      
       <Footer />
     </div>
   );

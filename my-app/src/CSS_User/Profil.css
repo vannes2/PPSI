@@ -263,3 +263,35 @@ textarea {
     height: 80px;
   }
 }
+
+
+/* Tampilan grid untuk informasi profil user */
+.profile-info-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 10px 0;
+  margin-top: 10px;
+}
+
+.profile-field {
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 1px solid #ccc;
+  padding: 8px 0;
+  font-size: 15px;
+}
+
+.profile-label {
+  font-weight: bold;
+  color: #444;
+  width: 160px;
+  flex-shrink: 0;
+}
+
+.profile-value {
+  color: #222;
+  text-align: right;
+  flex: 1;
+  word-wrap: break-word;
+}
