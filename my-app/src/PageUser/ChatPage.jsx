@@ -3,7 +3,6 @@ import { useParams } from "react-router-dom"; // Import useParams untuk mengambi
 import io from "socket.io-client";
 import { FaLocationArrow } from "react-icons/fa";
 import HeaderAfter from "../components/HeaderAfter";
-import Footer from "../components/Footer";
 import "../CSS_User/ChatPage.css";
 
 const socket = io("http://localhost:5000");
@@ -172,8 +171,6 @@ const ChatPage = () => {
           )}
         </div>
       </div>
-      <div className="footer-separator"></div>
-      <Footer />
     </div>
   );
 };

@@ -2,16 +2,19 @@ const Artikel = require("../models/Artikel");
 
 exports.uploadArtikel = async (req, res) => {
   try {
-    const { judul, deskripsi } = req.body;
-    const file = req.file;
+    const { judul, deskripsi, jenis_hukum } = req.body;  // Retrieve the correct values from the body
+    const file = req.file;  // Retrieve the file
 
-    if (!judul || !deskripsi || !file) {
-      return res.status(400).json({ message: "Judul, deskripsi, dan file wajib diisi." });
+    console.log("Request body:", req.body);  // Log the received data
+
+    if (!judul || !deskripsi || !jenis_hukum || !file) {
+      return res.status(400).json({ message: "Judul, deskripsi, jenis hukum, dan file wajib diisi." });
     }
 
     const filePath = file.path;
 
-    Artikel.createArtikel(judul, deskripsi, filePath, (err, result) => {
+    // Ensure the data is passed correctly to the model
+    Artikel.createArtikel(judul, deskripsi, jenis_hukum, filePath, (err, result) => {
       if (err) {
         return res.status(500).json({ message: "Gagal menyimpan artikel." });
       }

@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.2.0
+-- version 5.2.1
 -- https://www.phpmyadmin.net/
 --
--- Host: localhost:3306
--- Generation Time: May 01, 2025 at 04:12 AM
--- Server version: 8.0.30
--- PHP Version: 8.3.16
+-- Host: 127.0.0.1
+-- Waktu pembuatan: 02 Bulan Mei 2025 pada 18.40
+-- Versi server: 10.4.32-MariaDB
+-- Versi PHP: 8.2.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -24,22 +24,22 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Table structure for table `admin`
+-- Struktur dari tabel `admin`
 --
 
 CREATE TABLE `admin` (
-  `id` int NOT NULL,
-  `name` varchar(100) COLLATE utf8mb4_general_ci NOT NULL,
-  `email` varchar(100) COLLATE utf8mb4_general_ci NOT NULL,
-  `phone` varchar(20) COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `password` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
-  `gender` enum('laki-laki','perempuan') COLLATE utf8mb4_general_ci NOT NULL,
+  `id` int(11) NOT NULL,
+  `name` varchar(100) NOT NULL,
+  `email` varchar(100) NOT NULL,
+  `phone` varchar(20) DEFAULT NULL,
+  `password` varchar(255) NOT NULL,
+  `gender` enum('laki-laki','perempuan') NOT NULL,
   `birthdate` date DEFAULT NULL,
-  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `admin`
+-- Dumping data untuk tabel `admin`
 --
 
 INSERT INTO `admin` (`id`, `name`, `email`, `phone`, `password`, `gender`, `birthdate`, `created_at`) VALUES
@@ -48,79 +48,81 @@ INSERT INTO `admin` (`id`, `name`, `email`, `phone`, `password`, `gender`, `birt
 -- --------------------------------------------------------
 
 --
--- Table structure for table `artikel`
+-- Struktur dari tabel `artikel`
 --
 
 CREATE TABLE `artikel` (
-  `id` int NOT NULL,
-  `judul` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
-  `deskripsi` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
-  `filePath` varchar(255) COLLATE utf8mb4_general_ci NOT NULL
+  `id` int(11) NOT NULL,
+  `judul` varchar(255) NOT NULL,
+  `deskripsi` varchar(255) NOT NULL,
+  `jenis_hukum` enum('KDRT','perceraian','pelanggaran_HAM') DEFAULT NULL,
+  `filePath` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `artikel`
+-- Dumping data untuk tabel `artikel`
 --
 
-INSERT INTO `artikel` (`id`, `judul`, `deskripsi`, `filePath`) VALUES
-(1, 'coba coba', '', 'uploads\\1744711708938.pdf'),
-(2, 'percobaan 4', '', 'uploads\\1744711863315.pdf'),
-(3, 'percobaan 4', '', 'uploads\\1744711867145.pdf'),
-(4, 'percobaan 5', '', 'uploads\\1744712032876.pdf'),
-(5, 'Cerdas Hukum', '', 'uploads\\1744859807604.pdf'),
-(6, 'percobaan 5', '', 'uploads\\1744864158716.pdf'),
-(7, 'percoban 7', '', 'uploads\\1744864306136.pdf'),
-(8, 'baru', 'test', 'uploads\\1744864840891.pdf'),
-(9, 'Artikel 2', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor i', 'uploads\\1744867479755.pdf'),
-(10, 'Hukum Indonesia', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer vel augue eget velit dictum volutpat. Sed nec risus nec neque egestas tristique. Vivamus id metus vel elit fringilla iaculis. Curabitur at sapien id neque feugiat vehicula. Suspendisse poten', 'uploads\\1744896391267.pdf');
+INSERT INTO `artikel` (`id`, `judul`, `deskripsi`, `jenis_hukum`, `filePath`) VALUES
+(1, 'coba coba', '', 'KDRT', 'uploads\\1744711708938.pdf'),
+(2, 'percobaan 4', '', 'KDRT', 'uploads\\1744711863315.pdf'),
+(3, 'percobaan 4', '', 'perceraian', 'uploads\\1744711867145.pdf'),
+(4, 'percobaan 5', '', 'perceraian', 'uploads\\1744712032876.pdf'),
+(5, 'Cerdas Hukum', '', 'perceraian', 'uploads\\1744859807604.pdf'),
+(6, 'percobaan 5', '', 'pelanggaran_HAM', 'uploads\\1744864158716.pdf'),
+(7, 'percoban 7', '', 'pelanggaran_HAM', 'uploads\\1744864306136.pdf'),
+(8, 'baru', 'test', 'perceraian', 'uploads\\1744864840891.pdf'),
+(9, 'Artikel 2', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor i', 'KDRT', 'uploads\\1744867479755.pdf'),
+(10, 'Hukum Indonesia', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer vel augue eget velit dictum volutpat. Sed nec risus nec neque egestas tristique. Vivamus id metus vel elit fringilla iaculis. Curabitur at sapien id neque feugiat vehicula. Suspendisse poten', 'pelanggaran_HAM', 'uploads\\1744896391267.pdf'),
+(26, 'sss', 'sss', 'KDRT', 'uploads\\1746201172608.pdf');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `konsultasi`
+-- Struktur dari tabel `konsultasi`
 --
 
 CREATE TABLE `konsultasi` (
-  `id` int NOT NULL,
-  `id_pengguna` int NOT NULL,
-  `id_pengacara` int NOT NULL,
+  `id` int(11) NOT NULL,
+  `id_pengguna` int(11) NOT NULL,
+  `id_pengacara` int(11) NOT NULL,
   `tanggal_konsultasi` datetime NOT NULL,
-  `status` enum('Dijadwalkan','Selesai','Dibatalkan') COLLATE utf8mb4_general_ci DEFAULT 'Dijadwalkan',
-  `catatan` text COLLATE utf8mb4_general_ci
+  `status` enum('Dijadwalkan','Selesai','Dibatalkan') DEFAULT 'Dijadwalkan',
+  `catatan` text DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `log_aktivitas`
+-- Struktur dari tabel `log_aktivitas`
 --
 
 CREATE TABLE `log_aktivitas` (
-  `id` int NOT NULL,
-  `id_pengguna` int NOT NULL,
-  `aktivitas` text COLLATE utf8mb4_general_ci NOT NULL,
-  `waktu` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
+  `id` int(11) NOT NULL,
+  `id_pengguna` int(11) NOT NULL,
+  `aktivitas` text NOT NULL,
+  `waktu` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `messages`
+-- Struktur dari tabel `messages`
 --
 
 CREATE TABLE `messages` (
-  `id` int NOT NULL,
-  `sender_id` int NOT NULL,
-  `sender_role` enum('user','pengacara') COLLATE utf8mb4_general_ci NOT NULL,
-  `receiver_id` int NOT NULL,
-  `receiver_role` enum('user','pengacara') COLLATE utf8mb4_general_ci NOT NULL,
-  `message` text COLLATE utf8mb4_general_ci NOT NULL,
-  `timestamp` datetime DEFAULT CURRENT_TIMESTAMP,
-  `is_read` tinyint(1) DEFAULT '0'
+  `id` int(11) NOT NULL,
+  `sender_id` int(11) NOT NULL,
+  `sender_role` enum('user','pengacara') NOT NULL,
+  `receiver_id` int(11) NOT NULL,
+  `receiver_role` enum('user','pengacara') NOT NULL,
+  `message` text NOT NULL,
+  `timestamp` datetime DEFAULT current_timestamp(),
+  `is_read` tinyint(1) DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `messages`
+-- Dumping data untuk tabel `messages`
 --
 
 INSERT INTO `messages` (`id`, `sender_id`, `sender_role`, `receiver_id`, `receiver_role`, `message`, `timestamp`, `is_read`) VALUES
@@ -162,68 +164,70 @@ INSERT INTO `messages` (`id`, `sender_id`, `sender_role`, `receiver_id`, `receiv
 (36, 1, 'user', 1, 'pengacara', 'woi', '2025-04-30 20:15:20', 0),
 (37, 1, 'pengacara', 1, 'user', 'oi', '2025-05-01 00:51:37', 0),
 (38, 1, 'pengacara', 1, 'user', 'hari ini cerah ya', '2025-05-01 00:51:45', 0),
-(39, 1, 'user', 1, 'pengacara', 'iyaaa yaaa', '2025-05-01 00:52:03', 0);
+(39, 1, 'user', 1, 'pengacara', 'iyaaa yaaa', '2025-05-01 00:52:03', 0),
+(40, 1, 'pengacara', 2, 'user', 'tes', '2025-05-02 14:16:21', 0),
+(41, 1, 'pengacara', 2, 'user', 'hi', '2025-05-02 14:16:24', 0);
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `pendaftaran_pengacara`
+-- Struktur dari tabel `pendaftaran_pengacara`
 --
 
 CREATE TABLE `pendaftaran_pengacara` (
-  `id` int NOT NULL,
-  `nama` varchar(100) COLLATE utf8mb4_general_ci NOT NULL,
-  `ktp` varchar(30) COLLATE utf8mb4_general_ci NOT NULL,
+  `id` int(11) NOT NULL,
+  `nama` varchar(100) NOT NULL,
+  `ktp` varchar(30) NOT NULL,
   `tanggal_lahir` date NOT NULL,
-  `jenis_kelamin` enum('Laki-laki','Perempuan') COLLATE utf8mb4_general_ci NOT NULL,
-  `alamat` text COLLATE utf8mb4_general_ci NOT NULL,
-  `email` varchar(100) COLLATE utf8mb4_general_ci NOT NULL,
-  `no_hp` varchar(20) COLLATE utf8mb4_general_ci NOT NULL,
-  `nomor_induk_advokat` varchar(50) COLLATE utf8mb4_general_ci NOT NULL,
-  `universitas` varchar(100) COLLATE utf8mb4_general_ci NOT NULL,
-  `pendidikan` varchar(100) COLLATE utf8mb4_general_ci NOT NULL,
-  `spesialisasi` varchar(150) COLLATE utf8mb4_general_ci NOT NULL,
-  `pengalaman` int NOT NULL,
-  `upload_ktp` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `upload_foto` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `upload_kartu_advokat` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `upload_pkpa` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `username` varchar(100) COLLATE utf8mb4_general_ci NOT NULL,
-  `password` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
-  `tanggal_daftar` datetime DEFAULT CURRENT_TIMESTAMP
+  `jenis_kelamin` enum('Laki-laki','Perempuan') NOT NULL,
+  `alamat` text NOT NULL,
+  `email` varchar(100) NOT NULL,
+  `no_hp` varchar(20) NOT NULL,
+  `nomor_induk_advokat` varchar(50) NOT NULL,
+  `universitas` varchar(100) NOT NULL,
+  `pendidikan` varchar(100) NOT NULL,
+  `spesialisasi` varchar(150) NOT NULL,
+  `pengalaman` int(11) NOT NULL,
+  `upload_ktp` varchar(255) DEFAULT NULL,
+  `upload_foto` varchar(255) DEFAULT NULL,
+  `upload_kartu_advokat` varchar(255) DEFAULT NULL,
+  `upload_pkpa` varchar(255) DEFAULT NULL,
+  `username` varchar(100) NOT NULL,
+  `password` varchar(255) NOT NULL,
+  `tanggal_daftar` datetime DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `pengacara`
+-- Struktur dari tabel `pengacara`
 --
 
 CREATE TABLE `pengacara` (
-  `id` int NOT NULL,
-  `nama` varchar(100) COLLATE utf8mb4_general_ci NOT NULL,
-  `ktp` varchar(30) COLLATE utf8mb4_general_ci NOT NULL,
+  `id` int(11) NOT NULL,
+  `nama` varchar(100) NOT NULL,
+  `ktp` varchar(30) NOT NULL,
   `tanggal_lahir` date NOT NULL,
-  `jenis_kelamin` enum('Laki-laki','Perempuan') COLLATE utf8mb4_general_ci NOT NULL,
-  `alamat` text COLLATE utf8mb4_general_ci NOT NULL,
-  `email` varchar(100) COLLATE utf8mb4_general_ci NOT NULL,
-  `no_hp` varchar(20) COLLATE utf8mb4_general_ci NOT NULL,
-  `nomor_induk_advokat` varchar(50) COLLATE utf8mb4_general_ci NOT NULL,
-  `universitas` varchar(100) COLLATE utf8mb4_general_ci NOT NULL,
-  `pendidikan` varchar(100) COLLATE utf8mb4_general_ci NOT NULL,
-  `spesialisasi` varchar(150) COLLATE utf8mb4_general_ci NOT NULL,
-  `pengalaman` int NOT NULL,
-  `upload_ktp` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `upload_foto` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `upload_kartu_advokat` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `upload_pkpa` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `username` varchar(50) COLLATE utf8mb4_general_ci NOT NULL,
-  `password` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
-  `tanggal_daftar` datetime DEFAULT CURRENT_TIMESTAMP
+  `jenis_kelamin` enum('Laki-laki','Perempuan') NOT NULL,
+  `alamat` text NOT NULL,
+  `email` varchar(100) NOT NULL,
+  `no_hp` varchar(20) NOT NULL,
+  `nomor_induk_advokat` varchar(50) NOT NULL,
+  `universitas` varchar(100) NOT NULL,
+  `pendidikan` varchar(100) NOT NULL,
+  `spesialisasi` varchar(150) NOT NULL,
+  `pengalaman` int(11) NOT NULL,
+  `upload_ktp` varchar(255) DEFAULT NULL,
+  `upload_foto` varchar(255) DEFAULT NULL,
+  `upload_kartu_advokat` varchar(255) DEFAULT NULL,
+  `upload_pkpa` varchar(255) DEFAULT NULL,
+  `username` varchar(50) NOT NULL,
+  `password` varchar(255) NOT NULL,
+  `tanggal_daftar` datetime DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `pengacara`
+-- Dumping data untuk tabel `pengacara`
 --
 
 INSERT INTO `pengacara` (`id`, `nama`, `ktp`, `tanggal_lahir`, `jenis_kelamin`, `alamat`, `email`, `no_hp`, `nomor_induk_advokat`, `universitas`, `pendidikan`, `spesialisasi`, `pengalaman`, `upload_ktp`, `upload_foto`, `upload_kartu_advokat`, `upload_pkpa`, `username`, `password`, `tanggal_daftar`) VALUES
@@ -257,56 +261,56 @@ INSERT INTO `pengacara` (`id`, `nama`, `ktp`, `tanggal_lahir`, `jenis_kelamin`, 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `pengguna`
+-- Struktur dari tabel `pengguna`
 --
 
 CREATE TABLE `pengguna` (
-  `id` int NOT NULL,
-  `nama` varchar(100) COLLATE utf8mb4_general_ci NOT NULL,
-  `email` varchar(100) COLLATE utf8mb4_general_ci NOT NULL,
-  `password_hash` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
-  `no_hp` varchar(15) COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `alamat` text COLLATE utf8mb4_general_ci,
-  `tanggal_daftar` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
+  `id` int(11) NOT NULL,
+  `nama` varchar(100) NOT NULL,
+  `email` varchar(100) NOT NULL,
+  `password_hash` varchar(255) NOT NULL,
+  `no_hp` varchar(15) DEFAULT NULL,
+  `alamat` text DEFAULT NULL,
+  `tanggal_daftar` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `tanya_jawab`
+-- Struktur dari tabel `tanya_jawab`
 --
 
 CREATE TABLE `tanya_jawab` (
-  `id` int NOT NULL,
-  `id_pengguna` int NOT NULL,
-  `id_pengacara` int NOT NULL,
-  `pertanyaan` text COLLATE utf8mb4_general_ci NOT NULL,
-  `jawaban` text COLLATE utf8mb4_general_ci,
-  `status` enum('Menunggu','Dijawab') COLLATE utf8mb4_general_ci DEFAULT 'Menunggu',
-  `tanggal_tanya` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `id` int(11) NOT NULL,
+  `id_pengguna` int(11) NOT NULL,
+  `id_pengacara` int(11) NOT NULL,
+  `pertanyaan` text NOT NULL,
+  `jawaban` text DEFAULT NULL,
+  `status` enum('Menunggu','Dijawab') DEFAULT 'Menunggu',
+  `tanggal_tanya` timestamp NOT NULL DEFAULT current_timestamp(),
   `tanggal_jawab` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `users`
+-- Struktur dari tabel `users`
 --
 
 CREATE TABLE `users` (
-  `id` int NOT NULL,
-  `name` varchar(100) COLLATE utf8mb4_general_ci NOT NULL,
-  `email` varchar(100) COLLATE utf8mb4_general_ci NOT NULL,
-  `phone` varchar(20) COLLATE utf8mb4_general_ci NOT NULL,
-  `password` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
-  `gender` enum('L','P') COLLATE utf8mb4_general_ci NOT NULL,
+  `id` int(11) NOT NULL,
+  `name` varchar(100) NOT NULL,
+  `email` varchar(100) NOT NULL,
+  `phone` varchar(20) NOT NULL,
+  `password` varchar(255) NOT NULL,
+  `gender` enum('L','P') NOT NULL,
   `birthdate` date NOT NULL,
-  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `address` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  `address` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `users`
+-- Dumping data untuk tabel `users`
 --
 
 INSERT INTO `users` (`id`, `name`, `email`, `phone`, `password`, `gender`, `birthdate`, `created_at`, `address`) VALUES
@@ -334,20 +338,20 @@ INSERT INTO `users` (`id`, `name`, `email`, `phone`, `password`, `gender`, `birt
 --
 
 --
--- Indexes for table `admin`
+-- Indeks untuk tabel `admin`
 --
 ALTER TABLE `admin`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `email` (`email`);
 
 --
--- Indexes for table `artikel`
+-- Indeks untuk tabel `artikel`
 --
 ALTER TABLE `artikel`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `konsultasi`
+-- Indeks untuk tabel `konsultasi`
 --
 ALTER TABLE `konsultasi`
   ADD PRIMARY KEY (`id`),
@@ -355,41 +359,41 @@ ALTER TABLE `konsultasi`
   ADD KEY `id_pengacara` (`id_pengacara`);
 
 --
--- Indexes for table `log_aktivitas`
+-- Indeks untuk tabel `log_aktivitas`
 --
 ALTER TABLE `log_aktivitas`
   ADD PRIMARY KEY (`id`),
   ADD KEY `id_pengguna` (`id_pengguna`);
 
 --
--- Indexes for table `messages`
+-- Indeks untuk tabel `messages`
 --
 ALTER TABLE `messages`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `pendaftaran_pengacara`
+-- Indeks untuk tabel `pendaftaran_pengacara`
 --
 ALTER TABLE `pendaftaran_pengacara`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `email` (`email`);
 
 --
--- Indexes for table `pengacara`
+-- Indeks untuk tabel `pengacara`
 --
 ALTER TABLE `pengacara`
   ADD PRIMARY KEY (`id`),
   ADD KEY `email` (`email`);
 
 --
--- Indexes for table `pengguna`
+-- Indeks untuk tabel `pengguna`
 --
 ALTER TABLE `pengguna`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `email` (`email`);
 
 --
--- Indexes for table `tanya_jawab`
+-- Indeks untuk tabel `tanya_jawab`
 --
 ALTER TABLE `tanya_jawab`
   ADD PRIMARY KEY (`id`),
@@ -397,95 +401,95 @@ ALTER TABLE `tanya_jawab`
   ADD KEY `id_pengacara` (`id_pengacara`);
 
 --
--- Indexes for table `users`
+-- Indeks untuk tabel `users`
 --
 ALTER TABLE `users`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `email` (`email`);
 
 --
--- AUTO_INCREMENT for dumped tables
+-- AUTO_INCREMENT untuk tabel yang dibuang
 --
 
 --
--- AUTO_INCREMENT for table `admin`
+-- AUTO_INCREMENT untuk tabel `admin`
 --
 ALTER TABLE `admin`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
--- AUTO_INCREMENT for table `artikel`
+-- AUTO_INCREMENT untuk tabel `artikel`
 --
 ALTER TABLE `artikel`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
 
 --
--- AUTO_INCREMENT for table `konsultasi`
+-- AUTO_INCREMENT untuk tabel `konsultasi`
 --
 ALTER TABLE `konsultasi`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT for table `log_aktivitas`
+-- AUTO_INCREMENT untuk tabel `log_aktivitas`
 --
 ALTER TABLE `log_aktivitas`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT for table `messages`
+-- AUTO_INCREMENT untuk tabel `messages`
 --
 ALTER TABLE `messages`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=40;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=42;
 
 --
--- AUTO_INCREMENT for table `pendaftaran_pengacara`
+-- AUTO_INCREMENT untuk tabel `pendaftaran_pengacara`
 --
 ALTER TABLE `pendaftaran_pengacara`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
--- AUTO_INCREMENT for table `pengacara`
+-- AUTO_INCREMENT untuk tabel `pengacara`
 --
 ALTER TABLE `pengacara`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
 
 --
--- AUTO_INCREMENT for table `pengguna`
+-- AUTO_INCREMENT untuk tabel `pengguna`
 --
 ALTER TABLE `pengguna`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT for table `tanya_jawab`
+-- AUTO_INCREMENT untuk tabel `tanya_jawab`
 --
 ALTER TABLE `tanya_jawab`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT for table `users`
+-- AUTO_INCREMENT untuk tabel `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 
 --
--- Constraints for dumped tables
+-- Ketidakleluasaan untuk tabel pelimpahan (Dumped Tables)
 --
 
 --
--- Constraints for table `konsultasi`
+-- Ketidakleluasaan untuk tabel `konsultasi`
 --
 ALTER TABLE `konsultasi`
   ADD CONSTRAINT `konsultasi_ibfk_1` FOREIGN KEY (`id_pengguna`) REFERENCES `pengguna` (`id`) ON DELETE CASCADE,
   ADD CONSTRAINT `konsultasi_ibfk_2` FOREIGN KEY (`id_pengacara`) REFERENCES `pengacara` (`id`) ON DELETE CASCADE;
 
 --
--- Constraints for table `log_aktivitas`
+-- Ketidakleluasaan untuk tabel `log_aktivitas`
 --
 ALTER TABLE `log_aktivitas`
   ADD CONSTRAINT `log_aktivitas_ibfk_1` FOREIGN KEY (`id_pengguna`) REFERENCES `pengguna` (`id`) ON DELETE CASCADE;
 
 --
--- Constraints for table `tanya_jawab`
+-- Ketidakleluasaan untuk tabel `tanya_jawab`
 --
 ALTER TABLE `tanya_jawab`
   ADD CONSTRAINT `tanya_jawab_ibfk_1` FOREIGN KEY (`id_pengguna`) REFERENCES `pengguna` (`id`) ON DELETE CASCADE,

@@ -6,25 +6,28 @@ import "../CSS_Admin/Pengacara.css";
 const TambahArtikel = () => {
   const [judul, setJudul] = useState("");
   const [deskripsi, setDeskripsi] = useState("");
+  const [jenis_hukum, setJenishukum] = useState(""); // Ensure this is correct
   const [filePdf, setFilePdf] = useState(null);
-
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (!judul || !deskripsi || !filePdf) {
-      return alert("Judul, deskripsi, dan file PDF wajib diisi!");
+    if (!judul || !deskripsi || !filePdf || !jenis_hukum) {
+      return alert("Judul, deskripsi, jenis hukum, dan file PDF wajib diisi!");
     }
 
+    // Create FormData object and append fields
     const formData = new FormData();
     formData.append("judul", judul);
     formData.append("deskripsi", deskripsi);
+    formData.append("jenis_hukum", jenis_hukum);
     formData.append("file", filePdf);
+    
 
     try {
       await axios.post("http://localhost:5000/api/artikel", formData, {
         headers: {
-          "Content-Type": "multipart/form-data",
+          "Content-Type": "multipart/form-data", // Ensure it's set to multipart/form-data
         },
       });
 
@@ -40,18 +43,12 @@ const TambahArtikel = () => {
 
   return (
     <div className="Tambah-Artikel">
-      {/* Sidebar diganti komponen */}
       <SidebarAdmin />
 
-      {/* Main Content */}
       <main className="admin-content">
         <h2 className="admin-title">Tambah Artikel Baru</h2>
 
-        <form
-          onSubmit={handleSubmit}
-          className="admin-form"
-          encType="multipart/form-data"
-        >
+        <form onSubmit={handleSubmit} className="admin-form" encType="multipart/form-data">
           <input
             type="text"
             placeholder="Judul Artikel"
@@ -60,6 +57,18 @@ const TambahArtikel = () => {
             className="admin-input"
             required
           />
+
+          <select
+            value={jenis_hukum}
+            onChange={(e) => setJenishukum(e.target.value)} // Update the dropdown value correctly
+            className="admin-input"
+            required
+          >
+            <option value="">Pilih Jenis Hukum</option>
+            <option value="KDRT">PDF Hukum KDRT</option>
+            <option value="perceraian">PDF Hukum Perceraian</option>
+            <option value="pelanggaran_HAM">PDF Hukum Pelanggaran HAM</option>
+          </select>
 
           <input
             type="text"

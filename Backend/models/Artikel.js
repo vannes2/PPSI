@@ -1,9 +1,11 @@
 const db = require("../config/database");
 
 const Artikel = {
-  createArtikel: (judul, deskripsi, filePath, callback) => {
-    const sql = "INSERT INTO artikel (judul, deskripsi, filePath) VALUES (?, ?, ?)";
-    db.query(sql, [judul, deskripsi, filePath], (err, result) => {
+  createArtikel: (judul, deskripsi, jenis_hukum, filePath, callback) => {
+    // Hapus koma ekstra setelah filePath
+    const sql = "INSERT INTO artikel (judul, deskripsi, jenis_hukum, filePath) VALUES (?, ?, ?, ?)";
+    
+    db.query(sql, [judul, deskripsi, jenis_hukum, filePath], (err, result) => {
       if (err) {
         console.error("Error saat insert artikel:", err);
         return callback(err);
@@ -11,7 +13,7 @@ const Artikel = {
       callback(null, result);
     });
   },
-
+  
   getAllArtikel: (callback) => {
     const sql = "SELECT * FROM artikel";
     db.query(sql, (err, results) => {
