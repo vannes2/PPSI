@@ -7,19 +7,14 @@ import "../CSS_Lawyer/ProfilLawyer.css";
 const ProfileEditLawyer = () => {
   const navigate = useNavigate();
   const [profileData, setProfileData] = useState({
-    nama: "",
-    alamat: "",
-    email: "",
-    no_hp: "",
-    universitas: "",
-    pendidikan: "",
-    spesialisasi: "",
-    pengalaman: "",
-    username: "",
+    nama: "", alamat: "", email: "", no_hp: "",
+    universitas: "", pendidikan: "", spesialisasi: "",
+    pengalaman: "", username: ""
   });
 
+  const [uploadFoto, setUploadFoto] = useState(null);
+  const [previewFoto, setPreviewFoto] = useState(null);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
   const [successMessage, setSuccessMessage] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
 
@@ -28,24 +23,22 @@ const ProfileEditLawyer = () => {
 
   useEffect(() => {
     if (!userId) {
-      setError("User tidak ditemukan. Silakan login ulang.");
+      setErrorMessage("User tidak ditemukan.");
       setLoading(false);
       return;
     }
 
     fetch(`http://localhost:5000/api/lawyer/profile/${userId}`)
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error("Gagal mengambil data profil");
-        }
-        return response.json();
-      })
-      .then((data) => {
+      .then(res => res.json())
+      .then(data => {
         setProfileData(data);
+        if (data.upload_foto) {
+          setPreviewFoto(`http://localhost:5000/uploads/${data.upload_foto}`);
+        }
         setLoading(false);
       })
-      .catch((error) => {
-        setError(error.message);
+      .catch(() => {
+        setErrorMessage("Gagal memuat data profil.");
         setLoading(false);
       });
   }, [userId]);
@@ -57,57 +50,77 @@ const ProfileEditLawyer = () => {
     });
   };
 
-  const handleSubmit = (e) => {
+  const handleFotoChange = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      setUploadFoto(file);
+      setPreviewFoto(URL.createObjectURL(file));
+    }
+  };
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
-    fetch(`http://localhost:5000/api/lawyer/profile/update/${userId}`, {
-      method: "PUT",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify(profileData)
-    })
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error("Gagal memperbarui profil");
-        }
-        return response.json();
-      })
-      .then(() => {
-        setSuccessMessage("Profil berhasil diperbarui!");
-        setTimeout(() => {
-          setSuccessMessage("");
-          navigate("/ProfileLawyer");
-        }, 2000);
-      })
-      .catch((error) => {
-        console.error("Error updating profile:", error);
-        setErrorMessage("Terjadi kesalahan saat memperbarui profil");
-        setTimeout(() => setErrorMessage(""), 3000);
+    const formData = new FormData();
+    Object.keys(profileData).forEach(key => {
+      formData.append(key, profileData[key]);
+    });
+
+    if (uploadFoto) {
+      formData.append("upload_foto", uploadFoto);
+    }
+
+    try {
+      const response = await fetch(`http://localhost:5000/api/lawyer/profile/update/${userId}`, {
+        method: "PUT",
+        body: formData
       });
+
+      if (!response.ok) throw new Error("Gagal memperbarui profil");
+
+      setSuccessMessage("Profil berhasil diperbarui!");
+      setTimeout(() => {
+        setSuccessMessage("");
+        navigate("/ProfileLawyer");
+      }, 2000);
+    } catch (err) {
+      console.error(err);
+      setErrorMessage("Terjadi kesalahan saat memperbarui profil");
+      setTimeout(() => setErrorMessage(""), 3000);
+    }
   };
 
   if (loading) {
     return <div className="profile-page"><p className="loading">Memuat data...</p></div>;
   }
 
-  if (error) {
-    return <div className="profile-page"><p className="error">Terjadi kesalahan: {error}</p></div>;
-  }
-
   return (
     <div className="profile-page">
       <HeaderLawyer />
 
-      {successMessage && (
-        <div className="profile-page-toast success">{successMessage}</div>
-      )}
-      {errorMessage && (
-        <div className="profile-page-toast error">{errorMessage}</div>
-      )}
+      {successMessage && <div className="profile-page-toast success">{successMessage}</div>}
+      {errorMessage && <div className="profile-page-toast error">{errorMessage}</div>}
 
       <div className="profile-page-container">
-        <form className="profile-page-profile-container" onSubmit={handleSubmit}>
+        <div className="profile-page-profile-sidebar">
+          <div className="profile-page-profile-picture">
+            {previewFoto ? (
+              <img src={previewFoto} alt="Preview Foto" />
+            ) : (
+              <img src="/assets/images/emptyprofile.png" alt="Default Foto" />
+            )}
+          </div>
+
+          <div className="profile-page-upload-container">
+            <input
+              type="file"
+              accept="image/*"
+              name="upload_foto"
+              onChange={handleFotoChange}
+            />
+          </div>
+        </div>
+        <form className="profile-page-profile-container" onSubmit={handleSubmit} encType="multipart/form-data">
           <div className="profile-page-profile-main">
             <h1 className="profile-page-section-title">Edit Profil Pengacara</h1>
             <div className="profile-page-profile-info">
@@ -120,7 +133,7 @@ const ProfileEditLawyer = () => {
                 { label: "Pendidikan", name: "pendidikan" },
                 { label: "Spesialisasi", name: "spesialisasi" },
                 { label: "Pengalaman", name: "pengalaman" },
-                { label: "Username", name: "username" },
+                { label: "Username", name: "username" }
               ].map((field, index) => (
                 <div className="profile-page-form-group" key={index}>
                   <label>{field.label}</label>
@@ -151,6 +164,7 @@ const ProfileEditLawyer = () => {
         </form>
       </div>
 
+      <div className="footer-separator"></div>
       <Footer />
     </div>
   );

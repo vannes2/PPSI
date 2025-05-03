@@ -39,9 +39,7 @@ const ProfileLawyer = () => {
       });
   }, [userId]);
 
-  const togglePopup = () => {
-    setShowPopup(!showPopup);
-  };
+  const togglePopup = () => setShowPopup(!showPopup);
 
   const handleLogout = () => {
     localStorage.removeItem("user");
@@ -55,7 +53,7 @@ const ProfileLawyer = () => {
   const formatTanggal = (tanggal) => {
     if (!tanggal) return "-";
     const date = new Date(tanggal);
-    return date.toISOString().split('T')[0]; // hasil: 1988-05-11
+    return date.toISOString().split('T')[0];
   };
 
   if (loading) {
@@ -73,18 +71,18 @@ const ProfileLawyer = () => {
         <div className="profile-page-profile-container">
           <div className="profile-page-profile-sidebar">
             <div className="profile-page-profile-picture">
-              {profileData.upload_foto ? (
+              {profileData?.upload_foto ? (
                 <img
                   src={`http://localhost:5000/uploads/${profileData.upload_foto}`}
-                  alt="Profile"
-                  onError={(e) => (e.target.src = "/assets/images/emptyprofile.png")}
+                  alt="Pas Foto"
+                  onError={(e) => {
+                    e.target.onerror = null;
+                    e.target.src = "/assets/images/emptyprofile.png";
+                  }}
                 />
               ) : (
                 <>
-                  <img
-                    src="/assets/images/emptyprofile.png"
-                    alt="Profile Default"
-                  />
+                  <img src="/assets/images/emptyprofile.png" alt="Pas Foto Default" />
                   <User size={80} color="#666" strokeWidth={1.5} />
                 </>
               )}
@@ -145,8 +143,9 @@ const ProfileLawyer = () => {
           </div>
         </div>
       )}
-            <div className="footer-separator"></div>
-            <Footer />
+
+      <div className="footer-separator"></div>
+      <Footer />
     </div>
   );
 };

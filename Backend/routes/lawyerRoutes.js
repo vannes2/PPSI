@@ -4,6 +4,7 @@ const lawyerController = require('../controllers/lawyerController');
 const multer = require('multer');
 const path = require('path');
 
+// Setup storage multer
 const storage = multer.diskStorage({
     destination: (req, file, cb) => cb(null, 'uploads/'),
     filename: (req, file, cb) => cb(null, Date.now() + '-' + file.originalname)
@@ -11,7 +12,7 @@ const storage = multer.diskStorage({
 
 const upload = multer({ storage: storage });
 
-// Register lawyer
+// ✅ Register lawyer dengan multiple fields upload
 router.post(
     '/lawyers/register',
     upload.fields([
@@ -23,22 +24,26 @@ router.post(
     lawyerController.register
 );
 
-// List pendaftar
+// ✅ List pendaftar
 router.get('/lawyers/registrations', lawyerController.getRegistrations);
 
-// Approve lawyer
+// ✅ Approve lawyer
 router.post('/lawyers/approve/:id', lawyerController.approveLawyer);
 
-// Route baru untuk tolak pendaftaran
+// ✅ Tolak pendaftaran
 router.delete("/lawyers/reject/:id", lawyerController.rejectLawyer);
 
-// profil pengacara
+// ✅ Ambil profil pengacara
 router.get('/lawyer/profile/:id', lawyerController.getLawyerProfile);
 
-// Update profil Edit pengacara
-router.put('/lawyer/profile/update/:id', lawyerController.updateLawyerProfile);
+// ✅ Update profil dengan upload foto
+router.put(
+    '/lawyer/profile/update/:id',
+    upload.single('upload_foto'),
+    lawyerController.updateLawyerProfile
+);
 
+// ✅ Get semua pengacara
 router.get('/pengacara', lawyerController.getAllLawyers);
-
 
 module.exports = router;
