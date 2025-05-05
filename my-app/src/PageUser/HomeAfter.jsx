@@ -3,6 +3,8 @@ import { Link } from "react-router-dom";
 import "../CSS_User/Home.css";
 import HeaderAfter from "../components/HeaderAfter";
 import Footer from "../components/Footer";
+// Import icons from react-icons
+import { FaCommentDots, FaUserCheck, FaBalanceScale } from "react-icons/fa";
 
 const HomeAfter = () => {
   const [pengacara, setPengacara] = useState([]);
@@ -50,23 +52,25 @@ const HomeAfter = () => {
           <img src="/assets/img/themis.png" alt="Ilustrasi Header" />
         </div>
       </section>
-
       {/* Card Buttons for 3 Options */}
       <section className="features-lawyer-home">
-        <h2>Mengapa Bergabung dengan Kami?</h2>
+        <h2>Konsultasikan Permasalah Hukum Anda Bersama Kami!</h2>
         <div className="features-grid-home">
-          <div className="feature-item-home">
-            <h3>Perluas Jangkauan</h3>
-            <p>Temui klien dari berbagai daerah tanpa batasan geografis.</p>
-          </div>
-          <div className="feature-item-home">
-            <h3>Kelola Jadwal Mudah</h3>
-            <p>Atur waktu konsultasi Anda secara fleksibel langsung dari dashboard.</p>
-          </div>
-          <div className="feature-item-home">
-            <h3>Bangun Reputasi</h3>
-            <p>Dapatkan ulasan positif dan tingkatkan kredibilitas profesional Anda.</p>
-          </div>
+          <Link to="/konsultasi" className="feature-item-home">
+            <FaCommentDots className="icon-feature" /> {/* Font Awesome Icon */}
+            <h3>Konsultasi Hukum</h3>
+            <p>Klik untuk mulai sekarang dan selesaikan masalah hukum Anda bersama kami!</p>
+          </Link>
+          <Link to="/konsultasi" className="feature-item-home">
+            <FaUserCheck className="icon-feature" /> {/* Font Awesome Icon */}
+            <h3>Ajukan Kasus Anda</h3>
+            <p>Dapatkan pendampingan hukum profesional dari pengacara berpengalaman.</p>
+          </Link>
+          <Link to="/konsultasi" className="feature-item-home">
+            <FaBalanceScale className="icon-feature" /> {/* Font Awesome Icon */}
+            <h3>Legal Connect</h3>
+            <p>Cari & Pilih layanan advokat terbaik yang sesuai dengan kebutuhan Anda.</p>
+          </Link>
         </div>
       </section>
 
