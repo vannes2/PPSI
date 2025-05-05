@@ -177,6 +177,38 @@ body {
   margin-top: 40px;
 }
 
+.topik-hukum {
+  text-align: center;
+  margin: 50px 0;
+}
+
+.topik-hukum h2 {
+  font-size: 24px;
+  margin-bottom: 20px;
+}
+
+.topik-icons {
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+}
+
+.topik-icon {
+  text-align: center;
+  margin: 15px;
+}
+
+.topik-icon img {
+  width: 80px;
+  height: 80px;
+  margin-bottom: 10px;
+}
+
+.topik-icon p {
+  font-size: 14px;
+  font-weight: bold;
+}
+
 /* ======================= RESPONSIVE ======================= */
 @media (max-width: 1024px) {
   .home-before-page .hero {

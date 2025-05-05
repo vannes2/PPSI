@@ -1,10 +1,11 @@
 import { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import Footer from "../components/Footer";
 import HeaderAfter from "../components/HeaderAfter";
 import "../CSS_User/konsultasi.css";
 
 const Konsultasi = () => {
+    const { state } = useLocation(); // Mengambil state yang diteruskan dari HomeAfter.jsx
     const [pengacara, setPengacara] = useState([]);
     const [searchTerm, setSearchTerm] = useState("");
     const [selectedSpesialisasi, setSelectedSpesialisasi] = useState("");
@@ -26,16 +27,20 @@ const Konsultasi = () => {
             });
     }, []);
 
+    // List spesialisasi yang unik dari data pengacara
     const spesialisasiList = [...new Set(pengacara.map(advokat => advokat.spesialisasi))];
+
+    // Cek jika state dan jenis_hukum ada, lalu filter berdasarkan jenis_hukum
+    const jenisHukum = state?.jenis_hukum || "";  // Jika state atau jenis_hukum tidak ada, pakai string kosong
 
     const filteredPengacara = pengacara.filter(advokat =>
         advokat.nama.toLowerCase().includes(searchTerm.toLowerCase()) &&
-        (selectedSpesialisasi === "" || advokat.spesialisasi === selectedSpesialisasi)
+        (selectedSpesialisasi === "" || advokat.spesialisasi === selectedSpesialisasi) &&
+        (jenisHukum === "" || advokat.spesialisasi.includes(jenisHukum))
     );
 
-    // Fungsi navigasi ke halaman chat sesuai dengan ID pengacara
+    // Fungsi navigasi ke halaman chat dengan pengacara berdasarkan ID
     const handleKonsultasiClick = (advokatId) => {
-        // Navigasi ke halaman chat dengan pengacara yang dipilih berdasarkan ID
         navigate(`/chat/pengacara/${advokatId}`);
     };
 
