@@ -51,11 +51,29 @@ const HomeAfter = () => {
         </div>
       </section>
 
+      {/* Card Buttons for 3 Options */}
+      <section className="features-lawyer-home">
+        <h2>Mengapa Bergabung dengan Kami?</h2>
+        <div className="features-grid-home">
+          <div className="feature-item-home">
+            <h3>Perluas Jangkauan</h3>
+            <p>Temui klien dari berbagai daerah tanpa batasan geografis.</p>
+          </div>
+          <div className="feature-item-home">
+            <h3>Kelola Jadwal Mudah</h3>
+            <p>Atur waktu konsultasi Anda secara fleksibel langsung dari dashboard.</p>
+          </div>
+          <div className="feature-item-home">
+            <h3>Bangun Reputasi</h3>
+            <p>Dapatkan ulasan positif dan tingkatkan kredibilitas profesional Anda.</p>
+          </div>
+        </div>
+      </section>
+
       {/* Ikon Pilih Topik Hukum */}
       <section className="topik-hukum">
         <h2>Pilih topik hukum yang diperlukan!</h2>
         <div className="topik-icons">
-          {/* Link ke Konsultasi dengan state jenis_hukum */}
           <Link to="/Konsultasi" state={{ jenis_hukum: "Hukum Pidana" }}>
             <div className="topik-icon">
               <i className="fas fa-coins" style={{ fontSize: "40px" }}></i>
