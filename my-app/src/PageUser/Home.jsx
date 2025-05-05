@@ -34,6 +34,7 @@ const Home = () => {
       <br />
       <br />
       <br />
+
       {/* Hero Section */}
       <section className="hero">
         <div className="hero-text">
@@ -53,6 +54,28 @@ const Home = () => {
         </div>
         <div className="hero-image">
           <img src="/assets/img/themis.png" alt="Ilustrasi Header" />
+        </div>
+      </section>
+
+      {/* Section Info Fitur */}
+      <section className="features-lawyer-home">
+        <h2>Konsultasikan Permasalah Hukum Anda Bersama Kami!</h2>
+        <div className="features-grid-home">
+          <Link to="/Login" className="feature-item-home">
+            <i className="fas fa-comments icon-feature"></i>
+            <h3>Konsultasi Hukum</h3>
+            <p>Klik untuk mulai sekarang dan selesaikan masalah hukum Anda bersama kami!</p>
+          </Link>
+          <Link to="/Login" className="feature-item-home">
+            <i className="fas fa-user-check icon-feature"></i>
+            <h3>Ajukan Kasus Anda</h3>
+            <p>Dapatkan pendampingan hukum profesional dari pengacara berpengalaman.</p>
+          </Link>
+          <Link to="/Login" className="feature-item-home">
+            <i className="fas fa-balance-scale icon-feature"></i>
+            <h3>Legal Connect</h3>
+            <p>Cari & Pilih layanan advokat terbaik yang sesuai dengan kebutuhan Anda.</p>
+          </Link>
         </div>
       </section>
 
@@ -120,7 +143,6 @@ const Home = () => {
                   <br />
                   Pengalaman: {advokat.pengalaman} tahun
                 </p>
-
                 <Link to="/Login">
                   <button className="btn-konsultasi">Klik Konsultasi</button>
                 </Link>
@@ -133,7 +155,6 @@ const Home = () => {
       </section>
 
       <div className="footer-separator"></div>
-      {/* Footer */}
       <Footer />
     </div>
   );

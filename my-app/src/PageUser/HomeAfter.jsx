@@ -75,45 +75,41 @@ const HomeAfter = () => {
       </section>
 
       {/* Ikon Pilih Topik Hukum */}
-      <section className="topik-hukum">
-        <h2>Pilih topik hukum yang diperlukan!</h2>
-        <div className="topik-icons">
-          <Link to="/Konsultasi" state={{ jenis_hukum: "Hukum Pidana" }}>
-            <div className="topik-icon">
-              <i className="fas fa-coins" style={{ fontSize: "40px" }}></i>
-              <p>Hukum Pidana</p>
-            </div>
-          </Link>
-
-          <Link to="/Konsultasi" state={{ jenis_hukum: "HAKI" }}>
-            <div className="topik-icon">
-              <i className="fas fa-file-alt" style={{ fontSize: "40px" }}></i>
-              <p>HAKI</p>
-            </div>
-          </Link>
-
-          <Link to="/Konsultasi" state={{ jenis_hukum: "KDRT" }}>
-            <div className="topik-icon">
-              <i className="fas fa-handcuffs" style={{ fontSize: "40px" }}></i>
-              <p>KDRT</p>
-            </div>
-          </Link>
-
-          <Link to="/Konsultasi" state={{ jenis_hukum: "Perceraian" }}>
-            <div className="topik-icon">
-              <i className="fas fa-gavel" style={{ fontSize: "40px" }}></i>
-              <p>Perceraian</p>
-            </div>
-          </Link>
-
-          <Link to="/Konsultasi" state={{ jenis_hukum: "Pinjaman Online" }}>
-            <div className="topik-icon">
-              <i className="fas fa-dollar-sign" style={{ fontSize: "40px" }}></i>
-              <p>Hukum Perdata</p>
-            </div>
-          </Link>
-        </div>
-      </section>
+        <section className="topik-hukum">
+          <h2>Pilih topik hukum yang diperlukan!</h2>
+          <div className="topik-icons">
+            <Link to="/Konsultasi" state={{ jenis_hukum: "Hukum Pidana" }}>
+              <div className="topik-icon">
+                <i className="fas fa-coins"></i>
+                <p>Hukum Pidana</p>
+              </div>
+            </Link>
+            <Link to="/Konsultasi" state={{ jenis_hukum: "HAKI" }}>
+              <div className="topik-icon">
+                <i className="fas fa-file-alt"></i>
+                <p>HAKI</p>
+              </div>
+            </Link>
+            <Link to="/Konsultasi" state={{ jenis_hukum: "KDRT" }}>
+              <div className="topik-icon">
+                <i className="fas fa-handcuffs"></i>
+                <p>KDRT</p>
+              </div>
+            </Link>
+            <Link to="/Konsultasi" state={{ jenis_hukum: "Perceraian" }}>
+              <div className="topik-icon">
+                <i className="fas fa-gavel"></i>
+                <p>Perceraian</p>
+              </div>
+            </Link>
+            <Link to="/Konsultasi" state={{ jenis_hukum: "Pinjaman Online" }}>
+              <div className="topik-icon">
+                <i className="fas fa-dollar-sign"></i>
+                <p>Hukum Perdata</p>
+              </div>
+            </Link>
+          </div>
+        </section>
 
       {/* Produk Section */}
       <section className="products">

@@ -176,10 +176,13 @@ body {
   background-color: #B31312;
   margin-top: 40px;
 }
-
 .topik-hukum {
+  background: #ffffff;
   text-align: center;
-  margin: 50px 0;
+  padding: 60px 10%;
+  margin: 0;
+  width: 100vw;
+  box-sizing: border-box;
 }
 
 .topik-hukum h2 {
@@ -198,9 +201,9 @@ body {
   margin: 15px;
 }
 
-.topik-icon img {
-  width: 80px;
-  height: 80px;
+.topik-icon i {
+  font-size: 40px;
+  color: #5f5ce2;
   margin-bottom: 10px;
 }
 
