@@ -176,6 +176,8 @@ body {
   background-color: #B31312;
   margin-top: 40px;
 }
+
+/* ================= Topik Hukum ================= */
 .topik-hukum {
   background: #ffffff;
   text-align: center;
@@ -212,8 +214,7 @@ body {
   font-weight: bold;
 }
 
-/* ====================== New Button Section for 3 buttons ===================== */
-/* Features Lawyer Section */
+/* ====================== Features Lawyer Section ===================== */
 .features-lawyer-home {
   padding: 50px 10%;
   background-color: #ffffff;
@@ -243,6 +244,13 @@ body {
   min-width: 250px;
   flex: 1 1 30%;
   text-align: center;
+  transition: all 0.3s ease-in-out;
+}
+
+/* Efek Hover Ditambahkan di sini */
+.feature-item-home:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.15);
 }
 
 .feature-item-home h3 {
@@ -256,16 +264,14 @@ body {
 
 /* Style the icons */
 .icon-feature {
-  font-size: 40px; /* Adjust the size */
-  color: #B31312; /* Icon color */
-  margin-bottom: 15px; /* Space between icon and text */
+  font-size: 40px;
+  color: #B31312;
+  margin-bottom: 15px;
 }
 
-/* Optionally, you can add some hover effects for the icons */
 .icon-feature:hover {
   color: #e52d27;
 }
-
 
 /* ======================= RESPONSIVE ======================= */
 @media (max-width: 1024px) {
@@ -299,4 +305,3 @@ body {
     margin-bottom: 15px;
   }
 }
-
