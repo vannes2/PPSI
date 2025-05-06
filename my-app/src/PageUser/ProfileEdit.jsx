@@ -155,7 +155,6 @@ const ProfileEdit = () => {
                     onChange={handleChange}
                   />
                 </div>
-
                 <button type="submit" className="save-btn">
                   Simpan
                 </button>

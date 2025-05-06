@@ -117,9 +117,9 @@ header {
 .edit-profile-btn:hover,
 .popup-button:hover,
 .auth-buttons button:hover {
-  background: white;
-  color: #B31312;
-  border: 2px solid #B31312;
+  background: white !important;
+  color: #B31312 !important ;
+  border: 2px solid #B31312 !important;
 }
 
 /* KECUALI tombol Batal */
@@ -294,4 +294,136 @@ textarea {
   text-align: right;
   flex: 1;
   word-wrap: break-word;
+}
+
+.submit-btn-link {
+  display: inline-block;
+  background: linear-gradient(to right, #b31217, #e52d27); /* Gradiasi merah */
+  color: white;
+  font-weight: bold;
+  padding: 10px 20px;
+  font-size: 16px;
+  border-radius: 8px;
+  text-align: center;
+  cursor: pointer;
+  transition: background-color 0.3s ease, color 0.3s ease, border 0.3s ease;
+  text-decoration: none; /* Menghapus underline pada link */
+  width: 100%;
+}
+
+/* Efek Hover */
+.submit-btn-link:hover {
+  background: white;            /* Background putih saat hover */
+  color: #B31312;               /* Tulisan merah saat hover */
+  border: 2px solid #B31312;    /* Border merah saat hover */
+}
+
+/* ================= RESPONSIVE ================= */
+
+/* Untuk layar dengan lebar maksimal 1024px (tablet) */
+@media (max-width: 1024px) {
+  .profile-page .profile-container {
+    flex-direction: column;
+    width: 90%;
+  }
+
+  .profile-page .profile-sidebar {
+    flex-direction: row;
+    justify-content: space-between;
+    width: 100%;
+    border-right: none;
+    border-bottom: 1px solid #b0bec5;
+    padding-bottom: 20px;
+    margin-bottom: 20px;
+  }
+
+  .profile-main {
+    padding-left: 10px;
+  }
+
+  .profile-info-grid {
+    font-size: 14px;
+  }
+}
+
+/* Untuk layar dengan lebar maksimal 768px (tablet kecil atau landscape phone) */
+@media (max-width: 768px) {
+  .profile-page .profile-sidebar {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .profile-page .profile-container {
+    width: 100%;
+    padding: 15px;
+  }
+
+  .profile-page .profile-picture {
+    width: 80px;
+    height: 80px;
+  }
+
+  .profile-info-grid {
+    font-size: 13px;
+  }
+
+  .section-title {
+    font-size: 18px;
+  }
+
+  .profile-main {
+    padding-left: 10px;
+  }
+
+  input,
+  select,
+  textarea {
+    width: 100%;
+  }
+
+  .profile-field {
+    font-size: 14px;
+  }
+}
+
+/* Untuk layar dengan lebar maksimal 480px (ponsel) */
+@media (max-width: 480px) {
+  .profile-page .profile-sidebar {
+    width: 100%;
+    padding-bottom: 20px;
+  }
+
+  .profile-page .profile-picture {
+    width: 70px;
+    height: 70px;
+  }
+
+  .profile-info-grid {
+    font-size: 12px;
+    padding: 5px 0;
+  }
+
+  .profile-main {
+    padding-left: 10px;
+  }
+
+  .section-title {
+    font-size: 16px;
+  }
+
+  input,
+  select,
+  textarea {
+    width: 100%;
+    padding: 8px;
+  }
+
+  .profile-field {
+    font-size: 13px;
+  }
+
+  .submit-btn-link {
+    font-size: 14px;
+    padding: 8px 15px;
+  }
 }
