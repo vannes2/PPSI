@@ -1,4 +1,4 @@
-/* Reset dan font */
+/* Reset and font */
 * {
   margin: 0;
   padding: 0;
@@ -178,6 +178,7 @@ body {
 }
 
 /* ================= Topik Hukum ================= */
+/* ================= Topik Hukum ================= */
 .topik-hukum {
   background: #ffffff;
   text-align: center;
@@ -188,30 +189,87 @@ body {
 }
 
 .topik-hukum h2 {
-  font-size: 24px;
-  margin-bottom: 20px;
+  font-size: 28px; /* Increased heading size */
+  margin-bottom: 30px; /* Increased margin */
+  color: #333;
 }
 
 .topik-icons {
   display: flex;
-  justify-content: space-around;
+  justify-content: space-evenly; /* Evenly distribute icons */
   flex-wrap: wrap;
+  gap: 20px; /* Added gap between icons */
 }
 
 .topik-icon {
   text-align: center;
-  margin: 15px;
+  margin: 20px; /* Increased margin for spacing */
+  max-width: 200px; /* Limit the width to prevent icons from being too large */
 }
 
 .topik-icon i {
-  font-size: 40px;
+  font-size: 70px; /* Increased icon size */
   color: #5f5ce2;
-  margin-bottom: 10px;
+  margin-bottom: 15px; /* Adjusted margin */
+}
+
+.topik-icon img {
+  width: 80px; /* Set a fixed width for images */
+  height: auto;
+  margin-bottom: 15px; /* Adjusted margin */
 }
 
 .topik-icon p {
-  font-size: 14px;
+  font-size: 16px; /* Increased font size */
   font-weight: bold;
+  color: #333;
+  margin-top: 10px; /* Added margin between icon and text */
+}
+
+/* ======================= RESPONSIVE ======================= */
+@media (max-width: 1024px) {
+  .topik-icons {
+    justify-content: center; /* Center icons for smaller screens */
+  }
+
+  .topik-icon {
+    min-width: 150px; /* Adjusted size for smaller screens */
+  }
+
+  .topik-icon i {
+    font-size: 60px; /* Decreased icon size on smaller screens */
+  }
+
+  .topik-icon img {
+    width: 70px; /* Smaller image size for mobile */
+  }
+}
+
+@media (max-width: 768px) {
+  .topik-hukum h2 {
+    font-size: 24px; /* Decreased heading size for smaller screens */
+  }
+
+  .topik-icons {
+    justify-content: center;
+    gap: 15px; /* Smaller gap between icons */
+  }
+
+  .topik-icon {
+    min-width: 120px; /* Further adjustment for smaller screens */
+  }
+
+  .topik-icon i {
+    font-size: 50px; /* Further decreased icon size */
+  }
+
+  .topik-icon img {
+    width: 60px; /* Even smaller images */
+  }
+
+  .topik-icon p {
+    font-size: 14px; /* Smaller font for better fit */
+  }
 }
 
 /* ====================== Features Lawyer Section ===================== */
@@ -264,7 +322,7 @@ body {
 
 /* Style the icons */
 .icon-feature {
-  font-size: 40px;
+  font-size: 50px; /* Adjusted icon size */
   color: #B31312;
   margin-bottom: 15px;
 }
