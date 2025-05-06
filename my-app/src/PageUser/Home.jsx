@@ -83,7 +83,7 @@ const Home = () => {
       <section className="topik-hukum">
         <h2>Pilih topik hukum yang diperlukan!</h2>
         <div className="topik-icons">
-          <Link to="/Konsultasi" state={{ jenis_hukum: "Hukum Pidana" }}>
+          <Link to="/Login" state={{ jenis_hukum: "Hukum Pidana" }}>
             <div className="topik-icon">
               <img
                 className="topik-icons"
@@ -93,7 +93,7 @@ const Home = () => {
               <p>Hukum Pidana</p>
             </div>
           </Link>
-          <Link to="/Konsultasi" state={{ jenis_hukum: "HAKI" }}>
+          <Link to="/login" state={{ jenis_hukum: "HAKI" }}>
             <div className="topik-icon">
               <img
                 className="topik-icons"
@@ -103,7 +103,7 @@ const Home = () => {
               <p>HAKI</p>
             </div>
           </Link>
-          <Link to="/Konsultasi" state={{ jenis_hukum: "KDRT" }}>
+          <Link to="/login" state={{ jenis_hukum: "KDRT" }}>
           <div className="topik-icon">
               <img
                 className="topik-icons"
@@ -113,7 +113,7 @@ const Home = () => {
               <p>Hukum KDRT</p>
             </div>
           </Link>
-          <Link to="/Konsultasi" state={{ jenis_hukum: "Perceraian" }}>
+          <Link to="/login" state={{ jenis_hukum: "Perceraian" }}>
             <div className="topik-icon">
             <img
                 className="topik-icons"
@@ -123,7 +123,7 @@ const Home = () => {
               <p>Perceraian</p>
             </div>
           </Link>
-          <Link to="/Konsultasi" state={{ jenis_hukum: "Pinjaman Online" }}>
+          <Link to="/login" state={{ jenis_hukum: "Pinjaman Online" }}>
             <div className="topik-icon">
             <img
                 className="topik-icons"

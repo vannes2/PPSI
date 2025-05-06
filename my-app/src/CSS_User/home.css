@@ -11,6 +11,10 @@ body {
   color: #333;
 }
 
+.home-before-page{
+  overflow-x: hidden;
+}
+
 /* ================= Header Buttons ================= */
 /* Tombol di Header dan tombol 'Selengkapnya' */
 .auth-buttons button,
