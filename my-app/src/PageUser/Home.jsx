@@ -83,34 +83,54 @@ const Home = () => {
       <section className="topik-hukum">
         <h2>Pilih topik hukum yang diperlukan!</h2>
         <div className="topik-icons">
-          <Link to="/Konsultasi" state={{ jenis_hukum: "Ekonomi Gini" }}>
+          <Link to="/Konsultasi" state={{ jenis_hukum: "Hukum Pidana" }}>
             <div className="topik-icon">
-              <i className="fas fa-coins" style={{ fontSize: "40px" }}></i>
-              <p>Ekonomi Gini</p>
+              <img
+                className="topik-icons"
+                alt="hukumpidana"
+                src="assets/img/iconsHukumPidana.png"
+              />
+              <p>Hukum Pidana</p>
             </div>
           </Link>
           <Link to="/Konsultasi" state={{ jenis_hukum: "HAKI" }}>
             <div className="topik-icon">
-              <i className="fas fa-file-alt" style={{ fontSize: "40px" }}></i>
+              <img
+                className="topik-icons"
+                alt="Haki"
+                src="assets/img/iconsHAKI.png"
+              />
               <p>HAKI</p>
             </div>
           </Link>
           <Link to="/Konsultasi" state={{ jenis_hukum: "KDRT" }}>
-            <div className="topik-icon">
-              <i className="fas fa-handcuffs" style={{ fontSize: "40px" }}></i>
-              <p>KDRT</p>
+          <div className="topik-icon">
+              <img
+                className="topik-icons"
+                alt="hukumpidana"
+                src="assets/img/iconsKDRT.png"
+              />
+              <p>Hukum KDRT</p>
             </div>
           </Link>
           <Link to="/Konsultasi" state={{ jenis_hukum: "Perceraian" }}>
             <div className="topik-icon">
-              <i className="fas fa-gavel" style={{ fontSize: "40px" }}></i>
+            <img
+                className="topik-icons"
+                alt="Perceraian"
+                src="assets/img/iconsPerceraian.png"
+              />
               <p>Perceraian</p>
             </div>
           </Link>
           <Link to="/Konsultasi" state={{ jenis_hukum: "Pinjaman Online" }}>
             <div className="topik-icon">
-              <i className="fas fa-dollar-sign" style={{ fontSize: "40px" }}></i>
-              <p>Pinjaman Online</p>
+            <img
+                className="topik-icons"
+                alt="Perdata"
+                src="assets/img/iconsHukumPerdata.png"
+              />
+              <p>Hukum Perdata</p>
             </div>
           </Link>
         </div>
