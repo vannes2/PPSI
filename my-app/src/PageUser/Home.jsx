@@ -100,7 +100,7 @@ const Home = () => {
                 alt="Haki"
                 src="assets/img/iconsHAKI.png"
               />
-              <p>HAKI</p>
+          <p>HAKI</p>
             </div>
           </Link>
           <Link to="/login" state={{ jenis_hukum: "KDRT" }}>
@@ -110,7 +110,7 @@ const Home = () => {
                 alt="hukumpidana"
                 src="assets/img/iconsKDRT.png"
               />
-              <p>Hukum KDRT</p>
+         <p>Hukum KDRT</p>
             </div>
           </Link>
           <Link to="/login" state={{ jenis_hukum: "Perceraian" }}>
