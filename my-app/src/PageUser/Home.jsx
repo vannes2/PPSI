@@ -9,7 +9,7 @@ const Home = () => {
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    fetch("http://localhost:5000/api/pengacara")
+    fetch("http://localhost:5000/api/profilpengacara") // ✅ gunakan endpoint yang benar
       .then((response) => {
         if (!response.ok) {
           throw new Error(`HTTP error! Status: ${response.status}`);
@@ -29,7 +29,6 @@ const Home = () => {
 
   return (
     <div className="home-before-page">
-      {/* Navbar */}
       <Header />
       <br />
       <br />
@@ -57,7 +56,7 @@ const Home = () => {
         </div>
       </section>
 
-      {/* Section Info Fitur */}
+      {/* Fitur Section */}
       <section className="features-lawyer-home">
         <h2>Konsultasikan Permasalah Hukum Anda Bersama Kami!</h2>
         <div className="features-grid-home">
@@ -79,64 +78,26 @@ const Home = () => {
         </div>
       </section>
 
-      {/* Ikon Pilih Topik Hukum */}
+      {/* Topik Hukum */}
       <section className="topik-hukum">
         <h2>Pilih topik hukum yang diperlukan!</h2>
         <div className="topik-icons">
-          <Link to="/Login" state={{ jenis_hukum: "Hukum Pidana" }}>
-            <div className="topik-icon">
-              <img
-                className="topik-icons"
-                alt="hukumpidana"
-                src="assets/img/iconsHukumPidana.png"
-              />
-              <p>Hukum Pidana</p>
-            </div>
-          </Link>
-          <Link to="/login" state={{ jenis_hukum: "HAKI" }}>
-            <div className="topik-icon">
-              <img
-                className="topik-icons"
-                alt="Haki"
-                src="assets/img/iconsHAKI.png"
-              />
-          <p>HAKI</p>
-            </div>
-          </Link>
-          <Link to="/login" state={{ jenis_hukum: "KDRT" }}>
-          <div className="topik-icon">
-              <img
-                className="topik-icons"
-                alt="hukumpidana"
-                src="assets/img/iconsKDRT.png"
-              />
-         <p>Hukum KDRT</p>
-            </div>
-          </Link>
-          <Link to="/login" state={{ jenis_hukum: "Perceraian" }}>
-            <div className="topik-icon">
-            <img
-                className="topik-icons"
-                alt="Perceraian"
-                src="assets/img/iconsPerceraian.png"
-              />
-              <p>Perceraian</p>
-            </div>
-          </Link>
-          <Link to="/login" state={{ jenis_hukum: "Pinjaman Online" }}>
-            <div className="topik-icon">
-            <img
-                className="topik-icons"
-                alt="Perdata"
-                src="assets/img/iconsHukumPerdata.png"
-              />
-              <p>Hukum Perdata</p>
-            </div>
-          </Link>
+          {["Hukum Pidana", "HAKI", "KDRT", "Perceraian", "Pinjaman Online"].map((topik) => (
+            <Link to="/Login" state={{ jenis_hukum: topik }} key={topik}>
+              <div className="topik-icon">
+                <img
+                  className="topik-icons"
+                  src={`/assets/img/icons${topik.replace(/\s/g, "")}.png`}
+                  alt={topik}
+                />
+                <p>{topik}</p>
+              </div>
+            </Link>
+          ))}
         </div>
       </section>
 
-      {/* Produk Section */}
+      {/* Advokat Yang Tersedia */}
       <section className="products">
         <div className="product-section">
           <h2 className="product-title">Advokat Yang Tersedia</h2>
@@ -153,16 +114,29 @@ const Home = () => {
             pengacara.slice(0, 4).map((advokat, index) => (
               <div key={advokat.id || index} className="product-item">
                 <img
-                  src={`/assets/images/advokat${index + 1}.png`}
-                  alt="Advokat"
+                  src={
+                    advokat.upload_foto
+                      ? `http://localhost:5000/uploads/${advokat.upload_foto}`
+                      : "/assets/img/default-profile.png"
+                  }
+                  alt={advokat.nama}
+                  className="foto-advokat"
+                  style={{
+                    width: "120px",
+                    height: "120px",
+                    borderRadius: "50%",
+                    objectFit: "cover",
+                    marginBottom: "10px"
+                  }}
+                  onError={(e) => {
+                    e.target.onerror = null;
+                    e.target.src = "/assets/img/default-profile.png";
+                  }}
                 />
-                <p>
-                  <strong>{advokat.nama}</strong>
-                  <br />
-                  {advokat.spesialisasi}
-                  <br />
-                  Pengalaman: {advokat.pengalaman} tahun
-                </p>
+                <h3>{advokat.nama}</h3>
+                <p><strong>Spesialisasi:</strong> {advokat.spesialisasi || "-"}</p>
+                <p><strong>Pengalaman:</strong> {advokat.pengalaman ?? 0} tahun</p>
+                <p><strong>Harga Konsultasi:</strong> Rp{advokat.harga_konsultasi ? advokat.harga_konsultasi.toLocaleString() : "-"}</p>
                 <Link to="/Login">
                   <button className="btn-konsultasi">Klik Konsultasi</button>
                 </Link>
@@ -179,4 +153,5 @@ const Home = () => {
     </div>
   );
 };
+
 export default Home;
