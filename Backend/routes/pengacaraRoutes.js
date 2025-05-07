@@ -31,10 +31,10 @@ router.get("/pengacara", (req, res) => {
     });
 });
 
-// ✅ Tambahan: GET pengacara by ID
+// ✅ GET: Detail pengacara by ID (tambahkan harga_konsultasi)
 router.get("/pengacara/:id", (req, res) => {
     const { id } = req.params;
-    const sql = "SELECT id, nama, spesialisasi, pengalaman FROM pengacara WHERE id = ?";
+    const sql = "SELECT id, nama, spesialisasi, pengalaman, email, pendidikan, harga_konsultasi FROM pengacara WHERE id = ?";
     db.query(sql, [id], (err, results) => {
         if (err) {
             console.error("Gagal mengambil pengacara:", err);
