@@ -3,7 +3,6 @@ import { Link } from "react-router-dom";
 import "../CSS_User/Home.css";
 import HeaderAfter from "../components/HeaderAfter";
 import Footer from "../components/Footer";
-// Import icons from react-icons
 import { FaCommentDots, FaUserCheck, FaBalanceScale } from "react-icons/fa";
 
 const HomeAfter = () => {
@@ -11,7 +10,7 @@ const HomeAfter = () => {
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    fetch("http://localhost:5000/api/pengacara")
+    fetch("http://localhost:5000/api/profilpengacara") // ✅ gunakan endpoint yang benar
       .then((response) => {
         if (!response.ok) {
           throw new Error(`HTTP error! Status: ${response.status}`);
@@ -35,13 +34,12 @@ const HomeAfter = () => {
       <br />
       <br />
       <br />
+
+      {/* Hero Section */}
       <section className="hero">
         <div className="hero-text">
           <h1 id="top-hero">Selesaikan Masalah Hukum Anda Bersama Kami</h1>
-          <p>
-            Segera daftarkan diri Anda dan selesaikan masalah hukum Anda bersama
-            Advokat terpercaya dari Kami
-          </p>
+          <p>Daftarkan diri Anda dan konsultasikan masalah hukum Anda bersama Advokat terpercaya.</p>
           <div className="buttons">
             <Link to="/konsultasi">
               <button>Konsultasi</button>
@@ -53,86 +51,48 @@ const HomeAfter = () => {
         </div>
       </section>
 
-      {/* Card Buttons for 3 Options */}
+      {/* Fitur Section */}
       <section className="features-lawyer-home">
         <h2>Konsultasikan Permasalah Hukum Anda Bersama Kami!</h2>
         <div className="features-grid-home">
           <Link to="/konsultasi" className="feature-item-home">
-            <FaCommentDots className="icon-feature" /> {/* Font Awesome Icon */}
+            <FaCommentDots className="icon-feature" />
             <h3>Konsultasi Hukum</h3>
-            <p>Klik untuk mulai sekarang dan selesaikan masalah hukum Anda bersama kami!</p>
+            <p>Selesaikan masalah hukum Anda bersama advokat terbaik.</p>
           </Link>
           <Link to="/konsultasi" className="feature-item-home">
-            <FaUserCheck className="icon-feature" /> {/* Font Awesome Icon */}
-            <h3>Ajukan Kasus Anda</h3>
-            <p>Dapatkan pendampingan hukum profesional dari pengacara berpengalaman.</p>
+            <FaUserCheck className="icon-feature" />
+            <h3>Ajukan Kasus</h3>
+            <p>Dapatkan pendampingan hukum dari profesional.</p>
           </Link>
           <Link to="/konsultasi" className="feature-item-home">
-            <FaBalanceScale className="icon-feature" /> {/* Font Awesome Icon */}
+            <FaBalanceScale className="icon-feature" />
             <h3>Legal Connect</h3>
-            <p>Cari & Pilih layanan advokat terbaik yang sesuai dengan kebutuhan Anda.</p>
+            <p>Pilih layanan hukum sesuai kebutuhan Anda.</p>
           </Link>
         </div>
       </section>
 
-      {/* Ikon Pilih Topik Hukum */}
+      {/* Topik Hukum */}
       <section className="topik-hukum">
         <h2>Pilih topik hukum yang diperlukan!</h2>
         <div className="topik-icons">
-          <Link to="/Konsultasi" state={{ jenis_hukum: "Hukum Pidana" }}>
-            <div className="topik-icon">
-              <img
-                className="topik-icons"
-                alt="hukumpidana"
-                src="assets/img/iconsHukumPidana.png"
-              />
-              <p>Hukum Pidana</p>
-            </div>
-          </Link>
-          <Link to="/Konsultasi" state={{ jenis_hukum: "HAKI" }}>
-            <div className="topik-icon">
-              <img
-                className="topik-icons"
-                alt="H"
-                src="assets/img/iconsHAKI.png"
-              />
-              <p>HAKI</p>
-            </div>
-          </Link>
-          <Link to="/Konsultasi" state={{ jenis_hukum: "KDRT" }}>
-          <div className="topik-icon">
-              <img
-                className="topik-icons"
-                alt="hukumpidana"
-                src="assets/img/iconsKDRT.png"
-              />
-              <p>Hukum KDRT</p>
-            </div>
-          </Link>
-          <Link to="/Konsultasi" state={{ jenis_hukum: "Perceraian" }}>
-            <div className="topik-icon">
-            <img
-                className="topik-icons"
-                alt="Perceraian"
-                src="assets/img/iconsPerceraian.png"
-              />
-              <p>Perceraian</p>
-            </div>
-          </Link>
-          <Link to="/Konsultasi" state={{ jenis_hukum: "Pinjaman Online" }}>
-            <div className="topik-icon">
-            <img
-                className="topik-icons"
-                alt="Perceraian"
-                src="assets/img/iconsHukumPerdata.png"
-              />
-              <p>Hukum Perdata</p>
-            </div>
-          </Link>
+          {["Hukum Pidana", "HAKI", "KDRT", "Perceraian", "Hukum Perdata"].map((topik) => (
+            <Link to="/Konsultasi" state={{ jenis_hukum: topik }} key={topik}>
+              <div className="topik-icon">
+                <img
+                  className="topik-icons"
+                  src={`/assets/img/icons${topik.replace(/\s/g, "")}.png`}
+                  alt={topik}
+                />
+                <p>{topik}</p>
+              </div>
+            </Link>
+          ))}
         </div>
       </section>
 
-      {/* Produk Section */}
+      {/* Advokat Section */}
       <section className="products">
         <div className="product-section">
           <h2 className="product-title">Advokat Yang Tersedia</h2>
@@ -148,19 +108,43 @@ const HomeAfter = () => {
           ) : pengacara.length > 0 ? (
             pengacara.slice(0, 4).map((advokat, index) => (
               <div key={advokat.id || index} className="product-item">
-                <img
-                  src={`/assets/images/advokat${index + 1}.png`}
-                  alt="Advokat"
-                />
-                <p>
-                  <strong>{advokat.nama}</strong>
-                  <br />
-                  {advokat.spesialisasi}
-                  <br />
-                  Pengalaman: {advokat.pengalaman} tahun
-                </p>
+                {advokat.upload_foto ? (
+                  <img
+                    src={`http://localhost:5000/uploads/${advokat.upload_foto}`}
+                    alt={advokat.nama}
+                    className="foto-advokat"
+                    style={{
+                      width: "120px",
+                      height: "120px",
+                      borderRadius: "50%",
+                      objectFit: "cover",
+                      marginBottom: "10px"
+                    }}
+                  />
+                ) : (
+                  <div
+                    style={{
+                      width: "120px",
+                      height: "120px",
+                      borderRadius: "50%",
+                      backgroundColor: "#eee",
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "center",
+                      marginBottom: "10px"
+                    }}
+                  >
+                    <span style={{ color: "#999", fontSize: "12px", textAlign: "center" }}>
+                      Tidak ada foto
+                    </span>
+                  </div>
+                )}
 
-                <Link to="/konsultasi">
+                <h3>{advokat.nama}</h3>
+                <p><strong>Spesialisasi:</strong> {advokat.spesialisasi || "-"}</p>
+                <p><strong>Pengalaman:</strong> {advokat.pengalaman ?? 0} tahun</p>
+                <p><strong>Harga Konsultasi:</strong> Rp{advokat.harga_konsultasi?.toLocaleString() || "-"}</p>
+                <Link to="/konsultasi" state={{ pengacaraId: advokat.id }}>
                   <button className="btn-konsultasi">Klik Konsultasi</button>
                 </Link>
               </div>
