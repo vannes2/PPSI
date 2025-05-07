@@ -30,3 +30,13 @@ exports.getKasusByUserId = (req, res) => {
     res.status(200).json(results);
   });
 };
+
+exports.getAllKasus = (req, res) => {
+  KasusModel.getAllKasus((err, results) => {
+    if (err) {
+      console.error('Gagal mengambil semua kasus:', err);
+      return res.status(500).json({ message: 'Gagal mengambil data kasus.' });
+    }
+    res.status(200).json(results);
+  });
+};

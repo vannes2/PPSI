@@ -16,7 +16,13 @@ const storage = multer.diskStorage({
 
 const upload = multer({ storage: storage });
 
+// Route pengajuan kasus dengan upload file bukti
 router.post('/ajukan-kasus', upload.single('bukti'), kasusController.ajukanKasus);
+
+// Route mengambil semua kasus dari user tertentu
 router.get('/kasus/riwayat/:id', kasusController.getKasusByUserId);
+
+// ✅ Route baru: mengambil semua kasus
+router.get('/kasus', kasusController.getAllKasus);
 
 module.exports = router;
