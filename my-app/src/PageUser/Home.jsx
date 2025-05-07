@@ -82,7 +82,7 @@ const Home = () => {
       <section className="topik-hukum">
         <h2>Pilih topik hukum yang diperlukan!</h2>
         <div className="topik-icons">
-          {["Hukum Pidana", "HAKI", "KDRT", "Perceraian", "Pinjaman Online"].map((topik) => (
+          {["Hukum Pidana", "HAKI", "KDRT", "Perceraian", "Hukum Perdata"].map((topik) => (
             <Link to="/Login" state={{ jenis_hukum: topik }} key={topik}>
               <div className="topik-icon">
                 <img

@@ -1,0 +1,169 @@
+body {
+  background-color: #f4f4f4;
+}
+
+.daftar-kasus-wrapper {
+  padding: 2rem;
+  background-color: #fefff0;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.05);
+  min-height: 80vh;
+}
+
+.title-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.title {
+  font-size: 24px;
+  font-weight: bold;
+  color: #3b3b3b;
+  margin-bottom: 1rem;
+}
+
+.garis-bawah-title {
+  width: 120px;
+  height: 4px;
+  background-color: #B31312;
+  margin: 10px 0 30px;
+  border-radius: 2px;
+}
+
+.tab-container {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.tab {
+  padding: 0.6rem 1.2rem;
+  cursor: pointer;
+  color: #666;
+  background-color: #fff;
+  border: 2px solid #ccc;
+  border-radius: 20px;
+  font-weight: 500;
+  transition: all 0.2s ease;
+}
+
+.tab.active {
+  background-color: #B31312;
+  color: #fff;
+  border-color: #B31312;
+}
+
+.konten-kasus-layout {
+  display: flex;
+  gap: 2rem;
+  flex-wrap: wrap;
+}
+
+.tabel-kasus-wrapper {
+  flex: 2;
+  min-width: 400px;
+}
+
+.tabel-kasus {
+  width: 100%;
+  border-collapse: collapse;
+  background: #fff;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.tabel-kasus th,
+.tabel-kasus td {
+  padding: 12px 16px;
+  border-bottom: 1px solid #ddd;
+  text-align: left;
+}
+
+.tabel-kasus th {
+  background-color: #B31312;
+  color: white;
+}
+
+.tabel-kasus td {
+  color: #3b3b3b;
+}
+
+.tabel-kasus tr:hover {
+  background-color: #f9f9f9;
+}
+
+.empty-state {
+  text-align: center;
+  padding: 2rem;
+}
+
+.empty-icon {
+  width: 100px;
+  margin-bottom: 1rem;
+}
+
+.empty-title {
+  font-size: 18px;
+  font-weight: bold;
+  color: #3b3b3b;
+}
+
+.empty-desc {
+  font-size: 14px;
+  color: #666;
+  margin-bottom: 1rem;
+}
+
+.ajukan-btn-static,
+.btn-ajukan-header {
+  background-color: #B31312;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  padding: 10px 20px;
+  font-weight: 500;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.ajukan-btn-static:hover,
+.btn-ajukan-header:hover {
+  background-color: #900000;
+}
+
+.informasi-kasus-samping {
+  flex: 1;
+  background-color: #fff;
+  padding: 1.5rem;
+  border-radius: 10px;
+  border-left: 6px solid #B31312;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+  color: #3b3b3b;
+  min-width: 300px;
+  height: fit-content;
+}
+
+.informasi-kasus-samping h3 {
+  color: #B31312;
+  margin-bottom: 1rem;
+  font-size: 18px;
+}
+
+.informasi-kasus-samping ul {
+  padding-left: 1.2rem;
+  list-style-type: disc;
+}
+
+.informasi-kasus-samping li {
+  margin-bottom: 0.75rem;
+  line-height: 1.6;
+  color: #666;
+}
+
+.footer-separator {
+  margin-top: 3rem;
+  border-top: 1px solid #ccc;
+}

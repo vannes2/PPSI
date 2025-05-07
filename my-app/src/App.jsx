@@ -13,6 +13,10 @@ import Konsultasi from "./PageUser/konsultasi";
 import Artikel from "./PageUser/Artikel";
 import ChatPage from "./PageUser/ChatPage";
 import Payment from "./PageUser/Payment";
+import AjukanKasus from "./PageUser/AjukanKasus";
+import DaftarKasus from './PageUser/DaftarKasus';
+
+
 
 // Admin Pages
 import HomeAdmin from "./PageAdmin/HomeAdmin";
@@ -61,6 +65,9 @@ function App() {
                 <Route path="/payment" element={<Payment />} />
                 <Route path="/chat/pengacara/:lawyerId" element={<ChatPage />} />
                 <Route path="/chat/:contactRole/:contactId" element={<ChatPage />} /> {/* fallback tambahan jika dibutuhkan */}
+                <Route path="/AjukanKasus" element={<AjukanKasus />} />
+                <Route path="/DaftarKasus" element={<DaftarKasus />} />
+
 
                 {/* ✅ Admin Routes */}
                 <Route path="/HomeAdmin" element={<HomeAdmin />} />

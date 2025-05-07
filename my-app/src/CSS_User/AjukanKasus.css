@@ -1,0 +1,130 @@
+:root {
+    --primary-color: #b20000;     /* merah seperti tombol profil */
+    --accent-color: #ffcc00;      /* emas */
+    --background-light: #fffcec;  /* latar belakang soft */
+    --text-dark: #333;
+  }
+  
+  body {
+    background-color: var(--background-light);
+    margin: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  }
+  
+  .page-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 6rem 1rem 4rem 1rem;
+    min-height: 100vh;
+  }
+  
+  .ajukan-kasus-container {
+    background-color: #fff;
+    padding: 2.5rem 2rem;
+    border-radius: 16px;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+    width: 100%;
+    max-width: 850px;
+  }
+  
+  .ajukan-kasus-container h2 {
+    text-align: center;
+    color: var(--primary-color);
+    font-weight: bold;
+    margin-bottom: 0.4rem;
+  }
+  
+  .ajukan-kasus-container p {
+    text-align: center;
+    color: var(--text-dark);
+    margin-bottom: 2rem;
+    font-size: 14px;
+  }
+  
+  .ajukan-kasus-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.2rem;
+    margin: 0 auto;
+  }
+  
+  .form-row {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+  }
+  
+  .form-group {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .form-group.full {
+    width: 100%;
+  }
+  
+  .form-group label {
+    font-weight: 600;
+    margin-bottom: 6px;
+    font-size: 14px;
+    color: #333;
+  }
+  
+  .form-group input,
+  .form-group select,
+  .form-group textarea {
+    padding: 0.8rem;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-size: 1rem;
+    width: 100%;
+  }
+
+  .form-group.full button {
+
+    background: #b20000;  
+  }
+  
+  textarea {
+    resize: vertical;
+    height: 110px;
+  }
+  
+  .green-text {
+    color: green;
+    font-size: 0.9rem;
+    margin-top: -0.5rem;
+  }
+  
+  /* Tombol */
+  .btn-kirim {
+    padding: 0.9rem;
+    background-color: var(--primary-color);
+    color: white;
+    font-weight: 600;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    width: 100%;
+    text-align: center;
+  }
+  
+  .btn-kirim:hover {
+    background-color: #920000;
+  }
+  
+  .footer-separator {
+    margin-top: 3rem;
+    border-top: 1px solid #ddd;
+  }
+  
+  /* Responsif */
+  @media (max-width: 768px) {
+    .form-row {
+      flex-direction: column;
+    }
+  }
+  

@@ -15,6 +15,7 @@ const chatRoutes = require("./routes/chatRoutes");   // Tambahkan route chat
 const adminRoutes = require("./routes/adminRoutes"); 
 const profilpengacaraRoutes = require("./routes/profilpengacaraRoutes");
 const paymentRoutes = require("./routes/paymentRoutes");
+const kasusRoutes = require('./routes/kasusRoutes');
 const app = express();
 
 // Middleware
@@ -32,6 +33,7 @@ app.use("/api/chat", chatRoutes);   // Route untuk chat
 app.use("/api", adminRoutes);
 app.use("/api", profilpengacaraRoutes);
 app.use("/api/payment", paymentRoutes);
+app.use('/api', kasusRoutes);
 
 
 // Setup HTTP server + Socket.io
