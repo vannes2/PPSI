@@ -6,34 +6,40 @@ import "../CSS_User/Payment.css";
 
 const Payment = () => {
   const { state } = useLocation();
-  const [pengacara, setPengacara] = useState(null);
+  const [advokat, setAdvokat] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (state?.pengacaraId) {
-      fetch(`http://localhost:5000/api/pengacara/${state.pengacaraId}`)
-        .then((res) => res.json())
-        .then((data) => {
-          setPengacara(data);
-          setLoading(false);
-        })
-        .catch((err) => {
-          console.error("Gagal fetch pengacara:", err);
-          setLoading(false);
-        });
-    }
-  }, [state]);
+    if (!state?.pengacaraId) return;
+  
+    const getAdvokat = async () => {
+      try {
+        const res = await fetch("http://localhost:5000/api/profilpengacara");
+        const data = await res.json();
+        const found = data.find((p) => p.id === state.pengacaraId);
+        if (found) setAdvokat(found);
+      } catch (err) {
+        console.error("Gagal fetch advokat:", err);
+        setError(err.message);
+      } finally {
+        setLoading(false);
+      }
+    };
+  
+    getAdvokat();
+  }, [state?.pengacaraId]);  
 
   const handlePayment = async () => {
     const user = JSON.parse(localStorage.getItem("user"));
-    if (!pengacara || !user) return;
+    if (!advokat || !user) return;
 
     const response = await fetch("http://localhost:5000/api/payment/transaction", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
-        pengacara_id: pengacara.id,
+        pengacara_id: advokat.id,
         user_id: user.id,
       }),
     });
@@ -43,7 +49,7 @@ const Payment = () => {
       window.snap.pay(data.token, {
         onSuccess: () => {
           alert("✅ Pembayaran sukses!");
-          navigate(`/chat/pengacara/${pengacara.id}`);
+          navigate(`/chat/pengacara/${advokat.id}`);
         },
         onPending: () => alert("⏳ Menunggu pembayaran..."),
         onError: () => alert("❌ Pembayaran gagal."),
@@ -57,27 +63,65 @@ const Payment = () => {
   return (
     <div>
       <HeaderAfter />
-      <div className="payment-page" style={{ padding: "2rem" }}>
+      <br /><br /><br />
+      <div className="payment-page">
         {loading ? (
-          <p>Memuat data pengacara...</p>
-        ) : pengacara ? (
-          <div className="payment-card" style={{ background: "#fffbe6", padding: "1.5rem", borderRadius: "10px" }}>
-            <h2>Detail Pengacara</h2>
-            <p><strong>Nama:</strong> {pengacara.nama}</p>
-            <p><strong>Email:</strong> {pengacara.email}</p>
-            <p><strong>Spesialisasi:</strong> {pengacara.spesialisasi}</p>
-            <p><strong>Pendidikan:</strong> {pengacara.pendidikan}</p>
-            <p><strong>Pengalaman:</strong> {pengacara.pengalaman} tahun</p>
-            <p><strong>Harga Konsultasi:</strong> {pengacara.harga_konsultasi !== undefined
-              ? `Rp${pengacara.harga_konsultasi.toLocaleString("id-ID")}`
-              : "Tidak tersedia"}
-            </p>
-            <button onClick={handlePayment} className="btn-bayar" style={{ padding: "0.5rem 1rem", marginTop: "1rem" }}>
-              Bayar Sekarang
-            </button>
+          <p>Memuat data advokat...</p>
+        ) : error ? (
+          <p className="error-text">{error}</p>
+        ) : advokat ? (
+          <div className="payment-card">
+            <div className="payment-photo">
+              {advokat.upload_foto ? (
+                <img
+                  src={`http://localhost:5000/uploads/${advokat.upload_foto}`}
+                  alt={advokat.nama}
+                />
+              ) : (
+                <div className="photo-placeholder">Tidak ada foto</div>
+              )}
+            </div>
+
+            <div className="payment-info">
+              <h2>Informasi Advokat</h2>
+              <table>
+                <tbody>
+                  <tr>
+                    <td>Nama</td>
+                    <td>{advokat.nama}</td>
+                  </tr>
+                  <tr>
+                    <td>Email</td>
+                    <td>{advokat.email}</td>
+                  </tr>
+                  <tr>
+                    <td>Spesialisasi</td>
+                    <td>{advokat.spesialisasi}</td>
+                  </tr>
+                  <tr>
+                    <td>Pendidikan</td>
+                    <td>{advokat.pendidikan}</td>
+                  </tr>
+                  <tr>
+                    <td>Pengalaman</td>
+                    <td>{advokat.pengalaman ?? 0} tahun</td>
+                  </tr>
+                  <tr>
+                    <td>Biaya Konsultasi</td>
+                    <td>Rp{advokat.harga_konsultasi?.toLocaleString("id-ID") || "-"}</td>
+                  </tr>
+                </tbody>
+              </table>
+
+              <div className="payment-button">
+                <button onClick={handlePayment} className="btn-bayar">
+                  Bayar Sekarang
+                </button>
+              </div>
+            </div>
           </div>
         ) : (
-          <p>Pengacara tidak ditemukan.</p>
+          <p>Advokat tidak ditemukan.</p>
         )}
       </div>
       <div className="footer-separator"></div>

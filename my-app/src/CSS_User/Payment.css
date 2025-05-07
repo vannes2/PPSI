@@ -1,49 +1,164 @@
-
-/* Container utama halaman */
+/* ========== CONTAINER UTAMA ========== */
 .payment-page {
   width: 100%;
   min-height: 80vh;
-  padding: 2rem 1rem;
+  padding: 2rem;
   background-color: #fffdf4;
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
-/* Kartu detail pengacara */
+/* ========== KARTU DETAIL ADVOKAT ========== */
 .payment-card {
   background-color: #fffbe6;
   padding: 2rem;
   border-radius: 12px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-  max-width: 600px;
+  border: 1px solid #ccc;
+  max-width: 1000px;
   width: 100%;
+  display: flex;
+  align-items: flex-start;
+  gap: 2rem;
+  flex-wrap: wrap;
 }
 
-.payment-card h2 {
-  font-size: 1.6rem;
-  margin-bottom: 1rem;
-  color: #8b0000;
+/* ========== FOTO PROFIL ========== */
+.payment-photo {
+  text-align: center;
+  min-width: 140px;
+  margin-top: 5.5rem;
 }
 
-.payment-card p {
-  font-size: 1rem;
-  margin: 0.5rem 0;
+.payment-photo img {
+  width: 130px;
+  height: 130px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid #ccc;
+  margin-bottom: 10px;
 }
 
-/* Tombol Bayar */
+.photo-placeholder {
+  width: 130px;
+  height: 130px;
+  border-radius: 50%;
+  background-color: #eee;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  color: #999;
+  margin-bottom: 10px;
+}
+
+.harga-konsultasi {
+  font-weight: bold;
+  font-size: 14px;
+  margin-top: 10px;
+}
+
+/* ========== INFORMASI ADVOKAT ========== */
+.payment-info {
+  flex: 1;
+  background: #fffbe6;
+  padding: 10px;
+}
+
+.payment-info h2 {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.payment-info table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  background: #fffbe6;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 0 0 1px #ccc;
+}
+
+.payment-info td {
+  padding: 12px 16px;
+  vertical-align: top;
+}
+
+.payment-info td:first-child {
+  font-weight: bold;
+  width: 180px;
+}
+
+.payment-info table tr:first-child td:first-child {
+  border-top-left-radius: 10px;
+}
+
+.payment-info table tr:first-child td:last-child {
+  border-top-right-radius: 10px;
+}
+
+/* ========== TOMBOL BAYAR ========== */
+.payment-button {
+  text-align: right;
+  margin-top: 20px;
+}
+
 .btn-bayar {
-  background-color: #dc3545;
-  color: white;
   padding: 0.6rem 1.2rem;
   font-size: 1rem;
+  background-color: #d62828;
+  color: white;
   border: none;
   border-radius: 8px;
-  margin-top: 1.5rem;
   cursor: pointer;
   transition: background-color 0.3s ease;
 }
 
 .btn-bayar:hover {
-  background-color: #c82333;
+  background-color: #b51f1f;
+}
+
+/* ========== ERROR MESSAGE ========== */
+.error-text {
+  color: red;
+}
+
+/* ========== RESPONSIVE DESIGN ========== */
+@media (max-width: 768px) {
+  .payment-card {
+    flex-direction: column;
+    align-items: center;
+    padding: 1.5rem;
+  }
+
+  .payment-photo {
+    margin-top: 1rem;
+  }
+
+  .payment-photo img,
+  .photo-placeholder {
+    width: 110px;
+    height: 110px;
+  }
+
+  .payment-info {
+    padding: 0;
+    width: 100%;
+  }
+
+  .payment-info h2 {
+    font-size: 1.2rem;
+    margin-bottom: 1rem;
+  }
+
+  .payment-info td {
+    padding: 8px 12px;
+  }
+
+  .btn-bayar {
+    font-size: 0.95rem;
+    padding: 0.5rem 1rem;
+  }
 }

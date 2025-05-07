@@ -3,7 +3,7 @@ const db = require("../config/database");
 // Ambil semua pengacara
 exports.getAllPengacara = (req, res) => {
   const sql = `
-    SELECT id, nama, spesialisasi, pengalaman, harga_konsultasi, upload_foto
+    SELECT id, nama, email, spesialisasi, pendidikan, pengalaman, harga_konsultasi, upload_foto
     FROM pengacara
   `;
 
