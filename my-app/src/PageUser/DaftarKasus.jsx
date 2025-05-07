@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import HeaderAfter from '../components/HeaderAfter';
 import Footer from '../components/Footer';
@@ -35,18 +35,25 @@ const DaftarKasus = () => {
   const filteredKasus = kasusList.filter((k) => k.status === tab);
 
   return (
-    <div>
+    <div className="daftar-kasus-page">
       <HeaderAfter />
       <br /><br /><br /><br />
 
       <main className="daftar-kasus-wrapper">
-        <div className="title-container">
-          <h2 className="title">Riwayat Kasus</h2>
+        {/* Judul Besar Halaman */}
+        <h1 className="title">Daftar Kasus</h1>
+
+        {/* Tombol Ajukan Kasus */}
+        <div className="tombol-ajukan-center">
           <button className="btn-ajukan-header" onClick={() => navigate('/AjukanKasus')}>
             + Ajukan Kasus
           </button>
         </div>
-        <div className="garis-bawah-title"></div>
+
+    <div className="garis-bawah-title"></div>
+        <div className="title-container">
+          <h2 className="title">Riwayat Kasus</h2>
+        </div>
 
         <div className="tab-container">
           {["Menunggu", "Diproses", "Selesai"].map((status) => (

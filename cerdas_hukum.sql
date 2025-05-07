@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: May 07, 2025 at 07:50 AM
+-- Generation Time: May 07, 2025 at 01:22 PM
 -- Server version: 8.0.30
 -- PHP Version: 8.3.16
 
@@ -44,6 +44,39 @@ CREATE TABLE `admin` (
 
 INSERT INTO `admin` (`id`, `name`, `email`, `phone`, `password`, `gender`, `birthdate`, `created_at`) VALUES
 (1, 'admin utama', 'admin@cerdashukum.com', '081234567890', 'admin123', 'laki-laki', '1990-01-01', '2025-04-09 14:10:24');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `ajukan_kasus`
+--
+
+CREATE TABLE `ajukan_kasus` (
+  `id` int NOT NULL,
+  `user_id` int NOT NULL,
+  `nama` varchar(100) NOT NULL,
+  `email` varchar(100) NOT NULL,
+  `no_hp` varchar(20) NOT NULL,
+  `area_praktik` varchar(50) NOT NULL,
+  `jenis_pengerjaan` varchar(50) NOT NULL,
+  `biaya_min` int NOT NULL,
+  `biaya_max` int NOT NULL,
+  `estimasi_selesai` date NOT NULL,
+  `lokasi` varchar(100) NOT NULL,
+  `deskripsi` text NOT NULL,
+  `status` varchar(20) DEFAULT 'Menunggu',
+  `bukti` varchar(255) DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;;
+
+--
+-- Dumping data for table `ajukan_kasus`
+--
+
+INSERT INTO `ajukan_kasus` (`id`, `user_id`, `nama`, `email`, `no_hp`, `area_praktik`, `jenis_pengerjaan`, `biaya_min`, `biaya_max`, `estimasi_selesai`, `lokasi`, `deskripsi`, `status`, `bukti`, `created_at`) VALUES
+(1, 1, 'Azzikra Praqasta Kusuma', 'azzikrapraqasta2522@gmail.com', '081316443334', 'Perdata', 'Pembuatan Dokumen', 2000000, 500000, '2025-05-10', 'Jakarta', 'Dokumen Perjanjian dengan perusahaan X', 'Menunggu', NULL, '2025-05-07 10:45:10'),
+(2, 1, 'Joko', 'zikra@gmail.com', '081316443332', 'Pidana', 'Pembuatan Dokumen', 500000, 500000, '2025-05-19', 'Bandung', 'Dokumen Perjanjian dengan perusahaan Y', 'Menunggu', NULL, '2025-05-07 12:28:30'),
+(3, 14, 'Vanes', 'vns@gmail.com', '085781086148', 'Perusahaan', 'Negosiasi', 500000, 500000, '2025-05-26', 'Surabaya', 'perusahaan yang memiliki sengketa akibat keterlambatan pembayaran', 'Menunggu', NULL, '2025-05-07 12:36:06');
 
 -- --------------------------------------------------------
 
@@ -361,6 +394,12 @@ ALTER TABLE `admin`
   ADD UNIQUE KEY `email` (`email`);
 
 --
+-- Indexes for table `ajukan_kasus`
+--
+ALTER TABLE `ajukan_kasus`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `artikel`
 --
 ALTER TABLE `artikel`
@@ -440,6 +479,12 @@ ALTER TABLE `users`
 --
 ALTER TABLE `admin`
   MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT for table `ajukan_kasus`
+--
+ALTER TABLE `ajukan_kasus`
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `artikel`

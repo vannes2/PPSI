@@ -1,169 +1,178 @@
-body {
-  background-color: #f4f4f4;
-}
-
-.daftar-kasus-wrapper {
-  padding: 2rem;
+.daftar-kasus-page {
   background-color: #fefff0;
-  border-radius: 10px;
-  box-shadow: 0 0 10px rgba(0,0,0,0.05);
-  min-height: 80vh;
+  padding-bottom: 2rem;
 }
 
-.title-container {
+.daftar-kasus-page .daftar-kasus-wrapper {
+  padding: 2.5rem;
+  background-color: #fefff0; /* Sama dengan body */
+  border-radius: 12px;
+  margin: 3rem auto;
+  max-width: 1100px;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.07); /* Shadow biar gak nyatu */
+}
+
+.daftar-kasus-page .title-container {
   display: flex;
-  justify-content: space-between;
+  flex-direction: column;
   align-items: center;
-  flex-wrap: wrap;
-}
-
-.title {
-  font-size: 24px;
-  font-weight: bold;
-  color: #3b3b3b;
-  margin-bottom: 1rem;
-}
-
-.garis-bawah-title {
-  width: 120px;
-  height: 4px;
-  background-color: #B31312;
-  margin: 10px 0 30px;
-  border-radius: 2px;
-}
-
-.tab-container {
-  display: flex;
   gap: 1rem;
   margin-bottom: 1.5rem;
 }
 
-.tab {
-  padding: 0.6rem 1.2rem;
-  cursor: pointer;
-  color: #666;
-  background-color: #fff;
-  border: 2px solid #ccc;
-  border-radius: 20px;
-  font-weight: 500;
-  transition: all 0.2s ease;
+.daftar-kasus-page .title {
+  font-size: 2.2rem;
+  font-weight: 700;
+  color: #B31312;
+  text-align: center;
 }
 
-.tab.active {
+.daftar-kasus-page .btn-ajukan-header {
+  background-color: #B31312;
+  color: #fff;
+  border: none;
+  padding: 12px 24px;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(179, 19, 18, 0.2);
+  transition: 0.3s ease;
+}
+
+.daftar-kasus-page .btn-ajukan-header:hover {
+  background-color: #fff;
+  color: #B31312;
+  border: 2px solid #B31312;
+}
+
+
+.daftar-kasus-page .garis-bawah-title {
+  height: 3px;
+  background-color: #B31312;
+  margin: 1rem 0 2rem 0;
+  border-radius: 3px;
+  width: 100%;
+}
+
+.daftar-kasus-page .tab-container {
+  display: flex;
+  justify-content: center;
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.daftar-kasus-page .tab {
+  padding: 10px 20px;
+  border-radius: 20px;
+  border: 1.5px solid #ccc;
+  background-color: #fff;
+  color: #666;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-weight: 500;
+}
+
+.daftar-kasus-page .tab.active {
   background-color: #B31312;
   color: #fff;
   border-color: #B31312;
 }
 
-.konten-kasus-layout {
-  display: flex;
-  gap: 2rem;
-  flex-wrap: wrap;
+.daftar-kasus-page .tab:hover {
+  background-color: #ffc6c6;
+  color: #B31312;
 }
 
-.tabel-kasus-wrapper {
-  flex: 2;
-  min-width: 400px;
+.daftar-kasus-page .tabel-kasus-wrapper {
+  overflow-x: auto;
 }
 
-.tabel-kasus {
+.daftar-kasus-page .tabel-kasus {
   width: 100%;
-  border-collapse: collapse;
-  background: #fff;
-  border-radius: 8px;
-  overflow: hidden;
+  border-collapse: separate;
+  border-spacing: 0;
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
 }
 
-.tabel-kasus th,
-.tabel-kasus td {
-  padding: 12px 16px;
-  border-bottom: 1px solid #ddd;
+.daftar-kasus-page .tabel-kasus th,
+.daftar-kasus-page .tabel-kasus td {
+  padding: 14px 18px;
   text-align: left;
+  border-bottom: 1px solid #eee;
 }
 
-.tabel-kasus th {
-  background-color: #B31312;
-  color: white;
-}
-
-.tabel-kasus td {
+.daftar-kasus-page .tabel-kasus th {
+  background-color: #fefff0;
   color: #3b3b3b;
+  font-weight: 600;
 }
 
-.tabel-kasus tr:hover {
-  background-color: #f9f9f9;
+.daftar-kasus-page .tabel-kasus tr:hover {
+  background-color: #fff6f6;
 }
 
-.empty-state {
+.daftar-kasus-page .empty-state {
   text-align: center;
-  padding: 2rem;
+  padding: 3rem;
+  background-color: #fff;
+  border: 2px dashed #ccc;
+  border-radius: 12px;
 }
 
-.empty-icon {
+.daftar-kasus-page .empty-icon {
   width: 100px;
-  margin-bottom: 1rem;
+  opacity: 0.4;
 }
 
-.empty-title {
-  font-size: 18px;
-  font-weight: bold;
+.daftar-kasus-page .empty-title {
+  font-size: 1.8rem;
+  margin-top: 1rem;
   color: #3b3b3b;
+  font-weight: bold;
 }
 
-.empty-desc {
-  font-size: 14px;
+.daftar-kasus-page .empty-desc {
   color: #666;
   margin-bottom: 1rem;
 }
 
-.ajukan-btn-static,
-.btn-ajukan-header {
+.daftar-kasus-page .ajukan-btn-static {
   background-color: #B31312;
-  color: white;
+  color: #fff;
+  padding: 10px 22px;
   border: none;
   border-radius: 8px;
-  padding: 10px 20px;
-  font-weight: 500;
-  font-size: 14px;
   cursor: pointer;
-  transition: background-color 0.2s ease;
+  font-weight: 600;
+  margin-top: 1rem;
 }
 
-.ajukan-btn-static:hover,
-.btn-ajukan-header:hover {
-  background-color: #900000;
-}
-
-.informasi-kasus-samping {
-  flex: 1;
+.daftar-kasus-page .ajukan-btn-static:hover {
   background-color: #fff;
+  color: #B31312;
+  border: 2px solid #B31312;
+}
+
+.daftar-kasus-page .informasi-kasus-samping {
+  margin-top: 3rem;
+  background-color: #fff;
+  border-left: 5px solid #B31312;
   padding: 1.5rem;
   border-radius: 10px;
-  border-left: 6px solid #B31312;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.05);
-  color: #3b3b3b;
-  min-width: 300px;
-  height: fit-content;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.04);
 }
 
-.informasi-kasus-samping h3 {
+.daftar-kasus-page .informasi-kasus-samping h3 {
   color: #B31312;
   margin-bottom: 1rem;
-  font-size: 18px;
+  font-size: 1.4rem;
 }
 
-.informasi-kasus-samping ul {
-  padding-left: 1.2rem;
-  list-style-type: disc;
-}
-
-.informasi-kasus-samping li {
-  margin-bottom: 0.75rem;
-  line-height: 1.6;
+.daftar-kasus-page .informasi-kasus-samping li {
   color: #666;
-}
-
-.footer-separator {
-  margin-top: 3rem;
-  border-top: 1px solid #ccc;
+  margin-bottom: 0.5rem;
+  line-height: 1.6;
+  font-size: 0.95rem;
 }
