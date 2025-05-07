@@ -114,19 +114,6 @@
   margin: 0 20px;
 }
 
-/* Responsive: Hide Divider on Mobile */
-@media (max-width: 768px) {
-  .Login-page .main {
-    flex-direction: column;
-    align-items: center;
-    gap: 20px;
-  }
-
-  .Login-page .divider {
-    display: none;
-  }
-}
-
 /* Popup Styling */
 .Login-page .popup-overlay {
   position: fixed;
@@ -178,3 +165,172 @@
   background-color: #B31312;
 }
 
+/* Styling untuk tombol "Masuk" di navbar */
+.navbar .btn {
+  display: inline-block;
+  background: linear-gradient(to right, #b31217, #e52d27);
+  color: white;
+  padding: 10px 20px;
+  font-size: 18px;
+  border-radius: 10px;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background-color 0.3s ease, color 0.3s ease, border 0.3s ease;
+}
+
+/* Efek Hover */
+.navbar .btn:hover {
+  background: white;
+  color: #B31312;
+  border: 2px solid #B31312;
+}
+
+
+/* ================= RESPONSIVE ================= */
+
+/* Untuk layar dengan lebar maksimal 1024px (tablet) */
+@media (max-width: 1024px) {
+  .Login-page .main {
+    flex-direction: column;
+    gap: 30px;
+    padding: 20px;
+  }
+
+  .Login-page .container {
+    padding: 15px;
+  }
+
+  .Login-page .main .login,
+  .Login-page .main .signup {
+    width: 100%;
+    padding: 20px;
+  }
+
+  .Login-page .main input {
+    padding: 12px;
+  }
+
+  .Login-page .btn {
+    font-size: 16px;
+    padding: 12px;
+  }
+}
+
+/* Untuk layar dengan lebar maksimal 768px (tablet kecil atau landscape phone) */
+@media (max-width: 768px) {
+  .Login-page .container {
+    padding: 10px;
+  }
+
+  .Login-page .main {
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+  }
+
+  .Login-page .divider {
+    display: none;  /* Menghilangkan divider pada layar kecil */
+  }
+
+  .navbar {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px;
+  }
+
+  .navbar .btn {
+    font-size: 16px;
+    padding: 8px 15px;
+  }
+
+  .Login-page .main .login,
+  .Login-page .main .signup {
+    width: 100%;
+    padding: 20px;
+  }
+
+  .Login-page .main input {
+    padding: 12px;
+    font-size: 14px;
+  }
+
+  .Login-page .btn {
+    font-size: 16px;
+    padding: 12px;
+  }
+
+  .Login-page .popup-box {
+    padding: 20px;
+    width: 80%;
+  }
+
+  .Login-page .popup-icon {
+    font-size: 30px;
+    width: 60px;
+    height: 60px;
+  }
+
+  .Login-page .popup-message {
+    font-size: 18px;
+  }
+}
+
+/* Untuk layar dengan lebar maksimal 480px (ponsel) */
+@media (max-width: 480px) {
+  .Login-page .container {
+    padding: 5px;
+  }
+
+  .Login-page .main {
+    padding: 15px;
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .Login-page .main .login,
+  .Login-page .main .signup {
+    padding: 15px;
+  }
+
+  .Login-page .main input {
+    padding: 10px;
+    font-size: 14px;
+  }
+
+  .Login-page .btn {
+    font-size: 18px; /* Menambah ukuran font */
+    padding: 15px 20px; /* Menambah padding untuk tombol */
+    border-radius: 12px; /* Membuat tombol lebih besar dan rounder */
+  }
+
+  /* Tombol "Masuk" dalam menu sidebar */
+  .navbar .btn {
+    font-size: 18px; /* Mengatur ukuran font */
+    padding: 15px 25px; /* Mengatur padding agar tombol lebih besar */
+    width: 100%; /* Tombol mengambil lebar penuh */
+  }
+
+  .Login-page .btn {
+    font-size: 14px;
+    padding: 10px;
+  }
+
+  .Login-page .popup-box {
+    width: 90%;
+    padding: 15px;
+  }
+
+  .Login-page .popup-icon {
+    font-size: 28px;
+    width: 50px;
+    height: 50px;
+  }
+
+  .Login-page .popup-message {
+    font-size: 16px;
+  }
+
+  .Login-page .footer-separator {
+    height: 5px;
+  }
+}

@@ -100,20 +100,32 @@ const HomeAfter = () => {
             </div>
           </Link>
           <Link to="/Konsultasi" state={{ jenis_hukum: "KDRT" }}>
-            <div className="topik-icon">
-              <i className="fas fa-handcuffs"></i>
-              <p>KDRT</p>
+          <div className="topik-icon">
+              <img
+                className="topik-icons"
+                alt="hukumpidana"
+                src="assets/img/iconsKDRT.png"
+              />
+              <p>Hukum KDRT</p>
             </div>
           </Link>
           <Link to="/Konsultasi" state={{ jenis_hukum: "Perceraian" }}>
             <div className="topik-icon">
-              <i className="fas fa-gavel"></i>
+            <img
+                className="topik-icons"
+                alt="Perceraian"
+                src="assets/img/iconsPerceraian.png"
+              />
               <p>Perceraian</p>
             </div>
           </Link>
           <Link to="/Konsultasi" state={{ jenis_hukum: "Pinjaman Online" }}>
             <div className="topik-icon">
-              <i className="fas fa-dollar-sign"></i>
+            <img
+                className="topik-icons"
+                alt="Perceraian"
+                src="assets/img/iconsHukumPerdata.png"
+              />
               <p>Hukum Perdata</p>
             </div>
           </Link>

@@ -27,11 +27,9 @@ const Konsultasi = () => {
             });
     }, []);
 
-    // List spesialisasi yang unik dari data pengacara
     const spesialisasiList = [...new Set(pengacara.map(advokat => advokat.spesialisasi))];
 
-    // Cek jika state dan jenis_hukum ada, lalu filter berdasarkan jenis_hukum
-    const jenisHukum = state?.jenis_hukum || "";  // Jika state atau jenis_hukum tidak ada, pakai string kosong
+    const jenisHukum = state?.jenis_hukum || "";
 
     const filteredPengacara = pengacara.filter(advokat =>
         advokat.nama.toLowerCase().includes(searchTerm.toLowerCase()) &&
@@ -39,9 +37,11 @@ const Konsultasi = () => {
         (jenisHukum === "" || advokat.spesialisasi.includes(jenisHukum))
     );
 
-    // Fungsi navigasi ke halaman chat dengan pengacara berdasarkan ID
+    // ✅ Fungsi diarahkan ke halaman Payment
     const handleKonsultasiClick = (advokatId) => {
-        navigate(`/chat/pengacara/${advokatId}`);
+        navigate("/payment", {
+            state: { pengacaraId: advokatId }
+        });
     };
 
     useEffect(() => {

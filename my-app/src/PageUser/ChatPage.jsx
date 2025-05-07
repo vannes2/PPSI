@@ -46,7 +46,6 @@ const ChatPage = () => {
       .then((res) => res.json())
       .then((data) => setMessages(data))
       .catch(() => setError("Gagal mengambil pesan"));
-
   }, [lawyerId, user?.id]);
 
   useEffect(() => {
@@ -157,16 +156,20 @@ const ChatPage = () => {
             )}
             <div ref={messagesEndRef} />
           </div>
+
           {lawyerId && (
             <form className="chat-input" onSubmit={handleSubmit}>
-              <input
-                value={input}
-                onChange={(e) => setInput(e.target.value)}
-                placeholder="Tulis pesan..."
-              />
-              <button type="submit">
-                <FaLocationArrow />
-              </button>
+              <div className="input-group">
+                <input
+                  value={input}
+                  onChange={(e) => setInput(e.target.value)}
+                  placeholder="Tulis pesan..."
+                  className="form-control"
+                />
+                <button type="submit" className="btn btn-success">
+                  <FaLocationArrow />
+                </button>
+              </div>
             </form>
           )}
         </div>

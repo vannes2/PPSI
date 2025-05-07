@@ -28,7 +28,8 @@ import LawyerRegistrations from "./PageAdmin/LawyerRegistrations";
 import ChatPage from "./PageUser/ChatPage";
 import ProfileEditLawyer from "./PageLawyer/ProfileEditLawyer";
 import ProfilAdmin from "./PageAdmin/ProfilAdmin";
-import UserManagement from './PageAdmin/UserManagement'; 
+import UserManagement from './PageAdmin/UserManagement';
+import Payment from "./PageUser/Payment"; 
 import '@fortawesome/fontawesome-free/css/all.min.css';
 
 function App() {
@@ -51,6 +52,7 @@ function App() {
                 <Route path="/konsultasi" element={<Konsultasi />} />
                 <Route path="/Artikel" element={<Artikel />} />
                 <Route path="/chat/:contactRole/:contactId" element={<ChatPage />} />
+                <Route path="/payment" element={<Payment />} />
                 
                 {/* Admin Routes */}
                 <Route path="/HomeAdmin" element={<HomeAdmin />} />

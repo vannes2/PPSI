@@ -11,6 +11,10 @@ body {
   color: #333;
 }
 
+.home-before-page{
+  overflow-x: hidden;
+}
+
 /* ================= Header Buttons ================= */
 /* Tombol di Header dan tombol 'Selengkapnya' */
 .auth-buttons button,
@@ -178,7 +182,6 @@ body {
 }
 
 /* ================= Topik Hukum ================= */
-/* ================= Topik Hukum ================= */
 .topik-hukum {
   background: #ffffff;
   text-align: center;
@@ -196,52 +199,62 @@ body {
 
 .topik-icons {
   display: flex;
-  justify-content: space-evenly; /* Evenly distribute icons */
-  flex-wrap: wrap;
-  gap: 20px; /* Added gap between icons */
+  justify-content: center;  /* Center the icons horizontally */
+  align-items: center;      /* Center the icons vertically */
+  flex-wrap: wrap;          /* Allow wrapping */
+  gap: 30px;                /* Space between icons */
+  padding-bottom: 20px;
+  overflow-x: auto;         /* Allow horizontal scrolling */
+  scroll-behavior: smooth;  /* Smooth scrolling */
 }
 
 .topik-icon {
   text-align: center;
-  margin: 20px; /* Increased margin for spacing */
-  max-width: 200px; /* Limit the width to prevent icons from being too large */
+  margin: 0 20px;  /* Space around each icon */
+  min-width: 150px;  /* Prevent icons from becoming too small */
+  flex-shrink: 0;    /* Prevent shrinking */
 }
 
 .topik-icon i {
-  font-size: 70px; /* Increased icon size */
+  font-size: 60px;   /* Icon size */
   color: #5f5ce2;
-  margin-bottom: 15px; /* Adjusted margin */
+  margin-bottom: 10px; /* Space between icon and text */
 }
 
 .topik-icon img {
-  width: 80px; /* Set a fixed width for images */
+  width: 80px;       /* Set a fixed width for images */
   height: auto;
-  margin-bottom: 15px; /* Adjusted margin */
+  margin-bottom: 10px; /* Space between image and text */
 }
 
 .topik-icon p {
-  font-size: 16px; /* Increased font size */
+  font-size: 16px;
   font-weight: bold;
   color: #333;
-  margin-top: 10px; /* Added margin between icon and text */
+  margin-top: 5px;  /* Adjusted margin to align the text properly */
+  margin-left: -1px; /* Slightly move text to the left */
+  line-height: 1.5;   /* Proper line height between text */
+  text-align: left; /* Align text to the left */
 }
+
 
 /* ======================= RESPONSIVE ======================= */
 @media (max-width: 1024px) {
   .topik-icons {
-    justify-content: center; /* Center icons for smaller screens */
+    justify-content: center;  /* Center icons for smaller screens */
+    gap: 25px;                /* Slightly smaller gap on smaller screens */
   }
 
   .topik-icon {
-    min-width: 150px; /* Adjusted size for smaller screens */
+    min-width: 150px;         /* Adjusted size for smaller screens */
   }
 
   .topik-icon i {
-    font-size: 60px; /* Decreased icon size on smaller screens */
+    font-size: 50px;          /* Decreased icon size on smaller screens */
   }
 
   .topik-icon img {
-    width: 70px; /* Smaller image size for mobile */
+    width: 70px;              /* Smaller image size for mobile */
   }
 }
 
@@ -252,25 +265,26 @@ body {
 
   .topik-icons {
     justify-content: center;
-    gap: 15px; /* Smaller gap between icons */
+    gap: 15px;             /* Smaller gap between icons */
   }
 
   .topik-icon {
-    min-width: 120px; /* Further adjustment for smaller screens */
+    min-width: 120px;      /* Further adjustment for smaller screens */
   }
 
   .topik-icon i {
-    font-size: 50px; /* Further decreased icon size */
+    font-size: 45px;       /* Further decreased icon size */
   }
 
   .topik-icon img {
-    width: 60px; /* Even smaller images */
+    width: 60px;           /* Even smaller images */
   }
 
   .topik-icon p {
-    font-size: 14px; /* Smaller font for better fit */
+    font-size: 14px;       /* Smaller font for better fit */
   }
 }
+
 
 /* ====================== Features Lawyer Section ===================== */
 .features-lawyer-home {

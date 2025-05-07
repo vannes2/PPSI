@@ -67,6 +67,7 @@ const ProfileLawyer = () => {
   return (
     <div className="profile-page">
       <HeaderLawyer />
+      <br /><br />
       <div className="profile-page-container">
         <div className="profile-page-profile-container">
           <div className="profile-page-profile-sidebar">
