@@ -10,12 +10,21 @@ import AboutUsAfter from "./PageUser/AboutUsAfter";
 import ProfileEdit from "./PageUser/ProfileEdit";
 import ProfileView from "./PageUser/ProfileView";
 import Konsultasi from "./PageUser/konsultasi";
+import Artikel from "./PageUser/Artikel";
+import ChatPage from "./PageUser/ChatPage";
+import Payment from "./PageUser/Payment";
+
+// Admin Pages
 import HomeAdmin from "./PageAdmin/HomeAdmin";
 import EditPengacara from "./PageAdmin/EditPengacara";
 import ViewPengacara from "./PageAdmin/ViewPengacara";
 import TambahPengacara from "./PageAdmin/TambahPengacara";
 import TambahArtikel from "./PageAdmin/TambahArtikel";
-import Artikel from "./PageUser/Artikel";
+import LawyerRegistrations from "./PageAdmin/LawyerRegistrations";
+import ProfilAdmin from "./PageAdmin/ProfilAdmin";
+import UserManagement from './PageAdmin/UserManagement';
+
+// Lawyer Pages
 import RegisterLawyerPage from "./PageLawyer/RegisterLawyerPage";
 import HomeLawyer from "./PageLawyer/HomeLawyer";
 import ArtikelLawyer from "./PageLawyer/ArtikelLawyer";
@@ -23,38 +32,37 @@ import AboutLawyer from "./PageLawyer/AboutLawyer";
 import ProfileLawyer from "./PageLawyer/ProfileLawyer";
 import KonsultasiLawyer from "./PageLawyer/KonsultasiLawyer";
 import SelectUser from "./PageLawyer/selectUser";
-import SidebarAdmin from "./components/SidebarAdmin";
-import LawyerRegistrations from "./PageAdmin/LawyerRegistrations";
-import ChatPage from "./PageUser/ChatPage";
 import ProfileEditLawyer from "./PageLawyer/ProfileEditLawyer";
-import ProfilAdmin from "./PageAdmin/ProfilAdmin";
-import UserManagement from './PageAdmin/UserManagement';
-import Payment from "./PageUser/Payment"; 
+
+// Components
+import SidebarAdmin from "./components/SidebarAdmin";
+
 import '@fortawesome/fontawesome-free/css/all.min.css';
 
 function App() {
     return (
         <Router>
             <Routes>
-                {/* Public Routes */}
+                {/* ✅ Public Routes */}
                 <Route path="/" element={<Home />} />
                 <Route path="/Header" element={<Header />} />
                 <Route path="/Footer" element={<Footer />} />
                 <Route path="/AboutUs" element={<AboutUs />} />
                 <Route path="/Login" element={<Login />} />
                 <Route path="/SignUp" element={<SignUp />} />
+                <Route path="/Artikel" element={<Artikel />} />
+
+                {/* ✅ User Routes */}
                 <Route path="/HomeAfter" element={<HomeAfter />} />
                 <Route path="/AboutUsAfter" element={<AboutUsAfter />} />
-                
-                {/* User Routes */}
                 <Route path="/ProfileEdit" element={<ProfileEdit />} />
                 <Route path="/ProfileView" element={<ProfileView />} />
                 <Route path="/konsultasi" element={<Konsultasi />} />
-                <Route path="/Artikel" element={<Artikel />} />
-                <Route path="/chat/:contactRole/:contactId" element={<ChatPage />} />
                 <Route path="/payment" element={<Payment />} />
-                
-                {/* Admin Routes */}
+                <Route path="/chat/pengacara/:lawyerId" element={<ChatPage />} />
+                <Route path="/chat/:contactRole/:contactId" element={<ChatPage />} /> {/* fallback tambahan jika dibutuhkan */}
+
+                {/* ✅ Admin Routes */}
                 <Route path="/HomeAdmin" element={<HomeAdmin />} />
                 <Route path="/EditPengacara/:id" element={<EditPengacara />} />
                 <Route path="/ViewPengacara/:id" element={<ViewPengacara />} />
@@ -63,9 +71,9 @@ function App() {
                 <Route path="/LawyerRegistrations" element={<LawyerRegistrations />} />
                 <Route path="/ProfilAdmin" element={<ProfilAdmin />} />
                 <Route path="/UserManagement" element={<UserManagement />} />
-                <Route path="SidebarAdmin" element={<SidebarAdmin/>} />
+                <Route path="/SidebarAdmin" element={<SidebarAdmin />} />
 
-                {/* Lawyer Routes */}
+                {/* ✅ Lawyer Routes */}
                 <Route path="/RegisterLawyerPage" element={<RegisterLawyerPage />} />
                 <Route path="/HomeLawyer" element={<HomeLawyer />} />
                 <Route path="/ArtikelLawyer" element={<ArtikelLawyer />} />
@@ -74,9 +82,6 @@ function App() {
                 <Route path="/KonsultasiLawyer" element={<KonsultasiLawyer />} />
                 <Route path="/SelectUser" element={<SelectUser />} />
                 <Route path="/ProfileEditLawyer" element={<ProfileEditLawyer />} />
-
-                {/* Chat Routes */}
-                <Route path="/chat/pengacara/:lawyerId" element={<ChatPage />} />
             </Routes>
         </Router>
     );

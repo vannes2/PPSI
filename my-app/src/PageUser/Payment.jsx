@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import HeaderAfter from "../components/HeaderAfter";
 import Footer from "../components/Footer";
 
@@ -7,6 +7,7 @@ const Payment = () => {
   const { state } = useLocation();
   const [pengacara, setPengacara] = useState(null);
   const [loading, setLoading] = useState(true);
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (state?.pengacaraId) {
@@ -39,7 +40,10 @@ const Payment = () => {
     const data = await response.json();
     if (data.token) {
       window.snap.pay(data.token, {
-        onSuccess: () => alert("✅ Pembayaran sukses!"),
+        onSuccess: () => {
+          alert("✅ Pembayaran sukses!");
+          navigate(`/chat/pengacara/${pengacara.id}`);
+        },
         onPending: () => alert("⏳ Menunggu pembayaran..."),
         onError: () => alert("❌ Pembayaran gagal."),
         onClose: () => alert("⚠️ Transaksi dibatalkan."),

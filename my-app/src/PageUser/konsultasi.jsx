@@ -38,7 +38,9 @@ const Konsultasi = () => {
   );
 
   const handleKonsultasiClick = (advokatId) => {
-    navigate(`/chat/pengacara/${advokatId}`);
+    navigate("/payment", {
+      state: { pengacaraId: advokatId }
+    });
   };
 
   useEffect(() => {
@@ -49,10 +51,7 @@ const Konsultasi = () => {
     <div className="konsultasi-page">
       <HeaderAfter />
       <section className="advokat-section">
-        <br />
-        <br />
-        <br />
-        <br />
+        <br /><br /><br /><br />
         <div className="advokat-header">
           <h2 className="product-title">Advokat Yang Tersedia</h2>
           <div className="search-filter-container">
@@ -107,7 +106,7 @@ const Konsultasi = () => {
                 <h3>{advokat.nama}</h3>
                 <p><strong>Spesialisasi:</strong> {advokat.spesialisasi}</p>
                 <p><strong>Pengalaman:</strong> {advokat.pengalaman} tahun</p>
-                <p><strong>Harga Konsultasi:</strong> Rp{advokat.harga_konsultasi.toLocaleString()}</p>
+                <p><strong>Harga Konsultasi:</strong> Rp{advokat.harga_konsultasi?.toLocaleString() ?? "Memuat..."}</p>
                 <button
                   className="btn-konsultasi"
                   onClick={() => handleKonsultasiClick(advokat.id)}
@@ -121,7 +120,6 @@ const Konsultasi = () => {
           )}
         </div>
       </section>
-
       <div className="footer-separator"></div>
       <Footer />
     </div>

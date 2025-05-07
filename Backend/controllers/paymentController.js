@@ -11,14 +11,11 @@ const createTransaction = async (req, res) => {
 
   try {
     const pengacara = await getPengacaraById(pengacara_id);
-
-    if (!pengacara.harga_konsultasi) {
-      throw new Error("Harga konsultasi tidak ditemukan");
-    }
+    if (!pengacara.harga_konsultasi) throw new Error("Harga konsultasi tidak ditemukan");
 
     const parameter = {
       transaction_details: {
-        order_id: "ORDER-" + Date.now(),
+        order_id: `ORDER-${Date.now()}`,
         gross_amount: pengacara.harga_konsultasi,
       },
       customer_details: {
