@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import HeaderAfter from "../components/HeaderAfter";
 import Footer from "../components/Footer";
+import "../CSS_User/Payment.css";
 
 const Payment = () => {
   const { state } = useLocation();
@@ -79,6 +80,7 @@ const Payment = () => {
           <p>Pengacara tidak ditemukan.</p>
         )}
       </div>
+      <div className="footer-separator"></div>
       <Footer />
     </div>
   );

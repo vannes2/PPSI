@@ -1,0 +1,49 @@
+
+/* Container utama halaman */
+.payment-page {
+  width: 100%;
+  min-height: 80vh;
+  padding: 2rem 1rem;
+  background-color: #fffdf4;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Kartu detail pengacara */
+.payment-card {
+  background-color: #fffbe6;
+  padding: 2rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  max-width: 600px;
+  width: 100%;
+}
+
+.payment-card h2 {
+  font-size: 1.6rem;
+  margin-bottom: 1rem;
+  color: #8b0000;
+}
+
+.payment-card p {
+  font-size: 1rem;
+  margin: 0.5rem 0;
+}
+
+/* Tombol Bayar */
+.btn-bayar {
+  background-color: #dc3545;
+  color: white;
+  padding: 0.6rem 1.2rem;
+  font-size: 1rem;
+  border: none;
+  border-radius: 8px;
+  margin-top: 1.5rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.btn-bayar:hover {
+  background-color: #c82333;
+}

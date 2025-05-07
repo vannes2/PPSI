@@ -105,8 +105,3 @@
     width: 30%;
   }
 }
-
-.footer-separator {
-  border-top: 1px solid var(--gray-line);
-  margin-top: 50px;
-}
