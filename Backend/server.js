@@ -16,6 +16,7 @@ const adminRoutes = require("./routes/adminRoutes");
 const profilpengacaraRoutes = require("./routes/profilpengacaraRoutes");
 const paymentRoutes = require("./routes/paymentRoutes");
 const kasusRoutes = require('./routes/kasusRoutes');
+const simpleUserRoutes = require("./routes/simpleUserRoutes");
 const app = express();
 
 // Middleware
@@ -34,6 +35,7 @@ app.use("/api", adminRoutes);
 app.use("/api", profilpengacaraRoutes);
 app.use("/api/payment", paymentRoutes);
 app.use('/api', kasusRoutes);
+app.use("/api/simple-users", simpleUserRoutes);
 
 
 // Setup HTTP server + Socket.io
