@@ -1,0 +1,59 @@
+.DaftarKasusLawyer {
+    background-color: #f7f7f7;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .container-kasus {
+    padding: 40px 20px;
+    max-width: 1200px;
+    margin: auto;
+    background: white;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.05);
+    border-radius: 12px;
+    margin-top: 50px;
+    margin-bottom: 50px;
+  }
+  
+  .container-kasus h2 {
+    text-align: center;
+    margin-bottom: 30px;
+    color: #B31312;
+  }
+  
+  .kasus-table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  
+  .kasus-table th,
+  .kasus-table td {
+    padding: 12px 15px;
+    border: 1px solid #ccc;
+    text-align: center;
+  }
+  
+  .kasus-table th {
+    background-color: #B31312;
+    color: white;
+  }
+  
+  .kasus-table tr:nth-child(even) {
+    background-color: #f9f9f9;
+  }
+  
+  .btn-detail {
+    background-color: #B31312;
+    color: white;
+    padding: 6px 12px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 0.9rem;
+  }
+  
+  .btn-detail:hover {
+    background-color: #ff4b4b;
+  }
+  

@@ -7,12 +7,11 @@ import { Link } from 'react-router-dom';
 const HomeLawyer = () => {
 
   useEffect(() => {
-    window.scrollTo({ top: 0, behavior: "instant" }); // Scroll ke paling atas saat load
+    window.scrollTo({ top: 0, behavior: "instant" });
   }, []);
 
   return (
     <div className="HomeLawyer">
-      {/* Header */}
       <HeaderLawyer />
 
       {/* Hero Section */}
@@ -21,8 +20,15 @@ const HomeLawyer = () => {
         <div className="hero-content">
           <h1>Selamat Datang, Pengacara Profesional</h1>
           <p>Gabung bersama platform kami untuk membantu masyarakat mendapatkan konsultasi hukum yang mudah dan cepat.</p>
+          
+          {/* Tombol Konsultasi */}
           <Link to="/KonsultasiLawyer">
             <button className="cta-button">Mulai Konsultasi</button>
+          </Link>
+
+          {/* Tombol Daftar Kasus User */}
+          <Link to="/DaftarKasusLawyer">
+            <button className="secondary-button">Lihat Kasus Pengguna</button>
           </Link>
         </div>
       </section>
@@ -46,7 +52,6 @@ const HomeLawyer = () => {
         </div>
       </section>
 
-      {/* Footer */}
       <div className="footer-separator"></div>
       <Footer />
     </div>

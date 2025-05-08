@@ -27,6 +27,11 @@ const KasusModel = {
   getKasusByUserId: (user_id, callback) => {
     const sql = 'SELECT * FROM ajukan_kasus WHERE user_id = ? ORDER BY created_at DESC';
     db.query(sql, [user_id], callback);
+  },
+
+  getAllKasus: (callback) => {
+    const sql = 'SELECT * FROM ajukan_kasus ORDER BY created_at DESC';
+    db.query(sql, callback);
   }
 };
 

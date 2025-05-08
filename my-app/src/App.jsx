@@ -37,6 +37,7 @@ import ProfileLawyer from "./PageLawyer/ProfileLawyer";
 import KonsultasiLawyer from "./PageLawyer/KonsultasiLawyer";
 import SelectUser from "./PageLawyer/selectUser";
 import ProfileEditLawyer from "./PageLawyer/ProfileEditLawyer";
+import DaftarKasusLawyer from './PageLawyer/DaftarKasusLawyer';
 
 // Components
 import SidebarAdmin from "./components/SidebarAdmin";
@@ -89,6 +90,7 @@ function App() {
                 <Route path="/KonsultasiLawyer" element={<KonsultasiLawyer />} />
                 <Route path="/SelectUser" element={<SelectUser />} />
                 <Route path="/ProfileEditLawyer" element={<ProfileEditLawyer />} />
+                <Route path="/DaftarKasusLawyer" element={<DaftarKasusLawyer />} />
             </Routes>
         </Router>
     );
