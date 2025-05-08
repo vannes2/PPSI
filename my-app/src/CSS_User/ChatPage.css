@@ -133,6 +133,60 @@
   padding: 30px;
 }
 
+.chat-header-info {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+
+.lawyer-photo {
+  width: 40px;  /* Ukuran foto lebih kecil */
+  height: 40px; /* Tinggi foto sama dengan lebar */
+  object-fit: cover; /* Memastikan gambar tidak terdistorsi */
+  border-radius: 50%; /* Membuat gambar menjadi bulat */
+}
+
+.photo-placeholder {
+  width: 40px;  /* Ukuran placeholder lebih kecil */
+  height: 40px; /* Tinggi placeholder sama dengan lebar */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #ddd;
+  border-radius: 50%;
+  color: white;
+}
+
+
+/* Styling foto profil di sidebar */
+.contact-photo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 10px;
+}
+
+.contact-photo-img {
+  width: 40px; /* Ukuran foto lebih kecil */
+  height: 40px; /* Tinggi foto sama dengan lebar */
+  object-fit: cover; /* Memastikan gambar tidak terdistorsi */
+  border-radius: 50%; /* Membuat gambar menjadi bulat */
+}
+
+.photo-placeholder {
+  width: 40px; /* Ukuran placeholder lebih kecil */
+  height: 40px; /* Tinggi placeholder sama dengan lebar */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #ddd;
+  border-radius: 50%;
+  color: white;
+  font-size: 12px;
+}
+
+
 @media (max-width: 768px) {
   .chat-container {
     flex-direction: column;

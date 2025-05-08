@@ -26,34 +26,17 @@ const ChatPage = () => {
     // Ambil daftar kontak yang pernah dihubungi user
     fetch(`http://localhost:5000/api/chat/contacts/user/${user.id}`)
       .then((res) => res.json())
-      .then((data) => {
-        // Ambil foto profil setiap pengacara dari profilpengacaraController
-        const updatedContacts = data.map((contact) => {
-          fetch(`http://localhost:5000/api/profilpengacara`)
-            .then((res) => res.json())
-            .then((profileData) => {
-              const profile = profileData.find((p) => p.id === contact.id);
-              if (profile) {
-                contact.upload_foto = profile.upload_foto; // Ambil foto profil
-              }
-            })
-            .catch(() => setError("Gagal mengambil foto profil"));
-
-          return contact;
-        });
-
-        setContacts(updatedContacts); // Set kontak yang sudah diperbarui dengan foto
-      })
+      .then((data) => setContacts(data))
       .catch(() => setError("Gagal mengambil kontak"));
 
-    // Mengambil data pengacara berdasarkan lawyerId untuk foto profil di chat header
-    fetch(`http://localhost:5000/api/profilpengacara`)
-      .then((res) => res.json())
-      .then((data) => {
-        const lawyer = data.find((p) => p.id === parseInt(lawyerId));
-        if (lawyer) setAdvokat(lawyer); // Simpan data pengacara yang dipilih
-      })
-      .catch(() => setError("Gagal mengambil data pengacara"));
+    // Mendengarkan pesan baru dari pengacara yang dipilih
+    socket.on(`receive_message_user_${user.id}`, (data) => {
+      if (data.sender_id === parseInt(lawyerId)) {
+        setMessages((prev) => [...prev, data]);
+      }
+    });
+
+    return () => socket.off();
   }, [user?.id, lawyerId]);
 
   useEffect(() => {
@@ -64,6 +47,16 @@ const ChatPage = () => {
       .then((res) => res.json())
       .then((data) => setMessages(data))
       .catch(() => setError("Gagal mengambil pesan"));
+
+    // Mengambil data pengacara berdasarkan lawyerId untuk foto profil
+    fetch(`http://localhost:5000/api/profilpengacara`)
+      .then((res) => res.json())
+      .then((data) => {
+        const lawyer = data.find((p) => p.id === parseInt(lawyerId));
+        if (lawyer) setAdvokat(lawyer); // Simpan data pengacara yang sesuai
+      })
+      .catch(() => setError("Gagal mengambil data pengacara"));
+
   }, [lawyerId, user?.id]);
 
   useEffect(() => {
@@ -114,20 +107,11 @@ const ChatPage = () => {
   const loadMessages = (lawyer) => {
     setMessages([]); // Mengosongkan pesan yang ada
     setError(""); // Clear error message
-    // Ambil data pengacara berdasarkan id
-    fetch(`http://localhost:5000/api/profilpengacara`)
-      .then((res) => res.json())
-      .then((data) => {
-        const lawyerData = data.find((p) => p.id === lawyer.id);
-        if (lawyerData) {
-          setAdvokat(lawyerData); // Set data pengacara yang dipilih
-        }
-      })
-      .catch(() => setError("Gagal mengambil data pengacara"));
-
     fetch(`http://localhost:5000/api/chat/messages/pengacara/${lawyer.id}?userId=${user.id}&userRole=user`)
       .then((res) => res.json())
-      .then((data) => setMessages(data))
+      .then((data) => {
+        setMessages(data);
+      })
       .catch(() => setError("Gagal mengambil pesan"));
   };
 
@@ -145,21 +129,9 @@ const ChatPage = () => {
               contacts.map((lawyer) => (
                 <li
                   key={lawyer.id}
-                  onClick={() => loadMessages(lawyer)} // Menangani klik untuk memilih pengacara
+                  onClick={() => loadMessages(lawyer)}
                   className={lawyerId === lawyer.id ? "active" : ""}
                 >
-                  <div className="contact-photo">
-                    {/* Menampilkan foto profil pengacara berdasarkan kontak */}
-                    {lawyer.upload_foto ? (
-                      <img
-                        className="contact-photo-img"
-                        src={`http://localhost:5000/uploads/${lawyer.upload_foto}`}
-                        alt={lawyer.name}
-                      />
-                    ) : (
-                      <div className="photo-placeholder">Tidak ada foto</div>
-                    )}
-                  </div>
                   <div className="contact-name">{lawyer.name}</div>
                   <div className="last-message">Klik untuk lihat chat</div>
                 </li>
@@ -174,7 +146,6 @@ const ChatPage = () => {
           <div className="chat-header">
             {lawyerId ? (
               <div className="chat-header-info">
-                {/* Menampilkan foto profil pengacara yang dipilih di header */}
                 {advokat?.upload_foto ? (
                   <img
                     className="lawyer-photo"
