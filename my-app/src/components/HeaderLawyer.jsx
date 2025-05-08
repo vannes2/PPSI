@@ -9,10 +9,10 @@ const Header = () => {
   const closeDrawer = () => setMenuOpen(false);
 
   return (
-    <header>
+    <header className="header-lawyer">
       <div className="header-left">
         <div className="logo">
-          <img src="/assets/img/LogoKecil.png" alt="Cerdas Hukum" />
+          <img src="/assets/img/LogoBesar.png" alt="Cerdas Hukum" />
         </div>
 
         {/* Hamburger hanya muncul di mobile */}

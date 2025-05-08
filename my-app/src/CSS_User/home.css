@@ -197,13 +197,15 @@ body {
 
 .topik-icons {
   display: flex;
-  justify-content: center;  /* Center the icons horizontally */
+  justify-content: flex-start;  /* Align icons to the left initially */
   align-items: center;      /* Center the icons vertically */
-  flex-wrap: wrap;          /* Allow wrapping */
+  flex-wrap: nowrap;        /* Prevent wrapping */
   gap: 30px;                /* Space between icons */
   padding-bottom: 20px;
-  overflow-x: auto;         /* Allow horizontal scrolling */
-  scroll-behavior: smooth;  /* Smooth scrolling */
+  overflow-x: auto;         /* Enable horizontal scroll */
+  scroll-behavior: smooth;  /* Smooth scrolling effect */
+  -webkit-overflow-scrolling: touch;  /* Enable smooth scrolling on iOS */
+  width: 100%;              /* Ensure the container takes full width */
 }
 
 .topik-icon {
@@ -266,8 +268,9 @@ body {
   }
 
   .topik-icons {
-    justify-content: center;
+    justify-content: flex-start; /* Keep icons aligned to the left */
     gap: 15px;             /* Smaller gap between icons */
+    padding-left: 10px;    /* Add padding on the left for a neat look */
   }
 
   .topik-icon {
@@ -284,6 +287,24 @@ body {
 
   .topik-icon p {
     font-size: 14px;       /* Smaller font for better fit */
+  }
+}
+
+@media (max-width: 480px) {
+  .topik-hukum h2 {
+    font-size: 20px; /* Further smaller heading */
+  }
+
+  .topik-icons {
+    gap: 10px; /* Even smaller gap for the icons */
+  }
+
+  .topik-icon i {
+    font-size: 35px; /* Further reduced icon size */
+  }
+
+  .topik-icon img {
+    width: 50px; /* Smallest image size for mobile */
   }
 }
 

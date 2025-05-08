@@ -142,95 +142,99 @@ nav.drawer ul li a:hover {
   padding: 20px;
 }
 
-/* RESPONSIVE STYLES */
+nav.drawer {
+  position: static;
+  height: auto;
+  width: auto;
+  box-shadow: none;
+  padding-top: 0;
+  display: flex !important;
+  flex: 1;
+  justify-content: center;
+}
+
+nav.drawer ul {
+  flex-direction: row;
+  align-items: center;
+  gap: 30px;
+  padding-left: 0;
+}
+
+.drawer-profile-btn {
+  display: none;
+}
+
+/* ===================== RESPONSIVE STYLING ===================== */
+
+/* TABLET (iPad, 768px–1024px) */
+@media (max-width: 1024px) {
+  .header-left {
+    gap: 100px; /* Lebih ramping di tablet */
+  }
+
+  .logo img {
+    width: 180px;
+    height: auto;
+    margin-top: 0;
+  }
+
+  nav.drawer ul {
+    gap: 20px;
+  }
+
+  nav.drawer ul li a {
+    font-size: 16px;
+  }
+}
+
+/* MOBILE (Max 768px) */
 @media (max-width: 768px) {
-  .hamburger {
-    display: flex;
+  .header-left {
+    justify-content: space-between;
+    gap: 0;
+    width: 100%;
+  }
+
+  .logo img {
+    width: 130px;
+    height: auto;
+    margin-top: 0;
   }
 
   .auth-buttons {
-    display: none;
+    display: none; /* Sembunyikan tombol profil desktop */
+  }
+
+  .hamburger {
+    display: flex; /* Tampilkan hamburger menu */
   }
 
   nav.drawer {
-    right: -250px;
+    position: fixed;
+    right: -300px;
+    top: 0;
+    height: 100vh;
+    width: 250px;
+    padding-top: var(--header-height);
+    background-color: #fff;
+    transition: right 0.3s ease-in-out;
+    box-shadow: -2px 0 10px rgba(0, 0, 0, 0.1);
+    flex-direction: column;
+    z-index: 999;
   }
 
   nav.drawer.active {
     right: 0;
   }
 
-  .header-left {
-    gap: 300px;
-    padding-left: 20px;
-  }
-
-  nav.drawer ul li a {
-    font-size: 15px;
-  }
-}
-
-@media (max-width: 650px) {
-  .header-left {
-    gap: 10px !important;
-    padding-left: 10px !important;
-    flex-wrap: wrap;
-    justify-content: space-between;
-    width: 100%;
-  }
-
-  .logo img {
-    width: 50px;
-    height: 50px;
-  }
-
-  .hamburger {
-    position: relative;
-    margin-left: auto;
-  }
-
-  header {
-    padding: 8px 15px;
-  }
-}
-
-@media (max-width: 480px) {
-  .header-left {
-    gap: 200px;
-    padding-left: 10px;
-  }
-
-  nav.drawer ul li a {
-    font-size: 14px;
-  }
-}
-
-@media (max-width: 1024px) {
-  nav.drawer ul li a {
-    font-size: 16px;
-  }
-}
-
-@media (min-width: 769px) {
-  nav.drawer {
-    position: static;
-    height: auto;
-    width: auto;
-    box-shadow: none;
-    padding-top: 0;
-    display: flex !important;
-    flex: 1;
-    justify-content: center;
-  }
-
   nav.drawer ul {
-    flex-direction: row;
-    align-items: center;
-    gap: 30px;
-    padding-left: 0;
+    flex-direction: column;
+    align-items: flex-start;
+    padding-left: 30px;
+    gap: 20px;
   }
 
   .drawer-profile-btn {
-    display: none;
+    display: block;
   }
 }
