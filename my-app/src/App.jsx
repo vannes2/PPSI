@@ -15,8 +15,9 @@ import ChatPage from "./PageUser/ChatPage";
 import Payment from "./PageUser/Payment";
 import AjukanKasus from "./PageUser/AjukanKasus";
 import DaftarKasus from './PageUser/DaftarKasus';
-
-
+import ForgotPassword from "./PageUser/ForgotPassword";
+import VerifyOtp from "./PageUser/VerifyOtp";
+import ResetPassword from "./PageUser/ResetPassword";
 
 // Admin Pages
 import HomeAdmin from "./PageAdmin/HomeAdmin";
@@ -68,6 +69,9 @@ function App() {
                 <Route path="/chat/:contactRole/:contactId" element={<ChatPage />} /> {/* fallback tambahan jika dibutuhkan */}
                 <Route path="/AjukanKasus" element={<AjukanKasus />} />
                 <Route path="/DaftarKasus" element={<DaftarKasus />} />
+                <Route path="/forgot-password" element={<ForgotPassword />} />
+                <Route path="/verify-otp" element={<VerifyOtp />} />
+                <Route path="/reset-password" element={<ResetPassword />} />
 
 
                 {/* ✅ Admin Routes */}

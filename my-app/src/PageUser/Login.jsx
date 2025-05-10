@@ -85,7 +85,7 @@ const Login = () => {
                 onChange={(e) => setPassword(e.target.value)}
                 required
               />
-              <Link to="/forgotpass" className="login-admin">
+              <Link to="/forgot-password" className="login-admin">
                 Lupa Password anda? Klik di sini
               </Link>
               <button type="submit" className="btn">MASUK</button>
