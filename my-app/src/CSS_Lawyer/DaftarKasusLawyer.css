@@ -43,6 +43,20 @@
     background-color: #f9f9f9;
   }
   
+  .btn-update {
+  margin-left: 6px;
+  background-color: #198754;
+  color: white;
+  border: none;
+  padding: 4px 10px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.85rem;
+}
+.btn-update:hover {
+  background-color: #157347;
+}
+
   .btn-detail {
     background-color: #B31312;
     color: white;
@@ -57,3 +71,36 @@
     background-color: #ff4b4b;
   }
   
+  .tab-kasus {
+  margin-bottom: 16px;
+}
+.tab-btn {
+  padding: 6px 12px;
+  margin-right: 8px;
+  border: none;
+  border-radius: 4px;
+  background-color: #f0f0f0;
+  cursor: pointer;
+}
+.tab-btn.active {
+  background-color: #dc3545;
+  color: white;
+}
+.toast {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  padding: 12px 16px;
+  background-color: #28a745;
+  color: white;
+  border-radius: 6px;
+  z-index: 1000;
+  animation: fadein 0.3s ease;
+}
+.toast.error {
+  background-color: #dc3545;
+}
+@keyframes fadein {
+  from { opacity: 0; transform: translateY(-10px); }
+  to { opacity: 1; transform: translateY(0); }
+}

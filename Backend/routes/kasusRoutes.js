@@ -22,7 +22,11 @@ router.post('/ajukan-kasus', upload.single('bukti'), kasusController.ajukanKasus
 // Route mengambil semua kasus dari user tertentu
 router.get('/kasus/riwayat/:id', kasusController.getKasusByUserId);
 
-// ✅ Route baru: mengambil semua kasus
+// Route baru: mengambil semua kasus
 router.get('/kasus', kasusController.getAllKasus);
+
+// Tambah route update status kasus
+router.put('/kasus/update-status/:id', kasusController.updateKasusStatus);
+
 
 module.exports = router;

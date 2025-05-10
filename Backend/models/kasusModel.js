@@ -32,6 +32,12 @@ const KasusModel = {
   getAllKasus: (callback) => {
     const sql = 'SELECT * FROM ajukan_kasus ORDER BY created_at DESC';
     db.query(sql, callback);
+  },
+
+  // ✅ Fungsi update status dimasukkan ke dalam objek
+  updateStatusKasus: (id, status, callback) => {
+    const sql = 'UPDATE ajukan_kasus SET status = ? WHERE id = ?';
+    db.query(sql, [status, id], callback);
   }
 };
 

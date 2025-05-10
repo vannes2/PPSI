@@ -40,3 +40,21 @@ exports.getAllKasus = (req, res) => {
     res.status(200).json(results);
   });
 };
+
+
+exports.updateKasusStatus = (req, res) => {
+  const { id } = req.params;
+  const { status } = req.body;
+
+  if (!['Menunggu', 'Diproses', 'Selesai'].includes(status)) {
+    return res.status(400).json({ message: 'Status tidak valid.' });
+  }
+
+  KasusModel.updateStatusKasus(id, status, (err, result) => {
+    if (err) {
+      console.error('Gagal memperbarui status:', err);
+      return res.status(500).json({ message: 'Gagal memperbarui status kasus.' });
+    }
+    res.status(200).json({ message: 'Status kasus berhasil diperbarui.' });
+  });
+};
