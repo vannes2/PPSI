@@ -76,7 +76,6 @@ exports.updateKasusStatus = (req, res) => {
   });
 };
 
-// ✅ POST log aktivitas manual (opsional dari frontend)
 exports.logAktivitas = (req, res) => {
   const { id_pengguna, aktivitas } = req.body;
 
@@ -94,7 +93,6 @@ exports.logAktivitas = (req, res) => {
   });
 };
 
-// ✅ GET log aktivitas user
 exports.getLogAktivitasByUser = (req, res) => {
   const userId = req.params.id;
 
