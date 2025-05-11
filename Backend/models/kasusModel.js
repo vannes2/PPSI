@@ -29,7 +29,6 @@ const KasusModel = {
     db.query(sql, [user_id], callback);
   },
 
-  // ✅ Menambahkan address dari tabel `users`
   getAllKasus: (callback) => {
     const sql = `
       SELECT ak.*, u.address AS alamat
