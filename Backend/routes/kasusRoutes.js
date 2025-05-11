@@ -16,17 +16,22 @@ const storage = multer.diskStorage({
 
 const upload = multer({ storage: storage });
 
-// Route pengajuan kasus dengan upload file bukti
+// ✅ Route pengajuan kasus
 router.post('/ajukan-kasus', upload.single('bukti'), kasusController.ajukanKasus);
 
-// Route mengambil semua kasus dari user tertentu
+// ✅ Route ambil kasus user
 router.get('/kasus/riwayat/:id', kasusController.getKasusByUserId);
 
-// Route baru: mengambil semua kasus
+// ✅ Route ambil semua kasus (untuk lawyer)
 router.get('/kasus', kasusController.getAllKasus);
 
-// Tambah route update status kasus
+// ✅ Update status kasus
 router.put('/kasus/update-status/:id', kasusController.updateKasusStatus);
 
+// ✅ Tambah log aktivitas manual (opsional)
+router.post('/kasus/log-aktivitas', kasusController.logAktivitas);
+
+// ✅ Ambil log aktivitas user
+router.get('/kasus/log-aktivitas/:id', kasusController.getLogAktivitasByUser);
 
 module.exports = router;

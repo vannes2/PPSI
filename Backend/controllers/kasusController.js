@@ -1,3 +1,4 @@
+const db = require('../config/database');
 const KasusModel = require('../models/kasusModel');
 
 exports.ajukanKasus = (req, res) => {
@@ -41,7 +42,6 @@ exports.getAllKasus = (req, res) => {
   });
 };
 
-
 exports.updateKasusStatus = (req, res) => {
   const { id } = req.params;
   const { status } = req.body;
@@ -50,11 +50,60 @@ exports.updateKasusStatus = (req, res) => {
     return res.status(400).json({ message: 'Status tidak valid.' });
   }
 
-  KasusModel.updateStatusKasus(id, status, (err, result) => {
+  KasusModel.updateStatusKasus(id, status, (err) => {
     if (err) {
       console.error('Gagal memperbarui status:', err);
       return res.status(500).json({ message: 'Gagal memperbarui status kasus.' });
     }
-    res.status(200).json({ message: 'Status kasus berhasil diperbarui.' });
+
+    db.query('SELECT user_id FROM ajukan_kasus WHERE id = ?', [id], (err2, result) => {
+      if (err2 || result.length === 0) {
+        return res.status(500).json({ message: 'Status diperbarui, tapi gagal mencatat log aktivitas.' });
+      }
+
+      const userId = result[0].user_id;
+      const aktivitas = `Status kasus ID ${id} diperbarui menjadi "${status}"`;
+
+      KasusModel.logAktivitas(userId, aktivitas, (logErr) => {
+        if (logErr) {
+          console.error('Gagal menyimpan log aktivitas:', logErr);
+          return res.status(500).json({ message: 'Status diperbarui, tapi gagal mencatat aktivitas.' });
+        }
+
+        res.status(200).json({ message: 'Status berhasil diperbarui dan dicatat ke log.' });
+      });
+    });
+  });
+};
+
+// ✅ POST log aktivitas manual (opsional dari frontend)
+exports.logAktivitas = (req, res) => {
+  const { id_pengguna, aktivitas } = req.body;
+
+  if (!id_pengguna || !aktivitas) {
+    return res.status(400).json({ message: 'ID pengguna dan aktivitas wajib diisi.' });
+  }
+
+  KasusModel.logAktivitas(id_pengguna, aktivitas, (err) => {
+    if (err) {
+      console.error('Gagal menyimpan log aktivitas:', err);
+      return res.status(500).json({ message: 'Gagal menyimpan log aktivitas.' });
+    }
+
+    res.status(201).json({ message: 'Log aktivitas berhasil disimpan.' });
+  });
+};
+
+// ✅ GET log aktivitas user
+exports.getLogAktivitasByUser = (req, res) => {
+  const userId = req.params.id;
+
+  KasusModel.getAktivitasByUserId(userId, (err, results) => {
+    if (err) {
+      console.error('Gagal mengambil log aktivitas:', err);
+      return res.status(500).json({ message: 'Gagal mengambil log aktivitas.' });
+    }
+
+    res.status(200).json(results);
   });
 };

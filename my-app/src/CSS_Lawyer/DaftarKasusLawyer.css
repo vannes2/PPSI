@@ -1,54 +1,93 @@
 .DaftarKasusLawyer {
-    background-color: #f7f7f7;
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
+  background-color: #f7f7f7;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.container-kasus {
+  padding: 40px 20px;
+  width: 95%;
+  max-width: 1400px;
+  margin: 50px auto;
+  background: white;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.05);
+  border-radius: 12px;
+  overflow-x: auto;
+}
+
+.container-kasus h2 {
+  text-align: center;
+  margin-bottom: 30px;
+  color: #B31312;
+}
+
+.kasus-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 14px;
+}
+
+.kasus-table th,
+.kasus-table td {
+  padding: 12px 15px;
+  border: 1px solid #ddd;
+  text-align: center;
+  vertical-align: middle;
+}
+
+.kasus-table th {
+  background-color: #B31312;
+  color: white;
+}
+
+.kasus-table tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+/* Tab filter */
+.tab-kasus {
+  margin-bottom: 16px;
+  text-align: center;
+  flex-wrap: wrap;
+}
+
+.tab-btn {
+  padding: 6px 12px;
+  margin: 6px;
+  border: none;
+  border-radius: 4px;
+  background-color: #f0f0f0;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.tab-btn.active {
+  background-color: #dc3545;
+  color: white;
+}
+
+/* Tombol aksi */
+.action-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  align-items: center;
+  justify-content: center;
+}
+
+@media (min-width: 768px) {
+  .action-buttons {
+    flex-direction: row;
+    flex-wrap: wrap;
   }
-  
-  .container-kasus {
-    padding: 40px 20px;
-    max-width: 1200px;
-    margin: auto;
-    background: white;
-    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.05);
-    border-radius: 12px;
-    margin-top: 50px;
-    margin-bottom: 50px;
-  }
-  
-  .container-kasus h2 {
-    text-align: center;
-    margin-bottom: 30px;
-    color: #B31312;
-  }
-  
-  .kasus-table {
-    width: 100%;
-    border-collapse: collapse;
-  }
-  
-  .kasus-table th,
-  .kasus-table td {
-    padding: 12px 15px;
-    border: 1px solid #ccc;
-    text-align: center;
-  }
-  
-  .kasus-table th {
-    background-color: #B31312;
-    color: white;
-  }
-  
-  .kasus-table tr:nth-child(even) {
-    background-color: #f9f9f9;
-  }
-  
-  .btn-update {
-  margin-left: 6px;
+}
+
+.btn-update {
   background-color: #198754;
   color: white;
   border: none;
-  padding: 4px 10px;
+  padding: 5px 10px;
   border-radius: 4px;
   cursor: pointer;
   font-size: 0.85rem;
@@ -57,35 +96,32 @@
   background-color: #157347;
 }
 
-  .btn-detail {
-    background-color: #B31312;
-    color: white;
-    padding: 6px 12px;
-    border: none;
-    border-radius: 6px;
-    cursor: pointer;
-    font-size: 0.9rem;
-  }
-  
-  .btn-detail:hover {
-    background-color: #ff4b4b;
-  }
-  
-  .tab-kasus {
-  margin-bottom: 16px;
-}
-.tab-btn {
-  padding: 6px 12px;
-  margin-right: 8px;
+.btn-detail {
+  background-color: #B31312;
+  color: white;
+  padding: 5px 10px;
   border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.85rem;
+}
+.btn-detail:hover {
+  background-color: #ff4b4b;
+}
+
+.btn-riwayat {
+  background-color: #f0ad4e;
+  color: white;
+  border: none;
+  padding: 5px 10px;
   border-radius: 4px;
-  background-color: #f0f0f0;
   cursor: pointer;
 }
-.tab-btn.active {
-  background-color: #dc3545;
-  color: white;
+.btn-riwayat:hover {
+  background-color: #ec9a2f;
 }
+
+/* Toast */
 .toast {
   position: fixed;
   top: 20px;
@@ -101,6 +137,112 @@
   background-color: #dc3545;
 }
 @keyframes fadein {
-  from { opacity: 0; transform: translateY(-10px); }
-  to { opacity: 1; transform: translateY(0); }
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Modal overlay */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0,0,0,0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 999;
+}
+
+.modal-content {
+  background-color: #fff;
+  padding: 25px;
+  width: 90%;
+  max-width: 600px;
+  border-radius: 10px;
+  max-height: 80vh;
+  overflow-y: auto;
+  box-shadow: 0 0 10px rgba(0,0,0,0.3);
+  animation: fadein 0.3s ease;
+}
+
+.modal-content h3 {
+  margin-top: 0;
+  text-align: center;
+  color: #B31312;
+}
+
+.log-list {
+  list-style: none;
+  padding-left: 0;
+  margin-top: 15px;
+}
+
+.log-list li {
+  background-color: #f8f9fa;
+  border-left: 4px solid #B31312;
+  padding: 10px 12px;
+  margin-bottom: 8px;
+  border-radius: 4px;
+}
+
+.btn-close-modal {
+  display: block;
+  margin: 20px auto 0;
+  background: #B31312;
+  color: white;
+  padding: 8px 20px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+.btn-close-modal:hover {
+  background: #a00e0e;
+}
+
+
+/* Badge-style Riwayat */
+.badge-status {
+  display: inline-flex;
+  align-items: center;
+  padding: 5px 12px;
+  border-radius: 20px;
+  font-size: 0.85rem;
+  font-weight: 500;
+  background-color: #e9ecef;
+  color: #333;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+  margin: 2px;
+}
+
+.badge-status:hover {
+  background-color: #dcdcdc;
+}
+
+.dot-status {
+  height: 8px;
+  width: 8px;
+  border-radius: 50%;
+  margin-right: 6px;
+  display: inline-block;
+}
+
+.waiting .dot-status {
+  background-color: orange;
+}
+
+.processing .dot-status {
+  background-color: blue;
+}
+
+.done .dot-status {
+  background-color: green;
 }

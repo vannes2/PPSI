@@ -29,15 +29,30 @@ const KasusModel = {
     db.query(sql, [user_id], callback);
   },
 
+  // ✅ Menambahkan address dari tabel `users`
   getAllKasus: (callback) => {
-    const sql = 'SELECT * FROM ajukan_kasus ORDER BY created_at DESC';
+    const sql = `
+      SELECT ak.*, u.address AS alamat
+      FROM ajukan_kasus ak
+      LEFT JOIN users u ON ak.user_id = u.id
+      ORDER BY ak.created_at DESC
+    `;
     db.query(sql, callback);
   },
 
-  // ✅ Fungsi update status dimasukkan ke dalam objek
   updateStatusKasus: (id, status, callback) => {
     const sql = 'UPDATE ajukan_kasus SET status = ? WHERE id = ?';
     db.query(sql, [status, id], callback);
+  },
+
+  logAktivitas: (userId, aktivitas, callback) => {
+    const sql = 'INSERT INTO log_aktivitas (id_pengguna, aktivitas) VALUES (?, ?)';
+    db.query(sql, [userId, aktivitas], callback);
+  },
+
+  getAktivitasByUserId: (userId, callback) => {
+    const sql = 'SELECT * FROM log_aktivitas WHERE id_pengguna = ? ORDER BY waktu DESC';
+    db.query(sql, [userId], callback);
   }
 };
 
