@@ -8,14 +8,20 @@ import '../CSS_Lawyer/DaftarKasusLawyer.css';
 
 const DaftarKasusLawyer = () => {
   const [kasusList, setKasusList] = useState([]);
-  const [tab, setTab] = useState('Menunggu');
+  const [tab, setTab] = useState('Belum Diambil');
   const [toast, setToast] = useState(null);
   const [logAktivitas, setLogAktivitas] = useState([]);
   const [showLogModal, setShowLogModal] = useState(false);
   const [showBuktiModal, setShowBuktiModal] = useState(false);
   const [buktiPreview, setBuktiPreview] = useState(null);
 
+  const lawyer = JSON.parse(localStorage.getItem("user"));
+
   useEffect(() => {
+    if (!lawyer || lawyer.role !== 'pengacara') {
+      setToast({ message: "Data pengacara tidak ditemukan. Harap login ulang.", isError: true });
+      return;
+    }
     fetchSemuaKasus();
   }, []);
 
@@ -31,6 +37,17 @@ const DaftarKasusLawyer = () => {
   const showToast = (message, isError = false) => {
     setToast({ message, isError });
     setTimeout(() => setToast(null), 3000);
+  };
+
+  const handleAmbilKasus = async (kasusId) => {
+    try {
+      const response = await axios.put(`http://localhost:5000/api/kasus/ambil/${kasusId}`, { lawyer_id: lawyer.id });
+      showToast(response.data.message);
+      fetchSemuaKasus();
+    } catch (error) {
+      console.error('Gagal mengambil kasus:', error);
+      showToast(error.response?.data?.message || 'Terjadi kesalahan.', true);
+    }
   };
 
   const handleUpdateStatus = async (id, newStatus, userId) => {
@@ -86,7 +103,14 @@ const DaftarKasusLawyer = () => {
     setShowBuktiModal(true);
   };
 
-  const filteredKasus = kasusList.filter((k) => k.status === tab);
+  const handleNot = (deskripsi) => {
+    alert(`Catatan: ${deskripsi}`);
+  };
+
+  const filteredKasus = kasusList.filter((k) => {
+    if (tab === 'Belum Diambil') return k.lawyer_id === null;
+    return k.lawyer_id === lawyer.id && k.status === tab;
+  });
 
   return (
     <div className="DaftarKasusLawyer">
@@ -95,7 +119,7 @@ const DaftarKasusLawyer = () => {
         <h2>Semua Kasus Pengguna</h2>
 
         <div className="tab-kasus">
-          {['Menunggu', 'Diproses', 'Selesai'].map((status) => (
+          {['Belum Diambil', 'Menunggu', 'Diproses', 'Selesai'].map((status) => (
             <button
               key={status}
               className={`tab-btn ${tab === status ? 'active' : ''}`}
@@ -117,7 +141,6 @@ const DaftarKasusLawyer = () => {
                 <th>Jenis</th>
                 <th>Biaya</th>
                 <th>Estimasi</th>
-                <th>Status</th>
                 <th>Aksi</th>
               </tr>
             </thead>
@@ -132,34 +155,35 @@ const DaftarKasusLawyer = () => {
                     Rp{Number(kasus.biaya_min).toLocaleString()} - Rp{Number(kasus.biaya_max).toLocaleString()}
                   </td>
                   <td>{new Date(kasus.estimasi_selesai).toLocaleDateString('id-ID')}</td>
-                  <td>{kasus.status}</td>
                   <td>
                     <div className="btn-group">
-                      <span
-                        className={`badge-status ${kasus.status === 'Menunggu' ? 'waiting' : kasus.status === 'Diproses' ? 'processing' : 'done'}`}
-                        onClick={() => fetchLogAktivitas(kasus.user_id)}
-                      >
-                        <span className="dot-status"></span> Riwayat
-                      </span>
-                      <button className="btn-detail" onClick={() => alert(kasus.deskripsi)}>Lihat</button>
-                      {kasus.bukti && (
-                        <button className="btn-riwayat" onClick={() => handlePreviewBukti(kasus.bukti)}>
-                          Bukti
-                        </button>
-                      )}
-                      {kasus.status !== 'Selesai' && (
-                        <button
-                          className="btn-update"
-                          onClick={() =>
-                            handleUpdateStatus(
-                              kasus.id,
-                              kasus.status === 'Menunggu' ? 'Diproses' : 'Selesai',
-                              kasus.user_id
-                            )
-                          }
-                        >
-                          {kasus.status === 'Menunggu' ? 'Diproses' : 'Selesai'}
-                        </button>
+                      <button className="btn-riwayat" onClick={() => handleNot(kasus.deskripsi)}>Not</button>
+                      {tab !== 'Belum Diambil' ? (
+                        <>
+                          <span
+                            className={`badge-status ${kasus.status === 'Menunggu' ? 'waiting' : kasus.status === 'Diproses' ? 'processing' : 'done'}`}
+                            onClick={() => fetchLogAktivitas(kasus.user_id)}
+                          >
+                            <span className="dot-status"></span> Riwayat
+                          </span>
+                          {kasus.bukti && (
+                            <button className="btn-riwayat" onClick={() => handlePreviewBukti(kasus.bukti)}>Bukti</button>
+                          )}
+                          {kasus.status !== 'Selesai' && (
+                            <button
+                              className="btn-update"
+                              onClick={() => handleUpdateStatus(
+                                kasus.id,
+                                kasus.status === 'Menunggu' ? 'Diproses' : 'Selesai',
+                                kasus.user_id
+                              )}
+                            >
+                              {kasus.status === 'Menunggu' ? 'Diproses' : 'Selesai'}
+                            </button>
+                          )}
+                        </>
+                      ) : (
+                        <button className="btn-update" onClick={() => handleAmbilKasus(kasus.id)}>Ambil Kasus</button>
                       )}
                     </div>
                   </td>
@@ -168,13 +192,11 @@ const DaftarKasusLawyer = () => {
             </tbody>
           </table>
         </div>
+
         {toast && (
-          <div className={`toast ${toast.isError ? 'error' : 'success'}`}>
-            {toast.message}
-          </div>
+          <div className={`toast ${toast.isError ? 'error' : 'success'}`}>{toast.message}</div>
         )}
 
-        {/* Modal Log Aktivitas */}
         {showLogModal && (
           <div className="modal-overlay">
             <div className="modal-content">
@@ -182,7 +204,7 @@ const DaftarKasusLawyer = () => {
               <ul className="log-list">
                 {logAktivitas.map((log, idx) => (
                   <li key={idx}>
-                    {log.aktivitas} <br />
+                    {log.aktivitas}<br />
                     <small>{new Date(log.waktu).toLocaleString('id-ID')}</small>
                   </li>
                 ))}
@@ -192,7 +214,6 @@ const DaftarKasusLawyer = () => {
           </div>
         )}
 
-        {/* Modal Bukti Upload */}
         {showBuktiModal && (
           <div className="modal-overlay">
             <div className="modal-content" style={{ width: '90%', maxWidth: '700px' }}>

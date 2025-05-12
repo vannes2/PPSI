@@ -22,5 +22,6 @@ router.get('/kasus', kasusController.getAllKasus);
 router.put('/kasus/update-status/:id', kasusController.updateKasusStatus);
 router.post('/kasus/log-aktivitas', kasusController.logAktivitas);
 router.get('/kasus/log-aktivitas/:id', kasusController.getLogAktivitasByUser);
+router.put('/kasus/ambil/:id', kasusController.ambilKasus); // ✅ pakai PUT dan ambil param dari :id
 
 module.exports = router;

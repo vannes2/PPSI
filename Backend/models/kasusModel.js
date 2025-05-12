@@ -52,6 +52,11 @@ const KasusModel = {
   getAktivitasByUserId: (userId, callback) => {
     const sql = 'SELECT * FROM log_aktivitas WHERE id_pengguna = ? ORDER BY waktu DESC';
     db.query(sql, [userId], callback);
+  },
+
+  ambilKasus: (kasusId, lawyerId, callback) => {
+    const sql = 'UPDATE ajukan_kasus SET lawyer_id = ? WHERE id = ?';
+    db.query(sql, [lawyerId, kasusId], callback);
   }
 };
 

@@ -105,3 +105,29 @@ exports.getLogAktivitasByUser = (req, res) => {
     res.status(200).json(results);
   });
 };
+
+exports.ambilKasus = (req, res) => {
+  const kasusId = req.params.id;
+  const { lawyer_id } = req.body;
+
+  if (!kasusId || !lawyer_id) {
+    return res.status(400).json({ message: 'kasusId dan lawyer_id wajib diisi.' });
+  }
+
+  db.query(
+    'UPDATE ajukan_kasus SET lawyer_id = ?, status = "Menunggu" WHERE id = ? AND lawyer_id IS NULL',
+    [lawyer_id, kasusId],
+    (err, result) => {
+      if (err) {
+        console.error('Gagal mengupdate lawyer_id:', err);
+        return res.status(500).json({ message: 'Gagal mengambil kasus.' });
+      }
+
+      if (result.affectedRows === 0) {
+        return res.status(400).json({ message: 'Kasus sudah diambil oleh pengacara lain.' });
+      }
+
+      res.status(200).json({ message: 'Kasus berhasil diambil.' });
+    }
+  );
+};
