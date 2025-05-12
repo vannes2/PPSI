@@ -25,7 +25,13 @@ const KasusModel = {
   },
 
   getKasusByUserId: (user_id, callback) => {
-    const sql = 'SELECT * FROM ajukan_kasus WHERE user_id = ? ORDER BY created_at DESC';
+    const sql = `
+      SELECT ak.*, p.nama AS nama_pengacara
+      FROM ajukan_kasus ak
+      LEFT JOIN pengacara p ON ak.lawyer_id = p.id
+      WHERE ak.user_id = ?
+      ORDER BY ak.created_at DESC
+    `;
     db.query(sql, [user_id], callback);
   },
 
@@ -52,11 +58,6 @@ const KasusModel = {
   getAktivitasByUserId: (userId, callback) => {
     const sql = 'SELECT * FROM log_aktivitas WHERE id_pengguna = ? ORDER BY waktu DESC';
     db.query(sql, [userId], callback);
-  },
-
-  ambilKasus: (kasusId, lawyerId, callback) => {
-    const sql = 'UPDATE ajukan_kasus SET lawyer_id = ? WHERE id = ?';
-    db.query(sql, [lawyerId, kasusId], callback);
   }
 };
 

@@ -40,17 +40,15 @@ const DaftarKasus = () => {
       <br /><br /><br /><br />
 
       <main className="daftar-kasus-wrapper">
-        {/* Judul Besar Halaman */}
         <h1 className="title">Daftar Kasus</h1>
 
-        {/* Tombol Ajukan Kasus */}
         <div className="tombol-ajukan-center">
           <button className="btn-ajukan-header" onClick={() => navigate('/AjukanKasus')}>
             + Ajukan Kasus
           </button>
         </div>
 
-    <div className="garis-bawah-title"></div>
+        <div className="garis-bawah-title"></div>
         <div className="title-container">
           <h2 className="title">Riwayat Kasus</h2>
         </div>
@@ -88,6 +86,7 @@ const DaftarKasus = () => {
                     <th>Status</th>
                     <th>Estimasi</th>
                     <th>Biaya</th>
+                    <th>Nama Pengacara</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -101,6 +100,7 @@ const DaftarKasus = () => {
                       <td>
                         Rp{Number(kasus.biaya_min).toLocaleString()} - Rp{Number(kasus.biaya_max).toLocaleString()}
                       </td>
+                      <td>{kasus.nama_pengacara || '-'}</td>
                     </tr>
                   ))}
                 </tbody>
