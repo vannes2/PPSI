@@ -1,4 +1,11 @@
-import { FaGavel, FaHome, FaFileAlt, FaUserCircle, FaUser } from "react-icons/fa"; // Tambah ikon profil dan user
+import {
+  FaGavel,
+  FaHome,
+  FaFileAlt,
+  FaUserCircle,
+  FaUser,
+  FaNewspaper, // Icon berita
+} from "react-icons/fa";
 import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
 import "./SidebarAdmin.css";
@@ -13,11 +20,11 @@ const SidebarAdmin = ({ activeTab, onTabChange }) => {
             <FaHome className="icon-spacing" /> Dashboard
           </Link>
         </li>
-          <li className={activeTab === "user" ? "nav-active" : ""}>
-            <Link to="/UserManagement" onClick={() => onTabChange("user")}>
-              <FaUser className="icon-spacing" /> User Management
-            </Link>
-          </li>
+        <li className={activeTab === "user" ? "nav-active" : ""}>
+          <Link to="/UserManagement" onClick={() => onTabChange("user")}>
+            <FaUser className="icon-spacing" /> User Management
+          </Link>
+        </li>
         <li className={activeTab === "pengacara" ? "nav-active" : ""}>
           <Link to="/HomeAdmin" onClick={() => onTabChange("pengacara")}>
             <FaGavel className="icon-spacing" /> Pengacara
@@ -28,9 +35,14 @@ const SidebarAdmin = ({ activeTab, onTabChange }) => {
             <FaFileAlt className="icon-spacing" /> Tambah Artikel
           </Link>
         </li>
+        <li className={activeTab === "artikelBerita" ? "nav-active" : ""}>
+          <Link to="/ArtikelBeritaAdmin" onClick={() => onTabChange("artikelBerita")}>
+            <FaNewspaper className="icon-spacing" /> Artikel Berita
+          </Link>
+        </li>
       </ul>
 
-      {/* Tambahkan Profil Admin di bagian bawah */}
+      {/* Bagian Profil Admin */}
       <div style={{ marginTop: "auto" }}>
         <ul>
           <li className={activeTab === "profilAdmin" ? "nav-active" : ""}>

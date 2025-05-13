@@ -106,7 +106,7 @@ const HomeAfter = () => {
             <h3>Ajukan Kasus</h3>
             <p>Dapatkan pendampingan hukum dari profesional.</p>
           </Link>
-          <Link to="/konsultasi" className="feature-item-home">
+          <Link to="/ArtikelBerita" className="feature-item-home">
             <FaBalanceScale className="icon-feature" />
             <h3>Legal Connect</h3>
             <p>Pilih layanan hukum sesuai kebutuhan Anda.</p>

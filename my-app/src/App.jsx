@@ -18,6 +18,7 @@ import DaftarKasus from './PageUser/DaftarKasus';
 import ForgotPassword from "./PageUser/ForgotPassword";
 import VerifyOtp from "./PageUser/VerifyOtp";
 import ResetPassword from "./PageUser/ResetPassword";
+import ArtikelBerita from "./PageUser/ArtikelBerita";
 
 // Admin Pages
 import HomeAdmin from "./PageAdmin/HomeAdmin";
@@ -27,7 +28,9 @@ import TambahPengacara from "./PageAdmin/TambahPengacara";
 import TambahArtikel from "./PageAdmin/TambahArtikel";
 import LawyerRegistrations from "./PageAdmin/LawyerRegistrations";
 import ProfilAdmin from "./PageAdmin/ProfilAdmin";
-import UserManagement from './PageAdmin/UserManagement';
+import UserManagement from "./PageAdmin/UserManagement";
+import ArtikelBeritaUser from "./PageUser/ArtikelBerita"; // ganti nama import
+import ArtikelBeritaAdmin from "./PageAdmin/ArtikelBeritaAdmin"; // tetap
 
 // Lawyer Pages
 import RegisterLawyerPage from "./PageLawyer/RegisterLawyerPage";
@@ -72,6 +75,7 @@ function App() {
                 <Route path="/forgot-password" element={<ForgotPassword />} />
                 <Route path="/verify-otp" element={<VerifyOtp />} />
                 <Route path="/reset-password" element={<ResetPassword />} />
+                <Route path="/ArtikelBerita" element={<ArtikelBeritaUser />} />
 
 
                 {/* ✅ Admin Routes */}
@@ -84,6 +88,8 @@ function App() {
                 <Route path="/ProfilAdmin" element={<ProfilAdmin />} />
                 <Route path="/UserManagement" element={<UserManagement />} />
                 <Route path="/SidebarAdmin" element={<SidebarAdmin />} />
+                <Route path="/ArtikelBeritaAdmin" element={<ArtikelBeritaAdmin />} />
+                
 
                 {/* ✅ Lawyer Routes */}
                 <Route path="/RegisterLawyerPage" element={<RegisterLawyerPage />} />

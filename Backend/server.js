@@ -18,6 +18,7 @@ const paymentRoutes = require("./routes/paymentRoutes");
 const kasusRoutes = require('./routes/kasusRoutes');
 const simpleUserRoutes = require("./routes/simpleUserRoutes");
 const forgotPasswordRoutes = require("./routes/forgotPasswordRoutes");
+const artikelBeritaRoutes = require('./routes/artikelBeritaRoutes');
 const app = express();
 
 // Middleware
@@ -38,6 +39,7 @@ app.use("/api/payment", paymentRoutes);
 app.use('/api', kasusRoutes);
 app.use("/api/simple-users", simpleUserRoutes);
 app.use("/api", forgotPasswordRoutes);
+app.use('/api/artikel-berita', artikelBeritaRoutes);
 
 // Setup HTTP server + Socket.io
 const server = http.createServer(app);

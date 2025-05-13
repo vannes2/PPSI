@@ -1,0 +1,231 @@
+.admin-page-layout {
+  display: flex;
+  background-color: #f8f9fc;
+  min-height: 100vh;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.admin-berita-container {
+  flex: 1;
+  padding: 40px 60px;
+  background-color: #fff;
+  box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.03);
+}
+
+.admin-berita-container h2 {
+  font-size: 24px;
+  color: #1d3557;
+  margin-bottom: 30px;
+  border-bottom: 2px solid #dee2e6;
+  padding-bottom: 10px;
+  text-align: center;
+}
+
+.form-and-top-preview {
+  display: flex;
+  justify-content: space-between;
+  gap: 30px;
+}
+
+form {
+  width: 60%;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  padding: 25px;
+  border-radius: 8px;
+  background-color: #f1f5f9;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+}
+
+form input[type="text"],
+form textarea,
+form input[type="file"] {
+  padding: 10px 12px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 14px;
+  resize: vertical;
+}
+
+form textarea {
+  min-height: 100px;
+}
+
+form button {
+  background-color: #2a9d8f;
+  color: white;
+  padding: 10px;
+  font-size: 15px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+form button:hover {
+  background-color: #21867a;
+}
+
+/* Preview Top Berita */
+.top-preview-container {
+  width: 35%;
+  padding: 15px;
+  background-color: #edf2f7;
+  border-radius: 8px;
+  height: fit-content;
+}
+
+.top-preview-container h3 {
+  margin-top: 0;
+  font-size: 16px;
+  margin-bottom: 15px;
+  color: #1d3557;
+}
+
+.top-preview-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+.top-preview-item img {
+  width: 40px;
+  height: 40px;
+  object-fit: cover;
+  border-radius: 4px;
+}
+
+/* List Artikel Scrollable */
+.berita-list {
+  margin-top: 30px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  max-height: 500px; /* Scroll area */
+  overflow-y: auto;
+  padding-right: 10px;
+}
+
+/* Tombol Tambah di Atas */
+.tambah-card {
+  order: -1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100px;
+  border: 2px dashed #ccc;
+  border-radius: 10px;
+  background-color: #f7f7f7;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.tambah-card:hover {
+  background-color: #f0f0f0;
+  border-color: #999;
+}
+
+.tambah-content {
+  text-align: center;
+  color: #666;
+  font-size: 16px;
+}
+
+.plus-icon {
+  font-size: 38px;
+  font-weight: bold;
+  color: #b31312;
+  margin-bottom: 4px;
+}
+
+/* Setiap Item Berita */
+.berita-item {
+  display: flex;
+  background-color: #ffffff;
+  border: 1px solid #e3e3e3;
+  border-radius: 10px;
+  padding: 15px;
+  gap: 20px;
+  align-items: flex-start;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+  transition: transform 0.2s ease;
+}
+
+.berita-item:hover {
+  transform: scale(1.01);
+}
+
+.berita-item img {
+  width: 120px;
+  height: 100px;
+  object-fit: cover;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+}
+
+.berita-item h4 {
+  margin: 0;
+  font-size: 18px;
+  color: #e63946;
+}
+
+.berita-item p {
+  margin: 6px 0 10px;
+  color: #444;
+  font-size: 14px;
+  max-width: 500px;
+}
+
+.berita-item button {
+  background-color: #457b9d;
+  color: #fff;
+  border: none;
+  padding: 6px 12px;
+  margin-right: 8px;
+  border-radius: 4px;
+  font-size: 13px;
+  cursor: pointer;
+}
+
+.berita-item button:hover {
+  background-color: #365c79;
+}
+
+.berita-item button:last-child {
+  background-color: #e63946;
+}
+
+.berita-item button:last-child:hover {
+  background-color: #c82333;
+}
+
+.top-checkbox {
+  width: 18px;
+  height: 18px;
+  margin-top: 4px;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .form-and-top-preview {
+    flex-direction: column;
+  }
+
+  form,
+  .top-preview-container {
+    width: 100%;
+  }
+
+  .berita-item {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  .berita-item img {
+    width: 100%;
+    height: auto;
+  }
+}

@@ -1,0 +1,284 @@
+.artikel-berita-page {
+  background-color: #f9f9f9;
+  min-height: 100vh;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.artikel-container {
+  padding: 60px 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.artikel-container h2 {
+  color: #b31312;
+  font-size: 32px;
+  margin-bottom: 40px;
+  border-bottom: 3px solid #b31312;
+  display: inline-block;
+  padding-bottom: 10px;
+}
+
+/* === Slideshow === */
+.top-slideshow-section {
+  display: flex;
+  gap: 20px;
+  padding: 0 60px;
+  margin-top: 30px;
+  margin-bottom: 40px;
+}
+
+.main-highlight {
+  flex: 2;
+  position: relative;
+}
+
+.highlight-box {
+  position: relative;
+  overflow: hidden;
+  border-radius: 8px;
+  animation: fadeEffect 1s ease-in-out;
+}
+
+.highlight-box img {
+  width: 100%;
+  height: 340px;
+  object-fit: cover;
+  filter: brightness(70%);
+  border-radius: 8px;
+}
+
+.highlight-caption {
+  position: absolute;
+  bottom: 20px;
+  left: 30px;
+  color: white;
+}
+
+.highlight-caption h3 {
+  font-size: 24px;
+  margin-bottom: 10px;
+}
+
+.highlight-caption a {
+  background: #b31312;
+  color: #fff;
+  padding: 8px 14px;
+  border-radius: 4px;
+  text-decoration: none;
+  font-size: 14px;
+}
+
+@keyframes fadeEffect {
+  from { opacity: 0.4; }
+  to { opacity: 1; }
+}
+
+/* === Artikel Samping === */
+.side-articles {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.side-article-item {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
+
+.side-article-item img {
+  width: 80px;
+  height: 60px;
+  object-fit: cover;
+  border-radius: 6px;
+}
+
+.side-article-info {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  text-align: left;
+}
+
+.side-article-info a {
+  font-size: 14px;
+  font-weight: 500;
+  text-decoration: none;
+  color: #333;
+  line-height: 1.2;
+}
+
+.side-article-info .label {
+  font-size: 12px;
+  color: #0066cc;
+}
+
+.side-article-info .time {
+  font-size: 12px;
+  color: gray;
+}
+
+/* === Grid Semua Artikel === */
+.berita-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 24px;
+}
+
+.berita-card {
+  background: #fff;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.berita-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 6px 18px rgba(0,0,0,0.15);
+}
+
+.berita-card img {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+  border-bottom: 1px solid #eee;
+}
+
+.berita-card h4 {
+  font-size: 18px;
+  color: #333;
+  margin: 16px;
+  margin-bottom: 8px;
+  height: 48px;
+  overflow: hidden;
+}
+
+.berita-card p {
+  font-size: 14px;
+  color: #666;
+  margin: 0 16px 16px;
+  height: 60px;
+  overflow: hidden;
+  text-align: left;
+}
+
+.btn-detail {
+  background-color: #b31312;
+  color: white;
+  text-decoration: none;
+  padding: 10px 14px;
+  margin: 0 16px 16px;
+  display: inline-block;
+  border-radius: 8px;
+  font-size: 14px;
+  transition: background-color 0.2s ease;
+}
+
+.btn-detail:hover {
+  background-color: #8f1010;
+}
+
+/* === Footer Space === */
+.footer-separator {
+  height: 50px;
+}
+
+/* === Responsive === */
+@media (max-width: 768px) {
+  .top-slideshow-section {
+    flex-direction: column;
+    padding: 0 20px;
+  }
+
+  .highlight-box img {
+    height: 240px;
+  }
+
+  .highlight-caption h3 {
+    font-size: 20px;
+  }
+
+  .side-articles {
+    flex-direction: row;
+    overflow-x: auto;
+    gap: 12px;
+  }
+
+  .side-article-item {
+    flex: none;
+    width: 200px;
+  }
+
+  .artikel-container h2 {
+    font-size: 26px;
+  }
+
+  .berita-card h4 {
+    font-size: 16px;
+  }
+
+  .btn-detail {
+    font-size: 13px;
+    padding: 8px 12px;
+  }
+}
+.top-slideshow-section {
+  display: flex;
+  gap: 20px;
+  padding: 0 60px;
+  margin-top: 30px;
+  margin-bottom: 40px;
+}
+
+.main-highlight {
+  flex: 2;
+  position: relative;
+}
+
+.highlight-box {
+  position: relative;
+  overflow: hidden;
+  border-radius: 8px;
+  animation: fadeEffect 1s ease-in-out;
+}
+
+.highlight-box img {
+  width: 100%;
+  height: 340px;
+  object-fit: cover;
+  filter: brightness(70%);
+  border-radius: 8px;
+}
+
+.highlight-caption {
+  position: absolute;
+  bottom: 20px;
+  left: 30px;
+  color: white;
+}
+
+.highlight-caption h3 {
+  font-size: 24px;
+  margin-bottom: 10px;
+}
+
+.highlight-caption a {
+  background: #b31312;
+  color: #fff;
+  padding: 8px 14px;
+  border-radius: 4px;
+  text-decoration: none;
+  font-size: 14px;
+}
+
+@keyframes fadeEffect {
+  from { opacity: 0.4; }
+  to { opacity: 1; }
+}
