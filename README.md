@@ -85,7 +85,6 @@
 | 📂 Daftar Kasus | ![Kasus](./screenshots/daftar-kasus.png)       |
 | 📰 Artikel      | ![Artikel](./screenshots/artikel-berita.png)   |
 
-> **Note:** Pastikan folder `screenshots/` berisi gambar yang sesuai agar preview tampil dengan benar.
 
 ---
 
