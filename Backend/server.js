@@ -39,7 +39,6 @@ app.use('/api', kasusRoutes);
 app.use("/api/simple-users", simpleUserRoutes);
 app.use("/api", forgotPasswordRoutes);
 
-
 // Setup HTTP server + Socket.io
 const server = http.createServer(app);
 const io = socketIo(server, { cors: { origin: '*' } });
