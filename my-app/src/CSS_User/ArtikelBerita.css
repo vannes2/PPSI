@@ -186,9 +186,7 @@
 }
 
 /* === Footer Space === */
-.footer-separator {
-  height: 50px;
-}
+
 
 /* === Responsive === */
 @media (max-width: 768px) {
