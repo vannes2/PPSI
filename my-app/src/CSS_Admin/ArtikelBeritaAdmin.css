@@ -27,7 +27,7 @@
   gap: 30px;
 }
 
-form {
+#admin-artikel-berita form {
   width: 60%;
   display: flex;
   flex-direction: column;
@@ -38,9 +38,9 @@ form {
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
 }
 
-form input[type="text"],
-form textarea,
-form input[type="file"] {
+#admin-artikel-berita form input[type="text"],
+#admin-artikel-berita form textarea,
+#admin-artikel-berita form input[type="file"] {
   padding: 10px 12px;
   border: 1px solid #ccc;
   border-radius: 6px;
@@ -48,11 +48,11 @@ form input[type="file"] {
   resize: vertical;
 }
 
-form textarea {
+#admin-artikel-berita form textarea {
   min-height: 100px;
 }
 
-form button {
+#admin-artikel-berita form button {
   background-color: #2a9d8f;
   color: white;
   padding: 10px;
@@ -63,7 +63,7 @@ form button {
   transition: background-color 0.2s;
 }
 
-form button:hover {
+#admin-artikel-berita form button:hover {
   background-color: #21867a;
 }
 
@@ -103,7 +103,7 @@ form button:hover {
   display: flex;
   flex-direction: column;
   gap: 20px;
-  max-height: 500px; /* Scroll area */
+  max-height: 500px;
   overflow-y: auto;
   padding-right: 10px;
 }
@@ -213,7 +213,7 @@ form button:hover {
     flex-direction: column;
   }
 
-  form,
+  #admin-artikel-berita form,
   .top-preview-container {
     width: 100%;
   }

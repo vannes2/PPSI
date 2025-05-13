@@ -97,7 +97,7 @@ const ArtikelBeritaAdmin = () => {
   const beritaTopList = berita.filter((b) => topBerita.includes(b.id));
 
   return (
-    <div className="admin-page-layout">
+    <div id="admin-artikel-berita" className="admin-page-layout">
       <SidebarAdmin activeTab={activeTab} onTabChange={setActiveTab} />
 
       <div className="admin-berita-container">
