@@ -108,8 +108,8 @@ const HomeAfter = () => {
           </Link>
           <Link to="/ArtikelBerita" className="feature-item-home">
             <FaBalanceScale className="icon-feature" />
-            <h3>Legal Connect</h3>
-            <p>Pilih layanan hukum sesuai kebutuhan Anda.</p>
+            <h3>Berita & Artikel Hukum</h3>
+            <p>Baca informasi dan edukasi hukum terkini secara lengkap dan terpercaya.</p>
           </Link>
         </div>
       </section>
@@ -189,7 +189,6 @@ const HomeAfter = () => {
           )}
         </div>
       </section>
-
       <div className="footer-separator"></div>
       <Footer />
     </div>

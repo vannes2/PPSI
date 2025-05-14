@@ -45,12 +45,13 @@ import DaftarKasusLawyer from './PageLawyer/DaftarKasusLawyer';
 
 // Components
 import SidebarAdmin from "./components/SidebarAdmin";
-
+import ScrollToTop from "./components/ScrollToTop";
 import '@fortawesome/fontawesome-free/css/all.min.css';
 
 function App() {
     return (
         <Router>
+             <ScrollToTop />
             <Routes>
                 {/* ✅ Public Routes */}
                 <Route path="/" element={<Home />} />

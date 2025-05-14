@@ -72,8 +72,8 @@ const Home = () => {
           </Link>
           <Link to="/Login" className="feature-item-home">
             <i className="fas fa-balance-scale icon-feature"></i>
-            <h3>Legal Connect</h3>
-            <p>Cari & Pilih layanan advokat terbaik yang sesuai dengan kebutuhan Anda.</p>
+            <h3>Berita & Artikel Hukum</h3>
+            <p>Baca informasi dan edukasi hukum terkini secara lengkap dan terpercaya.</p>
           </Link>
         </div>
       </section>

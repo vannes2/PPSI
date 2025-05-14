@@ -10,13 +10,16 @@ const ArtikelBerita = () => {
   const [slideIndex, setSlideIndex] = useState(0);
 
   useEffect(() => {
+    // ✅ Auto scroll ke atas saat masuk halaman
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+
     axios.get('http://localhost:5000/api/artikel-berita')
       .then((res) => setBeritaList(res.data))
       .catch((err) => console.error('Gagal memuat artikel:', err));
 
     axios.get('http://localhost:5000/api/artikel-berita/top')
       .then((res) => {
-        console.log("Top Berita dari API:", res.data);  // PENTING
+        console.log("Top Berita dari API:", res.data);
         setTopBerita(res.data);
       })
       .catch((err) => console.error('Gagal memuat top berita:', err));
@@ -35,7 +38,6 @@ const ArtikelBerita = () => {
     <div className="artikel-berita-page">
       <HeaderAfter />
       <br /><br /><br /><br />
-
       {/* Slideshow */}
       {topBerita.length > 0 && (
         <div className="top-slideshow-section" style={{ border: '2px dashed #ccc' }}>
@@ -66,7 +68,6 @@ const ArtikelBerita = () => {
           </div>
         </div>
       )}
-
       {/* Semua Artikel */}
       <div className="artikel-container">
         <h2>Artikel & Berita</h2>
@@ -81,8 +82,8 @@ const ArtikelBerita = () => {
           ))}
         </div>
       </div>
-
       <br /><br /><br />
+      <div className="footer-separator"></div>
       <Footer />
     </div>
   );
