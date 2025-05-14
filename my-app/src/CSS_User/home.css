@@ -16,23 +16,69 @@ body {
 }
 
 /* ================= Header Buttons ================= */
-.auth-buttons button,
-.home-before-page .btn-right button {
-  background-color: #B31312;
-  color: white;
-  border: none;
-  border-radius: 15px;
-  padding: 10px 25px;
-  cursor: pointer;
-  font-weight: bold;
-  transition: all 0.3s ease-in-out;
+
+.advokat-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  padding: 0 15px;
+  flex-wrap: wrap;
 }
 
-.auth-buttons button:hover,
-.home-before-page .btn-right button:hover {
-  background: white;
+.advokat-heading {
+  font-size: 26px;
+  font-weight: 800;
+  color: #102a43;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  position: relative;
+}
+
+.advokat-heading::after {
+  content: '';
+  display: block;
+  width: 70px;
+  height: 5px;
+  background-color: #B31312;
+  margin-top: 5px;
+  border-radius: 3px;
+}
+
+
+.product-item {
+  background-color: #ffffff;
+  padding: 20px;
+  border-radius: 16px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  text-align: center;
+  width: 250px;
+  flex-shrink: 0;
+}
+
+.advokat-foto-container {
+  width: 160px;
+  height: 160px;
+  margin: 0 auto 10px;
+  border-radius: 50%;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.foto-advokat {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.advokat-nama {
+  font-weight: 700;
+  font-size: 16px;
   color: #B31312;
-  border: 2px solid #B31312;
+  margin-bottom: 10px;
 }
 
 /* ================= Hero Section ================= */
@@ -472,4 +518,118 @@ body {
     width: 100%;
     margin-bottom: 15px;
   }
+}
+.slideshow-section {
+  margin: 40px auto;
+  width: 95%;
+  max-width: 1000px;
+}
+
+.slideshow-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  padding: 0 15px;
+  flex-wrap: wrap;
+}
+
+.slideshow-heading {
+  font-size: 26px;
+  font-weight: 800;
+  color: #102a43;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  position: relative;
+}
+
+.slideshow-heading::after {
+  content: '';
+  display: block;
+  width: 70px;
+  height: 5px;
+  background-color: #B31312;
+  margin-top: 5px;
+  border-radius: 3px;
+}
+
+.btn-selengkapnya {
+  background: linear-gradient(to right, #a8070a, #e11b1e);
+  color: #fff;
+  padding: 10px 20px;
+  font-size: 14px;
+  font-weight: bold;
+  border-radius: 999px;
+  text-decoration: none;
+  transition: background 0.3s ease;
+}
+
+.btn-selengkapnya:hover {
+  background: linear-gradient(to right, #880505, #c01014);
+}
+
+.slideshow-wrapper {
+  overflow: hidden;
+  border-radius: 12px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+}
+
+.slideshow-track {
+  display: flex;
+  transition: transform 0.6s ease-in-out;
+}
+
+.slide {
+  flex: 0 0 100%;
+  position: relative;
+}
+
+.slide-img {
+  width: 100%;
+  height: 300px;
+  object-fit: cover;
+  border-radius: 12px;
+}
+
+.slide-caption {
+  position: absolute;
+  bottom: 15px;
+  left: 20px;
+  background: rgba(0, 0, 0, 0.55);
+  padding: 10px 16px;
+  border-radius: 8px;
+  max-width: 80%;
+}
+
+.slide-title {
+  margin: 0;
+  font-size: 18px;
+  font-weight: 600;
+  color: #fff;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+  letter-spacing: 0.3px;
+}
+
+.slideshow-dots {
+  display: flex;
+  justify-content: center;
+  margin-top: 10px;
+  gap: 7px;
+}
+
+.dot {
+  width: 10px;
+  height: 10px;
+  background-color: #bbb;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.dot.active {
+  background-color: #B31312;
+  width: 12px;
+  height: 12px;
 }

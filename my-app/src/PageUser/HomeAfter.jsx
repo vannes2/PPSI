@@ -7,11 +7,13 @@ import { FaCommentDots, FaUserCheck, FaBalanceScale } from "react-icons/fa";
 
 const HomeAfter = () => {
   const [pengacara, setPengacara] = useState([]);
+  const [beritaTop, setBeritaTop] = useState([]);
   const [error, setError] = useState(null);
+  const [currentSlide, setCurrentSlide] = useState(0);
   const scrollRef = useRef(null);
   const [isInteracting, setIsInteracting] = useState(false);
 
-  const cardWidth = 270; // width termasuk margin/gap
+  const cardWidth = 270;
   const cardsPerSlide = 4;
   const slideInterval = 5000;
 
@@ -26,13 +28,17 @@ const HomeAfter = () => {
         console.error(err);
         setError(err.message);
       });
+
+    fetch("http://localhost:5000/api/artikel-berita/top")
+      .then((res) => res.json())
+      .then((data) => setBeritaTop(data))
+      .catch((err) => console.error("Gagal fetch top berita:", err));
   }, []);
 
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
 
-  // Auto-scroll saat tidak berinteraksi
   useEffect(() => {
     const interval = setInterval(() => {
       if (!isInteracting && scrollRef.current) {
@@ -50,7 +56,6 @@ const HomeAfter = () => {
     return () => clearInterval(interval);
   }, [isInteracting, pengacara]);
 
-  // Tambah event listener untuk mendeteksi interaksi
   useEffect(() => {
     const container = scrollRef.current;
     if (!container) return;
@@ -71,12 +76,18 @@ const HomeAfter = () => {
     };
   }, []);
 
+  // Autoplay slide berita
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentSlide((prev) => (prev === beritaTop.length - 1 ? 0 : prev + 1));
+    }, 4000);
+    return () => clearInterval(interval);
+  }, [beritaTop]);
+
   return (
     <div className="home-before-page">
       <HeaderAfter />
-      <br />
-      <br />
-      <br />
+      <br /><br /><br />
 
       {/* Hero */}
       <section className="hero">
@@ -133,15 +144,12 @@ const HomeAfter = () => {
         </div>
       </section>
 
-      {/* Advokat Section */}
+      {/* Advokat */}
       <section className="products">
-        <div className="product-section">
-          <h2 className="product-title">Advokat Yang Tersedia</h2>
-          <div className="auth-buttons">
-            <Link to="/konsultasi" className="btn-right"><button>Selengkapnya &gt;</button></Link>
-          </div>
-        </div>
-
+      <div className="advokat-header">
+        <h2 className="advokat-heading">Advokat Yang Tersedia</h2>
+        <Link to="/konsultasi" className="btn-selengkapnya">Selengkapnya &gt;</Link>
+      </div>
         <div className="product-scroll-wrapper" ref={scrollRef}>
           {error ? (
             <p style={{ color: "red" }}>Gagal mengambil data: {error}</p>
@@ -189,6 +197,47 @@ const HomeAfter = () => {
           )}
         </div>
       </section>
+
+      {/* ✅ SLIDESHOW BERITA HALODOC STYLE */}
+<section className="slideshow-section">
+  <div className="slideshow-header">
+    <h2 className="slideshow-heading">Berita Hukum Pilihan</h2>
+    <Link to="/ArtikelBerita" className="btn-selengkapnya">Selengkapnya &gt;</Link>
+  </div>
+
+  <div className="slideshow-wrapper">
+    <div
+      className="slideshow-track"
+      style={{ transform: `translateX(-${currentSlide * 100}%)` }}
+    >
+      {beritaTop.map((item) => (
+        <div className="slide" key={item.id}>
+          <Link to={`/DetailBerita/${item.id}`}>
+            <img
+              src={`http://localhost:5000/uploads/${item.gambar}`}
+              alt={item.judul}
+              className="slide-img"
+            />
+            <div className="slide-caption">
+              <h3 className="slide-title">{item.judul}</h3>
+            </div>
+          </Link>
+        </div>
+      ))}
+    </div>
+  </div>
+
+  <div className="slideshow-dots">
+    {beritaTop.map((_, i) => (
+      <span
+        key={i}
+        className={`dot ${i === currentSlide ? "active" : ""}`}
+        onClick={() => setCurrentSlide(i)}
+      />
+    ))}
+  </div>
+</section>
+
       <div className="footer-separator"></div>
       <Footer />
     </div>
