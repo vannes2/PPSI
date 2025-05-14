@@ -1,0 +1,61 @@
+/* CSS_User/DetailBerita.css */
+
+.detail-berita-page {
+  background-color: #fefefe;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.detail-container {
+  max-width: 800px;
+  margin: 120px auto 40px auto; /* Tambah margin-top agar tidak tertutup header */
+  padding: 0 20px;
+  background: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+.detail-title {
+  font-size: 32px;
+  font-weight: 700;
+  margin-bottom: 20px;
+  text-align: center;
+  color: #b31312;
+}
+
+.detail-image {
+  width: 100%;
+  max-height: 400px;
+  object-fit: cover;
+  border-radius: 12px;
+  margin-bottom: 25px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+.detail-content {
+  font-size: 18px;
+  line-height: 1.7;
+  color: #333;
+  white-space: pre-line;
+  margin-bottom: 40px;
+}
+
+.footer-separator {
+  height: 10px; /* jarak sebelum footer */
+}
+
+/* Responsive */
+@media screen and (max-width: 768px) {
+  .detail-title {
+    font-size: 24px;
+  }
+
+  .detail-content {
+    font-size: 16px;
+  }
+
+  .detail-container {
+    margin-top: 100px;
+  }
+}

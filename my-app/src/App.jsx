@@ -19,6 +19,7 @@ import ForgotPassword from "./PageUser/ForgotPassword";
 import VerifyOtp from "./PageUser/VerifyOtp";
 import ResetPassword from "./PageUser/ResetPassword";
 import ArtikelBerita from "./PageUser/ArtikelBerita";
+import DetailBerita from "./PageUser/DetailBerita";
 
 // Admin Pages
 import HomeAdmin from "./PageAdmin/HomeAdmin";
@@ -77,7 +78,7 @@ function App() {
                 <Route path="/verify-otp" element={<VerifyOtp />} />
                 <Route path="/reset-password" element={<ResetPassword />} />
                 <Route path="/ArtikelBerita" element={<ArtikelBeritaUser />} />
-
+                <Route path="/DetailBerita/:id" element={<DetailBerita />} />
 
                 {/* ✅ Admin Routes */}
                 <Route path="/HomeAdmin" element={<HomeAdmin />} />
