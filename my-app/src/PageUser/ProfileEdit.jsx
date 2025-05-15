@@ -17,6 +17,10 @@ const ProfileEdit = () => {
     address: "",
   });
 
+  // Tambah state untuk file foto dan preview
+  const [photoFile, setPhotoFile] = useState(null);
+  const [photoPreview, setPhotoPreview] = useState(null);
+
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [successMessage, setSuccessMessage] = useState("");
@@ -40,6 +44,9 @@ const ProfileEdit = () => {
           phone: data.phone,
           address: data.address || "",
         });
+        if (data.photo_url) {
+          setPhotoPreview(`http://localhost:5000${data.photo_url}`);
+        }
         setLoading(false);
       })
       .catch((error) => {
@@ -52,13 +59,32 @@ const ProfileEdit = () => {
     setProfileData({ ...profileData, [e.target.name]: e.target.value });
   };
 
+  // Handler untuk input file foto
+  const handlePhotoChange = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      setPhotoFile(file);
+      setPhotoPreview(URL.createObjectURL(file));
+    }
+  };
+
+  // Submit form dengan FormData untuk upload foto sekaligus data
   const handleSave = (e) => {
     e.preventDefault();
 
+    const formData = new FormData();
+    formData.append("name", profileData.name);
+    formData.append("email", profileData.email);
+    formData.append("phone", profileData.phone);
+    formData.append("address", profileData.address);
+    if (photoFile) {
+      formData.append("photo", photoFile); // field 'photo' harus sama dengan multer di backend
+    }
+
     fetch(`http://localhost:5000/api/profile/update/${userId}`, {
       method: "PUT",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(profileData),
+      body: formData,
+      // Jangan set Content-Type, biarkan browser atur multipart/form-data otomatis
     })
       .then((response) => {
         if (!response.ok) throw new Error("Gagal menyimpan perubahan");
@@ -71,7 +97,7 @@ const ProfileEdit = () => {
           navigate("/ProfileView");
         }, 2000);
       })
-      .catch((error) => {
+      .catch(() => {
         setError("Gagal menyimpan perubahan");
         setTimeout(() => setError(null), 3000);
       });
@@ -92,13 +118,25 @@ const ProfileEdit = () => {
         <div className="profile-container">
           <div className="profile-sidebar">
             <div className="profile-picture">
-              <img
-                src="/assets/images/emptyprofile.png"
-                alt="Profile"
-                onError={(e) => (e.target.style.display = "none")}
-              />
-              <User size={80} color="#666" strokeWidth={1.5} />
+              {photoPreview ? (
+                <img src={photoPreview} alt="Preview Foto" />
+              ) : (
+                <>
+                  <img
+                    src="/assets/images/emptyprofile.png"
+                    alt="Profile"
+                    onError={(e) => (e.target.style.display = "none")}
+                  />
+                  <User size={80} color="#666" strokeWidth={1.5} />
+                </>
+              )}
             </div>
+            <input
+              type="file"
+              accept="image/*"
+              onChange={handlePhotoChange}
+              style={{ marginBottom: "10px" }}
+            />
             <button className="logout-btn" onClick={handleLogout}>Keluar Akun</button>
           </div>
 

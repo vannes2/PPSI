@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { User } from "lucide-react"; 
+import { User } from "lucide-react";
 import HeaderAfter from "../components/HeaderAfter";
 import Footer from "../components/Footer";
 import "../CSS_User/Profil.css";
@@ -54,20 +54,33 @@ const ProfileView = () => {
   return (
     <div className="profile-page">
       <HeaderAfter />
-      <br /><br/><br/><br/><br/><br/>
+      <br /><br /><br /><br /><br /><br />
       <div className="container">
         <div className="profile-container">
           <div className="profile-sidebar">
             <div className="profile-picture">
-              <img
-                src="/assets/images/emptyprofile.png"
-                alt="Profile"
-                onError={(e) => (e.target.style.display = "none")}
-              />
-              <User size={80} color="#666" strokeWidth={1.5} />
+              {profileData.photo_url ? (
+                <img
+                  src={`http://localhost:5000${profileData.photo_url}`}
+                  alt="Foto Profil"
+                  onError={(e) => {
+                    e.target.onerror = null;
+                    e.target.style.display = "none";
+                  }}
+                />
+              ) : (
+                <>
+                  <img
+                    src="/assets/images/emptyprofile.png"
+                    alt="Default Profile"
+                    onError={(e) => (e.target.style.display = "none")}
+                  />
+                  <User size={80} color="#666" strokeWidth={1.5} />
+                </>
+              )}
             </div>
             <p className="profile-balance">
-              {profileData.balance ? profileData.balance : "0 AYUNE COINS"}
+              {profileData.balance ? profileData.balance : "Profil"}
             </p>
 
             <button className="edit-profile-btn" onClick={handleEditProfile}>

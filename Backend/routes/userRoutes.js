@@ -8,7 +8,12 @@ router.get("/profile/id/:id", userController.getProfileById);
 // Route untuk mendapatkan profil berdasarkan Email
 router.get("/profile/email/:email", userController.getProfileByEmail);
 
-// Route untuk memperbarui profil pengguna TANPA authMiddleware
-router.put("/profile/update/:id", userController.updateUserProfile);
+// Route untuk memperbarui profil pengguna DENGAN upload foto
+const upload = userController.upload;
+router.put(
+  "/profile/update/:id",
+  upload.single("photo"), // multer middleware untuk upload file 'photo'
+  userController.updateUserProfileWithPhoto
+);
 
 module.exports = router;
