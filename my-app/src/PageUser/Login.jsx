@@ -7,6 +7,7 @@ import "../CSS_User/Login.css";
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [showPassword, setShowPassword] = useState(false); // untuk toggle password
   const [popupMessage, setPopupMessage] = useState("");
   const [popupType, setPopupType] = useState("success");
   const [showPopup, setShowPopup] = useState(false);
@@ -78,13 +79,37 @@ const Login = () => {
                 required
               />
               <p>Kata sandi</p>
-              <input
-                type="password"
-                placeholder="Input your password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                required
-              />
+              <div className="password-wrapper">
+                <input
+                  type={showPassword ? "text" : "password"}
+                  placeholder="Input your password"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  required
+                />
+          <button
+            type="button"
+            className="toggle-password-btn"
+            onClick={() => setShowPassword(prev => !prev)}
+            aria-label={showPassword ? "Sembunyikan password" : "Tampilkan password"}
+            title={showPassword ? "Sembunyikan password" : "Tampilkan password"}
+          >
+            {showPassword ? ( 
+              // eye-off SVG
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="#B31312" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" viewBox="0 0 24 24">
+                <path d="M17.94 17.94A10.94 10.94 0 0 1 12 19c-5.5 0-9.9-3.6-11-8 1.06-3.67 4.5-7 11-7a10.94 10.94 0 0 1 5.94 1.94"/>
+                <line x1="1" y1="1" x2="23" y2="23"/>
+              </svg>
+            ) : (
+              // eye SVG
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="#B31312" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" viewBox="0 0 24 24">
+                <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
+                <circle cx="12" cy="12" r="3"/>
+              </svg>
+            )}
+          </button>
+
+              </div>
               <Link to="/forgot-password" className="login-admin">
                 Lupa Password anda? Klik di sini
               </Link>

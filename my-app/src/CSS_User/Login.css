@@ -48,7 +48,7 @@
   padding: 30px;
   border-radius: 10px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-  border: 2px solid #000; /* buat border di login kalau gak mau bisa di hapus*/
+  border: 2px solid #000; 
 }
 
 .Login-page .main h2 {
@@ -333,4 +333,34 @@
   .Login-page .footer-separator {
     height: 5px;
   }
+}
+
+
+.Login-page .password-wrapper {
+  position: relative;
+  width: 100%;
+}
+
+.Login-page .password-wrapper input {
+  width: 100%;
+  padding-right: 45px; /* ruang untuk tombol toggle */
+}
+
+.Login-page .toggle-password-btn {
+  position: absolute;
+  top: 50%;
+  right: 12px;
+  transform: translateY(-50%);
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  font-size: 22px;
+  color: #B31312;
+  user-select: none;
+  padding: 0;
+  line-height: 1;
+}
+
+.Login-page .toggle-password-btn:focus {
+  outline: none;
 }

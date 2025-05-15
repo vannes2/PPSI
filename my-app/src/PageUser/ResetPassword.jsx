@@ -7,6 +7,8 @@ import Footer from "../components/Footer";
 const ResetPassword = () => {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+  const [showPassword, setShowPassword] = useState(false); // toggle password baru
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false); // toggle konfirmasi password
   const [loading, setLoading] = useState(false);
   const [popup, setPopup] = useState({ show: false, message: "", success: false });
   const { state } = useLocation();
@@ -48,27 +50,74 @@ const ResetPassword = () => {
         <h2>Reset Password</h2>
         <p>Silakan buat password baru Anda</p>
 
-        <input
-          type="password"
-          placeholder="Password baru"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          className="input-reset"
-        />
-        <input
-          type="password"
-          placeholder="Konfirmasi password"
-          value={confirmPassword}
-          onChange={(e) => setConfirmPassword(e.target.value)}
-          className="input-reset"
-        />
+        <div className="password-wrapper">
+          <input
+            type={showPassword ? "text" : "password"}
+            placeholder="Password baru"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            className="input-reset"
+          />
+          <button
+            type="button"
+            className="toggle-password-btn"
+            onClick={() => setShowPassword(prev => !prev)}
+            aria-label={showPassword ? "Sembunyikan password baru" : "Tampilkan password baru"}
+            title={showPassword ? "Sembunyikan password baru" : "Tampilkan password baru"}
+          >
+                    {showPassword ? ( 
+              // eye-off SVG
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="#B31312" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" viewBox="0 0 24 24">
+                <path d="M17.94 17.94A10.94 10.94 0 0 1 12 19c-5.5 0-9.9-3.6-11-8 1.06-3.67 4.5-7 11-7a10.94 10.94 0 0 1 5.94 1.94"/>
+                <line x1="1" y1="1" x2="23" y2="23"/>
+              </svg>
+            ) : (
+              // eye SVG
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="#B31312" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" viewBox="0 0 24 24">
+                <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
+                <circle cx="12" cy="12" r="3"/>
+              </svg>
+            )}
+          </button>
+        </div>
 
-        <button onClick={handleReset} disabled={loading} className="btn-reset">
+        <div className="password-wrapper" style={{ marginTop: "15px" }}>
+          <input
+            type={showConfirmPassword ? "text" : "password"}
+            placeholder="Konfirmasi password"
+            value={confirmPassword}
+            onChange={(e) => setConfirmPassword(e.target.value)}
+            className="input-reset"
+          />
+          <button
+            type="button"
+            className="toggle-password-btn"
+            onClick={() => setShowConfirmPassword(prev => !prev)}
+            aria-label={showConfirmPassword ? "Sembunyikan konfirmasi password" : "Tampilkan konfirmasi password"}
+            title={showConfirmPassword ? "Sembunyikan konfirmasi password" : "Tampilkan konfirmasi password"}
+          >
+            {showPassword ? ( 
+              // eye-off SVG
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="#B31312" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" viewBox="0 0 24 24">
+                <path d="M17.94 17.94A10.94 10.94 0 0 1 12 19c-5.5 0-9.9-3.6-11-8 1.06-3.67 4.5-7 11-7a10.94 10.94 0 0 1 5.94 1.94"/>
+                <line x1="1" y1="1" x2="23" y2="23"/>
+              </svg>
+            ) : (
+              // eye SVG
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="#B31312" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" viewBox="0 0 24 24">
+                <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
+                <circle cx="12" cy="12" r="3"/>
+              </svg>
+            )}
+          </button>
+        </div>
+
+        <button onClick={handleReset} disabled={loading} className="btn-reset" style={{ marginTop: "20px" }}>
           {loading ? <div className="spinner"></div> : "Reset Password"}
         </button>
 
         {popup.show && (
-          <div className={`popup ${popup.success ? "popup-success" : "popup-error"}`}>
+          <div className={`popup ${popup.success ? "popup-success" : "popup-error"}`} style={{ marginTop: "15px" }}>
             {popup.message}
           </div>
         )}
