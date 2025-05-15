@@ -7,6 +7,7 @@ const TambahPengacara = () => {
   const [pengacaras, setPengacaras] = useState([]);
   const [registrations, setRegistrations] = useState([]);
 
+  // Fetch data pengacara yang sudah disetujui
   const fetchPengacaras = useCallback(async () => {
     try {
       const response = await axios.get("http://localhost:5000/api/pengacara");
@@ -16,33 +17,34 @@ const TambahPengacara = () => {
     }
   }, []);
 
+  // Fetch data pendaftaran pengacara yang belum disetujui
   const fetchRegistrations = useCallback(async () => {
     try {
       const response = await axios.get("http://localhost:5000/api/lawyers/registrations");
 
-      const registrationsWithDeadline = response.data.map(reg => {
-        const registrationDate = new Date(reg.createdAt || new Date());
+      // Tambahkan informasi kadaluarsa berdasar 10 menit dari tanggal_daftar
+      const registrationsWithStatus = response.data.map(reg => {
+        const registrationDate = new Date(reg.tanggal_daftar);
         const deadlineDate = new Date(registrationDate);
-        deadlineDate.setDate(deadlineDate.getDate() + 7);
+        deadlineDate.setMinutes(deadlineDate.getMinutes() + 10);
+
+        const isExpired = new Date() > deadlineDate;
 
         return {
           ...reg,
           deadline: deadlineDate,
-          isExpired: new Date() > deadlineDate
+          isExpired
         };
       });
 
-      setRegistrations(registrationsWithDeadline);
+      setRegistrations(registrationsWithStatus);
 
-      const expiredRegistrations = registrationsWithDeadline.filter(reg => reg.isExpired);
-      for (const reg of expiredRegistrations) {
-        await autoReject(reg.id);
-      }
     } catch (error) {
       console.error("Error fetching registrations:", error);
     }
   }, []);
 
+  // Approve pendaftaran
   const handleApprove = async (id) => {
     try {
       await axios.post(`http://localhost:5000/api/lawyers/approve/${id}`);
@@ -55,6 +57,7 @@ const TambahPengacara = () => {
     }
   };
 
+  // Tolak pendaftaran
   const handleReject = async (id) => {
     const confirmReject = window.confirm("Yakin ingin menolak dan menghapus pendaftaran ini?");
     if (!confirmReject) return;
@@ -69,6 +72,7 @@ const TambahPengacara = () => {
     }
   };
 
+  // Format tanggal ke format Indonesia dd/mm/yyyy
   const formatDate = (isoDate) => {
     if (!isoDate) return "-";
     const date = new Date(isoDate);
@@ -79,32 +83,27 @@ const TambahPengacara = () => {
     });
   };
 
-  const calculateRemainingDays = (deadline) => {
+  // Hitung sisa waktu sampai kadaluarsa dalam menit dan detik
+  const calculateRemainingTime = (deadline) => {
     if (!deadline) return "-";
     const now = new Date();
-    const deadlineDate = new Date(deadline);
-    const diffTime = deadlineDate - now;
-    const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+    const diffMs = deadline - now;
+    if (diffMs <= 0) return "Kadaluarsa";
 
-    return diffDays > 0 ? `${diffDays} hari lagi` : "Kadaluarsa";
-  };
+    const diffMinutes = Math.floor(diffMs / (1000 * 60));
+    const diffSeconds = Math.floor((diffMs % (1000 * 60)) / 1000);
 
-  const autoReject = async (id) => {
-    try {
-      await axios.delete(`http://localhost:5000/api/lawyers/reject/${id}`);
-      console.log(`Pendaftaran ID ${id} sudah auto-reject (kadaluarsa).`);
-    } catch (error) {
-      console.error(`Gagal auto-reject ID ${id}:`, error);
-    }
+    return `${diffMinutes} menit ${diffSeconds} detik lagi`;
   };
 
   useEffect(() => {
     fetchPengacaras();
     fetchRegistrations();
 
+    // Refresh data setiap 1 menit supaya timer sisa waktu berjalan
     const interval = setInterval(() => {
       fetchRegistrations();
-    }, 6 * 60 * 60 * 1000);
+    }, 60 * 1000);
 
     return () => clearInterval(interval);
   }, [fetchPengacaras, fetchRegistrations]);
@@ -115,7 +114,11 @@ const TambahPengacara = () => {
       <div style={{ flex: 1, padding: "20px" }} className="Main-Content">
         <h2>Daftar Pendaftaran Pengacara (Belum Disetujui)</h2>
         <div className="table-container">
-          <table border="1" cellPadding="10" style={{ borderCollapse: "collapse", width: "100%", marginBottom: "40px" }}>
+          <table
+            border="1"
+            cellPadding="10"
+            style={{ borderCollapse: "collapse", width: "100%", marginBottom: "40px" }}
+          >
             <thead>
               <tr>
                 <th>Nama</th>
@@ -158,30 +161,62 @@ const TambahPengacara = () => {
                     <td>{lawyer.pendidikan}</td>
                     <td>{lawyer.pengalaman} tahun</td>
                     <td>{lawyer.nomor_induk_advokat}</td>
-                    <td><a href={`http://localhost:5000/uploads/${lawyer.upload_ktp}`} target="_blank" rel="noopener noreferrer">Lihat</a></td>
-                    <td><a href={`http://localhost:5000/uploads/${lawyer.upload_foto}`} target="_blank" rel="noopener noreferrer">Lihat</a></td>
-                    <td><a href={`http://localhost:5000/uploads/${lawyer.upload_kartu_advokat}`} target="_blank" rel="noopener noreferrer">Lihat</a></td>
-                    <td><a href={`http://localhost:5000/uploads/${lawyer.upload_pkpa}`} target="_blank" rel="noopener noreferrer">Lihat</a></td>
+                    <td>
+                      <a
+                        href={`http://localhost:5000/uploads/${lawyer.upload_ktp}`}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        Lihat
+                      </a>
+                    </td>
+                    <td>
+                      <a
+                        href={`http://localhost:5000/uploads/${lawyer.upload_foto}`}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        Lihat
+                      </a>
+                    </td>
+                    <td>
+                      <a
+                        href={`http://localhost:5000/uploads/${lawyer.upload_kartu_advokat}`}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        Lihat
+                      </a>
+                    </td>
+                    <td>
+                      <a
+                        href={`http://localhost:5000/uploads/${lawyer.upload_pkpa}`}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        Lihat
+                      </a>
+                    </td>
                     <td>
                       {lawyer.isExpired ? (
                         "Kadaluarsa"
                       ) : (
                         <>
                           {formatDate(lawyer.deadline)} <br />
-                          <small>({calculateRemainingDays(lawyer.deadline)})</small>
+                          <small>({calculateRemainingTime(lawyer.deadline)})</small>
                         </>
                       )}
                     </td>
                     <td>
-                      <button 
-                        onClick={() => handleApprove(lawyer.id)} 
-                        style={{ marginLeft: "8px", backgroundColor: "#27AE60" , color: "white" }}
+                      <button
+                        onClick={() => handleApprove(lawyer.id)}
+                        style={{ marginLeft: "8px", backgroundColor: "#27AE60", color: "white" }}
                         disabled={lawyer.isExpired}
                       >
                         Setujui
                       </button>
-                      <button 
-                        onClick={() => handleReject(lawyer.id)} 
+                      <button
+                        onClick={() => handleReject(lawyer.id)}
                         style={{ marginLeft: "8px", backgroundColor: "red", color: "white" }}
                       >
                         Tolak
@@ -216,7 +251,7 @@ const TambahPengacara = () => {
                 </tr>
               ) : (
                 pengacaras.map((pengacara) => (
-                  <tr key={pengacara._id}>
+                  <tr key={pengacara.id}>
                     <td>{pengacara.nama}</td>
                     <td>{pengacara.email}</td>
                     <td>{pengacara.spesialisasi}</td>
@@ -224,7 +259,7 @@ const TambahPengacara = () => {
                     <td>{pengacara.alamat}</td>
                     <td>
                       <button className="view">Lihat</button>
-                      <button className="Edit">Edit</button>
+                      <button className="edit">Edit</button>
                       <button className="delete">Hapus</button>
                     </td>
                   </tr>

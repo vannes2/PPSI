@@ -167,7 +167,7 @@ exports.updateLawyerProfile = (req, res) => {
       res.status(200).json({ message: "Profil berhasil diperbarui" });
     });
   }
-}
+};
 
 // GET /api/pengacara
 exports.getAllLawyers = (req, res) => {
@@ -182,5 +182,22 @@ exports.getAllLawyers = (req, res) => {
   db.query(sql, (err, results) => {
     if (err) return res.status(500).json({ message: "Gagal mengambil data pengacara" });
     res.json(results);
+  });
+};
+
+// **Fungsi auto reject otomatis untuk pendaftar yang lewat 10 menit**
+exports.autoRejectExpiredRegistrations = () => {
+  const sql = `
+    DELETE FROM pendaftaran_pengacara
+    WHERE tanggal_daftar <= DATE_SUB(NOW(), INTERVAL 10 MINUTE)
+  `;
+  db.query(sql, (err, result) => {
+    if (err) {
+      console.error("Gagal menjalankan auto reject pendaftar kadaluarsa:", err);
+    } else {
+      if (result.affectedRows > 0) {
+        console.log(`Auto reject: Menghapus ${result.affectedRows} pendaftaran pengacara kadaluarsa.`);
+      }
+    }
   });
 };

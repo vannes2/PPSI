@@ -30,7 +30,7 @@ const HeaderAfter = () => {
           <li><Link to="/AboutUsAfter">TENTANG KAMI</Link></li>
           <li><Link to="/chat/pengacara/1">KONSULTASI</Link></li>
           <li><Link to="/Riwayat">RIWAYAT</Link></li>
-          <li><Link to="/Artikel">ARTIKEL</Link></li>
+          <li><Link to="/Artikel">DOKUMEN</Link></li>
 
           {/* Tombol profil di mobile */}
           <li className="drawer-profile-btn">

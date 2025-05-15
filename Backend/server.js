@@ -19,6 +19,7 @@ const kasusRoutes = require('./routes/kasusRoutes');
 const simpleUserRoutes = require("./routes/simpleUserRoutes");
 const forgotPasswordRoutes = require("./routes/forgotPasswordRoutes");
 const artikelBeritaRoutes = require('./routes/artikelBeritaRoutes');
+const lawyerController = require('./controllers/lawyerController');
 const app = express();
 
 // Middleware
@@ -75,6 +76,10 @@ io.on('connection', (socket) => {
     });
 });
 
+setInterval(() => {
+    lawyerController.autoRejectExpiredRegistrations();
+  }, 5 * 60 * 1000); // 5 menit sekali
+ 
 // Jalankan server
 const PORT = 5000;
 server.listen(PORT, () => {

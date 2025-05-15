@@ -6,22 +6,22 @@ const path = require('path');
 
 // Setup storage multer
 const storage = multer.diskStorage({
-    destination: (req, file, cb) => cb(null, 'uploads/'),
-    filename: (req, file, cb) => cb(null, Date.now() + '-' + file.originalname)
+  destination: (req, file, cb) => cb(null, 'uploads/'),
+  filename: (req, file, cb) => cb(null, Date.now() + '-' + file.originalname)
 });
 
 const upload = multer({ storage: storage });
 
 // ✅ Register lawyer dengan multiple fields upload
 router.post(
-    '/lawyers/register',
-    upload.fields([
-        { name: 'uploadKTP', maxCount: 1 },
-        { name: 'uploadFoto', maxCount: 1 },
-        { name: 'uploadKartuAdvokat', maxCount: 1 },
-        { name: 'uploadPKPA', maxCount: 1 }
-    ]),
-    lawyerController.register
+  '/lawyers/register',
+  upload.fields([
+    { name: 'uploadKTP', maxCount: 1 },
+    { name: 'uploadFoto', maxCount: 1 },
+    { name: 'uploadKartuAdvokat', maxCount: 1 },
+    { name: 'uploadPKPA', maxCount: 1 }
+  ]),
+  lawyerController.register
 );
 
 // ✅ List pendaftar
@@ -38,9 +38,9 @@ router.get('/lawyer/profile/:id', lawyerController.getLawyerProfile);
 
 // ✅ Update profil dengan upload foto
 router.put(
-    '/lawyer/profile/update/:id',
-    upload.single('upload_foto'),
-    lawyerController.updateLawyerProfile
+  '/lawyer/profile/update/:id',
+  upload.single('upload_foto'),
+  lawyerController.updateLawyerProfile
 );
 
 // ✅ Get semua pengacara
