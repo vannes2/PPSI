@@ -9,11 +9,12 @@ const Payment = () => {
   const [advokat, setAdvokat] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [duration, setDuration] = useState(30); // durasi dalam menit, default 30 menit
   const navigate = useNavigate();
 
   useEffect(() => {
     if (!state?.pengacaraId) return;
-  
+
     const getAdvokat = async () => {
       try {
         const res = await fetch("http://localhost:5000/api/profilpengacara");
@@ -27,13 +28,25 @@ const Payment = () => {
         setLoading(false);
       }
     };
-  
+
     getAdvokat();
-  }, [state?.pengacaraId]);  
+  }, [state?.pengacaraId]);
+
+  const handleIncreaseDuration = () => {
+    setDuration((prev) => prev + 30);
+  };
+
+  const handleDecreaseDuration = () => {
+    setDuration((prev) => (prev > 30 ? prev - 30 : 30));
+  };
 
   const handlePayment = async () => {
     const user = JSON.parse(localStorage.getItem("user"));
     if (!advokat || !user) return;
+
+    // Hitung harga total berdasarkan durasi
+    const unitPrice = 50000;
+    const totalPrice = (duration / 30) * unitPrice;
 
     const response = await fetch("http://localhost:5000/api/payment/transaction", {
       method: "POST",
@@ -41,6 +54,8 @@ const Payment = () => {
       body: JSON.stringify({
         pengacara_id: advokat.id,
         user_id: user.id,
+        durasi_konsultasi: duration,  // kirim durasi ke backend
+        total_harga: totalPrice,      // kirim total harga ke backend (optional)
       }),
     });
 
@@ -49,7 +64,8 @@ const Payment = () => {
       window.snap.pay(data.token, {
         onSuccess: () => {
           alert("✅ Pembayaran sukses!");
-          navigate(`/chat/pengacara/${advokat.id}`);
+          // Kirim juga durasi ke halaman chat agar session sesuai
+          navigate(`/chat/pengacara/${advokat.id}`, { state: { durasi: duration } });
         },
         onPending: () => alert("⏳ Menunggu pembayaran..."),
         onError: () => alert("❌ Pembayaran gagal."),
@@ -76,6 +92,10 @@ const Payment = () => {
                 <img
                   src={`http://localhost:5000/uploads/${advokat.upload_foto}`}
                   alt={advokat.nama}
+                  onError={(e) => {
+                    e.target.onerror = null;
+                    e.target.src = "/images/default-avatar.png"; // fallback lokal jika gambar rusak
+                  }}
                 />
               ) : (
                 <div className="photo-placeholder">Tidak ada foto</div>
@@ -107,8 +127,16 @@ const Payment = () => {
                     <td>{advokat.pengalaman ?? 0} tahun</td>
                   </tr>
                   <tr>
+                    <td>Durasi Konsultasi</td>
+                    <td>
+                      <button onClick={handleDecreaseDuration} disabled={duration <= 30}>-</button>
+                      <span style={{ margin: "0 10px" }}>{duration} menit</span>
+                      <button onClick={handleIncreaseDuration}>+</button>
+                    </td>
+                  </tr>
+                  <tr>
                     <td>Biaya Konsultasi</td>
-                    <td>Rp{advokat.harga_konsultasi?.toLocaleString("id-ID") || "-"}</td>
+                    <td>Rp {(duration / 30 * 50000).toLocaleString("id-ID")}</td>
                   </tr>
                 </tbody>
               </table>

@@ -1,6 +1,7 @@
 import { useEffect, useState, useRef } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
 import io from "socket.io-client";
-import { FaLocationArrow } from "react-icons/fa";
+import { FaLocationArrow, FaPaperclip } from "react-icons/fa";
 import HeaderLawyer from "../components/HeaderLawyer";
 import Footer from "../components/Footer";
 import "../CSS_Lawyer/KonsultasiLawyer.css";
@@ -8,14 +9,43 @@ import "../CSS_Lawyer/KonsultasiLawyer.css";
 const socket = io("http://localhost:5000");
 
 const KonsultasiLawyer = () => {
+  const location = useLocation();
+  const navigate = useNavigate();
   const [contacts, setContacts] = useState([]);
   const [selectedUser, setSelectedUser] = useState(null);
   const [messages, setMessages] = useState([]);
   const [input, setInput] = useState("");
+  const [selectedFile, setSelectedFile] = useState(null);
   const [error, setError] = useState("");
+  const [session, setSession] = useState(null);
+  const [remainingTime, setRemainingTime] = useState(0);
+  const [isLocked, setIsLocked] = useState(false);
 
   const messagesEndRef = useRef(null);
+  const fileInputRef = useRef(null);
   const lawyer = JSON.parse(localStorage.getItem("user"));
+
+  const fetchSession = async (userId, pengacaraId) => {
+    try {
+      const res = await fetch(`http://localhost:5000/api/konsultasi-session/session/${userId}/${pengacaraId}`);
+      if (!res.ok) throw new Error("Sesi konsultasi tidak ditemukan");
+      const sessionData = await res.json();
+
+      const start = new Date(sessionData.start_time).getTime();
+      const now = Date.now();
+      const totalDurationMs = sessionData.duration * 60 * 1000;
+      const elapsed = now - start;
+      const remaining = Math.max(0, Math.floor((totalDurationMs - elapsed) / 1000));
+
+      setSession(sessionData);
+      setRemainingTime(remaining);
+      setIsLocked(remaining === 0);
+    } catch {
+      setSession(null);
+      setRemainingTime(0);
+      setIsLocked(true);
+    }
+  };
 
   useEffect(() => {
     if (!lawyer) {
@@ -41,31 +71,101 @@ const KonsultasiLawyer = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [messages]);
 
-  const loadMessages = (user) => {
+  useEffect(() => {
+    if (remainingTime <= 0) {
+      setIsLocked(true);
+      return;
+    }
+    const timerId = setInterval(() => {
+      setRemainingTime((time) => {
+        if (time <= 1) {
+          clearInterval(timerId);
+          setIsLocked(true);
+          alert("Waktu konsultasi telah habis.");
+          return 0;
+        }
+        return time - 1;
+      });
+    }, 1000);
+
+    return () => clearInterval(timerId);
+  }, [remainingTime]);
+
+  const loadMessages = async (user) => {
     setSelectedUser(user);
+    await fetchSession(user.id, lawyer.id);
+
     fetch(`http://localhost:5000/api/chat/messages/user/${user.id}?userId=${lawyer.id}&userRole=pengacara`)
       .then((res) => res.json())
       .then((data) => setMessages(data))
       .catch(() => setError("Gagal mengambil pesan"));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    if (input.trim() === "" || !selectedUser) return;
+    if ((input.trim() === "" && !selectedFile) || !selectedUser || isLocked) return;
 
-    const msgData = {
-      sender_id: lawyer.id,
-      sender_role: "pengacara",
-      receiver_id: selectedUser.id,
-      receiver_role: "user",
-      message: input,
-    };
-    socket.emit("send_message", msgData);
-    setMessages([
-      ...messages,
-      { ...msgData, timestamp: new Date(), is_read: 0 }
-    ]);
-    setInput("");
+    try {
+      if (selectedFile) {
+        const formData = new FormData();
+        formData.append("file", selectedFile);
+        formData.append("sender_id", lawyer.id);
+        formData.append("sender_role", "pengacara");
+        formData.append("receiver_id", selectedUser.id);
+        formData.append("receiver_role", "user");
+        formData.append("message", input || "");
+
+        const res = await fetch("http://localhost:5000/api/chat/send-message-file", {
+          method: "POST",
+          body: formData,
+        });
+        const data = await res.json();
+        if (res.ok) {
+          setMessages((prev) => [
+            ...prev,
+            {
+              id: data.id,
+              sender_id: lawyer.id,
+              sender_role: "pengacara",
+              receiver_id: selectedUser.id,
+              receiver_role: "user",
+              message: input,
+              file: data.file,
+              timestamp: new Date(),
+              is_read: 0,
+            },
+          ]);
+          setInput("");
+          setSelectedFile(null);
+        } else {
+          alert("Gagal mengirim file");
+        }
+      } else {
+        const msgData = {
+          sender_id: lawyer.id,
+          sender_role: "pengacara",
+          receiver_id: selectedUser.id,
+          receiver_role: "user",
+          message: input,
+        };
+        socket.emit("send_message", msgData);
+        setMessages([...messages, { ...msgData, timestamp: new Date() }]);
+        setInput("");
+      }
+    } catch (err) {
+      alert("Terjadi kesalahan saat mengirim pesan");
+    }
+  };
+
+  const handleFileChange = (e) => {
+    if (e.target.files.length > 0) {
+      setSelectedFile(e.target.files[0]);
+    }
+  };
+
+  const clearSelectedFile = () => {
+    setSelectedFile(null);
+    if (fileInputRef.current) fileInputRef.current.value = "";
   };
 
   useEffect(() => {
@@ -97,6 +197,14 @@ const KonsultasiLawyer = () => {
     });
   };
 
+  const formatRemainingTime = (seconds) => {
+    const m = Math.floor(seconds / 60)
+      .toString()
+      .padStart(2, "0");
+    const s = (seconds % 60).toString().padStart(2, "0");
+    return `${m}:${s}`;
+  };
+
   return (
     <div className="chat-app">
       <HeaderLawyer />
@@ -108,11 +216,7 @@ const KonsultasiLawyer = () => {
           </div>
           <ul className="contact-list">
             {contacts.map((user) => (
-              <li
-                key={user.id}
-                onClick={() => loadMessages(user)}
-                className={selectedUser?.id === user.id ? "active" : ""}
-              >
+              <li key={user.id} onClick={() => loadMessages(user)} className={selectedUser?.id === user.id ? "active" : ""}>
                 <div className="contact-name">{user.name}</div>
                 <div className="last-message">Klik untuk lihat chat</div>
               </li>
@@ -123,46 +227,96 @@ const KonsultasiLawyer = () => {
         <div className="chat-window">
           {selectedUser ? (
             <>
-              <div className="chat-header">{selectedUser.name}</div>
+              <div className="chat-header">
+                {selectedUser.name}
+                <div
+                  style={{
+                    marginLeft: "15px",
+                    fontWeight: "bold",
+                    color: isLocked ? "gray" : "red",
+                    fontSize: "16px",
+                  }}
+                >
+                  Waktu tersisa: {formatRemainingTime(remainingTime)}
+                </div>
+              </div>
               <div className="chat-messages">
                 {messages.map((msg, idx) => (
-                  <div
-                    key={idx}
-                    className={`message ${
-                      msg.sender_role === "pengacara" ? "sent" : "received"
-                    }`}
-                  >
-                    <div>{msg.message}</div>
+                  <div key={idx} className={`message ${msg.sender_role === "pengacara" ? "sent" : "received"}`}>
+                    <div>
+                      {msg.message}
+                      {msg.file && (
+                        <>
+                          {/\.(jpg|jpeg|png|gif)$/i.test(msg.file) ? (
+                            <img
+                              src={`http://localhost:5000/uploads/chat_files/${msg.file}`}
+                              alt="gambar"
+                              style={{ maxWidth: "200px", marginTop: "8px", borderRadius: "8px" }}
+                              onError={(e) => {
+                                e.target.style.display = "none";
+                              }}
+                            />
+                          ) : (
+                            <div style={{ marginTop: "8px" }}>
+                              <a href={`http://localhost:5000/uploads/chat_files/${msg.file}`} target="_blank" rel="noopener noreferrer">
+                                📎 {msg.file}
+                              </a>
+                            </div>
+                          )}
+                        </>
+                      )}
+                    </div>
                     <div className="time">
                       {formatClock(msg.timestamp)} • {formatTime(msg.timestamp)}
                     </div>
-                    {msg.sender_role === "pengacara" && (
-                      <div className="status">
-                        {msg.is_read ? "Dibaca" : "Terkirim"}
-                      </div>
-                    )}
+                    {msg.sender_role === "pengacara" && <div className="status">{msg.is_read ? "Dibaca" : "Terkirim"}</div>}
                   </div>
                 ))}
+
                 <div ref={messagesEndRef} />
               </div>
-              <form className="chat-input" onSubmit={handleSubmit}>
-                <input
-                  value={input}
-                  onChange={(e) => setInput(e.target.value)}
-                  placeholder="Tulis pesan..."
-                />
-                <button type="submit">
-                  <FaLocationArrow />
-                </button>
-              </form>
+              {isLocked ? (
+                <div style={{ padding: "10px", textAlign: "center" }}></div>
+              ) : (
+                <form className="chat-input" onSubmit={handleSubmit}>
+                  <div className="input-group" style={{ display: "flex", alignItems: "center", gap: "8px" }}>
+                    <input type="text" value={input} onChange={(e) => setInput(e.target.value)} placeholder={isLocked ? "Waktu konsultasi habis" : "Tulis pesan..."} disabled={isLocked} style={{ flex: 1 }} />
+                    <label htmlFor="file-upload" style={{ cursor: "pointer", marginRight: "6px" }} title="Upload file">
+                      <FaPaperclip size={24} />
+                    </label>
+                    <input id="file-upload" type="file" style={{ display: "none" }} onChange={handleFileChange} ref={fileInputRef} disabled={isLocked} />
+                    <button type="submit" className="btn btn-success" disabled={isLocked} title="Kirim pesan">
+                      <FaLocationArrow />
+                    </button>
+                  </div>
+                  {selectedFile && (
+                    <div style={{ marginTop: "4px", fontSize: "14px", display: "flex", alignItems: "center", gap: "10px" }}>
+                      <span>File siap dikirim: {selectedFile.name}</span>
+                      <button
+                        type="button"
+                        onClick={clearSelectedFile}
+                        style={{
+                          border: "none",
+                          backgroundColor: "transparent",
+                          color: "red",
+                          cursor: "pointer",
+                          fontWeight: "bold",
+                          fontSize: "16px",
+                        }}
+                        title="Batalkan file"
+                      >
+                        &times;
+                      </button>
+                    </div>
+                  )}
+                </form>
+              )}
             </>
           ) : (
             <div className="no-chat">Pilih user untuk memulai chat</div>
           )}
         </div>
       </div>
-      <div className="footer-separator"></div>
-      <Footer />
     </div>
   );
 };
