@@ -19,6 +19,7 @@ const kasusRoutes = require('./routes/kasusRoutes');
 const simpleUserRoutes = require("./routes/simpleUserRoutes");
 const forgotPasswordRoutes = require("./routes/forgotPasswordRoutes");
 const artikelBeritaRoutes = require('./routes/artikelBeritaRoutes');
+const konsultasiSessionRoutes = require("./routes/konsultasiSessionRoutes");
 const app = express();
 
 // Middleware
@@ -40,6 +41,7 @@ app.use('/api', kasusRoutes);
 app.use("/api/simple-users", simpleUserRoutes);
 app.use("/api", forgotPasswordRoutes);
 app.use('/api/artikel-berita', artikelBeritaRoutes);
+app.use("/api/konsultasi-session", konsultasiSessionRoutes);
 
 // Setup HTTP server + Socket.io
 const server = http.createServer(app);

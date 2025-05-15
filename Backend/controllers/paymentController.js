@@ -1,5 +1,6 @@
 const midtransClient = require("midtrans-client");
 const { getPengacaraById } = require("../models/paymentModel");
+const { createOrUpdateSession } = require("../models/konsultasiSessionModel");
 
 const snap = new midtransClient.Snap({
   isProduction: false,
@@ -7,16 +8,18 @@ const snap = new midtransClient.Snap({
 });
 
 const createTransaction = async (req, res) => {
-  const { pengacara_id, user_id } = req.body;
+  const { pengacara_id, user_id, durasi_konsultasi } = req.body;
 
   try {
     const pengacara = await getPengacaraById(pengacara_id);
     if (!pengacara.harga_konsultasi) throw new Error("Harga konsultasi tidak ditemukan");
 
+    const grossAmount = (durasi_konsultasi / 30) * 50000; // Harga fix per 30 menit
+
     const parameter = {
       transaction_details: {
         order_id: `ORDER-${Date.now()}`,
-        gross_amount: pengacara.harga_konsultasi,
+        gross_amount: grossAmount,
       },
       customer_details: {
         first_name: `User-${user_id}`,
@@ -26,7 +29,11 @@ const createTransaction = async (req, res) => {
     };
 
     const transaction = await snap.createTransaction(parameter);
-    res.json({ token: transaction.token });
+
+    // Buat atau update session konsultasi (overwrite session lama jika ada)
+    const session = await createOrUpdateSession(user_id, pengacara_id, durasi_konsultasi);
+
+    res.json({ token: transaction.token, session });
   } catch (error) {
     console.error("Midtrans Error:", error.message);
     res.status(500).json({ error: error.message });

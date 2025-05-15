@@ -1,4 +1,5 @@
 import { useEffect, useState, useRef } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
 import io from "socket.io-client";
 import { FaLocationArrow } from "react-icons/fa";
 import HeaderLawyer from "../components/HeaderLawyer";
@@ -8,14 +9,41 @@ import "../CSS_Lawyer/KonsultasiLawyer.css";
 const socket = io("http://localhost:5000");
 
 const KonsultasiLawyer = () => {
+  const location = useLocation();
+  const navigate = useNavigate();
   const [contacts, setContacts] = useState([]);
   const [selectedUser, setSelectedUser] = useState(null);
   const [messages, setMessages] = useState([]);
   const [input, setInput] = useState("");
   const [error, setError] = useState("");
+  const [session, setSession] = useState(null);
+  const [remainingTime, setRemainingTime] = useState(0);
+  const [isLocked, setIsLocked] = useState(false);
 
   const messagesEndRef = useRef(null);
   const lawyer = JSON.parse(localStorage.getItem("user"));
+
+  const fetchSession = async (userId, pengacaraId) => {
+    try {
+      const res = await fetch(`http://localhost:5000/api/konsultasi-session/session/${userId}/${pengacaraId}`);
+      if (!res.ok) throw new Error("Sesi konsultasi tidak ditemukan");
+      const sessionData = await res.json();
+
+      const start = new Date(sessionData.start_time).getTime();
+      const now = Date.now();
+      const totalDurationMs = sessionData.duration * 60 * 1000;
+      const elapsed = now - start;
+      const remaining = Math.max(0, Math.floor((totalDurationMs - elapsed) / 1000));
+
+      setSession(sessionData);
+      setRemainingTime(remaining);
+      setIsLocked(remaining === 0);
+    } catch {
+      setSession(null);
+      setRemainingTime(0);
+      setIsLocked(true);
+    }
+  };
 
   useEffect(() => {
     if (!lawyer) {
@@ -41,8 +69,30 @@ const KonsultasiLawyer = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [messages]);
 
-  const loadMessages = (user) => {
+  useEffect(() => {
+    if (remainingTime <= 0) {
+      setIsLocked(true);
+      return;
+    }
+    const timerId = setInterval(() => {
+      setRemainingTime((time) => {
+        if (time <= 1) {
+          clearInterval(timerId);
+          setIsLocked(true);
+          alert("Waktu konsultasi telah habis.");
+          return 0;
+        }
+        return time - 1;
+      });
+    }, 1000);
+
+    return () => clearInterval(timerId);
+  }, [remainingTime]);
+
+  const loadMessages = async (user) => {
     setSelectedUser(user);
+    await fetchSession(user.id, lawyer.id);
+
     fetch(`http://localhost:5000/api/chat/messages/user/${user.id}?userId=${lawyer.id}&userRole=pengacara`)
       .then((res) => res.json())
       .then((data) => setMessages(data))
@@ -51,7 +101,7 @@ const KonsultasiLawyer = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (input.trim() === "" || !selectedUser) return;
+    if (input.trim() === "" || !selectedUser || isLocked) return; // lock chat
 
     const msgData = {
       sender_id: lawyer.id,
@@ -97,6 +147,14 @@ const KonsultasiLawyer = () => {
     });
   };
 
+  const formatRemainingTime = (seconds) => {
+    const m = Math.floor(seconds / 60)
+      .toString()
+      .padStart(2, "0");
+    const s = (seconds % 60).toString().padStart(2, "0");
+    return `${m}:${s}`;
+  };
+
   return (
     <div className="chat-app">
       <HeaderLawyer />
@@ -123,7 +181,19 @@ const KonsultasiLawyer = () => {
         <div className="chat-window">
           {selectedUser ? (
             <>
-              <div className="chat-header">{selectedUser.name}</div>
+              <div className="chat-header">
+                {selectedUser.name}
+                <div
+                  style={{
+                    marginLeft: "15px",
+                    fontWeight: "bold",
+                    color: isLocked ? "gray" : "red",
+                    fontSize: "16px",
+                  }}
+                >
+                  Waktu tersisa: {formatRemainingTime(remainingTime)}
+                </div>
+              </div>
               <div className="chat-messages">
                 {messages.map((msg, idx) => (
                   <div
@@ -145,16 +215,30 @@ const KonsultasiLawyer = () => {
                 ))}
                 <div ref={messagesEndRef} />
               </div>
-              <form className="chat-input" onSubmit={handleSubmit}>
-                <input
-                  value={input}
-                  onChange={(e) => setInput(e.target.value)}
-                  placeholder="Tulis pesan..."
-                />
-                <button type="submit">
-                  <FaLocationArrow />
-                </button>
-              </form>
+              {isLocked ? (
+                <div style={{ padding: "10px", textAlign: "center" }}>
+                  <button
+                    className="btn btn-primary"
+                    onClick={() =>
+                      navigate("/payment", { state: { pengacaraId: lawyer.id } })
+                    }
+                  >
+                    Konsultasi Lagi
+                  </button>
+                </div>
+              ) : (
+                <form className="chat-input" onSubmit={handleSubmit}>
+                  <input
+                    value={input}
+                    onChange={(e) => setInput(e.target.value)}
+                    placeholder={isLocked ? "Waktu konsultasi habis" : "Tulis pesan..."}
+                    disabled={isLocked}
+                  />
+                  <button type="submit" disabled={isLocked}>
+                    <FaLocationArrow />
+                  </button>
+                </form>
+              )}
             </>
           ) : (
             <div className="no-chat">Pilih user untuk memulai chat</div>
