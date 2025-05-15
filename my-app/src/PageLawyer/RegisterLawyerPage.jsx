@@ -56,11 +56,12 @@ const RegisterLawyerPage = () => {
     <>
       <HeaderAfter />
       <div className="register-lawyer-page">
-      <br/><br/><br/><br/><br/>
+        <br /><br /><br /><br /><br />
         <h2 className="title">Pendaftaran Advokat</h2>
         {error && <div className="error-message">{error}</div>}
         <form className="form-register-lawyer" onSubmit={handleSubmit}>
           <div className="container-form">
+
             {/* Row 1 */}
             <div className="container-form-row">
               <div className="form-group">
@@ -81,8 +82,8 @@ const RegisterLawyerPage = () => {
               </div>
               <div className="form-group">
                 <label>Jenis Kelamin</label>
-                <select name="jenisKelamin" onChange={handleChange} required>
-                  <option value="">Pilih</option>
+                <select name="jenisKelamin" onChange={handleChange} required defaultValue="">
+                  <option value="" disabled>Pilih</option>
                   <option value="Laki-laki">Laki-laki</option>
                   <option value="Perempuan">Perempuan</option>
                 </select>
@@ -129,7 +130,22 @@ const RegisterLawyerPage = () => {
             <div className="container-form-row">
               <div className="form-group">
                 <label>Spesialisasi</label>
-                <input name="spesialisasi" onChange={handleChange} placeholder="Contoh: Hukum Perdata, Hukum Pidana" required />
+                <select
+                  name="spesialisasi"
+                  onChange={handleChange}
+                  required
+                  defaultValue=""
+                >
+                  <option value="" disabled>
+                    Pilih Spesialisasi
+                  </option>
+                  <option value="Hukum perdata">Hukum perdata</option>
+                  <option value="Hukum pidana">Hukum pidana</option>
+                  <option value="Hukum bisnis dan perusahaan">Hukum bisnis dan perusahaan</option>
+                  <option value="Hukum keluarga">Hukum keluarga</option>
+                  <option value="Hukum Haki">Hukum Haki</option>
+                  <option value="Hukum ketenagakerjaan">Hukum ketenagakerjaan</option>
+                </select>
               </div>
               <div className="form-group">
                 <label>Pengalaman (dalam tahun)</label>
@@ -160,6 +176,51 @@ const RegisterLawyerPage = () => {
               </div>
             </div>
 
+            {/* Sosial Media dan Dokumen Tambahan */}
+            <div className="container-form-row">
+              <div className="form-group">
+                <label>LinkedIn</label>
+                <input
+                  type="url"
+                  name="linkedin"
+                  placeholder="https://linkedin.com/in/username"
+                  onChange={handleChange}
+                />
+              </div>
+              <div className="form-group">
+                <label>Instagram</label>
+                <input
+                  type="url"
+                  name="instagram"
+                  placeholder="https://instagram.com/username"
+                  onChange={handleChange}
+                />
+              </div>
+            </div>
+
+            <div className="container-form-row">
+              <div className="form-group">
+                <label>Twitter / X</label>
+                <input
+                  type="url"
+                  name="twitter"
+                  placeholder="https://twitter.com/username"
+                  onChange={handleChange}
+                />
+              </div>
+              <div className="form-group">
+                <label>Upload Resume / CV</label>
+                <input type="file" name="resumeCV" onChange={handleChange} />
+              </div>
+            </div>
+
+            <div className="container-form-row">
+              <div className="form-group">
+                <label>Upload Portofolio</label>
+                <input type="file" name="portofolio" onChange={handleChange} />
+              </div>
+            </div>
+
             {/* Akun */}
             <div className="akun-row">
               <div className="form-group">
@@ -176,14 +237,15 @@ const RegisterLawyerPage = () => {
               </div>
             </div>
 
-
             {/* Checkbox */}
             <div className="checkbox-group">
               <input type="checkbox" id="syarat" required />
               <label htmlFor="syarat">Saya menyetujui syarat dan ketentuan</label>
             </div>
 
-            <p className="info-pendaftaran">Setelah Anda menekan tombol daftar, data akan diproses maksimal selama 3 hari kerja. Notifikasi akan dikirimkan melalui email apabila akun Anda berhasil diproses.</p>
+            <p className="info-pendaftaran">
+              Setelah Anda menekan tombol daftar, data akan diproses maksimal selama 3 hari kerja. Notifikasi akan dikirimkan melalui email apabila akun Anda berhasil diproses.
+            </p>
 
             <button type="submit" className="submit-btn">
               Daftar

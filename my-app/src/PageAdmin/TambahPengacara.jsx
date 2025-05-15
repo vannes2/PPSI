@@ -7,7 +7,7 @@ const TambahPengacara = () => {
   const [pengacaras, setPengacaras] = useState([]);
   const [registrations, setRegistrations] = useState([]);
 
-  // Fetch data pengacara yang sudah disetujui
+  // Ambil data pengacara yang sudah disetujui
   const fetchPengacaras = useCallback(async () => {
     try {
       const response = await axios.get("http://localhost:5000/api/pengacara");
@@ -17,34 +17,37 @@ const TambahPengacara = () => {
     }
   }, []);
 
-  // Fetch data pendaftaran pengacara yang belum disetujui
+  // Ambil data pendaftaran pengacara yang belum disetujui
   const fetchRegistrations = useCallback(async () => {
     try {
       const response = await axios.get("http://localhost:5000/api/lawyers/registrations");
 
-      // Tambahkan informasi kadaluarsa berdasar 10 menit dari tanggal_daftar
-      const registrationsWithStatus = response.data.map(reg => {
+      const now = new Date();
+
+      // Hitung deadline dan status expired tiap pendaftar
+      const regs = response.data.map(reg => {
         const registrationDate = new Date(reg.tanggal_daftar);
         const deadlineDate = new Date(registrationDate);
         deadlineDate.setMinutes(deadlineDate.getMinutes() + 10);
 
-        const isExpired = new Date() > deadlineDate;
+        const diffMs = deadlineDate - now;
+        const isExpired = diffMs <= 0;
 
         return {
           ...reg,
           deadline: deadlineDate,
-          isExpired
+          isExpired,
+          remainingMs: diffMs > 0 ? diffMs : 0,
         };
       });
 
-      setRegistrations(registrationsWithStatus);
-
+      setRegistrations(regs);
     } catch (error) {
       console.error("Error fetching registrations:", error);
     }
   }, []);
 
-  // Approve pendaftaran
+  // Setujui pendaftaran
   const handleApprove = async (id) => {
     try {
       await axios.post(`http://localhost:5000/api/lawyers/approve/${id}`);
@@ -72,7 +75,7 @@ const TambahPengacara = () => {
     }
   };
 
-  // Format tanggal ke format Indonesia dd/mm/yyyy
+  // Format tanggal ke dd/mm/yyyy
   const formatDate = (isoDate) => {
     if (!isoDate) return "-";
     const date = new Date(isoDate);
@@ -83,15 +86,12 @@ const TambahPengacara = () => {
     });
   };
 
-  // Hitung sisa waktu sampai kadaluarsa dalam menit dan detik
-  const calculateRemainingTime = (deadline) => {
-    if (!deadline) return "-";
-    const now = new Date();
-    const diffMs = deadline - now;
-    if (diffMs <= 0) return "Kadaluarsa";
+  // Hitung sisa waktu (menit dan detik)
+  const calculateRemainingTime = (remainingMs) => {
+    if (remainingMs <= 0) return "Kadaluarsa";
 
-    const diffMinutes = Math.floor(diffMs / (1000 * 60));
-    const diffSeconds = Math.floor((diffMs % (1000 * 60)) / 1000);
+    const diffMinutes = Math.floor(remainingMs / (1000 * 60));
+    const diffSeconds = Math.floor((remainingMs % (1000 * 60)) / 1000);
 
     return `${diffMinutes} menit ${diffSeconds} detik lagi`;
   };
@@ -100,13 +100,20 @@ const TambahPengacara = () => {
     fetchPengacaras();
     fetchRegistrations();
 
-    // Refresh data setiap 1 menit supaya timer sisa waktu berjalan
+    // Refresh setiap 1 detik agar timer berjalan
     const interval = setInterval(() => {
       fetchRegistrations();
-    }, 60 * 1000);
+    }, 1000);
 
     return () => clearInterval(interval);
   }, [fetchPengacaras, fetchRegistrations]);
+
+  // Warna background baris berdasarkan waktu tersisa
+  const getRowBackgroundColor = (reg) => {
+    if (reg.isExpired) return "#ffebee"; // merah muda (expired)
+    if (reg.remainingMs <= 3 * 60 * 1000) return "#fff9c4"; // kuning muda (<= 3 menit)
+    return "inherit"; // default
+  };
 
   return (
     <div style={{ display: "flex" }}>
@@ -136,6 +143,10 @@ const TambahPengacara = () => {
                 <th>Foto</th>
                 <th>Kartu Advokat</th>
                 <th>PKPA</th>
+                <th>LinkedIn</th>
+                <th>Instagram</th>
+                <th>Twitter / X</th>
+                <th>Resume / CV</th>
                 <th>Batas Waktu</th>
                 <th>Aksi</th>
               </tr>
@@ -143,13 +154,13 @@ const TambahPengacara = () => {
             <tbody>
               {registrations.length === 0 ? (
                 <tr>
-                  <td colSpan="17" style={{ textAlign: "center" }}>
+                  <td colSpan="21" style={{ textAlign: "center" }}>
                     Tidak ada pendaftaran.
                   </td>
                 </tr>
               ) : (
                 registrations.map((lawyer) => (
-                  <tr key={lawyer.id} style={{ backgroundColor: lawyer.isExpired ? '#ffebee' : 'inherit' }}>
+                  <tr key={lawyer.id} style={{ backgroundColor: getRowBackgroundColor(lawyer) }}>
                     <td>{lawyer.nama}</td>
                     <td>{lawyer.email}</td>
                     <td>{lawyer.no_hp}</td>
@@ -197,13 +208,55 @@ const TambahPengacara = () => {
                         Lihat
                       </a>
                     </td>
+
+                    <td>
+                      {lawyer.linkedin ? (
+                        <a href={lawyer.linkedin} target="_blank" rel="noopener noreferrer">
+                          LinkedIn
+                        </a>
+                      ) : (
+                        "-"
+                      )}
+                    </td>
+                    <td>
+                      {lawyer.instagram ? (
+                        <a href={lawyer.instagram} target="_blank" rel="noopener noreferrer">
+                          Instagram
+                        </a>
+                      ) : (
+                        "-"
+                      )}
+                    </td>
+                    <td>
+                      {lawyer.twitter ? (
+                        <a href={lawyer.twitter} target="_blank" rel="noopener noreferrer">
+                          Twitter
+                        </a>
+                      ) : (
+                        "-"
+                      )}
+                    </td>
+                    <td>
+                      {lawyer.resume_cv ? (
+                        <a
+                          href={`http://localhost:5000/uploads/${lawyer.resume_cv}`}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                        >
+                          Lihat Resume
+                        </a>
+                      ) : (
+                        "-"
+                      )}
+                    </td>
+
                     <td>
                       {lawyer.isExpired ? (
                         "Kadaluarsa"
                       ) : (
                         <>
                           {formatDate(lawyer.deadline)} <br />
-                          <small>({calculateRemainingTime(lawyer.deadline)})</small>
+                          <small>({calculateRemainingTime(lawyer.remainingMs)})</small>
                         </>
                       )}
                     </td>

@@ -1,31 +1,60 @@
 const db = require('../config/database');
 
-// Simpan ke tabel pendaftaran_pengacara
 exports.registerLawyer = (data, callback) => {
   const sql = `
     INSERT INTO pendaftaran_pengacara (
       nama, ktp, tanggal_lahir, jenis_kelamin, alamat, email, no_hp,
       nomor_induk_advokat, universitas, pendidikan, spesialisasi, pengalaman,
       upload_ktp, upload_foto, upload_kartu_advokat, upload_pkpa,
-      username, password
+      username, password,
+      linkedin, instagram, twitter,
+      resume_cv, portofolio
     )
-    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
   `;
+
   const values = [
-    data.nama, data.ktp, data.tanggal_lahir, data.jenis_kelamin, data.alamat,
-    data.email, data.no_hp, data.nomor_induk_advokat, data.universitas, data.pendidikan,
-    data.spesialisasi, data.pengalaman, data.upload_ktp, data.upload_foto,
-    data.upload_kartu_advokat, data.upload_pkpa, data.username, data.password
+    data.nama,
+    data.ktp,
+    data.tanggal_lahir,
+    data.jenis_kelamin,
+    data.alamat,
+    data.email,
+    data.no_hp,
+    data.nomor_induk_advokat,
+    data.universitas,
+    data.pendidikan,
+    data.spesialisasi,
+    data.pengalaman,
+    data.upload_ktp,
+    data.upload_foto,
+    data.upload_kartu_advokat,
+    data.upload_pkpa,
+    data.username,
+    data.password,
+    data.linkedin || null,
+    data.instagram || null,
+    data.twitter || null,
+    data.resume_cv || null,
+    data.portofolio || null,
   ];
+
+  // Debug: pastikan jumlah kolom dan nilai sama
+  if (values.length !== 23) {
+    console.error("Jumlah nilai tidak sama dengan jumlah kolom insert!", values.length);
+    return callback(new Error("Jumlah nilai tidak sama dengan jumlah kolom insert!"));
+  }
+
   db.query(sql, values, callback);
 };
 
-// Ambil semua pendaftar
+
+// Ambil semua data pendaftar dari pendaftaran_pengacara
 exports.getAllRegistrations = (callback) => {
   db.query('SELECT * FROM pendaftaran_pengacara', callback);
 };
 
-// Approve pendaftaran (pindahkan ke tabel pengacara)
+// Approve pendaftar dan pindahkan data ke tabel pengacara (sesuai kolom di tabel pengacara)
 exports.approveLawyer = (id, callback) => {
   const getQuery = 'SELECT * FROM pendaftaran_pengacara WHERE id = ?';
   db.query(getQuery, [id], (err, results) => {
@@ -39,14 +68,36 @@ exports.approveLawyer = (id, callback) => {
         nama, ktp, tanggal_lahir, jenis_kelamin, alamat, email, no_hp,
         nomor_induk_advokat, universitas, pendidikan, spesialisasi, pengalaman,
         upload_ktp, upload_foto, upload_kartu_advokat, upload_pkpa,
-        username, password, tanggal_daftar
-      ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, NOW())
+        username, password, tanggal_daftar,
+        linkedin, instagram, twitter,
+        resume_cv, portofolio
+      ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, NOW(), ?, ?, ?, ?, ?)
     `;
+
     const values = [
-      data.nama, data.ktp, data.tanggal_lahir, data.jenis_kelamin, data.alamat,
-      data.email, data.no_hp, data.nomor_induk_advokat, data.universitas, data.pendidikan,
-      data.spesialisasi, data.pengalaman, data.upload_ktp, data.upload_foto,
-      data.upload_kartu_advokat, data.upload_pkpa, data.username, data.password
+      data.nama,
+      data.ktp,
+      data.tanggal_lahir,
+      data.jenis_kelamin,
+      data.alamat,
+      data.email,
+      data.no_hp,
+      data.nomor_induk_advokat,
+      data.universitas,
+      data.pendidikan,
+      data.spesialisasi,
+      data.pengalaman,
+      data.upload_ktp,
+      data.upload_foto,
+      data.upload_kartu_advokat,
+      data.upload_pkpa,
+      data.username,
+      data.password,
+      data.linkedin || null,
+      data.instagram || null,
+      data.twitter || null,
+      data.resume_cv || null,
+      data.portofolio || null,
     ];
 
     db.query(insertQuery, values, (insertErr) => {
