@@ -19,6 +19,7 @@ const kasusRoutes = require('./routes/kasusRoutes');
 const simpleUserRoutes = require("./routes/simpleUserRoutes");
 const forgotPasswordRoutes = require("./routes/forgotPasswordRoutes");
 const artikelBeritaRoutes = require('./routes/artikelBeritaRoutes');
+const konsultasiSessionRoutes = require("./routes/konsultasiSessionRoutes");
 const lawyerController = require('./controllers/lawyerController');
 const app = express();
 
@@ -41,6 +42,7 @@ app.use('/api', kasusRoutes);
 app.use("/api/simple-users", simpleUserRoutes);
 app.use("/api", forgotPasswordRoutes);
 app.use('/api/artikel-berita', artikelBeritaRoutes);
+app.use("/api/konsultasi-session", konsultasiSessionRoutes);
 
 // Setup HTTP server + Socket.io
 const server = http.createServer(app);
@@ -79,7 +81,7 @@ io.on('connection', (socket) => {
 setInterval(() => {
     lawyerController.autoRejectExpiredRegistrations();
   }, 5 * 60 * 1000); // 5 menit sekali
- 
+
 // Jalankan server
 const PORT = 5000;
 server.listen(PORT, () => {

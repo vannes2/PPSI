@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import HeaderLawyer from '../components/HeaderLawyer';
 import Footer from '../components/Footer';
 import axios from 'axios';
