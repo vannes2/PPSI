@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.2.1
+-- version 5.2.0
 -- https://www.phpmyadmin.net/
 --
--- Host: 127.0.0.1
--- Waktu pembuatan: 15 Bulan Mei 2025 pada 07.49
--- Versi server: 10.4.28-MariaDB
--- Versi PHP: 8.2.4
+-- Host: localhost:3306
+-- Generation Time: May 15, 2025 at 05:35 PM
+-- Server version: 8.4.3
+-- PHP Version: 8.3.16
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -24,24 +24,24 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `admin`
+-- Table structure for table `admin`
 --
 
 CREATE TABLE `admin` (
-  `id` int(11) NOT NULL,
-  `name` varchar(100) NOT NULL,
-  `email` varchar(100) NOT NULL,
-  `phone` varchar(20) DEFAULT NULL,
-  `password` varchar(255) NOT NULL,
-  `gender` enum('laki-laki','perempuan') NOT NULL,
+  `id` int NOT NULL,
+  `name` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `email` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `phone` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `password` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `gender` enum('laki-laki','perempuan') CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `birthdate` date DEFAULT NULL,
-  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
-  `reset_token` varchar(255) DEFAULT NULL,
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `reset_token` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
   `reset_token_expiry` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data untuk tabel `admin`
+-- Dumping data for table `admin`
 --
 
 INSERT INTO `admin` (`id`, `name`, `email`, `phone`, `password`, `gender`, `birthdate`, `created_at`, `reset_token`, `reset_token_expiry`) VALUES
@@ -50,30 +50,30 @@ INSERT INTO `admin` (`id`, `name`, `email`, `phone`, `password`, `gender`, `birt
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `ajukan_kasus`
+-- Table structure for table `ajukan_kasus`
 --
 
 CREATE TABLE `ajukan_kasus` (
-  `id` int(11) NOT NULL,
-  `user_id` int(11) NOT NULL,
-  `nama` varchar(100) NOT NULL,
-  `email` varchar(100) NOT NULL,
-  `no_hp` varchar(20) NOT NULL,
-  `area_praktik` varchar(50) NOT NULL,
-  `jenis_pengerjaan` varchar(50) NOT NULL,
-  `biaya_min` int(11) NOT NULL,
-  `biaya_max` int(11) NOT NULL,
+  `id` int NOT NULL,
+  `user_id` int NOT NULL,
+  `nama` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `email` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `no_hp` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `area_praktik` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `jenis_pengerjaan` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `biaya_min` int NOT NULL,
+  `biaya_max` int NOT NULL,
   `estimasi_selesai` date NOT NULL,
-  `lokasi` varchar(100) NOT NULL,
-  `deskripsi` text NOT NULL,
-  `status` varchar(20) DEFAULT 'Menunggu',
-  `bukti` varchar(255) DEFAULT NULL,
-  `created_at` timestamp NULL DEFAULT current_timestamp(),
-  `lawyer_id` int(11) DEFAULT NULL
+  `lokasi` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `deskripsi` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `status` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT 'Menunggu',
+  `bukti` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  `lawyer_id` int DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data untuk tabel `ajukan_kasus`
+-- Dumping data for table `ajukan_kasus`
 --
 
 INSERT INTO `ajukan_kasus` (`id`, `user_id`, `nama`, `email`, `no_hp`, `area_praktik`, `jenis_pengerjaan`, `biaya_min`, `biaya_max`, `estimasi_selesai`, `lokasi`, `deskripsi`, `status`, `bukti`, `created_at`, `lawyer_id`) VALUES
@@ -89,19 +89,19 @@ INSERT INTO `ajukan_kasus` (`id`, `user_id`, `nama`, `email`, `no_hp`, `area_pra
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `artikel`
+-- Table structure for table `artikel`
 --
 
 CREATE TABLE `artikel` (
-  `id` int(11) NOT NULL,
-  `judul` varchar(255) NOT NULL,
-  `deskripsi` varchar(255) NOT NULL,
-  `jenis_hukum` enum('KDRT','perceraian','pelanggaran_HAM') DEFAULT NULL,
-  `filePath` varchar(255) NOT NULL
+  `id` int NOT NULL,
+  `judul` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `deskripsi` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `jenis_hukum` enum('KDRT','perceraian','pelanggaran_HAM') CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `filePath` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data untuk tabel `artikel`
+-- Dumping data for table `artikel`
 --
 
 INSERT INTO `artikel` (`id`, `judul`, `deskripsi`, `jenis_hukum`, `filePath`) VALUES
@@ -121,21 +121,21 @@ INSERT INTO `artikel` (`id`, `judul`, `deskripsi`, `jenis_hukum`, `filePath`) VA
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `artikel_berita`
+-- Table structure for table `artikel_berita`
 --
 
 CREATE TABLE `artikel_berita` (
-  `id` int(11) NOT NULL,
-  `judul` varchar(255) NOT NULL,
-  `isi` text NOT NULL,
-  `gambar` varchar(255) DEFAULT NULL,
-  `kategori` varchar(100) DEFAULT NULL,
-  `created_at` timestamp NULL DEFAULT current_timestamp(),
-  `top_berita` tinyint(1) DEFAULT 0
+  `id` int NOT NULL,
+  `judul` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `isi` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `gambar` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `kategori` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  `top_berita` tinyint(1) DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data untuk tabel `artikel_berita`
+-- Dumping data for table `artikel_berita`
 --
 
 INSERT INTO `artikel_berita` (`id`, `judul`, `isi`, `gambar`, `kategori`, `created_at`, `top_berita`) VALUES
@@ -151,36 +151,36 @@ INSERT INTO `artikel_berita` (`id`, `judul`, `isi`, `gambar`, `kategori`, `creat
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `konsultasi`
+-- Table structure for table `konsultasi`
 --
 
 CREATE TABLE `konsultasi` (
-  `id` int(11) NOT NULL,
-  `id_pengguna` int(11) NOT NULL,
-  `id_pengacara` int(11) NOT NULL,
+  `id` int NOT NULL,
+  `id_pengguna` int NOT NULL,
+  `id_pengacara` int NOT NULL,
   `tanggal_konsultasi` datetime NOT NULL,
-  `status` enum('Dijadwalkan','Selesai','Dibatalkan') DEFAULT 'Dijadwalkan',
-  `catatan` text DEFAULT NULL
+  `status` enum('Dijadwalkan','Selesai','Dibatalkan') CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT 'Dijadwalkan',
+  `catatan` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `konsultasi_session`
+-- Table structure for table `konsultasi_session`
 --
 
 CREATE TABLE `konsultasi_session` (
-  `id` int(11) NOT NULL,
-  `user_id` int(11) NOT NULL,
-  `pengacara_id` int(11) NOT NULL,
+  `id` int NOT NULL,
+  `user_id` int NOT NULL,
+  `pengacara_id` int NOT NULL,
   `start_time` datetime NOT NULL,
-  `duration` int(11) NOT NULL,
-  `status` enum('aktif','selesai') DEFAULT 'aktif',
-  `created_at` timestamp NOT NULL DEFAULT current_timestamp()
+  `duration` int NOT NULL,
+  `status` enum('aktif','selesai') CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT 'aktif',
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data untuk tabel `konsultasi_session`
+-- Dumping data for table `konsultasi_session`
 --
 
 INSERT INTO `konsultasi_session` (`id`, `user_id`, `pengacara_id`, `start_time`, `duration`, `status`, `created_at`) VALUES
@@ -188,23 +188,24 @@ INSERT INTO `konsultasi_session` (`id`, `user_id`, `pengacara_id`, `start_time`,
 (2, 2, 9, '2025-05-15 12:33:04', 30, 'aktif', '2025-05-15 03:36:03'),
 (3, 2, 5, '2025-05-15 11:25:02', 30, 'aktif', '2025-05-15 04:25:02'),
 (4, 3, 9, '2025-05-15 12:45:53', 60, 'aktif', '2025-05-15 04:33:03'),
-(5, 3, 1, '2025-05-15 11:37:40', 30, 'aktif', '2025-05-15 04:37:40');
+(5, 3, 1, '2025-05-15 11:37:40', 30, 'aktif', '2025-05-15 04:37:40'),
+(6, 14, 1, '2025-05-15 20:34:28', 30, 'aktif', '2025-05-15 13:33:44');
 
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `log_aktivitas`
+-- Table structure for table `log_aktivitas`
 --
 
 CREATE TABLE `log_aktivitas` (
-  `id` int(11) NOT NULL,
-  `id_pengguna` int(11) NOT NULL,
-  `aktivitas` text NOT NULL,
-  `waktu` timestamp NOT NULL DEFAULT current_timestamp()
+  `id` int NOT NULL,
+  `id_pengguna` int NOT NULL,
+  `aktivitas` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `waktu` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data untuk tabel `log_aktivitas`
+-- Dumping data for table `log_aktivitas`
 --
 
 INSERT INTO `log_aktivitas` (`id`, `id_pengguna`, `aktivitas`, `waktu`) VALUES
@@ -268,23 +269,23 @@ INSERT INTO `log_aktivitas` (`id`, `id_pengguna`, `aktivitas`, `waktu`) VALUES
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `messages`
+-- Table structure for table `messages`
 --
 
 CREATE TABLE `messages` (
-  `id` int(11) NOT NULL,
-  `sender_id` int(11) NOT NULL,
-  `sender_role` enum('user','pengacara') NOT NULL,
-  `receiver_id` int(11) NOT NULL,
-  `receiver_role` enum('user','pengacara') NOT NULL,
-  `message` text NOT NULL,
-  `file` varchar(255) DEFAULT NULL,
-  `timestamp` datetime DEFAULT current_timestamp(),
-  `is_read` tinyint(1) DEFAULT 0
+  `id` int NOT NULL,
+  `sender_id` int NOT NULL,
+  `sender_role` enum('user','pengacara') CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `receiver_id` int NOT NULL,
+  `receiver_role` enum('user','pengacara') CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `message` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `file` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `timestamp` datetime DEFAULT CURRENT_TIMESTAMP,
+  `is_read` tinyint(1) DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data untuk tabel `messages`
+-- Dumping data for table `messages`
 --
 
 INSERT INTO `messages` (`id`, `sender_id`, `sender_role`, `receiver_id`, `receiver_role`, `message`, `file`, `timestamp`, `is_read`) VALUES
@@ -366,159 +367,170 @@ INSERT INTO `messages` (`id`, `sender_id`, `sender_role`, `receiver_id`, `receiv
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `pendaftaran_pengacara`
+-- Table structure for table `pendaftaran_pengacara`
 --
 
 CREATE TABLE `pendaftaran_pengacara` (
-  `id` int(11) NOT NULL,
-  `nama` varchar(100) NOT NULL,
-  `ktp` varchar(30) NOT NULL,
+  `id` int NOT NULL,
+  `nama` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `ktp` varchar(30) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `tanggal_lahir` date NOT NULL,
-  `jenis_kelamin` enum('Laki-laki','Perempuan') NOT NULL,
-  `alamat` text NOT NULL,
-  `email` varchar(100) NOT NULL,
-  `no_hp` varchar(20) NOT NULL,
-  `nomor_induk_advokat` varchar(50) NOT NULL,
-  `universitas` varchar(100) NOT NULL,
-  `pendidikan` varchar(100) NOT NULL,
-  `spesialisasi` varchar(150) NOT NULL,
-  `pengalaman` int(11) NOT NULL,
-  `upload_ktp` varchar(255) DEFAULT NULL,
-  `upload_foto` varchar(255) DEFAULT NULL,
-  `upload_kartu_advokat` varchar(255) DEFAULT NULL,
-  `upload_pkpa` varchar(255) DEFAULT NULL,
-  `username` varchar(100) NOT NULL,
-  `password` varchar(255) NOT NULL,
-  `tanggal_daftar` datetime DEFAULT current_timestamp()
+  `jenis_kelamin` enum('Laki-laki','Perempuan') CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `alamat` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `email` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `no_hp` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `nomor_induk_advokat` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `universitas` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `pendidikan` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `spesialisasi` varchar(150) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `pengalaman` int NOT NULL,
+  `upload_ktp` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `upload_foto` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `upload_kartu_advokat` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `upload_pkpa` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `username` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `password` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `tanggal_daftar` datetime DEFAULT CURRENT_TIMESTAMP,
+  `linkedin` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `instagram` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `twitter` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `resume_cv` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `portofolio` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `pengacara`
+-- Table structure for table `pengacara`
 --
 
 CREATE TABLE `pengacara` (
-  `id` int(11) NOT NULL,
-  `nama` varchar(100) NOT NULL,
-  `ktp` varchar(30) NOT NULL,
+  `id` int NOT NULL,
+  `nama` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `ktp` varchar(30) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `tanggal_lahir` date NOT NULL,
-  `jenis_kelamin` enum('Laki-laki','Perempuan') NOT NULL,
-  `alamat` text NOT NULL,
-  `email` varchar(100) NOT NULL,
-  `no_hp` varchar(20) NOT NULL,
-  `nomor_induk_advokat` varchar(50) NOT NULL,
-  `universitas` varchar(100) NOT NULL,
-  `pendidikan` varchar(100) NOT NULL,
-  `spesialisasi` varchar(150) NOT NULL,
-  `pengalaman` int(11) NOT NULL,
-  `upload_ktp` varchar(255) DEFAULT NULL,
-  `upload_foto` varchar(255) DEFAULT NULL,
-  `upload_kartu_advokat` varchar(255) DEFAULT NULL,
-  `upload_pkpa` varchar(255) DEFAULT NULL,
-  `username` varchar(50) NOT NULL,
-  `password` varchar(255) NOT NULL,
-  `tanggal_daftar` datetime DEFAULT current_timestamp(),
-  `harga_konsultasi` int(11) NOT NULL DEFAULT 50000,
-  `reset_token` varchar(255) DEFAULT NULL,
+  `jenis_kelamin` enum('Laki-laki','Perempuan') CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `alamat` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `email` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `no_hp` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `nomor_induk_advokat` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `universitas` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `pendidikan` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `spesialisasi` varchar(150) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `pengalaman` int NOT NULL,
+  `upload_ktp` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `upload_foto` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `upload_kartu_advokat` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `upload_pkpa` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `username` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `password` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `tanggal_daftar` datetime DEFAULT CURRENT_TIMESTAMP,
+  `linkedin` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `instagram` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `twitter` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `resume_cv` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `portofolio` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `harga_konsultasi` int NOT NULL DEFAULT '50000',
+  `reset_token` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
   `reset_token_expiry` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data untuk tabel `pengacara`
+-- Dumping data for table `pengacara`
 --
 
-INSERT INTO `pengacara` (`id`, `nama`, `ktp`, `tanggal_lahir`, `jenis_kelamin`, `alamat`, `email`, `no_hp`, `nomor_induk_advokat`, `universitas`, `pendidikan`, `spesialisasi`, `pengalaman`, `upload_ktp`, `upload_foto`, `upload_kartu_advokat`, `upload_pkpa`, `username`, `password`, `tanggal_daftar`, `harga_konsultasi`, `reset_token`, `reset_token_expiry`) VALUES
-(1, 'Ahmad Fauzi', '3201010401010001', '1988-05-12', 'Laki-laki', 'Jl. Merdeka No.1 Jakarta', 'azzikrapraqasta1@gmail.com', '081234567890', 'ADV001', 'Universitas Indonesia', 'S1 Hukum', 'Hukum Perdata', 5, 'ktp1.png', '1747075461123-aguss.png', 'kartu1.png', 'pkpa1.png', 'ahmadf', 'root', '2025-04-20 20:03:57', 50000, NULL, NULL),
-(2, 'Siti Aminah', '3201010401010002', '1990-07-23', 'Perempuan', 'Jl. Sudirman No.2 Jakarta', 'siti.aminah@example.com', '081234567891', 'ADV002', 'Universitas Gadjah Mada', 'S2 Hukum', 'Hukum Pidana', 8, 'ktp2.png', '1746589437463-Siti.png', 'kartu2.png', 'pkpa2.png', 'sitia', 'hashedpassword2', '2025-04-20 20:03:57', 50000, '23BA92', '2025-05-14 13:03:19'),
-(3, 'Budi Santoso', '3201010401010003', '1985-03-11', 'Laki-laki', 'Jl. Thamrin No.3 Jakarta', 'budi.santoso@example.com', '081234567892', 'ADV003', 'Universitas Airlangga', 'S1 Hukum', 'Hukum Bisnis dan Perusahaan', 10, 'ktp3.png', '1746589565797-Budi.png', 'kartu3.png', 'pkpa3.png', 'budis', 'hashedpassword3', '2025-04-20 20:03:57', 50000, NULL, NULL),
-(4, 'Rina Kusuma', '3201010401010004', '1992-08-05', 'Perempuan', 'Jl. Gatot Subroto No.4 Jakarta', 'rina.kusuma@example.com', '081234567893', 'ADV004', 'Universitas Padjajaran', 'S1 Hukum', 'Hukum Perdata', 4, 'ktp4.png', '1746589603259-rina.png', 'kartu4.png', 'pkpa4.png', 'rinak', 'hashedpassword4', '2025-04-20 20:03:57', 50000, NULL, NULL),
-(5, 'Dedi Kurniawan', '3201010401010005', '1987-10-19', 'Laki-laki', 'Jl. Rasuna Said No.5 Jakarta', 'dedi.kurniawan@example.com', '081234567894', 'ADV005', 'Universitas Islam Indonesia', 'S1 Hukum', 'Hukum Perdata', 7, 'ktp5.png', '1746626478988-dedi.png', 'kartu5.png', 'pkpa5.png', 'dedik', 'hashedpassword5', '2025-04-20 20:03:57', 50000, NULL, NULL),
-(6, 'Nina Kartika', '3201010401010006', '1993-11-25', 'Perempuan', 'Jl. Casablanca No.6 Jakarta', 'nina.kartika@example.com', '081234567895', 'ADV006', 'Universitas Trisakti', 'S2 Hukum', 'Hukum Pidana', 6, 'ktp6.png', '1746626533725-nina.png', 'kartu6.png', 'pkpa6.png', 'ninak', 'hashedpassword6', '2025-04-20 20:03:57', 50000, NULL, NULL),
-(7, 'Yusuf Hidayat', '3201010401010007', '1984-02-10', 'Laki-laki', 'Jl. Kuningan No.7 Jakarta', 'yusuf.hidayat@example.com', '081234567896', 'ADV007', 'Universitas Muhammadiyah Jakarta', 'S1 Hukum', 'Hukum Bisnis dan Perusahaan', 12, 'ktp7.png', '1746628216720-yusuf.png', 'kartu7.png', 'pkpa7.png', 'yusufh', 'hashedpassword7', '2025-04-20 20:03:57', 50000, NULL, NULL),
-(8, 'Eka Putri', '3201010401010008', '1995-09-15', 'Perempuan', 'Jl. Tebet No.8 Jakarta', 'eka.putri@example.com', '081234567897', 'ADV008', 'Universitas Pelita Harapan', 'S1 Hukum', 'Hukum Keluarga', 3, 'ktp8.png', '1746628484534-eka.png', 'kartu8.png', 'pkpa8.png', 'ekap', 'hashedpassword8', '2025-04-20 20:03:57', 50000, NULL, NULL),
-(9, 'Andi Prasetyo', '3201010401010009', '1986-01-30', 'Laki-laki', 'Jl. Kalibata No.9 Jakarta', 'andi.prasetyo@example.com', '081234567898', 'ADV009', 'Universitas Diponegoro', 'S2 Hukum', 'Hukum HAKI', 9, 'ktp9.png', '1746626753680-andi.png', 'kartu9.png', 'pkpa9.png', 'andip', 'hashedpassword9', '2025-04-20 20:03:57', 50000, NULL, NULL),
-(10, 'Lia Rahmawati', '3201010401010010', '1991-04-22', 'Perempuan', 'Jl. Pasar Minggu No.10 Jakarta', 'lia.rahmawati@example.com', '081234567899', 'ADV010', 'Universitas Parahyangan', 'S1 Hukum', 'Hukum Perdata', 5, 'ktp10.png', '1746626854298-lia.png', 'kartu10.png', 'pkpa10.png', 'liar', 'hashedpassword10', '2025-04-20 20:03:57', 50000, NULL, NULL),
-(11, 'Dian Syafitri', '3201010401010011', '1990-06-16', 'Perempuan', 'Jl. Antasari No.11 Jakarta', 'dian.syafitri@example.com', '081234567800', 'ADV011', 'Universitas Andalas', 'S1 Hukum', 'Hukum Keluarga', 6, 'ktp11.png', '1746626891931-dian.png', 'kartu11.png', 'pkpa11.png', 'dians', 'hashedpassword11', '2025-04-20 20:03:57', 50000, NULL, NULL),
-(12, 'Fajar Maulana', '3201010401010012', '1983-12-08', 'Laki-laki', 'Jl. Mampang No.12 Jakarta', 'fajar.maulana@example.com', '081234567801', 'ADV012', 'Universitas Brawijaya', 'S1 Hukum', 'Hukum Bisnis dan Perusahaan', 14, 'ktp12.png', '1746626929858-fajar.png', 'kartu12.png', 'pkpa12.png', 'fajarm', 'hashedpassword12', '2025-04-20 20:03:57', 50000, NULL, NULL),
-(13, 'Mira Kartini', '3201010401010013', '1994-05-28', 'Perempuan', 'Jl. Cilandak No.13 Jakarta', 'mira.kartini@example.com', '081234567802', 'ADV013', 'Universitas Esa Unggul', 'S1 Hukum', 'Hukum Perdata', 2, 'ktp13.png', '1746626960953-mira.png', 'kartu13.png', 'pkpa13.png', 'mirak', 'hashedpassword13', '2025-04-20 20:03:57', 50000, NULL, NULL),
-(14, 'Rudi Hartono', '3201010401010014', '1989-08-30', 'Laki-laki', 'Jl. Prapanca No.14 Jakarta', 'rudi.hartono@example.com', '081234567803', 'ADV014', 'Universitas Atma Jaya', 'S1 Hukum', 'Hukum Pidana', 11, 'ktp14.png', '1746627617939-Rudi.png', 'kartu14.png', 'pkpa14.png', 'rudih', 'hashedpassword14', '2025-04-20 20:03:57', 50000, NULL, NULL),
-(15, 'Desi Anggraini', '3201010401010015', '1993-03-12', 'Perempuan', 'Jl. Cipete No.15 Jakarta', 'desi.anggraini@example.com', '081234567804', 'ADV015', 'Universitas Pancasila', 'S1 Hukum', 'Hukum Bisnis dan Perusahaan', 4, 'ktp15.png', '1746627665072-desi.png', 'kartu15.png', 'pkpa15.png', 'desia', 'hashedpassword15', '2025-04-20 20:03:57', 50000, NULL, NULL),
-(16, 'Rahmat Hidayat', '3201010401010016', '1982-11-20', 'Laki-laki', 'Jl. Kemang No.16 Jakarta', 'rahmat.hidayat@example.com', '081234567805', 'ADV016', 'Universitas Sultan Agung', 'S1 Hukum', 'Hukum Perdata', 15, 'ktp16.png', '1746627754050-rahmat.jpeg', 'kartu16.png', 'pkpa16.png', 'rahmath', 'hashedpassword16', '2025-04-20 20:03:57', 50000, NULL, NULL),
-(17, 'Louis', '3201010401010017', '1995-02-17', 'Perempuan', 'Jl. Lenteng Agung No.17 Jakarta', 'louis@gmail.com', '081234567806', 'ADV017', 'Universitas Mercu Buana', 'S2 Hukum', 'Hukum Perdata', 4, 'ktp17.png', '1746627792377-louis.png', 'kartu17.png', 'pkpa17.png', 'liliss', 'hashedpassword17', '2025-04-20 20:03:57', 50000, NULL, NULL),
-(19, 'Fitri Yuliani', '3201010401010019', '1992-06-14', 'Perempuan', 'Jl. Pasar Rebo No.19 Jakarta', 'fitri.yuliani@example.com', '081234567808', 'ADV019', 'Universitas Lampung', 'S1 Hukum', 'Hukum Keluarga', 5, 'ktp19.png', '1746627913183-fitrii.png', 'kartu19.png', 'pkpa19.png', 'fitriy', 'hashedpassword19', '2025-04-20 20:03:57', 50000, NULL, NULL),
-(20, 'Agus Saputra', '3201010401010020', '1988-01-01', 'Laki-laki', 'Jl. Condet No.20 Jakarta', 'agus.saputra@example.com', '081234567809', 'ADV020', 'Universitas Mulawarman', 'S1 Hukum', 'Hukum Ketenagakerjaan', 8, 'ktp20.png', '1746591929001-agus.png', 'kartu20.png', 'pkpa20.png', 'aguss', 'hashedpassword20', '2025-04-20 20:03:57', 50000, NULL, NULL);
+INSERT INTO `pengacara` (`id`, `nama`, `ktp`, `tanggal_lahir`, `jenis_kelamin`, `alamat`, `email`, `no_hp`, `nomor_induk_advokat`, `universitas`, `pendidikan`, `spesialisasi`, `pengalaman`, `upload_ktp`, `upload_foto`, `upload_kartu_advokat`, `upload_pkpa`, `username`, `password`, `tanggal_daftar`, `linkedin`, `instagram`, `twitter`, `resume_cv`, `portofolio`, `harga_konsultasi`, `reset_token`, `reset_token_expiry`) VALUES
+(1, 'Ahmad Fauzi', '3201010401010001', '1988-05-12', 'Laki-laki', 'Jl. Merdeka No.1 Jakarta', 'azzikrapraqasta1@gmail.com', '081234567890', 'ADV001', 'Universitas Indonesia', 'S1 Hukum', 'Hukum Perdata', 5, 'ktp1.png', '1747075461123-aguss.png', 'kartu1.png', 'pkpa1.png', 'ahmadf', 'root', '2025-04-20 20:03:57', NULL, NULL, NULL, NULL, NULL, 50000, NULL, NULL),
+(2, 'Siti Aminah', '3201010401010002', '1990-07-23', 'Perempuan', 'Jl. Sudirman No.2 Jakarta', 'siti.aminah@example.com', '081234567891', 'ADV002', 'Universitas Gadjah Mada', 'S2 Hukum', 'Hukum Pidana', 8, 'ktp2.png', '1746589437463-Siti.png', 'kartu2.png', 'pkpa2.png', 'sitia', 'hashedpassword2', '2025-04-20 20:03:57', NULL, NULL, NULL, NULL, NULL, 50000, '23BA92', '2025-05-14 13:03:19'),
+(3, 'Budi Santoso', '3201010401010003', '1985-03-11', 'Laki-laki', 'Jl. Thamrin No.3 Jakarta', 'budi.santoso@example.com', '081234567892', 'ADV003', 'Universitas Airlangga', 'S1 Hukum', 'Hukum Bisnis dan Perusahaan', 10, 'ktp3.png', '1746589565797-Budi.png', 'kartu3.png', 'pkpa3.png', 'budis', 'hashedpassword3', '2025-04-20 20:03:57', NULL, NULL, NULL, NULL, NULL, 50000, NULL, NULL),
+(4, 'Rina Kusuma', '3201010401010004', '1992-08-05', 'Perempuan', 'Jl. Gatot Subroto No.4 Jakarta', 'rina.kusuma@example.com', '081234567893', 'ADV004', 'Universitas Padjajaran', 'S1 Hukum', 'Hukum Perdata', 4, 'ktp4.png', '1746589603259-rina.png', 'kartu4.png', 'pkpa4.png', 'rinak', 'hashedpassword4', '2025-04-20 20:03:57', NULL, NULL, NULL, NULL, NULL, 50000, NULL, NULL),
+(5, 'Dedi Kurniawan', '3201010401010005', '1987-10-19', 'Laki-laki', 'Jl. Rasuna Said No.5 Jakarta', 'dedi.kurniawan@example.com', '081234567894', 'ADV005', 'Universitas Islam Indonesia', 'S1 Hukum', 'Hukum Perdata', 7, 'ktp5.png', '1746626478988-dedi.png', 'kartu5.png', 'pkpa5.png', 'dedik', 'hashedpassword5', '2025-04-20 20:03:57', NULL, NULL, NULL, NULL, NULL, 50000, NULL, NULL),
+(6, 'Nina Kartika', '3201010401010006', '1993-11-25', 'Perempuan', 'Jl. Casablanca No.6 Jakarta', 'nina.kartika@example.com', '081234567895', 'ADV006', 'Universitas Trisakti', 'S2 Hukum', 'Hukum Pidana', 6, 'ktp6.png', '1746626533725-nina.png', 'kartu6.png', 'pkpa6.png', 'ninak', 'hashedpassword6', '2025-04-20 20:03:57', NULL, NULL, NULL, NULL, NULL, 50000, NULL, NULL),
+(7, 'Yusuf Hidayat', '3201010401010007', '1984-02-10', 'Laki-laki', 'Jl. Kuningan No.7 Jakarta', 'yusuf.hidayat@example.com', '081234567896', 'ADV007', 'Universitas Muhammadiyah Jakarta', 'S1 Hukum', 'Hukum Bisnis dan Perusahaan', 12, 'ktp7.png', '1746628216720-yusuf.png', 'kartu7.png', 'pkpa7.png', 'yusufh', 'hashedpassword7', '2025-04-20 20:03:57', NULL, NULL, NULL, NULL, NULL, 50000, NULL, NULL),
+(8, 'Eka Putri', '3201010401010008', '1995-09-15', 'Perempuan', 'Jl. Tebet No.8 Jakarta', 'eka.putri@example.com', '081234567897', 'ADV008', 'Universitas Pelita Harapan', 'S1 Hukum', 'Hukum Keluarga', 3, 'ktp8.png', '1746628484534-eka.png', 'kartu8.png', 'pkpa8.png', 'ekap', 'hashedpassword8', '2025-04-20 20:03:57', NULL, NULL, NULL, NULL, NULL, 50000, NULL, NULL),
+(9, 'Andi Prasetyo', '3201010401010009', '1986-01-30', 'Laki-laki', 'Jl. Kalibata No.9 Jakarta', 'andi.prasetyo@example.com', '081234567898', 'ADV009', 'Universitas Diponegoro', 'S2 Hukum', 'Hukum HAKI', 9, 'ktp9.png', '1746626753680-andi.png', 'kartu9.png', 'pkpa9.png', 'andip', 'hashedpassword9', '2025-04-20 20:03:57', NULL, NULL, NULL, NULL, NULL, 50000, NULL, NULL),
+(10, 'Lia Rahmawati', '3201010401010010', '1991-04-22', 'Perempuan', 'Jl. Pasar Minggu No.10 Jakarta', 'lia.rahmawati@example.com', '081234567899', 'ADV010', 'Universitas Parahyangan', 'S1 Hukum', 'Hukum Perdata', 5, 'ktp10.png', '1746626854298-lia.png', 'kartu10.png', 'pkpa10.png', 'liar', 'hashedpassword10', '2025-04-20 20:03:57', NULL, NULL, NULL, NULL, NULL, 50000, NULL, NULL),
+(11, 'Dian Syafitri', '3201010401010011', '1990-06-16', 'Perempuan', 'Jl. Antasari No.11 Jakarta', 'dian.syafitri@example.com', '081234567800', 'ADV011', 'Universitas Andalas', 'S1 Hukum', 'Hukum Keluarga', 6, 'ktp11.png', '1746626891931-dian.png', 'kartu11.png', 'pkpa11.png', 'dians', 'hashedpassword11', '2025-04-20 20:03:57', NULL, NULL, NULL, NULL, NULL, 50000, NULL, NULL),
+(12, 'Fajar Maulana', '3201010401010012', '1983-12-08', 'Laki-laki', 'Jl. Mampang No.12 Jakarta', 'fajar.maulana@example.com', '081234567801', 'ADV012', 'Universitas Brawijaya', 'S1 Hukum', 'Hukum Bisnis dan Perusahaan', 14, 'ktp12.png', '1746626929858-fajar.png', 'kartu12.png', 'pkpa12.png', 'fajarm', 'hashedpassword12', '2025-04-20 20:03:57', NULL, NULL, NULL, NULL, NULL, 50000, NULL, NULL),
+(13, 'Mira Kartini', '3201010401010013', '1994-05-28', 'Perempuan', 'Jl. Cilandak No.13 Jakarta', 'mira.kartini@example.com', '081234567802', 'ADV013', 'Universitas Esa Unggul', 'S1 Hukum', 'Hukum Perdata', 2, 'ktp13.png', '1746626960953-mira.png', 'kartu13.png', 'pkpa13.png', 'mirak', 'hashedpassword13', '2025-04-20 20:03:57', NULL, NULL, NULL, NULL, NULL, 50000, NULL, NULL),
+(14, 'Rudi Hartono', '3201010401010014', '1989-08-30', 'Laki-laki', 'Jl. Prapanca No.14 Jakarta', 'rudi.hartono@example.com', '081234567803', 'ADV014', 'Universitas Atma Jaya', 'S1 Hukum', 'Hukum Pidana', 11, 'ktp14.png', '1746627617939-Rudi.png', 'kartu14.png', 'pkpa14.png', 'rudih', 'hashedpassword14', '2025-04-20 20:03:57', NULL, NULL, NULL, NULL, NULL, 50000, NULL, NULL),
+(15, 'Desi Anggraini', '3201010401010015', '1993-03-12', 'Perempuan', 'Jl. Cipete No.15 Jakarta', 'desi.anggraini@example.com', '081234567804', 'ADV015', 'Universitas Pancasila', 'S1 Hukum', 'Hukum Bisnis dan Perusahaan', 4, 'ktp15.png', '1746627665072-desi.png', 'kartu15.png', 'pkpa15.png', 'desia', 'hashedpassword15', '2025-04-20 20:03:57', NULL, NULL, NULL, NULL, NULL, 50000, NULL, NULL),
+(16, 'Rahmat Hidayat', '3201010401010016', '1982-11-20', 'Laki-laki', 'Jl. Kemang No.16 Jakarta', 'rahmat.hidayat@example.com', '081234567805', 'ADV016', 'Universitas Sultan Agung', 'S1 Hukum', 'Hukum Perdata', 15, 'ktp16.png', '1746627754050-rahmat.jpeg', 'kartu16.png', 'pkpa16.png', 'rahmath', 'hashedpassword16', '2025-04-20 20:03:57', NULL, NULL, NULL, NULL, NULL, 50000, NULL, NULL),
+(17, 'Louis', '3201010401010017', '1995-02-17', 'Perempuan', 'Jl. Lenteng Agung No.17 Jakarta', 'louis@gmail.com', '081234567806', 'ADV017', 'Universitas Mercu Buana', 'S2 Hukum', 'Hukum Perdata', 4, 'ktp17.png', '1746627792377-louis.png', 'kartu17.png', 'pkpa17.png', 'liliss', 'hashedpassword17', '2025-04-20 20:03:57', NULL, NULL, NULL, NULL, NULL, 50000, NULL, NULL),
+(19, 'Fitri Yuliani', '3201010401010019', '1992-06-14', 'Perempuan', 'Jl. Pasar Rebo No.19 Jakarta', 'fitri.yuliani@example.com', '081234567808', 'ADV019', 'Universitas Lampung', 'S1 Hukum', 'Hukum Keluarga', 5, 'ktp19.png', '1746627913183-fitrii.png', 'kartu19.png', 'pkpa19.png', 'fitriy', 'hashedpassword19', '2025-04-20 20:03:57', NULL, NULL, NULL, NULL, NULL, 50000, NULL, NULL),
+(20, 'Agus Saputra', '3201010401010020', '1988-01-01', 'Laki-laki', 'Jl. Condet No.20 Jakarta', 'agus.saputra@example.com', '081234567809', 'ADV020', 'Universitas Mulawarman', 'S1 Hukum', 'Hukum Ketenagakerjaan', 8, 'ktp20.png', '1746591929001-agus.png', 'kartu20.png', 'pkpa20.png', 'aguss', 'hashedpassword20', '2025-04-20 20:03:57', NULL, NULL, NULL, NULL, NULL, 50000, NULL, NULL),
+(31, 'Ahmad Fauzi', '2222', '0222-02-22', 'Laki-laki', 'Jl. Merdeka No.1 Jakarta', 'fajri30.r@gmail.com', '2222224', '222223', 'Universitas Indonesia 3', 'S1 Hukum', 'Hukum perdata', 11, '1747330218227-Lawyer Login dan Register.png', '1747330218229-Lawyer Login dan Register.png', '1747330218230-Lawyer Login dan Register.png', '1747330218232-Lawyer Login dan Register.png', 'admin@cerdashukum.com', '222', '2025-05-16 00:35:14', 'https://x.com/', 'https://x.com/', 'https://x.com/', '1747330218233-Lawyer Login dan Register.png', '1747330218235-Lawyer Login dan Register.png', 50000, NULL, NULL);
 
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `pengguna`
+-- Table structure for table `pengguna`
 --
 
 CREATE TABLE `pengguna` (
-  `id` int(11) NOT NULL,
-  `nama` varchar(100) NOT NULL,
-  `email` varchar(100) NOT NULL,
-  `password_hash` varchar(255) NOT NULL,
-  `no_hp` varchar(15) DEFAULT NULL,
-  `alamat` text DEFAULT NULL,
-  `tanggal_daftar` timestamp NOT NULL DEFAULT current_timestamp()
+  `id` int NOT NULL,
+  `nama` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `email` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `password_hash` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `no_hp` varchar(15) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `alamat` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci,
+  `tanggal_daftar` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `tanya_jawab`
+-- Table structure for table `tanya_jawab`
 --
 
 CREATE TABLE `tanya_jawab` (
-  `id` int(11) NOT NULL,
-  `id_pengguna` int(11) NOT NULL,
-  `id_pengacara` int(11) NOT NULL,
-  `pertanyaan` text NOT NULL,
-  `jawaban` text DEFAULT NULL,
-  `status` enum('Menunggu','Dijawab') DEFAULT 'Menunggu',
-  `tanggal_tanya` timestamp NOT NULL DEFAULT current_timestamp(),
+  `id` int NOT NULL,
+  `id_pengguna` int NOT NULL,
+  `id_pengacara` int NOT NULL,
+  `pertanyaan` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `jawaban` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci,
+  `status` enum('Menunggu','Dijawab') CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT 'Menunggu',
+  `tanggal_tanya` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `tanggal_jawab` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `transaksi`
+-- Table structure for table `transaksi`
 --
 
 CREATE TABLE `transaksi` (
-  `transaksi_id` int(11) NOT NULL,
-  `pengacara_id` int(11) NOT NULL,
-  `user_id` int(11) NOT NULL,
-  `amount` int(11) NOT NULL,
-  `status` enum('Pending','Success','Failed') NOT NULL DEFAULT 'Pending',
-  `tanggal_transaksi` datetime DEFAULT current_timestamp()
+  `transaksi_id` int NOT NULL,
+  `pengacara_id` int NOT NULL,
+  `user_id` int NOT NULL,
+  `amount` int NOT NULL,
+  `status` enum('Pending','Success','Failed') CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL DEFAULT 'Pending',
+  `tanggal_transaksi` datetime DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `users`
+-- Table structure for table `users`
 --
 
 CREATE TABLE `users` (
-  `id` int(11) NOT NULL,
-  `name` varchar(100) NOT NULL,
-  `email` varchar(100) NOT NULL,
-  `phone` varchar(20) NOT NULL,
-  `password` varchar(255) NOT NULL,
-  `gender` enum('L','P') NOT NULL,
+  `id` int NOT NULL,
+  `name` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `email` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `phone` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `password` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `gender` enum('L','P') CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `birthdate` date NOT NULL,
-  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
-  `address` varchar(255) DEFAULT NULL,
-  `reset_token` varchar(255) DEFAULT NULL,
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `address` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `reset_token` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
   `reset_token_expiry` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data untuk tabel `users`
+-- Dumping data for table `users`
 --
 
 INSERT INTO `users` (`id`, `name`, `email`, `phone`, `password`, `gender`, `birthdate`, `created_at`, `address`, `reset_token`, `reset_token_expiry`) VALUES
@@ -546,32 +558,32 @@ INSERT INTO `users` (`id`, `name`, `email`, `phone`, `password`, `gender`, `birt
 --
 
 --
--- Indeks untuk tabel `admin`
+-- Indexes for table `admin`
 --
 ALTER TABLE `admin`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `email` (`email`);
 
 --
--- Indeks untuk tabel `ajukan_kasus`
+-- Indexes for table `ajukan_kasus`
 --
 ALTER TABLE `ajukan_kasus`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indeks untuk tabel `artikel`
+-- Indexes for table `artikel`
 --
 ALTER TABLE `artikel`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indeks untuk tabel `artikel_berita`
+-- Indexes for table `artikel_berita`
 --
 ALTER TABLE `artikel_berita`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indeks untuk tabel `konsultasi`
+-- Indexes for table `konsultasi`
 --
 ALTER TABLE `konsultasi`
   ADD PRIMARY KEY (`id`),
@@ -579,48 +591,48 @@ ALTER TABLE `konsultasi`
   ADD KEY `id_pengacara` (`id_pengacara`);
 
 --
--- Indeks untuk tabel `konsultasi_session`
+-- Indexes for table `konsultasi_session`
 --
 ALTER TABLE `konsultasi_session`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `unik_session` (`user_id`,`pengacara_id`,`status`);
 
 --
--- Indeks untuk tabel `log_aktivitas`
+-- Indexes for table `log_aktivitas`
 --
 ALTER TABLE `log_aktivitas`
   ADD PRIMARY KEY (`id`),
   ADD KEY `id_pengguna` (`id_pengguna`);
 
 --
--- Indeks untuk tabel `messages`
+-- Indexes for table `messages`
 --
 ALTER TABLE `messages`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indeks untuk tabel `pendaftaran_pengacara`
+-- Indexes for table `pendaftaran_pengacara`
 --
 ALTER TABLE `pendaftaran_pengacara`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `email` (`email`);
 
 --
--- Indeks untuk tabel `pengacara`
+-- Indexes for table `pengacara`
 --
 ALTER TABLE `pengacara`
   ADD PRIMARY KEY (`id`),
   ADD KEY `email` (`email`);
 
 --
--- Indeks untuk tabel `pengguna`
+-- Indexes for table `pengguna`
 --
 ALTER TABLE `pengguna`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `email` (`email`);
 
 --
--- Indeks untuk tabel `tanya_jawab`
+-- Indexes for table `tanya_jawab`
 --
 ALTER TABLE `tanya_jawab`
   ADD PRIMARY KEY (`id`),
@@ -628,7 +640,7 @@ ALTER TABLE `tanya_jawab`
   ADD KEY `id_pengacara` (`id_pengacara`);
 
 --
--- Indeks untuk tabel `transaksi`
+-- Indexes for table `transaksi`
 --
 ALTER TABLE `transaksi`
   ADD PRIMARY KEY (`transaksi_id`),
@@ -636,126 +648,126 @@ ALTER TABLE `transaksi`
   ADD KEY `user_id` (`user_id`);
 
 --
--- Indeks untuk tabel `users`
+-- Indexes for table `users`
 --
 ALTER TABLE `users`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `email` (`email`);
 
 --
--- AUTO_INCREMENT untuk tabel yang dibuang
+-- AUTO_INCREMENT for dumped tables
 --
 
 --
--- AUTO_INCREMENT untuk tabel `admin`
+-- AUTO_INCREMENT for table `admin`
 --
 ALTER TABLE `admin`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
--- AUTO_INCREMENT untuk tabel `ajukan_kasus`
+-- AUTO_INCREMENT for table `ajukan_kasus`
 --
 ALTER TABLE `ajukan_kasus`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
--- AUTO_INCREMENT untuk tabel `artikel`
+-- AUTO_INCREMENT for table `artikel`
 --
 ALTER TABLE `artikel`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
 
 --
--- AUTO_INCREMENT untuk tabel `artikel_berita`
+-- AUTO_INCREMENT for table `artikel_berita`
 --
 ALTER TABLE `artikel_berita`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
--- AUTO_INCREMENT untuk tabel `konsultasi`
+-- AUTO_INCREMENT for table `konsultasi`
 --
 ALTER TABLE `konsultasi`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT untuk tabel `konsultasi_session`
+-- AUTO_INCREMENT for table `konsultasi_session`
 --
 ALTER TABLE `konsultasi_session`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
--- AUTO_INCREMENT untuk tabel `log_aktivitas`
+-- AUTO_INCREMENT for table `log_aktivitas`
 --
 ALTER TABLE `log_aktivitas`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=73;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=73;
 
 --
--- AUTO_INCREMENT untuk tabel `messages`
+-- AUTO_INCREMENT for table `messages`
 --
 ALTER TABLE `messages`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=75;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=75;
 
 --
--- AUTO_INCREMENT untuk tabel `pendaftaran_pengacara`
+-- AUTO_INCREMENT for table `pendaftaran_pengacara`
 --
 ALTER TABLE `pendaftaran_pengacara`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
--- AUTO_INCREMENT untuk tabel `pengacara`
+-- AUTO_INCREMENT for table `pengacara`
 --
 ALTER TABLE `pengacara`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
 
 --
--- AUTO_INCREMENT untuk tabel `pengguna`
+-- AUTO_INCREMENT for table `pengguna`
 --
 ALTER TABLE `pengguna`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT untuk tabel `tanya_jawab`
+-- AUTO_INCREMENT for table `tanya_jawab`
 --
 ALTER TABLE `tanya_jawab`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT untuk tabel `transaksi`
+-- AUTO_INCREMENT for table `transaksi`
 --
 ALTER TABLE `transaksi`
-  MODIFY `transaksi_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `transaksi_id` int NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT untuk tabel `users`
+-- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 
 --
--- Ketidakleluasaan untuk tabel pelimpahan (Dumped Tables)
+-- Constraints for dumped tables
 --
 
 --
--- Ketidakleluasaan untuk tabel `konsultasi`
+-- Constraints for table `konsultasi`
 --
 ALTER TABLE `konsultasi`
   ADD CONSTRAINT `konsultasi_ibfk_1` FOREIGN KEY (`id_pengguna`) REFERENCES `pengguna` (`id`) ON DELETE CASCADE,
   ADD CONSTRAINT `konsultasi_ibfk_2` FOREIGN KEY (`id_pengacara`) REFERENCES `pengacara` (`id`) ON DELETE CASCADE;
 
 --
--- Ketidakleluasaan untuk tabel `log_aktivitas`
+-- Constraints for table `log_aktivitas`
 --
 ALTER TABLE `log_aktivitas`
   ADD CONSTRAINT `fk_log_user` FOREIGN KEY (`id_pengguna`) REFERENCES `users` (`id`) ON DELETE CASCADE;
 
 --
--- Ketidakleluasaan untuk tabel `tanya_jawab`
+-- Constraints for table `tanya_jawab`
 --
 ALTER TABLE `tanya_jawab`
   ADD CONSTRAINT `tanya_jawab_ibfk_1` FOREIGN KEY (`id_pengguna`) REFERENCES `pengguna` (`id`) ON DELETE CASCADE,
   ADD CONSTRAINT `tanya_jawab_ibfk_2` FOREIGN KEY (`id_pengacara`) REFERENCES `pengacara` (`id`) ON DELETE CASCADE;
 
 --
--- Ketidakleluasaan untuk tabel `transaksi`
+-- Constraints for table `transaksi`
 --
 ALTER TABLE `transaksi`
   ADD CONSTRAINT `fk_pengacara_id` FOREIGN KEY (`pengacara_id`) REFERENCES `pengacara` (`id`) ON DELETE CASCADE,

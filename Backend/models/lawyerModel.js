@@ -54,6 +54,7 @@ exports.getAllRegistrations = (callback) => {
   db.query('SELECT * FROM pendaftaran_pengacara', callback);
 };
 
+
 // Approve pendaftar dan pindahkan data ke tabel pengacara (sesuai kolom di tabel pengacara)
 exports.approveLawyer = (id, callback) => {
   const getQuery = 'SELECT * FROM pendaftaran_pengacara WHERE id = ?';
@@ -71,7 +72,7 @@ exports.approveLawyer = (id, callback) => {
         username, password, tanggal_daftar,
         linkedin, instagram, twitter,
         resume_cv, portofolio
-      ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, NOW(), ?, ?, ?, ?, ?)
+      ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, NOW(), ?, ?, ?, ?, ?)
     `;
 
     const values = [
@@ -93,6 +94,7 @@ exports.approveLawyer = (id, callback) => {
       data.upload_pkpa,
       data.username,
       data.password,
+      // tanggal_daftar TIDAK dimasukkan di sini
       data.linkedin || null,
       data.instagram || null,
       data.twitter || null,

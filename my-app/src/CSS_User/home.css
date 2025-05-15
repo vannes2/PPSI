@@ -555,18 +555,18 @@ body {
 }
 
 .btn-selengkapnya {
-  background: linear-gradient(to right, #a8070a, #e11b1e);
-  color: #fff;
-  padding: 10px 20px;
-  font-size: 14px;
-  font-weight: bold;
-  border-radius: 999px;
-  text-decoration: none;
-  transition: background 0.3s ease;
+  background: linear-gradient(to right, #a8070a, #e11b1e) !important;
+  color: #fff !important;
+  padding: 10px 20px !important;
+  font-size: 14px !important;
+  font-weight: bold !important;
+  border-radius: 999px !important;
+  text-decoration: none !important;
+  transition: background 0.3s ease !important;
 }
 
 .btn-selengkapnya:hover {
-  background: linear-gradient(to right, #880505, #c01014);
+  background: linear-gradient(to right, #e11b1e, #a8070a) !important;
 }
 
 .slideshow-wrapper {
