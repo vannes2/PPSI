@@ -4,7 +4,8 @@ import {
   FaFileAlt,
   FaUserCircle,
   FaUser,
-  FaNewspaper, // Icon berita
+  FaNewspaper,
+  FaMoneyBillWave, // Icon untuk transaksi keuangan
 } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
@@ -40,9 +41,13 @@ const SidebarAdmin = ({ activeTab, onTabChange }) => {
             <FaNewspaper className="icon-spacing" /> Artikel Berita
           </Link>
         </li>
+        <li className={activeTab === "transaksi" ? "nav-active" : ""}>
+          <Link to="/TransaksiKeuangan" onClick={() => onTabChange("transaksi")}>
+            <FaMoneyBillWave className="icon-spacing" /> Transaksi Keuangan
+          </Link>
+        </li>
       </ul>
 
-      {/* Bagian Profil Admin */}
       <div style={{ marginTop: "auto" }}>
         <ul>
           <li className={activeTab === "profilAdmin" ? "nav-active" : ""}>

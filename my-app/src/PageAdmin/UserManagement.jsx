@@ -77,9 +77,9 @@ const UserManagement = () => {
     try {
       const newUser = {
         ...formData,
-        password: "123456", // Default password
-        gender: "L",         // Default gender
-        birthdate: "2000-01-01", // Default birthdate
+        password: "123456",
+        gender: "L",
+        birthdate: "2000-01-01",
       };
 
       await axios.post("http://localhost:5000/api/simple-users", newUser);
@@ -95,52 +95,54 @@ const UserManagement = () => {
 
   return (
     <div style={{ display: "flex" }}>
-      <SidebarAdmin />
-      <div style={{ flex: 1, padding: "20px" }} className="user-management-container">
+      <SidebarAdmin activeTab="user" onTabChange={() => {}} />
+      <div className="user-management-container" style={{ flex: 1 }}>
         <h2>User Management</h2>
         <p>Total Users: {userCount}</p>
         {errorMessage && <p className="error-message">{errorMessage}</p>}
 
         <button className="add-btn" onClick={() => setIsAddModalOpen(true)}>
-          <FaPlus /> Add User
+          <FaPlus style={{ marginRight: "6px" }} /> Add User
         </button>
 
-        <table className="user-table">
-          <thead>
-            <tr>
-              <th>Name</th>
-              <th>Email</th>
-              <th>Phone</th>
-              <th>Gender</th>
-              <th>Birthdate</th>
-              <th>Address</th>
-              <th>Actions</th>
-            </tr>
-          </thead>
-          <tbody>
-            {users.length === 0 ? (
+        <div className="table-wrapper">
+          <table className="user-table">
+            <thead>
               <tr>
-                <td colSpan="7" className="no-users">No users found.</td>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Phone</th>
+                <th>Gender</th>
+                <th>Birthdate</th>
+                <th>Address</th>
+                <th>Actions</th>
               </tr>
-            ) : (
-              users.map((user) => (
-                <tr key={user.id}>
-                  <td>{user.name}</td>
-                  <td>{user.email}</td>
-                  <td>{user.phone}</td>
-                  <td>{user.gender || "-"}</td>
-                  <td>{user.birthdate || "-"}</td>
-                  <td>{user.address || "-"}</td>
-                  <td>
-                    <button className="view-btn"><FaEye /> View</button>
-                    <button className="edit-btn" onClick={() => openEditModal(user)}><FaEdit /> Edit</button>
-                    <button className="delete-btn" onClick={() => handleDelete(user.id)}><FaTrash /> Delete</button>
-                  </td>
+            </thead>
+            <tbody>
+              {users.length === 0 ? (
+                <tr>
+                  <td colSpan="7" className="no-users">No users found.</td>
                 </tr>
-              ))
-            )}
-          </tbody>
-        </table>
+              ) : (
+                users.map((user) => (
+                  <tr key={user.id}>
+                    <td>{user.name}</td>
+                    <td>{user.email}</td>
+                    <td>{user.phone}</td>
+                    <td>{user.gender || "-"}</td>
+                    <td>{user.birthdate || "-"}</td>
+                    <td>{user.address || "-"}</td>
+                    <td>
+                      <button className="view-btn"><FaEye /></button>
+                      <button className="edit-btn" onClick={() => openEditModal(user)}><FaEdit /></button>
+                      <button className="delete-btn" onClick={() => handleDelete(user.id)}><FaTrash /></button>
+                    </td>
+                  </tr>
+                ))
+              )}
+            </tbody>
+          </table>
+        </div>
 
         {/* Modal Edit */}
         {editingUser && (
