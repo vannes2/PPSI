@@ -8,12 +8,23 @@
     padding: 20px 0;
   }
 
+  .about-page-container,
+  .about-page-container * {
+  box-shadow: none !important;
+  }
+
+  .about-page-container {
+  overflow-x: hidden;
+  max-width: 100vw;
+  }
+
+
   .about-page-container main section {
     background-color: #fefff0;
     background-image: url('/assets/images/bgaboutus.png');
     background-size: cover;
     background-position: center;
-    padding: 60px 40px;
+    padding: 60px 60px;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -46,6 +57,11 @@
     margin-top: 10px;
     text-align: center;
   }
+
+  .about-page-container main {
+  background-color: #fefff0;
+}
+
   
   /* ============================= */
   /* === RESPONSIVE BREAKPOINT === */
@@ -53,7 +69,7 @@
   
   @media (max-width: 1024px) {
     .about-page-container main section {
-      padding: 50px 30px;
+      padding: 50px 50px;
     }
   
     .about-us h1 {
@@ -71,7 +87,7 @@
   
   @media (max-width: 768px) {
     .about-page-container main section {
-      padding: 40px 20px;
+      padding: 40px 40px;
     }
   
     .about-us h1 {
@@ -90,7 +106,7 @@
   
   @media (max-width: 480px) {
     .about-page-container main section {
-      padding: 30px 15px;
+      padding: 30px 30px;
     }
   
     .about-us h1 {

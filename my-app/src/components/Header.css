@@ -188,7 +188,7 @@ nav.drawer ul {
 }
 
 /* MOBILE (Max 768px) */
-@media (max-width: 768px) {
+@media (max-width: 853px) {
   .header-left {
     justify-content: space-between;
     gap: 0;
@@ -232,6 +232,7 @@ nav.drawer ul {
     align-items: flex-start;
     padding-left: 30px;
     gap: 20px;
+    margin-bottom: auto;
   }
 
   .drawer-profile-btn {

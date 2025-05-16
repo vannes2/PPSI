@@ -203,17 +203,23 @@ margin-bottom: 200px;
 
 /* ================= RESPONSIVE ================= */
 
+/* ===== REVISI RESPONSIVE ===== */
+
 /* Untuk layar dengan lebar maksimal 1024px (tablet) */
 @media (max-width: 1024px) {
   .artikel-scroll-wrapper {
-    width: 90%; /* Lebar kontainer 90% pada tablet */
+    width: 90%;        /* tetap 90% */
     margin: 0 auto;
     max-height: none;
+    padding-left: 15px;  /* tambah padding kiri */
+    padding-right: 15px; /* tambah padding kanan */
+    box-sizing: border-box; /* pastikan padding dihitung dalam lebar */
+    margin-bottom: 80px; /* jarak lebih lega di bawah */
   }
 
   .artikel-scroll-inner {
     max-height: 400px;
-    overflow-x: scroll; /* Scroll horizontal ditampilkan */
+    overflow-x: scroll;
   }
 
   .artikel-table {
@@ -222,116 +228,138 @@ margin-bottom: 200px;
   }
 
   .artikel-th {
-    font-size: 14px; /* Mengurangi ukuran font header */
-    padding: 0.75rem 1rem; /* Menyesuaikan padding */
+    font-size: 14px;
+    padding: 0.75rem 1rem;
   }
 
   .artikel-td {
-    font-size: 14px; /* Mengurangi ukuran font isi tabel */
+    font-size: 14px;
     padding: 1rem;
   }
 
   .artikel-judul {
-    font-size: 18px; /* Menyesuaikan ukuran font judul artikel */
+    font-size: 18px;
   }
 
   .artikel-deskripsi {
-    font-size: 12px; /* Menyesuaikan ukuran font deskripsi artikel */
+    font-size: 12px;
   }
 
   .artikel-download-btn {
-    padding: 8px 16px; /* Menyesuaikan ukuran tombol untuk layar kecil */
+    padding: 8px 16px;
     font-size: 14px;
   }
 
-  /* Filter Input dan Dropdown */
   .artikel-filter-input-inline,
   .artikel-dropdown {
     width: 100%;
     max-width: none;
     font-size: 14px;
   }
+
+  /* Override agar search & filter tetap sejajar */
+  .artikel-th-flex {
+    display: flex !important;
+    flex-direction: row !important;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 12px;
+  }
+  /* Atur anak-anak flex agar tidak terlalu lebar */
+  .artikel-th-flex > * {
+    flex: 1 1 auto;
+    min-width: 120px;
+  }
+
 }
 
-/* Untuk layar dengan lebar maksimal 768px (tablet kecil atau landscape phone) */
 @media (max-width: 768px) {
   .artikel-scroll-wrapper {
-    width: 100%; /* Lebar penuh pada perangkat dengan ukuran lebih kecil */
+    width: 100%;
     max-height: 350px;
+    padding-left: 20px;  /* tambah padding kiri lebih lega */
+    padding-right: 20px; /* tambah padding kanan */
+    box-sizing: border-box;
+    margin-bottom: 80px; /* (opsional, samakan dengan tablet) */
   }
 
   .artikel-th {
-    padding: 0.5rem 1rem; /* Menyesuaikan padding header */
+    padding: 0.5rem 1rem;
   }
 
   .artikel-td {
-    padding: 0.75rem; /* Mengurangi padding pada sel tabel */
+    padding: 0.75rem;
   }
 
   .artikel-table,
   .artikel-scroll-inner {
-    overflow-x: auto; /* Menampilkan scroll horizontal */
+    overflow-x: auto;
     width: 100%;
   }
 
   .artikel-judul {
-    font-size: 16px; /* Menyesuaikan font judul */
+    font-size: 16px;
   }
 
   .artikel-deskripsi {
-    font-size: 12px; /* Menyesuaikan font deskripsi */
+    font-size: 12px;
   }
 
   .artikel-download-btn {
-    padding: 8px 14px; /* Menyesuaikan ukuran tombol */
+    padding: 8px 14px;
     font-size: 14px;
   }
 
-  /* Tabel dan form input */
-  .artikel-th-flex {
-    flex-direction: column;
-    gap: 8px;
-  }
-
   .artikel-filter-input-inline {
-    width: 100%; /* Input mengambil lebar penuh */
+    width: 100%;
     max-width: none;
   }
 
-  .filter-controls {
-    flex-direction: column;
-    gap: 15px; /* Menyesuaikan spasi antar filter */
+  /* Override agar search & filter tetap sejajar */
+  .artikel-th-flex {
+    display: flex !important;
+    flex-direction: row !important;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 10px;
+  }
+  .artikel-th-flex > * {
+    flex: 1 1 auto;
+    min-width: 100px;
   }
 }
 
-/* Untuk layar dengan lebar maksimal 480px (ponsel) */
 @media (max-width: 480px) {
   .artikel-scroll-wrapper {
-    width: 100%; /* Lebar penuh pada perangkat ponsel */
+    width: 100%;
     margin: 0;
     max-height: 300px;
+    padding-left: 15px;  /* padding kiri kanan supaya tidak mepet */
+    padding-right: 15px;
+    box-sizing: border-box;
+    margin-bottom: 100px; /* jarak lebih besar di ponsel */
   }
 
   .artikel-th {
-    font-size: 12px; /* Menyesuaikan font header pada ponsel */
+    font-size: 12px;
     padding: 0.5rem;
   }
 
   .artikel-td {
-    font-size: 12px; /* Menyesuaikan font isi tabel */
+    font-size: 12px;
     padding: 0.5rem;
   }
 
   .artikel-judul {
-    font-size: 14px; /* Menyesuaikan ukuran font judul pada ponsel */
+    font-size: 14px;
   }
 
   .artikel-deskripsi {
-    font-size: 10px; /* Menyesuaikan ukuran font deskripsi */
+    font-size: 10px;
   }
 
   .artikel-download-btn {
-    padding: 6px 12px; /* Menyesuaikan ukuran tombol */
+    padding: 6px 12px;
     font-size: 12px;
   }
 
@@ -339,10 +367,23 @@ margin-bottom: 200px;
   .artikel-dropdown {
     width: 100%;
     max-width: none;
-    font-size: 12px; /* Menyesuaikan ukuran font input dan dropdown */
+    font-size: 12px;
   }
 
   .filter-controls {
     gap: 10px;
+  }
+
+  /* Override agar search & filter tetap sejajar */
+  .artikel-th-flex {
+    display: flex !important;
+    flex-direction: row !important;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 8px;
+  }
+  .artikel-th-flex > * {
+    flex: 1 1 auto;
+    min-width: 90px;
   }
 }

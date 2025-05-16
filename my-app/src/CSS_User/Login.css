@@ -48,7 +48,7 @@
   padding: 30px;
   border-radius: 10px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-  border: 2px solid #000; 
+  border: none;
 }
 
 .Login-page .main h2 {
@@ -190,90 +190,295 @@
 
 /* Untuk layar dengan lebar maksimal 1024px (tablet) */
 @media (max-width: 1024px) {
+  /* Container lebih ramping dan centered */
+  .Login-page .container {
+    max-width: 900px;
+    padding: 20px 25px;
+    margin: 0 auto;
+  }
+
+  /* Main jadi column, center alignment, gap lebih luas */
   .Login-page .main {
     flex-direction: column;
-    gap: 30px;
-    padding: 20px;
+    align-items: center;
+    justify-content: center;
+    gap: 35px;
+    padding: 30px 20px;
   }
 
-  .Login-page .container {
-    padding: 15px;
-  }
-
+  /* Login dan Signup full width dengan max lebar terkontrol */
   .Login-page .main .login,
   .Login-page .main .signup {
     width: 100%;
-    padding: 20px;
+    max-width: 700px;
+    padding: 30px 40px;
+    border-radius: 15px;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.15);
+    border: none; /* Hilangkan border hitam supaya modern */
+    background-color: #ffffff;
+    transition: box-shadow 0.3s ease;
   }
 
+  .Login-page .main .login:hover,
+  .Login-page .main .signup:hover {
+    box-shadow: 0 8px 28px rgba(0,0,0,0.25);
+  }
+
+  /* Heading lebih besar dan bold */
+  .Login-page .main h2 {
+    font-size: 2rem;
+    color: #222;
+    margin-bottom: 28px;
+  }
+
+  /* Form vertical full width */
+  .Login-page form {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  /* Input lebih besar dan nyaman */
   .Login-page .main input {
-    padding: 12px;
+    width: 100%;
+    padding: 18px 20px;
+    font-size: 17px;
+    border: 1.5px solid #bbb;
+    border-radius: 10px;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
   }
 
+  .Login-page .main input:focus {
+    border-color: #B31312;
+    outline: none;
+    box-shadow: 0 0 10px rgba(179, 19, 18, 0.45);
+  }
+
+  /* Link lupa password lebih jelas */
+  .Login-page .login-admin {
+    font-size: 15px;
+    color: #B31312;
+    text-decoration: underline;
+    cursor: pointer;
+    align-self: flex-start;
+    transition: color 0.3s ease;
+  }
+
+  .Login-page .login-admin:hover {
+    color: #ff9999;
+  }
+
+  /* Tombol full lebar, padding besar, font tebal */
   .Login-page .btn {
-    font-size: 16px;
-    padding: 12px;
+    width: 100%;
+    padding: 18px 0;
+    font-size: 19px;
+    border-radius: 12px;
+    font-weight: 800;
+    letter-spacing: 1.2px;
+    transition: background-color 0.3s ease, color 0.3s ease;
+  }
+
+  .Login-page .btn:hover {
+    background-color: white;
+    color: #B31312;
+    border: 2px solid #B31312;
+  }
+
+  /* Hilangkan divider buat clean layout */
+  .Login-page .divider {
+    display: none;
+  }
+
+  /* Popup styling */
+  .Login-page .popup-box {
+    width: 380px;
+    max-width: 90vw;
+    padding: 30px 35px;
+    border-radius: 18px;
+    box-shadow: 0 7px 24px rgba(0,0,0,0.3);
+  }
+
+  .Login-page .popup-icon {
+    width: 65px;
+    height: 65px;
+    font-size: 34px;
+    margin-bottom: 20px;
+  }
+
+  .Login-page .popup-message {
+    font-size: 19px;
+    font-weight: 800;
+  }
+
+  /* Password wrapper dan toggle button */
+  .Login-page .password-wrapper {
+    position: relative;
+    width: 100%;
+  }
+
+  .Login-page .password-wrapper input {
+    padding-right: 52px;
+  }
+
+  .Login-page .toggle-password-btn {
+    position: absolute;
+    top: 50%;
+    right: 16px;
+    transform: translateY(-50%);
+    font-size: 26px;
+    color: #B31312;
+    cursor: pointer;
+    background: transparent;
+    border: none;
+    padding: 0;
+  }
+
+  .Login-page .toggle-password-btn:focus {
+    outline: none;
   }
 }
 
 /* Untuk layar dengan lebar maksimal 768px (tablet kecil atau landscape phone) */
+/* ====================== RESPONSIVE TABLET (max-width: 768px) ====================== */
 @media (max-width: 768px) {
+  /* Container lebih ramping dan centered */
   .Login-page .container {
-    padding: 10px;
+    max-width: 720px;
+    padding: 15px 20px;
+    margin: 0 auto;
   }
 
+  /* Main jadi column, center items, gap lebih besar */
   .Login-page .main {
     flex-direction: column;
     align-items: center;
-    gap: 20px;
+    justify-content: center;
+    gap: 30px;
+    padding: 20px;
   }
 
-  .Login-page .divider {
-    display: none;  /* Menghilangkan divider pada layar kecil */
-  }
-
-  .navbar {
-    display: flex;
-    justify-content: space-between;
-    padding: 10px;
-  }
-
-  .navbar .btn {
-    font-size: 16px;
-    padding: 8px 15px;
-  }
-
+  /* Login dan Signup full width tapi max lebar 100% */
   .Login-page .main .login,
   .Login-page .main .signup {
     width: 100%;
-    padding: 20px;
+    max-width: 600px;
+    padding: 25px 30px;
+    border-radius: 12px;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.15);
+    border: none; /* Lebih modern tanpa border tebal */
+    background-color: #ffffff;
   }
 
+  /* Heading warna lebih gelap & spacing rapi */
+  .Login-page .main h2 {
+    font-size: 1.8rem;
+    color: #2a2a2a;
+    margin-bottom: 25px;
+  }
+
+  /* Form vertical, full width */
+  .Login-page form {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+  }
+
+  /* Input lebih tinggi dan lebar penuh */
   .Login-page .main input {
-    padding: 12px;
-    font-size: 14px;
-  }
-
-  .Login-page .btn {
+    width: 100%;
+    padding: 16px 18px;
     font-size: 16px;
-    padding: 12px;
+    border: 1.5px solid #ccc;
+    border-radius: 8px;
+    transition: border-color 0.3s ease;
   }
 
+  .Login-page .main input:focus {
+    border-color: #B31312;
+    outline: none;
+    box-shadow: 0 0 8px rgba(179, 19, 18, 0.4);
+  }
+
+  /* Link lupa password lebih jelas dan clickable */
+  .Login-page .login-admin {
+    font-size: 15px;
+    color: #B31312;
+    text-decoration: underline;
+    cursor: pointer;
+    align-self: flex-start;
+  }
+
+  .Login-page .login-admin:hover {
+    color: #ff7575;
+  }
+
+  /* Tombol full lebar dengan padding nyaman */
+  .Login-page .btn {
+    width: 100%;
+    padding: 16px 0;
+    font-size: 18px;
+    border-radius: 10px;
+    font-weight: 700;
+    letter-spacing: 1px;
+  }
+
+  /* Divider disembunyikan di tablet biar clean */
+  .Login-page .divider {
+    display: none;
+  }
+
+  /* Popup box lebih kecil dan centered */
   .Login-page .popup-box {
-    padding: 20px;
-    width: 80%;
+    width: 350px;
+    max-width: 90vw;
+    padding: 25px 30px;
+    border-radius: 15px;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.25);
   }
 
   .Login-page .popup-icon {
-    font-size: 30px;
     width: 60px;
     height: 60px;
+    font-size: 32px;
+    margin-bottom: 18px;
   }
 
   .Login-page .popup-message {
     font-size: 18px;
+    font-weight: 700;
+  }
+
+  /* Password wrapper posisi dan tombol toggle */
+  .Login-page .password-wrapper {
+    position: relative;
+    width: 100%;
+  }
+
+  .Login-page .password-wrapper input {
+    padding-right: 50px; /* cukup ruang tombol toggle */
+  }
+
+  .Login-page .toggle-password-btn {
+    position: absolute;
+    top: 50%;
+    right: 14px;
+    transform: translateY(-50%);
+    font-size: 24px;
+    color: #B31312;
+    cursor: pointer;
+    background: transparent;
+    border: none;
+    padding: 0;
+  }
+
+  .Login-page .toggle-password-btn:focus {
+    outline: none;
   }
 }
+
 
 /* Untuk layar dengan lebar maksimal 480px (ponsel) */
 @media (max-width: 480px) {

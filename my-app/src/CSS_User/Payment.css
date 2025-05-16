@@ -7,6 +7,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  box-sizing: border-box;
 }
 
 /* ========== KARTU DETAIL ADVOKAT ========== */
@@ -22,6 +23,7 @@
   align-items: flex-start;
   gap: 2rem;
   flex-wrap: wrap;
+  box-sizing: border-box;
 }
 
 /* ========== FOTO PROFIL ========== */
@@ -64,11 +66,13 @@
   flex: 1;
   background: #fffbe6;
   padding: 10px;
+  box-sizing: border-box;
 }
 
 .payment-info h2 {
   text-align: center;
   margin-bottom: 20px;
+  font-size: 1.5rem;
 }
 
 .payment-info table {
@@ -123,14 +127,32 @@
 /* ========== ERROR MESSAGE ========== */
 .error-text {
   color: red;
+  text-align: center;
+  font-weight: 600;
+  margin-top: 1rem;
 }
 
 /* ========== RESPONSIVE DESIGN ========== */
+@media (max-width: 1024px) {
+  .payment-page {
+    padding: 1.5rem 1rem;
+  }
+  .payment-card {
+    padding: 1.5rem;
+  }
+  .payment-info h2 {
+    font-size: 1.3rem;
+  }
+}
+
 @media (max-width: 768px) {
+  .payment-page {
+    padding: 1rem 1rem;
+  }
   .payment-card {
     flex-direction: column;
     align-items: center;
-    padding: 1.5rem;
+    padding: 1rem 1rem;
   }
 
   .payment-photo {
@@ -153,6 +175,10 @@
     margin-bottom: 1rem;
   }
 
+  .payment-info table {
+    font-size: 14px;
+  }
+
   .payment-info td {
     padding: 8px 12px;
   }
@@ -160,5 +186,31 @@
   .btn-bayar {
     font-size: 0.95rem;
     padding: 0.5rem 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .payment-page {
+    padding: 1rem 0.75rem;
+  }
+
+  .payment-photo img,
+  .photo-placeholder {
+    width: 90px;
+    height: 90px;
+  }
+
+  .payment-info h2 {
+    font-size: 1.1rem;
+  }
+
+  .payment-info td {
+    padding: 6px 8px;
+    font-size: 13px;
+  }
+
+  .btn-bayar {
+    font-size: 0.9rem;
+    padding: 0.5rem 0.8rem;
   }
 }

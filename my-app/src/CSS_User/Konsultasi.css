@@ -1,11 +1,3 @@
-/* Reset dasar */
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: Arial, sans-serif;
-}
-
 /* Kontainer utama khusus halaman Konsultasi */
 .konsultasi-page {
     display: flex;

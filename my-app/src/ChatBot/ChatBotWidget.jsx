@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from "react";
-import chatBg from "../assets/dewa.jpeg";      // Background chat
-import avatarImg from "../assets/botchat.png";  // Gambar avatar tombol toggle
+import chatBg from "../assets/dewa.jpeg";
+import avatarImg from "../assets/botchat.png"; // Pastikan path benar
 import "./ChatBot.css";
 
 const ChatBotWidget = () => {
@@ -8,12 +8,13 @@ const ChatBotWidget = () => {
   const [messages, setMessages] = useState([
     {
       sender: "bot",
-      text: "Halo! Tanyakan tentang hukum seperti 'KDRT', 'perceraian', dll.",
+      text: "Halo! Saya Lexa, asisten virtual Anda dalam bidang hukum.\nTanyakan apa saja tentang peraturan, kasus, atau konsultasi hukum.\nSaya siap membantu Anda kapan saja.",
       time: new Date(),
     },
   ]);
   const [input, setInput] = useState("");
   const [loading, setLoading] = useState(false);
+  const [hasNewMessage, setHasNewMessage] = useState(false);
 
   const messagesEndRef = useRef(null);
 
@@ -22,8 +23,20 @@ const ChatBotWidget = () => {
   };
 
   useEffect(() => {
-    if (isOpen) scrollToBottom();
+    if (isOpen) {
+      scrollToBottom();
+      setHasNewMessage(false);
+    }
   }, [messages, loading, isOpen]);
+
+  useEffect(() => {
+    if (!isOpen) {
+      const lastMsg = messages[messages.length - 1];
+      if (lastMsg?.sender === "bot") {
+        setHasNewMessage(true);
+      }
+    }
+  }, [messages, isOpen]);
 
   const sendMessage = async () => {
     const trimmedInput = input.trim();
@@ -47,7 +60,7 @@ const ChatBotWidget = () => {
       const data = await res.json();
 
       setMessages((prev) => [...prev, { sender: "bot", text: data.response, time: new Date() }]);
-    } catch (error) {
+    } catch {
       setMessages((prev) => [
         ...prev,
         { sender: "bot", text: "Maaf, terjadi kesalahan. Coba lagi nanti.", time: new Date() },
@@ -71,7 +84,6 @@ const ChatBotWidget = () => {
     return `${h}:${m}`;
   };
 
-  // Style inline untuk background gambar chat
   const messagesStyle = {
     backgroundImage: `url(${chatBg})`,
     backgroundSize: "cover",
@@ -82,7 +94,6 @@ const ChatBotWidget = () => {
 
   return (
     <>
-      {/* Tombol avatar fixed */}
       {!isOpen && (
         <button
           className="chatbot-toggle-btn"
@@ -90,12 +101,17 @@ const ChatBotWidget = () => {
           onClick={() => setIsOpen(true)}
         >
           <img src={avatarImg} alt="Avatar Chatbot" />
+          {hasNewMessage && <span className="chatbot-message-bubble">Halo! Saya Lexa, asisten virtual</span>}
         </button>
       )}
 
-      {/* Chatbot window */}
       {isOpen && (
-        <div className="chatbot-container" role="dialog" aria-modal="true" aria-label="Chatbot Cerdas Hukum">
+        <div
+          className="chatbot-container"
+          role="dialog"
+          aria-modal="true"
+          aria-label="Chatbot Cerdas Hukum"
+        >
           <div className="chatbot-header">
             <span>Chatbot Cerdas Hukum</span>
             <button
@@ -110,7 +126,7 @@ const ChatBotWidget = () => {
           <div
             className="chatbot-messages"
             style={messagesStyle}
-            tabIndex="0"
+            tabIndex={0}
             aria-live="polite"
             aria-atomic="false"
           >
@@ -126,7 +142,7 @@ const ChatBotWidget = () => {
             <div ref={messagesEndRef} />
 
             {loading && (
-              <div className="msg bot loading">
+              <div className="msg bot loading" aria-live="off" aria-hidden="true">
                 <div className="msg-text">
                   <span className="dot"></span>
                   <span className="dot"></span>
@@ -164,3 +180,149 @@ const ChatBotWidget = () => {
 };
 
 export default ChatBotWidget;
+
+/*update kode dari gw vannes
+
+import { useState, useRef, useEffect } from "react";
+import "./ChatBot.css";
+
+const ChatBotWidget = () => {
+  const [messages, setMessages] = useState([
+    { sender: "bot", text: "Halo! Tanyakan tentang hukum seperti 'KDRT', 'perceraian', dll." },
+  ]);
+  const [input, setInput] = useState("");
+  const [isMinimized, setIsMinimized] = useState(false);
+
+  const chatbotRef = useRef(null);
+  const draggingRef = useRef(false);
+  const offsetRef = useRef({ x: 0, y: 0 });
+
+  // Drag handler untuk mouse dan touch
+  useEffect(() => {
+    const move = (x, y) => {
+      const el = chatbotRef.current;
+      if (!el) return;
+
+      const maxX = window.innerWidth - el.offsetWidth;
+      const maxY = window.innerHeight - el.offsetHeight;
+      el.style.left = Math.max(0, Math.min(x, maxX)) + "px";
+      el.style.top = Math.max(0, Math.min(y, maxY)) + "px";
+    };
+
+    const handleMove = (e) => {
+      if (!draggingRef.current || !chatbotRef.current) return;
+
+      const clientX = e.touches ? e.touches[0].clientX : e.clientX;
+      const clientY = e.touches ? e.touches[0].clientY : e.clientY;
+
+      if (e.cancelable) e.preventDefault(); // ✅ cegah scroll halaman saat drag
+
+      move(clientX - offsetRef.current.x, clientY - offsetRef.current.y);
+    };
+
+    const stopDrag = () => {
+      draggingRef.current = false;
+    };
+
+    window.addEventListener("mousemove", handleMove);
+    window.addEventListener("mouseup", stopDrag);
+    window.addEventListener("touchmove", handleMove, { passive: false });
+    window.addEventListener("touchend", stopDrag);
+
+    return () => {
+      window.removeEventListener("mousemove", handleMove);
+      window.removeEventListener("mouseup", stopDrag);
+      window.removeEventListener("touchmove", handleMove);
+      window.removeEventListener("touchend", stopDrag);
+    };
+  }, []);
+
+  const startDrag = (e) => {
+    const el = chatbotRef.current;
+    if (!el) return;
+
+    draggingRef.current = true;
+
+    const clientX = e.touches ? e.touches[0].clientX : e.clientX;
+    const clientY = e.touches ? e.touches[0].clientY : e.clientY;
+    const rect = el.getBoundingClientRect();
+
+    offsetRef.current = {
+      x: clientX - rect.left,
+      y: clientY - rect.top,
+    };
+  };
+
+  const sendMessage = async () => {
+    if (!input.trim()) return;
+
+    const userMessage = input.trim();
+    setMessages([...messages, { sender: "user", text: userMessage }]);
+    setInput("");
+
+    try {
+      const res = await fetch("http://localhost:5000/api/chatbot/message", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ message: userMessage }),
+      });
+      const data = await res.json();
+      setMessages((prev) => [...prev, { sender: "bot", text: data.response }]);
+    } catch {
+      setMessages((prev) => [...prev, { sender: "bot", text: "Maaf, terjadi kesalahan." }]);
+    }
+  };
+
+  return (
+    <div
+      className={`chatbot-container ${isMinimized ? "minimized" : ""}`}
+      ref={chatbotRef}
+      style={{
+        position: "fixed",
+        left: "20px",
+        top: "20px",
+        zIndex: 9999,
+      }}
+    >
+      <div
+        className="chatbot-header"
+        onMouseDown={startDrag}
+        onTouchStart={startDrag}
+      >
+        <span>Chatbot Cerdas Hukum</span>
+        <button
+          className="minimize-btn"
+          onClick={() => setIsMinimized(!isMinimized)}
+        >
+          {isMinimized ? "▲" : "▼"}
+        </button>
+      </div>
+
+      {!isMinimized && (
+        <>
+          <div className="chatbot-messages">
+            {messages.map((msg, i) => (
+              <div key={i} className={`msg ${msg.sender}`}>
+                {msg.text}
+              </div>
+            ))}
+          </div>
+          <div className="chatbot-input">
+            <input
+              value={input}
+              onChange={(e) => setInput(e.target.value)}
+              placeholder="Ketik pesan..."
+              onKeyDown={(e) => e.key === "Enter" && sendMessage()}
+            />
+            <button onClick={sendMessage}>Kirim</button>
+          </div>
+        </>
+      )}
+    </div>
+  );
+};
+
+export default ChatBotWidget;
+
+
+*/

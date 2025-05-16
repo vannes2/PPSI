@@ -3,7 +3,6 @@
   background-color: #fefff0;
   min-height: 100vh;
   padding: 20px 0;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   color: #222;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -13,6 +12,12 @@
   -ms-user-select: none;
   box-sizing: border-box;
 }
+
+/* ========== Font lama ==============
+
+ font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+
+*/
 
 /* Profil info grid: ubah jadi dua kolom responsive */
 .profile-info-grid {
@@ -48,27 +53,6 @@
   text-align: right;
   color: #222;
   word-break: break-word;
-}
-
-/* Responsive untuk layar kecil */
-@media (max-width: 480px) {
-  .profile-info-grid {
-    grid-template-columns: 1fr;
-    gap: 12px;
-  }
-  
-  .profile-label {
-    flex: none;
-    margin-right: 8px;
-  }
-  
-  .profile-field {
-    font-size: 14px;
-  }
-  
-  .profile-value {
-    text-align: left;
-  }
 }
 
 
@@ -409,20 +393,90 @@ textarea:focus {
 }
 
 /* ================= RESPONSIVE ================= */
+
+/* ================= RESPONSIVE PROFILE VIEW & EDIT ================= */
+
+/* === Desktop (default) === */
+/* Sudah diatur dengan flex container, sidebar 280px, main content fleksibel */
+
+/* === Tablet besar dan layar sedang (max-width: 1024px) === */
 @media (max-width: 1024px) {
+  .profile-page .container {
+    max-width: 90%;
+    padding: 25px 20px 50px;
+  }
+
+  .profile-container {
+    flex-direction: row;
+    gap: 30px;
+  }
+
+  .profile-sidebar {
+    width: 200px;
+    padding-right: 15px;
+    border-right: 1.5px solid #e0e0e0;
+    align-items: center;
+  }
+
+  .profile-picture {
+    width: 140px;
+    height: 140px;
+    margin-bottom: 15px;
+  }
+
+  input[type="file"] {
+    width: 140px;
+    margin-bottom: 15px;
+    align-self: center;
+  }
+
+  .profile-main {
+    flex: 1;
+    max-width: 750px;
+    padding-left: 20px;
+  }
+
+  /* Tombol tombol jadi sejajar dan sama besar */
+  .profile-buttons {
+    display: flex;
+    gap: 16px;
+    width: 100%;
+    margin-top: 12px;
+  }
+  .profile-buttons button {
+    flex: 1;
+    padding: 12px 0;
+    font-size: 16px;
+    border-radius: 12px;
+    margin-top: 0;
+    max-width: none;
+  }
+
+  /* Grid info jadi 2 kolom */
+  .profile-info-grid {
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 16px 30px;
+  }
+}
+
+/* === Tablet kecil dan landscape phone (max-width: 768px) === */
+@media (max-width: 768px) {
+  .profile-page .container {
+    padding: 20px 15px 40px;
+  }
+
   .profile-container {
     flex-direction: column;
-    padding: 25px 20px;
-    max-width: 650px;
+    gap: 25px;
   }
 
   .profile-sidebar {
     width: 100%;
-    padding-bottom: 20px;
     border-right: none;
     border-bottom: 1.5px solid #e0e0e0;
-    flex-direction: row;
-    justify-content: space-between;
+    padding-right: 0;
+    padding-bottom: 20px;
+    align-items: center;
   }
 
   .profile-picture {
@@ -430,182 +484,137 @@ textarea:focus {
     height: 120px;
   }
 
+  input[type="file"] {
+    width: 100%;
+    max-width: 280px;
+    font-size: 14px;
+    padding: 8px 12px;
+    margin-bottom: 15px;
+  }
+
   .profile-main {
+    max-width: 100%;
     padding-left: 0;
   }
 
-  input,
-  select,
-  textarea {
-    max-width: 100%;
-  }
-}
-
-@media (max-width: 768px) {
-  .profile-container {
-    max-width: 100%;
-    padding: 20px 15px;
-  }
-
-  .profile-picture {
-    width: 100px;
-    height: 100px;
-  }
-}
-
-@media (max-width: 480px) {
-  .profile-picture {
-    width: 80px;
-    height: 80px;
-  }
-}
-
-
-/* ================= RESPONSIVE ENHANCEMENTS ================= */
-
-/* Tablet dan layar kecil (max-width: 1024px) */
-@media (max-width: 1024px) {
-  .profile-container {
-    flex-direction: column;
-    max-width: 90%;
-    padding: 25px 20px;
-  }
-
-  .profile-sidebar {
+  /* Tombol sejajar dan sama besar */
+  .profile-buttons {
+    display: flex;
+    gap: 14px;
     width: 100%;
-    padding: 0 0 20px 0;
-    border-right: none;
-    border-bottom: 1.5px solid #e0e0e0;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
+    margin-top: 12px;
   }
-
-  .profile-picture {
-    width: 110px;
-    height: 110px;
-    margin-bottom: 0;
-  }
-
-  /* Agar tombol di sidebar tetap rapi */
-  .profile-sidebar > button,
-  .profile-sidebar input[type="file"] {
-    flex-shrink: 0;
-    margin-left: 12px;
+  .profile-buttons button {
+    flex: 1;
+    font-size: 16px;
+    padding: 14px 0;
+    border-radius: 12px;
     margin-top: 0;
   }
 
-  .profile-main {
-    padding-left: 0;
-    margin-top: 25px;
+  /* Grid info satu kolom */
+  .profile-info-grid {
+    grid-template-columns: 1fr;
+    gap: 18px;
   }
 }
 
-/* Mobile landscape dan layar kecil (max-width: 768px) */
-@media (max-width: 768px) {
-  .profile-container {
+/* === Mobile portrait kecil (max-width: 480px) === */
+@media (max-width: 480px) {
+  .profile-page .container {
+    padding: 15px 10px;
     max-width: 100%;
-    padding: 20px 15px;
+    box-shadow: none;
+    border-radius: 0;
+  }
+
+  .profile-container {
+    flex-direction: column;
+    gap: 20px;
+    padding: 10px 0;
+    margin: 0 auto;
   }
 
   .profile-sidebar {
-    flex-direction: column;
+    width: 100%;
+    border-right: none;
+    border-bottom: 1.5px solid #e0e0e0;
+    padding-bottom: 15px;
     align-items: center;
-    border-bottom: none;
-    padding-bottom: 0;
   }
 
   .profile-picture {
     width: 100px;
     height: 100px;
-    margin-bottom: 18px;
+    margin-bottom: 12px;
   }
 
-  /* Tombol logout dan input file jadi full width */
-  .profile-sidebar > button,
-  .profile-sidebar input[type="file"] {
+  input[type="file"] {
     width: 100%;
-    margin-left: 0;
-    margin-top: 10px;
+    max-width: 320px;
+    font-size: 16px;
+    padding: 12px 14px;
+    margin-bottom: 15px;
   }
 
   .profile-main {
+    width: 100%;
+    max-width: 100%;
     padding-left: 0;
   }
-}
 
-/* Ponsel kecil (max-width: 480px) */
-@media (max-width: 480px) {
-  .profile-picture {
-    width: 80px;
-    height: 80px;
+  /* Tombol sejajar dan penuh lebar */
+  .profile-buttons {
+    display: flex;
+    gap: 12px;
+    width: 100%;
+    margin-top: 12px;
+  }
+  .profile-buttons button {
+    flex: 1;
+    font-size: 18px;
+    padding: 16px 0;
+    border-radius: 14px;
+    margin-top: 0;
   }
 
+  /* Grid info satu kolom */
   .profile-info-grid {
     grid-template-columns: 1fr;
-    gap: 12px;
+    gap: 18px;
   }
 
   .profile-field {
-    font-size: 14px;
+    font-size: 15px;
+    padding-bottom: 10px;
   }
 
   .profile-label {
     flex: none;
-    margin-right: 8px;
-    font-size: 14px;
+    margin-right: 12px;
+    font-size: 15px;
   }
 
   .profile-value {
-    font-size: 14px;
+    font-size: 15px;
     text-align: left;
   }
-
-  input,
-  select,
-  textarea {
-    max-width: 100%;
-    font-size: 14px;
-  }
 }
 
-/* Default input file (desktop) */
-input[type="file"] {
-  width: 140px;
-  padding: 8px 12px;
-  border: 1px solid #ddd;
-  border-radius: 10px;
-  background-color: #fafafa;
-  cursor: pointer;
-  transition: border-color 0.3s ease, box-shadow 0.3s ease;
-  font-size: 14px;
-  color: #555;
-  text-align: center;
-}
-
-/* Tablet (max-width: 1024px) - ukuran sedang */
-@media (max-width: 1024px) {
-  input[type="file"] {
-    width: 110px;
-    font-size: 13px;
-    padding: 6px 10px;
-  }
-}
-
-/* Mobile kecil (max-width: 768px) - ukuran lebih kecil */
-@media (max-width: 768px) {
-  input[type="file"] {
-    width: 90px;
-    font-size: 12px;
-    padding: 5px 8px;
-  }
-}
-
-/* Ponsel kecil (max-width: 480px) - ukuran paling kecil */
+/* === Popup confirmation responsif === */
 @media (max-width: 480px) {
-  input[type="file"] {
-    width: 70px;
-    font-size: 11px;
-    padding: 4px 6px;
+  .popup-content {
+    padding: 25px 20px;
+    max-width: 90%;
+  }
+
+  .popup-header {
+    font-size: 20px;
+    margin-bottom: 20px;
+  }
+
+  .popup-button {
+    padding: 12px 0;
+    font-size: 16px;
   }
 }
