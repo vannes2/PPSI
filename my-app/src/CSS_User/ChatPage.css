@@ -35,6 +35,32 @@
   min-height: 80vh;
 }
 
+.contact-list li {
+  display: flex;
+  align-items: center;
+  gap: 10px; /* jarak antar foto dan nama */
+  cursor: pointer;
+}
+
+/* Styling foto profil */
+.contact-photo-img,
+.photo-placeholder {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  object-fit: cover;
+  background-color: #ddd;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.contact-info {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
 .chat-header {
   padding: 15px;
   background: #f0f2f5;

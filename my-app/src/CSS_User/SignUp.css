@@ -1,7 +1,10 @@
 /* ======== SignUp.css ======== */
 
+/* ========== Font lama ==============*/
+/* font-family: "Segoe UI", sans-serif; */
+
 .signup-page {
-  font-family: "Segoe UI", sans-serif;
+ 
   color: #3b3b3b; /* Abu-abu gelap untuk teks */
   background-color: #fefff0; /* Background putih kekuningan */
   padding-bottom: 50px;
@@ -109,7 +112,8 @@
   display: flex;
   flex-direction: column;
   gap: 15px;  /* Atur jarak antar elemen form */
-  margin-left: 100px;
+  margin-left: auto;
+  margin-right: auto;
   border: 2px solid #000;
 }
 

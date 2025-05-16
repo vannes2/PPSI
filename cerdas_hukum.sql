@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: May 15, 2025 at 07:31 PM
+-- Generation Time: May 16, 2025 at 11:51 AM
 -- Server version: 8.0.30
 -- PHP Version: 8.3.16
 
@@ -151,6 +151,43 @@ INSERT INTO `artikel_berita` (`id`, `judul`, `isi`, `gambar`, `kategori`, `creat
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `faq_hukum`
+--
+
+CREATE TABLE `faq_hukum` (
+  `id` int NOT NULL,
+  `intent` varchar(100) DEFAULT NULL,
+  `kategori` varchar(50) DEFAULT NULL,
+  `keywords` text,
+  `contoh_pertanyaan` text,
+  `response` text,
+  `sumber_referensi` varchar(255) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+--
+-- Dumping data for table `faq_hukum`
+--
+
+INSERT INTO `faq_hukum` (`id`, `intent`, `kategori`, `keywords`, `contoh_pertanyaan`, `response`, `sumber_referensi`) VALUES
+(1, 'kdrt', NULL, '[\"kdrt\", \"kekerasan dalam rumah tangga\", \"pukulan\", \"aniaya\"]', NULL, 'KDRT diatur dalam UU No. 23 Tahun 2004. Korban bisa lapor ke polisi atau LBH.', NULL),
+(2, 'perceraian', NULL, '[\"cerai\", \"perceraian\", \"gugatan cerai\", \"bercerai\", \"pisah\"]', NULL, 'Perceraian diajukan ke pengadilan agama/negeri sesuai status nikah.', NULL),
+(3, 'warisan', 'perdata', '[\"warisan\", \"harta waris\", \"pembagian warisan\", \"hak ahli waris\", \"hukum waris\"]', 'Bagaimana cara pembagian warisan dalam hukum Islam?', 'Pembagian warisan mengikuti hukum Islam (Kompilasi Hukum Islam) atau KUHPerdata, tergantung agama pewaris.', 'https://peraturan.bpk.go.id/Home/Details/46974/kompilasi-hukum-islam'),
+(4, 'ite', 'pidana', '[\"uu ite\", \"hukum internet\", \"fitnah online\", \"pasal 27\", \"sara online\", \"cybercrime\", \"undang undang ite\"]', 'Apakah menyebarkan hoaks termasuk pelanggaran UU ITE?', 'Ya, penyebaran informasi bohong atau pencemaran nama baik di internet dapat dijerat pasal 27 ayat (3) UU ITE.', 'https://peraturan.bpk.go.id/Home/Details/37582/uu-no-19-tahun-2016'),
+(5, 'adopsi', 'keluarga', '[\"adopsi\", \"anak angkat\", \"proses adopsi\", \"mengadopsi anak\", \"hukum adopsi\"]', 'Apa syarat untuk mengadopsi anak secara hukum?', 'Adopsi anak harus melalui keputusan pengadilan serta rekomendasi dari dinas sosial sesuai PP No. 54 Tahun 2007.', 'https://peraturan.bpk.go.id/Home/Details/4806/pp-no-54-tahun-2007'),
+(6, 'kdrt', 'pidana', '[\"kdrt\", \"kekerasan dalam rumah tangga\", \"kekerasan fisik\", \"kekerasan verbal\", \"suami kasar\", \"istri kasar\"]', 'Bagaimana prosedur melapor jika terjadi KDRT?', 'Korban KDRT dapat melapor ke kepolisian, rumah sakit, atau lembaga bantuan hukum. Bukti visum dapat memperkuat laporan.', 'https://peraturan.bpk.go.id/Home/Details/41769/uu-no-23-tahun-2004'),
+(7, 'perceraian', 'keluarga', '[\"cerai\", \"perceraian\", \"gugat cerai\", \"bercerai\", \"pisah\", \"proses cerai\"]', 'Apa yang perlu disiapkan sebelum mengajukan perceraian?', 'Untuk mengajukan perceraian dibutuhkan surat nikah, KTP, bukti perselisihan, dan pengajuan ke pengadilan sesuai domisili.', 'https://www.mahkamahagung.go.id/id/pengadilan/agama'),
+(8, 'kdrt', 'pidana', '[\"kdrt\", \"kekerasan dalam rumah tangga\", \"pukulan\", \"aniaya\"]', NULL, 'KDRT diatur dalam UU No. 23 Tahun 2004. Korban bisa lapor ke polisi atau LBH.', NULL),
+(9, 'kdrt', 'pidana', '[\"kdrt\", \"kekerasan dalam rumah tangga\", \"kekerasan fisik\", \"kekerasan verbal\", \"suami kasar\", \"istri kasar\"]', 'Bagaimana prosedur melapor jika terjadi KDRT?', 'Korban KDRT dapat melapor ke kepolisian, rumah sakit, atau lembaga bantuan hukum. Bukti visum dapat memperkuat laporan.', 'https://peraturan.bpk.go.id/Home/Details/41769/uu-no-23-tahun-2004'),
+(10, 'perceraian', 'keluarga', '[\"cerai\", \"perceraian\", \"gugatan cerai\", \"bercerai\", \"pisah\"]', NULL, 'Perceraian diajukan ke pengadilan agama/negeri sesuai status nikah.', NULL),
+(11, 'perceraian', 'keluarga', '[\"cerai\", \"perceraian\", \"gugat cerai\", \"bercerai\", \"pisah\", \"proses cerai\"]', 'Apa yang perlu disiapkan sebelum mengajukan perceraian?', 'Untuk mengajukan perceraian dibutuhkan surat nikah, KTP, bukti perselisihan, dan pengajuan ke pengadilan sesuai domisili.', 'https://www.mahkamahagung.go.id/id/pengadilan/agama'),
+(12, 'warisan', 'perdata', '[\"warisan\", \"harta waris\", \"pembagian warisan\", \"hak ahli waris\", \"hukum waris\"]', 'Bagaimana cara pembagian warisan dalam hukum Islam?', 'Pembagian warisan mengikuti hukum Islam (Kompilasi Hukum Islam) atau KUHPerdata, tergantung agama pewaris.', 'https://peraturan.bpk.go.id/Home/Details/46974/kompilasi-hukum-islam'),
+(13, 'ite', 'pidana', '[\"uu ite\", \"hukum internet\", \"fitnah online\", \"pasal 27\", \"sara online\", \"cybercrime\", \"undang undang ite\"]', 'Apakah menyebarkan hoaks termasuk pelanggaran UU ITE?', 'Ya, penyebaran informasi bohong atau pencemaran nama baik di internet dapat dijerat pasal 27 ayat (3) UU ITE.', 'https://peraturan.bpk.go.id/Home/Details/37582/uu-no-19-tahun-2016'),
+(14, 'adopsi', 'keluarga', '[\"adopsi\", \"anak angkat\", \"proses adopsi\", \"mengadopsi anak\", \"hukum adopsi\"]', 'Apa syarat untuk mengadopsi anak secara hukum?', 'Adopsi anak harus melalui keputusan pengadilan serta rekomendasi dari dinas sosial sesuai PP No. 54 Tahun 2007.', 'https://peraturan.bpk.go.id/Home/Details/4806/pp-no-54-tahun-2007'),
+(15, 'kontrak kerja', 'perdata', '[\"[\\\"kontrak kerja\\\"\",\"\\\"perjanjian kerja\\\"\",\"\\\"hak karyawan\\\"]\"]', 'Apa hak-hak karyawan dalam kontrak kerja?', 'Hak karyawan diatur dalam UU Ketenagakerjaan, meliputi upah, jaminan sosial, cuti, dan perlindungan kerja lainnya.', 'https://peraturan.bpk.go.id/Home/Details/41317/uu-no-13-tahun-2003');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `konsultasi`
 --
 
@@ -265,6 +302,30 @@ INSERT INTO `log_aktivitas` (`id`, `id_pengguna`, `aktivitas`, `waktu`) VALUES
 (70, 2, 'Status kasus ID 8 diubah menjadi \'Diproses\'', '2025-05-15 01:13:53'),
 (71, 2, 'Status kasus ID 8 diperbarui menjadi \"Selesai\"', '2025-05-15 01:14:13'),
 (72, 2, 'Status kasus ID 8 diubah menjadi \'Selesai\'', '2025-05-15 01:14:13');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `log_pertanyaan_user`
+--
+
+CREATE TABLE `log_pertanyaan_user` (
+  `id` int NOT NULL,
+  `user_id` int DEFAULT NULL,
+  `pertanyaan` text NOT NULL,
+  `intent_didapat` varchar(100) DEFAULT NULL,
+  `confidence_score` decimal(5,2) DEFAULT NULL,
+  `waktu` timestamp NULL DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+--
+-- Dumping data for table `log_pertanyaan_user`
+--
+
+INSERT INTO `log_pertanyaan_user` (`id`, `user_id`, `pertanyaan`, `intent_didapat`, `confidence_score`, `waktu`) VALUES
+(1, NULL, 'hallo', NULL, '0.00', '2025-05-16 09:16:05'),
+(2, NULL, 'hallo', NULL, '0.00', '2025-05-16 09:16:26'),
+(3, NULL, 'Kontrak kerja', 'kontrak kerja', '1.00', '2025-05-16 11:08:38');
 
 -- --------------------------------------------------------
 
@@ -584,6 +645,12 @@ ALTER TABLE `artikel_berita`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `faq_hukum`
+--
+ALTER TABLE `faq_hukum`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `konsultasi`
 --
 ALTER TABLE `konsultasi`
@@ -604,6 +671,12 @@ ALTER TABLE `konsultasi_session`
 ALTER TABLE `log_aktivitas`
   ADD PRIMARY KEY (`id`),
   ADD KEY `id_pengguna` (`id_pengguna`);
+
+--
+-- Indexes for table `log_pertanyaan_user`
+--
+ALTER TABLE `log_pertanyaan_user`
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `messages`
@@ -684,6 +757,12 @@ ALTER TABLE `artikel_berita`
   MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
+-- AUTO_INCREMENT for table `faq_hukum`
+--
+ALTER TABLE `faq_hukum`
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+
+--
 -- AUTO_INCREMENT for table `konsultasi`
 --
 ALTER TABLE `konsultasi`
@@ -700,6 +779,12 @@ ALTER TABLE `konsultasi_session`
 --
 ALTER TABLE `log_aktivitas`
   MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=73;
+
+--
+-- AUTO_INCREMENT for table `log_pertanyaan_user`
+--
+ALTER TABLE `log_pertanyaan_user`
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `messages`

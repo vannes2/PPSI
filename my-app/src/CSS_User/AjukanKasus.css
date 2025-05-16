@@ -4,12 +4,10 @@
     --background-light: #fffcec;  /* latar belakang soft */
     --text-dark: #333;
   }
-  
-  body {
-    background-color: var(--background-light);
-    margin: 0;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  }
+
+  /* ========== Font lama ==============
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  */
   
   .page-wrapper {
     display: flex;

@@ -20,6 +20,7 @@ import VerifyOtp from "./PageUser/VerifyOtp";
 import ResetPassword from "./PageUser/ResetPassword";
 import ArtikelBerita from "./PageUser/ArtikelBerita";
 import DetailBerita from "./PageUser/DetailBerita";
+import RiwayatChatPage from "./PageUser/RiwayatChatPage"
 
 // Admin Pages
 import HomeAdmin from "./PageAdmin/HomeAdmin";
@@ -85,6 +86,7 @@ function App() {
                 <Route path="/reset-password" element={<ResetPassword />} />
                 <Route path="/ArtikelBerita" element={<ArtikelBeritaUser />} />
                 <Route path="/DetailBerita/:id" element={<DetailBerita />} />
+                <Route path="/RiwayatChatPage" element={<RiwayatChatPage />} />
 
                 {/* ✅ Admin Routes */}
                 <Route path="/HomeAdmin" element={<HomeAdmin />} />
