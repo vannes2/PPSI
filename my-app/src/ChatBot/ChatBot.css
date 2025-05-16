@@ -1,57 +1,296 @@
+:root {
+  --merah-gelap: #B31312;
+  --merah-muda-muda: #ffc6c6;
+  --abu-abu-gelap: #3b3b3b;
+  --abu-abu-sedang: #666666;
+  --abu-abu-terang: #f4f4f4;
+  --putih-kekuningan: #fefff0;
+  --putih: #ffffff;
+  --abu-abu-muda: #cccccc;
+}
+
 .chatbot-container {
   position: fixed;
   bottom: 20px;
   right: 20px;
-  width: 300px;
-  background: white;
-  border-radius: 12px;
-  box-shadow: 0 0 10px rgba(0,0,0,0.1);
-  font-family: sans-serif;
+  width: 320px;
+  max-width: 95vw;
+  height: 480px;
+  background: var(--abu-abu-terang);
+  border-radius: 15px;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  display: flex;
+  flex-direction: column;
   overflow: hidden;
   z-index: 1000;
+  user-select: none;
 }
 
 .chatbot-messages {
-  max-height: 300px;
+  flex: 1;
+  padding: 12px;
   overflow-y: auto;
-  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  scrollbar-width: thin;
+  scrollbar-color: var(--abu-abu-muda) transparent;
+  position: relative;
+  outline: none;
+  background: transparent;
+}
+
+/* overlay hitam transparan agar teks jelas terbaca */
+.chatbot-messages .overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0,0,0,0.3);
+  pointer-events: none;
+  z-index: 0;
+  border-radius: 0;
+}
+
+/* Konten chat di atas overlay */
+.chatbot-messages > *:not(.overlay) {
+  position: relative;
+  z-index: 1;
+}
+
+.chatbot-messages::-webkit-scrollbar {
+  width: 6px;
+}
+.chatbot-messages::-webkit-scrollbar-thumb {
+  background-color: var(--abu-abu-muda);
+  border-radius: 3px;
+}
+.chatbot-messages::-webkit-scrollbar-track {
+  background: transparent;
 }
 
 .msg {
-  padding: 8px;
-  margin: 5px 0;
-  border-radius: 8px;
-  max-width: 85%;
-}
-
-.msg.user {
-  background-color: #f1f1f1;
-  text-align: right;
-  align-self: flex-end;
+  max-width: 75%;
+  font-size: 14px;
+  line-height: 1.4;
+  word-wrap: break-word;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  box-shadow: 0 1px 1px rgb(0 0 0 / 0.1);
+  user-select: text;
+  padding: 8px 12px;
+  border: 1px solid transparent;
 }
 
 .msg.bot {
-  background-color: #e2f0d9;
-  text-align: left;
   align-self: flex-start;
+  background: var(--putih);
+  border-radius: 0 15px 15px 15px;
+  color: var(--abu-abu-gelap);
+  border-color: var(--abu-abu-muda);
 }
 
+.msg.user {
+  align-self: flex-end;
+  background: #dcf8c6;
+  border-radius: 15px 0 15px 15px;
+  padding: 8px 12px;
+  color: #056162;
+  border: 1px solid #c4e5b4;
+}
+
+.msg.bot::before {
+  content: "";
+  position: absolute;
+  left: -8px;
+  top: 0;
+  width: 0;
+  height: 0;
+  border-top: 10px solid transparent;
+  border-right: 8px solid var(--putih);
+  border-bottom: 10px solid transparent;
+}
+
+.msg.user::after {
+  content: "";
+  position: absolute;
+  right: -8px;
+  top: 0;
+  width: 0;
+  height: 0;
+  border-top: 10px solid transparent;
+  border-left: 8px solid #dcf8c6;
+  border-bottom: 10px solid transparent;
+}
+
+.msg-text {
+  white-space: pre-wrap;
+}
+
+.msg-time {
+  font-size: 10px;
+  color: var(--abu-abu-sedang);
+  align-self: flex-end;
+  margin-top: 4px;
+  user-select: none;
+}
+
+/* Chatbot input area */
 .chatbot-input {
+  padding: 6px 10px;
+  gap: 6px;
+  align-items: center;
+  background: var(--putih);
+  border-top: 1px solid var(--abu-abu-muda);
   display: flex;
-  border-top: 1px solid #ccc;
 }
 
-.chatbot-input input {
+.chatbot-input textarea {
+  min-height: 28px;
+  max-height: 60px;
+  padding: 6px 10px;
+  font-size: 13px;
+  border-radius: 14px;
+  border: 1px solid var(--abu-abu-muda);
+  color: var(--merah-gelap);
+  background: var(--putih);
+  resize: none;
   flex: 1;
-  padding: 10px;
-  border: none;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   outline: none;
+  box-sizing: border-box;
+  user-select: text;
+}
+
+.chatbot-input textarea::placeholder {
+  color: var(--abu-abu-sedang);
 }
 
 .chatbot-input button {
-  background: #B31312;
-  color: white;
+  padding: 8px 14px;
+  font-size: 13px;
+  border-radius: 14px;
+  background-color: var(--merah-gelap);
   border: none;
-  padding: 10px 15px;
+  color: var(--putih);
+  font-weight: 600;
   cursor: pointer;
+  user-select: none;
+  transition: background-color 0.3s ease;
+  white-space: nowrap;
+}
+
+.chatbot-input button:hover:not(:disabled) {
+  background-color: var(--merah-muda-muda);
+  color: var(--merah-gelap);
+}
+
+.chatbot-input button:disabled {
+  background-color: var(--abu-abu-muda);
+  cursor: not-allowed;
+}
+
+/* Loading dots */
+.msg.loading .msg-text {
+  display: flex;
+  gap: 5px;
+  width: 40px;
+  justify-content: center;
+  align-items: center;
+}
+
+.msg.loading .dot {
+  width: 8px;
+  height: 8px;
+  background-color: var(--merah-gelap);
+  border-radius: 50%;
+  animation: blink 1.4s infinite;
+}
+
+.msg.loading .dot:nth-child(2) {
+  animation-delay: 0.2s;
+}
+
+.msg.loading .dot:nth-child(3) {
+  animation-delay: 0.4s;
+}
+
+@keyframes blink {
+  0%, 80%, 100% {
+    opacity: 0.3;
+  }
+  40% {
+    opacity: 1;
+  }
+}
+
+/* Tombol toggle chat fixed pojok kanan bawah */
+.chatbot-toggle-btn {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;   /* lingkaran sempurna */
+  border: none;
+  background-color: var(--merah-gelap);
+  color: var(--putih);
+  font-size: 0;         /* sembunyikan teks default */
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+  user-select: none;
+  transition: background-color 0.3s ease;
+  z-index: 1100;
+  overflow: hidden;     /* agar gambar tidak keluar */
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.chatbot-toggle-btn:hover {
+  background-color: var(--merah-muda-muda);
+  color: var(--merah-gelap);
+}
+
+.chatbot-toggle-btn img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  pointer-events: none;
+  user-select: none;
+}
+
+/* Header chat bot */
+.chatbot-header {
+  background-color: var(--merah-gelap);
+  color: var(--putih);
+  padding: 8px 14px;
+  font-weight: 600;
+  font-size: 14px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  user-select: none;
+  border-top-left-radius: 15px;
+  border-top-right-radius: 15px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+}
+
+/* Tombol close di header */
+.chatbot-close-btn {
+  background: transparent;
+  border: none;
+  color: var(--putih);
+  font-size: 18px;
+  cursor: pointer;
+  user-select: none;
+  transition: color 0.3s ease;
+  padding: 0;
+  line-height: 1;
+}
+
+.chatbot-close-btn:hover {
+  color: var(--merah-muda-muda);
 }
