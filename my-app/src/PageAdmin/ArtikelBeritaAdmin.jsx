@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 import SidebarAdmin from '../components/SidebarAdmin';
+import AdminLayout from "../components/AdminLayout";
 import '../CSS_Admin/ArtikelBeritaAdmin.css';
 
 const ArtikelBeritaAdmin = () => {
@@ -97,9 +98,8 @@ const ArtikelBeritaAdmin = () => {
   const beritaTopList = berita.filter((b) => topBerita.includes(b.id));
 
   return (
+        <AdminLayout>
     <div id="admin-artikel-berita" className="admin-page-layout">
-      <SidebarAdmin activeTab={activeTab} onTabChange={setActiveTab} />
-
       <div className="admin-berita-container">
         <h2>Kelola Artikel & Berita</h2>
 
@@ -172,6 +172,7 @@ const ArtikelBeritaAdmin = () => {
         </div>
       </div>
     </div>
+    </AdminLayout>
   );
 };
 

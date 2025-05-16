@@ -1,0 +1,67 @@
+[
+  {
+    "intent": "kdrt",
+    "keywords": [
+      "kdrt",
+      "kekerasan dalam rumah tangga",
+      "apa itu kdrt",
+      "bagaimana hukum kdrt",
+      "lapor kdrt",
+      "tindakan kdrt",
+      "hukuman kdrt"
+    ],
+    "response": "KDRT diatur dalam UU No. 23 Tahun 2004. Korban bisa melapor ke polisi, rumah sakit, atau lembaga bantuan hukum seperti LBH."
+  },
+  {
+    "intent": "perceraian",
+    "keywords": [
+      "cerai",
+      "perceraian",
+      "proses cerai",
+      "syarat perceraian",
+      "gugatan cerai",
+      "cara mengajukan cerai",
+      "bagaimana cara cerai"
+    ],
+    "response": "Perceraian diajukan ke pengadilan agama (bagi Muslim) atau pengadilan negeri (bagi non-Muslim). Prosesnya melibatkan gugatan, sidang, dan bukti yang sah."
+  },
+  {
+    "intent": "warisan",
+    "keywords": [
+      "warisan",
+      "pembagian warisan",
+      "harta waris",
+      "siapa yang berhak warisan",
+      "hak ahli waris",
+      "waris menurut islam",
+      "warisan menurut hukum"
+    ],
+    "response": "Warisan dibagi berdasarkan hukum Islam atau KUHPerdata tergantung agama pewaris. Hak waris juga diatur dalam Kompilasi Hukum Islam dan KUHPerdata Pasal 830–1130."
+  },
+  {
+    "intent": "ite",
+    "keywords": [
+      "uu ite",
+      "ite",
+      "undang undang ite",
+      "pasal 27",
+      "hukum fitnah online",
+      "cyber crime",
+      "pencemaran nama baik",
+      "hoaks internet"
+    ],
+    "response": "UU ITE (No. 11 Tahun 2008, diperbarui No. 19 Tahun 2016) mengatur tentang informasi elektronik, termasuk pencemaran nama baik dan kejahatan siber."
+  },
+  {
+    "intent": "adopsi anak",
+    "keywords": [
+      "adopsi",
+      "mengadopsi anak",
+      "cara adopsi anak",
+      "prosedur adopsi",
+      "syarat adopsi anak",
+      "hukum adopsi"
+    ],
+    "response": "Proses adopsi anak diatur dalam Peraturan Pemerintah No. 54 Tahun 2007. Harus melalui pengadilan dan melibatkan dinas sosial serta lembaga pengadilan."
+  }
+]

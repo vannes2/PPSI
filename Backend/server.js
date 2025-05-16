@@ -21,6 +21,11 @@ const forgotPasswordRoutes = require("./routes/forgotPasswordRoutes");
 const artikelBeritaRoutes = require('./routes/artikelBeritaRoutes');
 const konsultasiSessionRoutes = require("./routes/konsultasiSessionRoutes");
 const lawyerController = require('./controllers/lawyerController');
+const logPertanyaanRoutes = require("./routes/logPertanyaanRoutes");
+const faqRoutes = require('./routes/faqRoutes');
+
+
+const botRoutes = require("./routes/botRoutes");
 const app = express();
 
 // Middleware
@@ -43,6 +48,12 @@ app.use("/api/simple-users", simpleUserRoutes);
 app.use("/api", forgotPasswordRoutes);
 app.use('/api/artikel-berita', artikelBeritaRoutes);
 app.use("/api/konsultasi-session", konsultasiSessionRoutes);
+app.use("/api/log-pertanyaan", logPertanyaanRoutes);
+app.use('/api/faq', faqRoutes);
+
+
+app.use("/api/chatbot", require("./routes/botRoutes"));
+app.use("/api/chatbot", botRoutes);
 
 // Setup HTTP server + Socket.io
 const server = http.createServer(app);

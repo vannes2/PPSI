@@ -5,7 +5,9 @@ import {
   FaUserCircle,
   FaUser,
   FaNewspaper,
-  FaMoneyBillWave, // Icon untuk transaksi keuangan
+  FaMoneyBillWave,
+  FaQuestionCircle,       // ➕ Icon FAQ
+  FaHistory               // ➕ Icon Riwayat Pertanyaan
 } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
@@ -44,6 +46,20 @@ const SidebarAdmin = ({ activeTab, onTabChange }) => {
         <li className={activeTab === "transaksi" ? "nav-active" : ""}>
           <Link to="/TransaksiKeuangan" onClick={() => onTabChange("transaksi")}>
             <FaMoneyBillWave className="icon-spacing" /> Transaksi Keuangan
+          </Link>
+        </li>
+
+        {/* ➕ FAQ Hukum */}
+        <li className={activeTab === "faq" ? "nav-active" : ""}>
+          <Link to="/faq" onClick={() => onTabChange("faq")}>
+            <FaQuestionCircle className="icon-spacing" /> FAQ Hukum
+          </Link>
+        </li>
+
+        {/* ➕ Riwayat Pertanyaan Chatbot */}
+        <li className={activeTab === "logPertanyaan" ? "nav-active" : ""}>
+          <Link to="/log-pertanyaan" onClick={() => onTabChange("logPertanyaan")}>
+            <FaHistory className="icon-spacing" /> Riwayat Pertanyaan
           </Link>
         </li>
       </ul>

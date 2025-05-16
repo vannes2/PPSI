@@ -3,7 +3,8 @@ import { FaTrash, FaPlus, FaEye, FaEdit } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import "../CSS_Admin/HomeAdmin.css";
-import SidebarAdmin from "../components/SidebarAdmin";
+import AdminLayout from "../components/AdminLayout";
+
 
 const HomeAdmin = () => {
   const [activeTab, setActiveTab] = useState("pengacara");
@@ -59,13 +60,8 @@ const HomeAdmin = () => {
   );
 
   return (
+        <AdminLayout>
     <div className="dashboard-wrapper flex">
-      <SidebarAdmin
-        activeTab={activeTab}
-        onTabChange={setActiveTab}
-        onNavigate={navigate}
-      />
-
       <main className="dashboard-content">
         {activeTab === "pengacara" && (
           <div>
@@ -174,6 +170,7 @@ const HomeAdmin = () => {
         )}
       </main>
     </div>
+    </AdminLayout>
   );
 };
 

@@ -32,6 +32,8 @@ import ProfilAdmin from "./PageAdmin/ProfilAdmin";
 import UserManagement from "./PageAdmin/UserManagement";
 import ArtikelBeritaUser from "./PageUser/ArtikelBerita"; // ganti nama import
 import ArtikelBeritaAdmin from "./PageAdmin/ArtikelBeritaAdmin"; // tetap
+import RiwayatPertanyaanUser from "./PageAdmin/RiwayatPertanyaanUser";
+import FaqAdmin from "./PageAdmin/FaqAdmin";
 
 // Lawyer Pages
 import RegisterLawyerPage from "./PageLawyer/RegisterLawyerPage";
@@ -44,6 +46,9 @@ import SelectUser from "./PageLawyer/selectUser";
 import ProfileEditLawyer from "./PageLawyer/ProfileEditLawyer";
 import DaftarKasusLawyer from './PageLawyer/DaftarKasusLawyer';
 
+// BotChat
+import ChatBotWidget from "./ChatBot/ChatBotWidget";
+
 // Components
 import SidebarAdmin from "./components/SidebarAdmin";
 import ScrollToTop from "./components/ScrollToTop";
@@ -53,6 +58,7 @@ function App() {
     return (
         <Router>
              <ScrollToTop />
+              <ChatBotWidget />
             <Routes>
                 {/* ✅ Public Routes */}
                 <Route path="/" element={<Home />} />
@@ -91,6 +97,8 @@ function App() {
                 <Route path="/UserManagement" element={<UserManagement />} />
                 <Route path="/SidebarAdmin" element={<SidebarAdmin />} />
                 <Route path="/ArtikelBeritaAdmin" element={<ArtikelBeritaAdmin />} />
+                <Route path="/log-pertanyaan" element={<RiwayatPertanyaanUser />} />
+                <Route path="/faq" element={<FaqAdmin />} />
                 
 
                 {/* ✅ Lawyer Routes */}

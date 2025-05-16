@@ -1,0 +1,58 @@
+.log-container {
+  display: flex;
+  min-height: 80vh;
+  background-color: #f9f9f9;
+  font-family: Arial, sans-serif;
+}
+
+main {
+  flex: 1;
+  padding: 20px;
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgb(0 0 0 / 0.1);
+  margin-left: 20px;
+  overflow-x: auto;
+}
+
+h2 {
+  margin-bottom: 20px;
+  color: #333;
+}
+
+.log-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 14px;
+}
+
+.log-table thead tr {
+  background-color: #007bff;
+  color: white;
+}
+
+.log-table th,
+.log-table td {
+  padding: 12px 15px;
+  border: 1px solid #ddd;
+  text-align: left;
+  vertical-align: middle;
+}
+
+.log-table tbody tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
+
+.log-table tbody tr:hover {
+  background-color: #e9f5ff;
+  cursor: pointer;
+}
+
+input#searchInput {
+  width: 300px;
+  padding: 8px 12px;
+  margin-bottom: 15px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 14px;
+}

@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
 import "../CSS_Admin/EditPengacara.css";
-import SidebarAdmin from "../components/SidebarAdmin";
+import AdminLayout from "../components/AdminLayout";
 
 const EditPengacara = () => {
   const { id } = useParams();
@@ -50,14 +50,8 @@ const EditPengacara = () => {
   };
 
   return (
+    <AdminLayout>
     <div className="dashboard-wrapper flex">
-      {/* Sidebar diseragamkan */}
-      <SidebarAdmin
-        activeTab={activeTab}
-        onTabChange={setActiveTab}
-        onNavigate={navigate}
-      />
-
       {/* Main Content */}
       <main className="dashboard-content p-6">
         <h2 className="text-2xl font-bold mb-4">Edit Pengacara</h2>
@@ -139,6 +133,7 @@ const EditPengacara = () => {
         </form>
       </main>
     </div>
+</AdminLayout>
   );
 };
 
