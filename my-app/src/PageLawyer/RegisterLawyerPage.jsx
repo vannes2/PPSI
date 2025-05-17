@@ -7,7 +7,10 @@ import "../CSS_Lawyer/RegisterLawyerPage.css";
 const RegisterLawyerPage = () => {
   const navigate = useNavigate();
   const [formData, setFormData] = useState({});
-  const [error, setError] = useState("");
+  const [showSuccessPopup, setShowSuccessPopup] = useState(false);
+  const [showErrorPopup, setShowErrorPopup] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleChange = (e) => {
     const { name, value, files, type } = e.target;
@@ -18,14 +21,19 @@ const RegisterLawyerPage = () => {
   };
 
   const handleSubmit = async (e) => {
-    e.preventDefault();
-    setError("");
+  e.preventDefault();
 
-    if (formData.password !== formData.konfirmasi_password) {
-      setError("Password dan konfirmasi password tidak sama.");
-      return;
-    }
+  if (formData.password !== formData.konfirmasi_password) {
+    setErrorMessage("Password dan konfirmasi password tidak sama.");
+    setShowErrorPopup(true);
+    setTimeout(() => setShowErrorPopup(false), 3000);
+    return;
+  }
 
+  // Tampilkan loading setelah 1 detik, lalu baru lanjut submit
+  setIsLoading(true);
+
+  setTimeout(async () => {
     try {
       const dataToSend = new FormData();
       for (const key in formData) {
@@ -40,16 +48,28 @@ const RegisterLawyerPage = () => {
       });
 
       const result = await response.json();
+
       if (!response.ok) {
-        throw new Error(result.message || "Pendaftaran gagal.");
+        const cleanMessage = result.message?.toLowerCase().includes("email")
+          ? "Email sudah digunakan"
+          : result.message || "Pendaftaran gagal";
+        throw new Error(cleanMessage);
       }
 
-      alert("Pendaftaran berhasil! Silakan cek email untuk informasi selanjutnya.");
-      navigate("/login");
+      setShowSuccessPopup(true);
+      setTimeout(() => {
+        setShowSuccessPopup(false);
+        navigate("/login");
+      }, 2000);
     } catch (err) {
       console.error("Error:", err);
-      setError(err.message);
+      setErrorMessage(err.message);
+      setShowErrorPopup(true);
+      setTimeout(() => setShowErrorPopup(false), 3000);
+    } finally {
+      setIsLoading(false);
     }
+    }, 1000); // <== Delay semua proses request 1 detik agar spinner muncul dulu
   };
 
   return (
@@ -58,11 +78,11 @@ const RegisterLawyerPage = () => {
       <div className="register-lawyer-page">
         <br /><br /><br /><br /><br />
         <h2 className="title">Pendaftaran Advokat</h2>
-        {error && <div className="error-message">{error}</div>}
+
         <form className="form-register-lawyer" onSubmit={handleSubmit}>
           <div className="container-form">
 
-            {/* Row 1 */}
+            {/* === FORM === */}
             <div className="container-form-row">
               <div className="form-group">
                 <label>Nama Lengkap</label>
@@ -74,7 +94,6 @@ const RegisterLawyerPage = () => {
               </div>
             </div>
 
-            {/* Row 2 */}
             <div className="container-form-row">
               <div className="form-group">
                 <label>Tanggal Lahir</label>
@@ -90,7 +109,6 @@ const RegisterLawyerPage = () => {
               </div>
             </div>
 
-            {/* Row 3 */}
             <div className="container-form-row">
               <div className="form-group">
                 <label>Alamat Domisili</label>
@@ -102,7 +120,6 @@ const RegisterLawyerPage = () => {
               </div>
             </div>
 
-            {/* Row 4 */}
             <div className="container-form-row">
               <div className="form-group">
                 <label>No HP / WhatsApp</label>
@@ -114,7 +131,6 @@ const RegisterLawyerPage = () => {
               </div>
             </div>
 
-            {/* Row 5 */}
             <div className="container-form-row">
               <div className="form-group">
                 <label>Asal Universitas</label>
@@ -126,7 +142,6 @@ const RegisterLawyerPage = () => {
               </div>
             </div>
 
-            {/* Row 6 */}
             <div className="container-form-row">
               <div className="form-group">
                 <label>Spesialisasi</label>
@@ -153,7 +168,6 @@ const RegisterLawyerPage = () => {
               </div>
             </div>
 
-            {/* File Uploads */}
             <div className="container-form-row">
               <div className="form-group">
                 <label>Upload KTP</label>
@@ -176,37 +190,21 @@ const RegisterLawyerPage = () => {
               </div>
             </div>
 
-            {/* Sosial Media dan Dokumen Tambahan */}
             <div className="container-form-row">
               <div className="form-group">
                 <label>LinkedIn</label>
-                <input
-                  type="url"
-                  name="linkedin"
-                  placeholder="https://linkedin.com/in/username"
-                  onChange={handleChange}
-                />
+                <input type="url" name="linkedin" onChange={handleChange} />
               </div>
               <div className="form-group">
                 <label>Instagram</label>
-                <input
-                  type="url"
-                  name="instagram"
-                  placeholder="https://instagram.com/username"
-                  onChange={handleChange}
-                />
+                <input type="url" name="instagram" onChange={handleChange} />
               </div>
             </div>
 
             <div className="container-form-row">
               <div className="form-group">
                 <label>Twitter / X</label>
-                <input
-                  type="url"
-                  name="twitter"
-                  placeholder="https://twitter.com/username"
-                  onChange={handleChange}
-                />
+                <input type="url" name="twitter" onChange={handleChange} />
               </div>
               <div className="form-group">
                 <label>Upload Resume / CV</label>
@@ -221,7 +219,6 @@ const RegisterLawyerPage = () => {
               </div>
             </div>
 
-            {/* Akun */}
             <div className="akun-row">
               <div className="form-group">
                 <label>Username</label>
@@ -237,7 +234,6 @@ const RegisterLawyerPage = () => {
               </div>
             </div>
 
-            {/* Checkbox */}
             <div className="checkbox-group">
               <input type="checkbox" id="syarat" required />
               <label htmlFor="syarat">Saya menyetujui syarat dan ketentuan</label>
@@ -247,12 +243,42 @@ const RegisterLawyerPage = () => {
               Setelah Anda menekan tombol daftar, data akan diproses maksimal selama 3 hari kerja. Notifikasi akan dikirimkan melalui email apabila akun Anda berhasil diproses.
             </p>
 
-            <button type="submit" className="submit-btn">
-              Daftar
+            <button type="submit" className="submit-btn" disabled={isLoading}>
+              {isLoading ? "Mendaftarkan..." : "Daftar"}
             </button>
           </div>
         </form>
       </div>
+
+      {/* Popup Success */}
+      {showSuccessPopup && (
+        <div className="popup-overlay">
+          <div className="popup-content">
+            <div className="checkmark">✔</div>
+            <p>Pendaftaran berhasil</p>
+          </div>
+        </div>
+      )}
+
+      {/* Popup Error */}
+      {showErrorPopup && (
+        <div className="popup-overlay">
+          <div className="popup-content error">
+            <div className="error-icon">✖</div>
+            <p>{errorMessage}</p>
+          </div>
+        </div>
+      )}
+
+      {/* Loading Spinner */}
+      {isLoading && (
+        <div className="popup-overlay">
+          <div className="popup-content loading">
+            <div className="spinner"></div>
+            <p>Memproses pendaftaran...</p>
+          </div>
+        </div>
+      )}
 
       <div className="footer-separator"></div>
       <Footer />

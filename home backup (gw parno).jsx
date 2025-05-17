@@ -10,12 +10,6 @@ const Home = () => {
   const [error, setError] = useState(null);
   const [currentSlide, setCurrentSlide] = useState(0);
 
-  
-  const cardWidth = 270; // Lebar tiap kartu advokat
-  const cardsPerSlide = 5;
-
-
-
   useEffect(() => {
     fetch("http://localhost:5000/api/profilpengacara")
       .then((res) => {
@@ -106,100 +100,48 @@ const Home = () => {
         </div>
       </section>
 
-    
-{/* Advokat Carousel */}
-      <section className="products" style={{ marginTop: "40px" }}>
-        <div className="advokat-header">
-          <h2 className="advokat-heading">Advokat Yang Tersedia</h2>
-          <Link to="/Login" className="btn-selengkapnya">Selengkapnya &gt;</Link>
-        </div>
+      {/* Advokat */}
+<section className="products">
+  <div className="advokat-header">
+    <h2 className="advokat-heading">Advokat Yang Tersedia</h2>
+    <Link to="/Login" className="btn-selengkapnya">Selengkapnya &gt;</Link>
+  </div>
 
-        <div
-          className="product-scroll-wrapper"
-          style={{
-            overflow: "hidden",
-            width: cardWidth * cardsPerSlide + 20 * (cardsPerSlide -1), // +gap antar kartu
-            margin: "0 auto",
-            
-          }}
-        >
-          <div
-            className="product-track"
-            style={{
-              display: "flex",
-              transition: "transform 0.5s ease-in-out",
-              transform: `translateX(-${currentSlide * (cardWidth + 20) * cardsPerSlide}px)`,
-              gap: "20px",
-            }}
-          >
-            {error ? (
-              <p style={{ color: "red" }}>Gagal mengambil data: {error}</p>
-            ) : pengacara.length > 0 ? (
-              pengacara.map((advokat, index) => (
-                <div
-                  key={advokat.id || index}
-                  className="product-item"
-                  style={{ minWidth: `${cardWidth}px` }}
-                >
-                  {advokat.upload_foto ? (
-                    <img
-                      src={`http://localhost:5000/uploads/${advokat.upload_foto}`}
-                      alt={advokat.nama}
-                      className="foto-advokat"
-                      style={{
-                        width: "120px",
-                        height: "120px",
-                        borderRadius: "50%",
-                        objectFit: "cover",
-                        marginBottom: "10px",
-                      }}
-                    />
-                  ) : (
-                    <div
-                      style={{
-                        width: "120px",
-                        height: "120px",
-                        borderRadius: "50%",
-                        backgroundColor: "#eee",
-                        display: "flex",
-                        alignItems: "center",
-                        justifyContent: "center",
-                        marginBottom: "10px",
-                      }}
-                    >
-                      <span
-                        style={{
-                          color: "#999",
-                          fontSize: "12px",
-                          textAlign: "center",
-                        }}
-                      >
-                        Tidak ada foto
-                      </span>
-                    </div>
-                  )}
-                  <h3>{advokat.nama}</h3>
-                  <p>
-                    <strong>Spesialisasi:</strong> {advokat.spesialisasi || "-"}
-                  </p>
-                  <p>
-                    <strong>Pengalaman:</strong> {advokat.pengalaman ?? 0} tahun
-                  </p>
-                  <p>
-                    <strong>Harga Konsultasi:</strong>{" "}
-                    Rp{advokat.harga_konsultasi?.toLocaleString() || "-"}
-                  </p>
-                  <Link to="/Login" state={{ pengacaraId: advokat.id }}>
-                    <button className="btn-konsultasi">Klik Konsultasi</button>
-                  </Link>
-                </div>
-              ))
-            ) : (
-              <p>Belum ada advokat terdaftar</p>
-            )}
+  <div className="product-scroll-wrapper">
+    {error ? (
+      <p style={{ color: "red" }}>Gagal mengambil data: {error}</p>
+    ) : pengacara.length > 0 ? (
+      pengacara.slice(0, 8).map((advokat, index) => (
+        <div key={advokat.id || index} className="product-item">
+          <div className="advokat-foto-container">
+            <img
+              src={
+                advokat.upload_foto
+                  ? `http://localhost:5000/uploads/${advokat.upload_foto}`
+                  : "/assets/img/default-profile.png"
+              }
+              alt={advokat.nama}
+              className="foto-advokat"
+              onError={(e) => {
+                e.target.onerror = null;
+                e.target.src = "/assets/img/default-profile.png";
+              }}
+            />
           </div>
+          <h3 className="advokat-nama">{advokat.nama}</h3>
+          <p><strong>Spesialisasi:</strong> {advokat.spesialisasi || "-"}</p>
+          <p><strong>Pengalaman:</strong> {advokat.pengalaman ?? 0} tahun</p>
+          <p><strong>Harga Konsultasi:</strong> Rp{advokat.harga_konsultasi?.toLocaleString() || "-"}</p>
+          <Link to="/Login">
+            <button className="btn-konsultasi">Klik Konsultasi</button>
+          </Link>
         </div>
-      </section>
+      ))
+    ) : (
+      <p>Belum ada advokat terdaftar</p>
+    )}
+  </div>
+</section>
 
       {/* Slideshow Berita */}
       <section className="slideshow-section">

@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import "../CSS_User/Home.css";
 import HeaderAfter from "../components/HeaderAfter";
@@ -10,13 +10,14 @@ const HomeAfter = () => {
   const [beritaTop, setBeritaTop] = useState([]);
   const [error, setError] = useState(null);
   const [currentSlide, setCurrentSlide] = useState(0);
-  const scrollRef = useRef(null);
-  const [isInteracting, setIsInteracting] = useState(false);
 
-  const cardWidth = 270;
-  const cardsPerSlide = 4;
-  const slideInterval = 5000;
+  const cardWidth = 270; // Lebar tiap kartu advokat
+  const cardsPerSlide = 5;
 
+  // Hitung total slide berdasar jumlah advokat dan cardsPerSlide
+  const totalSlides = Math.ceil(pengacara.length / cardsPerSlide);
+
+  // Ambil data advokat dan berita top saat mount
   useEffect(() => {
     fetch("http://localhost:5000/api/profilpengacara")
       .then((res) => {
@@ -35,54 +36,14 @@ const HomeAfter = () => {
       .catch((err) => console.error("Gagal fetch top berita:", err));
   }, []);
 
+  // Auto scroll slide setiap 4 detik
   useEffect(() => {
-    window.scrollTo(0, 0);
-  }, []);
-
-  useEffect(() => {
+    if (totalSlides === 0) return; // Jika kosong, skip interval
     const interval = setInterval(() => {
-      if (!isInteracting && scrollRef.current) {
-        const container = scrollRef.current;
-        const maxScroll = container.scrollWidth - container.clientWidth;
-
-        if (container.scrollLeft + cardWidth * cardsPerSlide >= maxScroll) {
-          container.scrollTo({ left: 0, behavior: "smooth" });
-        } else {
-          container.scrollBy({ left: cardWidth * cardsPerSlide, behavior: "smooth" });
-        }
-      }
-    }, slideInterval);
-
-    return () => clearInterval(interval);
-  }, [isInteracting, pengacara]);
-
-  useEffect(() => {
-    const container = scrollRef.current;
-    if (!container) return;
-
-    const handleEnter = () => setIsInteracting(true);
-    const handleLeave = () => setIsInteracting(false);
-
-    container.addEventListener("mouseenter", handleEnter);
-    container.addEventListener("mouseleave", handleLeave);
-    container.addEventListener("touchstart", handleEnter);
-    container.addEventListener("touchend", handleLeave);
-
-    return () => {
-      container.removeEventListener("mouseenter", handleEnter);
-      container.removeEventListener("mouseleave", handleLeave);
-      container.removeEventListener("touchstart", handleEnter);
-      container.removeEventListener("touchend", handleLeave);
-    };
-  }, []);
-
-  // Autoplay slide berita
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setCurrentSlide((prev) => (prev === beritaTop.length - 1 ? 0 : prev + 1));
+      setCurrentSlide((prev) => (prev + 1) % totalSlides);
     }, 4000);
     return () => clearInterval(interval);
-  }, [beritaTop]);
+  }, [totalSlides]);
 
   return (
     <div className="home-before-page">
@@ -144,99 +105,141 @@ const HomeAfter = () => {
         </div>
       </section>
 
-      {/* Advokat */}
-      <section className="products">
-      <div className="advokat-header">
-        <h2 className="advokat-heading">Advokat Yang Tersedia</h2>
-        <Link to="/konsultasi" className="btn-selengkapnya">Selengkapnya &gt;</Link>
-      </div>
-        <div className="product-scroll-wrapper" ref={scrollRef}>
-          {error ? (
-            <p style={{ color: "red" }}>Gagal mengambil data: {error}</p>
-          ) : pengacara.length > 0 ? (
-            pengacara.map((advokat, index) => (
-              <div key={advokat.id || index} className="product-item">
-                {advokat.upload_foto ? (
-                  <img
-                    src={`http://localhost:5000/uploads/${advokat.upload_foto}`}
-                    alt={advokat.nama}
-                    className="foto-advokat"
-                    style={{
-                      width: "120px",
-                      height: "120px",
-                      borderRadius: "50%",
-                      objectFit: "cover",
-                      marginBottom: "10px"
-                    }}
-                  />
-                ) : (
-                  <div style={{
-                    width: "120px",
-                    height: "120px",
-                    borderRadius: "50%",
-                    backgroundColor: "#eee",
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "center",
-                    marginBottom: "10px"
-                  }}>
-                    <span style={{ color: "#999", fontSize: "12px", textAlign: "center" }}>Tidak ada foto</span>
-                  </div>
-                )}
-                <h3>{advokat.nama}</h3>
-                <p><strong>Spesialisasi:</strong> {advokat.spesialisasi || "-"}</p>
-                <p><strong>Pengalaman:</strong> {advokat.pengalaman ?? 0} tahun</p>
-                <p><strong>Harga Konsultasi:</strong> Rp{advokat.harga_konsultasi?.toLocaleString() || "-"}</p>
-                <Link to="/konsultasi" state={{ pengacaraId: advokat.id }}>
-                  <button className="btn-konsultasi">Klik Konsultasi</button>
-                </Link>
-              </div>
-            ))
-          ) : (
-            <p>Belum ada advokat terdaftar</p>
-          )}
+      {/* Advokat Carousel */}
+      <section className="products" style={{ marginTop: "40px" }}>
+        <div className="advokat-header">
+          <h2 className="advokat-heading">Advokat Yang Tersedia</h2>
+          <Link to="/konsultasi" className="btn-selengkapnya">Selengkapnya &gt;</Link>
+        </div>
+
+        <div
+          className="product-scroll-wrapper"
+          style={{
+            overflow: "hidden",
+            width: cardWidth * cardsPerSlide + 20 * (cardsPerSlide -1), // +gap antar kartu
+            margin: "0 auto",
+            
+          }}
+        >
+          <div
+            className="product-track"
+            style={{
+              display: "flex",
+              transition: "transform 0.5s ease-in-out",
+              transform: `translateX(-${currentSlide * (cardWidth + 20) * cardsPerSlide}px)`,
+              gap: "20px",
+            }}
+          >
+            {error ? (
+              <p style={{ color: "red" }}>Gagal mengambil data: {error}</p>
+            ) : pengacara.length > 0 ? (
+              pengacara.map((advokat, index) => (
+                <div
+                  key={advokat.id || index}
+                  className="product-item"
+                  style={{ minWidth: `${cardWidth}px` }}
+                >
+                  {advokat.upload_foto ? (
+                    <img
+                      src={`http://localhost:5000/uploads/${advokat.upload_foto}`}
+                      alt={advokat.nama}
+                      className="foto-advokat"
+                      style={{
+                        width: "120px",
+                        height: "120px",
+                        borderRadius: "50%",
+                        objectFit: "cover",
+                        marginBottom: "10px",
+                      }}
+                    />
+                  ) : (
+                    <div
+                      style={{
+                        width: "120px",
+                        height: "120px",
+                        borderRadius: "50%",
+                        backgroundColor: "#eee",
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "center",
+                        marginBottom: "10px",
+                      }}
+                    >
+                      <span
+                        style={{
+                          color: "#999",
+                          fontSize: "12px",
+                          textAlign: "center",
+                        }}
+                      >
+                        Tidak ada foto
+                      </span>
+                    </div>
+                  )}
+                  <h3>{advokat.nama}</h3>
+                  <p>
+                    <strong>Spesialisasi:</strong> {advokat.spesialisasi || "-"}
+                  </p>
+                  <p>
+                    <strong>Pengalaman:</strong> {advokat.pengalaman ?? 0} tahun
+                  </p>
+                  <p>
+                    <strong>Harga Konsultasi:</strong>{" "}
+                    Rp{advokat.harga_konsultasi?.toLocaleString() || "-"}
+                  </p>
+                  <Link to="/payment" state={{ pengacaraId: advokat.id }}>
+                    <button className="btn-konsultasi">Klik Konsultasi</button>
+                  </Link>
+                </div>
+              ))
+            ) : (
+              <p>Belum ada advokat terdaftar</p>
+            )}
+          </div>
         </div>
       </section>
 
-      {/* ✅ SLIDESHOW BERITA HALODOC STYLE */}
-<section className="slideshow-section">
-  <div className="slideshow-header">
-    <h2 className="slideshow-heading">Berita Hukum Pilihan</h2>
-    <Link to="/ArtikelBerita" className="btn-selengkapnya">Selengkapnya &gt;</Link>
-  </div>
-
-  <div className="slideshow-wrapper">
-    <div
-      className="slideshow-track"
-      style={{ transform: `translateX(-${currentSlide * 100}%)` }}
-    >
-      {beritaTop.map((item) => (
-        <div className="slide" key={item.id}>
-          <Link to={`/DetailBerita/${item.id}`}>
-            <img
-              src={`http://localhost:5000/uploads/${item.gambar}`}
-              alt={item.judul}
-              className="slide-img"
-            />
-            <div className="slide-caption">
-              <h3 className="slide-title">{item.judul}</h3>
-            </div>
+      {/* Slideshow Berita */}
+      <section className="slideshow-section" style={{ marginTop: "60px" }}>
+        <div className="slideshow-header">
+          <h2 className="slideshow-heading">Berita Hukum Pilihan</h2>
+          <Link to="/ArtikelBerita" className="btn-selengkapnya">
+            Selengkapnya &gt;
           </Link>
         </div>
-      ))}
-    </div>
-  </div>
 
-  <div className="slideshow-dots">
-    {beritaTop.map((_, i) => (
-      <span
-        key={i}
-        className={`dot ${i === currentSlide ? "active" : ""}`}
-        onClick={() => setCurrentSlide(i)}
-      />
-    ))}
-  </div>
-</section>
+        <div className="slideshow-wrapper">
+          <div
+            className="slideshow-track"
+            style={{ transform: `translateX(-${currentSlide * 100}%)` }}
+          >
+            {beritaTop.map((item) => (
+              <div className="slide" key={item.id}>
+                <Link to={`/DetailBerita/${item.id}`}>
+                  <img
+                    src={`http://localhost:5000/uploads/${item.gambar}`}
+                    alt={item.judul}
+                    className="slide-img"
+                  />
+                  <div className="slide-caption">
+                    <h3 className="slide-title">{item.judul}</h3>
+                  </div>
+                </Link>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <div className="slideshow-dots">
+          {beritaTop.map((_, i) => (
+            <span
+              key={i}
+              className={`dot ${i === currentSlide ? "active" : ""}`}
+              onClick={() => setCurrentSlide(i)}
+            />
+          ))}
+        </div>
+      </section>
 
       <div className="footer-separator"></div>
       <Footer />

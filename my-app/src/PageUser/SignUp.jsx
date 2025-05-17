@@ -13,43 +13,76 @@ const SignUp = () => {
   const [gender, setGender] = useState("");
   const [birthdate, setBirthdate] = useState("");
   const [showSuccessPopup, setShowSuccessPopup] = useState(false);
+  const [showErrorPopup, setShowErrorPopup] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const response = await fetch("http://localhost:5000/api/signup", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        name,
-        email,
-        phone,
-        password,
-        confirmPassword,
-        gender,
-        birthdate,
-      }),
-    });
-
-    const result = await response.json();
-    if (response.ok) {
-      setShowSuccessPopup(true); // Tampilkan popup
+   if (password !== confirmPassword) {
+      setIsLoading(true);
       setTimeout(() => {
-        setShowSuccessPopup(false); // Sembunyikan popup
-        navigate("/Login"); // Redirect ke login
-      }, 2000);
-    } else {
-      alert(result.message);
+        setIsLoading(false);
+        setErrorMessage("Konfirmasi password tidak cocok");
+        setShowErrorPopup(true);
+        setTimeout(() => setShowErrorPopup(false), 3000);
+      }, 1000); // delay 1 detik untuk tampil spinner
+      return;
     }
+
+    setIsLoading(true);
+
+    setTimeout(async () => {
+      try {
+        const response = await fetch("http://localhost:5000/api/signup", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            name,
+            email,
+            phone,
+            password,
+            confirmPassword,
+            gender,
+            birthdate,
+          }),
+        });
+
+        const result = await response.json();
+
+        if (response.ok) {
+          setShowSuccessPopup(true);
+          setTimeout(() => {
+            setShowSuccessPopup(false);
+            navigate("/Login");
+          }, 2000);
+        } else {
+          const cleanMessage = result.message?.toLowerCase().includes("admin")
+            ? "Email sudah digunakan"
+            : result.message || "Terjadi kesalahan";
+
+          setErrorMessage(cleanMessage);
+          setShowErrorPopup(true);
+          setTimeout(() => setShowErrorPopup(false), 3000);
+        }
+      } catch {
+        setErrorMessage("Terjadi kesalahan server");
+        setShowErrorPopup(true);
+        setTimeout(() => setShowErrorPopup(false), 3000);
+      } finally {
+        setIsLoading(false);
+      }
+    }, 1000);
   };
 
   return (
     <div className="signup-page">
       <Header />
-      <br/><br/><br/><br/>
+      <br /><br /><br /><br />
       <section>
         <div className="signup-title">
           <h1>Buat Akun</h1>
@@ -126,9 +159,7 @@ const SignUp = () => {
                   onChange={(e) => setGender(e.target.value)}
                   required
                 >
-                  <option value="" disabled hidden>
-                    Pilih Gender
-                  </option>
+                  <option value="" disabled hidden>Pilih Gender</option>
                   <option value="L">Laki-laki</option>
                   <option value="P">Perempuan</option>
                 </select>
@@ -156,8 +187,8 @@ const SignUp = () => {
               </label>
             </div>
             <br />
-            <button type="submit" className="btn">
-              Mendaftar
+            <button type="submit" className="btn" disabled={isLoading}>
+              {isLoading ? "Mendaftarkan..." : "Mendaftar"}
             </button>
           </form>
         </div>
@@ -172,8 +203,26 @@ const SignUp = () => {
         </div>
       )}
 
+      {showErrorPopup && (
+        <div className="popup-overlay">
+          <div className="popup-content error">
+            <div className="error-icon">✖</div>
+            <p>{errorMessage}</p>
+          </div>
+        </div>
+      )}
+
+      {/* Loading Spinner */}
+      {isLoading && (
+        <div className="popup-overlay">
+          <div className="popup-content loading">
+            <div className="spinner"></div>
+            <p>Memproses pendaftaran...</p>
+          </div>
+        </div>
+      )}
+
       <div className="footer-separator"></div>
-      
       <Footer />
     </div>
   );

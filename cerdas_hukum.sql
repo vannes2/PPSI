@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: May 16, 2025 at 11:51 AM
+-- Generation Time: May 17, 2025 at 04:26 PM
 -- Server version: 8.0.30
 -- PHP Version: 8.3.16
 
@@ -37,15 +37,16 @@ CREATE TABLE `admin` (
   `birthdate` date DEFAULT NULL,
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `reset_token` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `reset_token_expiry` datetime DEFAULT NULL
+  `reset_token_expiry` datetime DEFAULT NULL,
+  `upload_foto` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `admin`
 --
 
-INSERT INTO `admin` (`id`, `name`, `email`, `phone`, `password`, `gender`, `birthdate`, `created_at`, `reset_token`, `reset_token_expiry`) VALUES
-(1, 'admin utama', 'admin@cerdashukum.com', '081234567890', 'admin123', 'laki-laki', '1990-01-01', '2025-04-09 14:10:24', NULL, NULL);
+INSERT INTO `admin` (`id`, `name`, `email`, `phone`, `password`, `gender`, `birthdate`, `created_at`, `reset_token`, `reset_token_expiry`, `upload_foto`) VALUES
+(1, 'admin utamaaa', 'admin@cerdashukum.com', '081234567890', 'admin123', 'laki-laki', '1989-12-25', '2025-04-09 14:10:24', NULL, NULL, 'admin_1747493609538.jpeg');
 
 -- --------------------------------------------------------
 
@@ -97,26 +98,33 @@ CREATE TABLE `artikel` (
   `judul` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `deskripsi` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `jenis_hukum` enum('KDRT','perceraian','pelanggaran_HAM') CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `filePath` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL
+  `filePath` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `nomor` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
+  `tahun` int NOT NULL,
+  `jenis_dokumen` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
+  `tempat_penetapan` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
+  `status` enum('Aktif','Tidak Aktif') COLLATE utf8mb4_general_ci NOT NULL DEFAULT 'Aktif',
+  `tanggal_penetapan` date NOT NULL DEFAULT '2000-01-01'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `artikel`
 --
 
-INSERT INTO `artikel` (`id`, `judul`, `deskripsi`, `jenis_hukum`, `filePath`) VALUES
-(1, 'coba coba', '', 'KDRT', 'uploads\\1744711708938.pdf'),
-(2, 'percobaan 4', '', 'KDRT', 'uploads\\1744711863315.pdf'),
-(3, 'percobaan 4', '', 'perceraian', 'uploads\\1744711867145.pdf'),
-(4, 'percobaan 5', '', 'perceraian', 'uploads\\1744712032876.pdf'),
-(5, 'Cerdas Hukum', '', 'perceraian', 'uploads\\1744859807604.pdf'),
-(6, 'percobaan 5', '', 'pelanggaran_HAM', 'uploads\\1744864158716.pdf'),
-(7, 'percoban 7', '', 'pelanggaran_HAM', 'uploads\\1744864306136.pdf'),
-(8, 'baru', 'test', 'perceraian', 'uploads\\1744864840891.pdf'),
-(9, 'Artikel 2', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor i', 'KDRT', 'uploads\\1744867479755.pdf'),
-(10, 'Hukum Indonesia', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer vel augue eget velit dictum volutpat. Sed nec risus nec neque egestas tristique. Vivamus id metus vel elit fringilla iaculis. Curabitur at sapien id neque feugiat vehicula. Suspendisse poten', 'pelanggaran_HAM', 'uploads\\1744896391267.pdf'),
-(26, 'sss', 'sss', 'KDRT', 'uploads\\1746201172608.pdf'),
-(27, 'jajaja', 'jaijsjao', 'perceraian', 'uploads\\1746418170165.pdf');
+INSERT INTO `artikel` (`id`, `judul`, `deskripsi`, `jenis_hukum`, `filePath`, `nomor`, `tahun`, `jenis_dokumen`, `tempat_penetapan`, `status`, `tanggal_penetapan`) VALUES
+(1, 'coba coba', '', 'KDRT', 'uploads\\1744711708938.pdf', '', 0, '', '', 'Aktif', '2000-01-01'),
+(2, 'percobaan 4', '', 'KDRT', 'uploads\\1744711863315.pdf', '', 0, '', '', 'Aktif', '2000-01-01'),
+(3, 'percobaan 4', '', 'perceraian', 'uploads\\1744711867145.pdf', '', 0, '', '', 'Aktif', '2000-01-01'),
+(4, 'percobaan 5', '', 'perceraian', 'uploads\\1744712032876.pdf', '', 0, '', '', 'Aktif', '2000-01-01'),
+(5, 'Cerdas Hukum', '', 'perceraian', 'uploads\\1744859807604.pdf', '', 0, '', '', 'Aktif', '2000-01-01'),
+(6, 'percobaan 5', '', 'pelanggaran_HAM', 'uploads\\1744864158716.pdf', '', 0, '', '', 'Aktif', '2000-01-01'),
+(7, 'percoban 7', '', 'pelanggaran_HAM', 'uploads\\1744864306136.pdf', '', 0, '', '', 'Aktif', '2000-01-01'),
+(8, 'baru', 'test', 'perceraian', 'uploads\\1744864840891.pdf', '', 0, '', '', 'Aktif', '2000-01-01'),
+(9, 'Artikel 2', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor i', 'KDRT', 'uploads\\1744867479755.pdf', '', 0, '', '', 'Aktif', '2000-01-01'),
+(10, 'Hukum Indonesia', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer vel augue eget velit dictum volutpat. Sed nec risus nec neque egestas tristique. Vivamus id metus vel elit fringilla iaculis. Curabitur at sapien id neque feugiat vehicula. Suspendisse poten', 'pelanggaran_HAM', 'uploads\\1744896391267.pdf', '', 0, '', '', 'Aktif', '2000-01-01'),
+(26, 'sss', 'sss', 'KDRT', 'uploads\\1746201172608.pdf', '', 0, '', '', 'Aktif', '2000-01-01'),
+(27, 'jajaja', 'jaijsjao', 'perceraian', 'uploads\\1746418170165.pdf', '', 0, '', '', 'Aktif', '2000-01-01'),
+(28, 'tes', 'tes', 'pelanggaran_HAM', 'uploads\\1747473642414.pdf', 'tes', 2025, 'tes', 'tes', 'Aktif', '2025-05-17');
 
 -- --------------------------------------------------------
 
@@ -325,7 +333,35 @@ CREATE TABLE `log_pertanyaan_user` (
 INSERT INTO `log_pertanyaan_user` (`id`, `user_id`, `pertanyaan`, `intent_didapat`, `confidence_score`, `waktu`) VALUES
 (1, NULL, 'hallo', NULL, '0.00', '2025-05-16 09:16:05'),
 (2, NULL, 'hallo', NULL, '0.00', '2025-05-16 09:16:26'),
-(3, NULL, 'Kontrak kerja', 'kontrak kerja', '1.00', '2025-05-16 11:08:38');
+(3, NULL, 'Kontrak kerja', 'kontrak kerja', '1.00', '2025-05-16 11:08:38'),
+(4, NULL, 'Apa itu KDRT', 'kdrt', '0.50', '2025-05-16 11:55:11'),
+(5, NULL, 'KDRT', 'kdrt', '1.00', '2025-05-16 11:55:21'),
+(6, NULL, 'tes', NULL, '0.00', '2025-05-16 13:08:27'),
+(7, NULL, 'tes', NULL, '0.00', '2025-05-16 13:10:03'),
+(8, NULL, 'hallo', NULL, '0.00', '2025-05-16 13:11:50'),
+(9, NULL, 'tes', NULL, '0.00', '2025-05-16 13:16:21'),
+(10, NULL, 'tes', NULL, '0.00', '2025-05-16 13:16:25'),
+(11, NULL, 'tes', NULL, '0.00', '2025-05-16 13:16:36'),
+(12, NULL, 'tes', NULL, '0.00', '2025-05-16 13:17:47'),
+(13, NULL, 'tes', NULL, '0.00', '2025-05-16 13:17:52'),
+(14, NULL, 'tes', NULL, '0.00', '2025-05-16 13:22:39'),
+(15, NULL, 'tes', NULL, '0.00', '2025-05-16 13:22:44'),
+(16, NULL, 'apa itu uu ite', 'ite', '0.57', '2025-05-16 13:26:42'),
+(17, NULL, 'a', NULL, '0.00', '2025-05-16 13:38:50'),
+(18, NULL, 'a', NULL, '0.00', '2025-05-16 13:38:53'),
+(19, NULL, 'sdasdas', NULL, '0.00', '2025-05-16 13:38:58'),
+(20, NULL, 'a', NULL, '0.00', '2025-05-16 13:42:38'),
+(21, NULL, 'a', NULL, '0.00', '2025-05-16 13:42:41'),
+(22, NULL, 'tes', NULL, '0.00', '2025-05-16 13:51:34'),
+(23, NULL, 'aaas', NULL, '0.00', '2025-05-16 14:01:26'),
+(24, NULL, 'apa itu KDRT', 'kdrt', '0.50', '2025-05-16 18:31:50'),
+(25, NULL, 'APA ITU uu ite', 'ite', '0.57', '2025-05-16 18:32:31'),
+(26, NULL, 'hallo', NULL, '0.00', '2025-05-16 18:32:40'),
+(27, NULL, 'hallo', NULL, '0.00', '2025-05-16 20:18:44'),
+(28, NULL, 'perceraian', 'perceraian', '1.00', '2025-05-16 21:26:04'),
+(29, NULL, 'saya punya masalah perceraian', 'perceraian', '0.53', '2025-05-16 21:26:26'),
+(30, NULL, 'berikan solusi nya', NULL, '0.00', '2025-05-16 21:26:35'),
+(31, NULL, 'apa itu uu ite', 'ite', '0.57', '2025-05-17 03:34:23');
 
 -- --------------------------------------------------------
 
@@ -748,7 +784,7 @@ ALTER TABLE `ajukan_kasus`
 -- AUTO_INCREMENT for table `artikel`
 --
 ALTER TABLE `artikel`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
 
 --
 -- AUTO_INCREMENT for table `artikel_berita`
@@ -784,7 +820,7 @@ ALTER TABLE `log_aktivitas`
 -- AUTO_INCREMENT for table `log_pertanyaan_user`
 --
 ALTER TABLE `log_pertanyaan_user`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
 
 --
 -- AUTO_INCREMENT for table `messages`
