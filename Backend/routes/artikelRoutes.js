@@ -10,16 +10,23 @@ const storage = multer.diskStorage({
     cb(null, "uploads/");
   },
   filename: function (req, file, cb) {
+    // Gunakan timestamp agar nama file unik, dan aman
     cb(null, Date.now() + path.extname(file.originalname));
   },
 });
 
+// Inisialisasi middleware upload
 const upload = multer({ storage: storage });
+
+// ======================= ROUTES ======================= //
 
 // ✅ GET semua artikel
 router.get("/artikel", ArtikelController.getAllArtikel);
 
-// ✅ POST upload artikel (gunakan controller, jangan inline)
+// ✅ GET artikel berdasarkan ID
+router.get("/artikel/:id", ArtikelController.getArtikelById);
+
+// ✅ POST artikel dengan file upload
 router.post("/artikel", upload.single("file"), ArtikelController.uploadArtikel);
 
 module.exports = router;

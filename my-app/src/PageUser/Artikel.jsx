@@ -1,4 +1,5 @@
-import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
+import { useState, useEffect } from "react";
 import axios from "axios";
 import HeaderAfter from "../components/HeaderAfter";
 import Footer from "../components/Footer";
@@ -25,25 +26,20 @@ const Artikel = () => {
     }
   };
 
-  const handleDownload = (filePath) => {
-    const fileName = filePath.split(/[\\/]/).pop();
-    window.open(`http://localhost:5000/uploads/${fileName}`, "_blank");
-  };
-
-  useEffect(() => {
-    window.scrollTo(0, 0);
-  }, []);
-
   const filteredArtikels = artikels.filter(
     (artikel) =>
       artikel.judul.toLowerCase().includes(filterText.toLowerCase()) &&
       (filterJenis === "" || artikel.jenis_hukum === filterJenis)
   );
 
+  const handleDownload = (filePath) => {
+    const fileName = filePath.split(/[\\/]/).pop();
+    window.open(`http://localhost:5000/uploads/${fileName}`, "_blank");
+  };
+
   return (
     <div className="artikel-page">
       <HeaderAfter />
-      <br /><br /><br /><br /><br /><br />
       <div className="artikel-header-bar">
         <h1 className="artikel-heading">Daftar Dokumen</h1>
       </div>
@@ -58,7 +54,7 @@ const Artikel = () => {
                 <tr>
                   <th className="artikel-th artikel-th-rounded">
                     <div className="artikel-th-flex">
-                      <span className="artikel-th-title">Judul & Deskripsi</span>
+                      <span className="artikel-th-title">Filter</span>
                       <input
                         type="text"
                         className="artikel-filter-input-inline"
@@ -90,15 +86,19 @@ const Artikel = () => {
                 ) : (
                   filteredArtikels.map((artikel, index) => (
                     <tr key={artikel.id} className="artikel-tr artikel-tr-hover">
-                      <td
-                        className={`artikel-td ${
-                          index === filteredArtikels.length - 1 ? "artikel-td-rounded" : ""
-                        }`}
-                      >
-                        <div className="artikel-judul">{artikel.judul}</div>
+                      <td className={`artikel-td ${index === filteredArtikels.length - 1 ? "artikel-td-rounded" : ""}`}>
+                        <div className="artikel-judul">
+                          <Link to={`/artikel/${artikel.id}`}>{artikel.judul}</Link>
+                        </div>
                         <div className="artikel-deskripsi">{artikel.deskripsi}</div>
-                        <div className="artikel-jenis">
-                          <strong>Jenis Hukum:</strong> {artikel.jenis_hukum}
+                        <div className="artikel-info">
+                          <p><strong>Jenis Hukum:</strong> {artikel.jenis_hukum}</p>
+                          <p><strong>Nomor:</strong> {artikel.nomor}</p>
+                          <p><strong>Tahun:</strong> {artikel.tahun}</p>
+                          <p><strong>Jenis Dokumen:</strong> {artikel.jenis_dokumen}</p>
+                          <p><strong>Tempat Penetapan:</strong> {artikel.tempat_penetapan}</p>
+                          <p><strong>Status:</strong> {artikel.status}</p>
+                          <p><strong>Tanggal Penetapan:</strong> {new Date(artikel.tanggal_penetapan).toLocaleDateString()}</p>
                         </div>
                         <br />
                         <button
@@ -117,7 +117,6 @@ const Artikel = () => {
         </div>
       )}
 
-      <div className="footer-separator"></div>
       <Footer />
     </div>
   );

@@ -2,26 +2,57 @@ const Artikel = require("../models/Artikel");
 
 exports.uploadArtikel = async (req, res) => {
   try {
-    const { judul, deskripsi, jenis_hukum } = req.body;  // Retrieve the correct values from the body
-    const file = req.file;  // Retrieve the file
+    const {
+      judul,
+      deskripsi,
+      jenis_hukum,
+      nomor,
+      tahun,
+      jenis_dokumen,
+      tanggal_penetapan,
+      tempat_penetapan,
+      status,
+    } = req.body;
 
-    console.log("Request body:", req.body);  // Log the received data
+    const file = req.file;
 
-    if (!judul || !deskripsi || !jenis_hukum || !file) {
-      return res.status(400).json({ message: "Judul, deskripsi, jenis hukum, dan file wajib diisi." });
+    console.log("BODY:", req.body);
+    console.log("FILE:", file);
+
+    // Validasi field
+    if (
+      !judul || !deskripsi || !jenis_hukum || !file ||
+      !nomor || !tahun || !jenis_dokumen ||
+      !tanggal_penetapan || !tempat_penetapan || !status
+    ) {
+      return res.status(400).json({
+        message: "Semua field wajib diisi.",
+      });
     }
 
     const filePath = file.path;
 
-    // Ensure the data is passed correctly to the model
-    Artikel.createArtikel(judul, deskripsi, jenis_hukum, filePath, (err, result) => {
-      if (err) {
-        return res.status(500).json({ message: "Gagal menyimpan artikel." });
+    Artikel.createArtikel(
+      judul,
+      deskripsi,
+      jenis_hukum,
+      filePath,
+      nomor,
+      parseInt(tahun),
+      jenis_dokumen,
+      tanggal_penetapan,
+      tempat_penetapan,
+      status,
+      (err, result) => {
+        if (err) {
+          console.error("Gagal menyimpan artikel:", err.sqlMessage || err.message);
+          return res.status(500).json({ message: "Gagal menyimpan artikel." });
+        }
+        res.status(201).json({ message: "Artikel berhasil ditambahkan." });
       }
-      res.status(201).json({ message: "Artikel berhasil ditambahkan." });
-    });
+    );
   } catch (err) {
-    console.error("Upload gagal:", err);
+    console.error("Upload gagal:", err.message);
     res.status(500).json({ message: "Terjadi kesalahan saat upload artikel." });
   }
 };
@@ -29,9 +60,23 @@ exports.uploadArtikel = async (req, res) => {
 exports.getAllArtikel = (req, res) => {
   Artikel.getAllArtikel((err, results) => {
     if (err) {
-      console.error("Gagal ambil artikel:", err);
+      console.error("Gagal ambil artikel:", err.message);
       return res.status(500).json({ message: "Gagal mengambil data artikel." });
     }
     res.json(results);
+  });
+};
+
+exports.getArtikelById = (req, res) => {
+  const { id } = req.params;
+  Artikel.getArtikelById(id, (err, result) => {
+    if (err) {
+      console.error("Gagal ambil artikel:", err.message);
+      return res.status(500).json({ message: "Gagal mengambil artikel." });
+    }
+    if (!result) {
+      return res.status(404).json({ message: "Artikel tidak ditemukan" });
+    }
+    res.json(result);
   });
 };

@@ -11,14 +11,14 @@ import ProfileEdit from "./PageUser/ProfileEdit";
 import ProfileView from "./PageUser/ProfileView";
 import Konsultasi from "./PageUser/konsultasi";
 import Artikel from "./PageUser/Artikel";
+import ArtikelDetail from "./PageUser/ArtikelDetail";
 import ChatPage from "./PageUser/ChatPage";
 import Payment from "./PageUser/Payment";
 import AjukanKasus from "./PageUser/AjukanKasus";
-import DaftarKasus from './PageUser/DaftarKasus';
+import DaftarKasus from "./PageUser/DaftarKasus";
 import ForgotPassword from "./PageUser/ForgotPassword";
 import VerifyOtp from "./PageUser/VerifyOtp";
 import ResetPassword from "./PageUser/ResetPassword";
-import ArtikelBerita from "./PageUser/ArtikelBerita";
 import DetailBerita from "./PageUser/DetailBerita";
 import RiwayatChatPage from "./PageUser/RiwayatChatPage"
 
@@ -31,8 +31,8 @@ import TambahArtikel from "./PageAdmin/TambahArtikel";
 import LawyerRegistrations from "./PageAdmin/LawyerRegistrations";
 import ProfilAdmin from "./PageAdmin/ProfilAdmin";
 import UserManagement from "./PageAdmin/UserManagement";
-import ArtikelBeritaUser from "./PageUser/ArtikelBerita"; // ganti nama import
-import ArtikelBeritaAdmin from "./PageAdmin/ArtikelBeritaAdmin"; // tetap
+import ArtikelBeritaUser from "./PageUser/ArtikelBerita"; 
+import ArtikelBeritaAdmin from "./PageAdmin/ArtikelBeritaAdmin"; 
 import RiwayatPertanyaanUser from "./PageAdmin/RiwayatPertanyaanUser";
 import FaqAdmin from "./PageAdmin/FaqAdmin";
 
@@ -45,7 +45,7 @@ import ProfileLawyer from "./PageLawyer/ProfileLawyer";
 import KonsultasiLawyer from "./PageLawyer/KonsultasiLawyer";
 import SelectUser from "./PageLawyer/selectUser";
 import ProfileEditLawyer from "./PageLawyer/ProfileEditLawyer";
-import DaftarKasusLawyer from './PageLawyer/DaftarKasusLawyer';
+import DaftarKasusLawyer from "./PageLawyer/DaftarKasusLawyer";
 
 // BotChat
 import ChatBotWidget from "./ChatBot/ChatBotWidget";
@@ -87,6 +87,7 @@ function App() {
                 <Route path="/ArtikelBerita" element={<ArtikelBeritaUser />} />
                 <Route path="/DetailBerita/:id" element={<DetailBerita />} />
                 <Route path="/RiwayatChatPage" element={<RiwayatChatPage />} />
+                <Route path="/artikel/:id" element={<ArtikelDetail />} />
 
                 {/* ✅ Admin Routes */}
                 <Route path="/HomeAdmin" element={<HomeAdmin />} />

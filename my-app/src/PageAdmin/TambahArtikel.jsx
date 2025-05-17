@@ -6,35 +6,63 @@ import "../CSS_Admin/Pengacara.css";
 const TambahArtikel = () => {
   const [judul, setJudul] = useState("");
   const [deskripsi, setDeskripsi] = useState("");
-  const [jenis_hukum, setJenishukum] = useState(""); // Ensure this is correct
+  const [jenis_hukum, setJenishukum] = useState("");
   const [filePdf, setFilePdf] = useState(null);
+  const [nomor, setNomor] = useState("");
+  const [tahun, setTahun] = useState("");
+  const [jenis_dokumen, setJenisDokumen] = useState("");
+  const [tanggal_penetapan, setTanggalPenetapan] = useState("");
+  const [tempat_penetapan, setTempatPenetapan] = useState("");
+  const [status, setStatus] = useState("Aktif");
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (!judul || !deskripsi || !filePdf || !jenis_hukum) {
-      return alert("Judul, deskripsi, jenis hukum, dan file PDF wajib diisi!");
+    if (
+      !judul ||
+      !deskripsi ||
+      !jenis_hukum ||
+      !filePdf ||
+      !nomor ||
+      !tahun ||
+      !jenis_dokumen ||
+      !tanggal_penetapan ||
+      !tempat_penetapan ||
+      !status
+    ) {
+      return alert("Semua field wajib diisi!");
     }
 
-    // Create FormData object and append fields
     const formData = new FormData();
     formData.append("judul", judul);
     formData.append("deskripsi", deskripsi);
     formData.append("jenis_hukum", jenis_hukum);
     formData.append("file", filePdf);
-    
+    formData.append("nomor", nomor);
+    formData.append("tahun", tahun);
+    formData.append("jenis_dokumen", jenis_dokumen);
+    formData.append("tanggal_penetapan", tanggal_penetapan);
+    formData.append("tempat_penetapan", tempat_penetapan);
+    formData.append("status", status);
 
     try {
       await axios.post("http://localhost:5000/api/artikel", formData, {
         headers: {
-          "Content-Type": "multipart/form-data", // Ensure it's set to multipart/form-data
+          "Content-Type": "multipart/form-data",
         },
       });
 
       alert("Artikel berhasil ditambahkan!");
       setJudul("");
       setDeskripsi("");
+      setJenishukum("");
       setFilePdf(null);
+      setNomor("");
+      setTahun("");
+      setJenisDokumen("");
+      setTanggalPenetapan("");
+      setTempatPenetapan("");
+      setStatus("Aktif");
     } catch (error) {
       console.error("Gagal menambahkan artikel:", error);
       alert("Terjadi kesalahan saat menambahkan artikel");
@@ -44,10 +72,8 @@ const TambahArtikel = () => {
   return (
     <div className="Tambah-Artikel">
       <SidebarAdmin />
-
       <main className="admin-content">
         <h2 className="admin-title">Tambah Artikel Baru</h2>
-
         <form onSubmit={handleSubmit} className="admin-form" encType="multipart/form-data">
           <input
             type="text"
@@ -60,7 +86,7 @@ const TambahArtikel = () => {
 
           <select
             value={jenis_hukum}
-            onChange={(e) => setJenishukum(e.target.value)} // Update the dropdown value correctly
+            onChange={(e) => setJenishukum(e.target.value)}
             className="admin-input"
             required
           >
@@ -78,6 +104,60 @@ const TambahArtikel = () => {
             className="admin-input"
             required
           />
+
+          <input
+            type="text"
+            placeholder="Nomor Dokumen"
+            value={nomor}
+            onChange={(e) => setNomor(e.target.value)}
+            className="admin-input"
+            required
+          />
+
+          <input
+            type="number"
+            placeholder="Tahun"
+            value={tahun}
+            onChange={(e) => setTahun(e.target.value)}
+            className="admin-input"
+            required
+          />
+
+          <input
+            type="text"
+            placeholder="Jenis Dokumen"
+            value={jenis_dokumen}
+            onChange={(e) => setJenisDokumen(e.target.value)}
+            className="admin-input"
+            required
+          />
+
+          <input
+            type="date"
+            value={tanggal_penetapan}
+            onChange={(e) => setTanggalPenetapan(e.target.value)}
+            className="admin-input"
+            required
+          />
+
+          <input
+            type="text"
+            placeholder="Tempat Penetapan"
+            value={tempat_penetapan}
+            onChange={(e) => setTempatPenetapan(e.target.value)}
+            className="admin-input"
+            required
+          />
+
+          <select
+            value={status}
+            onChange={(e) => setStatus(e.target.value)}
+            className="admin-input"
+            required
+          >
+            <option value="Aktif">Aktif</option>
+            <option value="Tidak Aktif">Tidak Aktif</option>
+          </select>
 
           <input
             type="file"

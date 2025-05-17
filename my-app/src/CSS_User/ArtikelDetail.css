@@ -1,0 +1,51 @@
+/* Artikel Detail Page */
+.artikel-detail-page {
+  padding: 20px;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.artikel-detail-container {
+  background-color: #f9f9f9;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+}
+
+.artikel-detail-container h1 {
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 15px;
+}
+
+.artikel-detail-content p {
+  font-size: 16px;
+  color: #555;
+  margin-bottom: 15px;
+}
+
+.artikel-download-btn {
+  padding: 10px 15px;
+  background-color: #B31312;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  text-align: center;
+}
+
+.artikel-download-btn:hover {
+  background-color: #FF6347;
+}
+
+/* Styling untuk menyesuaikan dengan ukuran header dan footer */
+.artikel-detail-page {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.artikel-detail-main {
+  flex: 1;
+  margin-top: 70px; /* Tambahkan space untuk header */
+  margin-bottom: 70px; /* Tambahkan space untuk footer */
+}
