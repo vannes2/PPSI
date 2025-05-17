@@ -59,6 +59,7 @@ const ArtikelDetail = () => {
           <p>Artikel tidak ditemukan.</p>
         )}
       </div>
+      <div className="footer-separator"></div>
       <Footer />
     </div>
   );
