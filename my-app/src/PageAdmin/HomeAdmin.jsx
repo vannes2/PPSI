@@ -5,9 +5,8 @@ import axios from "axios";
 import "../CSS_Admin/HomeAdmin.css";
 import AdminLayout from "../components/AdminLayout";
 
-
 const HomeAdmin = () => {
-  const [activeTab, setActiveTab] = useState("pengacara");
+  const [activeTab] = useState("pengacara");
   const [pengacara, setPengacara] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
   const tableRef = useRef(null);
@@ -56,23 +55,22 @@ const HomeAdmin = () => {
   };
 
   const filteredPengacara = pengacara.filter((lawyer) =>
-    lawyer.nama.toLowerCase().includes(searchTerm.toLowerCase())
+    lawyer.nama?.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
   return (
-        <AdminLayout>
-    <div className="dashboard-wrapper flex">
-      <main className="dashboard-content">
-        {activeTab === "pengacara" && (
-          <div>
+    <AdminLayout>
+      {activeTab === "pengacara" && (
+        <div>
+          <div className="detail-data">
             <h2>Daftar Pengacara</h2>
             <p><strong>Tabel:</strong> pengacara</p>
             <p><strong>Jumlah Data:</strong> {filteredPengacara.length}</p>
 
             <input
+              className="search-input"
               type="text"
               placeholder="Cari pengacara..."
-              className="search-input"
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
             />
@@ -85,91 +83,99 @@ const HomeAdmin = () => {
                 Refresh
               </button>
             </div>
+          </div>
 
-            <div className="table-wrapper">
-              <div ref={tableRef} className="table-scroll">
-                <table>
-                  <thead>
-                    <tr>
-                      <th>ID</th>
-                      <th>Nama</th>
-                      <th>KTP</th>
-                      <th>Tanggal Lahir</th>
-                      <th>Jenis Kelamin</th>
-                      <th>Alamat</th>
-                      <th>Email</th>
-                      <th>No HP</th>
-                      <th>Nomor Induk Advokat</th>
-                      <th>Universitas</th>
-                      <th>Pendidikan</th>
-                      <th>Spesialisasi</th>
-                      <th>Pengalaman</th>
-                      <th>Upload KTP</th>
-                      <th>Upload Foto</th>
-                      <th>Upload Kartu Advokat</th>
-                      <th>Upload PKPA</th>
-                      <th>Username</th>
-                      <th>Password</th>
-                      <th>Tanggal Daftar</th>
-                      <th>Aksi</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {filteredPengacara.length > 0 ? (
-                      filteredPengacara.map((lawyer) => (
-                        <tr key={lawyer.id}>
-                          <td>{lawyer.id}</td>
-                          <td>{lawyer.nama ?? "-"}</td>
-                          <td>{lawyer.ktp ?? "-"}</td>
-                          <td>{lawyer.tanggal_lahir ?? "-"}</td>
-                          <td>{lawyer.jenis_kelamin ?? "-"}</td>
-                          <td>{lawyer.alamat ?? "-"}</td>
-                          <td>{lawyer.email ?? "-"}</td>
-                          <td>{lawyer.no_hp ?? "-"}</td>
-                          <td>{lawyer.nomor_induk_advokat ?? "-"}</td>
-                          <td>{lawyer.universitas ?? "-"}</td>
-                          <td>{lawyer.pendidikan ?? "-"}</td>
-                          <td>{lawyer.spesialisasi ?? "-"}</td>
-                          <td>{lawyer.pengalaman ? `${lawyer.pengalaman} tahun` : "-"}</td>
-                          <td>{lawyer.upload_ktp ?? "-"}</td>
-                          <td>{lawyer.upload_foto ?? "-"}</td>
-                          <td>{lawyer.upload_kartu_advokat ?? "-"}</td>
-                          <td>{lawyer.upload_pkpa ?? "-"}</td>
-                          <td>{lawyer.username ?? "-"}</td>
-                          <td>{lawyer.password ?? "-"}</td>
-                          <td>
-                            {lawyer.tanggal_daftar !== "0000-00-00"
-                              ? new Date(lawyer.tanggal_daftar).toLocaleDateString("id-ID")
-                              : "-"}
-                          </td>
-                          <td>
-                            <div className="table-actions">
-                              <button className="btn-view" onClick={() => handleViewClick(lawyer.id)}>
-                                <FaEye /> View
-                              </button>
-                              <button className="btn-edit" onClick={() => handleEditClick(lawyer.id)}>
-                                <FaEdit /> Edit
-                              </button>
-                              <button className="btn-delete" onClick={() => handleDelete(lawyer.id)}>
-                                <FaTrash /> Delete
-                              </button>
-                            </div>
-                          </td>
-                        </tr>
-                      ))
-                    ) : (
-                      <tr>
-                        <td colSpan="21">Tidak ada data pengacara.</td>
+          <div className="table-wrapper">
+            <div ref={tableRef} className="table-scroll">
+              <table>
+                <thead>
+                  <tr>
+                    <th>ID</th>
+                    <th>Nama</th>
+                    <th>KTP</th>
+                    <th>Tanggal Lahir</th>
+                    <th>Jenis Kelamin</th>
+                    <th>Alamat</th>
+                    <th>Email</th>
+                    <th>No HP</th>
+                    <th>No Induk Advokat</th>
+                    <th>Universitas</th>
+                    <th>Pendidikan</th>
+                    <th>Spesialisasi</th>
+                    <th>Pengalaman</th>
+                    <th>Upload KTP</th>
+                    <th>Foto</th>
+                    <th>Kartu Advokat</th>
+                    <th>PKPA</th>
+                    <th>Username</th>
+                    <th>Password</th>
+                    <th>Tanggal Daftar</th>
+                    <th>Aksi</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {filteredPengacara.length > 0 ? (
+                    filteredPengacara.map((lawyer) => (
+                      <tr key={lawyer.id}>
+                        <td>{lawyer.id}</td>
+                        <td>{lawyer.nama}</td>
+                        <td>{lawyer.ktp}</td>
+                        <td>{lawyer.tanggal_lahir}</td>
+                        <td>{lawyer.jenis_kelamin}</td>
+                        <td>{lawyer.alamat}</td>
+                        <td>{lawyer.email}</td>
+                        <td>{lawyer.no_hp}</td>
+                        <td>{lawyer.nomor_induk_advokat}</td>
+                        <td>{lawyer.universitas}</td>
+                        <td>{lawyer.pendidikan}</td>
+                        <td>{lawyer.spesialisasi}</td>
+                        <td>{lawyer.pengalaman}</td>
+                        <td>{lawyer.upload_ktp}</td>
+                        <td>
+                          {lawyer.upload_foto ? (
+                            <img
+                              src={`http://localhost:5000/uploads/${lawyer.upload_foto}`}
+                              alt="foto"
+                              width="50"
+                              style={{ borderRadius: "5px" }}
+                            />
+                          ) : (
+                            "Tidak Ada"
+                          )}
+                        </td>
+                        <td>{lawyer.upload_kartu_advokat}</td>
+                        <td>{lawyer.upload_pkpa}</td>
+                        <td>{lawyer.username}</td>
+                        <td>{lawyer.password}</td>
+                        <td>{lawyer.tanggal_daftar}</td>
+                        <td>
+                          <div className="table-actions">
+                            <button className="btn-view" onClick={() => handleViewClick(lawyer.id)}>
+                              <FaEye /> View
+                            </button>
+                            <button className="btn-edit" onClick={() => handleEditClick(lawyer.id)}>
+                              <FaEdit /> Edit
+                            </button>
+                            <button className="btn-delete" onClick={() => handleDelete(lawyer.id)}>
+                              <FaTrash /> Delete
+                            </button>
+                          </div>
+                        </td>
                       </tr>
-                    )}
-                  </tbody>
-                </table>
-              </div>
+                    ))
+                  ) : (
+                    <tr>
+                      <td colSpan="21" style={{ textAlign: "center", color: "#888", padding: "20px" }}>
+                        🔍 Data pengacara tidak ditemukan.
+                      </td>
+                    </tr>
+                  )}
+                </tbody>
+              </table>
             </div>
           </div>
-        )}
-      </main>
-    </div>
+        </div>
+      )}
     </AdminLayout>
   );
 };
