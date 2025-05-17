@@ -3,9 +3,11 @@ import PropTypes from "prop-types";
 
 const AdminLayout = ({ children }) => {
   return (
-    <div className="dashboard-wrapper" style={{ display: "flex", minHeight: "100vh" }}>
-      <SidebarAdmin activeTab="" onTabChange={() => {}} />
-      <div className="dashboard-content" style={{ flex: 1, padding: "20px" }}>
+    <div className="dashboard-wrapper">
+      <div className="dashboard-sidebar">
+        <SidebarAdmin activeTab="" onTabChange={() => {}} />
+      </div>
+      <div className="dashboard-content">
         {children}
       </div>
     </div>

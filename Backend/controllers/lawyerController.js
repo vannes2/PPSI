@@ -196,14 +196,17 @@ exports.updateLawyerProfile = (req, res) => {
   });
 };
 
+
 // GET /api/pengacara
 exports.getAllLawyers = (req, res) => {
+  console.log("🔥 getAllLawyers TERPANGGIL!"); // <- Tambahkan ini
   const sql = `
-    SELECT id, nama, ktp, tanggal_lahir, jenis_kelamin, alamat, email, no_hp,
-           nomor_induk_advokat, universitas, pendidikan, spesialisasi, pengalaman,
-           upload_ktp, upload_foto, upload_kartu_advokat, upload_pkpa,
-           username, password, tanggal_daftar,
-           linkedin, instagram, twitter, resume_cv, portofolio
+    SELECT 
+      id, nama, ktp, tanggal_lahir, jenis_kelamin, alamat,
+      email, no_hp, nomor_induk_advokat, universitas,
+      pendidikan, spesialisasi, pengalaman,
+      upload_ktp, upload_foto, upload_kartu_advokat, upload_pkpa,
+      username, tanggal_daftar
     FROM pengacara
   `;
 

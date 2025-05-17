@@ -34,11 +34,11 @@ app.use(bodyParser.json());
 
 // Gunakan rute API
 app.use("/api", authRoutes);
+app.use("/api", lawyerRoutes);
 app.use("/api", pengacaraRoutes);
 app.use("/api", userRoutes);
 app.use("/api", artikelRoutes);
 app.use("/uploads", express.static("uploads"));
-app.use("/api", lawyerRoutes);
 app.use("/api/chat", chatRoutes);   // Route untuk chat
 app.use("/api", adminRoutes);
 app.use("/api", profilpengacaraRoutes);
