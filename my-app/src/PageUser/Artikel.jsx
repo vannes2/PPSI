@@ -88,17 +88,23 @@ const Artikel = () => {
                     <tr key={artikel.id} className="artikel-tr artikel-tr-hover">
                       <td className={`artikel-td ${index === filteredArtikels.length - 1 ? "artikel-td-rounded" : ""}`}>
                         <div className="artikel-judul">
-                          <Link to={`/artikel/${artikel.id}`}>{artikel.judul}</Link>
+                          <Link to={`/artikel/${artikel.id}`} className="artikel-judul-link">
+                            {artikel.judul}
+                          </Link>
                         </div>
                         <div className="artikel-deskripsi">{artikel.deskripsi}</div>
-                        <div className="artikel-info">
+                        <div className="artikel-info-horizontal">
                           <p><strong>Jenis Hukum:</strong> {artikel.jenis_hukum}</p>
-                          <p><strong>Nomor:</strong> {artikel.nomor}</p>
-                          <p><strong>Tahun:</strong> {artikel.tahun}</p>
-                          <p><strong>Jenis Dokumen:</strong> {artikel.jenis_dokumen}</p>
-                          <p><strong>Tempat Penetapan:</strong> {artikel.tempat_penetapan}</p>
-                          <p><strong>Status:</strong> {artikel.status}</p>
-                          <p><strong>Tanggal Penetapan:</strong> {new Date(artikel.tanggal_penetapan).toLocaleDateString()}</p>
+                          <div className="artikel-tanggal-wrapper">
+                            <span className="tahun-box">{artikel.tahun}</span>
+                            <span className="tanggal-box">
+                              {new Date(artikel.tanggal_penetapan).toLocaleDateString("id-ID", {
+                                day: "numeric",
+                                month: "long",
+                                year: "numeric",
+                              })}
+                            </span>
+                          </div>
                         </div>
                         <br />
                         <button

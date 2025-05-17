@@ -1,51 +1,118 @@
-/* Artikel Detail Page */
-.artikel-detail-page {
-  padding: 20px;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-}
-
-.artikel-detail-container {
-  background-color: #f9f9f9;
-  padding: 20px;
-  border-radius: 10px;
-  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
-}
-
-.artikel-detail-container h1 {
-  font-size: 24px;
-  font-weight: bold;
-  margin-bottom: 15px;
-}
-
-.artikel-detail-content p {
-  font-size: 16px;
-  color: #555;
-  margin-bottom: 15px;
-}
-
-.artikel-download-btn {
-  padding: 10px 15px;
-  background-color: #B31312;
-  color: white;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  text-align: center;
-}
-
-.artikel-download-btn:hover {
-  background-color: #FF6347;
-}
-
-/* Styling untuk menyesuaikan dengan ukuran header dan footer */
+/* ===================== WRAPPER UTAMA ===================== */
 .artikel-detail-page {
   display: flex;
   flex-direction: column;
   min-height: 100vh;
+  background-color: #fffef0;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  padding-top: 100px; /* agar tidak ketutup header */
+  box-sizing: border-box;
 }
 
 .artikel-detail-main {
   flex: 1;
-  margin-top: 70px; /* Tambahkan space untuk header */
-  margin-bottom: 70px; /* Tambahkan space untuk footer */
+  width: 90%;
+  max-width: 900px;
+  margin: 0 auto;
+  padding-bottom: 100px; /* agar tidak ketutup footer */
+}
+
+/* ===================== KONTEN CONTAINER ===================== */
+.artikel-detail-container {
+  background-color: #ffffff;
+  padding: 30px 28px;
+  border-radius: 12px;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1);
+  border: 1px solid #e5e5e5;
+}
+
+/* ===================== JUDUL ARTIKEL ===================== */
+.artikel-detail-container h1 {
+  font-size: 28px;
+  font-weight: 700;
+  color: #222;
+  margin-bottom: 25px;
+  line-height: 1.4;
+}
+
+/* ===================== ISI DETAIL ===================== */
+.artikel-detail-content p {
+  font-size: 16px;
+  color: #444;
+  margin-bottom: 14px;
+  line-height: 1.6;
+}
+
+.artikel-detail-content p strong {
+  color: #B31312;
+}
+
+/* ===================== TOMBOL DOWNLOAD ===================== */
+.artikel-download-btn {
+  display: inline-block;
+  margin-top: 20px;
+  padding: 10px 20px;
+  background: linear-gradient(to right, #c90c0c, #e52d27);
+  color: #fff;
+  font-weight: bold;
+  border: none;
+  border-radius: 30px;
+  cursor: pointer;
+  font-size: 15px;
+  transition: all 0.3s ease;
+}
+
+.artikel-download-btn:hover {
+  background: #fff;
+  color: #c90c0c;
+  border: 2px solid #c90c0c;
+}
+
+/* ===================== LOADING / ERROR TEXT ===================== */
+.text-center {
+  text-align: center;
+}
+
+.text-gray-500 {
+  color: #666;
+  font-size: 16px;
+}
+
+/* ===================== RESPONSIVE ===================== */
+@media (max-width: 768px) {
+  .artikel-detail-container {
+    padding: 24px 20px;
+  }
+
+  .artikel-detail-container h1 {
+    font-size: 22px;
+  }
+
+  .artikel-detail-content p {
+    font-size: 15px;
+  }
+
+  .artikel-download-btn {
+    padding: 9px 18px;
+    font-size: 14px;
+  }
+}
+
+@media (max-width: 480px) {
+  .artikel-detail-container {
+    padding: 20px 16px;
+  }
+
+  .artikel-detail-container h1 {
+    font-size: 20px;
+  }
+
+  .artikel-detail-content p {
+    font-size: 14px;
+  }
+
+  .artikel-download-btn {
+    padding: 8px 16px;
+    font-size: 13px;
+  }
 }
