@@ -1,48 +1,45 @@
-/* Main Admin Page */
+/* ================= MAIN LAYOUT ================= */
 .dashboard-wrapper {
   display: flex;
   min-height: 100vh;
   background-color: #f7f7f7;
 }
 
-/* Sidebar Style */
+/* ================= SIDEBAR ================= */
 .sidebar-admin {
   width: 250px;
   background-color: #1e293b;
   color: white;
   display: flex;
   flex-direction: column;
-  padding-top: 20px;
-  padding-bottom: 20px;
+  padding: 20px 0;
   box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
 }
 
-/* Profil Admin Container */
+/* ================= CONTENT WRAPPER ================= */
 .admin-page {
   flex: 1;
   display: flex;
   justify-content: center;
-  padding: 20px;
+  padding: 100px 20px 40px; /* ✅ Tambah padding atas agar foto terlihat */
 }
 
-/* Profil Admin Container */
+/* ================= CONTAINER ================= */
 .profil-admin-container {
   background-color: #ffffff;
-  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1); /* Added box shadow */
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
   width: 100%;
-  max-width: 650px;
+  max-width: 700px;
   padding: 40px;
   border-radius: 12px;
   text-align: left;
   display: flex;
   flex-direction: column;
-  justify-content: flex-start;
   align-items: center;
-  margin-top: 20px;
-  margin-bottom: 20px;
+  margin-bottom: 40px;
 }
 
-/* Heading */
+/* ================= TITLE ================= */
 h1 {
   color: #333;
   font-size: 32px;
@@ -53,17 +50,63 @@ h1 {
   line-height: 1.3;
 }
 
-/* Admin Details Section */
+/* ================= FOTO PROFIL ================= */
+.admin-photo {
+  width: 160px;
+  height: 160px;
+  margin-bottom: 30px;
+  position: relative;
+}
+
+.admin-profile-photo {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 3px solid #1e40af;
+  background-color: #fff;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.admin-photo input[type="file"] {
+  margin-top: 10px;
+  width: 100%;
+  font-size: 14px;
+}
+
+/* ================= INFO FORM ================= */
 .admin-details {
   width: 100%;
   margin-bottom: 35px;
 }
 
+.admin-info {
+  width: 100%;
+}
+
+.admin-info label {
+  display: block;
+  margin-bottom: 4px;
+  color: #333;
+  font-weight: 500;
+}
+
+.admin-info input,
+.admin-info select {
+  width: 100%;
+  padding: 10px 14px;
+  margin-bottom: 16px;
+  border: 1px solid #cbd5e1;
+  border-radius: 8px;
+  font-size: 15px;
+  background-color: #f9fafb;
+}
+
 .admin-info p {
-  font-size: 18px;
+  font-size: 17px;
   color: #555;
-  margin: 12px 0;
-  line-height: 1.8;
+  margin-bottom: 16px;
+  line-height: 1.7;
 }
 
 .admin-info strong {
@@ -71,45 +114,56 @@ h1 {
   color: #333;
 }
 
-/* Registered Date and Login Time Styling */
-.registered-date, .login-time {
+.registered-date,
+.login-time {
   color: #1e40af;
   font-weight: 600;
 }
 
-/* Logout Button */
-.logout-button {
+/* ================= TOMBOL AKSI ================= */
+.action-buttons {
   display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
   justify-content: center;
-  width: 100%;
+  margin-top: 10px;
 }
 
-.logout-button button {
-  background-color: #1e40af;
-  color: white;
+.btn {
+  padding: 10px 18px;
   border: none;
-  padding: 16px 32px;
   border-radius: 8px;
-  font-size: 16px;
-  cursor: pointer;
+  font-size: 15px;
   font-weight: 600;
-  transition: background-color 0.3s ease, transform 0.3s ease;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
 }
 
-/* Hover effect for logout button */
-.logout-button button:hover {
+.btn-primary {
   background-color: #2563eb;
-  transform: scale(1.05);
+  color: white;
 }
 
-.logout-button button svg {
-  margin-right: 12px;
+.btn-secondary {
+  background-color: #64748b;
+  color: white;
 }
 
-/* Loading State */
+.btn-edit {
+  background-color: #0ea5e9;
+  color: white;
+}
+
+.btn-delete {
+  background-color: #dc2626;
+  color: white;
+}
+
+.btn:hover {
+  transform: scale(1.03);
+}
+
+/* ================= LOADING ================= */
 .loading {
   color: #333;
   font-size: 18px;
@@ -118,47 +172,56 @@ h1 {
   font-weight: 600;
 }
 
-/* Sidebar adjustments for smaller screens */
+/* ================= RESPONSIVE ================= */
 @media (max-width: 768px) {
   .dashboard-wrapper {
     flex-direction: column;
   }
 
+  .admin-page {
+    padding-top: 80px; /* ✅ Tambah ruang atas untuk mobile */
+  }
+
   .profil-admin-container {
     width: 90%;
-    padding: 25px;
-    margin-top: 40px;
+    padding: 30px;
+  }
+
+  .admin-profile-photo {
+    width: 130px;
+    height: 130px;
+  }
+
+  .admin-info input,
+  .admin-info select {
+    font-size: 14px;
   }
 
   h1 {
-    font-size: 30px;
-  }
-
-  .admin-info p {
-    font-size: 16px;
-  }
-
-  .logout-button button {
-    padding: 14px 28px;
-    font-size: 15px;
+    font-size: 28px;
   }
 }
 
 @media (max-width: 480px) {
+  .admin-page {
+    padding-top: 60px;
+  }
+
   .profil-admin-container {
-    padding: 20px;
+    padding: 24px;
+  }
+
+  .admin-profile-photo {
+    width: 110px;
+    height: 110px;
+  }
+
+  .btn {
+    font-size: 14px;
+    padding: 10px 14px;
   }
 
   h1 {
-    font-size: 26px;
-  }
-
-  .admin-info p {
-    font-size: 15px;
-  }
-
-  .logout-button button {
-    padding: 12px 24px;
-    font-size: 14px;
+    font-size: 24px;
   }
 }

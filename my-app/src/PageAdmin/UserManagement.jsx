@@ -1,7 +1,7 @@
 import { useState, useEffect, useCallback } from "react";
 import axios from "axios";
 import { FaEye, FaEdit, FaTrash, FaPlus } from "react-icons/fa";
-import SidebarAdmin from "../components/SidebarAdmin";
+import AdminLayout from "../components/AdminLayout";
 import "../CSS_Admin/UserManagement.css";
 
 const UserManagement = () => {
@@ -94,9 +94,8 @@ const UserManagement = () => {
   };
 
   return (
-    <div style={{ display: "flex" }}>
-      <SidebarAdmin activeTab="user" onTabChange={() => {}} />
-      <div className="user-management-container" style={{ flex: 1 }}>
+    <AdminLayout>
+      <div className="user-management-container">
         <h2>User Management</h2>
         <p>Total Users: {userCount}</p>
         {errorMessage && <p className="error-message">{errorMessage}</p>}
@@ -218,7 +217,7 @@ const UserManagement = () => {
           </div>
         )}
       </div>
-    </div>
+    </AdminLayout>
   );
 };
 

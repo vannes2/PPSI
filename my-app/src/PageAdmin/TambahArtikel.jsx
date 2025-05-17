@@ -1,6 +1,6 @@
 import { useState } from "react";
 import axios from "axios";
-import SidebarAdmin from "../components/SidebarAdmin";
+import AdminLayout from "../components/AdminLayout";
 import "../CSS_Admin/Pengacara.css";
 
 const TambahArtikel = () => {
@@ -70,9 +70,8 @@ const TambahArtikel = () => {
   };
 
   return (
-    <div className="Tambah-Artikel">
-      <SidebarAdmin />
-      <main className="admin-content">
+    <AdminLayout>
+      <div className="tambah-artikel-page">
         <h2 className="admin-title">Tambah Artikel Baru</h2>
         <form onSubmit={handleSubmit} className="admin-form" encType="multipart/form-data">
           <input
@@ -171,8 +170,8 @@ const TambahArtikel = () => {
             Simpan Artikel
           </button>
         </form>
-      </main>
-    </div>
+      </div>
+    </AdminLayout>
   );
 };
 

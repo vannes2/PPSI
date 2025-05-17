@@ -2,21 +2,63 @@ import {
   FaGavel,
   FaHome,
   FaFileAlt,
-  FaUserCircle,
   FaUser,
   FaNewspaper,
   FaMoneyBillWave,
-  FaQuestionCircle,       // ➕ Icon FAQ
-  FaHistory               // ➕ Icon Riwayat Pertanyaan
+  FaQuestionCircle,
+  FaHistory,
 } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
+import { useEffect, useState } from "react";
+import axios from "axios";
 import "./SidebarAdmin.css";
 
 const SidebarAdmin = ({ activeTab, onTabChange }) => {
+  const [admin, setAdmin] = useState({
+    name: "",
+    email: "",
+    upload_foto: ""
+  });
+
+  useEffect(() => {
+    const fetchAdmin = async () => {
+      try {
+        const res = await axios.get("http://localhost:5000/api/admin/profile");
+        setAdmin(res.data); // name, email, upload_foto
+      } catch (err) {
+        console.error("❌ Gagal mengambil data admin:", err);
+      }
+    };
+
+    fetchAdmin();
+  }, []);
+
   return (
     <aside className="dashboard-sidebar">
-      <h2>Admin Panel</h2>
+      {/* Profil Admin Dinamis */}
+      <div className="profil-admin-card">
+        <Link
+          to="/ProfilAdmin"
+          onClick={() => onTabChange("profilAdmin")}
+          className="profil-link"
+        >
+          <img
+            src={
+              admin.upload_foto
+                ? `http://localhost:5000/uploads/${admin.upload_foto}`
+                : "/assets/images/admin-avatar.png"
+            }
+            alt="Admin Avatar"
+            className="profil-avatar"
+          />
+          <div className="profil-info">
+            <div className="profil-nama">{admin.name || "Loading..."}</div>
+            <div className="profil-email">{admin.email || "..."}</div>
+          </div>
+        </Link>
+      </div>
+
       <ul>
         <li className={activeTab === "dashboard" ? "nav-active" : ""}>
           <Link to="/" onClick={() => onTabChange("dashboard")}>
@@ -48,31 +90,17 @@ const SidebarAdmin = ({ activeTab, onTabChange }) => {
             <FaMoneyBillWave className="icon-spacing" /> Transaksi Keuangan
           </Link>
         </li>
-
-        {/* ➕ FAQ Hukum */}
         <li className={activeTab === "faq" ? "nav-active" : ""}>
           <Link to="/faq" onClick={() => onTabChange("faq")}>
             <FaQuestionCircle className="icon-spacing" /> FAQ Hukum
           </Link>
         </li>
-
-        {/* ➕ Riwayat Pertanyaan Chatbot */}
         <li className={activeTab === "logPertanyaan" ? "nav-active" : ""}>
           <Link to="/log-pertanyaan" onClick={() => onTabChange("logPertanyaan")}>
             <FaHistory className="icon-spacing" /> Riwayat Pertanyaan
           </Link>
         </li>
       </ul>
-
-      <div style={{ marginTop: "auto" }}>
-        <ul>
-          <li className={activeTab === "profilAdmin" ? "nav-active" : ""}>
-            <Link to="/ProfilAdmin" onClick={() => onTabChange("profilAdmin")}>
-              <FaUserCircle className="icon-spacing" /> Profil Admin
-            </Link>
-          </li>
-        </ul>
-      </div>
     </aside>
   );
 };
