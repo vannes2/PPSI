@@ -23,7 +23,7 @@ const konsultasiSessionRoutes = require("./routes/konsultasiSessionRoutes");
 const lawyerController = require('./controllers/lawyerController');
 const logPertanyaanRoutes = require("./routes/logPertanyaanRoutes");
 const faqRoutes = require('./routes/faqRoutes');
-
+const riwayatRoutes = require("./routes/riwayatRoutes");
 
 const botRoutes = require("./routes/botRoutes");
 const app = express();
@@ -50,7 +50,7 @@ app.use('/api/artikel-berita', artikelBeritaRoutes);
 app.use("/api/konsultasi-session", konsultasiSessionRoutes);
 app.use("/api/log-pertanyaan", logPertanyaanRoutes);
 app.use('/api/faq', faqRoutes);
-
+app.use("/api", riwayatRoutes);
 
 app.use("/api/chatbot", require("./routes/botRoutes"));
 app.use("/api/chatbot", botRoutes);

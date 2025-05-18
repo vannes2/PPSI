@@ -21,6 +21,7 @@ import VerifyOtp from "./PageUser/VerifyOtp";
 import ResetPassword from "./PageUser/ResetPassword";
 import DetailBerita from "./PageUser/DetailBerita";
 import RiwayatChatPage from "./PageUser/RiwayatChatPage"
+import RiwayatKonsultasi from "./PageUser/RiwayatKonsultasi"; // sesuaikan path
 
 // Admin Pages
 import HomeAdmin from "./PageAdmin/HomeAdmin";
@@ -88,6 +89,7 @@ function App() {
                 <Route path="/DetailBerita/:id" element={<DetailBerita />} />
                 <Route path="/RiwayatChatPage" element={<RiwayatChatPage />} />
                 <Route path="/artikel/:id" element={<ArtikelDetail />} />
+                <Route path="/riwayat-konsultasi" element={<RiwayatKonsultasi />} />
 
                 {/* ✅ Admin Routes */}
                 <Route path="/HomeAdmin" element={<HomeAdmin />} />
