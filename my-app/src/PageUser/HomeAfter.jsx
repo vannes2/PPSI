@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
 import "../CSS_User/Home.css";
 import HeaderAfter from "../components/HeaderAfter";
@@ -8,16 +8,19 @@ import { FaCommentDots, FaUserCheck, FaBalanceScale } from "react-icons/fa";
 const HomeAfter = () => {
   const [pengacara, setPengacara] = useState([]);
   const [beritaTop, setBeritaTop] = useState([]);
-  const [error, setError] = useState(null);
+  const [setError] = useState(null);
   const [currentSlide, setCurrentSlide] = useState(0);
 
-  const cardWidth = 270; // Lebar tiap kartu advokat
-  const cardsPerSlide = 5;
+  const scrollRef = useRef(null);
+  const cardWidth = 270;
+  const cardGap = 20;
+  const visibleCards = 5;
+  const totalScrollWidth = cardWidth * visibleCards + cardGap * (visibleCards - 1);
 
-  // Hitung total slide berdasar jumlah advokat dan cardsPerSlide
-  const totalSlides = Math.ceil(pengacara.length / cardsPerSlide);
+  const autoScrollTimeout = useRef(null);
+  const autoScrollInterval = useRef(null);
+  const lastInteractionTime = useRef(Date.now());
 
-  // Ambil data advokat dan berita top saat mount
   useEffect(() => {
     fetch("http://localhost:5000/api/profilpengacara")
       .then((res) => {
@@ -36,21 +39,110 @@ const HomeAfter = () => {
       .catch((err) => console.error("Gagal fetch top berita:", err));
   }, []);
 
-  // Auto scroll slide setiap 4 detik
   useEffect(() => {
-    if (totalSlides === 0) return; // Jika kosong, skip interval
+    if (beritaTop.length === 0) return;
     const interval = setInterval(() => {
-      setCurrentSlide((prev) => (prev + 1) % totalSlides);
+      setCurrentSlide((prev) => (prev + 1) % beritaTop.length);
     }, 4000);
     return () => clearInterval(interval);
-  }, [totalSlides]);
+  }, [beritaTop]);
+
+  useEffect(() => {
+    const slider = scrollRef.current;
+    if (!slider) return;
+
+    let isDown = false;
+    let startX;
+    let scrollLeft;
+
+    const handleMouseDown = (e) => {
+      isDown = true;
+      slider.classList.add("active");
+      startX = e.pageX - slider.offsetLeft;
+      scrollLeft = slider.scrollLeft;
+      recordInteraction();
+    };
+
+    const handleMouseLeave = () => {
+      isDown = false;
+      slider.classList.remove("active");
+    };
+
+    const handleMouseUp = () => {
+      isDown = false;
+      slider.classList.remove("active");
+    };
+
+    const handleMouseMove = (e) => {
+      if (!isDown) return;
+      e.preventDefault();
+      const x = e.pageX - slider.offsetLeft;
+      const walk = (x - startX) * 1.5;
+      slider.scrollLeft = scrollLeft - walk;
+    };
+
+    const recordInteraction = () => {
+      lastInteractionTime.current = Date.now();
+      stopAutoScroll();
+      if (autoScrollTimeout.current) clearTimeout(autoScrollTimeout.current);
+      autoScrollTimeout.current = setTimeout(() => {
+        startAutoScroll();
+      }, 2000);
+    };
+
+    const startAutoScroll = () => {
+      stopAutoScroll();
+      autoScrollInterval.current = setInterval(() => {
+        const now = Date.now();
+        const slider = scrollRef.current;
+        if (!slider) return;
+
+        if (now - lastInteractionTime.current > 2000) {
+          const maxScrollLeft = slider.scrollWidth - slider.clientWidth;
+          const isAtEnd = Math.abs(slider.scrollLeft - maxScrollLeft) < 5;
+
+          if (isAtEnd) {
+            slider.scrollTo({ left: 0, behavior: "auto" });
+          } else {
+            slider.scrollBy({ left: totalScrollWidth, behavior: "smooth" });
+          }
+        }
+      }, 3000);
+    };
+
+    const stopAutoScroll = () => {
+      if (autoScrollInterval.current) {
+        clearInterval(autoScrollInterval.current);
+        autoScrollInterval.current = null;
+      }
+    };
+
+    slider.addEventListener("mousedown", handleMouseDown);
+    slider.addEventListener("mouseleave", handleMouseLeave);
+    slider.addEventListener("mouseup", handleMouseUp);
+    slider.addEventListener("mousemove", handleMouseMove);
+    slider.addEventListener("touchstart", recordInteraction);
+    slider.addEventListener("wheel", recordInteraction);
+    slider.addEventListener("scroll", recordInteraction);
+
+    startAutoScroll();
+
+    return () => {
+      slider.removeEventListener("mousedown", handleMouseDown);
+      slider.removeEventListener("mouseleave", handleMouseLeave);
+      slider.removeEventListener("mouseup", handleMouseUp);
+      slider.removeEventListener("mousemove", handleMouseMove);
+      slider.removeEventListener("touchstart", recordInteraction);
+      slider.removeEventListener("wheel", recordInteraction);
+      slider.removeEventListener("scroll", recordInteraction);
+    };
+  }, []);
 
   return (
     <div className="home-before-page">
       <HeaderAfter />
       <br /><br /><br />
 
-      {/* Hero */}
       <section className="hero">
         <div className="hero-text">
           <h1 id="top-hero">Selesaikan Masalah Hukum Anda Bersama Kami</h1>
@@ -64,7 +156,6 @@ const HomeAfter = () => {
         </div>
       </section>
 
-      {/* Fitur */}
       <section className="features-lawyer-home">
         <h2>Konsultasikan Permasalah Hukum Anda Bersama Kami!</h2>
         <div className="features-grid-home">
@@ -86,7 +177,6 @@ const HomeAfter = () => {
         </div>
       </section>
 
-      {/* Topik Hukum */}
       <section className="topik-hukum">
         <h2>Pilih topik hukum yang diperlukan!</h2>
         <div className="topik-icons">
@@ -105,7 +195,6 @@ const HomeAfter = () => {
         </div>
       </section>
 
-      {/* Advokat Carousel */}
       <section className="products" style={{ marginTop: "40px" }}>
         <div className="advokat-header">
           <h2 className="advokat-heading">Advokat Yang Tersedia</h2>
@@ -114,92 +203,77 @@ const HomeAfter = () => {
 
         <div
           className="product-scroll-wrapper"
+          ref={scrollRef}
           style={{
-            overflow: "hidden",
-            width: cardWidth * cardsPerSlide + 20 * (cardsPerSlide -1), // +gap antar kartu
+            width: `${cardWidth * visibleCards + cardGap * (visibleCards - 1)}px`,
+            overflowX: "auto",
             margin: "0 auto",
-            
+            display: "flex",
+            gap: `${cardGap}px`,
+            padding: "10px",
+            userSelect: "none",
+            cursor: "grab",
           }}
         >
-          <div
-            className="product-track"
-            style={{
-              display: "flex",
-              transition: "transform 0.5s ease-in-out",
-              transform: `translateX(-${currentSlide * (cardWidth + 20) * cardsPerSlide}px)`,
-              gap: "20px",
-            }}
-          >
-            {error ? (
-              <p style={{ color: "red" }}>Gagal mengambil data: {error}</p>
-            ) : pengacara.length > 0 ? (
-              pengacara.map((advokat, index) => (
-                <div
-                  key={advokat.id || index}
-                  className="product-item"
-                  style={{ minWidth: `${cardWidth}px` }}
-                >
-                  {advokat.upload_foto ? (
-                    <img
-                      src={`http://localhost:5000/uploads/${advokat.upload_foto}`}
-                      alt={advokat.nama}
-                      className="foto-advokat"
+          {pengacara.length > 0 ? (
+            pengacara.map((advokat, index) => (
+              <div
+                key={advokat.id || index}
+                className="product-item"
+                style={{ minWidth: `${cardWidth}px` }}
+              >
+                {advokat.upload_foto ? (
+                  <img
+                    src={`http://localhost:5000/uploads/${advokat.upload_foto}`}
+                    alt={advokat.nama}
+                    className="foto-advokat"
+                    style={{
+                      width: "120px",
+                      height: "120px",
+                      borderRadius: "50%",
+                      objectFit: "cover",
+                      marginBottom: "10px",
+                    }}
+                  />
+                ) : (
+                  <div
+                    style={{
+                      width: "120px",
+                      height: "120px",
+                      borderRadius: "50%",
+                      backgroundColor: "#eee",
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "center",
+                      marginBottom: "10px",
+                    }}
+                  >
+                    <span
                       style={{
-                        width: "120px",
-                        height: "120px",
-                        borderRadius: "50%",
-                        objectFit: "cover",
-                        marginBottom: "10px",
-                      }}
-                    />
-                  ) : (
-                    <div
-                      style={{
-                        width: "120px",
-                        height: "120px",
-                        borderRadius: "50%",
-                        backgroundColor: "#eee",
-                        display: "flex",
-                        alignItems: "center",
-                        justifyContent: "center",
-                        marginBottom: "10px",
+                        color: "#999",
+                        fontSize: "12px",
+                        textAlign: "center",
                       }}
                     >
-                      <span
-                        style={{
-                          color: "#999",
-                          fontSize: "12px",
-                          textAlign: "center",
-                        }}
-                      >
-                        Tidak ada foto
-                      </span>
-                    </div>
-                  )}
-                  <h3>{advokat.nama}</h3>
-                  <p>
-                    <strong>Spesialisasi:</strong> {advokat.spesialisasi || "-"}
-                  </p>
-                  <p>
-                    <strong>Pengalaman:</strong> {advokat.pengalaman ?? 0} tahun
-                  </p>
-                  <p>
-                    <strong>Harga Konsultasi:</strong>{" "}
-                    Rp{advokat.harga_konsultasi?.toLocaleString() || "-"}
-                  </p>
-                  <Link to="/payment" state={{ pengacaraId: advokat.id }}>
-                    <button className="btn-konsultasi">Klik Konsultasi</button>
-                  </Link>
-                </div>
-              ))
-            ) : (
-              <p>Belum ada advokat terdaftar</p>
-            )}
-          </div>
+                      Tidak ada foto
+                    </span>
+                  </div>
+                )}
+                <h3>{advokat.nama}</h3>
+                <p><strong>Spesialisasi:</strong> {advokat.spesialisasi || "-"}</p>
+                <p><strong>Pengalaman:</strong> {advokat.pengalaman ?? 0} tahun</p>
+                <p><strong>Harga Konsultasi:</strong> Rp{advokat.harga_konsultasi?.toLocaleString() || "-"}</p>
+                <Link to="/payment" state={{ pengacaraId: advokat.id }}>
+                  <button className="btn-konsultasi">Klik Konsultasi</button>
+                </Link>
+              </div>
+            ))
+          ) : (
+            <p>Belum ada advokat terdaftar</p>
+          )}
         </div>
       </section>
 
-      {/* Slideshow Berita */}
       <section className="slideshow-section" style={{ marginTop: "60px" }}>
         <div className="slideshow-header">
           <h2 className="slideshow-heading">Berita Hukum Pilihan</h2>
@@ -211,7 +285,11 @@ const HomeAfter = () => {
         <div className="slideshow-wrapper">
           <div
             className="slideshow-track"
-            style={{ transform: `translateX(-${currentSlide * 100}%)` }}
+            style={{
+              display: "flex",
+              transition: "transform 0.5s ease-in-out",
+              transform: `translateX(-${currentSlide * 100}%)`,
+            }}
           >
             {beritaTop.map((item) => (
               <div className="slide" key={item.id}>

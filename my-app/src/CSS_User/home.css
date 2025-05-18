@@ -46,17 +46,6 @@ body {
   border-radius: 3px;
 }
 
-
-.product-item {
-  background-color: #ffffff;
-  padding: 20px;
-  border-radius: 16px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-  text-align: center;
-  width: 250px;
-  flex-shrink: 0;
-}
-
 .advokat-foto-container {
   width: 160px;
   height: 160px;
@@ -177,15 +166,6 @@ body {
   padding-bottom: 10px;
 }
 
-.home-before-page .product-item {
-  min-width: 220px;
-  flex: 0 0 auto;
-  background-color: #ffffff;
-  padding: 20px;
-  border-radius: 12px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-  text-align: center;
-}
 
 .home-before-page .product-item img {
   width: 100%;
@@ -424,19 +404,7 @@ body {
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1); /* Sedikit bayangan */
 }
 
-.product-item {
-  width: 250px;
-  min-height: 420px; /* ✅ pastikan tinggi konsisten */
-  flex-shrink: 0;
-  background-color: #fff;
-  padding: 1rem;
-  border-radius: 12px;
-  text-align: center;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-}
+
 
 .product-item h3 {
   font-size: 18px;
@@ -478,15 +446,28 @@ body {
 .product-scroll-wrapper::-webkit-scrollbar {
   display: none;
 }
+
 .product-item {
-  min-width: 250px;
+  width: 250px;
+  min-height: 420px; /* ✅ pastikan tinggi konsisten */
   flex-shrink: 0;
   background-color: #fff;
   padding: 1rem;
   border-radius: 12px;
   text-align: center;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
+
+.product-scroll-wrapper.active {
+  cursor: grabbing;
+  cursor: -webkit-grabbing;
+}
+
+
+
 
 /* ======================= RESPONSIVE ======================= */
 @media (max-width: 1024px) {
