@@ -130,7 +130,6 @@ const ChatBotWidget = () => {
             aria-live="polite"
             aria-atomic="false"
           >
-            <div className="overlay" />
 
             {messages.map((msg, i) => (
               <div key={i} className={`msg ${msg.sender}`}>

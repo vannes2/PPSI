@@ -19,6 +19,7 @@ body, html {
   background-color: #f8fafc;
   padding: 24px;
   overflow-x: auto;
+  transition: margin-left 0.3s ease;
 }
 
 .content-wrapper {
@@ -29,8 +30,8 @@ body, html {
 /* ===================== SIDEBAR ADMIN ===================== */
 .dashboard-sidebar {
   width: 240px;
-  background-color: #1f2937; /* Tetap warna solid */
-  opacity: 0.92; /* Sedikit transparan */
+  background-color: #1f2937;
+  opacity: 0.92;
   color: #f1f5f9;
   padding: 16px;
   flex-shrink: 0;
@@ -39,9 +40,61 @@ body, html {
   box-sizing: border-box;
   min-height: 100vh;
   box-shadow: 2px 0 20px rgba(0, 0, 0, 0.15);
-  backdrop-filter: blur(10px); /* blur di belakang */
+  backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
   border-right: 1px solid rgba(255, 255, 255, 0.08);
+  transition: all 0.3s ease-in-out;
+}
+
+.dashboard-sidebar.collapsed {
+  width: 60px;
+  padding: 16px 8px;
+  align-items: center;
+}
+
+.dashboard-sidebar.collapsed .profil-admin-card,
+.dashboard-sidebar.collapsed .profil-info,
+.dashboard-sidebar.collapsed .profil-nama,
+.dashboard-sidebar.collapsed .profil-email {
+  display: none;
+}
+
+.dashboard-sidebar.collapsed ul li a {
+  justify-content: center;
+}
+
+.dashboard-sidebar.collapsed .icon-spacing {
+  margin-right: 0;
+  font-size: 18px;
+}
+
+.dashboard-sidebar.collapsed .sidebar-toggle {
+  align-self: center;
+}
+
+/* Sidebar Drawer - mobile */
+.dashboard-sidebar.mobile {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  z-index: 1000;
+  transform: translateX(0);
+  box-shadow: 2px 0 15px rgba(0, 0, 0, 0.3);
+}
+
+.dashboard-sidebar.mobile.collapsed {
+  transform: translateX(-100%);
+}
+
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  width: 100vw;
+  background: rgba(0, 0, 0, 0.4);
+  z-index: 900;
 }
 
 /* ===================== PROFIL ADMIN CARD ===================== */
@@ -112,7 +165,7 @@ body, html {
   margin: 0;
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 6px;
 }
 
 .dashboard-sidebar li {
@@ -123,16 +176,16 @@ body, html {
 .dashboard-sidebar button {
   display: flex;
   align-items: center;
-  gap: 10px;
-  padding: 8px 12px;
-  font-size: 13px;
+  gap: 8px;
+  padding: 6px 10px;
+  font-size: 12.5px;
   font-weight: 500;
   color: white;
   background: transparent;
   border: none;
   width: 100%;
   text-align: left;
-  border-radius: 10px;
+  border-radius: 8px;
   cursor: pointer;
   text-decoration: none;
   transition: background-color 0.2s ease, transform 0.1s ease;
@@ -146,8 +199,9 @@ body, html {
 }
 
 .icon-spacing {
-  font-size: 14px;
-  margin-right: 4px;
+  margin-right: 10px;
+  font-size: 1.25rem;
+  vertical-align: middle;
 }
 
 /* ===================== TABEL ===================== */
@@ -218,4 +272,11 @@ body, html {
 .btn-delete {
   background-color: #ef4444;
   color: white;
+}
+
+/* ====== RESPONSIVE ====== */
+@media (max-width: 768px) {
+  .main-content {
+    margin-left: 0;
+  }
 }
