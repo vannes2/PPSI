@@ -23,8 +23,7 @@ const konsultasiSessionRoutes = require("./routes/konsultasiSessionRoutes");
 const lawyerController = require('./controllers/lawyerController');
 const logPertanyaanRoutes = require("./routes/logPertanyaanRoutes");
 const faqRoutes = require('./routes/faqRoutes');
-const riwayatKasusRoutes = require("./routes/riwayatKasusRoutes");
-
+// const riwayatKasusRoutes = require("./routes/riwayatKasusRoutes");
 
 const botRoutes = require("./routes/botRoutes");
 const app = express();
@@ -56,7 +55,7 @@ app.use('/api/faq', faqRoutes);
 app.use("/api/chatbot", require("./routes/botRoutes"));
 app.use("/api/chatbot", botRoutes);
 
-app.use("/api/kasus", riwayatKasusRoutes);
+// app.use("/api/kasus", riwayatKasusRoutes);
 
 // Setup HTTP server + Socket.io
 const server = http.createServer(app);

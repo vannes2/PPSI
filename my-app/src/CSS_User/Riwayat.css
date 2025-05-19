@@ -1,0 +1,174 @@
+/* === Layout Flex agar footer selalu di bawah === */
+.page-wrapper {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.content-wrapper {
+  flex: 1;
+}
+
+/* ======= CONTAINER UTAMA ======= */
+.riwayat-container {
+  padding: 120px 80px 80px;
+  background-color: #fefde9;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  box-sizing: border-box;
+  width: 100%;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+/* ======= HEADING UTAMA ======= */
+.riwayat-container h2 {
+  font-size: 32px;
+  color: #1f2937;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 40px;
+}
+
+.section-icon {
+  font-size: 26px;
+  color: #B31312;
+  vertical-align: middle;
+}
+
+/* ======= LAYOUT 2 KOLOM ======= */
+.riwayat-row {
+  display: flex;
+  gap: 40px;
+  flex-wrap: wrap;
+  margin-top: 20px;
+  justify-content: center;
+}
+
+.riwayat-kolom {
+  flex: 1;
+  min-width: 420px;
+  background-color: #fffdf0;
+  padding: 28px;
+  border-radius: 14px;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.06);
+}
+
+/* ======= SUBJUDUL ======= */
+.riwayat-subjudul {
+  font-size: 22px;
+  font-weight: 600;
+  margin-bottom: 24px;
+  color: #102a43;
+  border-left: 5px solid #B31312;
+  padding-left: 14px;
+}
+
+/* ======= GRID VERTIKAL ======= */
+.riwayat-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* ======= CARD ITEM ======= */
+.riwayat-card {
+  background-color: #ffffff;
+  border-radius: 16px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.06);
+  padding: 22px;
+  display: flex;
+  align-items: center;
+  gap: 22px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  border-left: 6px solid #B31312;
+}
+
+.riwayat-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+}
+
+/* ======= FOTO PROFIL ======= */
+.riwayat-foto {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 3px solid #B31312;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+}
+
+/* ======= INFO TEKS ======= */
+.riwayat-info {
+  flex: 1;
+}
+
+.riwayat-info h3 {
+  font-size: 18px;
+  font-weight: 600;
+  color: #102a43;
+  margin-bottom: 6px;
+}
+
+.riwayat-info p {
+  font-size: 15px;
+  color: #555;
+  margin: 4px 0;
+  line-height: 1.4;
+}
+
+/* ======= AKSI BUTTON ======= */
+.riwayat-aksi button {
+  background-color: #B31312;
+  color: white;
+  border: none;
+  padding: 10px 18px;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.riwayat-aksi button:hover {
+  background-color: #8e0f0e;
+}
+
+/* ======= RESPONSIVE MOBILE ======= */
+@media (max-width: 768px) {
+  .riwayat-container {
+    padding: 100px 20px 60px;
+  }
+
+  .riwayat-row {
+    flex-direction: column;
+    gap: 24px;
+  }
+
+  .riwayat-card {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .riwayat-foto {
+    width: 65px;
+    height: 65px;
+    margin-bottom: 10px;
+  }
+
+  .riwayat-info {
+    width: 100%;
+  }
+
+  .riwayat-aksi {
+    width: 100%;
+    text-align: right;
+    margin-top: 10px;
+  }
+
+  .riwayat-kolom {
+    padding: 18px;
+  }
+}
