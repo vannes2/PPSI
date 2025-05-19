@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.2.0
+-- version 5.2.1
 -- https://www.phpmyadmin.net/
 --
--- Host: localhost:3306
--- Generation Time: May 17, 2025 at 04:26 PM
--- Server version: 8.0.30
--- PHP Version: 8.3.16
+-- Host: 127.0.0.1
+-- Generation Time: May 19, 2025 at 10:30 AM
+-- Server version: 8.4.3
+-- PHP Version: 8.2.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -38,7 +38,7 @@ CREATE TABLE `admin` (
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `reset_token` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
   `reset_token_expiry` datetime DEFAULT NULL,
-  `upload_foto` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL
+  `upload_foto` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -85,7 +85,9 @@ INSERT INTO `ajukan_kasus` (`id`, `user_id`, `nama`, `email`, `no_hp`, `area_pra
 (5, 1, 'Azzikra Praqasta Kusuma', 'termiteindonesia@gmail.com', '085781086148', 'Perdata', 'Negosiasi', 1000000000, 500000, '2025-06-01', 'Jakarta Barat', 'tes 3', 'Diproses', NULL, '2025-05-12 10:58:06', 1),
 (6, 1, 'Umar Ali', 'sayaumarali@gmail.com', '085781086148', 'Keluarga', 'Pendampingan', 1000000, 50000000, '2025-06-01', 'Bandung', 'KDRT', 'Selesai', '1747053599169-Anggota1.pdf', '2025-05-12 12:39:59', 1),
 (7, 2, 'fajri', 'fajri30.r@gmail.com', '085706125411', 'Perdata', 'Pembuatan Dokumen', 1000000, 2000000, '2025-05-14', 'Jakarta', 'Warisan', 'Selesai', '1747201804678-PENGUMUMAN Libur Hari Raya Waisak 2569 BE.pdf', '2025-05-14 05:50:04', 9),
-(8, 2, 'fajri', 'fajri30.r@gmail.com', '085706125411', 'Pidana', 'Pendampingan', 1000000, 2000000, '2025-05-14', 'Jakarta', 'Pasal pasal', 'Selesai', '1747271588186-Laporan Zitline_Fajri Ramadhan.pdf', '2025-05-15 01:13:08', 9);
+(8, 2, 'fajri', 'fajri30.r@gmail.com', '085706125411', 'Pidana', 'Pendampingan', 1000000, 2000000, '2025-05-14', 'Jakarta', 'Pasal pasal', 'Selesai', '1747271588186-Laporan Zitline_Fajri Ramadhan.pdf', '2025-05-15 01:13:08', 9),
+(9, 14, 'nando', 'vns@gmail.com', '08678900876', 'Perdata', 'Pendampingan', 500000, 500000, '2004-02-22', 'jakarta', 'tes', 'Diproses', NULL, '2025-05-19 04:48:46', 3),
+(10, 14, 'sukarno', 'vns@gmail.com', '987656789', 'Pidana', 'Konsultasi', 500000, 500000, '2222-02-22', 'jakarta', 'tes', 'Selesai', NULL, '2025-05-19 05:46:42', 2);
 
 -- --------------------------------------------------------
 
@@ -99,11 +101,11 @@ CREATE TABLE `artikel` (
   `deskripsi` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `jenis_hukum` enum('KDRT','perceraian','pelanggaran_HAM') CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
   `filePath` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
-  `nomor` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
+  `nomor` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `tahun` int NOT NULL,
-  `jenis_dokumen` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
-  `tempat_penetapan` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
-  `status` enum('Aktif','Tidak Aktif') COLLATE utf8mb4_general_ci NOT NULL DEFAULT 'Aktif',
+  `jenis_dokumen` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `tempat_penetapan` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `status` enum('Aktif','Tidak Aktif') CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL DEFAULT 'Aktif',
   `tanggal_penetapan` date NOT NULL DEFAULT '2000-01-01'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -234,7 +236,8 @@ INSERT INTO `konsultasi_session` (`id`, `user_id`, `pengacara_id`, `start_time`,
 (3, 2, 5, '2025-05-15 11:25:02', 30, 'aktif', '2025-05-15 04:25:02'),
 (4, 3, 9, '2025-05-15 12:45:53', 60, 'aktif', '2025-05-15 04:33:03'),
 (5, 3, 1, '2025-05-15 11:37:40', 30, 'aktif', '2025-05-15 04:37:40'),
-(6, 14, 1, '2025-05-15 20:34:28', 30, 'aktif', '2025-05-15 13:33:44');
+(6, 14, 1, '2025-05-19 12:07:16', 30, 'aktif', '2025-05-15 13:33:44'),
+(7, 14, 2, '2025-05-19 12:07:38', 30, 'aktif', '2025-05-19 05:07:38');
 
 -- --------------------------------------------------------
 
@@ -309,7 +312,13 @@ INSERT INTO `log_aktivitas` (`id`, `id_pengguna`, `aktivitas`, `waktu`) VALUES
 (69, 2, 'Status kasus ID 8 diperbarui menjadi \"Diproses\"', '2025-05-15 01:13:53'),
 (70, 2, 'Status kasus ID 8 diubah menjadi \'Diproses\'', '2025-05-15 01:13:53'),
 (71, 2, 'Status kasus ID 8 diperbarui menjadi \"Selesai\"', '2025-05-15 01:14:13'),
-(72, 2, 'Status kasus ID 8 diubah menjadi \'Selesai\'', '2025-05-15 01:14:13');
+(72, 2, 'Status kasus ID 8 diubah menjadi \'Selesai\'', '2025-05-15 01:14:13'),
+(73, 14, 'Status kasus ID 9 diperbarui menjadi \"Diproses\"', '2025-05-19 04:52:48'),
+(74, 14, 'Status kasus ID 9 diubah menjadi \'Diproses\'', '2025-05-19 04:52:48'),
+(75, 14, 'Status kasus ID 10 diperbarui menjadi \"Diproses\"', '2025-05-19 05:49:49'),
+(76, 14, 'Status kasus ID 10 diubah menjadi \'Diproses\'', '2025-05-19 05:49:49'),
+(77, 14, 'Status kasus ID 10 diperbarui menjadi \"Selesai\"', '2025-05-19 05:50:02'),
+(78, 14, 'Status kasus ID 10 diubah menjadi \'Selesai\'', '2025-05-19 05:50:02');
 
 -- --------------------------------------------------------
 
@@ -331,37 +340,39 @@ CREATE TABLE `log_pertanyaan_user` (
 --
 
 INSERT INTO `log_pertanyaan_user` (`id`, `user_id`, `pertanyaan`, `intent_didapat`, `confidence_score`, `waktu`) VALUES
-(1, NULL, 'hallo', NULL, '0.00', '2025-05-16 09:16:05'),
-(2, NULL, 'hallo', NULL, '0.00', '2025-05-16 09:16:26'),
-(3, NULL, 'Kontrak kerja', 'kontrak kerja', '1.00', '2025-05-16 11:08:38'),
-(4, NULL, 'Apa itu KDRT', 'kdrt', '0.50', '2025-05-16 11:55:11'),
-(5, NULL, 'KDRT', 'kdrt', '1.00', '2025-05-16 11:55:21'),
-(6, NULL, 'tes', NULL, '0.00', '2025-05-16 13:08:27'),
-(7, NULL, 'tes', NULL, '0.00', '2025-05-16 13:10:03'),
-(8, NULL, 'hallo', NULL, '0.00', '2025-05-16 13:11:50'),
-(9, NULL, 'tes', NULL, '0.00', '2025-05-16 13:16:21'),
-(10, NULL, 'tes', NULL, '0.00', '2025-05-16 13:16:25'),
-(11, NULL, 'tes', NULL, '0.00', '2025-05-16 13:16:36'),
-(12, NULL, 'tes', NULL, '0.00', '2025-05-16 13:17:47'),
-(13, NULL, 'tes', NULL, '0.00', '2025-05-16 13:17:52'),
-(14, NULL, 'tes', NULL, '0.00', '2025-05-16 13:22:39'),
-(15, NULL, 'tes', NULL, '0.00', '2025-05-16 13:22:44'),
-(16, NULL, 'apa itu uu ite', 'ite', '0.57', '2025-05-16 13:26:42'),
-(17, NULL, 'a', NULL, '0.00', '2025-05-16 13:38:50'),
-(18, NULL, 'a', NULL, '0.00', '2025-05-16 13:38:53'),
-(19, NULL, 'sdasdas', NULL, '0.00', '2025-05-16 13:38:58'),
-(20, NULL, 'a', NULL, '0.00', '2025-05-16 13:42:38'),
-(21, NULL, 'a', NULL, '0.00', '2025-05-16 13:42:41'),
-(22, NULL, 'tes', NULL, '0.00', '2025-05-16 13:51:34'),
-(23, NULL, 'aaas', NULL, '0.00', '2025-05-16 14:01:26'),
-(24, NULL, 'apa itu KDRT', 'kdrt', '0.50', '2025-05-16 18:31:50'),
-(25, NULL, 'APA ITU uu ite', 'ite', '0.57', '2025-05-16 18:32:31'),
-(26, NULL, 'hallo', NULL, '0.00', '2025-05-16 18:32:40'),
-(27, NULL, 'hallo', NULL, '0.00', '2025-05-16 20:18:44'),
-(28, NULL, 'perceraian', 'perceraian', '1.00', '2025-05-16 21:26:04'),
-(29, NULL, 'saya punya masalah perceraian', 'perceraian', '0.53', '2025-05-16 21:26:26'),
-(30, NULL, 'berikan solusi nya', NULL, '0.00', '2025-05-16 21:26:35'),
-(31, NULL, 'apa itu uu ite', 'ite', '0.57', '2025-05-17 03:34:23');
+(1, NULL, 'hallo', NULL, 0.00, '2025-05-16 09:16:05'),
+(2, NULL, 'hallo', NULL, 0.00, '2025-05-16 09:16:26'),
+(3, NULL, 'Kontrak kerja', 'kontrak kerja', 1.00, '2025-05-16 11:08:38'),
+(4, NULL, 'Apa itu KDRT', 'kdrt', 0.50, '2025-05-16 11:55:11'),
+(5, NULL, 'KDRT', 'kdrt', 1.00, '2025-05-16 11:55:21'),
+(6, NULL, 'tes', NULL, 0.00, '2025-05-16 13:08:27'),
+(7, NULL, 'tes', NULL, 0.00, '2025-05-16 13:10:03'),
+(8, NULL, 'hallo', NULL, 0.00, '2025-05-16 13:11:50'),
+(9, NULL, 'tes', NULL, 0.00, '2025-05-16 13:16:21'),
+(10, NULL, 'tes', NULL, 0.00, '2025-05-16 13:16:25'),
+(11, NULL, 'tes', NULL, 0.00, '2025-05-16 13:16:36'),
+(12, NULL, 'tes', NULL, 0.00, '2025-05-16 13:17:47'),
+(13, NULL, 'tes', NULL, 0.00, '2025-05-16 13:17:52'),
+(14, NULL, 'tes', NULL, 0.00, '2025-05-16 13:22:39'),
+(15, NULL, 'tes', NULL, 0.00, '2025-05-16 13:22:44'),
+(16, NULL, 'apa itu uu ite', 'ite', 0.57, '2025-05-16 13:26:42'),
+(17, NULL, 'a', NULL, 0.00, '2025-05-16 13:38:50'),
+(18, NULL, 'a', NULL, 0.00, '2025-05-16 13:38:53'),
+(19, NULL, 'sdasdas', NULL, 0.00, '2025-05-16 13:38:58'),
+(20, NULL, 'a', NULL, 0.00, '2025-05-16 13:42:38'),
+(21, NULL, 'a', NULL, 0.00, '2025-05-16 13:42:41'),
+(22, NULL, 'tes', NULL, 0.00, '2025-05-16 13:51:34'),
+(23, NULL, 'aaas', NULL, 0.00, '2025-05-16 14:01:26'),
+(24, NULL, 'apa itu KDRT', 'kdrt', 0.50, '2025-05-16 18:31:50'),
+(25, NULL, 'APA ITU uu ite', 'ite', 0.57, '2025-05-16 18:32:31'),
+(26, NULL, 'hallo', NULL, 0.00, '2025-05-16 18:32:40'),
+(27, NULL, 'hallo', NULL, 0.00, '2025-05-16 20:18:44'),
+(28, NULL, 'perceraian', 'perceraian', 1.00, '2025-05-16 21:26:04'),
+(29, NULL, 'saya punya masalah perceraian', 'perceraian', 0.53, '2025-05-16 21:26:26'),
+(30, NULL, 'berikan solusi nya', NULL, 0.00, '2025-05-16 21:26:35'),
+(31, NULL, 'apa itu uu ite', 'ite', 0.57, '2025-05-17 03:34:23'),
+(32, NULL, 'halo', NULL, 0.00, '2025-05-18 05:05:29'),
+(33, NULL, 'tes', NULL, 0.00, '2025-05-18 05:58:58');
 
 -- --------------------------------------------------------
 
@@ -459,7 +470,8 @@ INSERT INTO `messages` (`id`, `sender_id`, `sender_role`, `receiver_id`, `receiv
 (71, 2, 'user', 9, 'pengacara', '', '1747287535649-485755329.pdf', '2025-05-15 12:38:55', 0),
 (72, 3, 'user', 9, 'pengacara', '', '1747287996055-992464305.png', '2025-05-15 12:46:36', 0),
 (73, 3, 'user', 9, 'pengacara', 'beli nih', NULL, '2025-05-15 12:46:40', 0),
-(74, 9, 'pengacara', 3, 'user', 'malah jualan cina', NULL, '2025-05-15 12:47:05', 0);
+(74, 9, 'pengacara', 3, 'user', 'malah jualan cina', NULL, '2025-05-15 12:47:05', 0),
+(75, 14, 'user', 2, 'pengacara', 'tes', NULL, '2025-05-19 12:09:13', 0);
 
 -- --------------------------------------------------------
 
@@ -555,8 +567,7 @@ INSERT INTO `pengacara` (`id`, `nama`, `ktp`, `tanggal_lahir`, `jenis_kelamin`, 
 (16, 'Rahmat Hidayat', '3201010401010016', '1982-11-20', 'Laki-laki', 'Jl. Kemang No.16 Jakarta', 'rahmat.hidayat@example.com', '081234567805', 'ADV016', 'Universitas Sultan Agung', 'S1 Hukum', 'Hukum Perdata', 15, 'ktp16.png', '1746627754050-rahmat.jpeg', 'kartu16.png', 'pkpa16.png', 'rahmath', 'hashedpassword16', '2025-04-20 20:03:57', NULL, NULL, NULL, NULL, NULL, 50000, NULL, NULL),
 (17, 'Louis', '3201010401010017', '1995-02-17', 'Perempuan', 'Jl. Lenteng Agung No.17 Jakarta', 'louis@gmail.com', '081234567806', 'ADV017', 'Universitas Mercu Buana', 'S2 Hukum', 'Hukum Perdata', 4, 'ktp17.png', '1746627792377-louis.png', 'kartu17.png', 'pkpa17.png', 'liliss', 'hashedpassword17', '2025-04-20 20:03:57', NULL, NULL, NULL, NULL, NULL, 50000, NULL, NULL),
 (19, 'Fitri Yuliani', '3201010401010019', '1992-06-14', 'Perempuan', 'Jl. Pasar Rebo No.19 Jakarta', 'fitri.yuliani@example.com', '081234567808', 'ADV019', 'Universitas Lampung', 'S1 Hukum', 'Hukum Keluarga', 5, 'ktp19.png', '1746627913183-fitrii.png', 'kartu19.png', 'pkpa19.png', 'fitriy', 'hashedpassword19', '2025-04-20 20:03:57', NULL, NULL, NULL, NULL, NULL, 50000, NULL, NULL),
-(20, 'Agus Saputra', '3201010401010020', '1988-01-01', 'Laki-laki', 'Jl. Condet No.20 Jakarta', 'agus.saputra@example.com', '081234567809', 'ADV020', 'Universitas Mulawarman', 'S1 Hukum', 'Hukum Ketenagakerjaan', 8, 'ktp20.png', '1746591929001-agus.png', 'kartu20.png', 'pkpa20.png', 'aguss', 'hashedpassword20', '2025-04-20 20:03:57', NULL, NULL, NULL, NULL, NULL, 50000, NULL, NULL),
-(31, 'Ahmad Fauzi', '2222', '0222-02-22', 'Laki-laki', 'Jl. Merdeka No.1 Jakarta', 'fajri30.r@gmail.com', '2222224', '222223', 'Universitas Indonesia 3', 'S1 Hukum', 'Hukum perdata', 11, '1747330218227-Lawyer Login dan Register.png', '1747330218229-Lawyer Login dan Register.png', '1747330218230-Lawyer Login dan Register.png', '1747330218232-Lawyer Login dan Register.png', 'admin@cerdashukum.com', '222', '2025-05-16 00:35:14', 'https://x.com/', 'https://x.com/', 'https://x.com/', '1747330218233-Lawyer Login dan Register.png', '1747330218235-Lawyer Login dan Register.png', 50000, NULL, NULL);
+(20, 'Agus Saputra', '3201010401010020', '1988-01-01', 'Laki-laki', 'Jl. Condet No.20 Jakarta', 'agus.saputra@example.com', '081234567809', 'ADV020', 'Universitas Mulawarman', 'S1 Hukum', 'Hukum Ketenagakerjaan', 8, 'ktp20.png', '1746591929001-agus.png', 'kartu20.png', 'pkpa20.png', 'aguss', 'hashedpassword20', '2025-04-20 20:03:57', NULL, NULL, NULL, NULL, NULL, 50000, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -622,7 +633,7 @@ CREATE TABLE `users` (
   `birthdate` date NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `address` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `photo` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `photo` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
   `reset_token` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
   `reset_token_expiry` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
@@ -649,7 +660,8 @@ INSERT INTO `users` (`id`, `name`, `email`, `phone`, `password`, `gender`, `birt
 (16, 'manusia', 'manusia@gmail.com', '089967372738', '222', 'L', '2025-05-01', '2025-04-15 08:23:51', NULL, NULL, NULL, NULL),
 (17, 'ihsan', 'ihsan@gmail.com', '8789907788', '333', 'L', '2025-04-15', '2025-04-15 08:26:36', NULL, NULL, NULL, NULL),
 (18, 'Ayunnie', 'sukagelay299@gmail.com', '0857061254118', '222', 'P', '2222-02-22', '2025-04-15 08:28:08', NULL, NULL, NULL, NULL),
-(19, 'ihsan', 'sukagelay9@gmail.com', '0857061254113', '222', 'P', '0002-02-22', '2025-04-15 08:29:35', NULL, NULL, NULL, NULL);
+(19, 'ihsan', 'sukagelay9@gmail.com', '0857061254113', '222', 'P', '0002-02-22', '2025-04-15 08:29:35', NULL, NULL, NULL, NULL),
+(20, 'Vannes vernando ', 'vns3@gmail.com', '085781086148', '222', 'L', '2222-02-22', '2025-05-17 17:12:20', NULL, NULL, NULL, NULL);
 
 --
 -- Indexes for dumped tables
@@ -778,7 +790,7 @@ ALTER TABLE `admin`
 -- AUTO_INCREMENT for table `ajukan_kasus`
 --
 ALTER TABLE `ajukan_kasus`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT for table `artikel`
@@ -808,31 +820,31 @@ ALTER TABLE `konsultasi`
 -- AUTO_INCREMENT for table `konsultasi_session`
 --
 ALTER TABLE `konsultasi_session`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `log_aktivitas`
 --
 ALTER TABLE `log_aktivitas`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=73;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=79;
 
 --
 -- AUTO_INCREMENT for table `log_pertanyaan_user`
 --
 ALTER TABLE `log_pertanyaan_user`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=34;
 
 --
 -- AUTO_INCREMENT for table `messages`
 --
 ALTER TABLE `messages`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=75;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=76;
 
 --
 -- AUTO_INCREMENT for table `pendaftaran_pengacara`
 --
 ALTER TABLE `pendaftaran_pengacara`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 
 --
 -- AUTO_INCREMENT for table `pengacara`
@@ -862,7 +874,7 @@ ALTER TABLE `transaksi`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 
 --
 -- Constraints for dumped tables
