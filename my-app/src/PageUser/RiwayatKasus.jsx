@@ -10,13 +10,11 @@ const RiwayatKasus = () => {
 
   useEffect(() => {
     if (user && user.id) {
-      // Fetch riwayat kasus dengan foto pengacara
       fetch(`http://localhost:5000/api/kasus/riwayat/${user.id}`)
         .then((res) => res.json())
         .then((data) => setKasusList(data))
         .catch((err) => console.error("Gagal mengambil data kasus:", err));
 
-      // Fetch riwayat konsultasi session dengan foto pengacara
       fetch(`http://localhost:5000/api/konsultasi_session/riwayat/${user.id}`)
         .then((res) => res.json())
         .then((data) => setKonsultasiList(data))
@@ -24,7 +22,6 @@ const RiwayatKasus = () => {
     }
   }, [user]);
 
-  // Fungsi untuk membangun URL foto pengacara atau fallback default
   const getFotoPengacaraUrl = (foto) =>
     foto
       ? `http://localhost:5000/uploads/${foto}`
@@ -34,98 +31,74 @@ const RiwayatKasus = () => {
     <div className="riwayat-container">
       <HeaderAfter />
 
-      {/* Riwayat Konsultasi */}
-      <h2 className="riwayat-title">Riwayat Konsultasi</h2>
-      <div className="card-list">
-        {konsultasiList.length === 0 ? (
-          <p>Belum ada riwayat konsultasi.</p>
-        ) : (
-          konsultasiList.map((session) => (
-            <div key={session.id} className="riwayat-card">
-              <div className="riwayat-card-image">
-                <img
-                  src={getFotoPengacaraUrl(session.foto_pengacara)}
-                  alt="Foto Pengacara"
-                  onError={(e) => {
-                    e.target.onerror = null;
-                    e.target.src = "http://localhost:5000/assets/default-lawyer.png";
-                  }}
-                />
-              </div>
-              <div className="riwayat-card-content">
-                <p>
-                  <strong>Nama Pengacara:</strong> {session.nama_pengacara || "-"}
-                </p>
-                <p>
-                  <strong>Waktu Mulai:</strong> {new Date(session.start_time).toLocaleString()}
-                </p>
-                <p>
-                  <strong>Durasi (menit):</strong> {session.duration}
-                </p>
-                <p>
-                  <strong>Status:</strong>{" "}
-                  <span className={`status-${session.status.toLowerCase()}`}>
-                    {session.status}
-                  </span>
-                </p>
-              </div>
-            </div>
-          ))
-        )}
+      <div className="riwayat-dua-kolom">
+        {/* Riwayat Konsultasi */}
+        <section className="riwayat-section">
+          <h2 className="riwayat-title center-text">Riwayat Konsultasi</h2>
+          <div className="card-list">
+            {konsultasiList.length === 0 ? (
+              <p>Belum ada riwayat konsultasi.</p>
+            ) : (
+              konsultasiList.map((session) => (
+                <div key={session.id} className="riwayat-card">
+                  <div className="riwayat-card-image">
+                    <img
+                      src={getFotoPengacaraUrl(session.foto_pengacara)}
+                      alt="Foto Pengacara"
+                      onError={(e) => {
+                        e.target.onerror = null;
+                        e.target.src = "http://localhost:5000/assets/default-lawyer.png";
+                      }}
+                    />
+                  </div>
+                  <div className="riwayat-card-content">
+                    <p><strong>Nama Pengacara:</strong> {session.nama_pengacara || "-"}</p>
+                    <p><strong>Waktu Mulai:</strong> {new Date(session.start_time).toLocaleString()}</p>
+                    <p><strong>Durasi (menit):</strong> {session.duration}</p>
+                    <p><strong>Status:</strong> <span className={`status-${session.status.toLowerCase()}`}>{session.status}</span></p>
+                  </div>
+                </div>
+              ))
+            )}
+          </div>
+        </section>
+
+        {/* Garis vertikal */}
+        <div className="vertical-separator"></div>
+
+        {/* Riwayat Kasus */}
+        <section className="riwayat-section">
+          <h2 className="riwayat-title center-text">Riwayat Kasus</h2>
+          <div className="card-list">
+            {kasusList.length === 0 ? (
+              <p>Belum ada kasus.</p>
+            ) : (
+              kasusList.map((kasus, index) => (
+                <div key={index} className="riwayat-card">
+                  <div className="riwayat-card-image">
+                    <img
+                      src={getFotoPengacaraUrl(kasus.foto_pengacara)}
+                      alt="Foto Pengacara"
+                      onError={(e) => {
+                        e.target.onerror = null;
+                        e.target.src = "http://localhost:5000/assets/default-lawyer.png";
+                      }}
+                    />
+                  </div>
+                  <div className="riwayat-card-content">
+                    <p><strong>Nama Pengacara:</strong> {kasus.nama_pengacara || "-"}</p>
+                    <p><strong>Jenis Pengerjaan:</strong> {kasus.jenis_pengerjaan}</p>
+                    <p><strong>Area Praktik:</strong> {kasus.area_praktik}</p>
+                    <p><strong>Estimasi Selesai:</strong> {new Date(kasus.estimasi_selesai).toLocaleDateString()}</p>
+                    <p><strong>Status:</strong> <span className={`status-${kasus.status.toLowerCase()}`}>{kasus.status}</span></p>
+                  </div>
+                </div>
+              ))
+            )}
+          </div>
+        </section>
       </div>
-
-      <br />
-      <br />
-      <br />
-
-      {/* Riwayat Kasus */}
-      <h2 className="riwayat-title">Riwayat Kasus</h2>
-      <div className="card-list">
-        {kasusList.length === 0 ? (
-          <p>Belum ada kasus.</p>
-        ) : (
-          kasusList.map((kasus, index) => (
-            <div key={index} className="riwayat-card">
-              <div className="riwayat-card-image">
-                <img
-                  src={getFotoPengacaraUrl(kasus.foto_pengacara)}
-                  alt="Foto Pengacara"
-                  onError={(e) => {
-                    e.target.onerror = null;
-                    e.target.src = "http://localhost:5000/assets/default-lawyer.png";
-                  }}
-                />
-              </div>
-              <div className="riwayat-card-content">
-                <p>
-                  <strong>Nama Pengacara:</strong> {kasus.nama_pengacara || "-"}
-                </p>
-                <p>
-                  <strong>Jenis Pengerjaan:</strong> {kasus.jenis_pengerjaan}
-                </p>
-                <p>
-                  <strong>Area Praktik:</strong> {kasus.area_praktik}
-                </p>
-                <p>
-                  <strong>Estimasi Selesai:</strong>{" "}
-                  {new Date(kasus.estimasi_selesai).toLocaleDateString()}
-                </p>
-                <p>
-                  <strong>Status:</strong>{" "}
-                  <span className={`status-${kasus.status.toLowerCase()}`}>
-                    {kasus.status}
-                  </span>
-                </p>
-              </div>
-            </div>
-          ))
-        )}
-      </div>
-
-      <br />
-      <br />
-      <br />
-      <br />
+        <br /><br /><br />
       <div className="footer-separator"></div>
       <Footer />
     </div>
