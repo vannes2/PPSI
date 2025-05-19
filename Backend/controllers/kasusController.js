@@ -126,3 +126,26 @@ exports.ambilKasus = (req, res) => {
     }
   );
 };
+
+// Ambil riwayat kasus user berdasarkan user_id
+exports.getRiwayatKasusByUser = (req, res) => {
+  const userId = req.params.userId;
+
+  const sql = `
+    SELECT ak.*, 
+           p.nama AS nama_pengacara, 
+           p.upload_foto AS foto_pengacara
+    FROM ajukan_kasus ak
+    LEFT JOIN pengacara p ON ak.lawyer_id = p.id
+    WHERE ak.user_id = ?
+    ORDER BY ak.estimasi_selesai DESC
+  `;
+
+  db.query(sql, [userId], (err, results) => {
+    if (err) {
+      console.error("Error fetching riwayat kasus:", err);
+      return res.status(500).json({ message: "Gagal mengambil data riwayat kasus" });
+    }
+    res.json(results);
+  });
+};

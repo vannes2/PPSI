@@ -10,19 +10,25 @@ const RiwayatKasus = () => {
 
   useEffect(() => {
     if (user && user.id) {
-      // Fetch riwayat kasus dengan foto pengacara
+      // Fetch riwayat kasus
       fetch(`http://localhost:5000/api/kasus/riwayat/${user.id}`)
         .then((res) => res.json())
         .then((data) => setKasusList(data))
         .catch((err) => console.error("Gagal mengambil data kasus:", err));
 
-      // Fetch riwayat konsultasi session dengan foto pengacara
+      // Fetch riwayat konsultasi session
       fetch(`http://localhost:5000/api/konsultasi_session/riwayat/${user.id}`)
         .then((res) => res.json())
         .then((data) => setKonsultasiList(data))
         .catch((err) => console.error("Gagal mengambil data konsultasi:", err));
     }
-  }, []);
+  }, [user]);
+
+  // Gunakan URL backend lengkap untuk menghindari error path
+  const getFotoPengacaraUrl = (foto) =>
+    foto
+      ? `http://localhost:5000/uploads/${foto}`
+      : "http://localhost:5000/assets/default-lawyer.png";
 
   return (
     <div className="riwayat-container">
@@ -38,18 +44,25 @@ const RiwayatKasus = () => {
             <div key={session.id} className="riwayat-card">
               <div className="riwayat-card-image">
                 <img
-                  src={
-                    session.foto_pengacara
-                      ? `/uploads/${session.foto_pengacara}`
-                      : "/assets/default-lawyer.png"
-                  }
+                  src={getFotoPengacaraUrl(session.foto_pengacara)}
                   alt="Foto Pengacara"
+                  onError={(e) => {
+                    e.target.onerror = null;
+                    e.target.src = "http://localhost:5000/assets/default-lawyer.png";
+                  }}
                 />
               </div>
               <div className="riwayat-card-content">
-                <p><strong>Nama Pengacara:</strong> {session.nama_pengacara || "-"}</p>
-                <p><strong>Waktu Mulai:</strong> {new Date(session.start_time).toLocaleString()}</p>
-                <p><strong>Durasi (menit):</strong> {session.duration}</p>
+                <p>
+                  <strong>Nama Pengacara:</strong> {session.nama_pengacara || "-"}
+                </p>
+                <p>
+                  <strong>Waktu Mulai:</strong>{" "}
+                  {new Date(session.start_time).toLocaleString()}
+                </p>
+                <p>
+                  <strong>Durasi (menit):</strong> {session.duration}
+                </p>
                 <p>
                   <strong>Status:</strong>{" "}
                   <span className={`status-${session.status.toLowerCase()}`}>
@@ -61,7 +74,7 @@ const RiwayatKasus = () => {
           ))
         )}
       </div>
-
+      <br /><br /><br />
       {/* Riwayat Kasus */}
       <h2 className="riwayat-title">Riwayat Kasus</h2>
       <div className="card-list">
@@ -72,19 +85,28 @@ const RiwayatKasus = () => {
             <div key={index} className="riwayat-card">
               <div className="riwayat-card-image">
                 <img
-                  src={
-                    kasus.foto_pengacara
-                      ? `/uploads/${kasus.foto_pengacara}`
-                      : "/assets/default-lawyer.png"
-                  }
+                  src={getFotoPengacaraUrl(kasus.foto_pengacara)}
                   alt="Foto Pengacara"
+                  onError={(e) => {
+                    e.target.onerror = null;
+                    e.target.src = "http://localhost:5000/assets/default-lawyer.png";
+                  }}
                 />
               </div>
               <div className="riwayat-card-content">
-                <p><strong>Nama Pengacara:</strong> {kasus.nama_pengacara || "-"}</p>
-                <p><strong>Jenis Pengerjaan:</strong> {kasus.jenis_pengerjaan}</p>
-                <p><strong>Area Praktik:</strong> {kasus.area_praktik}</p>
-                <p><strong>Estimasi Selesai:</strong> {new Date(kasus.estimasi_selesai).toLocaleDateString()}</p>
+                <p>
+                  <strong>Nama Pengacara:</strong> {kasus.nama_pengacara || "-"}
+                </p>
+                <p>
+                  <strong>Jenis Pengerjaan:</strong> {kasus.jenis_pengerjaan}
+                </p>
+                <p>
+                  <strong>Area Praktik:</strong> {kasus.area_praktik}
+                </p>
+                <p>
+                  <strong>Estimasi Selesai:</strong>{" "}
+                  {new Date(kasus.estimasi_selesai).toLocaleDateString()}
+                </p>
                 <p>
                   <strong>Status:</strong>{" "}
                   <span className={`status-${kasus.status.toLowerCase()}`}>
@@ -97,7 +119,10 @@ const RiwayatKasus = () => {
         )}
       </div>
 
-      <br /><br /><br /><br />
+      <br />
+      <br />
+      <br />
+      <br />
       <div className="footer-separator"></div>
       <Footer />
     </div>
