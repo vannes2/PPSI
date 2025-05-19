@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { Link } from "react-router-dom"; // Import Link untuk navigasi
 import "../CSS_User/RiwayatKasus.css";
 import HeaderAfter from "../components/HeaderAfter";
 import Footer from "../components/Footer";
@@ -56,6 +57,16 @@ const RiwayatKasus = () => {
                     <p><strong>Waktu Mulai:</strong> {new Date(session.start_time).toLocaleString()}</p>
                     <p><strong>Durasi (menit):</strong> {session.duration}</p>
                     <p><strong>Status:</strong> <span className={`status-${session.status.toLowerCase()}`}>{session.status}</span></p>
+                    <div className="btn-group">
+                      {/* Detail menuju payment page dengan id pengacara */}
+                      <Link to={`/payment/${session.id_pengacara}`}>
+                        <button className="btn detail-btn">Detail</button>
+                      </Link>
+                      {/* Riwayat menuju chat session */}
+                      <Link to={`/chat/pengacara/${session.id}`}>
+                        <button className="btn history-btn">Riwayat</button>
+                      </Link>
+                    </div>
                   </div>
                 </div>
               ))
@@ -91,6 +102,16 @@ const RiwayatKasus = () => {
                     <p><strong>Area Praktik:</strong> {kasus.area_praktik}</p>
                     <p><strong>Estimasi Selesai:</strong> {new Date(kasus.estimasi_selesai).toLocaleDateString()}</p>
                     <p><strong>Status:</strong> <span className={`status-${kasus.status.toLowerCase()}`}>{kasus.status}</span></p>
+                    <div className="btn-group">
+                      {/* Detail menuju payment page dengan id pengacara */}
+                      <Link to={`/payment/${kasus.id_pengacara}`}>
+                        <button className="btn detail-btn">Detail</button>
+                      </Link>
+                      {/* Riwayat menuju daftar kasus */}
+                      <Link to={`/DaftarKasus`}>
+                        <button className="btn history-btn">Riwayat</button>
+                      </Link>
+                    </div>
                   </div>
                 </div>
               ))
@@ -98,7 +119,8 @@ const RiwayatKasus = () => {
           </div>
         </section>
       </div>
-        <br /><br /><br />
+
+      <br /><br /><br /><br />
       <div className="footer-separator"></div>
       <Footer />
     </div>

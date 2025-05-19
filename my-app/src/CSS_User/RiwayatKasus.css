@@ -62,7 +62,6 @@
   margin: 0 auto;      /* Supaya card terpusat di kolom */
 }
 
-
 .riwayat-card-image img {
   width: 80px;
   height: 80px;
@@ -90,6 +89,62 @@
   color: #16a34a;
   font-weight: bold;
 }
+
+.btn-group {
+  margin-top: 12px;
+  display: flex;
+  gap: 10px;
+}
+
+.btn-group {
+  margin-top: 12px;
+  display: flex;
+  gap: 10px;
+}
+
+.detail-btn {
+  background-color:  #B31312;       /* background putih */
+  color: #fff;               /* teks merah */
+  border: 2px solid ;   /* border merah */
+  padding: 6px 14px;
+  border-radius: 4px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  user-select: none;
+}
+
+.detail-btn:hover {
+  background-color: #fff;   /* background merah */
+  color: #B31312;                 /* teks putih */
+  border: 2px solid #B31312;          /* border putih */
+}
+
+.history-btn {
+ background-color: #fff !important; 
+  color: #B31312 !important;
+  border: 2px solid #B31312 !important;
+  padding: 6px 14px;
+  border-radius: 4px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  user-select: none;
+}
+
+.history-btn:hover {
+ background-color: #B31312 !important; 
+  color: #fff !important;
+  border: 2px solid #B31312 !important;
+  padding: 6px 14px;
+  border-radius: 4px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  user-select: none;
+} 
+
+
 
 /* Responsive */
 @media (max-width: 900px) {
