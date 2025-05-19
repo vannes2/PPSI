@@ -129,7 +129,7 @@ exports.ambilKasus = (req, res) => {
 
 // Ambil riwayat kasus user berdasarkan user_id
 exports.getRiwayatKasusByUser = (req, res) => {
-  const userId = req.params.userId;
+  const userId = req.params.userId; // pastikan param ini sesuai route
 
   const sql = `
     SELECT ak.*, 

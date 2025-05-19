@@ -10,13 +10,13 @@ const RiwayatKasus = () => {
 
   useEffect(() => {
     if (user && user.id) {
-      // Fetch riwayat kasus
+      // Fetch riwayat kasus dengan foto pengacara
       fetch(`http://localhost:5000/api/kasus/riwayat/${user.id}`)
         .then((res) => res.json())
         .then((data) => setKasusList(data))
         .catch((err) => console.error("Gagal mengambil data kasus:", err));
 
-      // Fetch riwayat konsultasi session
+      // Fetch riwayat konsultasi session dengan foto pengacara
       fetch(`http://localhost:5000/api/konsultasi_session/riwayat/${user.id}`)
         .then((res) => res.json())
         .then((data) => setKonsultasiList(data))
@@ -24,7 +24,7 @@ const RiwayatKasus = () => {
     }
   }, [user]);
 
-  // Gunakan URL backend lengkap untuk menghindari error path
+  // Fungsi untuk membangun URL foto pengacara atau fallback default
   const getFotoPengacaraUrl = (foto) =>
     foto
       ? `http://localhost:5000/uploads/${foto}`
@@ -57,8 +57,7 @@ const RiwayatKasus = () => {
                   <strong>Nama Pengacara:</strong> {session.nama_pengacara || "-"}
                 </p>
                 <p>
-                  <strong>Waktu Mulai:</strong>{" "}
-                  {new Date(session.start_time).toLocaleString()}
+                  <strong>Waktu Mulai:</strong> {new Date(session.start_time).toLocaleString()}
                 </p>
                 <p>
                   <strong>Durasi (menit):</strong> {session.duration}
@@ -74,7 +73,11 @@ const RiwayatKasus = () => {
           ))
         )}
       </div>
-      <br /><br /><br />
+
+      <br />
+      <br />
+      <br />
+
       {/* Riwayat Kasus */}
       <h2 className="riwayat-title">Riwayat Kasus</h2>
       <div className="card-list">

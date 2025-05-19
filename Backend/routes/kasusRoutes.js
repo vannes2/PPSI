@@ -17,11 +17,12 @@ const storage = multer.diskStorage({
 const upload = multer({ storage: storage });
 
 router.post('/ajukan-kasus', upload.single('bukti'), kasusController.ajukanKasus);
-router.get('/kasus/riwayat/:id', kasusController.getKasusByUserId);
 router.get('/kasus', kasusController.getAllKasus);
 router.put('/kasus/update-status/:id', kasusController.updateKasusStatus);
 router.post('/kasus/log-aktivitas', kasusController.logAktivitas);
 router.get('/kasus/log-aktivitas/:id', kasusController.getLogAktivitasByUser);
 router.put('/kasus/ambil/:id', kasusController.ambilKasus);
+router.get('/kasus/riwayat/:userId', kasusController.getRiwayatKasusByUser);
+
 
 module.exports = router;
