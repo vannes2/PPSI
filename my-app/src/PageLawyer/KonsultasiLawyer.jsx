@@ -3,7 +3,6 @@ import { useLocation, useNavigate } from "react-router-dom";
 import io from "socket.io-client";
 import { FaLocationArrow, FaPaperclip } from "react-icons/fa";
 import HeaderLawyer from "../components/HeaderLawyer";
-import Footer from "../components/Footer";
 import "../CSS_Lawyer/KonsultasiLawyer.css";
 
 const socket = io("http://localhost:5000");
@@ -48,24 +47,50 @@ const KonsultasiLawyer = () => {
   };
 
   useEffect(() => {
-    if (!lawyer) {
-      setError("Pengacara belum login.");
-      return;
-    }
-
-    fetch(`http://localhost:5000/api/chat/contacts/lawyer/${lawyer.id}`)
-      .then((res) => res.json())
-      .then((data) => setContacts(data))
-      .catch(() => setError("Gagal mengambil kontak"));
-
-    socket.on(`receive_message_pengacara_${lawyer.id}`, (data) => {
-      if (selectedUser && data.sender_id === selectedUser.id) {
-        setMessages((prev) => [...prev, data]);
+    if (!lawyer) return;
+  
+    // Ambil ulang kontak saat masuk halaman
+    const fetchContacts = async () => {
+      try {
+        const res = await fetch(`http://localhost:5000/api/chat/contacts/lawyer/${lawyer.id}`);
+        const data = await res.json();
+        setContacts(data);
+      } catch (err) {
+        console.error("Gagal ambil kontak:", err);
       }
-    });
-
-    return () => socket.off();
-  }, [lawyer?.id, selectedUser]);
+    };
+  
+    fetchContacts();
+  
+    // Handler untuk socket
+    const handleReceiveMessage = async (data) => {
+      if (!selectedUser) return;
+  
+      const isForThisChat = data.sender_id === selectedUser.id;
+  
+      if (isForThisChat) {
+        try {
+          const res = await fetch(
+            `http://localhost:5000/api/chat/messages/user/${selectedUser.id}?userId=${lawyer.id}&userRole=pengacara`
+          );
+          const newMessages = await res.json();
+          setMessages(newMessages);
+        } catch (err) {
+          console.error("Gagal refresh pesan:", err);
+        }
+      }
+  
+      // Refresh sidebar kontak
+      fetchContacts();
+    };
+  
+    socket.on(`receive_message_pengacara_${lawyer.id}`, handleReceiveMessage);
+  
+    return () => {
+      socket.off(`receive_message_pengacara_${lawyer.id}`, handleReceiveMessage);
+    };
+  }, [lawyer?.id, selectedUser?.id]);
+  
 
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });

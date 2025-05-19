@@ -1,26 +1,37 @@
 import { useState, useEffect, useRef } from "react";
 import chatBg from "../assets/dewa.jpeg";
-import avatarImg from "../assets/botchat.png"; // Pastikan path benar
+import avatarImg from "../assets/botchat.png";
 import "./ChatBot.css";
 
 const ChatBotWidget = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const [messages, setMessages] = useState([
-    {
-      sender: "bot",
-      text: "Halo! Saya Lexa, asisten virtual Anda dalam bidang hukum.\nTanyakan apa saja tentang peraturan, kasus, atau konsultasi hukum.\nSaya siap membantu Anda kapan saja.",
-      time: new Date(),
-    },
-  ]);
+  const [messages, setMessages] = useState([]);
   const [input, setInput] = useState("");
   const [loading, setLoading] = useState(false);
   const [hasNewMessage, setHasNewMessage] = useState(false);
+  const [userName, setUserName] = useState("Lexa");
 
   const messagesEndRef = useRef(null);
 
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
   };
+
+  // Ambil nama user/pengacara dari localStorage
+  useEffect(() => {
+    const userData = JSON.parse(localStorage.getItem("user"));
+    if (userData && userData.name) {
+      setUserName(userData.name);
+    }
+
+    setMessages([
+      {
+        sender: "bot",
+        text: `Halo ${userData?.name || "Pengguna"}! Saya Lexa, asisten virtual Anda.\nTanyakan apa saja tentang peraturan, kasus, atau konsultasi hukum.\nSaya siap membantu Anda kapan saja.`,
+        time: new Date(),
+      },
+    ]);
+  }, []);
 
   useEffect(() => {
     if (isOpen) {
@@ -43,7 +54,6 @@ const ChatBotWidget = () => {
     if (!trimmedInput || loading) return;
 
     const now = new Date();
-
     setMessages((prev) => [...prev, { sender: "user", text: trimmedInput, time: now }]);
     setInput("");
     setLoading(true);
@@ -58,7 +68,6 @@ const ChatBotWidget = () => {
       if (!res.ok) throw new Error("Gagal mendapatkan respons dari server");
 
       const data = await res.json();
-
       setMessages((prev) => [...prev, { sender: "bot", text: data.response, time: new Date() }]);
     } catch {
       setMessages((prev) => [
@@ -101,43 +110,30 @@ const ChatBotWidget = () => {
           onClick={() => setIsOpen(true)}
         >
           <img src={avatarImg} alt="Avatar Chatbot" />
-          {hasNewMessage && <span className="chatbot-message-bubble">Halo! Saya Lexa, asisten virtual</span>}
+          {hasNewMessage && (
+            <span className="chatbot-message-bubble">
+              Halo {userName.split(" ")[0]}! Saya lexa, asisten virtual
+            </span>
+          )}
         </button>
       )}
 
       {isOpen && (
-        <div
-          className="chatbot-container"
-          role="dialog"
-          aria-modal="true"
-          aria-label="Chatbot Cerdas Hukum"
-        >
+        <div className="chatbot-container" role="dialog" aria-modal="true" aria-label="Chatbot Cerdas Hukum">
           <div className="chatbot-header">
             <span>Chatbot Cerdas Hukum</span>
-            <button
-              className="chatbot-close-btn"
-              aria-label="Tutup Chatbot"
-              onClick={() => setIsOpen(false)}
-            >
+            <button className="chatbot-close-btn" aria-label="Tutup Chatbot" onClick={() => setIsOpen(false)}>
               ✖
             </button>
           </div>
 
-          <div
-            className="chatbot-messages"
-            style={messagesStyle}
-            tabIndex={0}
-            aria-live="polite"
-            aria-atomic="false"
-          >
-
+          <div className="chatbot-messages" style={messagesStyle} tabIndex={0} aria-live="polite" aria-atomic="false">
             {messages.map((msg, i) => (
               <div key={i} className={`msg ${msg.sender}`}>
                 <div className="msg-text">{msg.text}</div>
                 <div className="msg-time">{formatTime(msg.time)}</div>
               </div>
             ))}
-
             <div ref={messagesEndRef} />
 
             {loading && (
@@ -163,12 +159,7 @@ const ChatBotWidget = () => {
               autoComplete="off"
               disabled={loading}
             />
-            <button
-              type="button"
-              onClick={sendMessage}
-              disabled={!input.trim() || loading}
-              aria-label="Kirim pesan"
-            >
+            <button type="button" onClick={sendMessage} disabled={!input.trim() || loading} aria-label="Kirim pesan">
               Kirim
             </button>
           </div>
@@ -179,6 +170,7 @@ const ChatBotWidget = () => {
 };
 
 export default ChatBotWidget;
+
 
 /*update kode dari gw vannes
 

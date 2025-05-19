@@ -129,18 +129,55 @@ const ChatPage = () => {
   }, [remainingTime]);
 
   useEffect(() => {
-    socket.on("receive_message", (newMessage) => {
-      const isForThisChat = newMessage.sender_id.toString() === activeLawyerId?.toString() && newMessage.receiver_id === user.id && newMessage.receiver_role === "user";
+  if (!user) return;
 
-      if (isForThisChat) {
-        setMessages((prev) => [...prev, newMessage]);
+  const handleReceiveMessage = async (data) => {
+    const isForThisChat =
+      data.sender_id.toString() === activeLawyerId?.toString() &&
+      data.receiver_id === user.id &&
+      data.receiver_role === "user";
+
+    if (isForThisChat) {
+      try {
+        const res = await fetch(
+          `http://localhost:5000/api/chat/messages/pengacara/${activeLawyerId}?userId=${user.id}&userRole=user`
+        );
+        const dataMessages = await res.json();
+        setMessages(dataMessages);
+      } catch (err) {
+        console.error("Gagal refresh pesan:", err);
       }
-    });
+    }
 
-    return () => {
-      socket.off("receive_message");
-    };
-  }, [activeLawyerId, user.id]);
+    try {
+      const resContacts = await fetch(
+        `http://localhost:5000/api/chat/contacts/user/${user.id}`
+      );
+      const dataContacts = await resContacts.json();
+
+      const resProfiles = await fetch("http://localhost:5000/api/profilpengacara");
+      const profiles = await resProfiles.json();
+
+      const mergedContacts = dataContacts.map((c) => {
+        const profile = profiles.find((p) => p.id === c.id);
+        return profile ? { ...c, ...profile } : c;
+      });
+
+      setContacts(mergedContacts);
+    } catch (err) {
+      console.error("Gagal refresh kontak:", err);
+    }
+  };
+
+  socket.on("receive_message", handleReceiveMessage);
+
+  return () => {
+    socket.off("receive_message", handleReceiveMessage);
+  };
+}, [activeLawyerId, user?.id]);
+
+
+  
 
   const handleSubmit = async (e) => {
     e.preventDefault();
