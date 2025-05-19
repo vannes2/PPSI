@@ -20,7 +20,7 @@ import ForgotPassword from "./PageUser/ForgotPassword";
 import VerifyOtp from "./PageUser/VerifyOtp";
 import ResetPassword from "./PageUser/ResetPassword";
 import DetailBerita from "./PageUser/DetailBerita";
-import RiwayatChatPage from "./PageUser/RiwayatChatPage"
+import RiwayatKasus from "./PageUser/RiwayatKasus";
 
 // Admin Pages
 import HomeAdmin from "./PageAdmin/HomeAdmin";
@@ -35,6 +35,7 @@ import ArtikelBeritaUser from "./PageUser/ArtikelBerita";
 import ArtikelBeritaAdmin from "./PageAdmin/ArtikelBeritaAdmin"; 
 import RiwayatPertanyaanUser from "./PageAdmin/RiwayatPertanyaanUser";
 import FaqAdmin from "./PageAdmin/FaqAdmin";
+
 
 // Lawyer Pages
 import RegisterLawyerPage from "./PageLawyer/RegisterLawyerPage";
@@ -86,8 +87,9 @@ function App() {
                 <Route path="/reset-password" element={<ResetPassword />} />
                 <Route path="/ArtikelBerita" element={<ArtikelBeritaUser />} />
                 <Route path="/DetailBerita/:id" element={<DetailBerita />} />
-                <Route path="/RiwayatChatPage" element={<RiwayatChatPage />} />
                 <Route path="/artikel/:id" element={<ArtikelDetail />} />
+                <Route path="/RiwayatKasus" element={<RiwayatKasus />} />
+
 
                 {/* ✅ Admin Routes */}
                 <Route path="/HomeAdmin" element={<HomeAdmin />} />

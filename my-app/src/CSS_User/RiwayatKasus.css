@@ -1,0 +1,57 @@
+.riwayat-container {
+  padding: 120px 40px 60px;
+  background-color: #fefde9;
+  font-family: 'Segoe UI', sans-serif;
+}
+
+.riwayat-title {
+  font-size: 28px;
+  font-weight: bold;
+  color: #1f2937;
+  margin-bottom: 32px;
+}
+
+.card-list {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.riwayat-card {
+  display: flex;
+  background-color: white;
+  border-left: 6px solid #b31312;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  border-radius: 8px;
+  padding: 16px;
+  align-items: center;
+}
+
+.riwayat-card-image img {
+  width: 80px;
+  height: 80px;
+  border-radius: 100%;
+  object-fit: cover;
+  margin-right: 24px;
+}
+
+.riwayat-card-content p {
+  margin: 4px 0;
+  font-size: 15px;
+}
+
+.status-menunggu {
+  color: #d97706;
+  font-weight: bold;
+}
+
+.status-diproses {
+  color: #2563eb;
+  font-weight: bold;
+}
+
+.status-selesai {
+  color: #16a34a;
+  font-weight: bold;
+}
+
