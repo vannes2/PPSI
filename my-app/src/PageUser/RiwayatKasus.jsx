@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Link } from "react-router-dom"; // Import Link untuk navigasi
+import { Link } from "react-router-dom";
 import "../CSS_User/RiwayatKasus.css";
 import HeaderAfter from "../components/HeaderAfter";
 import Footer from "../components/Footer";
@@ -23,10 +23,34 @@ const RiwayatKasus = () => {
     }
   }, [user]);
 
+  // Fungsi untuk menangani gambar profil pengacara
   const getFotoPengacaraUrl = (foto) =>
     foto
       ? `http://localhost:5000/uploads/${foto}`
-      : "http://localhost:5000/assets/default-lawyer.png";
+      : "/assets/img/default-profile.png"; // Gambar default di public
+
+  // Fungsi untuk mengecek apakah foto default
+  const isDefaultFoto = (foto) => {
+    return !foto || foto === null || foto === undefined || foto === "";
+  };
+
+  const renderStatusKasus = (kasus) => {
+    // Cek nama pengacara dan foto, jika keduanya tidak ada (atau foto default)
+    if ((!kasus.nama_pengacara || kasus.nama_pengacara.trim() === "") && isDefaultFoto(kasus.foto_pengacara)) {
+      return (
+        <span className="status-belum-diambil-pengacara">
+          Belum diambil Pengacara
+        </span>
+      );
+    }
+
+    // Jika ada nama pengacara dan foto, tampilkan status asli dengan styling
+    return (
+      <span className={`status-${kasus.status.toLowerCase()}`}>
+        {kasus.status}
+      </span>
+    );
+  };
 
   return (
     <div className="riwayat-container">
@@ -47,22 +71,23 @@ const RiwayatKasus = () => {
                       src={getFotoPengacaraUrl(session.foto_pengacara)}
                       alt="Foto Pengacara"
                       onError={(e) => {
-                        e.target.onerror = null;
-                        e.target.src = "http://localhost:5000/assets/default-lawyer.png";
+                        // Set gambar default hanya sekali
+                        if (!e.target.src.includes('default-profile.png')) {
+                          e.target.src = "/assets/img/default-profile.png";
+                        }
                       }}
                     />
                   </div>
                   <div className="riwayat-card-content">
                     <p><strong>Nama Pengacara:</strong> {session.nama_pengacara || "-"}</p>
+                    <p><strong>Harga Konsultasi:</strong> Rp {session.harga_konsultasi?.toLocaleString('id-ID')}</p>
                     <p><strong>Waktu Mulai:</strong> {new Date(session.start_time).toLocaleString()}</p>
                     <p><strong>Durasi (menit):</strong> {session.duration}</p>
                     <p><strong>Status:</strong> <span className={`status-${session.status.toLowerCase()}`}>{session.status}</span></p>
                     <div className="btn-group">
-                      {/* Detail menuju payment page dengan id pengacara */}
                       <Link to={`/payment/${session.id_pengacara}`}>
                         <button className="btn detail-btn">Detail</button>
                       </Link>
-                      {/* Riwayat menuju chat session */}
                       <Link to={`/chat/pengacara/${session.id}`}>
                         <button className="btn history-btn">Riwayat</button>
                       </Link>
@@ -91,23 +116,24 @@ const RiwayatKasus = () => {
                       src={getFotoPengacaraUrl(kasus.foto_pengacara)}
                       alt="Foto Pengacara"
                       onError={(e) => {
-                        e.target.onerror = null;
-                        e.target.src = "http://localhost:5000/assets/default-lawyer.png";
+                        // Set gambar default hanya sekali
+                        if (!e.target.src.includes('default-profile.png')) {
+                          e.target.src = "/assets/img/default-profile.png";
+                        }
                       }}
                     />
                   </div>
                   <div className="riwayat-card-content">
                     <p><strong>Nama Pengacara:</strong> {kasus.nama_pengacara || "-"}</p>
+                    <p><strong>Harga Konsultasi:</strong> Rp {kasus.harga_konsultasi?.toLocaleString('id-ID')}</p>
                     <p><strong>Jenis Pengerjaan:</strong> {kasus.jenis_pengerjaan}</p>
                     <p><strong>Area Praktik:</strong> {kasus.area_praktik}</p>
                     <p><strong>Estimasi Selesai:</strong> {new Date(kasus.estimasi_selesai).toLocaleDateString()}</p>
-                    <p><strong>Status:</strong> <span className={`status-${kasus.status.toLowerCase()}`}>{kasus.status}</span></p>
+                    <p><strong>Status:</strong> {renderStatusKasus(kasus)}</p>
                     <div className="btn-group">
-                      {/* Detail menuju payment page dengan id pengacara */}
                       <Link to={`/payment/${kasus.id_pengacara}`}>
                         <button className="btn detail-btn">Detail</button>
                       </Link>
-                      {/* Riwayat menuju daftar kasus */}
                       <Link to={`/DaftarKasus`}>
                         <button className="btn history-btn">Riwayat</button>
                       </Link>

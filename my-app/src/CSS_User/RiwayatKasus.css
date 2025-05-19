@@ -1,5 +1,5 @@
 .riwayat-container {
-  padding: 120px 40px 60px;
+  padding: 120px 0px 60px;
   background-color: #fefde9;
   font-family: 'Segoe UI', sans-serif;
 }
@@ -50,24 +50,39 @@
 }
 
 .riwayat-card {
-  max-width: 420px;    /* Lebar maksimal yang lebih kecil */
-  width: 100%;         /* Lebar mengikuti container */
+  /* Tetap mempertahankan properti yang ada */
+  max-width: 420px;
+  width: 100%;
   display: flex;
   background-color: white;
   border-left: 6px solid #b31312;
   box-shadow: 0 2px 8px rgba(0,0,0,0.08);
   border-radius: 8px;
   padding: 16px;
-  align-items: center;
-  margin: 0 auto;      /* Supaya card terpusat di kolom */
+  align-items: flex-start; /* Ubah dari center ke flex-start */
+  margin: 0 auto;
+  gap: 20px;
+  position: relative; /* Tambahkan untuk positioning absolut child */
+}
+
+.riwayat-card-image {
+  width: 80px;
+  height: 100px;
+  flex-shrink: 0;
+  position: relative;
+  top: 6px; /* semakin besar foto profil semakin ke bawah */
 }
 
 .riwayat-card-image img {
-  width: 80px;
-  height: 80px;
-  border-radius: 100%;
+  width: 100%;
+  height: 100%;
   object-fit: cover;
-  margin-right: 24px;
+  border-radius: 8px;
+  /* Hapus margin-top sebelumnya */
+}
+
+.riwayat-card-content {
+  flex: 1; /* Pastikan konten mengambil sisa ruang */
 }
 
 .riwayat-card-content p {
