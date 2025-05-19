@@ -51,7 +51,7 @@ app.use('/api/artikel-berita', artikelBeritaRoutes);
 app.use("/api/konsultasi-session", konsultasiSessionRoutes);
 app.use("/api/log-pertanyaan", logPertanyaanRoutes);
 app.use('/api/faq', faqRoutes);
-
+app.use("/api/payment-kasus", require("./routes/paymentKasusRoutes"));
 
 app.use("/api/chatbot", require("./routes/botRoutes"));
 app.use("/api/chatbot", botRoutes);

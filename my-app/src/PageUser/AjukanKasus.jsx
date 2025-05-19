@@ -1,9 +1,12 @@
 import { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom'; // Tambahkan import useNavigate
 import '../CSS_User/AjukanKasus.css';
 import HeaderAfter from '../components/HeaderAfter';
 import Footer from '../components/Footer';
 
 const AjukanKasus = () => {
+  const navigate = useNavigate(); // Inisialisasi useNavigate
+
   const [formData, setFormData] = useState({
     user_id: '',
     nama: '',
@@ -31,6 +34,13 @@ const AjukanKasus = () => {
         noHp: user.no_hp || ''
       }));
     }
+
+    const midtransClientKey = 'YOUR_CLIENT_KEY'; // Ganti dengan client key asli Anda
+
+    const script = document.createElement('script');
+    script.src = 'https://app.sandbox.midtrans.com/snap/snap.js';
+    script.setAttribute('data-client-key', midtransClientKey);
+    document.body.appendChild(script);
   }, []);
 
   const handleChange = (e) => {
@@ -46,6 +56,12 @@ const AjukanKasus = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    if (Number(formData.biayaMin) < 500000) {
+      alert('Biaya minimal harus Rp500.000');
+      return;
+    }
+
     const data = new FormData();
     Object.entries(formData).forEach(([key, value]) => {
       data.append(key, value);
@@ -58,25 +74,64 @@ const AjukanKasus = () => {
         body: data,
       });
 
-      if (response.ok) {
-        alert('Pengajuan kasus Anda telah dikirim!');
-        setFormData({
-          user_id: formData.user_id,
-          nama: '',
-          email: '',
-          noHp: '',
-          areaPraktik: '',
-          jenisPengerjaan: '',
-          biayaMin: '',
-          biayaMax: '',
-          estimasiSelesai: '',
-          lokasi: '',
-          deskripsi: ''
-        });
-        setFile(null);
-      } else {
+      if (!response.ok) {
         alert('Gagal mengirim pengajuan.');
+        return;
       }
+
+      alert('Pengajuan kasus Anda telah dikirim!');
+
+      const paymentResponse = await fetch('http://localhost:5000/api/payment-kasus/transaction-kasus', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          user_id: formData.user_id,
+          biaya_min: formData.biayaMin
+        }),
+      });
+
+      if (!paymentResponse.ok) {
+        alert('Gagal membuat transaksi pembayaran.');
+        return;
+      }
+
+      const paymentData = await paymentResponse.json();
+
+      window.snap.pay(paymentData.token, {
+        onSuccess: function(result) {
+          alert('Pembayaran berhasil!');
+          navigate('/DaftarKasus'); // redirect manual di React Router
+        },
+        onPending: function(result) {
+          alert('Pembayaran menunggu konfirmasi.');
+        },
+        onError: function(result) {
+          alert('Pembayaran gagal atau dibatalkan.');
+        },
+        onClose: function() {
+          alert('Popup pembayaran ditutup tanpa menyelesaikan pembayaran.');
+        }
+      });
+      
+      
+
+      setFormData(prev => ({
+        ...prev,
+        nama: '',
+        email: '',
+        noHp: '',
+        areaPraktik: '',
+        jenisPengerjaan: '',
+        biayaMin: '',
+        biayaMax: '',
+        estimasiSelesai: '',
+        lokasi: '',
+        deskripsi: ''
+      }));
+      setFile(null);
+
     } catch (error) {
       console.error('Error:', error);
       alert('Terjadi kesalahan saat mengirim data.');
