@@ -33,6 +33,7 @@ const ArtikelDetail = () => {
   return (
     <div className="artikel-detail-page">
       <HeaderAfter />
+      <br /><br /><br />
       <div className="artikel-detail-main">
         {loading ? (
           <p className="text-center text-gray-500">Memuat artikel...</p>
@@ -40,25 +41,58 @@ const ArtikelDetail = () => {
           <div className="artikel-detail-container">
             <h1>{artikel.judul}</h1>
             <div className="artikel-detail-content">
-              <p><strong>Deskripsi:</strong> {artikel.deskripsi}</p>
-              <p><strong>Jenis Hukum:</strong> {artikel.jenis_hukum}</p>
-              <p><strong>Nomor:</strong> {artikel.nomor}</p>
-              <p><strong>Tahun:</strong> {artikel.tahun}</p>
-              <p><strong>Jenis Dokumen:</strong> {artikel.jenis_dokumen}</p>
-              <p><strong>Tempat Penetapan:</strong> {artikel.tempat_penetapan}</p>
-              <p><strong>Status:</strong> {artikel.status}</p>
-              <p><strong>Tanggal Penetapan:</strong> {new Date(artikel.tanggal_penetapan).toLocaleDateString()}</p>
+              <div className="artikel-detail-list">
+                <div className="artikel-detail-list-label">Deskripsi</div>
+                <div className="artikel-detail-list-colon">:</div>
+                <div className="artikel-detail-list-value">{artikel.deskripsi}</div>
+
+                <div className="artikel-detail-list-label">Jenis Hukum</div>
+                <div className="artikel-detail-list-colon">:</div>
+                <div className="artikel-detail-list-value">{artikel.jenis_hukum}</div>
+
+                <div className="artikel-detail-list-label">Nomor</div>
+                <div className="artikel-detail-list-colon">:</div>
+                <div className="artikel-detail-list-value">{artikel.nomor}</div>
+
+                <div className="artikel-detail-list-label">Tahun</div>
+                <div className="artikel-detail-list-colon">:</div>
+                <div className="artikel-detail-list-value">{artikel.tahun}</div>
+
+                <div className="artikel-detail-list-label">Jenis Dokumen</div>
+                <div className="artikel-detail-list-colon">:</div>
+                <div className="artikel-detail-list-value">{artikel.jenis_dokumen}</div>
+
+                <div className="artikel-detail-list-label">Tempat Penetapan</div>
+                <div className="artikel-detail-list-colon">:</div>
+                <div className="artikel-detail-list-value">{artikel.tempat_penetapan}</div>
+
+                <div className="artikel-detail-list-label">Status</div>
+                <div className="artikel-detail-list-colon">:</div>
+                <div className="artikel-detail-list-value">{artikel.status}</div>
+
+                <div className="artikel-detail-list-label">Tanggal Penetapan</div>
+                <div className="artikel-detail-list-colon">:</div>
+                <div className="artikel-detail-list-value">
+                  {new Date(artikel.tanggal_penetapan).toLocaleDateString()}
+                </div>
+              </div>
+
               {artikel.filePath && (
-                <button onClick={() => handleDownload(artikel.filePath)} className="artikel-download-btn">
+                <button
+                  onClick={() => handleDownload(artikel.filePath)}
+                  className="artikel-download-btn"
+                  type="button"
+                >
                   Download PDF
                 </button>
               )}
             </div>
           </div>
         ) : (
-          <p>Artikel tidak ditemukan.</p>
+          <p className="text-center text-gray-500">Artikel tidak ditemukan.</p>
         )}
       </div>
+      <br /><br /><br />
       <div className="footer-separator"></div>
       <Footer />
     </div>
