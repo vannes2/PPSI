@@ -4,6 +4,7 @@ const bodyParser = require("body-parser");
 const http = require('http');
 const socketIo = require('socket.io');
 const db = require('./config/database');
+const path = require("path");
 
 // Routes
 const authRoutes = require("./routes/authRoutes");
@@ -62,6 +63,10 @@ app.use("/api/konsultasi_session", konsultasiRoutes);
 // Setup HTTP server + Socket.io
 const server = http.createServer(app);
 const io = socketIo(server, { cors: { origin: '*' } });
+
+//untuk akses cover
+app.use("/uploads", express.static(path.join(__dirname, "uploads")));
+
 
 // Socket.io Logic
 io.on('connection', (socket) => {

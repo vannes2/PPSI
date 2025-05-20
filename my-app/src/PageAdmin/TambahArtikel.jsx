@@ -83,16 +83,20 @@ const TambahArtikel = () => {
             required
           />
 
-          <select
-            value={jenis_hukum}
-            onChange={(e) => setJenishukum(e.target.value)}
-            className="admin-input"
-            required
-          >
-            <option value="">Pilih Jenis Hukum</option>
-            <option value="KDRT">PDF Hukum KDRT</option>
-            <option value="perceraian">PDF Hukum Perceraian</option>
-            <option value="pelanggaran_HAM">PDF Hukum Pelanggaran HAM</option>
+        <select
+              value={jenis_hukum}
+              onChange={(e) => setJenishukum(e.target.value)}
+              className="admin-input"
+              required
+            >
+              <option value="">Pilih Jenis Hukum</option>
+              <option value="Pidana">Hukum Pidana</option>
+              <option value="Perdata">Hukum Perdata</option>
+              <option value="Internasional">Hukum Internasional</option>
+              <option value="Ketenagakerjaan">Hukum Ketenagakerjaan</option>
+              <option value="HAKI">Hukum HAKI</option>
+              <option value="Keluarga">Hukum Keluarga</option>
+              <option value="Administrasi Negara">Hukum Administrasi Negara</option>
           </select>
 
           <input

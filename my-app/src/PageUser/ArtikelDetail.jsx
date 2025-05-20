@@ -14,6 +14,7 @@ const ArtikelDetail = () => {
     const fetchArtikelDetail = async () => {
       try {
         const res = await axios.get(`http://localhost:5000/api/artikel/${id}`);
+        console.log("COVER PATH:", res.data.coverPath); // 🔍 Debug path cover
         setArtikel(res.data);
         setLoading(false);
       } catch (err) {
@@ -27,7 +28,7 @@ const ArtikelDetail = () => {
 
   const handleDownload = (filePath) => {
     const fileName = filePath.split(/[\\/]/).pop();
-    window.open(`http://localhost:5000/uploads/${fileName}`, "_blank");
+    window.open(`http://localhost:5000/uploads/pdf/${fileName}`, "_blank");
   };
 
   return (
@@ -41,42 +42,65 @@ const ArtikelDetail = () => {
           <div className="artikel-detail-container">
             <h1>{artikel.judul}</h1>
             <div className="artikel-detail-content">
-              <div className="artikel-detail-list">
-                <div className="artikel-detail-list-label">Deskripsi</div>
-                <div className="artikel-detail-list-colon">:</div>
-                <div className="artikel-detail-list-value">{artikel.deskripsi}</div>
+              <div className="artikel-detail-flex-wrapper">
 
-                <div className="artikel-detail-list-label">Jenis Hukum</div>
-                <div className="artikel-detail-list-colon">:</div>
-                <div className="artikel-detail-list-value">{artikel.jenis_hukum}</div>
+                {/* Tampilkan cover thumbnail jika tersedia */}
+                {artikel.coverPath && (
+                  <div className="artikel-cover-wrapper">
+                    <img
+                      src={`http://localhost:5000/${artikel.coverPath}`}
+                      alt="Cover PDF"
+                      className="artikel-cover-image"
+                      onError={(e) => {
+                        e.target.onerror = null;
+                        e.target.src = "/assets/images/defaultcover.png";
+                      }}
+                    />
+                  </div>
+                )}
 
-                <div className="artikel-detail-list-label">Nomor</div>
-                <div className="artikel-detail-list-colon">:</div>
-                <div className="artikel-detail-list-value">{artikel.nomor}</div>
+                {/* Informasi artikel */}
+                <div className="artikel-detail-list-wrapper">
+                  <div className="artikel-detail-list">
 
-                <div className="artikel-detail-list-label">Tahun</div>
-                <div className="artikel-detail-list-colon">:</div>
-                <div className="artikel-detail-list-value">{artikel.tahun}</div>
+                    <div className="artikel-detail-list-label">Deskripsi</div>
+                    <div className="artikel-detail-list-colon">:</div>
+                    <div className="artikel-detail-list-value">{artikel.deskripsi}</div>
 
-                <div className="artikel-detail-list-label">Jenis Dokumen</div>
-                <div className="artikel-detail-list-colon">:</div>
-                <div className="artikel-detail-list-value">{artikel.jenis_dokumen}</div>
+                    <div className="artikel-detail-list-label">Jenis Hukum</div>
+                    <div className="artikel-detail-list-colon">:</div>
+                    <div className="artikel-detail-list-value">{artikel.jenis_hukum}</div>
 
-                <div className="artikel-detail-list-label">Tempat Penetapan</div>
-                <div className="artikel-detail-list-colon">:</div>
-                <div className="artikel-detail-list-value">{artikel.tempat_penetapan}</div>
+                    <div className="artikel-detail-list-label">Nomor</div>
+                    <div className="artikel-detail-list-colon">:</div>
+                    <div className="artikel-detail-list-value">{artikel.nomor}</div>
 
-                <div className="artikel-detail-list-label">Status</div>
-                <div className="artikel-detail-list-colon">:</div>
-                <div className="artikel-detail-list-value">{artikel.status}</div>
+                    <div className="artikel-detail-list-label">Tahun</div>
+                    <div className="artikel-detail-list-colon">:</div>
+                    <div className="artikel-detail-list-value">{artikel.tahun}</div>
 
-                <div className="artikel-detail-list-label">Tanggal Penetapan</div>
-                <div className="artikel-detail-list-colon">:</div>
-                <div className="artikel-detail-list-value">
-                  {new Date(artikel.tanggal_penetapan).toLocaleDateString()}
+                    <div className="artikel-detail-list-label">Jenis Dokumen</div>
+                    <div className="artikel-detail-list-colon">:</div>
+                    <div className="artikel-detail-list-value">{artikel.jenis_dokumen}</div>
+
+                    <div className="artikel-detail-list-label">Tempat Penetapan</div>
+                    <div className="artikel-detail-list-colon">:</div>
+                    <div className="artikel-detail-list-value">{artikel.tempat_penetapan}</div>
+
+                    <div className="artikel-detail-list-label">Status</div>
+                    <div className="artikel-detail-list-colon">:</div>
+                    <div className="artikel-detail-list-value">{artikel.status}</div>
+
+                    <div className="artikel-detail-list-label">Tanggal Penetapan</div>
+                    <div className="artikel-detail-list-colon">:</div>
+                    <div className="artikel-detail-list-value">
+                      {new Date(artikel.tanggal_penetapan).toLocaleDateString()}
+                    </div>
+                  </div>
                 </div>
               </div>
 
+              {/* Tombol download PDF */}
               {artikel.filePath && (
                 <button
                   onClick={() => handleDownload(artikel.filePath)}

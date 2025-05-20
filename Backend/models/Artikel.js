@@ -12,15 +12,16 @@ const Artikel = {
     tanggal_penetapan,
     tempat_penetapan,
     status,
+    coverPath, // parameter baru untuk cover
     callback
   ) => {
     const sql = `
       INSERT INTO artikel (
         judul, deskripsi, jenis_hukum, filePath,
         nomor, tahun, jenis_dokumen, tanggal_penetapan,
-        tempat_penetapan, status
+        tempat_penetapan, status, coverPath
       )
-      VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+      VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
     `;
 
     const values = [
@@ -34,6 +35,7 @@ const Artikel = {
       tanggal_penetapan,
       tempat_penetapan,
       status,
+      coverPath,
     ];
 
     try {

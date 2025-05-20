@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 19, 2025 at 10:30 AM
+-- Generation Time: May 20, 2025 at 09:05 PM
 -- Server version: 8.4.3
 -- PHP Version: 8.2.12
 
@@ -87,7 +87,12 @@ INSERT INTO `ajukan_kasus` (`id`, `user_id`, `nama`, `email`, `no_hp`, `area_pra
 (7, 2, 'fajri', 'fajri30.r@gmail.com', '085706125411', 'Perdata', 'Pembuatan Dokumen', 1000000, 2000000, '2025-05-14', 'Jakarta', 'Warisan', 'Selesai', '1747201804678-PENGUMUMAN Libur Hari Raya Waisak 2569 BE.pdf', '2025-05-14 05:50:04', 9),
 (8, 2, 'fajri', 'fajri30.r@gmail.com', '085706125411', 'Pidana', 'Pendampingan', 1000000, 2000000, '2025-05-14', 'Jakarta', 'Pasal pasal', 'Selesai', '1747271588186-Laporan Zitline_Fajri Ramadhan.pdf', '2025-05-15 01:13:08', 9),
 (9, 14, 'nando', 'vns@gmail.com', '08678900876', 'Perdata', 'Pendampingan', 500000, 500000, '2004-02-22', 'jakarta', 'tes', 'Diproses', NULL, '2025-05-19 04:48:46', 3),
-(10, 14, 'sukarno', 'vns@gmail.com', '987656789', 'Pidana', 'Konsultasi', 500000, 500000, '2222-02-22', 'jakarta', 'tes', 'Selesai', NULL, '2025-05-19 05:46:42', 2);
+(10, 14, 'sukarno', 'vns@gmail.com', '987656789', 'Pidana', 'Konsultasi', 500000, 500000, '2222-02-22', 'jakarta', 'tes', 'Selesai', NULL, '2025-05-19 05:46:42', 2),
+(11, 14, 'nando', 'vns@gmail.com', '08678900876', 'Perusahaan', 'Konsultasi', 500000, 600000, '2025-05-27', 'jakarta', 'tes 2', 'Menunggu', NULL, '2025-05-19 12:00:29', 2),
+(12, 14, 'tes', 'vns@gmail.com', '0976545678', 'Pidana', 'Pendampingan', 500000, 500000, '2222-02-22', 'jakarta', 'tes', 'Menunggu', NULL, '2025-05-19 14:03:20', 2),
+(13, 14, 'Perfect Whip Berry Bright', 'vunes@gmail.com', '0986544', 'Tenaga Kerja', 'Negosiasi', 500000, 500000, '2222-02-22', 'jakarta ', 'eafsda', 'Menunggu', NULL, '2025-05-20 04:54:01', 1),
+(14, 14, 'hah', 'vns@gmail.com', '0986544', 'Pidana', 'Pendampingan', 500000, 500000, '5332-02-03', 'jakarta ', '3323fes', 'Menunggu', NULL, '2025-05-20 05:48:10', 1),
+(15, 14, 'tes untuk PP', 'vns@gmail.com', '0986544', 'Perusahaan', 'Litigasi', 500000, 500000, '2323-04-03', 'jakarta ', '3w', 'Menunggu', NULL, '2025-05-20 06:22:19', NULL);
 
 -- --------------------------------------------------------
 
@@ -236,7 +241,7 @@ INSERT INTO `konsultasi_session` (`id`, `user_id`, `pengacara_id`, `start_time`,
 (3, 2, 5, '2025-05-15 11:25:02', 30, 'aktif', '2025-05-15 04:25:02'),
 (4, 3, 9, '2025-05-15 12:45:53', 60, 'aktif', '2025-05-15 04:33:03'),
 (5, 3, 1, '2025-05-15 11:37:40', 30, 'aktif', '2025-05-15 04:37:40'),
-(6, 14, 1, '2025-05-19 12:07:16', 30, 'aktif', '2025-05-15 13:33:44'),
+(6, 14, 1, '2025-05-20 11:47:38', 30, 'aktif', '2025-05-15 13:33:44'),
 (7, 14, 2, '2025-05-19 12:07:38', 30, 'aktif', '2025-05-19 05:07:38');
 
 -- --------------------------------------------------------
@@ -471,7 +476,12 @@ INSERT INTO `messages` (`id`, `sender_id`, `sender_role`, `receiver_id`, `receiv
 (72, 3, 'user', 9, 'pengacara', '', '1747287996055-992464305.png', '2025-05-15 12:46:36', 0),
 (73, 3, 'user', 9, 'pengacara', 'beli nih', NULL, '2025-05-15 12:46:40', 0),
 (74, 9, 'pengacara', 3, 'user', 'malah jualan cina', NULL, '2025-05-15 12:47:05', 0),
-(75, 14, 'user', 2, 'pengacara', 'tes', NULL, '2025-05-19 12:09:13', 0);
+(75, 14, 'user', 2, 'pengacara', 'tes', NULL, '2025-05-19 12:09:13', 0),
+(76, 14, 'user', 1, 'pengacara', 'halo', NULL, '2025-05-20 11:48:45', 0),
+(77, 14, 'user', 1, 'pengacara', 'tes untuk cek', NULL, '2025-05-20 11:50:29', 0),
+(78, 1, 'pengacara', 14, 'user', 'oke berhasil', NULL, '2025-05-20 11:52:44', 0),
+(79, 14, 'user', 1, 'pengacara', 'wrs', NULL, '2025-05-20 12:05:45', 0),
+(80, 1, 'pengacara', 14, 'user', 'sa', NULL, '2025-05-20 12:05:57', 0);
 
 -- --------------------------------------------------------
 
@@ -790,7 +800,7 @@ ALTER TABLE `admin`
 -- AUTO_INCREMENT for table `ajukan_kasus`
 --
 ALTER TABLE `ajukan_kasus`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- AUTO_INCREMENT for table `artikel`
@@ -838,7 +848,7 @@ ALTER TABLE `log_pertanyaan_user`
 -- AUTO_INCREMENT for table `messages`
 --
 ALTER TABLE `messages`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=76;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=81;
 
 --
 -- AUTO_INCREMENT for table `pendaftaran_pengacara`

@@ -4,29 +4,28 @@ const ArtikelController = require("../controllers/artikelController");
 const multer = require("multer");
 const path = require("path");
 
-// Setup penyimpanan multer
+// Setup penyimpanan multer: file PDF disimpan di folder uploads/pdf/
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
     cb(null, "uploads/pdf/");
   },
   filename: function (req, file, cb) {
-    // Gunakan timestamp agar nama file unik, dan aman
+    // Nama file unik dengan timestamp + ekstensi asli
     cb(null, Date.now() + path.extname(file.originalname));
   },
 });
 
-// Inisialisasi middleware upload
+// Middleware upload multer
 const upload = multer({ storage: storage });
 
-// ======================= ROUTES ======================= //
-
-// ✅ GET semua artikel
+// Routes:
+// GET semua artikel
 router.get("/artikel", ArtikelController.getAllArtikel);
 
-// ✅ GET artikel berdasarkan ID
+// GET artikel by ID
 router.get("/artikel/:id", ArtikelController.getArtikelById);
 
-// ✅ POST artikel dengan file upload
+// POST artikel dengan file upload (field 'file' pada form)
 router.post("/artikel", upload.single("file"), ArtikelController.uploadArtikel);
 
 module.exports = router;
