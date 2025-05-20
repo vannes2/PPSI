@@ -1,5 +1,5 @@
 .riwayat-container {
-  padding: 120px 40px 60px;
+  padding: 120px 0px 60px;
   background-color: #fefde9;
   font-family: 'Segoe UI', sans-serif;
 }
@@ -35,7 +35,7 @@
 .vertical-separator {
   width: 2px;
   background-color: #b31312;
-  height: auto; /* nanti kita set dengan JS jika perlu, atau cukup 100% jika container set tinggi */
+  height: auto;
   align-self: stretch;
   border-radius: 2px;
   margin-top: 10px;
@@ -50,8 +50,8 @@
 }
 
 .riwayat-card {
-  max-width: 420px;    /* Lebar maksimal yang lebih kecil */
-  width: 100%;         /* Lebar mengikuti container */
+  max-width: 420px;
+  width: 100%;
   display: flex;
   background-color: white;
   border-left: 6px solid #b31312;
@@ -59,22 +59,44 @@
   border-radius: 8px;
   padding: 16px;
   align-items: center;
-  margin: 0 auto;      /* Supaya card terpusat di kolom */
+  margin: 0 auto;
 }
 
+/* Foto Profil Persegi Panjang dengan Ujung Bundar */
 .riwayat-card-image img {
-  width: 80px;
-  height: 80px;
-  border-radius: 100%;
+  width: 90px;      /* Lebar gambar persegi panjang */
+  height: 120px;      /* Tinggi gambar persegi panjang */
+  border-radius: 8px; /* Ujung bundar pada gambar */
   object-fit: cover;
-  margin-right: 24px;
+  margin-right: 24px; /* Mengurangi jarak antara gambar dan konten */
+  margin-top: -50px;  /* Menggeser foto ke atas */
 }
 
+/* Jika tidak ada gambar profil, tampilkan placeholder */
+.riwayat-card-image .no-image {
+  font-size: 16px;
+  font-weight: bold;
+  color: #B31312;
+  text-align: center;
+  width: 80px;        /* Lebar placeholder sama dengan foto profil */
+  height: 120px;      /* Tinggi placeholder sama dengan foto profil */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #f0f0f0;
+  border-radius: 8px; /* Ujung bundar pada placeholder */
+  object-fit: cover;  /* Menjaga keseragaman penampilan */
+  margin-right: 24px; /* Mengatur jarak dengan konten di sebelah kanan */
+  margin-top: -50px;  /* Menjaga posisi foto agar lebih ke atas */
+}
+
+/* Konten teks dalam kartu */
 .riwayat-card-content p {
   margin: 4px 0;
   font-size: 15px;
 }
 
+/* Status warna */
 .status-menunggu {
   color: #d97706;
   font-weight: bold;
@@ -90,12 +112,7 @@
   font-weight: bold;
 }
 
-.btn-group {
-  margin-top: 12px;
-  display: flex;
-  gap: 10px;
-}
-
+/* Tombol */
 .btn-group {
   margin-top: 12px;
   display: flex;
@@ -103,9 +120,9 @@
 }
 
 .detail-btn {
-  background-color:  #B31312;       /* background putih */
-  color: #fff;               /* teks merah */
-  border: 2px solid ;   /* border merah */
+  background-color: #B31312;
+  color: #fff;
+  border: 2px solid;
   padding: 6px 14px;
   border-radius: 4px;
   font-weight: 600;
@@ -115,13 +132,13 @@
 }
 
 .detail-btn:hover {
-  background-color: #fff;   /* background merah */
-  color: #B31312;                 /* teks putih */
-  border: 2px solid #B31312;          /* border putih */
+  background-color: #fff;
+  color: #B31312;
+  border: 2px solid #B31312;
 }
 
 .history-btn {
- background-color: #fff !important; 
+  background-color: #fff !important;
   color: #B31312 !important;
   border: 2px solid #B31312 !important;
   padding: 6px 14px;
@@ -133,7 +150,7 @@
 }
 
 .history-btn:hover {
- background-color: #B31312 !important; 
+  background-color: #B31312 !important;
   color: #fff !important;
   border: 2px solid #B31312 !important;
   padding: 6px 14px;
@@ -142,9 +159,7 @@
   cursor: pointer;
   transition: all 0.3s ease;
   user-select: none;
-} 
-
-
+}
 
 /* Responsive */
 @media (max-width: 900px) {

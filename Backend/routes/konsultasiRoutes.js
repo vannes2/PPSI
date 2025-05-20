@@ -7,3 +7,4 @@ const konsultasiController = require("../controllers/konsultasiController");
 router.get("/riwayat/:userId", konsultasiController.getRiwayatKonsultasi);
 
 module.exports = router;
+

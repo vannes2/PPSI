@@ -21,6 +21,9 @@ import VerifyOtp from "./PageUser/VerifyOtp";
 import ResetPassword from "./PageUser/ResetPassword";
 import DetailBerita from "./PageUser/DetailBerita";
 import RiwayatKasus from "./PageUser/RiwayatKasus";
+import DetailPengacara from "./PageUser/DetailPengacara";
+
+
 // Admin Pages
 import HomeAdmin from "./PageAdmin/HomeAdmin";
 import EditPengacara from "./PageAdmin/EditPengacara";
@@ -88,6 +91,7 @@ function App() {
                 <Route path="/DetailBerita/:id" element={<DetailBerita />} />
                 <Route path="/artikel/:id" element={<ArtikelDetail />} />
                 <Route path="/RiwayatKasus" element={<RiwayatKasus />} />
+                <Route path="/pengacara/detail/:id" element={<DetailPengacara />} />
 
                 {/* ✅ Admin Routes */}
                 <Route path="/HomeAdmin" element={<HomeAdmin />} />
@@ -114,7 +118,6 @@ function App() {
                 <Route path="/SelectUser" element={<SelectUser />} />
                 <Route path="/ProfileEditLawyer" element={<ProfileEditLawyer />} />
                 <Route path="/DaftarKasusLawyer" element={<DaftarKasusLawyer />} />
-                
             </Routes>
         </Router>
     );

@@ -36,6 +36,7 @@ const createOrUpdateSession = (userId, pengacaraId, duration) => {
   });
 };
 
+// Fungsi untuk mendapatkan session konsultasi aktif berdasarkan user dan pengacara
 const getSession = (userId, pengacaraId) => {
   return new Promise((resolve, reject) => {
     const sql = "SELECT * FROM konsultasi_session WHERE user_id = ? AND pengacara_id = ? AND status = 'aktif' LIMIT 1";
@@ -47,6 +48,7 @@ const getSession = (userId, pengacaraId) => {
   });
 };
 
+// Fungsi untuk menandai session selesai
 const finishSession = (sessionId) => {
   return new Promise((resolve, reject) => {
     const sql = "UPDATE konsultasi_session SET status = 'selesai' WHERE id = ?";
@@ -57,4 +59,24 @@ const finishSession = (sessionId) => {
   });
 };
 
-module.exports = { createOrUpdateSession, getSession, finishSession };
+// Fungsi getRiwayatByUserId dengan callback (dipakai di controller)
+const getRiwayatByUserId = (userId, callback) => {
+  const sql = `
+    SELECT ks.*, 
+           p.id AS id_pengacara, 
+           p.nama AS nama_pengacara,
+           p.upload_foto AS foto_pengacara
+    FROM konsultasi_session ks
+    LEFT JOIN pengacara p ON ks.pengacara_id = p.id
+    WHERE ks.user_id = ?
+    ORDER BY ks.start_time DESC
+  `;
+  db.query(sql, [userId], callback);
+};
+
+module.exports = {
+  createOrUpdateSession,
+  getSession,
+  finishSession,
+  getRiwayatByUserId  // Jangan lupa ekspor fungsi ini agar controller bisa akses
+};
