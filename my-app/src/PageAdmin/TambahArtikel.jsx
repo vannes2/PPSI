@@ -37,7 +37,7 @@ const TambahArtikel = () => {
     formData.append("judul", judul);
     formData.append("deskripsi", deskripsi);
     formData.append("jenis_hukum", jenis_hukum);
-    formData.append("file", filePdf);
+    formData.append("file", filePdf);  // upload file PDF
     formData.append("nomor", nomor);
     formData.append("tahun", tahun);
     formData.append("jenis_dokumen", jenis_dokumen);

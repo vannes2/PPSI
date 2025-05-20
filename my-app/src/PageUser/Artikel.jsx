@@ -40,6 +40,7 @@ const Artikel = () => {
   return (
     <div className="artikel-page">
       <HeaderAfter />
+      <br /><br />
       <div className="artikel-header-bar">
         <h1 className="artikel-heading">Daftar Dokumen</h1>
       </div>

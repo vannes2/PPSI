@@ -3,69 +3,132 @@
   display: flex;
   flex-direction: column;
   min-height: 100vh;
-  background-color: #fffef0;
+  background: linear-gradient(135deg, #fffef0 0%, #f9f9f9 100%);
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   padding-top: 100px; /* agar tidak ketutup header */
   box-sizing: border-box;
+  color: #333;
 }
 
+/* ===================== CONTAINER UTAMA ===================== */
 .artikel-detail-main {
   flex: 1;
   width: 90%;
   max-width: 900px;
   margin: 0 auto;
-  padding-bottom: 100px; /* agar tidak ketutup footer */
+  padding-bottom: 140px; /* jarak bawah agar footer tidak menempel */
+  background: white;
+  border-radius: 16px;
+  box-shadow:
+    0 4px 12px rgba(0,0,0,0.06),
+    0 1px 3px rgba(0,0,0,0.1);
+  padding: 40px 36px;
+  transition: box-shadow 0.3s ease;
 }
 
-/* ===================== KONTEN CONTAINER ===================== */
-.artikel-detail-container {
-  background-color: #ffffff;
-  padding: 30px 28px;
-  border-radius: 12px;
-  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1);
-  border: 1px solid #e5e5e5;
+.artikel-detail-main:hover {
+  box-shadow:
+    0 8px 24px rgba(0,0,0,0.12),
+    0 2px 8px rgba(0,0,0,0.15);
 }
 
 /* ===================== JUDUL ARTIKEL ===================== */
-.artikel-detail-container h1 {
-  font-size: 28px;
-  font-weight: 700;
-  color: #222;
-  margin-bottom: 25px;
-  line-height: 1.4;
+.artikel-detail-main h1 {
+  font-size: 2rem; /* 32px */
+  font-weight: 600; /* lebih ringan */
+  color: #B31312;
+  margin-bottom: 32px;
+  line-height: 1.3;
+  letter-spacing: 0.02em;
+  text-transform: capitalize;
+  text-shadow: 0 1px 1px rgba(179, 19, 18, 0.2);
+}
+
+/* ===================== LIST DETAIL SEJAJAR ===================== */
+.artikel-detail-list {
+  display: grid;
+  grid-template-columns: 180px 10px 1fr; /* label | colon | value */
+  column-gap: 10px;
+  row-gap: 14px;
+  font-size: 1.125rem;
+  color: #555;
+  margin-bottom: 10px;
+  align-items: center; /* supaya teks rata tengah vertikal */
+}
+
+.artikel-detail-list > div {
+  padding: 4px 0;
+}
+
+.artikel-detail-list-label {
+  font-weight: 600;
+  color: #B31312;
+  text-transform: capitalize;
+  white-space: nowrap;
+  text-align: left;  /* RATA KIRI */
+}
+
+.artikel-detail-list-colon {
+  font-weight: 600;
+  color: #B31312;
+  text-align: center;
+  user-select: none;
+}
+
+.artikel-detail-list-value {
+  word-break: break-word;
+  color: #444;
+  text-align: left;
 }
 
 /* ===================== ISI DETAIL ===================== */
 .artikel-detail-content p {
-  font-size: 16px;
-  color: #444;
-  margin-bottom: 14px;
-  line-height: 1.6;
+  font-size: 1.125rem;
+  color: #555;
+  margin-bottom: 18px;
+  line-height: 1.65;
+  font-weight: 400;
+  border-left: 4px solid transparent;
+  padding-left: 12px;
+  transition: border-color 0.3s ease;
 }
 
 .artikel-detail-content p strong {
   color: #B31312;
+  font-weight: 700;
+  transition: color 0.3s ease;
+}
+
+.artikel-detail-content p:hover {
+  border-left-color: #B31312;
 }
 
 /* ===================== TOMBOL DOWNLOAD ===================== */
 .artikel-download-btn {
   display: inline-block;
-  margin-top: 20px;
-  padding: 10px 20px;
-  background: linear-gradient(to right, #c90c0c, #e52d27);
+  margin-top: 28px;
+  padding: 14px 30px;
+  background: linear-gradient(90deg, #c90c0c 0%, #e52d27 100%);
   color: #fff;
-  font-weight: bold;
+  font-weight: 700;
+  font-size: 1rem;
   border: none;
-  border-radius: 30px;
+  border-radius: 40px;
   cursor: pointer;
-  font-size: 15px;
-  transition: all 0.3s ease;
+  box-shadow: 0 6px 12px rgba(229, 45, 39, 0.5);
+  transition: background 0.4s ease, box-shadow 0.4s ease, color 0.3s ease;
+  user-select: none;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
 }
 
-.artikel-download-btn:hover {
+.artikel-download-btn:hover,
+.artikel-download-btn:focus {
   background: #fff;
   color: #c90c0c;
+  box-shadow: 0 6px 20px rgba(201, 12, 12, 0.6);
   border: 2px solid #c90c0c;
+  outline: none;
 }
 
 /* ===================== LOADING / ERROR TEXT ===================== */
@@ -74,45 +137,84 @@
 }
 
 .text-gray-500 {
-  color: #666;
-  font-size: 16px;
+  color: #999;
+  font-size: 1.125rem;
+  font-weight: 500;
+  margin-top: 60px;
 }
 
 /* ===================== RESPONSIVE ===================== */
-@media (max-width: 768px) {
-  .artikel-detail-container {
-    padding: 24px 20px;
+@media (max-width: 1024px) {
+  .artikel-detail-main {
+    padding: 32px 28px;
   }
 
-  .artikel-detail-container h1 {
-    font-size: 22px;
+  .artikel-detail-main h1 {
+    font-size: 1.75rem; /* 28px */
+    margin-bottom: 24px;
   }
 
-  .artikel-detail-content p {
-    font-size: 15px;
+  .artikel-detail-list {
+    font-size: 1rem;
+    column-gap: 16px;
   }
 
   .artikel-download-btn {
-    padding: 9px 18px;
-    font-size: 14px;
+    padding: 12px 28px;
+    font-size: 0.95rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .artikel-detail-main {
+    width: 95%;
+    padding: 28px 22px;
+  }
+
+  .artikel-detail-main h1 {
+    font-size: 1.5rem; /* 24px */
+    margin-bottom: 20px;
+  }
+
+  .artikel-detail-list {
+    font-size: 0.95rem;
+    column-gap: 14px;
+  }
+
+  .artikel-download-btn {
+    padding: 10px 24px;
+    font-size: 0.9rem;
   }
 }
 
 @media (max-width: 480px) {
-  .artikel-detail-container {
+  .artikel-detail-main {
+    width: 100%;
     padding: 20px 16px;
+    border-radius: 0;
+    box-shadow: none;
   }
 
-  .artikel-detail-container h1 {
-    font-size: 20px;
+  .artikel-detail-main h1 {
+    font-size: 1.3rem; /* 20.8px */
+    margin-bottom: 18px;
   }
 
-  .artikel-detail-content p {
-    font-size: 14px;
+  .artikel-detail-list {
+    font-size: 0.9rem;
+    grid-template-columns: 1fr;
+  }
+
+  .artikel-detail-list-label,
+  .artikel-detail-list-colon {
+    text-align: left;
+    white-space: normal;
+    margin-bottom: 4px;
   }
 
   .artikel-download-btn {
-    padding: 8px 16px;
-    font-size: 13px;
+    padding: 10px 20px;
+    font-size: 0.85rem;
+    border-radius: 32px;
   }
 }
