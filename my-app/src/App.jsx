@@ -49,6 +49,7 @@ import KonsultasiLawyer from "./PageLawyer/KonsultasiLawyer";
 import SelectUser from "./PageLawyer/selectUser";
 import ProfileEditLawyer from "./PageLawyer/ProfileEditLawyer";
 import DaftarKasusLawyer from "./PageLawyer/DaftarKasusLawyer";
+import ArtikelDetailLawyer from "./PageLawyer/ArtikelDetailLawyer";
 // import RiwayatKasus from "./PageUser/RiwayatKasus";
 // BotChat
 import ChatBotWidget from "./ChatBot/ChatBotWidget";
@@ -118,6 +119,8 @@ function App() {
                 <Route path="/SelectUser" element={<SelectUser />} />
                 <Route path="/ProfileEditLawyer" element={<ProfileEditLawyer />} />
                 <Route path="/DaftarKasusLawyer" element={<DaftarKasusLawyer />} />
+                <Route path="/artikel-lawyer/:id" element={<ArtikelDetailLawyer />} />
+
             </Routes>
         </Router>
     );
