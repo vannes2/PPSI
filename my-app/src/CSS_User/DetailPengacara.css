@@ -1,0 +1,120 @@
+/* ======== DetailPengacara.css (Updated) ======== */
+/* Background kuning lembut + layout responsif */
+
+.detail-page {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  background-color: #fefff0; /* Soft yellow */
+  font-family: Arial, sans-serif;
+  color: #3b3b3b;
+  overflow-x: hidden;
+}
+
+/* ---------- Container utama ---------- */
+.detail-container {
+  flex: 1;
+  max-width: 1000px;
+  width: 100%;
+  margin: 100px auto 50px;
+  background: #fff;
+  border-radius: 8px;
+  padding: 30px;
+
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+/* ---------- Judul ---------- */
+.detail-page .detail-container h2 {
+  color: #b31312;
+  font-size: 1.8rem;
+  margin-bottom: 1.5rem;
+  font-weight: 600;
+  text-align: center; /* ✅ Tambahkan ini */
+}
+
+
+/* ---------- Card Layout ---------- */
+.detail-card {
+  display: flex;
+  gap: 2rem;
+}
+
+/* ---------- Foto ---------- */
+.detail-photo-container {
+  flex: 0 0 250px;
+}
+
+.detail-photo {
+  width: 100%;
+  height: 250px;
+  object-fit: cover;
+  border-radius: 20px; /* Lebih bulat tapi tetap persegi panjang */
+  border: 2px solid #fff;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+
+/* ---------- Informasi ---------- */
+.detail-info {
+  flex: 1;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+
+.detail-info p {
+  margin: 0;
+  padding: 0.5rem 0;
+  border-bottom: 1px solid #f0f0f0;
+  display: flex;
+  align-items: flex-start;
+}
+
+
+.detail-info strong {
+  color: #3b3b3b;
+  min-width: 160px;
+  display: inline-block;
+  font-weight: 500;
+}
+
+.detail-info span {
+  color: #555;
+  flex: 1;
+}
+
+/* ---------- Footer separator ---------- */
+.footer-separator {
+  width: 100%;
+  height: 8px;
+  background-color: #b31312;
+}
+
+/* ---------- Footer behavior ---------- */
+footer {
+  position: relative;
+  z-index: 1;
+  margin-top: auto;
+}
+
+/* ---------- Responsive ---------- */
+@media (max-width: 768px) {
+  .detail-card {
+    flex-direction: column;
+  }
+
+  .detail-photo-container {
+    flex: 1;
+    margin-bottom: 1.5rem;
+  }
+
+  .detail-info {
+    grid-template-columns: 1fr;
+  }
+
+  .detail-container {
+    margin: 50px 15px;
+    padding: 20px;
+  }
+}

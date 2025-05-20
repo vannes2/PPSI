@@ -8,3 +8,4 @@ router.get("/riwayat/:userId", konsultasiController.getRiwayatKonsultasiByUser);
 
 
 module.exports = router;
+

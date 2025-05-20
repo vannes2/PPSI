@@ -1,5 +1,6 @@
 const express = require("express");
 const router = express.Router();
+const konsultasiController = require("../controllers/konsultasiController");
 const { getSession } = require("../models/konsultasiSessionModel");
 
 // Endpoint untuk ambil sesi konsultasi aktif user-pengacara
@@ -14,5 +15,8 @@ router.get("/session/:userId/:pengacaraId", async (req, res) => {
     res.status(500).json({ message: "Gagal mengambil sesi konsultasi" });
   }
 });
+
+// Tambahkan endpoint untuk riwayat konsultasi user
+router.get("/riwayat/:userId", konsultasiController.getRiwayatKonsultasi);
 
 module.exports = router;
