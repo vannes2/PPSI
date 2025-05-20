@@ -1,10 +1,11 @@
-import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
+import { useState, useEffect } from "react";
 import axios from "axios";
-import HeaderLawyer from "../components/HeaderLawyer";
+import HeaderAfter from "../components/HeaderLawyer";
 import Footer from "../components/Footer";
 import "../CSS_User/Artikel.css";
 
-const ArtikelLawyer = () => {
+const Artikel = () => {
   const [artikels, setArtikels] = useState([]);
   const [loading, setLoading] = useState(true);
   const [filterText, setFilterText] = useState("");
@@ -25,27 +26,23 @@ const ArtikelLawyer = () => {
     }
   };
 
-  const handleDownload = (filePath) => {
-    const fileName = filePath.split(/[\\/]/).pop();
-    window.open(`http://localhost:5000/uploads/${fileName}`, "_blank");
-  };
-
-  useEffect(() => {
-    window.scrollTo(0, 0);
-  }, []);
-
   const filteredArtikels = artikels.filter(
     (artikel) =>
       artikel.judul.toLowerCase().includes(filterText.toLowerCase()) &&
       (filterJenis === "" || artikel.jenis_hukum === filterJenis)
   );
 
+  const handleDownload = (filePath) => {
+    const fileName = filePath.split(/[\\/]/).pop();
+    window.open(`http://localhost:5000/uploads/${fileName}`, "_blank");
+  };
+
   return (
     <div className="artikel-page">
-      <HeaderLawyer />
-      <br /><br /><br /><br /><br /><br />
+      <HeaderAfter />
+      <br /><br />
       <div className="artikel-header-bar">
-        <h1 className="artikel-heading">Daftar Artikel</h1>
+        <h1 className="artikel-heading">Daftar Dokumen</h1>
       </div>
 
       {loading ? (
@@ -58,7 +55,7 @@ const ArtikelLawyer = () => {
                 <tr>
                   <th className="artikel-th artikel-th-rounded">
                     <div className="artikel-th-flex">
-                      <span className="artikel-th-title">Judul & Deskripsi</span>
+                      <span className="artikel-th-title">Filter</span>
                       <input
                         type="text"
                         className="artikel-filter-input-inline"
@@ -90,15 +87,25 @@ const ArtikelLawyer = () => {
                 ) : (
                   filteredArtikels.map((artikel, index) => (
                     <tr key={artikel.id} className="artikel-tr artikel-tr-hover">
-                      <td
-                        className={`artikel-td ${
-                          index === filteredArtikels.length - 1 ? "artikel-td-rounded" : ""
-                        }`}
-                      >
-                        <div className="artikel-judul">{artikel.judul}</div>
+                      <td className={`artikel-td ${index === filteredArtikels.length - 1 ? "artikel-td-rounded" : ""}`}>
+                        <div className="artikel-judul">
+                          <Link to={`/artikel-lawyer/${artikel.id}`} className="artikel-judul-link">
+                            {artikel.judul}
+                          </Link>
+                        </div>
                         <div className="artikel-deskripsi">{artikel.deskripsi}</div>
-                        <div className="artikel-jenis">
-                          <strong>Jenis Hukum:</strong> {artikel.jenis_hukum}
+                        <div className="artikel-info-horizontal">
+                          <p><strong>Jenis Hukum:</strong> {artikel.jenis_hukum}</p>
+                          <div className="artikel-tanggal-wrapper">
+                            <span className="tahun-box">{artikel.tahun}</span>
+                            <span className="tanggal-box">
+                              {new Date(artikel.tanggal_penetapan).toLocaleDateString("id-ID", {
+                                day: "numeric",
+                                month: "long",
+                                year: "numeric",
+                              })}
+                            </span>
+                          </div>
                         </div>
                         <br />
                         <button
@@ -116,11 +123,10 @@ const ArtikelLawyer = () => {
           </div>
         </div>
       )}
-
       <div className="footer-separator"></div>
       <Footer />
     </div>
   );
 };
 
-export default ArtikelLawyer;
+export default Artikel;

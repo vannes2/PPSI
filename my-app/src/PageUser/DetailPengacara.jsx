@@ -72,7 +72,6 @@ const DetailPengacara = () => {
       <div className="detail-info">
         <div>
           <p><strong>Nama:</strong> <span>{pengacara.nama}</span></p>
-          <p><strong>Tanggal Lahir:</strong> <span>{pengacara.tanggal_lahir}</span></p>
           <p><strong>Jenis Kelamin:</strong> <span>{pengacara.jenis_kelamin}</span></p>
           <p><strong>Alamat:</strong> <span>{pengacara.alamat}</span></p>
           <p><strong>Email:</strong> <span>{pengacara.email}</span></p>
@@ -80,7 +79,7 @@ const DetailPengacara = () => {
         </div>
 
         <div>
-          <p><strong>Nomor Induk Advokat:</strong> <span>{pengacara.nomor_induk_advokat}</span></p>
+          <p><strong>NIA:</strong> <span>{pengacara.nomor_induk_advokat}</span></p>
           <p><strong>Universitas:</strong> <span>{pengacara.universitas}</span></p>
           <p><strong>Pendidikan:</strong> <span>{pengacara.pendidikan}</span></p>
           <p><strong>Spesialisasi:</strong> <span>{pengacara.spesialisasi}</span></p>

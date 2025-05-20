@@ -138,7 +138,7 @@ nav.drawer ul li a:hover {
 
 /* MAIN CONTENT */
 .main-content {
-  margin-top: var(--header-height); 
+  margin-top: var(--header-height);
   padding: 20px;
 }
 
@@ -202,13 +202,12 @@ nav.drawer ul {
   font-weight: bold;
 }
 
-
 /* ===================== RESPONSIVE STYLING ===================== */
 
 /* TABLET (iPad, 768px–1024px) */
 @media (max-width: 1024px) {
   .header-left {
-    gap: 100px; /* Lebih ramping di tablet */
+    gap: 100px;
   }
 
   .logo img {
@@ -241,11 +240,11 @@ nav.drawer ul {
   }
 
   .auth-buttons {
-    display: none; /* Sembunyikan tombol profil desktop */
+    display: none;
   }
 
   .hamburger {
-    display: flex; /* Tampilkan hamburger menu */
+    display: flex;
   }
 
   nav.drawer {
@@ -277,4 +276,80 @@ nav.drawer ul {
   .drawer-profile-btn {
     display: block;
   }
+}
+
+/* =================== Foto Profil Border Merah Tipis Ukuran Lebih Besar =================== */
+
+/* Profil Foto Desktop */
+.profile-photo-desktop {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  object-fit: cover;
+  cursor: pointer;
+  border: 2.5px solid #B31312;
+  box-sizing: border-box;
+  transition: box-shadow 0.3s ease;
+}
+
+.profile-photo-desktop:hover {
+  box-shadow: 0 0 12px #B31312AA;
+}
+
+/* Profil Foto Mobile */
+.profile-photo-mobile {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  object-fit: cover;
+  cursor: pointer;
+  border: 2px solid #B31312;
+  box-sizing: border-box;
+  transition: box-shadow 0.3s ease;
+}
+
+.profile-photo-mobile:hover {
+  box-shadow: 0 0 10px #B31312AA;
+}
+
+/* =================== Border dan Styling untuk Icon Profil Default =================== */
+
+/* Icon Profil Desktop (jika tidak ada foto) */
+.profile-photo-desktop-icon {
+  width: 64px;
+  height: 64px;
+  padding: 8px;
+  border-radius: 50%;
+  border: 2.5px solid #B31312;
+  color: #B31312;
+  box-sizing: border-box;
+  cursor: pointer;
+  transition: box-shadow 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.profile-photo-desktop-icon:hover {
+  box-shadow: 0 0 12px #B31312AA;
+}
+
+/* Icon Profil Mobile (jika tidak ada foto) */
+.profile-photo-mobile-icon {
+  width: 56px;
+  height: 56px;
+  padding: 6px;
+  border-radius: 50%;
+  border: 2px solid #B31312;
+  color: #B31312;
+  box-sizing: border-box;
+  cursor: pointer;
+  transition: box-shadow 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.profile-photo-mobile-icon:hover {
+  box-shadow: 0 0 10px #B31312AA;
 }

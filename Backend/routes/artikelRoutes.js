@@ -7,7 +7,7 @@ const path = require("path");
 // Setup penyimpanan multer: file PDF disimpan di folder uploads/pdf/
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
-    cb(null, "uploads/pdf/");
+    cb(null, "uploads/");
   },
   filename: function (req, file, cb) {
     // Nama file unik dengan timestamp + ekstensi asli

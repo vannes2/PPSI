@@ -29,7 +29,7 @@ const Header = () => {
           <li><Link to="/HomeLawyer">BERANDA</Link></li>
           <li><Link to="/KonsultasiLawyer">KONSULTASI</Link></li>
           <li><Link to="/Riwayat">RIWAYAT</Link></li>
-          <li><Link to="/ArtikelLawyer">ARTIKEL</Link></li>
+          <li><Link to="/ArtikelLawyer">DOKUMEN</Link></li>
           <li><Link to="/AboutLawyer">TENTANG KAMI</Link></li>
 
           {/* Tombol profil di mobile */}

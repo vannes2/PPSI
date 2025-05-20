@@ -41,11 +41,11 @@ exports.signup = (req, res) => {
   });
 };
 
-// Fungsi Login
+// Fungsi Login (integrasi, photo_url lengkap)
 exports.login = (req, res) => {
   const { email, password } = req.body;
 
-  // Cek di tabel Users
+  // Cek users
   const userQuery = "SELECT * FROM users WHERE email = ? AND password = ?";
   db.query(userQuery, [email, password], (err, userResults) => {
     if (err) {
@@ -62,11 +62,12 @@ exports.login = (req, res) => {
           name: user.name,
           email: user.email,
           role: "user",
+          photo_url: user.photo ? `http://localhost:5000/uploads/profile_photos/${user.photo}` : null,
         },
       });
     }
 
-    // Cek di tabel Pengacara
+    // Cek pengacara
     const lawyerQuery = "SELECT * FROM pengacara WHERE email = ? AND password = ?";
     db.query(lawyerQuery, [email.trim(), password], (err, lawyerResults) => {
       if (err) {
@@ -80,14 +81,15 @@ exports.login = (req, res) => {
           message: "Login berhasil sebagai Pengacara",
           user: {
             id: lawyer.id,
-            name: lawyer.nama,  // Perhatikan nama kolomnya! pastikan di database memang 'nama'
+            name: lawyer.nama,
             email: lawyer.email,
             role: "pengacara",
+            photo_url: lawyer.upload_foto ? `http://localhost:5000/uploads/profile_photos/${lawyer.upload_foto}` : null,
           },
         });
       }
 
-      // Cek di tabel Admin
+      // Cek admin
       const adminQuery = "SELECT * FROM admin WHERE email = ? AND password = ?";
       db.query(adminQuery, [email, password], (err, adminResults) => {
         if (err) {
@@ -101,20 +103,21 @@ exports.login = (req, res) => {
             message: "Login berhasil sebagai Admin",
             user: {
               id: admin.id,
-              name: admin.nama,  // pastikan nama kolom di tabel admin juga 'nama'
+              name: admin.nama,
               email: admin.email,
               role: "admin",
+              photo_url: admin.upload_foto ? `http://localhost:5000/uploads/profile_photos/${admin.upload_foto}` : null,
             },
           });
-        } else {
-          return res.status(401).json({ message: "Email atau password salah" });
         }
+
+        return res.status(401).json({ message: "Email atau password salah" });
       });
     });
   });
 };
 
-// Fungsi Ambil Semua User
+// Fungsi Ambil Semua User (tidak berubah)
 exports.getUsers = (req, res) => {
   User.getAllUsers((err, users) => {
     if (err) {
