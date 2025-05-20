@@ -68,9 +68,13 @@ const Artikel = () => {
                         className="artikel-filter-input-inline"
                       >
                         <option value="">Semua Jenis</option>
-                        <option value="KDRT">KDRT</option>
-                        <option value="perceraian">perceraian</option>
-                        <option value="pelanggaran_HAM">pelanggaran HAM</option>
+                        <option value="Pidana">Pidana</option>
+                        <option value="Perdata">Perdata</option>
+                        <option value="Internasional">Internasional</option>
+                        <option value="Ketenagakerjaan">Ketenagakerjaan</option>
+                        <option value="HAKI">HAKI</option>
+                        <option value="Keluarga">Keluarga</option>
+                        <option value="Administrasi Negara">Administrasi Negara</option>
                       </select>
                     </div>
                   </th>
