@@ -7,7 +7,7 @@ const path = require("path");
 // Setup penyimpanan multer
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
-    cb(null, "uploads/pdf/");
+    cb(null, "uploads/");
   },
   filename: function (req, file, cb) {
     // Gunakan timestamp agar nama file unik, dan aman

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 19, 2025 at 10:30 AM
+-- Generation Time: May 19, 2025 at 06:14 PM
 -- Server version: 8.4.3
 -- PHP Version: 8.2.12
 
@@ -87,7 +87,9 @@ INSERT INTO `ajukan_kasus` (`id`, `user_id`, `nama`, `email`, `no_hp`, `area_pra
 (7, 2, 'fajri', 'fajri30.r@gmail.com', '085706125411', 'Perdata', 'Pembuatan Dokumen', 1000000, 2000000, '2025-05-14', 'Jakarta', 'Warisan', 'Selesai', '1747201804678-PENGUMUMAN Libur Hari Raya Waisak 2569 BE.pdf', '2025-05-14 05:50:04', 9),
 (8, 2, 'fajri', 'fajri30.r@gmail.com', '085706125411', 'Pidana', 'Pendampingan', 1000000, 2000000, '2025-05-14', 'Jakarta', 'Pasal pasal', 'Selesai', '1747271588186-Laporan Zitline_Fajri Ramadhan.pdf', '2025-05-15 01:13:08', 9),
 (9, 14, 'nando', 'vns@gmail.com', '08678900876', 'Perdata', 'Pendampingan', 500000, 500000, '2004-02-22', 'jakarta', 'tes', 'Diproses', NULL, '2025-05-19 04:48:46', 3),
-(10, 14, 'sukarno', 'vns@gmail.com', '987656789', 'Pidana', 'Konsultasi', 500000, 500000, '2222-02-22', 'jakarta', 'tes', 'Selesai', NULL, '2025-05-19 05:46:42', 2);
+(10, 14, 'sukarno', 'vns@gmail.com', '987656789', 'Pidana', 'Konsultasi', 500000, 500000, '2222-02-22', 'jakarta', 'tes', 'Selesai', NULL, '2025-05-19 05:46:42', 2),
+(11, 14, 'nando', 'vns@gmail.com', '08678900876', 'Perusahaan', 'Konsultasi', 500000, 600000, '2025-05-27', 'jakarta', 'tes 2', 'Menunggu', NULL, '2025-05-19 12:00:29', NULL),
+(12, 14, 'tes', 'vns@gmail.com', '0976545678', 'Pidana', 'Pendampingan', 500000, 500000, '2222-02-22', 'jakarta', 'tes', 'Menunggu', NULL, '2025-05-19 14:03:20', 2);
 
 -- --------------------------------------------------------
 
@@ -790,7 +792,7 @@ ALTER TABLE `admin`
 -- AUTO_INCREMENT for table `ajukan_kasus`
 --
 ALTER TABLE `ajukan_kasus`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT for table `artikel`

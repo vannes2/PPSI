@@ -129,12 +129,13 @@ exports.ambilKasus = (req, res) => {
 
 // Ambil riwayat kasus user berdasarkan user_id
 exports.getRiwayatKasusByUser = (req, res) => {
-  const userId = req.params.userId; // pastikan param ini sesuai route
+  const userId = req.params.userId;
 
   const sql = `
     SELECT ak.*, 
            p.nama AS nama_pengacara, 
-           p.upload_foto AS foto_pengacara
+           p.upload_foto AS foto_pengacara,
+           p.harga_konsultasi
     FROM ajukan_kasus ak
     LEFT JOIN pengacara p ON ak.lawyer_id = p.id
     WHERE ak.user_id = ?

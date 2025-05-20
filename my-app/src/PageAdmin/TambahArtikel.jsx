@@ -90,9 +90,13 @@ const TambahArtikel = () => {
             required
           >
             <option value="">Pilih Jenis Hukum</option>
-            <option value="KDRT">PDF Hukum KDRT</option>
-            <option value="perceraian">PDF Hukum Perceraian</option>
-            <option value="pelanggaran_HAM">PDF Hukum Pelanggaran HAM</option>
+            <option value="Pidana">Pidana</option>
+            <option value="Perdata">Perdata</option>
+            <option value="Internasional">Internasional</option>
+            <option value="Ketenagakerjaan">Ketenagakerjaan</option>
+            <option value="HAKI">HAKI</option>
+            <option value="Keluarga">Keluarga</option>
+            <option value="Administrasi Negara">Administrasi Negara</option>
           </select>
 
           <input
