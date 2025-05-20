@@ -1,158 +1,120 @@
-/* ===== Root Wrapper agar footer selalu bawah ===== */
-.page-wrapper {
+/* ======== DetailPengacara.css (Updated) ======== */
+/* Background kuning lembut + layout responsif */
+
+.detail-page {
   display: flex;
   flex-direction: column;
   min-height: 100vh;
-  background-color: #f9f9f9;
+  background-color: #fefff0; /* Soft yellow */
+  font-family: Arial, sans-serif;
+  color: #3b3b3b;
+  overflow-x: hidden;
 }
 
-/* ===== Main Content ===== */
-.main-content {
-  flex: 1;
-  display: flex;
-  justify-content: center;
-  padding: 100px 20px 50px;
-  box-sizing: border-box;
-  background-color: #f9f9f9;
-}
-
-/* ===== Container Detail ===== */
+/* ---------- Container utama ---------- */
 .detail-container {
+  flex: 1;
+  max-width: 1000px;
   width: 100%;
-  max-width: 960px;
-  box-sizing: border-box;
-  padding: 0 20px; /* padding kiri kanan agar tidak mepet */
+  margin: 100px auto 50px;
+  background: #fff;
+  border-radius: 8px;
+  padding: 30px;
+
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
 }
 
-/* ===== Judul ===== */
-.detail-content h2, .detail-container > h2 {
-  text-align: center;
-  margin-bottom: 40px;
-  font-size: 28px;
-  color: #B31312;
-  font-weight: 700;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+/* ---------- Judul ---------- */
+.detail-page .detail-container h2 {
+  color: #b31312;
+  font-size: 1.8rem;
+  margin-bottom: 1.5rem;
+  font-weight: 600;
+  text-align: center; /* ✅ Tambahkan ini */
 }
 
-/* ===== Kartu Profil Pengacara ===== */
+
+/* ---------- Card Layout ---------- */
 .detail-card {
-  background-color: #fff;
-  border-radius: 20px;
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
   display: flex;
-  gap: 30px;
-  padding: 40px;
-  align-items: center;
-  transition: box-shadow 0.3s ease-in-out;
-  max-width: 900px; /* batasi lebar supaya tidak terlalu melebar */
-  margin: 0 auto; /* center kartu */
+  gap: 2rem;
 }
 
-.detail-card:hover {
-  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15);
+/* ---------- Foto ---------- */
+.detail-photo-container {
+  flex: 0 0 250px;
 }
 
-/* ===== Foto Pengacara ===== */
 .detail-photo {
-  width: 200px;
-  height: 200px;
+  width: 100%;
+  height: 250px;
   object-fit: cover;
-  border-radius: 20px;
-  border: 3px solid #ddd;
-  flex-shrink: 0;
-  transition: transform 0.3s ease;
+  border-radius: 20px; /* Lebih bulat tapi tetap persegi panjang */
+  border: 2px solid #fff;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
 }
 
-.detail-photo:hover {
-  transform: scale(1.05);
-}
 
-/* ===== Informasi Detail dalam 2 kolom dengan label dan isi terpisah ===== */
+/* ---------- Informasi ---------- */
 .detail-info {
+  flex: 1;
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 20px 50px;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  color: #222;
-  max-width: 620px; /* batasi lebar konten info agar tidak melebar */
-  margin-left: 0; /* posisikan kiri */
+  gap: 1rem;
 }
 
 .detail-info p {
-  margin: 10px 0;
-  font-size: 16px;
-  line-height: 1.7;
+  margin: 0;
+  padding: 0.5rem 0;
+  border-bottom: 1px solid #f0f0f0;
   display: flex;
-  align-items: center;
+  align-items: flex-start;
 }
 
-.detail-info p strong {
+
+.detail-info strong {
+  color: #3b3b3b;
   min-width: 160px;
-  color: #333;
-  font-weight: 700;
-  text-align: right;
-  margin-right: 16px;
-  user-select: none;
+  display: inline-block;
+  font-weight: 500;
 }
 
-.detail-info p span {
+.detail-info span {
+  color: #555;
   flex: 1;
 }
 
-/* ===== Responsif Tablet ===== */
+/* ---------- Footer separator ---------- */
+.footer-separator {
+  width: 100%;
+  height: 8px;
+  background-color: #b31312;
+}
+
+/* ---------- Footer behavior ---------- */
+footer {
+  position: relative;
+  z-index: 1;
+  margin-top: auto;
+}
+
+/* ---------- Responsive ---------- */
 @media (max-width: 768px) {
   .detail-card {
     flex-direction: column;
-    text-align: center;
-    padding: 30px 20px;
   }
 
-  .detail-photo {
-    width: 160px;
-    height: 160px;
-    margin-bottom: 20px;
+  .detail-photo-container {
+    flex: 1;
+    margin-bottom: 1.5rem;
   }
 
   .detail-info {
-    display: block;
-    max-width: 100%;
-    margin-left: auto;
-    margin-right: auto;
+    grid-template-columns: 1fr;
   }
 
-  .detail-info > div {
-    margin-bottom: 20px;
-  }
-
-  .detail-info p {
-    display: block;
-  }
-
-  .detail-info p strong {
-    min-width: auto;
-    text-align: left;
-    margin-right: 0;
-    margin-bottom: 6px;
-    display: block;
-  }
-}
-
-/* ===== Responsif Mobile ===== */
-@media (max-width: 480px) {
-  .main-content {
-    padding: 80px 10px 30px;
-  }
-
-  .detail-card {
-    padding: 20px 15px;
-  }
-
-  .detail-content h2, .detail-container > h2 {
-    font-size: 24px;
-    margin-bottom: 30px;
-  }
-
-  .detail-info p {
-    font-size: 14px;
+  .detail-container {
+    margin: 50px 15px;
+    padding: 20px;
   }
 }
