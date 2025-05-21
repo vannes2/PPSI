@@ -3,26 +3,43 @@
   background-color: #fffef0;
   padding-top: 100px;
   box-sizing: border-box;
+  min-height: 100vh;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
 /* =================== WRAPPER UTAMA ARTIKEL SCROLL =================== */
 .artikel-scroll-wrapper {
-  width: 60%;
+  width: 80%; /* diperbesar dari 60% */
   margin: 0 auto;
-  border-radius: 12px;
+  border-radius: 16px;
   overflow: hidden;
-  max-height: 500px;
+  max-height: 600px;
   margin-bottom: 150px;
+  box-shadow: 0 8px 16px rgba(179, 19, 18, 0.15); /* shadow halus */
+  background-color: #fff;
+  transition: box-shadow 0.3s ease;
+}
+.artikel-scroll-wrapper:hover {
+  box-shadow: 0 12px 24px rgba(179, 19, 18, 0.25);
 }
 
 .artikel-scroll-inner {
   overflow-y: auto;
-  max-height: 500px;
-  scrollbar-width: none;
-  -ms-overflow-style: none;
+  max-height: 600px;
+  scrollbar-width: thin;
+  scrollbar-color: #c90c0c #f0eede;
 }
 .artikel-scroll-inner::-webkit-scrollbar {
-  display: none;
+  width: 8px;
+}
+.artikel-scroll-inner::-webkit-scrollbar-track {
+  background: #f0eede;
+  border-radius: 8px;
+}
+.artikel-scroll-inner::-webkit-scrollbar-thumb {
+  background-color: #c90c0c;
+  border-radius: 8px;
+  border: 2px solid #f0eede;
 }
 
 /* ==================== TABEL ==================== */
@@ -30,43 +47,48 @@
   border-collapse: separate;
   border-spacing: 0;
   width: 100%;
-  border-radius: 12px;
-  background-color: #fff;
+  border-radius: 16px;
+  background-color: transparent;
   table-layout: fixed;
   word-wrap: break-word;
+  font-size: 16px;
 }
 
 /* =================== HEADER TABEL =================== */
 .artikel-th {
   border: 1px solid #ccc;
-  padding: 1rem 1.5rem;
+  padding: 1.25rem 2rem;
   text-align: left;
   background-color: #fff;
-  font-weight: bold;
+  font-weight: 700;
   color: #B31312;
   position: sticky;
   top: 0;
-  z-index: 1;
+  z-index: 10;
   box-sizing: border-box;
+  font-size: 18px;
+  letter-spacing: 0.03em;
+  user-select: none;
 }
 .artikel-th-rounded {
-  border-top-left-radius: 12px;
-  border-top-right-radius: 12px;
+  border-top-left-radius: 16px;
+  border-top-right-radius: 16px;
   border-bottom: 1px solid #ccc;
 }
 
 /* =================== ISI TABEL =================== */
 .artikel-td {
-  border: 1px solid #ccc;
-  padding: 2rem;
+  border: 1px solid #ddd;
+  padding: 2rem 2rem;
   text-align: left;
   vertical-align: top;
   background-color: transparent;
-  color: #666;
+  color: #555;
+  transition: background-color 0.3s ease;
 }
 .artikel-td-rounded {
-  border-bottom-left-radius: 12px;
-  border-bottom-right-radius: 12px;
+  border-bottom-left-radius: 16px;
+  border-bottom-right-radius: 16px;
 }
 
 /* =================== WARNA SELANG-SELANG BARIS =================== */
@@ -74,43 +96,51 @@
   background-color: #ffffff;
 }
 .artikel-table tbody tr:nth-child(even) {
-  background-color: #f5f5f5;
+  background-color: #fff6f6;
 }
 
 /* =================== HOVER BARIS =================== */
 .artikel-tr-hover:hover {
-  background-color: #ffc6c6;
+  background-color: #ffe3e3;
+  cursor: pointer;
 }
 
 /* =================== ISI TEXT =================== */
 .artikel-judul {
-  font-weight: bold;
-  margin-bottom: 0.5rem;
+  font-weight: 800;
+  margin-bottom: 0.7rem;
   color: #B31312;
-  font-size: 20px;
+  font-size: 22px;
+  line-height: 1.2;
 }
 .artikel-deskripsi {
-  font-size: 14px;
+  font-size: 15px;
   color: #666;
-  margin-bottom: 1rem;
+  margin-bottom: 1.25rem;
+  line-height: 1.5;
+  font-style: italic;
+  letter-spacing: 0.02em;
 }
 
 /* =================== BTN =================== */
 .artikel-download-btn {
-  background: linear-gradient(to right, #c90c0c, #e52d27);
+  background: linear-gradient(90deg, #c90c0c 0%, #e52d27 100%);
   color: white;
-  font-weight: bold;
-  padding: 10px 24px;
+  font-weight: 700;
+  padding: 12px 28px;
   border: none;
   border-radius: 30px;
   cursor: pointer;
-  transition: all 0.3s ease;
+  transition: all 0.25s ease;
   font-size: 16px;
+  box-shadow: 0 4px 10px rgba(197, 15, 15, 0.4);
+  user-select: none;
 }
-.btn-grad-red:hover {
-  background: white;
+.artikel-download-btn:hover {
+  background: #fff;
   color: #c90c0c;
   border: 2px solid #c90c0c;
+  box-shadow: none;
 }
 
 /* =================== WARNA PAGE =================== */
@@ -124,249 +154,71 @@
 /* =================== Search Input di dalam Header Tabel =================== */
 .artikel-th-flex {
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-start;
   align-items: center;
-  gap: 12px;
+  gap: 16px;
   flex-wrap: wrap;
 }
 .artikel-th-title {
-  font-weight: bold;
+  font-weight: 700;
   color: #B31312;
-  font-size: 16px;
+  font-size: 18px;
   flex: 1;
-  min-width: 100px;
+  min-width: 150px;
+  user-select: none;
 }
 .artikel-filter-input-inline {
-  padding: 6px 12px;
-  font-size: 13px;
-  border-radius: 20px;
-  border: 1px solid #ccc;
+  padding: 8px 14px;
+  font-size: 15px;
+  border-radius: 25px;
+  border: 1.5px solid #ccc;
   outline: none;
   background-color: #fffefb;
-  width: 100%;
-  max-width: 180px;
-  transition: border-color 0.3s ease;
+  width: 180px;
+  max-width: 220px;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
   box-sizing: border-box;
 }
 .artikel-filter-input-inline:focus {
   border-color: #B31312;
   background-color: #fff;
+  box-shadow: 0 0 6px rgba(179, 19, 18, 0.6);
 }
-
-/* =================== KOTAK TAHUN =================== */
-.tahun-box {
-  display: inline-block;
-  padding: 6px 12px;
-  background-color: #e5e5e5;
-  color: #555;
-  border-radius: 6px;
-  border: 1px solid #d0d0d0;
-  font-size: 14px;
-  font-weight: 500;
-}
-
-/* =================== RESPONSIVE =================== */
-@media (max-width: 1024px) {
-  .artikel-scroll-wrapper {
-    width: 90%;
-    margin: 0 auto;
-    max-height: none;
-    padding-left: 15px;
-    padding-right: 15px;
-    box-sizing: border-box;
-    margin-bottom: 80px;
-  }
-  .artikel-scroll-inner {
-    max-height: 400px;
-    overflow-x: scroll;
-  }
-  .artikel-table {
-    table-layout: auto;
-  }
-  .artikel-th {
-    font-size: 14px;
-    padding: 0.75rem 1rem;
-  }
-  .artikel-td {
-    font-size: 14px;
-    padding: 1rem;
-  }
-  .artikel-judul {
-    font-size: 18px;
-  }
-  .artikel-deskripsi {
-    font-size: 12px;
-  }
-  .artikel-download-btn {
-    padding: 8px 16px;
-    font-size: 14px;
-  }
-  .artikel-filter-input-inline,
-  .artikel-dropdown {
-    width: 100%;
-    max-width: none;
-    font-size: 14px;
-  }
-  .artikel-th-flex {
-    display: flex !important;
-    flex-direction: row !important;
-    flex-wrap: wrap;
-    align-items: center;
-    gap: 12px;
-  }
-  .artikel-th-flex > * {
-    flex: 1 1 auto;
-    min-width: 120px;
-  }
-}
-
-@media (max-width: 768px) {
-  .artikel-scroll-wrapper {
-    width: 100%;
-    max-height: 350px;
-    padding-left: 20px;
-    padding-right: 20px;
-    margin-bottom: 80px;
-  }
-  .artikel-th {
-    padding: 0.5rem 1rem;
-  }
-  .artikel-td {
-    padding: 0.75rem;
-  }
-  .artikel-judul {
-    font-size: 16px;
-  }
-  .artikel-deskripsi {
-    font-size: 12px;
-  }
-  .artikel-download-btn {
-    padding: 8px 14px;
-    font-size: 14px;
-  }
-  .artikel-filter-input-inline {
-    width: 100%;
-    max-width: none;
-  }
-  .artikel-th-flex {
-    display: flex !important;
-    flex-direction: row !important;
-    flex-wrap: wrap;
-    align-items: center;
-    gap: 10px;
-  }
-  .artikel-th-flex > * {
-    flex: 1 1 auto;
-    min-width: 100px;
-  }
-}
-
-@media (max-width: 480px) {
-  .artikel-scroll-wrapper {
-    width: 100%;
-    margin: 0;
-    max-height: 300px;
-    padding-left: 15px;
-    padding-right: 15px;
-    margin-bottom: 100px;
-  }
-  .artikel-th {
-    font-size: 12px;
-    padding: 0.5rem;
-  }
-  .artikel-td {
-    font-size: 12px;
-    padding: 0.5rem;
-  }
-  .artikel-judul {
-    font-size: 14px;
-  }
-  .artikel-deskripsi {
-    font-size: 10px;
-  }
-  .artikel-download-btn {
-    padding: 6px 12px;
-    font-size: 12px;
-  }
-  .artikel-filter-input-inline,
-  .artikel-dropdown {
-    width: 100%;
-    max-width: none;
-    font-size: 12px;
-  }
-  .filter-controls {
-    gap: 10px;
-  }
-  .artikel-th-flex {
-    display: flex !important;
-    flex-direction: row !important;
-    flex-wrap: wrap;
-    align-items: center;
-    gap: 8px;
-  }
-  .artikel-th-flex > * {
-    flex: 1 1 auto;
-    min-width: 90px;
-  }
-}
-
-/* =================== KOTAK TAHUN =================== */
-.tahun-box {
-  display: inline-block;
-  padding: 6px 12px;
-  background-color: #e5e5e5;
-  color: #555;
-  border-radius: 6px;
-  border: 1px solid #d0d0d0;
-  font-size: 14px;
-  font-weight: 500;
-}
-
 
 /* =================== KOTAK TAHUN & TANGGAL =================== */
 .artikel-tanggal-wrapper {
   display: flex;
   align-items: center;
-  gap: 12px;
-  margin-top: 8px;
+  gap: 14px;
+  margin-top: 10px;
   flex-wrap: wrap;
 }
 
 .tahun-box {
   display: inline-block;
-  padding: 6px 14px;
+  padding: 8px 16px;
   background-color: #e5e5e5;
   color: #333;
-  border-radius: 8px;
+  border-radius: 10px;
   border: 1px solid #ccc;
-  font-size: 14px;
-  font-weight: 600;
-  min-width: 60px;
+  font-size: 15px;
+  font-weight: 700;
+  min-width: 65px;
   text-align: center;
+  user-select: none;
 }
 
 .tanggal-box {
-  font-size: 14px;
-  color: #444;
-  font-weight: 500;
-  background-color: #f9f9f9;
-  padding: 6px 12px;
-  border-radius: 8px;
-  border: 1px solid #ddd;
+  font-size: 15px;
+  color: #B31312;
+  font-weight: 700;
+  background-color: #ffecec;
+  padding: 8px 18px;
+  border-radius: 10px;
+  border: 1px solid #f3a5a5;
+  box-shadow: 0 0 8px rgba(179, 19, 18, 0.4);
   white-space: nowrap;
-}
-
-@media (max-width: 480px) {
-  .artikel-tanggal-wrapper {
-    flex-direction: column;
-    align-items: flex-start;
-  }
-
-  .tahun-box,
-  .tanggal-box {
-    font-size: 13px;
-    padding: 6px 10px;
-  }
+  user-select: none;
 }
 
 /* =================== JENIS HUKUM + TANGGAL DALAM 1 BARIS =================== */
@@ -375,67 +227,145 @@
   justify-content: space-between;
   align-items: center;
   flex-wrap: wrap;
-  gap: 12px;
-  margin-bottom: 12px;
-}
-
-/* =================== KOTAK TAHUN & TANGGAL =================== */
-.artikel-tanggal-wrapper {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
-
-.tahun-box {
-  display: inline-block;
-  padding: 6px 14px;
-  background-color: #e5e5e5;
-  color: #333;
-  border-radius: 8px;
-  border: 1px solid #ccc;
-  font-size: 14px;
-  font-weight: 600;
-  min-width: 60px;
-  text-align: center;
-}
-
-.tanggal-box {
-  font-size: 14px;
-  color: #B31312;
-  font-weight: 600;
-  background-color: #ffecec; /* lebih soft dari sebelumnya */
-  padding: 6px 12px;
-  border-radius: 8px;
-  border: 1px solid #f3a5a5;
-  box-shadow: 0 0 5px rgba(179, 19, 18, 0.3); /* lebih halus */
-  white-space: nowrap;
+  gap: 16px;
+  margin-bottom: 16px;
 }
 
 /* =================== JUDUL TANPA GARIS & BOLD =================== */
 .artikel-judul-link {
   color: #000;
-  font-weight: 700;
-  font-size: 20px;
+  font-weight: 800;
+  font-size: 22px;
   text-decoration: none;
+  transition: color 0.3s ease;
 }
 .artikel-judul-link:hover {
   color: #B31312;
   text-decoration: underline;
 }
 
-@media (max-width: 768px) {
-  .artikel-info-horizontal {
-    flex-direction: column;
-    align-items: flex-start;
+/* =================== RESPONSIVE =================== */
+@media (max-width: 1280px) {
+  .artikel-scroll-wrapper {
+    width: 90%;
+    max-height: 550px;
   }
+}
 
-  .artikel-tanggal-wrapper {
+@media (max-width: 1024px) {
+  .artikel-scroll-wrapper {
+    width: 95%;
+    max-height: 480px;
+    padding-left: 20px;
+    padding-right: 20px;
+    margin-bottom: 120px;
+  }
+  .artikel-scroll-inner {
+    max-height: 480px;
+    overflow-x: scroll;
+  }
+  .artikel-table {
+    table-layout: auto;
+  }
+  .artikel-th {
+    font-size: 16px;
+    padding: 1rem 1.25rem;
+  }
+  .artikel-td {
+    font-size: 15px;
+    padding: 1.25rem 1.5rem;
+  }
+  .artikel-judul {
+    font-size: 20px;
+  }
+  .artikel-deskripsi {
+    font-size: 14px;
+  }
+  .artikel-download-btn {
+    padding: 10px 24px;
+    font-size: 15px;
+  }
+  .artikel-filter-input-inline,
+  .artikel-dropdown {
+    width: 100%;
+    max-width: none;
+    font-size: 14px;
+  }
+  .artikel-th-flex {
     justify-content: flex-start;
+    gap: 14px;
   }
+}
 
-  .tahun-box,
-  .tanggal-box {
+@media (max-width: 768px) {
+  .artikel-scroll-wrapper {
+    width: 100%;
+    max-height: 400px;
+    padding-left: 20px;
+    padding-right: 20px;
+    margin-bottom: 100px;
+  }
+  .artikel-th {
+    padding: 0.75rem 1rem;
+  }
+  .artikel-td {
+    padding: 1rem 1rem;
+  }
+  .artikel-judul {
+    font-size: 18px;
+  }
+  .artikel-deskripsi {
     font-size: 13px;
-    padding: 6px 10px;
+  }
+  .artikel-download-btn {
+    padding: 10px 22px;
+    font-size: 14px;
+  }
+  .artikel-filter-input-inline {
+    width: 100%;
+    max-width: none;
+  }
+  .artikel-th-flex {
+    justify-content: flex-start;
+    gap: 12px;
+  }
+}
+
+@media (max-width: 480px) {
+  .artikel-scroll-wrapper {
+    width: 100%;
+    margin: 0 10px;
+    max-height: 320px;
+    padding-left: 15px;
+    padding-right: 15px;
+    margin-bottom: 80px;
+  }
+  .artikel-th {
+    font-size: 14px;
+    padding: 0.5rem 0.75rem;
+  }
+  .artikel-td {
+    font-size: 13px;
+    padding: 0.6rem 0.75rem;
+  }
+  .artikel-judul {
+    font-size: 16px;
+  }
+  .artikel-deskripsi {
+    font-size: 12px;
+  }
+  .artikel-download-btn {
+    padding: 8px 18px;
+    font-size: 13px;
+  }
+  .artikel-filter-input-inline,
+  .artikel-dropdown {
+    width: 100%;
+    max-width: none;
+    font-size: 13px;
+  }
+  .artikel-th-flex {
+    justify-content: flex-start;
+    gap: 10px;
   }
 }

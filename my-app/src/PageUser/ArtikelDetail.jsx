@@ -14,7 +14,6 @@ const ArtikelDetail = () => {
     const fetchArtikelDetail = async () => {
       try {
         const res = await axios.get(`http://localhost:5000/api/artikel/${id}`);
-        console.log("COVER PATH:", res.data.coverPath); // 🔍 Debug path cover
         setArtikel(res.data);
         setLoading(false);
       } catch (err) {
@@ -27,8 +26,11 @@ const ArtikelDetail = () => {
   }, [id]);
 
   const handleDownload = (filePath) => {
+    if (!filePath) return alert("File tidak tersedia.");
+
     const fileName = filePath.split(/[\\/]/).pop();
-    window.open(`http://localhost:5000/uploads/pdf/${fileName}`, "_blank");
+    const fileUrl = `http://localhost:5000/uploads/${fileName}`;
+    window.open(fileUrl, "_blank");
   };
 
   return (
@@ -44,7 +46,6 @@ const ArtikelDetail = () => {
             <div className="artikel-detail-content">
               <div className="artikel-detail-flex-wrapper">
 
-                {/* Tampilkan cover thumbnail jika tersedia */}
                 {artikel.coverPath && (
                   <div className="artikel-cover-wrapper">
                     <img
@@ -59,10 +60,8 @@ const ArtikelDetail = () => {
                   </div>
                 )}
 
-                {/* Informasi artikel */}
                 <div className="artikel-detail-list-wrapper">
                   <div className="artikel-detail-list">
-
                     <div className="artikel-detail-list-label">Deskripsi</div>
                     <div className="artikel-detail-list-colon">:</div>
                     <div className="artikel-detail-list-value">{artikel.deskripsi}</div>
@@ -94,13 +93,16 @@ const ArtikelDetail = () => {
                     <div className="artikel-detail-list-label">Tanggal Penetapan</div>
                     <div className="artikel-detail-list-colon">:</div>
                     <div className="artikel-detail-list-value">
-                      {new Date(artikel.tanggal_penetapan).toLocaleDateString()}
+                      {new Date(artikel.tanggal_penetapan).toLocaleDateString("id-ID", {
+                        day: "numeric",
+                        month: "long",
+                        year: "numeric",
+                      })}
                     </div>
                   </div>
                 </div>
               </div>
 
-              {/* Tombol download PDF */}
               {artikel.filePath && (
                 <button
                   onClick={() => handleDownload(artikel.filePath)}
