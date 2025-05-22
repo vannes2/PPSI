@@ -141,7 +141,7 @@ const SidebarAdmin = ({ activeTab, onTabChange }) => {
             </Link>
           </li>
           <li className={activeTab === "riwayatKasus" ? "nav-active" : ""}>
-            <Link to="/riwayat-kasus" onClick={() => handleClickAndClose("riwayatKasus")}>
+            <Link to="/admin/kasus" onClick={() => handleClickAndClose("riwayatKasus")}>
               <HiOutlineArchiveBox className="icon-spacing" />
               {!isCollapsed && "Riwayat Kasus"}
             </Link>

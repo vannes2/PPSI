@@ -290,6 +290,7 @@ nav.drawer ul {
   border: 2.5px solid #B31312;
   box-sizing: border-box;
   transition: box-shadow 0.3s ease;
+  z-index: 999;
 }
 
 .profile-photo-desktop:hover {
@@ -328,6 +329,7 @@ nav.drawer ul {
   display: flex;
   align-items: center;
   justify-content: center;
+   z-index: 999;
 }
 
 .profile-photo-desktop-icon:hover {

@@ -103,6 +103,7 @@ const HeaderAfter = () => {
           </li>
 
           <li className="drawer-profile-btn">
+            
             <Link to="/ProfileView" onClick={closeDrawer} title="Profil">
               <ProfilePhotoMobile />
             </Link>

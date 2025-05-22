@@ -1,0 +1,116 @@
+/* Container utama */
+.admin-kasus-container {
+  padding: 20px;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #f8f9fa;
+  min-height: 100vh;
+}
+
+/* Judul */
+.admin-kasus-container h2 {
+  margin-bottom: 20px;
+  color: #333;
+  text-align: center;
+}
+
+/* Tabel */
+.admin-kasus-table {
+  width: 100%;
+  border-collapse: collapse;
+  background-color: #fff;
+  box-shadow: 0 2px 8px rgb(0 0 0 / 0.1);
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+/* Header tabel */
+.admin-kasus-table thead tr {
+  background-color: #007bff;
+  color: white;
+  text-align: left;
+}
+
+.admin-kasus-table th,
+.admin-kasus-table td {
+  padding: 12px 15px;
+  border-bottom: 1px solid #ddd;
+  font-size: 14px;
+}
+
+/* Baris tabel ganjil */
+.admin-kasus-table tbody tr:nth-child(odd) {
+  background-color: #f4f6f8;
+}
+
+/* Hover baris */
+.admin-kasus-table tbody tr:hover {
+  background-color: #dbe9ff;
+  cursor: pointer;
+}
+
+/* Link bukti */
+.admin-kasus-table a {
+  color: #007bff;
+  text-decoration: none;
+}
+
+.admin-kasus-table a:hover {
+  text-decoration: underline;
+}
+
+/* Responsif kecil */
+@media (max-width: 768px) {
+  .admin-kasus-table thead {
+    display: none;
+  }
+  .admin-kasus-table,
+  .admin-kasus-table tbody,
+  .admin-kasus-table tr,
+  .admin-kasus-table td {
+    display: block;
+    width: 100%;
+  }
+  .admin-kasus-table tr {
+    margin-bottom: 20px;
+  }
+  .admin-kasus-table td {
+    text-align: right;
+    padding-left: 50%;
+    position: relative;
+  }
+  .admin-kasus-table td::before {
+    content: attr(data-label);
+    position: absolute;
+    left: 15px;
+    width: 45%;
+    padding-left: 10px;
+    font-weight: bold;
+    text-align: left;
+  }
+}
+.filter-container {
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.filter-container label {
+  font-weight: 600;
+}
+
+.filter-container select,
+.filter-container input[type="text"] {
+  padding: 6px 8px;
+  font-size: 14px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  outline-offset: 2px;
+  outline-color: #007bff;
+  transition: border-color 0.3s ease;
+}
+
+.filter-container select:focus,
+.filter-container input[type="text"]:focus {
+  border-color: #007bff;
+}
