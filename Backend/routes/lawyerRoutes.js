@@ -49,6 +49,9 @@ router.put(
   lawyerController.updateLawyerProfile
 );
 
+// PUT update nomor rekening bank pengacara
+router.put('/pengacara/update-bank/:id', lawyerController.updateBankAccount);
+
 // GET semua pengacara yang sudah disetujui
 router.get('/pengacara', lawyerController.getAllLawyers);
 

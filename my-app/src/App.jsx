@@ -51,6 +51,8 @@ import SelectUser from "./PageLawyer/selectUser";
 import ProfileEditLawyer from "./PageLawyer/ProfileEditLawyer";
 import DaftarKasusLawyer from "./PageLawyer/DaftarKasusLawyer";
 import ArtikelDetailLawyer from "./PageLawyer/ArtikelDetailLawyer";
+import RegisterBankAccount from "./PageLawyer/RegisterBankAccount";
+
 // import RiwayatKasus from "./PageUser/RiwayatKasus";
 // BotChat
 import ChatBotWidget from "./ChatBot/ChatBotWidget";
@@ -108,7 +110,9 @@ function App() {
                 <Route path="/ArtikelBeritaAdmin" element={<ArtikelBeritaAdmin />} />
                 <Route path="/log-pertanyaan" element={<RiwayatPertanyaanUser />} />
                 <Route path="/faq" element={<FaqAdmin />} />
-                   <Route path="/admin/kasus" element={<AdminKasus />} />                
+                <Route path="/admin/kasus" element={<AdminKasus />} />                
+                <Route path="/register-bank" element={<RegisterBankAccount />} />
+
 
                 {/* ✅ Lawyer Routes */}
                 <Route path="/RegisterLawyerPage" element={<RegisterLawyerPage />} />

@@ -106,7 +106,8 @@ exports.getLawyerProfile = (req, res) => {
   const sql = `
     SELECT id, nama, tanggal_lahir, jenis_kelamin, alamat, email, no_hp, 
            nomor_induk_advokat, universitas, pendidikan, spesialisasi, pengalaman, 
-           username, upload_foto, linkedin, instagram, twitter, resume_cv, portofolio
+           username, upload_foto, linkedin, instagram, twitter, resume_cv, portofolio,
+           bank_name, account_name, account_number
     FROM pengacara
     WHERE id = ?
   `;
@@ -196,6 +197,34 @@ exports.updateLawyerProfile = (req, res) => {
   });
 };
 
+// PUT /api/pengacara/update-bank/:id
+exports.updateBankAccount = (req, res) => {
+  const { id } = req.params;
+  const { bank_name, account_name, account_number } = req.body;
+
+  if (!bank_name || !account_name || !account_number) {
+    return res.status(400).json({ message: "Bank, nama rekening, dan nomor rekening wajib diisi." });
+  }
+
+  const sql = `
+    UPDATE pengacara
+    SET bank_name = ?, account_name = ?, account_number = ?
+    WHERE id = ?
+  `;
+
+  db.query(sql, [bank_name, account_name, account_number, id], (err, result) => {
+    if (err) {
+      console.error("Gagal memperbarui data rekening:", err);
+      return res.status(500).json({ message: "Gagal memperbarui data rekening." });
+    }
+
+    if (result.affectedRows === 0) {
+      return res.status(404).json({ message: "Pengacara tidak ditemukan." });
+    }
+
+    res.json({ message: "Data rekening berhasil diperbarui." });
+  });
+};
 
 // GET /api/pengacara
 exports.getAllLawyers = (req, res) => {
@@ -206,7 +235,8 @@ exports.getAllLawyers = (req, res) => {
       email, no_hp, nomor_induk_advokat, universitas,
       pendidikan, spesialisasi, pengalaman,
       upload_ktp, upload_foto, upload_kartu_advokat, upload_pkpa,
-      username, password, tanggal_daftar
+      username, password, tanggal_daftar,
+      bank_name, account_name, account_number
     FROM pengacara
   `;
 
@@ -218,7 +248,6 @@ exports.getAllLawyers = (req, res) => {
     res.json(results);
   });
 };
-
 
 // Auto reject pendaftar expired (10 menit)
 exports.autoRejectExpiredRegistrations = () => {
