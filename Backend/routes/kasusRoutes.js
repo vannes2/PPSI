@@ -1,7 +1,6 @@
 const express = require('express');
 const router = express.Router();
 const multer = require('multer');
-const path = require('path');
 const kasusController = require('../controllers/kasusController');
 
 const storage = multer.diskStorage({
@@ -14,15 +13,36 @@ const storage = multer.diskStorage({
   }
 });
 
-const upload = multer({ storage: storage });
+const upload = multer({ storage });
 
-router.post('/ajukan-kasus', upload.single('bukti'), kasusController.ajukanKasus);
+// ROUTES
+
+// Create kasus baru (dengan upload file bukti opsional)
+router.post('/kasus', upload.single('bukti'), kasusController.createKasus);
+
+// Read semua kasus
 router.get('/kasus', kasusController.getAllKasus);
+
+// Update data kasus lengkap
+router.put('/kasus/:id', upload.single('bukti'), kasusController.updateKasus);
+
+// Update status kasus (fungsi lama)
 router.put('/kasus/update-status/:id', kasusController.updateKasusStatus);
+
+// Delete kasus
+router.delete('/kasus/:id', kasusController.deleteKasus);
+
+// Log aktivitas
 router.post('/kasus/log-aktivitas', kasusController.logAktivitas);
 router.get('/kasus/log-aktivitas/:id', kasusController.getLogAktivitasByUser);
+
+// Ambil kasus oleh lawyer
 router.put('/kasus/ambil/:id', kasusController.ambilKasus);
+
+// Riwayat kasus user
 router.get('/kasus/riwayat/:userId', kasusController.getRiwayatKasusByUser);
 
+// Ajukan kasus (fungsi lama)
+router.post('/ajukan-kasus', upload.single('bukti'), kasusController.ajukanKasus);
 
 module.exports = router;

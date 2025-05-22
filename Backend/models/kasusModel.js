@@ -5,23 +5,68 @@ const KasusModel = {
     const {
       user_id, nama, email, noHp, areaPraktik,
       jenisPengerjaan, biayaMin, biayaMax,
-      estimasiSelesai, lokasi, deskripsi, bukti
+      estimasiSelesai, lokasi, deskripsi, bukti,
+      status, lawyer_id
     } = data;
 
     const sql = `
       INSERT INTO ajukan_kasus (
         user_id, nama, email, no_hp, area_praktik,
         jenis_pengerjaan, biaya_min, biaya_max,
-        estimasi_selesai, lokasi, deskripsi, bukti
+        estimasi_selesai, lokasi, deskripsi, bukti,
+        status, lawyer_id
       )
-      VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+      VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
     `;
 
     db.query(sql, [
       user_id, nama, email, noHp, areaPraktik,
       jenisPengerjaan, biayaMin, biayaMax,
-      estimasiSelesai, lokasi, deskripsi, bukti
+      estimasiSelesai, lokasi, deskripsi, bukti || null,
+      status || "Menunggu",
+      lawyer_id || null
     ], callback);
+  },
+
+  updateKasus: (id, data, callback) => {
+    const fields = [];
+    const values = [];
+
+    const mapping = {
+      user_id: "user_id",
+      nama: "nama",
+      email: "email",
+      noHp: "no_hp",
+      areaPraktik: "area_praktik",
+      jenisPengerjaan: "jenis_pengerjaan",
+      biayaMin: "biaya_min",
+      biayaMax: "biaya_max",
+      estimasiSelesai: "estimasi_selesai",
+      lokasi: "lokasi",
+      deskripsi: "deskripsi",
+      bukti: "bukti",
+      status: "status",
+      lawyer_id: "lawyer_id",
+    };
+
+    for (const key in data) {
+      if (mapping[key]) {
+        fields.push(`${mapping[key]} = ?`);
+        values.push(data[key]);
+      }
+    }
+
+    if (fields.length === 0) return callback(null);
+
+    const sql = `UPDATE ajukan_kasus SET ${fields.join(", ")} WHERE id = ?`;
+    values.push(id);
+
+    db.query(sql, values, callback);
+  },
+
+  deleteKasus: (id, callback) => {
+    const sql = "DELETE FROM ajukan_kasus WHERE id = ?";
+    db.query(sql, [id], callback);
   },
 
   getKasusByUserId: (user_id, callback) => {
@@ -37,9 +82,9 @@ const KasusModel = {
 
   getAllKasus: (callback) => {
     const sql = `
-      SELECT ak.*, u.address AS alamat
+      SELECT ak.*, p.nama AS nama_pengacara
       FROM ajukan_kasus ak
-      LEFT JOIN users u ON ak.user_id = u.id
+      LEFT JOIN pengacara p ON ak.lawyer_id = p.id
       ORDER BY ak.created_at DESC
     `;
     db.query(sql, callback);
