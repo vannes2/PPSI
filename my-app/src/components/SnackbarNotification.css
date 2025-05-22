@@ -1,0 +1,36 @@
+.snackbar-notification {
+  position: fixed;
+  bottom: 30px;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: #e57373;
+  color: white;
+  padding: 20px 40px;
+  border-radius: 10px;
+  box-shadow: 0 8px 16px rgba(229, 115, 115, 0.6);
+  z-index: 1000;
+  min-width: 400px;
+  max-width: 90vw;
+  display: flex;
+  align-items: center;
+  font-size: 18px;
+  font-weight: 600;
+  cursor: pointer;
+  user-select: none;
+  gap: 12px;
+  transition: all 0.3s ease;
+  outline: none;
+}
+
+.snackbar-notification:focus {
+  box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.7);
+}
+
+.snackbar-icon {
+  font-size: 24px;
+  line-height: 1;
+}
+
+.snackbar-message {
+  flex: 1;
+}

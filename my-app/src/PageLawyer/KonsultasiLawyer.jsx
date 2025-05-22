@@ -3,6 +3,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import io from "socket.io-client";
 import { FaLocationArrow, FaPaperclip } from "react-icons/fa";
 import HeaderLawyer from "../components/HeaderLawyer";
+import SnackbarNotification from "../components/SnackbarNotification"; // sesuaikan path
 import "../CSS_Lawyer/KonsultasiLawyer.css";
 
 const socket = io("http://localhost:5000");
@@ -19,14 +20,18 @@ const KonsultasiLawyer = () => {
   const [session, setSession] = useState(null);
   const [remainingTime, setRemainingTime] = useState(0);
   const [isLocked, setIsLocked] = useState(false);
+  const [showNotification, setShowNotification] = useState(false);
 
   const messagesEndRef = useRef(null);
   const fileInputRef = useRef(null);
   const lawyer = JSON.parse(localStorage.getItem("user"));
 
+  // Ambil sesi konsultasi
   const fetchSession = async (userId, pengacaraId) => {
     try {
-      const res = await fetch(`http://localhost:5000/api/konsultasi-session/session/${userId}/${pengacaraId}`);
+      const res = await fetch(
+        `http://localhost:5000/api/konsultasi-session/session/${userId}/${pengacaraId}`
+      );
       if (!res.ok) throw new Error("Sesi konsultasi tidak ditemukan");
       const sessionData = await res.json();
 
@@ -48,26 +53,30 @@ const KonsultasiLawyer = () => {
 
   useEffect(() => {
     if (!lawyer) return;
-  
-    // Ambil ulang kontak saat masuk halaman
+
+    // Tampilkan notifikasi saat halaman load
+    setShowNotification(true);
+    const notifTimer = setTimeout(() => setShowNotification(false), 7000);
+
     const fetchContacts = async () => {
       try {
-        const res = await fetch(`http://localhost:5000/api/chat/contacts/lawyer/${lawyer.id}`);
+        const res = await fetch(
+          `http://localhost:5000/api/chat/contacts/lawyer/${lawyer.id}`
+        );
         const data = await res.json();
         setContacts(data);
       } catch (err) {
         console.error("Gagal ambil kontak:", err);
       }
     };
-  
+
     fetchContacts();
-  
-    // Handler untuk socket
+
     const handleReceiveMessage = async (data) => {
       if (!selectedUser) return;
-  
+
       const isForThisChat = data.sender_id === selectedUser.id;
-  
+
       if (isForThisChat) {
         try {
           const res = await fetch(
@@ -79,18 +88,17 @@ const KonsultasiLawyer = () => {
           console.error("Gagal refresh pesan:", err);
         }
       }
-  
-      // Refresh sidebar kontak
+
       fetchContacts();
     };
-  
+
     socket.on(`receive_message_pengacara_${lawyer.id}`, handleReceiveMessage);
-  
+
     return () => {
       socket.off(`receive_message_pengacara_${lawyer.id}`, handleReceiveMessage);
+      clearTimeout(notifTimer);
     };
   }, [lawyer?.id, selectedUser?.id]);
-  
 
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
@@ -120,7 +128,9 @@ const KonsultasiLawyer = () => {
     setSelectedUser(user);
     await fetchSession(user.id, lawyer.id);
 
-    fetch(`http://localhost:5000/api/chat/messages/user/${user.id}?userId=${lawyer.id}&userRole=pengacara`)
+    fetch(
+      `http://localhost:5000/api/chat/messages/user/${user.id}?userId=${lawyer.id}&userRole=pengacara`
+    )
       .then((res) => res.json())
       .then((data) => setMessages(data))
       .catch(() => setError("Gagal mengambil pesan"));
@@ -342,6 +352,13 @@ const KonsultasiLawyer = () => {
           )}
         </div>
       </div>
+
+      {/* Snackbar Notification */}
+      <SnackbarNotification
+        message="Harap lengkapi nomor rekening bank Anda di halaman profil."
+        show={showNotification}
+        onClose={() => setShowNotification(false)}
+      />
     </div>
   );
 };
