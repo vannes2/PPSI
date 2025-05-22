@@ -78,7 +78,7 @@ header {
 nav.drawer {
   position: fixed;
   top: 0;
-  right: -300px;
+  right: -300px; 
   height: 100vh;
   width: 250px;
   background-color: #fff;
@@ -201,6 +201,11 @@ nav.drawer ul {
   color: #B31312;
   font-weight: bold;
 }
+
+.auth-buttons{
+  margin-left: 10px; /* atau sesuai kebutuhan */
+}
+
 
 /* ===================== RESPONSIVE STYLING ===================== */
 
