@@ -18,6 +18,16 @@ const FaqAdmin = () => {
   const [editId, setEditId] = useState(null);
   const [errorMsg, setErrorMsg] = useState("");
 
+  // Filter dan search states
+  const [searchPertanyaan, setSearchPertanyaan] = useState("");
+  const [filterKategori, setFilterKategori] = useState("");
+  const [filterKeyword, setFilterKeyword] = useState("");
+
+  // Ambil daftar kategori unik dari data FAQ untuk dropdown filter
+  const uniqueCategories = Array.from(
+    new Set(faqData.map((f) => f.kategori).filter((k) => k && k.trim() !== ""))
+  );
+
   const fetchFAQ = async () => {
     try {
       const res = await axios.get("http://localhost:5000/api/faq");
@@ -48,7 +58,10 @@ const FaqAdmin = () => {
 
   const handleKeywordsChange = (e) => {
     const value = e.target.value;
-    const arr = value.split(",").map((k) => k.trim()).filter(k => k.length > 0);
+    const arr = value
+      .split(",")
+      .map((k) => k.trim())
+      .filter((k) => k.length > 0);
     setForm((prev) => ({ ...prev, keywords: arr }));
   };
 
@@ -61,7 +74,6 @@ const FaqAdmin = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // Validasi sederhana
     if (!form.intent || !form.response) {
       setErrorMsg("Intent dan Respon wajib diisi.");
       return;
@@ -105,6 +117,24 @@ const FaqAdmin = () => {
       alert("Gagal menghapus FAQ.");
     }
   };
+
+  // Filter dan search logic
+  const filteredFaq = faqData.filter((faq) => {
+    const contohLower = (faq.contoh_pertanyaan || "").toLowerCase();
+    const matchesSearch = contohLower.includes(searchPertanyaan.toLowerCase());
+
+    const matchesKategori = filterKategori
+      ? (faq.kategori || "").toLowerCase() === filterKategori.toLowerCase()
+      : true;
+
+    const faqKeywords = parseKeywords(faq.keywords).map((k) => k.toLowerCase());
+    const filterKeywordLower = filterKeyword.toLowerCase().trim();
+    const matchesKeyword = filterKeywordLower
+      ? faqKeywords.some((k) => k.includes(filterKeywordLower))
+      : true;
+
+    return matchesSearch && matchesKategori && matchesKeyword;
+  });
 
   return (
     <AdminLayout>
@@ -185,6 +215,67 @@ const FaqAdmin = () => {
           </div>
         </form>
 
+        {/* Filter & Search di bawah form */}
+        <div
+          style={{
+            display: "flex",
+            gap: "12px",
+            marginTop: "30px",
+            marginBottom: "20px",
+            flexWrap: "wrap",
+            alignItems: "center",
+          }}
+        >
+          <input
+            type="text"
+            placeholder="Search contoh pertanyaan..."
+            value={searchPertanyaan}
+            onChange={(e) => setSearchPertanyaan(e.target.value)}
+            style={{ padding: "8px 12px", flex: "1 1 300px" }}
+          />
+
+          <select
+            value={filterKategori}
+            onChange={(e) => setFilterKategori(e.target.value)}
+            style={{ padding: "8px 12px", flex: "1 1 200px" }}
+          >
+            <option value="">Semua Kategori</option>
+            {uniqueCategories.map((cat) => (
+              <option key={cat} value={cat}>
+                {cat}
+              </option>
+            ))}
+          </select>
+
+          <input
+            type="text"
+            placeholder="Filter keyword (ex: kdrt)"
+            value={filterKeyword}
+            onChange={(e) => setFilterKeyword(e.target.value)}
+            style={{ padding: "8px 12px", flex: "1 1 200px" }}
+          />
+
+          <button
+            type="button"
+            onClick={() => {
+              setSearchPertanyaan("");
+              setFilterKategori("");
+              setFilterKeyword("");
+            }}
+            style={{
+              padding: "8px 16px",
+              backgroundColor: "#ef4444",
+              color: "#fff",
+              border: "none",
+              borderRadius: "5px",
+              cursor: "pointer",
+              flexShrink: 0,
+            }}
+          >
+            Reset Filter
+          </button>
+        </div>
+
         <table className="faq-table">
           <thead>
             <tr>
@@ -198,8 +289,8 @@ const FaqAdmin = () => {
             </tr>
           </thead>
           <tbody>
-            {faqData.length > 0 ? (
-              faqData.map((faq) => (
+            {filteredFaq.length > 0 ? (
+              filteredFaq.map((faq) => (
                 <tr key={faq.id}>
                   <td>{faq.id}</td>
                   <td>{faq.intent}</td>

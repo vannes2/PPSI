@@ -16,10 +16,36 @@ const DaftarKasusLawyer = () => {
   const [showBuktiModal, setShowBuktiModal] = useState(false);
   const [buktiPreview, setBuktiPreview] = useState(null);
 
-  // Tambahkan state snackbarNotification
+  // Snackbar notification untuk cek nomor rekening bank
   const [showNotification, setShowNotification] = useState(false);
 
   const lawyer = JSON.parse(localStorage.getItem("user"));
+
+  // Fungsi cek data nomor rekening bank
+  const checkBankAccount = async () => {
+    try {
+      if (!lawyer?.id) {
+        setShowNotification(false);
+        return;
+      }
+
+      const res = await axios.get(
+        `http://localhost:5000/api/pengacara/check-bank/${lawyer.id}`
+      );
+      const { bank_name, account_name, account_number } = res.data;
+
+      // Jika salah satu data rekening kosong atau null, tampilkan snackbar
+      if (!bank_name || !account_name || !account_number) {
+        setShowNotification(true);
+      } else {
+        setShowNotification(false);
+      }
+    } catch (error) {
+      console.error("Gagal cek data rekening bank:", error);
+      // Jika error dianggap gagal cek, kita tetap tampilkan snackbar sebagai pencegahan
+      setShowNotification(true);
+    }
+  };
 
   useEffect(() => {
     if (!lawyer || lawyer.role !== "pengacara") {
@@ -30,12 +56,7 @@ const DaftarKasusLawyer = () => {
       return;
     }
     fetchSemuaKasus();
-
-    // Tampilkan snackbar notifikasi saat load halaman
-    setShowNotification(true);
-    const timerNotif = setTimeout(() => setShowNotification(false), 7000);
-
-    return () => clearTimeout(timerNotif);
+    checkBankAccount();
   }, []);
 
   const fetchSemuaKasus = async () => {

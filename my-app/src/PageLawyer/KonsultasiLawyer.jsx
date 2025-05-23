@@ -26,6 +26,34 @@ const KonsultasiLawyer = () => {
   const fileInputRef = useRef(null);
   const lawyer = JSON.parse(localStorage.getItem("user"));
 
+  // Fungsi cek data nomor rekening bank pengacara
+  const checkBankAccount = async () => {
+    try {
+      if (!lawyer?.id) {
+        setShowNotification(false);
+        return;
+      }
+
+      const res = await fetch(
+        `http://localhost:5000/api/pengacara/check-bank/${lawyer.id}`
+      );
+      if (!res.ok) throw new Error("Gagal cek data bank");
+      const data = await res.json();
+
+      const { bank_name, account_name, account_number } = data;
+
+      if (!bank_name || !account_name || !account_number) {
+        setShowNotification(true);
+      } else {
+        setShowNotification(false);
+      }
+    } catch (error) {
+      console.error("Gagal cek data rekening bank:", error);
+      // Jika gagal cek, tampilkan notif untuk pencegahan
+      setShowNotification(true);
+    }
+  };
+
   // Ambil sesi konsultasi
   const fetchSession = async (userId, pengacaraId) => {
     try {
@@ -54,9 +82,8 @@ const KonsultasiLawyer = () => {
   useEffect(() => {
     if (!lawyer) return;
 
-    // Tampilkan notifikasi saat halaman load
-    setShowNotification(true);
-    const notifTimer = setTimeout(() => setShowNotification(false), 7000);
+    // Cek data bank saat load halaman
+    checkBankAccount();
 
     const fetchContacts = async () => {
       try {
@@ -72,6 +99,7 @@ const KonsultasiLawyer = () => {
 
     fetchContacts();
 
+    // Event handler socket
     const handleReceiveMessage = async (data) => {
       if (!selectedUser) return;
 
@@ -96,7 +124,6 @@ const KonsultasiLawyer = () => {
 
     return () => {
       socket.off(`receive_message_pengacara_${lawyer.id}`, handleReceiveMessage);
-      clearTimeout(notifTimer);
     };
   }, [lawyer?.id, selectedUser?.id]);
 
@@ -251,7 +278,11 @@ const KonsultasiLawyer = () => {
           </div>
           <ul className="contact-list">
             {contacts.map((user) => (
-              <li key={user.id} onClick={() => loadMessages(user)} className={selectedUser?.id === user.id ? "active" : ""}>
+              <li
+                key={user.id}
+                onClick={() => loadMessages(user)}
+                className={selectedUser?.id === user.id ? "active" : ""}
+              >
                 <div className="contact-name">{user.name}</div>
                 <div className="last-message">Klik untuk lihat chat</div>
               </li>
@@ -277,7 +308,12 @@ const KonsultasiLawyer = () => {
               </div>
               <div className="chat-messages">
                 {messages.map((msg, idx) => (
-                  <div key={idx} className={`message ${msg.sender_role === "pengacara" ? "sent" : "received"}`}>
+                  <div
+                    key={idx}
+                    className={`message ${
+                      msg.sender_role === "pengacara" ? "sent" : "received"
+                    }`}
+                  >
                     <div>
                       {msg.message}
                       {msg.file && (
@@ -286,14 +322,22 @@ const KonsultasiLawyer = () => {
                             <img
                               src={`http://localhost:5000/uploads/chat_files/${msg.file}`}
                               alt="gambar"
-                              style={{ maxWidth: "200px", marginTop: "8px", borderRadius: "8px" }}
+                              style={{
+                                maxWidth: "200px",
+                                marginTop: "8px",
+                                borderRadius: "8px",
+                              }}
                               onError={(e) => {
                                 e.target.style.display = "none";
                               }}
                             />
                           ) : (
                             <div style={{ marginTop: "8px" }}>
-                              <a href={`http://localhost:5000/uploads/chat_files/${msg.file}`} target="_blank" rel="noopener noreferrer">
+                              <a
+                                href={`http://localhost:5000/uploads/chat_files/${msg.file}`}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                              >
                                 📎 {msg.file}
                               </a>
                             </div>
@@ -304,7 +348,11 @@ const KonsultasiLawyer = () => {
                     <div className="time">
                       {formatClock(msg.timestamp)} • {formatTime(msg.timestamp)}
                     </div>
-                    {msg.sender_role === "pengacara" && <div className="status">{msg.is_read ? "Dibaca" : "Terkirim"}</div>}
+                    {msg.sender_role === "pengacara" && (
+                      <div className="status">
+                        {msg.is_read ? "Dibaca" : "Terkirim"}
+                      </div>
+                    )}
                   </div>
                 ))}
 
@@ -314,18 +362,52 @@ const KonsultasiLawyer = () => {
                 <div style={{ padding: "10px", textAlign: "center" }}></div>
               ) : (
                 <form className="chat-input" onSubmit={handleSubmit}>
-                  <div className="input-group" style={{ display: "flex", alignItems: "center", gap: "8px" }}>
-                    <input type="text" value={input} onChange={(e) => setInput(e.target.value)} placeholder={isLocked ? "Waktu konsultasi habis" : "Tulis pesan..."} disabled={isLocked} style={{ flex: 1 }} />
-                    <label htmlFor="file-upload" style={{ cursor: "pointer", marginRight: "6px" }} title="Upload file">
+                  <div
+                    className="input-group"
+                    style={{ display: "flex", alignItems: "center", gap: "8px" }}
+                  >
+                    <input
+                      type="text"
+                      value={input}
+                      onChange={(e) => setInput(e.target.value)}
+                      placeholder={isLocked ? "Waktu konsultasi habis" : "Tulis pesan..."}
+                      disabled={isLocked}
+                      style={{ flex: 1 }}
+                    />
+                    <label
+                      htmlFor="file-upload"
+                      style={{ cursor: "pointer", marginRight: "6px" }}
+                      title="Upload file"
+                    >
                       <FaPaperclip size={24} />
                     </label>
-                    <input id="file-upload" type="file" style={{ display: "none" }} onChange={handleFileChange} ref={fileInputRef} disabled={isLocked} />
-                    <button type="submit" className="btn btn-success" disabled={isLocked} title="Kirim pesan">
+                    <input
+                      id="file-upload"
+                      type="file"
+                      style={{ display: "none" }}
+                      onChange={handleFileChange}
+                      ref={fileInputRef}
+                      disabled={isLocked}
+                    />
+                    <button
+                      type="submit"
+                      className="btn btn-success"
+                      disabled={isLocked}
+                      title="Kirim pesan"
+                    >
                       <FaLocationArrow />
                     </button>
                   </div>
                   {selectedFile && (
-                    <div style={{ marginTop: "4px", fontSize: "14px", display: "flex", alignItems: "center", gap: "10px" }}>
+                    <div
+                      style={{
+                        marginTop: "4px",
+                        fontSize: "14px",
+                        display: "flex",
+                        alignItems: "center",
+                        gap: "10px",
+                      }}
+                    >
                       <span>File siap dikirim: {selectedFile.name}</span>
                       <button
                         type="button"
