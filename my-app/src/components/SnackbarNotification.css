@@ -34,3 +34,56 @@
 .snackbar-message {
   flex: 1;
 }
+
+.snackbar-notification {
+  position: fixed;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: #e74c3c; /* merah mudah */
+  color: white;
+  padding: 16px 24px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+  z-index: 9999;
+  min-width: 320px;
+  max-width: 90vw;
+  font-weight: 600;
+}
+
+.snackbar-icon {
+  font-size: 20px;
+}
+
+.snackbar-message {
+  flex: 1;
+}
+
+.snackbar-btn {
+  background-color: #fff;
+  color: #e74c3c;
+  border: none;
+  border-radius: 5px;
+  padding: 8px 14px;
+  cursor: pointer;
+  font-weight: 700;
+  transition: background-color 0.3s ease;
+}
+
+.snackbar-btn:hover {
+  background-color: #f5f5f5;
+}
+
+.snackbar-close-btn {
+  background: transparent;
+  border: none;
+  color: white;
+  font-size: 20px;
+  cursor: pointer;
+  font-weight: bold;
+  line-height: 1;
+  padding: 0 6px;
+}

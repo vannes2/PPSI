@@ -263,3 +263,18 @@ exports.autoRejectExpiredRegistrations = () => {
     }
   });
 };
+
+
+// GET /api/pengacara/check-bank/:id
+exports.checkBankAccount = (req, res) => {
+  const { id } = req.params;
+  const sql = "SELECT bank_name, account_name, account_number FROM pengacara WHERE id = ?";
+  db.query(sql, [id], (err, results) => {
+    if (err) {
+      console.error("Error check bank account:", err);
+      return res.status(500).json({ error: "Gagal memeriksa data rekening bank" });
+    }
+    if (results.length === 0) return res.status(404).json({ error: "Pengacara tidak ditemukan" });
+    res.json(results[0]);
+  });
+};

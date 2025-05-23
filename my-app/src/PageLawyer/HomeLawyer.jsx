@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
 import HeaderLawyer from "../components/HeaderLawyer";
 import Footer from "../components/Footer";
 import SnackbarNotification from "../components/SnackbarNotification"; // sesuaikan path-nya
@@ -7,12 +7,46 @@ import { Link } from "react-router-dom";
 
 const HomeLawyer = () => {
   const [showNotification, setShowNotification] = useState(false);
+  const [loadingCheck, setLoadingCheck] = useState(true);
 
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: "instant" });
-    setShowNotification(true);
-    const timer = setTimeout(() => setShowNotification(false), 7000);
-    return () => clearTimeout(timer);
+
+    // Ambil data user dari localStorage
+    const lawyer = JSON.parse(localStorage.getItem("user"));
+    if (!lawyer || !lawyer.id) {
+      // Jika data lawyer tidak ada, langsung tampilkan notifikasi
+      setShowNotification(true);
+      setLoadingCheck(false);
+      return;
+    }
+
+    // Cek data rekening bank di backend
+    fetch(`http://localhost:5000/api/pengacara/check-bank/${lawyer.id}`)
+      .then(async (res) => {
+        const text = await res.text();
+        try {
+          const data = JSON.parse(text);
+          // Jika data rekening tidak lengkap maka tampilkan notifikasi
+          if (
+            !data.bank_name ||
+            !data.account_number ||
+            !data.account_name
+          ) {
+            setShowNotification(true);
+          } else {
+            setShowNotification(false);
+          }
+        } catch (err) {
+          console.error("Response bukan JSON valid:", text);
+          setShowNotification(true);
+        }
+      })
+      .catch((err) => {
+        console.error("Gagal cek data rekening bank:", err);
+        setShowNotification(true);
+      })
+      .finally(() => setLoadingCheck(false));
   }, []);
 
   return (
@@ -59,11 +93,13 @@ const HomeLawyer = () => {
       </section>
 
       {/* Snackbar Notification */}
-      <SnackbarNotification
-        message="Harap lengkapi nomor rekening bank Anda di halaman profil."
-        show={showNotification}
-        onClose={() => setShowNotification(false)}
-      />
+      {!loadingCheck && (
+        <SnackbarNotification
+          message="Harap lengkapi nomor rekening bank Anda di halaman profil."
+          show={showNotification}
+          onClose={() => setShowNotification(false)}
+        />
+      )}
 
       <div className="footer-separator"></div>
       <Footer />

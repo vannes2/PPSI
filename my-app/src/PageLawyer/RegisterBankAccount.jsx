@@ -3,7 +3,6 @@ import { useNavigate } from "react-router-dom";
 import HeaderLawyer from "../components/HeaderLawyer";
 import Footer from "../components/Footer";
 import "../CSS_Lawyer/RegisterBankAccount.css";
-
 const bankList = [
   "Bank Mandiri",
   "Bank BCA",
@@ -86,13 +85,14 @@ const RegisterBankAccount = () => {
   };
 
   const handleBack = () => {
-    navigate(-1); // Kembali ke halaman sebelumnya
+    navigate(-1);
   };
 
   return (
     <div className="register-bank-page">
       <HeaderLawyer />
       <div className="register-container">
+        <br/><br/><br/><br/>
         <h1>Tautkan rekening bank Anda</h1>
         <p className="info-text">
           💡 Silakan isi data rekening bank Anda dengan benar untuk memudahkan proses pembayaran konsultasi melalui platform Cerdas Hukum.
@@ -150,11 +150,18 @@ const RegisterBankAccount = () => {
           </div>
 
           {error && <div className="error-message" role="alert">{error}</div>}
-          {successMessage && <div className="success-message" role="alert">{successMessage}</div>}
+          {successMessage && (
+            <div className="success-message" role="alert">
+              {successMessage}
+            </div>
+          )}
 
           <p className="disclaimer">
             Dengan mengisi dan mengonfirmasi data ini, Anda menyatakan bahwa semua informasi yang diberikan adalah benar, valid, dan Anda telah membaca serta menyetujui{" "}
-            <a href="#" target="_blank" rel="noopener noreferrer">Kebijakan Privasi Cerdas Hukum</a>.
+            <a href="#" target="_blank" rel="noopener noreferrer">
+              Kebijakan Privasi Cerdas Hukum
+            </a>
+            .
           </p>
 
           <div className="btn-group">
@@ -166,12 +173,18 @@ const RegisterBankAccount = () => {
             >
               Kembali
             </button>
-            <button type="submit" className="confirm-btn" aria-label="Konfirmasi data rekening bank">
+            <button
+              type="submit"
+              className="confirm-btn"
+              aria-label="Konfirmasi data rekening bank"
+            >
               Konfirmasi
             </button>
           </div>
         </form>
       </div>
+      
+      <div className="footer-separator"></div>
       <Footer />
     </div>
   );
