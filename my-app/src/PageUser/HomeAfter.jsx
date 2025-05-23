@@ -161,11 +161,10 @@ const HomeAfter = () => {
 
       {/* GEL OMBANG bawah hero */}
 
-      <section className="gelombang">
+      {/* <section className="gelombang">
       <div className="waveB wave2"></div>
-      </section>
-       <br /><br /><br />
-
+      </section> */}
+       
       {/* Fitur */}
       <section className="features-lawyer-home">
         <h2>Konsultasikan Permasalah Hukum Anda Bersama Kami!</h2>
@@ -287,9 +286,9 @@ const HomeAfter = () => {
 
       {/* Gelombang atas footer */}
 
-       <section className="gelombang">
+       {/* <section className="gelombang">
       <div className="waveA wave1"></div>
-      </section>
+      </section> */}
 
       <div className="footer-separator"></div>
       <Footer />
