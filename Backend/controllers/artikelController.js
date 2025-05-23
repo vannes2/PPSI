@@ -20,7 +20,7 @@ const generatePDFCover = async (pdfPath, outputFolder, outputName) => {
   }
 };
 
-// ✅ Upload Artikel Baru
+// Upload Artikel Baru
 exports.uploadArtikel = async (req, res) => {
   try {
     const {
@@ -37,50 +37,30 @@ exports.uploadArtikel = async (req, res) => {
 
     const file = req.file;
 
-    // Validasi semua field wajib
     if (
-      !judul ||
-      !deskripsi ||
-      !jenis_hukum ||
-      !file ||
-      !nomor ||
-      !tahun ||
-      !jenis_dokumen ||
-      !tanggal_penetapan ||
-      !tempat_penetapan ||
-      !status
+      !judul || !deskripsi || !jenis_hukum || !file ||
+      !nomor || !tahun || !jenis_dokumen || !tanggal_penetapan ||
+      !tempat_penetapan || !status
     ) {
       return res.status(400).json({ message: "Semua field wajib diisi." });
     }
 
-    const filePath = file.path.replace(/\\/g, "/"); // normalisasi path
+    const filePath = file.path.replace(/\\/g, "/");
 
-    // 🔄 Buat cover image dari PDF
     const outputName = `cover_${Date.now()}`;
     const coverFileName = await generatePDFCover(
       path.resolve(filePath),
       path.resolve("uploads/covers"),
       outputName
     );
-
     const coverPath = coverFileName ? `uploads/covers/${coverFileName}` : null;
 
-    // ⏺ Simpan ke DB
     Artikel.createArtikel(
-      judul,
-      deskripsi,
-      jenis_hukum,
-      filePath,
-      nomor,
-      parseInt(tahun),
-      jenis_dokumen,
-      tanggal_penetapan,
-      tempat_penetapan,
-      status,
-      coverPath,
+      judul, deskripsi, jenis_hukum, filePath, nomor, parseInt(tahun),
+      jenis_dokumen, tanggal_penetapan, tempat_penetapan, status, coverPath,
       (err, result) => {
         if (err) {
-          console.error("Gagal menyimpan artikel:", err.sqlMessage || err.message);
+          console.error("Gagal menyimpan artikel:", err.message);
           return res.status(500).json({ message: "Gagal menyimpan artikel." });
         }
         res.status(201).json({ message: "Artikel berhasil ditambahkan." });
@@ -92,7 +72,7 @@ exports.uploadArtikel = async (req, res) => {
   }
 };
 
-// ✅ Ambil Semua Artikel
+// Ambil Semua Artikel
 exports.getAllArtikel = (req, res) => {
   Artikel.getAllArtikel((err, results) => {
     if (err) {
@@ -103,7 +83,7 @@ exports.getAllArtikel = (req, res) => {
   });
 };
 
-// ✅ Ambil Detail Artikel Berdasarkan ID
+// Ambil Artikel Berdasarkan ID
 exports.getArtikelById = (req, res) => {
   const { id } = req.params;
   Artikel.getArtikelById(id, (err, result) => {
@@ -115,5 +95,60 @@ exports.getArtikelById = (req, res) => {
       return res.status(404).json({ message: "Artikel tidak ditemukan" });
     }
     res.json(result);
+  });
+};
+
+// Update Artikel
+exports.updateArtikel = async (req, res) => {
+  const { id } = req.params;
+  const {
+    judul,
+    deskripsi,
+    jenis_hukum,
+    nomor,
+    tahun,
+    jenis_dokumen,
+    tanggal_penetapan,
+    tempat_penetapan,
+    status,
+  } = req.body;
+
+  let filePath = null;
+  let coverPath = null;
+
+  if (req.file) {
+    filePath = req.file.path.replace(/\\/g, "/");
+    const outputName = `cover_${Date.now()}`;
+    const coverFileName = await generatePDFCover(
+      path.resolve(filePath),
+      path.resolve("uploads/covers"),
+      outputName
+    );
+    coverPath = coverFileName ? `uploads/covers/${coverFileName}` : null;
+  }
+
+  Artikel.updateArtikel(
+    id, judul, deskripsi, jenis_hukum, filePath, nomor,
+    parseInt(tahun), jenis_dokumen, tanggal_penetapan, tempat_penetapan,
+    status, coverPath,
+    (err, result) => {
+      if (err) {
+        console.error("Gagal update artikel:", err.message);
+        return res.status(500).json({ message: "Gagal update artikel." });
+      }
+      res.json({ message: "Artikel berhasil diperbarui." });
+    }
+  );
+};
+
+// Delete Artikel
+exports.deleteArtikel = (req, res) => {
+  const { id } = req.params;
+  Artikel.deleteArtikel(id, (err) => {
+    if (err) {
+      console.error("Gagal menghapus artikel:", err.message);
+      return res.status(500).json({ message: "Gagal menghapus artikel." });
+    }
+    res.json({ message: "Artikel berhasil dihapus." });
   });
 };
