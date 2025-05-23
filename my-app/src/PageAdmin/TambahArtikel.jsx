@@ -17,7 +17,12 @@ const TambahArtikel = () => {
   const [status, setStatus] = useState("Aktif");
 
   const [artikelList, setArtikelList] = useState([]);
-  const [editId, setEditId] = useState(null); // ⬅ ID artikel yang sedang diedit
+  const [editId, setEditId] = useState(null);
+
+  // State untuk filter dan search
+  const [searchTerm, setSearchTerm] = useState("");
+  const [filterJenis, setFilterJenis] = useState("");
+  const [filterStatus, setFilterStatus] = useState("");
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -26,7 +31,7 @@ const TambahArtikel = () => {
       !judul ||
       !deskripsi ||
       !jenis_hukum ||
-      (!filePdf && !editId) || // saat edit, file boleh kosong
+      (!filePdf && !editId) ||
       !nomor ||
       !tahun ||
       !jenis_dokumen ||
@@ -41,7 +46,7 @@ const TambahArtikel = () => {
     formData.append("judul", judul);
     formData.append("deskripsi", deskripsi);
     formData.append("jenis_hukum", jenis_hukum);
-    if (filePdf) formData.append("file", filePdf); // ⬅ hanya jika ada file baru
+    if (filePdf) formData.append("file", filePdf);
     formData.append("nomor", nomor);
     formData.append("tahun", tahun);
     formData.append("jenis_dokumen", jenis_dokumen);
@@ -100,10 +105,10 @@ const TambahArtikel = () => {
     setNomor(artikel.nomor);
     setTahun(artikel.tahun);
     setJenisDokumen(artikel.jenis_dokumen);
-    setTanggalPenetapan(artikel.tanggal_penetapan.slice(0, 10)); // date
+    setTanggalPenetapan(artikel.tanggal_penetapan.slice(0, 10));
     setTempatPenetapan(artikel.tempat_penetapan);
     setStatus(artikel.status);
-    setFilePdf(null); // file tidak di-preload, user bisa upload ulang
+    setFilePdf(null);
   };
 
   const resetForm = () => {
@@ -123,6 +128,14 @@ const TambahArtikel = () => {
   useEffect(() => {
     fetchArtikelList();
   }, []);
+
+  // Filtered & searched artikel list
+  const filteredArtikel = artikelList.filter((item) => {
+    const matchSearch = item.judul.toLowerCase().includes(searchTerm.toLowerCase());
+    const matchJenis = filterJenis ? item.jenis_hukum === filterJenis : true;
+    const matchStatus = filterStatus ? item.status === filterStatus : true;
+    return matchSearch && matchJenis && matchStatus;
+  });
 
   return (
     <AdminLayout>
@@ -228,11 +241,68 @@ const TambahArtikel = () => {
             {editId ? "Perbarui Artikel" : "Simpan Artikel"}
           </button>
           {editId && (
-            <button type="button" onClick={resetForm} className="admin-submit-button" style={{ background: "#888", marginLeft: "10px" }}>
+            <button
+              type="button"
+              onClick={resetForm}
+              className="admin-submit-button"
+              style={{ background: "#888", marginLeft: "10px" }}
+            >
               Batal Edit
             </button>
           )}
         </form>
+
+        {/* FILTERS */}
+        <div style={{ marginTop: "30px", marginBottom: "10px", display: "flex", gap: "15px", flexWrap: "wrap" }}>
+          <input
+            type="text"
+            placeholder="Cari judul artikel..."
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+            style={{ padding: "8px 12px", flex: "1 1 250px" }}
+          />
+          <select
+            value={filterJenis}
+            onChange={(e) => setFilterJenis(e.target.value)}
+            style={{ padding: "8px 12px", flex: "1 1 200px" }}
+          >
+            <option value="">Semua Jenis Hukum</option>
+            <option value="Pidana">Hukum Pidana</option>
+            <option value="Perdata">Hukum Perdata</option>
+            <option value="Internasional">Hukum Internasional</option>
+            <option value="Ketenagakerjaan">Hukum Ketenagakerjaan</option>
+            <option value="HAKI">Hukum HAKI</option>
+            <option value="Keluarga">Hukum Keluarga</option>
+            <option value="Administrasi Negara">Hukum Administrasi Negara</option>
+          </select>
+          <select
+            value={filterStatus}
+            onChange={(e) => setFilterStatus(e.target.value)}
+            style={{ padding: "8px 12px", flex: "1 1 150px" }}
+          >
+            <option value="">Semua Status</option>
+            <option value="Aktif">Aktif</option>
+            <option value="Tidak Aktif">Tidak Aktif</option>
+          </select>
+          <button
+            type="button"
+            onClick={() => {
+              setSearchTerm("");
+              setFilterJenis("");
+              setFilterStatus("");
+            }}
+            style={{
+              padding: "8px 16px",
+              backgroundColor: "#ef4444",
+              color: "#fff",
+              border: "none",
+              borderRadius: "5px",
+              cursor: "pointer",
+            }}
+          >
+            Reset Filter
+          </button>
+        </div>
 
         <h3 className="admin-title">Daftar Artikel</h3>
         <div className="table-wrapper">
@@ -251,42 +321,50 @@ const TambahArtikel = () => {
                 </tr>
               </thead>
               <tbody>
-                {artikelList.map((item) => (
-                  <tr key={item.id}>
-                    <td>{item.id}</td>
-                    <td>{item.judul}</td>
-                    <td>{item.jenis_hukum}</td>
-                    <td>{item.nomor}</td>
-                    <td>{item.tahun}</td>
-                    <td>{item.status}</td>
-                    <td>
-                      {item.coverPath ? (
-                        <img
-                          src={`http://localhost:5000/${item.coverPath}`}
-                          alt="cover"
-                          width="50"
-                          style={{ borderRadius: "4px" }}
-                        />
-                      ) : (
-                        "Tidak Ada"
-                      )}
-                    </td>
-                    <td style={{ display: "flex", gap: "8px" }}>
-                      <button
-                        className="btn-edit"
-                        onClick={() => handleEditArtikel(item)}
-                      >
-                        <FaEdit /> Edit
-                      </button>
-                      <button
-                        className="btn-delete"
-                        onClick={() => handleDeleteArtikel(item.id)}
-                      >
-                        <FaTrash /> Hapus
-                      </button>
+                {filteredArtikel.length > 0 ? (
+                  filteredArtikel.map((item) => (
+                    <tr key={item.id}>
+                      <td>{item.id}</td>
+                      <td>{item.judul}</td>
+                      <td>{item.jenis_hukum}</td>
+                      <td>{item.nomor}</td>
+                      <td>{item.tahun}</td>
+                      <td>{item.status}</td>
+                      <td>
+                        {item.coverPath ? (
+                          <img
+                            src={`http://localhost:5000/${item.coverPath}`}
+                            alt="cover"
+                            width="50"
+                            style={{ borderRadius: "4px" }}
+                          />
+                        ) : (
+                          "Tidak Ada"
+                        )}
+                      </td>
+                      <td style={{ display: "flex", gap: "8px" }}>
+                        <button
+                          className="btn-edit"
+                          onClick={() => handleEditArtikel(item)}
+                        >
+                          <FaEdit /> Edit
+                        </button>
+                        <button
+                          className="btn-delete"
+                          onClick={() => handleDeleteArtikel(item.id)}
+                        >
+                          <FaTrash /> Hapus
+                        </button>
+                      </td>
+                    </tr>
+                  ))
+                ) : (
+                  <tr>
+                    <td colSpan="8" style={{ textAlign: "center", padding: "20px" }}>
+                      Tidak ada data yang sesuai filter.
                     </td>
                   </tr>
-                ))}
+                )}
               </tbody>
             </table>
           </div>

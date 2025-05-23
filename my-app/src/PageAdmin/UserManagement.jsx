@@ -18,11 +18,17 @@ const UserManagement = () => {
     address: "",
   });
 
+  // Search dan filter states
+  const [searchTerm, setSearchTerm] = useState("");
+  const [filterGender, setFilterGender] = useState("");
+  const [filterAddress, setFilterAddress] = useState("");
+
   const fetchUsers = useCallback(async () => {
     try {
       const response = await axios.get("http://localhost:5000/api/simple-users");
       setUsers(response.data);
       setUserCount(response.data.length);
+      setErrorMessage("");
     } catch (error) {
       setErrorMessage("Failed to load users. Please try again later.");
       console.error("Error fetching users:", error);
@@ -93,6 +99,25 @@ const UserManagement = () => {
     }
   };
 
+  // Filter & Search Logic
+  const filteredUsers = users.filter((user) => {
+    // Search by name or email (case insensitive)
+    const searchLower = searchTerm.toLowerCase();
+    const matchesSearch =
+      user.name.toLowerCase().includes(searchLower) ||
+      user.email.toLowerCase().includes(searchLower);
+
+    // Filter by gender (if selected)
+    const matchesGender = filterGender ? user.gender === filterGender : true;
+
+    // Filter by address (if selected)
+    const matchesAddress = filterAddress
+      ? (user.address || "").toLowerCase().includes(filterAddress.toLowerCase())
+      : true;
+
+    return matchesSearch && matchesGender && matchesAddress;
+  });
+
   return (
     <AdminLayout>
       <div className="user-management-container">
@@ -103,6 +128,62 @@ const UserManagement = () => {
         <button className="add-btn" onClick={() => setIsAddModalOpen(true)}>
           <FaPlus style={{ marginRight: "6px" }} /> Add User
         </button>
+
+        {/* Search dan Filter */}
+        <div
+          style={{
+            marginTop: "15px",
+            marginBottom: "15px",
+            display: "flex",
+            gap: "12px",
+            flexWrap: "wrap",
+          }}
+        >
+          <input
+            type="text"
+            placeholder="Search by name or email..."
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+            style={{ padding: "8px", flex: "1 1 250px" }}
+          />
+
+          <select
+            value={filterGender}
+            onChange={(e) => setFilterGender(e.target.value)}
+            style={{ padding: "8px", flex: "1 1 150px" }}
+          >
+            <option value="">All Genders</option>
+            <option value="L">Male (L)</option>
+            <option value="P">Female (P)</option>
+          </select>
+
+          <input
+            type="text"
+            placeholder="Filter by address..."
+            value={filterAddress}
+            onChange={(e) => setFilterAddress(e.target.value)}
+            style={{ padding: "8px", flex: "1 1 200px" }}
+          />
+
+          <button
+            type="button"
+            onClick={() => {
+              setSearchTerm("");
+              setFilterGender("");
+              setFilterAddress("");
+            }}
+            style={{
+              padding: "8px 16px",
+              backgroundColor: "#ef4444",
+              color: "#fff",
+              border: "none",
+              borderRadius: "5px",
+              cursor: "pointer",
+            }}
+          >
+            Reset Filters
+          </button>
+        </div>
 
         <div className="table-wrapper">
           <table className="user-table">
@@ -118,12 +199,14 @@ const UserManagement = () => {
               </tr>
             </thead>
             <tbody>
-              {users.length === 0 ? (
+              {filteredUsers.length === 0 ? (
                 <tr>
-                  <td colSpan="7" className="no-users">No users found.</td>
+                  <td colSpan="7" className="no-users">
+                    No users found.
+                  </td>
                 </tr>
               ) : (
-                users.map((user) => (
+                filteredUsers.map((user) => (
                   <tr key={user.id}>
                     <td>{user.name}</td>
                     <td>{user.email}</td>
@@ -132,9 +215,21 @@ const UserManagement = () => {
                     <td>{user.birthdate || "-"}</td>
                     <td>{user.address || "-"}</td>
                     <td>
-                      <button className="view-btn"><FaEye /></button>
-                      <button className="edit-btn" onClick={() => openEditModal(user)}><FaEdit /></button>
-                      <button className="delete-btn" onClick={() => handleDelete(user.id)}><FaTrash /></button>
+                      <button className="view-btn">
+                        <FaEye />
+                      </button>
+                      <button
+                        className="edit-btn"
+                        onClick={() => openEditModal(user)}
+                      >
+                        <FaEdit />
+                      </button>
+                      <button
+                        className="delete-btn"
+                        onClick={() => handleDelete(user.id)}
+                      >
+                        <FaTrash />
+                      </button>
                     </td>
                   </tr>
                 ))
@@ -152,35 +247,50 @@ const UserManagement = () => {
               <input
                 type="text"
                 value={formData.name}
-                onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                onChange={(e) =>
+                  setFormData({ ...formData, name: e.target.value })
+                }
               />
               <label>Email</label>
               <input
                 type="email"
                 value={formData.email}
-                onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                onChange={(e) =>
+                  setFormData({ ...formData, email: e.target.value })
+                }
               />
               <label>Phone</label>
               <input
                 type="text"
                 value={formData.phone}
-                onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
+                onChange={(e) =>
+                  setFormData({ ...formData, phone: e.target.value })
+                }
               />
               <label>Address</label>
               <input
                 type="text"
                 value={formData.address}
-                onChange={(e) => setFormData({ ...formData, address: e.target.value })}
+                onChange={(e) =>
+                  setFormData({ ...formData, address: e.target.value })
+                }
               />
               <div className="modal-actions">
-                <button className="save-btn" onClick={handleUpdate}>Save</button>
-                <button className="cancel-btn" onClick={() => setEditingUser(null)}>Cancel</button>
+                <button className="save-btn" onClick={handleUpdate}>
+                  Save
+                </button>
+                <button
+                  className="cancel-btn"
+                  onClick={() => setEditingUser(null)}
+                >
+                  Cancel
+                </button>
               </div>
             </div>
           </div>
         )}
 
-        {/* Modal Tambah */}
+        {/* Modal Add */}
         {isAddModalOpen && (
           <div className="modal">
             <div className="modal-content">
@@ -189,29 +299,44 @@ const UserManagement = () => {
               <input
                 type="text"
                 value={formData.name}
-                onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                onChange={(e) =>
+                  setFormData({ ...formData, name: e.target.value })
+                }
               />
               <label>Email</label>
               <input
                 type="email"
                 value={formData.email}
-                onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                onChange={(e) =>
+                  setFormData({ ...formData, email: e.target.value })
+                }
               />
               <label>Phone</label>
               <input
                 type="text"
                 value={formData.phone}
-                onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
+                onChange={(e) =>
+                  setFormData({ ...formData, phone: e.target.value })
+                }
               />
               <label>Address</label>
               <input
                 type="text"
                 value={formData.address}
-                onChange={(e) => setFormData({ ...formData, address: e.target.value })}
+                onChange={(e) =>
+                  setFormData({ ...formData, address: e.target.value })
+                }
               />
               <div className="modal-actions">
-                <button className="save-btn" onClick={handleAddUser}>Add</button>
-                <button className="cancel-btn" onClick={() => setIsAddModalOpen(false)}>Cancel</button>
+                <button className="save-btn" onClick={handleAddUser}>
+                  Add
+                </button>
+                <button
+                  className="cancel-btn"
+                  onClick={() => setIsAddModalOpen(false)}
+                >
+                  Cancel
+                </button>
               </div>
             </div>
           </div>

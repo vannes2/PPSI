@@ -1,21 +1,205 @@
 .faq-admin-container {
-  padding: 20px;
+  padding: 24px;
   background: #fff;
   border-radius: 8px;
+  max-width: 1100px;
+  margin: 0 auto;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
+/* Style Form */
+.faq-form {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  margin-bottom: 20px;
+}
+
+.faq-form > div {
+  flex: 1 1 48%;
+  display: flex;
+  flex-direction: column;
+}
+
+.faq-form label {
+  font-weight: 600;
+  margin-bottom: 6px;
+  color: #333;
+  font-size: 14px;
+}
+
+.faq-form input,
+.faq-form textarea,
+.faq-form select {
+  padding: 10px 12px;
+  font-size: 14px;
+  border: 1.5px solid #ccc;
+  border-radius: 6px;
+  transition: border-color 0.3s ease;
+  font-family: inherit;
+  resize: vertical;
+  min-height: 36px;
+}
+
+.faq-form textarea {
+  min-height: 60px;
+}
+
+.faq-form input:focus,
+.faq-form textarea:focus,
+.faq-form select:focus {
+  outline: none;
+  border-color: #2563eb; /* biru terang */
+  box-shadow: 0 0 5px rgba(37, 99, 235, 0.4);
+}
+
+/* Tombol */
+.faq-form button {
+  background-color: #2563eb;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 6px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  margin-top: 24px;
+  flex: 1 1 100%;
+  max-width: 160px;
+}
+
+.faq-form button:hover {
+  background-color: #1e40af;
+}
+
+.btn-cancel {
+  background-color: #ef4444;
+  margin-left: 12px;
+  max-width: 100px;
+}
+
+.btn-cancel:hover {
+  background-color: #b91c1c;
+}
+
+/* Pesan error */
+.error-msg {
+  color: #b91c1c;
+  margin-bottom: 12px;
+  font-weight: 600;
+}
+
+/* Style Filter (container bawah form) */
+.faq-admin-container > div[style*="display: flex"] {
+  margin-bottom: 24px;
+}
+
+.faq-admin-container > div[style*="display: flex"] input,
+.faq-admin-container > div[style*="display: flex"] select,
+.faq-admin-container > div[style*="display: flex"] button {
+  font-size: 14px;
+  border-radius: 6px;
+  border: 1.5px solid #ccc;
+  padding: 10px 12px;
+  font-family: inherit;
+  transition: border-color 0.3s ease;
+}
+
+.faq-admin-container > div[style*="display: flex"] input:focus,
+.faq-admin-container > div[style*="display: flex"] select:focus {
+  outline: none;
+  border-color: #2563eb;
+  box-shadow: 0 0 5px rgba(37, 99, 235, 0.4);
+}
+
+.faq-admin-container > div[style*="display: flex"] button {
+  background-color: #ef4444;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  max-width: 140px;
+}
+
+.faq-admin-container > div[style*="display: flex"] button:hover {
+  background-color: #b91c1c;
+}
+
+/* Tabel FAQ */
 .faq-table {
-  width: 100%;
+  width: 1200px; /* Lebar tetap lebih besar dari container supaya ada scroll */
   border-collapse: collapse;
-  margin-top: 20px;
+  margin-top: 12px;
+  font-size: 14px;
+  font-family: inherit;
+  box-sizing: border-box;
+  min-width: unset; /* hapus min-width agar tidak override */
 }
 
 .faq-table th,
 .faq-table td {
   border: 1px solid #ddd;
-  padding: 10px;
+  padding: 10px 14px;
+  vertical-align: top;
+  word-break: break-word;
 }
 
 .faq-table th {
-  background-color: #f5f5f5;
+  background-color: #f3f4f6;
+  font-weight: 700;
+  color: #374151;
+  text-align: left;
+}
+
+/* Lebarkan kolom nomor (ID) dan aksi (button) */
+.faq-table th:first-child,
+.faq-table td:first-child {
+  width: 70px;
+  text-align: center;
+}
+
+.faq-table th:last-child,
+.faq-table td:last-child {
+  width: 180px;
+  white-space: nowrap;
+  text-align: center;
+}
+
+/* Tombol di tabel */
+.faq-table button {
+  padding: 6px 12px;
+  border-radius: 5px;
+  border: none;
+  cursor: pointer;
+  font-size: 13px;
+  margin-right: 8px;
+  transition: background-color 0.3s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.faq-table button:hover {
+  opacity: 0.85;
+}
+
+.faq-table button.btn-delete {
+  background-color: #ef4444;
+  color: white;
+}
+
+.faq-table button:not(.btn-delete) {
+  background-color: #2563eb;
+  color: white;
+}
+
+/* Responsive scroll dan form */
+@media (max-width: 768px) {
+  .faq-table {
+    width: 100%; /* buat tabel full container di layar kecil */
+  }
+
+  .faq-form > div {
+    flex: 1 1 100%;
+  }
+}
 }
