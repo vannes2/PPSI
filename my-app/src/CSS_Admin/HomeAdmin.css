@@ -168,35 +168,55 @@
   box-sizing: border-box;
 }
 
+/* Container luar dengan overflow horizontal aktif */
+/* Wrapper tabel dengan posisi relatif agar scroll muncul tepat di bawah area tabel */
+/* ===================== */
+/* WRAPPER TABEL LEBAR  */
+/* ===================== */
 .table-wrapper {
   width: 100%;
-  overflow-x: auto;
-  padding: 0;
-  margin: 0;
-  background: #ffffff;
+  background: #fff;
   border-radius: 8px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-  min-height: 400px;
-  box-sizing: border-box;
+  margin-top: 20px;
+  padding: 0;
+  overflow: visible; /* tidak mengatur overflow di sini */
 }
 
+/* ===================== */
+/* SCROLL TABEL DALAM    */
+/* ===================== */
 .table-scroll {
-  width: max-content;
-  min-width: 1200px;
+  overflow-x: auto;
+  overflow-y: hidden;
+  width: 100%;
+  -webkit-overflow-scrolling: touch;
+  padding-bottom: 2px;
 }
 
+.table-scroll::-webkit-scrollbar {
+  height: 10px;
+}
+
+.table-scroll::-webkit-scrollbar-thumb {
+  background: #ccc;
+  border-radius: 4px;
+}
+
+.table-scroll::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+/* ===================== */
+/* STRUKTUR TABEL        */
+/* ===================== */
 .table-scroll table {
+  min-width: 1400px; /* bisa kamu atur sesuai jumlah kolom */
   width: 100%;
   border-collapse: collapse;
   table-layout: auto;
   font-size: 14px;
-}
-
-.table-scroll thead {
-  background: #e5e7eb;
-  position: sticky;
-  top: 0;
-  z-index: 5;
+  white-space: nowrap;
 }
 
 .table-scroll th,
@@ -204,13 +224,21 @@
   padding: 12px 16px;
   border: 1px solid #e5e7eb;
   text-align: left;
-  color: #000000;
-  word-break: break-word;
-  white-space: normal;
+  white-space: nowrap;
+  vertical-align: middle;
+  color: #000;
 }
+
 
 .table-scroll tbody tr:hover {
   background-color: #f9fafb;
+}
+
+.table-scroll img {
+  max-width: 60px;
+  max-height: 60px;
+  object-fit: cover;
+  border-radius: 6px;
 }
 
 .table-actions {
