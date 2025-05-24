@@ -123,7 +123,7 @@ const SidebarAdmin = ({ activeTab, onTabChange }) => {
                   <Link to="/TambahPengacara" onClick={() => handleClickAndClose("pengacara")}>Daftar Pengacara</Link>
                 </li>
                 <li className={activeTab === "verifikasiPengacara" ? "submenu-active" : ""}>
-                  <Link to="/Transaksi Pengacara" onClick={() => handleClickAndClose("transaksi Pengacara")}>Transaksi Pengacara</Link>
+                  <Link to="/Transaksi" onClick={() => handleClickAndClose("transaksi Pengacara")}>Transaksi Pengacara</Link>
                 </li>
               </ul>
             )}

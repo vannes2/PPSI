@@ -23,7 +23,7 @@ const konsultasiSessionRoutes = require("./routes/konsultasiSessionRoutes");
 const lawyerController = require('./controllers/lawyerController');
 const logPertanyaanRoutes = require("./routes/logPertanyaanRoutes");
 const faqRoutes = require('./routes/faqRoutes');
-// const riwayatKasusRoutes = require("./routes/riwayatKasusRoutes");
+const transaksiRoutes = require("./routes/transaksiRoutes"); // Pastikan ini ada// const riwayatKasusRoutes = require("./routes/riwayatKasusRoutes");
 const konsultasiRoutes = require("./routes/konsultasiRoutes");
 
 const botRoutes = require("./routes/botRoutes");
@@ -52,7 +52,7 @@ app.use("/api/konsultasi-session", konsultasiSessionRoutes);
 app.use("/api/log-pertanyaan", logPertanyaanRoutes);
 app.use('/api/faq', faqRoutes);
 app.use("/api/payment-kasus", require("./routes/paymentKasusRoutes"));
-
+app.use("/api/transaksi", transaksiRoutes);
 app.use("/api/chatbot", require("./routes/botRoutes"));
 app.use("/api/chatbot", botRoutes);
 

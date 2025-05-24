@@ -1,0 +1,33 @@
+.transaksi-container {
+  max-width: 1200px;
+  margin: auto;
+  padding: 24px;
+  font-family: 'Segoe UI', sans-serif;
+}
+
+.table-wrapper {
+  overflow-x: auto;
+  margin-bottom: 40px;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 12px;
+}
+
+th, td {
+  border: 1px solid #ccc;
+  padding: 10px;
+  text-align: left;
+}
+
+th {
+  background-color: #f8f8f8;
+  font-weight: 600;
+}
+
+h2 {
+  margin-top: 40px;
+  color: #333;
+}

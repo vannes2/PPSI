@@ -38,6 +38,7 @@ import ArtikelBeritaAdmin from "./PageAdmin/ArtikelBeritaAdmin";
 import RiwayatPertanyaanUser from "./PageAdmin/RiwayatPertanyaanUser";
 import FaqAdmin from "./PageAdmin/FaqAdmin";
 import AdminKasus from "./PageAdmin/AdminKasus";
+import TransaksiPengacara from './PageAdmin/TransaksiPengacara';
 
 
 // Lawyer Pages
@@ -112,7 +113,7 @@ function App() {
                 <Route path="/faq" element={<FaqAdmin />} />
                 <Route path="/admin/kasus" element={<AdminKasus />} />                
                 <Route path="/register-bank" element={<RegisterBankAccount />} />
-
+                <Route path="/transaksi" element={<TransaksiPengacara />} />
 
                 {/* ✅ Lawyer Routes */}
                 <Route path="/RegisterLawyerPage" element={<RegisterLawyerPage />} />
