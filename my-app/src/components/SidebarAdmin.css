@@ -60,7 +60,8 @@ body, html {
 .dashboard-sidebar.collapsed .profil-admin-card,
 .dashboard-sidebar.collapsed .profil-info,
 .dashboard-sidebar.collapsed .profil-nama,
-.dashboard-sidebar.collapsed .profil-email {
+.dashboard-sidebar.collapsed .profil-email,
+.dashboard-sidebar.collapsed .submenu-list {
   display: none;
 }
 
@@ -194,6 +195,7 @@ body, html {
 
 .dashboard-sidebar li {
   display: flex;
+  flex-direction: column;
 }
 
 .dashboard-sidebar a,
@@ -202,7 +204,7 @@ body, html {
   align-items: center;
   gap: 8px;
   padding: 6px 10px;
-  font-size: 12.5px;
+  font-size: 13px;
   font-weight: 500;
   color: white;
   background: transparent;
@@ -212,7 +214,7 @@ body, html {
   border-radius: 8px;
   cursor: pointer;
   text-decoration: none;
-  transition: background-color 0.2s ease, transform 0.1s ease;
+  transition: background-color 0.2s ease;
 }
 
 .dashboard-sidebar a:hover,
@@ -228,113 +230,54 @@ body, html {
   vertical-align: middle;
 }
 
-/* ===================== PROFIL ADMIN RESPONSIF ===================== */
-.admin-profile-section {
+/* ===================== SUBMENU STYLE (DEKATKAN SUBMENU MAKSIMAL) ===================== */
+.has-submenu .submenu-toggle {
   display: flex;
-  flex-wrap: wrap;
-  align-items: flex-start;
+  align-items: center;
   justify-content: space-between;
-  gap: 24px;
-}
-
-.admin-profile-info {
-  flex: 1 1 300px;
-  font-size: 15px;
-  color: #333;
-}
-
-.admin-profile-info p {
-  margin: 6px 0;
-}
-
-.admin-profile-info b {
-  display: inline-block;
-  min-width: 120px;
-}
-
-.admin-profile-avatar {
-  width: 160px;
-  height: 160px;
-  border-radius: 50%;
-  object-fit: cover;
-  border: 3px solid #f1f1f1;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-}
-
-/* ===================== TABEL ===================== */
-.table {
-  width: 100%;
-  border-collapse: collapse;
-  margin-top: 24px;
-  overflow-x: auto;
-  display: block;
-}
-
-.table th,
-.table td {
-  padding: 12px;
-  border: 1px solid #cbd5e1;
-  text-align: left;
-  white-space: nowrap;
-}
-
-.table th {
-  background-color: #f1f5f9;
-}
-
-/* ===================== INPUT PENCARIAN ===================== */
-.search-input {
-  padding: 10px;
-  margin: 16px 0;
-  width: 100%;
-  max-width: 300px;
-  border-radius: 8px;
-  border: 1px solid #cbd5e1;
-}
-
-/* ===================== BUTTONS ===================== */
-.button-group {
-  margin-bottom: 16px;
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-}
-
-.btn {
-  padding: 8px 14px;
+  padding: 6px 10px;
+  font-size: 13px;
+  font-weight: 500;
+  color: #fff;
+  background: transparent;
   border: none;
   border-radius: 8px;
-  margin-right: 8px;
   cursor: pointer;
-  font-size: 14px;
-  transition: background 0.2s;
 }
 
-.btn-primary {
-  background-color: #3b82f6;
+.submenu-arrow {
+  font-size: 12px;
+  margin-left: auto;
+}
+
+.submenu-list {
+  list-style: none;
+  padding-left: 0;
+  margin-top: -14px;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.submenu-list li a {
+  color: #cbd5e1;
+  font-size: 12.5px;
+  padding: 1px 36px;
+  border-radius: 6px;
+  text-decoration: none;
+  display: block;
+  line-height: 1.1;
+}
+
+.submenu-list li a:hover {
+  background-color: rgba(255, 255, 255, 0.08);
   color: white;
 }
 
-.btn-secondary {
-  background-color: #334155;
+.submenu-active a {
   color: white;
-}
-
-.btn-view {
-  background-color: #3b82f6;
-  color: white;
-  margin-right: 4px;
-}
-
-.btn-edit {
-  background-color: #14b8a6;
-  color: white;
-  margin-right: 4px;
-}
-
-.btn-delete {
-  background-color: #ef4444;
-  color: white;
+  font-weight: bold;
+  background-color: rgba(255, 255, 255, 0.08);
 }
 
 /* ===================== RESPONSIVE ===================== */
@@ -360,28 +303,9 @@ body, html {
     padding: 16px;
   }
 
-  .table {
-    font-size: 13px;
-  }
-
   .dashboard-sidebar a,
   .dashboard-sidebar button {
     font-size: 11.5px;
     padding: 5px 8px;
-  }
-
-  .admin-profile-section {
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-  }
-
-  .admin-profile-info b {
-    min-width: unset;
-  }
-
-  .admin-profile-avatar {
-    width: 120px;
-    height: 120px;
   }
 }

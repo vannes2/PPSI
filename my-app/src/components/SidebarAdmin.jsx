@@ -26,6 +26,7 @@ const SidebarAdmin = ({ activeTab, onTabChange }) => {
 
   const [isCollapsed, setIsCollapsed] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
+  const [openPengacaraSubmenu, setOpenPengacaraSubmenu] = useState(false);
 
   useEffect(() => {
     const handleResize = () => {
@@ -104,12 +105,30 @@ const SidebarAdmin = ({ activeTab, onTabChange }) => {
               {!isCollapsed && "User Management"}
             </Link>
           </li>
-          <li className={activeTab === "pengacara" ? "nav-active" : ""}>
-            <Link to="/HomeAdmin" onClick={() => handleClickAndClose("pengacara")}>
+
+          {/* PENGACARA SUBMENU */}
+          <li className={`has-submenu ${["pengacara", "verifikasiPengacara"].includes(activeTab) ? "nav-active" : ""}`}>
+            <div className="submenu-toggle" onClick={() => setOpenPengacaraSubmenu(!openPengacaraSubmenu)}>
               <HiOutlineClipboardDocumentCheck className="icon-spacing" />
-              {!isCollapsed && "Pengacara"}
-            </Link>
+              {!isCollapsed && (
+                <>
+                  <Link to="/HomeAdmin" onClick={() => handleClickAndClose("pengacara")} >Pengacara</Link>
+                  <span className="submenu-arrow">{openPengacaraSubmenu ? "▾" : "▸"}</span>
+                </>
+              )}
+            </div>
+            {!isCollapsed && openPengacaraSubmenu && (
+              <ul className="submenu-list">
+                <li className={activeTab === "pengacara" ? "submenu-active" : ""}>
+                  <Link to="/TambahPengacara" onClick={() => handleClickAndClose("pengacara")}>Daftar Pengacara</Link>
+                </li>
+                <li className={activeTab === "verifikasiPengacara" ? "submenu-active" : ""}>
+                  <Link to="/Transaksi Pengacara" onClick={() => handleClickAndClose("transaksi Pengacara")}>Transaksi Pengacara</Link>
+                </li>
+              </ul>
+            )}
           </li>
+
           <li className={activeTab === "tambahArtikel" ? "nav-active" : ""}>
             <Link to="/TambahArtikel" onClick={() => handleClickAndClose("tambahArtikel")}>
               <HiOutlineDocumentText className="icon-spacing" />
