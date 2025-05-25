@@ -22,17 +22,18 @@ exports.getTransaksiKasus = (req, res) => {
   });
 };
 
-// Ambil data konsultasi_session yang sudah selesai
+
+// Ambil data konsultasi_session yang sudah selesai (update tambahkan kolom biaya)
 exports.getTransaksiKonsultasi = (req, res) => {
   const query = `
     SELECT 
       ks.*, 
-      u.nama AS nama_user, 
-      p.nama AS nama_pengacara 
+      u.name AS nama_user,      -- sesuaikan nama kolom dengan tabel users
+      p.nama AS nama_pengacara,
+      ks.biaya
     FROM konsultasi_session ks
-    LEFT JOIN pengguna u ON ks.user_id = u.id
+    LEFT JOIN users u ON ks.user_id = u.id       -- join ke tabel users (bukan pengguna)
     LEFT JOIN pengacara p ON ks.pengacara_id = p.id
-    WHERE ks.status = 'selesai'
   `;
 
   db.query(query, (err, results) => {
@@ -43,3 +44,7 @@ exports.getTransaksiKonsultasi = (req, res) => {
     res.json(results);
   });
 };
+
+
+
+
