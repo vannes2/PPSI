@@ -29,18 +29,15 @@ const RiwayatKasus = () => {
     }
   }, [user]);
 
-  // Fungsi untuk menangani gambar profil pengacara
   const getFotoPengacaraUrl = (foto) =>
-    foto && foto !== "default-profile.png" // Cek jika ada foto selain default
+    foto && foto !== "default-profile.png"
       ? `http://localhost:5000/uploads/${foto}`
-      : null; // Jika tidak ada foto, kembalikan null
+      : null;
 
-  // Fungsi untuk cek apakah foto default (tidak ada foto pengacara)
   const isFotoDefault = (foto) => {
     return !foto || foto === "default-profile.png";
   };
 
-  // Fungsi render status kasus
   const renderStatusKasus = (kasus) => {
     if (isFotoDefault(kasus.foto_pengacara) || !kasus.nama_pengacara) {
       return (
@@ -49,10 +46,9 @@ const RiwayatKasus = () => {
         </span>
       );
     }
-    // Jika ada foto dan nama pengacara, tampilkan status asli
     return (
-      <span className={`status-${kasus.status?.toLowerCase()}`}>
-        {kasus.status}
+      <span className={`status-${kasus.status?.toLowerCase?.() || "default"}`}>
+        {kasus.status || "Tidak Diketahui"}
       </span>
     );
   };
@@ -72,7 +68,6 @@ const RiwayatKasus = () => {
               konsultasiList.map((session) => (
                 <div key={session.id} className="riwayat-card">
                   <div className="riwayat-card-image">
-                    {/* Menampilkan foto pengacara jika ada, jika tidak, tidak ada gambar yang dimuat */}
                     {getFotoPengacaraUrl(session.foto_pengacara) ? (
                       <img
                         src={getFotoPengacaraUrl(session.foto_pengacara)}
@@ -83,20 +78,35 @@ const RiwayatKasus = () => {
                     )}
                   </div>
                   <div className="riwayat-card-content">
-                    <p><strong>Nama Pengacara:</strong> {session.nama_pengacara || "Belum diambil Advokat"}</p>
-                    <p><strong>Harga Konsultasi:</strong> Rp {session.harga_konsultasi?.toLocaleString('id-ID')}</p>
-                    <p><strong>Waktu Mulai:</strong> {new Date(session.start_time).toLocaleString()}</p>
-                    <p><strong>Durasi (menit):</strong> {session.duration}</p>
-                    <p><strong>Status:</strong> {renderStatusKasus(session)}</p>
+                    <p>
+                      <strong>Nama Pengacara:</strong>{" "}
+                      {session.nama_pengacara || "Belum diambil Advokat"}
+                    </p>
+                    <p>
+                      <strong>Harga Konsultasi:</strong> Rp{" "}
+                      {session.harga_konsultasi?.toLocaleString("id-ID")}
+                    </p>
+                    <p>
+                      <strong>Waktu Mulai:</strong>{" "}
+                      {new Date(session.start_time).toLocaleString()}
+                    </p>
+                    <p>
+                      <strong>Durasi (menit):</strong> {session.duration}
+                    </p>
+                    <p>
+                      <strong>Status:</strong> {renderStatusKasus(session)}
+                    </p>
                     <div className="btn-group">
                       {session.id_pengacara ? (
                         <Link to={`/pengacara/detail/${session.id_pengacara}`}>
                           <button className="btn detail-btn">Detail</button>
                         </Link>
                       ) : (
-                        <button className="btn detail-btn" disabled>Detail</button>
+                        <button className="btn detail-btn" disabled>
+                          Detail
+                        </button>
                       )}
-                      <Link to={`/chat/pengacara/${session.id}`}>
+                      <Link to={`/chat/pengacara/${session.id_pengacara}`}>
                         <button className="btn history-btn">Riwayat</button>
                       </Link>
                     </div>
@@ -117,10 +127,9 @@ const RiwayatKasus = () => {
             {kasusList.length === 0 ? (
               <p>Belum ada kasus.</p>
             ) : (
-              kasusList.map((kasus, index) => (
-                <div key={index} className="riwayat-card">
+              kasusList.map((kasus) => (
+                <div key={kasus.id} className="riwayat-card">
                   <div className="riwayat-card-image">
-                    {/* Menampilkan foto pengacara jika ada, jika tidak, tidak ada gambar yang dimuat */}
                     {getFotoPengacaraUrl(kasus.foto_pengacara) ? (
                       <img
                         src={getFotoPengacaraUrl(kasus.foto_pengacara)}
@@ -131,19 +140,36 @@ const RiwayatKasus = () => {
                     )}
                   </div>
                   <div className="riwayat-card-content">
-                    <p><strong>Nama Pengacara:</strong> {kasus.nama_pengacara || "Belum diambil Advokat"}</p>
-                    <p><strong>Harga Konsultasi:</strong> Rp {kasus.harga_konsultasi?.toLocaleString('id-ID')}</p>
-                    <p><strong>Jenis Pengerjaan:</strong> {kasus.jenis_pengerjaan}</p>
-                    <p><strong>Area Praktik:</strong> {kasus.area_praktik}</p>
-                    <p><strong>Estimasi Selesai:</strong> {new Date(kasus.estimasi_selesai).toLocaleDateString()}</p>
-                    <p><strong>Status:</strong> {renderStatusKasus(kasus)}</p>
+                    <p>
+                      <strong>Nama Pengacara:</strong>{" "}
+                      {kasus.nama_pengacara || "Belum diambil Advokat"}
+                    </p>
+                    <p>
+                      <strong>Harga Konsultasi:</strong> Rp{" "}
+                      {kasus.harga_konsultasi?.toLocaleString("id-ID")}
+                    </p>
+                    <p>
+                      <strong>Jenis Pengerjaan:</strong> {kasus.jenis_pengerjaan}
+                    </p>
+                    <p>
+                      <strong>Area Praktik:</strong> {kasus.area_praktik}
+                    </p>
+                    <p>
+                      <strong>Estimasi Selesai:</strong>{" "}
+                      {new Date(kasus.estimasi_selesai).toLocaleDateString()}
+                    </p>
+                    <p>
+                      <strong>Status:</strong> {renderStatusKasus(kasus)}
+                    </p>
                     <div className="btn-group">
                       {kasus.id_pengacara ? (
                         <Link to={`/pengacara/detail/${kasus.id_pengacara}`}>
                           <button className="btn detail-btn">Detail</button>
                         </Link>
                       ) : (
-                        <button className="btn detail-btn" disabled>Detail</button>
+                        <button className="btn detail-btn" disabled>
+                          Detail
+                        </button>
                       )}
                       <Link to={`/DaftarKasus`}>
                         <button className="btn history-btn">Riwayat</button>
@@ -157,7 +183,10 @@ const RiwayatKasus = () => {
         </section>
       </div>
 
-      <br /><br /><br /><br />
+      <br />
+      <br />
+      <br />
+      <br />
       <div className="footer-separator"></div>
       <Footer />
     </div>

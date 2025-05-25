@@ -103,9 +103,9 @@
 .profile-page-edit-profile-btn:hover,
 .profile-page-popup-button:hover,
 .profile-page-auth-buttons button:hover {
-    background: #fff;
-    color: #b31217;
-    border: 2px solid #b31217;
+    background: #fff !important;
+    color: #b31217 !important;
+    border: 2px solid #b31217 !important;
 }
 
 /* Tombol Batal */
