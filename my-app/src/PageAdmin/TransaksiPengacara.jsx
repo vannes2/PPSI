@@ -16,9 +16,10 @@ const TransaksiPengacara = () => {
           axios.get('http://localhost:5000/api/transaksi/ajukan-kasus'),
           axios.get('http://localhost:5000/api/transaksi/konsultasi-session')
         ]);
-
-        setKasus(kasusRes.data.filter(item => item.status === 'Selesai'));
-        setKonsultasi(konsultasiRes.data.filter(item => item.status === 'selesai'));
+  
+        setKasus(kasusRes.data.filter(item => item.status.toLowerCase() === 'selesai'));
+        // Hapus filter status di konsultasi
+        setKonsultasi(konsultasiRes.data); 
       } catch (err) {
         setError("Gagal mengambil data transaksi.");
         console.error(err);
@@ -26,9 +27,10 @@ const TransaksiPengacara = () => {
         setLoading(false);
       }
     };
-
+  
     fetchData();
   }, []);
+  
 
   const formatTanggal = (dateStr) => {
     const options = { year: 'numeric', month: 'long', day: 'numeric' };
@@ -85,40 +87,45 @@ const TransaksiPengacara = () => {
           </div>
         )}
 
-        <h2>Transaksi Konsultasi Session (Selesai)</h2>
 
-        {loading ? (
-          <p>Memuat data...</p>
-        ) : error ? (
-          <p className="error-text">{error}</p>
-        ) : konsultasi.length === 0 ? (
-          <p>Tidak ada data konsultasi yang selesai.</p>
-        ) : (
-          <div className="table-wrapper">
-            <table>
-              <thead>
-                <tr>
-                  <th>Nama User</th>
-                  <th>Nama Pengacara</th>
-                  <th>Waktu Mulai</th>
-                  <th>Durasi (menit)</th>
-                  <th>Status</th>
-                </tr>
-              </thead>
-              <tbody>
-                {konsultasi.map(row => (
-                  <tr key={row.id}>
-                    <td>{row.nama_user}</td>
-                    <td>{row.nama_pengacara}</td>
-                    <td>{new Date(row.start_time).toLocaleString('id-ID')}</td>
-                    <td>{row.duration}</td>
-                    <td>{row.status}</td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-        )}
+<h2>Transaksi Konsultasi Session (Selesai)</h2>
+
+{loading ? (
+  <p>Memuat data...</p>
+) : error ? (
+  <p className="error-text">{error}</p>
+) : konsultasi.length === 0 ? (
+  <p>Tidak ada data konsultasi yang selesai.</p>
+) : (
+  <div className="table-wrapper">
+    <table>
+      <thead>
+        <tr>
+          <th>Nama User</th>
+          <th>Nama Pengacara</th>
+          <th>Waktu Mulai</th>
+          <th>Durasi (menit)</th>
+          <th>Biaya</th> {/* Kolom baru */}
+          <th>Status</th>
+        </tr>
+      </thead>
+      <tbody>
+  {konsultasi.map(row => (
+    <tr key={row.id}>
+      <td>{row.nama_user || '-'}</td> {/* Tampilkan nama user */}
+      <td>{row.nama_pengacara || '-'}</td>
+      <td>{new Date(row.start_time).toLocaleString('id-ID')}</td>
+      <td>{row.duration}</td>
+      <td>Rp{row.biaya?.toLocaleString() || '0'}</td>
+      <td>{row.status}</td>
+    </tr>
+  ))}
+</tbody>
+
+    </table>
+  </div>
+)}
+
       </div>
     </AdminLayout>
   );
