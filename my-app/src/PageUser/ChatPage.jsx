@@ -411,12 +411,37 @@ const ChatPage = () => {
             activeLawyerId && (
               <form className="chat-input" onSubmit={handleSubmit}>
                 <div className="input-group" style={{ display: "flex", alignItems: "center", gap: "8px" }}>
-                  <input type="text" value={input} onChange={(e) => setInput(e.target.value)} placeholder={isLocked ? "Waktu konsultasi habis" : "Tulis pesan..."} className="form-control" disabled={isLocked} style={{ flex: 1 }} />
-                  <label htmlFor="file-upload" style={{ cursor: "pointer", marginRight: "6px" }} title="Upload file">
+                  <input
+                    type="text"
+                    value={input}
+                    onChange={(e) => setInput(e.target.value)}
+                    placeholder={isLocked ? "Waktu konsultasi habis" : "Tulis pesan..."}
+                    className="form-control"
+                    disabled={isLocked}
+                    style={{ flex: 1 }}
+                  />
+                  <label
+                    htmlFor="file-upload"
+                    style={{ cursor: "pointer", display: "flex", alignItems: "center", justifyContent: "center" }}
+                    title="Upload file"
+                  >
                     <FaPaperclip size={24} />
                   </label>
-                  <input id="file-upload" type="file" style={{ display: "none" }} onChange={handleFileChange} ref={fileInputRef} disabled={isLocked} />
-                  <button type="submit" className="btn btn-success" disabled={isLocked} title="Kirim pesan">
+                  <input
+                    id="file-upload"
+                    type="file"
+                    style={{ display: "none" }}
+                    onChange={handleFileChange}
+                    ref={fileInputRef}
+                    disabled={isLocked}
+                  />
+                  <button
+                    type="submit"
+                    className="btn btn-success"
+                    disabled={isLocked}
+                    title="Kirim pesan"
+                    style={{ display: "flex", alignItems: "center", justifyContent: "center" }}
+                  >
                     <FaLocationArrow />
                   </button>
                 </div>

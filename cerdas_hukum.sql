@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.2.1
+-- version 5.2.0
 -- https://www.phpmyadmin.net/
 --
--- Host: 127.0.0.1
--- Generation Time: May 20, 2025 at 09:05 PM
--- Server version: 8.4.3
--- PHP Version: 8.2.12
+-- Host: localhost:3306
+-- Generation Time: May 22, 2025 at 08:18 PM
+-- Server version: 8.0.30
+-- PHP Version: 8.3.16
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -86,13 +86,16 @@ INSERT INTO `ajukan_kasus` (`id`, `user_id`, `nama`, `email`, `no_hp`, `area_pra
 (6, 1, 'Umar Ali', 'sayaumarali@gmail.com', '085781086148', 'Keluarga', 'Pendampingan', 1000000, 50000000, '2025-06-01', 'Bandung', 'KDRT', 'Selesai', '1747053599169-Anggota1.pdf', '2025-05-12 12:39:59', 1),
 (7, 2, 'fajri', 'fajri30.r@gmail.com', '085706125411', 'Perdata', 'Pembuatan Dokumen', 1000000, 2000000, '2025-05-14', 'Jakarta', 'Warisan', 'Selesai', '1747201804678-PENGUMUMAN Libur Hari Raya Waisak 2569 BE.pdf', '2025-05-14 05:50:04', 9),
 (8, 2, 'fajri', 'fajri30.r@gmail.com', '085706125411', 'Pidana', 'Pendampingan', 1000000, 2000000, '2025-05-14', 'Jakarta', 'Pasal pasal', 'Selesai', '1747271588186-Laporan Zitline_Fajri Ramadhan.pdf', '2025-05-15 01:13:08', 9),
-(9, 14, 'nando', 'vns@gmail.com', '08678900876', 'Perdata', 'Pendampingan', 500000, 500000, '2004-02-22', 'jakarta', 'tes', 'Diproses', NULL, '2025-05-19 04:48:46', 3),
-(10, 14, 'sukarno', 'vns@gmail.com', '987656789', 'Pidana', 'Konsultasi', 500000, 500000, '2222-02-22', 'jakarta', 'tes', 'Selesai', NULL, '2025-05-19 05:46:42', 2),
-(11, 14, 'nando', 'vns@gmail.com', '08678900876', 'Perusahaan', 'Konsultasi', 500000, 600000, '2025-05-27', 'jakarta', 'tes 2', 'Menunggu', NULL, '2025-05-19 12:00:29', 2),
-(12, 14, 'tes', 'vns@gmail.com', '0976545678', 'Pidana', 'Pendampingan', 500000, 500000, '2222-02-22', 'jakarta', 'tes', 'Menunggu', NULL, '2025-05-19 14:03:20', 2),
-(13, 14, 'Perfect Whip Berry Bright', 'vunes@gmail.com', '0986544', 'Tenaga Kerja', 'Negosiasi', 500000, 500000, '2222-02-22', 'jakarta ', 'eafsda', 'Menunggu', NULL, '2025-05-20 04:54:01', 1),
-(14, 14, 'hah', 'vns@gmail.com', '0986544', 'Pidana', 'Pendampingan', 500000, 500000, '5332-02-03', 'jakarta ', '3323fes', 'Menunggu', NULL, '2025-05-20 05:48:10', 1),
-(15, 14, 'tes untuk PP', 'vns@gmail.com', '0986544', 'Perusahaan', 'Litigasi', 500000, 500000, '2323-04-03', 'jakarta ', '3w', 'Menunggu', NULL, '2025-05-20 06:22:19', NULL);
+(9, 2, 'Gus samsudinn', 'samsudin@gmail.com', '089876654334', 'Pidana', 'Negosiasi', 30000000, 40000000, '2025-05-01', 'Lampung', 'Tindak kasus pembunuhan ', 'Diproses', NULL, '2025-05-19 09:37:39', 3),
+(10, 2, 'Jhoni', 'fajri30.r@gmail.com', '089876632332', 'Perdata', 'Pembuatan Dokumen', 1000000, 1200000, '2025-05-09', 'Tangerang', 'Data hak waris', 'Menunggu', NULL, '2025-05-19 09:47:18', NULL),
+(11, 2, 'Sherly', 'sherly@gmail.com', '087656761212', 'Perusahaan', 'Pendampingan', 2000000, 2500000, '2025-05-19', 'Jakarta', 'Kasus perusahaan', 'Menunggu', NULL, '2025-05-19 09:49:04', NULL),
+(12, 2, 'Vernando', 'vernando@gmail.com', '08994335111', 'Keluarga', 'Konsultasi', 1500000, 2000000, '2025-05-16', 'Depok', 'hak asuh anak', 'Menunggu', NULL, '2025-05-19 09:50:34', 3),
+(13, 2, 'Sherly', 'fajri30.r@gmail.com', '087656761212', 'Perdata', 'Konsultasi', 2000000, 2500000, '2025-05-19', 'Jakarta', 'konsul', 'Menunggu', NULL, '2025-05-19 11:07:56', NULL),
+(14, 2, 'Sherly', 'fajri30.r@gmail.com', '087656761212', 'Keluarga', 'Negosiasi', 1000000, 2500000, '2025-05-19', 'Jakarta', 'good', 'Menunggu', NULL, '2025-05-19 11:14:50', NULL),
+(15, 2, 'fajri', 'fajri30.r@gmail.com', '085706125411', 'Tenaga Kerja', 'Konsultasi', 1000000, 1500000, '2025-05-19', 'Jakarta', 'new', 'Menunggu', NULL, '2025-05-19 11:23:32', NULL),
+(16, 2, 'Samsul', 'fajri30.r@gmail.com', '089876654334', 'Pidana', 'Pendampingan', 750000, 1000000, '2025-05-19', 'Lampung', 'Oke', 'Menunggu', NULL, '2025-05-19 11:31:49', NULL),
+(17, 2, 'Jhoni', 'fajri30.r@gmail.com', '089876632332', 'Perusahaan', 'Pembuatan Dokumen', 500000, 599999, '2025-05-19', 'Jakarta', 'new', 'Menunggu', NULL, '2025-05-19 11:37:06', NULL),
+(18, 2, 'fajri', 'fajri30.r@gmail.com', '085706125411', 'Pidana', 'Pembuatan Dokumen', 900000, 1500000, '2025-05-19', 'Jakarta', 'new', 'Menunggu', NULL, '2025-05-19 11:41:21', NULL);
 
 -- --------------------------------------------------------
 
@@ -103,9 +106,10 @@ INSERT INTO `ajukan_kasus` (`id`, `user_id`, `nama`, `email`, `no_hp`, `area_pra
 CREATE TABLE `artikel` (
   `id` int NOT NULL,
   `judul` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
-  `deskripsi` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
-  `jenis_hukum` enum('KDRT','perceraian','pelanggaran_HAM') CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `deskripsi` varchar(10000) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `jenis_hukum` enum('Pidana','Perdata','Internasional','Ketenagakerjaan','HAKI','Keluarga','Administrasi Negara') CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
   `filePath` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `coverPath` varchar(225) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
   `nomor` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `tahun` int NOT NULL,
   `jenis_dokumen` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
@@ -118,20 +122,17 @@ CREATE TABLE `artikel` (
 -- Dumping data for table `artikel`
 --
 
-INSERT INTO `artikel` (`id`, `judul`, `deskripsi`, `jenis_hukum`, `filePath`, `nomor`, `tahun`, `jenis_dokumen`, `tempat_penetapan`, `status`, `tanggal_penetapan`) VALUES
-(1, 'coba coba', '', 'KDRT', 'uploads\\1744711708938.pdf', '', 0, '', '', 'Aktif', '2000-01-01'),
-(2, 'percobaan 4', '', 'KDRT', 'uploads\\1744711863315.pdf', '', 0, '', '', 'Aktif', '2000-01-01'),
-(3, 'percobaan 4', '', 'perceraian', 'uploads\\1744711867145.pdf', '', 0, '', '', 'Aktif', '2000-01-01'),
-(4, 'percobaan 5', '', 'perceraian', 'uploads\\1744712032876.pdf', '', 0, '', '', 'Aktif', '2000-01-01'),
-(5, 'Cerdas Hukum', '', 'perceraian', 'uploads\\1744859807604.pdf', '', 0, '', '', 'Aktif', '2000-01-01'),
-(6, 'percobaan 5', '', 'pelanggaran_HAM', 'uploads\\1744864158716.pdf', '', 0, '', '', 'Aktif', '2000-01-01'),
-(7, 'percoban 7', '', 'pelanggaran_HAM', 'uploads\\1744864306136.pdf', '', 0, '', '', 'Aktif', '2000-01-01'),
-(8, 'baru', 'test', 'perceraian', 'uploads\\1744864840891.pdf', '', 0, '', '', 'Aktif', '2000-01-01'),
-(9, 'Artikel 2', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor i', 'KDRT', 'uploads\\1744867479755.pdf', '', 0, '', '', 'Aktif', '2000-01-01'),
-(10, 'Hukum Indonesia', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer vel augue eget velit dictum volutpat. Sed nec risus nec neque egestas tristique. Vivamus id metus vel elit fringilla iaculis. Curabitur at sapien id neque feugiat vehicula. Suspendisse poten', 'pelanggaran_HAM', 'uploads\\1744896391267.pdf', '', 0, '', '', 'Aktif', '2000-01-01'),
-(26, 'sss', 'sss', 'KDRT', 'uploads\\1746201172608.pdf', '', 0, '', '', 'Aktif', '2000-01-01'),
-(27, 'jajaja', 'jaijsjao', 'perceraian', 'uploads\\1746418170165.pdf', '', 0, '', '', 'Aktif', '2000-01-01'),
-(28, 'tes', 'tes', 'pelanggaran_HAM', 'uploads\\1747473642414.pdf', 'tes', 2025, 'tes', 'tes', 'Aktif', '2025-05-17');
+INSERT INTO `artikel` (`id`, `judul`, `deskripsi`, `jenis_hukum`, `filePath`, `coverPath`, `nomor`, `tahun`, `jenis_dokumen`, `tempat_penetapan`, `status`, `tanggal_penetapan`) VALUES
+(29, 'Hukum Internasional', 'Hukum Internasional merupakan cabang ilmu hukum yang mengatur hubungan antar negara dan aktor internasional lainnya di dunia. Artikel ini membahas konsep dasar, prinsip-prinsip, serta ruang lingkup hukum internasional yang meliputi perjanjian internasional, norma, serta kebiasaan yang mengikat secara hukum bagi negara-negara anggota komunitas internasional. Selain itu, artikel ini juga menjelaskan peranan lembaga-lembaga internasional seperti Perserikatan Bangsa-Bangsa (PBB), Mahkamah Internasional, serta mekanisme penyelesaian sengketa antar negara.\r\n\r\nDengan memahami hukum internasional, kita dapat mengerti bagaimana aturan dan norma diterapkan untuk menjaga perdamaian, keamanan, serta keadilan global.', 'Internasional', 'uploads\\1747768089749.pdf', NULL, 'LEG/MEMO/005/II/2025', 2021, 'PDF', 'Dokumen ', 'Aktif', '2025-05-21'),
+(30, 'Dasar Hukum Ketenagakerjaan', 'Hukum Ketenagakerjaan adalah cabang hukum yang mengatur hubungan antara pekerja, pemberi kerja, dan pemerintah dalam dunia kerja. Artikel ini mengulas berbagai aturan dan prinsip yang melindungi hak serta kewajiban pekerja dan pengusaha, termasuk perjanjian kerja, upah, jam kerja, keselamatan dan kesehatan kerja, serta penyelesaian perselisihan ketenagakerjaan.\r\n\r\nSelain itu, artikel ini juga membahas peranan Undang-Undang Ketenagakerjaan di Indonesia, mekanisme perlindungan tenaga kerja, dan kebijakan pemerintah dalam menciptakan kondisi kerja yang adil dan aman. Dengan memahami hukum ketenagakerjaan, baik pekerja maupun pengusaha dapat menjalankan hak dan kewajibannya secara seimbang demi terciptanya hubungan industrial yang harmonis dan produktif.', 'Ketenagakerjaan', 'uploads\\1747768492353.pdf', NULL, 'LEG/PND/008/IV/2025', 2018, 'PDF', 'Dokumen', 'Aktif', '2025-05-21'),
+(31, 'Hukum Hak Kekayaan Intelektual (HAKI)', 'Hukum Hak Atas Kekayaan Intelektual (HAKI) adalah cabang hukum yang melindungi karya-karya hasil kreativitas dan inovasi manusia, seperti karya seni, penemuan teknologi, merek dagang, dan desain industri. Artikel ini membahas berbagai jenis hak kekayaan intelektual, termasuk hak cipta, paten, merek dagang, desain industri, dan rahasia dagang, serta mekanisme perlindungan hukum yang diberikan kepada pemilik hak tersebut.  Selain itu, artikel ini juga menjelaskan pentingnya HAKI dalam mendorong kemajuan ilmu pengetahuan, teknologi, dan seni, serta bagaimana hukum ini membantu melindungi hak dan kepentingan pencipta atau penemu dari penyalahgunaan atau pembajakan. Pembahasan juga mencakup proses pendaftaran hak kekayaan intelektual di Indonesia dan tantangan dalam penegakan hukum HAKI di era digital.', 'HAKI', 'uploads\\1747768770683.pdf', NULL, 'LEG/PND/009/IV/2025', 2019, 'PDF', 'Dokumen', 'Aktif', '2025-05-21'),
+(32, 'Pengantar Hukum Tata Negara', 'Hukum Tata Negara merupakan cabang ilmu hukum yang mempelajari aturan dan prinsip dasar yang mengatur penyelenggaraan negara serta hubungan antara lembaga-lembaga negara dengan warga negara. Artikel ini memberikan pengantar mengenai konsep dasar hukum tata negara, termasuk bentuk dan sistem pemerintahan, pembagian kekuasaan, serta peran konstitusi sebagai sumber utama hukum tata negara.  Pembahasan juga mencakup hak dan kewajiban warga negara dalam sistem kenegaraan serta mekanisme pengawasan dan pertanggungjawaban pemerintah. Dengan memahami hukum tata negara, masyarakat dapat lebih sadar akan struktur negara dan tata kelola pemerintahan yang demokratis dan berdasarkan hukum.', 'Administrasi Negara', 'uploads\\1747769056072.pdf', NULL, '	LEG/PND/010/IV/2025', 2017, 'PDF', 'Dokumen', 'Aktif', '2025-05-21'),
+(33, 'Hukum Administrasi Negara', 'Hukum Administrasi Negara adalah cabang ilmu hukum yang mengatur tata cara dan prinsip penyelenggaraan administrasi pemerintahan oleh lembaga negara dan pejabat publik. Artikel ini membahas ruang lingkup hukum administrasi negara, termasuk peraturan tentang pembuatan keputusan administratif, pelaksanaan fungsi pemerintahan, serta mekanisme pengawasan dan penegakan hukum terhadap tindakan administratif.  Pembahasan juga menyoroti peran hukum administrasi negara dalam menjamin agar penyelenggaraan pemerintahan berjalan transparan, akuntabel, dan sesuai dengan prinsip negara hukum (rechtsstaat). Dengan memahami hukum administrasi negara, masyarakat dapat mengawasi kinerja pemerintah dan menuntut perlindungan hukum atas tindakan administratif yang merugikan.', 'Administrasi Negara', 'uploads\\1747769890162.pdf', NULL, 'LEG/PND/011/IV/2025', 2023, 'PDF', 'Dokumen', 'Aktif', '2025-05-21'),
+(34, 'Panduan Hukum Perdata', 'Hukum Perdata adalah cabang hukum yang mengatur hubungan hukum antara individu atau badan hukum secara privat, termasuk hak dan kewajiban yang timbul dalam kehidupan sehari-hari. Artikel ini membahas ruang lingkup hukum perdata seperti perjanjian, harta kekayaan, warisan, dan tanggung jawab perdata.  Selain itu, artikel ini menjelaskan prinsip-prinsip dasar hukum perdata, seperti itikad baik dan keadilan, serta mekanisme penyelesaian sengketa melalui peradilan perdata. Dengan memahami hukum perdata, masyarakat dapat melindungi hak-haknya dalam hubungan hukum pribadi dan menjalankan kewajiban secara tepat sesuai aturan yang berlaku.', 'Perdata', 'uploads\\1747770045750.pdf', NULL, 'LEG/PND/012/IV/2025', 2016, 'PDF', 'Dokumen', 'Aktif', '2025-05-21'),
+(35, 'Dasar-dasar Hukum Pidana Indonesia', 'Hukum Pidana Indonesia merupakan cabang hukum yang mengatur tentang perbuatan-perbuatan yang dilarang dan sanksi yang dikenakan terhadap pelanggarnya demi menjaga ketertiban dan keadilan dalam masyarakat. Artikel ini membahas konsep dasar hukum pidana, termasuk asas-asas hukum pidana, jenis-jenis tindak pidana, serta prosedur penegakan hukum pidana di Indonesia.  Pembahasan juga meliputi prinsip-prinsip seperti legalitas, kepastian hukum, dan perlindungan hak asasi manusia dalam proses pidana. Dengan memahami dasar-dasar hukum pidana, masyarakat dapat mengenali batasan perilaku yang diatur dan konsekuensi hukum yang mungkin timbul, sekaligus mendukung penegakan hukum yang adil dan efektif.', 'Pidana', 'uploads\\1747770129718.pdf', NULL, 'LEG/PND/013/IV/2025', 2015, 'PDF', 'Dokumen', 'Aktif', '2025-05-21'),
+(36, 'Hukum Keluarga Islam', 'Hukum Keluarga Islam adalah cabang hukum yang mengatur hubungan dan tata kelola keluarga berdasarkan prinsip-prinsip syariah Islam. Artikel ini membahas berbagai aspek penting dalam hukum keluarga Islam, seperti pernikahan, hak dan kewajiban suami-istri, perceraian, nafkah, warisan, serta hak anak.  Pembahasan juga mencakup dasar-dasar hukum Islam yang menjadi landasan aturan keluarga, termasuk Al-Qur’an dan Hadis, serta penerapan hukum keluarga Islam dalam sistem hukum nasional Indonesia. Dengan memahami hukum keluarga Islam, masyarakat dapat menjalankan kehidupan berkeluarga secara harmonis sesuai dengan ajaran agama dan ketentuan hukum yang berlaku.', 'Keluarga', 'uploads\\1747770459925.pdf', NULL, 'LEG/PND/013/IV/2025', 2022, 'PDF', 'Dokumen', 'Aktif', '2025-05-21'),
+(37, 'percobaan ke 9', '9', 'Pidana', 'uploads/pdf/1747775376782.pdf', 'uploads/covers/cover_1747775376785-01.jpg', '09', 2025, 'KDRT', 'KDRT', 'Aktif', '2025-05-16'),
+(38, 'percobaan 10 setelah konflik', 'semoga berhasil', 'Pidana', 'uploads/pdf/1747777205846.pdf', 'uploads/covers/cover_1747777205849-01.jpg', '10', 2025, 'PDF', 'Hukum', 'Aktif', '2025-05-16');
 
 -- --------------------------------------------------------
 
@@ -171,13 +172,13 @@ INSERT INTO `artikel_berita` (`id`, `judul`, `isi`, `gambar`, `kategori`, `creat
 
 CREATE TABLE `faq_hukum` (
   `id` int NOT NULL,
-  `intent` varchar(100) DEFAULT NULL,
-  `kategori` varchar(50) DEFAULT NULL,
-  `keywords` text,
-  `contoh_pertanyaan` text,
-  `response` text,
-  `sumber_referensi` varchar(255) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  `intent` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `kategori` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `keywords` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci,
+  `contoh_pertanyaan` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci,
+  `response` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci,
+  `sumber_referensi` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `faq_hukum`
@@ -198,7 +199,95 @@ INSERT INTO `faq_hukum` (`id`, `intent`, `kategori`, `keywords`, `contoh_pertany
 (12, 'warisan', 'perdata', '[\"warisan\", \"harta waris\", \"pembagian warisan\", \"hak ahli waris\", \"hukum waris\"]', 'Bagaimana cara pembagian warisan dalam hukum Islam?', 'Pembagian warisan mengikuti hukum Islam (Kompilasi Hukum Islam) atau KUHPerdata, tergantung agama pewaris.', 'https://peraturan.bpk.go.id/Home/Details/46974/kompilasi-hukum-islam'),
 (13, 'ite', 'pidana', '[\"uu ite\", \"hukum internet\", \"fitnah online\", \"pasal 27\", \"sara online\", \"cybercrime\", \"undang undang ite\"]', 'Apakah menyebarkan hoaks termasuk pelanggaran UU ITE?', 'Ya, penyebaran informasi bohong atau pencemaran nama baik di internet dapat dijerat pasal 27 ayat (3) UU ITE.', 'https://peraturan.bpk.go.id/Home/Details/37582/uu-no-19-tahun-2016'),
 (14, 'adopsi', 'keluarga', '[\"adopsi\", \"anak angkat\", \"proses adopsi\", \"mengadopsi anak\", \"hukum adopsi\"]', 'Apa syarat untuk mengadopsi anak secara hukum?', 'Adopsi anak harus melalui keputusan pengadilan serta rekomendasi dari dinas sosial sesuai PP No. 54 Tahun 2007.', 'https://peraturan.bpk.go.id/Home/Details/4806/pp-no-54-tahun-2007'),
-(15, 'kontrak kerja', 'perdata', '[\"[\\\"kontrak kerja\\\"\",\"\\\"perjanjian kerja\\\"\",\"\\\"hak karyawan\\\"]\"]', 'Apa hak-hak karyawan dalam kontrak kerja?', 'Hak karyawan diatur dalam UU Ketenagakerjaan, meliputi upah, jaminan sosial, cuti, dan perlindungan kerja lainnya.', 'https://peraturan.bpk.go.id/Home/Details/41317/uu-no-13-tahun-2003');
+(15, 'kontrak kerja', 'perdata', '[\"[\\\"kontrak kerja\\\"\",\"\\\"perjanjian kerja\\\"\",\"\\\"hak karyawan\\\"]\"]', 'Apa hak-hak karyawan dalam kontrak kerja?', 'Hak karyawan diatur dalam UU Ketenagakerjaan, meliputi upah, jaminan sosial, cuti, dan perlindungan kerja lainnya.', 'https://peraturan.bpk.go.id/Home/Details/41317/uu-no-13-tahun-2003'),
+(16, 'narkotika', 'pidana', '[\"narkoba\", \"narkotika\", \"sabu\", \"ganja\", \"zat adiktif\"]', 'Apa ancaman hukum bagi pengguna narkoba?', 'Pengguna narkotika bisa dikenakan pasal 127 UU No. 35 Tahun 2009 tentang Narkotika dengan ancaman rehabilitasi atau pidana penjara.', 'https://peraturan.bpk.go.id/Home/Details/39010/uu-no-35-tahun-2009'),
+(17, 'perjanjian sewa', 'perdata', '[\"kontrak sewa\", \"sewa rumah\", \"perjanjian sewa\", \"sewa menyewa\", \"hak penyewa\"]', 'Bagaimana kekuatan hukum kontrak sewa rumah?', 'Perjanjian sewa menyewa merupakan perjanjian sah menurut KUHPerdata selama memenuhi syarat sah perjanjian (Pasal 1320 KUHPerdata).', 'https://peraturan.bpk.go.id/Home/Details/48159/kuhp-perdata'),
+(18, 'utang piutang', 'perdata', '[\"utang\", \"piutang\", \"pinjam uang\", \"surat utang\", \"utang pribadi\"]', 'Bagaimana menyelesaikan sengketa utang piutang secara hukum?', 'Sengketa utang piutang dapat diselesaikan secara perdata di pengadilan atau melalui mediasi. Bukti tertulis sangat penting.', 'https://peraturan.bpk.go.id/Home/Details/48159/kuhp-perdata'),
+(19, 'pencemaran nama baik', 'pidana', '[\"fitnah\", \"pencemaran nama\", \"ujaran kebencian\", \"pasal 310\", \"pasal 311\"]', 'Apakah menghina seseorang di media sosial bisa dipidana?', 'Ya, pencemaran nama baik diatur dalam KUHP Pasal 310 dan 311 serta UU ITE Pasal 27 ayat 3. Pelaku bisa dipidana.', 'https://peraturan.bpk.go.id/Home/Details/48160/kuhp'),
+(20, 'penipuan', 'pidana', '[\"penipuan\", \"scam\", \"modus penipuan\", \"tindak pidana penipuan\", \"pasal 378\"]', 'Apa pasal yang digunakan untuk menjerat pelaku penipuan?', 'Pelaku penipuan dapat dijerat Pasal 378 KUHP dengan ancaman pidana maksimal 4 tahun penjara.', 'https://peraturan.bpk.go.id/Home/Details/48160/kuhp'),
+(21, 'definisi_hukum_pidana', 'pidana', '[\"apa itu hukum pidana\", \"definisi hukum pidana\", \"pengertian hukum pidana\", \"pidana itu apa\"]', 'Apa itu hukum pidana?', 'Hukum pidana adalah cabang hukum yang mengatur tentang perbuatan yang dilarang dan diancam dengan pidana, serta prosedur penegakannya oleh aparat hukum seperti polisi dan jaksa.', 'https://peraturan.bpk.go.id/Home/Details/48160/kuhp'),
+(22, 'definisi_hukum_perdata', 'perdata', '[\"apa itu hukum perdata\", \"pengertian hukum perdata\", \"perdata itu apa\", \"definisi hukum privat\"]', 'Apa itu hukum perdata?', 'Hukum perdata adalah hukum yang mengatur hubungan antar individu dalam masyarakat, seperti perjanjian, warisan, perkawinan, dan utang-piutang.', 'https://peraturan.bpk.go.id/Home/Details/48159/kuhp-perdata'),
+(23, 'definisi_hukum_tata_negara', 'tata negara', '[\"apa itu hukum tata negara\", \"pengertian hukum tata negara\", \"hukum negara\", \"konstitusi\", \"undang-undang dasar\"]', 'Apa itu hukum tata negara?', 'Hukum tata negara adalah cabang hukum yang mengatur struktur dan fungsi lembaga-lembaga negara serta hubungan antara negara dan warga negara.', 'https://peraturan.bpk.go.id/Home/Details/37974/uu-no-24-tahun-2003'),
+(24, 'definisi_hukum_administrasi', 'administrasi negara', '[\"apa itu hukum administrasi\", \"pengertian hukum administrasi negara\", \"peraturan pemerintah\", \"putusan pejabat publik\"]', 'Apa itu hukum administrasi negara?', 'Hukum administrasi negara mengatur hubungan antara pemerintah (pejabat administrasi) dengan warga negara dalam konteks pelayanan publik dan pelaksanaan tugas negara.', 'https://peraturan.bpk.go.id/Home/Details/39706/uu-no-30-tahun-2014'),
+(25, 'definisi_hukum_acara', 'acara', '[\"apa itu hukum acara\", \"pengertian hukum acara\", \"prosedur pengadilan\", \"hukum acara pidana\", \"hukum acara perdata\"]', 'Apa itu hukum acara?', 'Hukum acara adalah aturan tentang tata cara menjalankan proses peradilan, baik dalam perkara pidana maupun perdata, mulai dari penyelidikan hingga putusan.', 'https://peraturan.bpk.go.id/Home/Details/37630/kuhap'),
+(26, 'definisi_hukum_internasional', 'internasional', '[\"apa itu hukum internasional\", \"pengertian hukum internasional\", \"hukum antarnegara\", \"perjanjian internasional\"]', 'Apa itu hukum internasional?', 'Hukum internasional adalah seperangkat aturan yang mengatur hubungan antara negara-negara dan organisasi internasional, termasuk perjanjian dan konvensi internasional.', 'https://www.un.org/en/about-us/un-charter'),
+(27, 'definisi_hukum_adat', 'adat', '[\"apa itu hukum adat\", \"pengertian hukum adat\", \"hukum tradisional\", \"norma adat\"]', 'Apa itu hukum adat?', 'Hukum adat adalah aturan-aturan tidak tertulis yang hidup dan berlaku dalam masyarakat tertentu berdasarkan kebiasaan yang diwariskan turun-temurun.', 'https://peraturan.bpk.go.id/Home/Details/38937/uu-no-6-tahun-2014'),
+(28, 'izin_usaha', 'perizinan', '[\"izin usaha\", \"cara membuat izin usaha\", \"nib\", \"oss\", \"legalitas usaha\"]', 'Bagaimana cara membuat izin usaha secara resmi?', 'Untuk membuat izin usaha, pelaku usaha harus mendaftarkan usahanya melalui sistem OSS (Online Single Submission) dan mendapatkan NIB (Nomor Induk Berusaha).', 'https://oss.go.id'),
+(29, 'hak_asasi_manusia', 'ham', '[\"ham\", \"hak asasi\", \"pelanggaran ham\", \"kebebasan berpendapat\", \"hukum ham\"]', 'Apa saja contoh pelanggaran HAM di Indonesia?', 'Pelanggaran HAM dapat berupa pembatasan kebebasan berpendapat, diskriminasi, penyiksaan, atau pembunuhan tanpa proses hukum.', 'https://peraturan.bpk.go.id/Home/Details/45678/uu-no-39-tahun-1999'),
+(30, 'sengketa_tanah', 'agraria', '[\"sengketa tanah\", \"sengketa agraria\", \"kepemilikan tanah\", \"sertifikat tanah\"]', 'Bagaimana cara menyelesaikan sengketa tanah?', 'Sengketa tanah dapat diselesaikan melalui mediasi di BPN, gugatan ke pengadilan, atau pengaduan ke Pengadilan Tata Usaha Negara jika melibatkan keputusan pemerintah.', 'https://peraturan.bpk.go.id/Home/Details/4747/uu-no-5-tahun-1960'),
+(31, 'perdagangan_orang', 'pidana', '[\"perdagangan orang\", \"human trafficking\", \"eksploitasi manusia\", \"tppo\"]', 'Apa sanksi hukum bagi pelaku perdagangan orang?', 'Pelaku perdagangan orang dapat dijerat UU No. 21 Tahun 2007 dengan hukuman penjara maksimal 15 tahun dan/atau denda maksimal Rp600 juta.', 'https://peraturan.bpk.go.id/Home/Details/39642/uu-no-21-tahun-2007'),
+(32, 'perzinahan', 'pidana', '[\"perzinahan\", \"selingkuh\", \"hubungan di luar nikah\", \"zina\", \"perselingkuhan\"]', 'Apakah perzinahan bisa dipidana di Indonesia?', 'Ya, perzinahan dapat diproses hukum jika dilaporkan oleh pasangan resmi, sesuai dengan Pasal 284 KUHP.', 'https://peraturan.bpk.go.id/Home/Details/48160/kuhp'),
+(33, 'perlindungan_konsumen', 'perdata', '[\"konsumen\", \"perlindungan konsumen\", \"hak konsumen\", \"sengketa konsumen\"]', 'Apa saja hak-hak konsumen menurut hukum?', 'Hak konsumen diatur dalam UU No. 8 Tahun 1999, seperti hak atas keamanan produk, informasi benar, serta mendapat kompensasi jika dirugikan.', 'https://peraturan.bpk.go.id/Home/Details/43585/uu-no-8-tahun-1999'),
+(34, 'sanksi_pelanggaran_prokes', 'pidana', '[\"prokes\", \"pelanggaran prokes\", \"sanksi covid\", \"masker\", \"kerumunan saat pandemi\"]', 'Apakah ada sanksi hukum bagi pelanggar protokol kesehatan?', 'Ya, pelanggaran protokol kesehatan dapat dikenakan sanksi pidana atau administratif sesuai peraturan daerah atau UU Karantina Kesehatan.', 'https://peraturan.bpk.go.id/Home/Details/41143/uu-no-6-tahun-2018'),
+(35, 'perdata_vs_pidana', 'umum', '[\"perbedaan pidana dan perdata\", \"pidana vs perdata\", \"jenis hukum\", \"contoh pidana\", \"contoh perdata\"]', 'Apa perbedaan antara hukum pidana dan hukum perdata?', 'Hukum pidana mengatur perbuatan yang dilarang negara (seperti pencurian, pembunuhan), sedangkan hukum perdata mengatur sengketa antar individu seperti warisan, kontrak, dan perceraian.', 'https://peraturan.bpk.go.id/Home/Details/48160/kuhp'),
+(36, 'sita_harta_gono_gini', 'keluarga', '[\"sita harta bersama\", \"gono gini\", \"pembagian harta cerai\", \"harta perkawinan\", \"sita harta\"]', 'Bagaimana cara menyita harta gono-gini dalam perceraian?', 'Pihak yang bercerai dapat mengajukan gugatan pembagian harta bersama (gono-gini) ke pengadilan. Harta yang diperoleh selama perkawinan akan dibagi sesuai hukum yang berlaku.', 'https://peraturan.bpk.go.id/Home/Details/46974/kompilasi-hukum-islam'),
+(37, 'pencemaran_lingkungan', 'lingkungan', '[\"pencemaran lingkungan\", \"limbah pabrik\", \"perusakan lingkungan\", \"pidana lingkungan\", \"kerusakan alam\"]', 'Apa sanksi hukum bagi perusahaan yang mencemari lingkungan?', 'Perusahaan yang mencemari lingkungan bisa dikenai sanksi administratif, perdata, dan pidana sesuai UU No. 32 Tahun 2009 tentang Perlindungan dan Pengelolaan Lingkungan Hidup.', 'https://peraturan.bpk.go.id/Home/Details/39707/uu-no-32-tahun-2009'),
+(38, 'hak_asuh_anak', 'keluarga', '[\"hak asuh anak\", \"perebutan anak\", \"pengasuhan anak\", \"custody\", \"anak cerai\"]', 'Siapa yang berhak atas anak setelah perceraian?', 'Hak asuh anak biasanya diberikan kepada ibu, kecuali terbukti tidak layak. Pengadilan mempertimbangkan kepentingan terbaik bagi anak.', 'https://peraturan.bpk.go.id/Home/Details/46974/kompilasi-hukum-islam'),
+(39, 'lapor_pencurian', 'pidana', '[\"lapor pencurian\", \"barang hilang\", \"lapor ke polisi\", \"pencurian motor\", \"laporan kehilangan\"]', 'Bagaimana prosedur melaporkan pencurian ke polisi?', 'Korban pencurian harus segera melapor ke kantor polisi terdekat dengan membawa bukti kepemilikan, identitas diri, dan kronologi kejadian.', 'https://peraturan.bpk.go.id/Home/Details/48160/kuhp'),
+(40, 'ancaman_medsos', 'pidana', '[\"ancaman online\", \"ancaman di medsos\", \"mengancam lewat chat\", \"pasal ancaman\", \"ite\"]', 'Apakah mengancam orang lewat WhatsApp bisa dipidana?', 'Ya, ancaman melalui media elektronik termasuk pidana. Pelaku bisa dijerat Pasal 29 jo. Pasal 45B UU ITE dengan pidana penjara maksimal 4 tahun.', 'https://peraturan.bpk.go.id/Home/Details/37582/uu-no-19-tahun-2016'),
+(41, 'apa_itu_cerdas_hukum', 'umum', '[\"apa itu cerdas hukum\", \"cerdas hukum\", \"aplikasi hukum\", \"platform konsultasi hukum\", \"tentang cerdas hukum\"]', 'Apa itu platform Cerdas Hukum?', 'Cerdas Hukum adalah platform edukasi dan konsultasi hukum digital yang memberikan akses mudah bagi masyarakat untuk memahami hukum dan berinteraksi langsung dengan pengacara profesional.', NULL),
+(42, 'pemalsuan_dokumen', 'pidana', '[\"pemalsuan dokumen\", \"ijazah palsu\", \"dokumen palsu\", \"ktp palsu\", \"pasal 263\"]', 'Apa ancaman pidana bagi pelaku pemalsuan dokumen?', 'Pemalsuan dokumen diatur dalam Pasal 263 KUHP dengan ancaman pidana penjara hingga 6 tahun.', 'https://peraturan.bpk.go.id/Home/Details/48160/kuhp'),
+(43, 'cara_konsultasi', 'panduan', '[\"cara konsultasi\", \"mulai konsultasi\", \"konsultasi hukum\", \"klik konsultasi\", \"hubungi pengacara\"]', 'Bagaimana cara melakukan konsultasi di website Cerdas Hukum?', 'Pengguna dapat klik tombol \"Konsultasi\" pada kartu pengacara di halaman utama. Setelah menyelesaikan pembayaran, pengguna akan diarahkan langsung ke halaman chat untuk berkonsultasi dengan pengacara yang dipilih.', NULL),
+(44, 'cara_ajukan_kasus', 'panduan', '[\"cara ajukan kasus\", \"ajukan kasus hukum\", \"isi form kasus\", \"kirim kasus\"]', 'Bagaimana cara mengajukan kasus di Cerdas Hukum?', 'Klik menu \"Ajukan Kasus\", lalu isi formulir lengkap mengenai permasalahan hukum Anda, unggah bukti (jika ada), dan kirim. Kasus akan masuk ke sistem dan bisa diproses oleh pengacara.', NULL),
+(45, 'cara_daftar_lawyer', 'panduan', '[\"cara daftar lawyer\", \"pendaftaran pengacara\", \"daftar sebagai pengacara\", \"gabung pengacara\"]', 'Bagaimana cara mendaftar sebagai pengacara di Cerdas Hukum?', 'Klik tombol \"Daftar Lawyer\" dan isi formulir pendaftaran. Unggah KTP, foto, kartu advokat, dan dokumen lain. Data akan diverifikasi oleh admin sebelum disetujui sebagai pengacara aktif.', NULL),
+(46, 'cara_daftar_pengguna', 'panduan', '[\"cara daftar pengguna\", \"buat akun\", \"daftar user\", \"registrasi pengguna\"]', 'Bagaimana cara membuat akun pengguna di Cerdas Hukum?', 'Klik tombol \"Sign Up\", lengkapi data diri seperti nama, email, nomor HP, password, lalu klik daftar. Setelah itu, Anda dapat langsung login dan menggunakan layanan.', NULL),
+(47, 'cara_login', 'panduan', '[\"cara login\", \"masuk akun\", \"akses akun\", \"login cerdas hukum\"]', 'Bagaimana cara login ke akun Cerdas Hukum?', 'Klik tombol \"Login\", lalu masukkan email dan password Anda. Pastikan email sudah terdaftar sebelumnya.', NULL),
+(48, 'cara_forgot_password', 'panduan', '[\"lupa password\", \"reset password\", \"ganti password\", \"otp\", \"verifikasi email\"]', 'Bagaimana cara reset password jika lupa?', 'Klik \"Forgot Password\" di halaman login, masukkan email Anda, lalu kode OTP akan dikirimkan ke email. Masukkan OTP dan buat password baru untuk mengakses kembali akun.', NULL),
+(49, 'cara_edit_profil', 'panduan', '[\"edit profil\", \"ubah data\", \"ganti informasi akun\", \"update profil\", \"ubah foto profil\"]', 'Bagaimana cara mengedit profil di Cerdas Hukum?', 'Buka halaman profil, klik tombol \"Edit Profil\", lalu ubah data yang diperlukan seperti nama, email, alamat, atau unggah foto baru. Simpan perubahan untuk memperbarui data Anda.', NULL),
+(50, 'alur_pendaftaran_lawyer', 'panduan', '[\"alur pendaftaran pengacara\", \"verifikasi lawyer\", \"proses approve lawyer\"]', 'Bagaimana alur setelah mendaftar sebagai pengacara?', 'Setelah mendaftar, data Anda akan masuk ke daftar pendaftaran dan ditinjau oleh admin. Jika disetujui, Anda akan otomatis masuk ke daftar pengacara aktif dan bisa menerima kasus.', NULL),
+(51, 'fitur_platform', 'panduan', '[\"fitur cerdas hukum\", \"apa saja fitur\", \"menu di cerdas hukum\", \"halaman yang tersedia\", \"layanan cerdas hukum\"]', 'Apa saja fitur yang tersedia di platform Cerdas Hukum?', 'Platform Cerdas Hukum menyediakan fitur: Konsultasi hukum online, Pengajuan kasus, Riwayat konsultasi dan kasus, Chat real-time dengan pengacara, Pendaftaran pengacara, serta pengelolaan artikel hukum dan berita.', NULL),
+(52, 'fitur_chat_pengacara', 'panduan', '[\"chat pengacara\", \"konsultasi langsung\", \"hubungi pengacara\", \"fitur chat\", \"obrolan hukum\"]', 'Apakah saya bisa langsung mengobrol dengan pengacara?', 'Ya, setelah melakukan pembayaran konsultasi, Anda akan diarahkan ke fitur chat langsung dengan pengacara terkait di halaman chat.', NULL),
+(53, 'fitur_riwayat', 'panduan', '[\"riwayat konsultasi\", \"riwayat kasus\", \"daftar konsultasi\", \"riwayat user\"]', 'Apakah saya bisa melihat riwayat konsultasi dan kasus saya?', 'Ya. Anda bisa mengakses menu \"Riwayat\" untuk melihat seluruh riwayat transaksi, konsultasi, dan kasus yang pernah diajukan.', NULL),
+(54, 'pengacara_spesialisasi', 'pengacara', '[\"spesialisasi pengacara\", \"pengacara hukum pidana\", \"pengacara perdata\", \"pengacara keluarga\"]', 'Apakah saya bisa memilih pengacara sesuai spesialisasi?', 'Tentu. Setiap pengacara memiliki spesialisasi seperti Hukum Pidana, Perdata, Keluarga, Bisnis, Ketenagakerjaan, dan lainnya. Anda bisa memilih sesuai kebutuhan.', NULL),
+(55, 'pengacara_bersertifikat', 'pengacara', '[\"pengacara terverifikasi\", \"pengacara resmi\", \"sertifikat pengacara\", \"kartu advokat\"]', 'Apakah pengacara di Cerdas Hukum sudah terverifikasi?', 'Ya. Semua pengacara yang terdaftar wajib mengunggah kartu advokat dan sertifikat PKPA. Tim admin akan memverifikasi data sebelum disetujui.', NULL),
+(56, 'pengacara_tarif', 'pengacara', '[\"tarif pengacara\", \"biaya konsultasi\", \"harga konsultasi\", \"biaya chat lawyer\"]', 'Berapa tarif konsultasi dengan pengacara?', 'Tarif konsultasi standar adalah Rp50.000 per sesi. Harga bisa berbeda jika ditentukan khusus oleh pengacara terkait.', NULL),
+(57, 'pengacara_profil', 'pengacara', '[\"lihat profil pengacara\", \"detail lawyer\", \"profil lawyer\", \"data pengacara\"]', 'Apakah saya bisa melihat profil lengkap pengacara?', 'Ya. Di halaman utama, Anda bisa melihat nama, foto, pengalaman, spesialisasi, dan universitas pengacara sebelum memilih konsultasi.', NULL),
+(58, 'pengacara_edit_profil', 'pengacara', '[\"edit profil lawyer\", \"ubah data pengacara\", \"update profil lawyer\", \"ubah foto lawyer\"]', 'Bagaimana cara pengacara mengedit profilnya?', 'Pengacara dapat membuka halaman \"Edit Profil\" dan mengubah data seperti nama, alamat, spesialisasi, pendidikan, dan mengunggah foto baru.', NULL),
+(59, 'pengacara_ambil_kasus', 'pengacara', '[\"pengacara ambil kasus\", \"tombol ambil kasus\", \"proses ambil kasus\"]', 'Bagaimana cara pengacara mengambil kasus dari pengguna?', 'Pengacara dapat membuka halaman \"Daftar Kasus\", klik tombol \"Ambil Kasus\" untuk kasus yang belum ditangani. Kasus akan masuk ke daftar proses pengacara.', NULL),
+(60, 'pengacara_riwayat_kasus', 'pengacara', '[\"riwayat lawyer\", \"log kasus lawyer\", \"daftar kasus lawyer\", \"log aktivitas pengacara\"]', 'Apakah pengacara bisa melihat riwayat perubahan status kasus?', 'Ya. Di halaman Daftar Kasus, pengacara bisa melihat log aktivitas untuk setiap kasus yang diambil, termasuk waktu dan status yang diperbarui.', NULL),
+(61, 'daftar_nama_pengacara', 'pengacara', '[\"siapa saja pengacara\", \"nama pengacara\", \"list pengacara\", \"advokat tersedia\", \"pengacara yang ada\"]', 'Siapa saja pengacara yang tersedia di Cerdas Hukum?', 'Beberapa pengacara yang tersedia antara lain: Ahmad Fauzi, Siti Aminah, Budi Santoso, Rina Kusuma, Dedi Kurniawan, Nina Kartika, Yusuf Hidayat, Eka Putri, dan lainnya. Anda bisa melihat profil lengkap di halaman utama.', NULL),
+(62, 'pengacara_hukum_perdata', 'pengacara', '[\"pengacara hukum perdata\", \"perdata lawyer\", \"spesialis perdata\", \"pengacara perdata\"]', 'Siapa saja pengacara spesialis hukum perdata?', 'Pengacara spesialis hukum perdata antara lain: Ahmad Fauzi, Rina Kusuma, Dedi Kurniawan, Lia Rahmawati, Mira Kartini, Louis, dan Rahmat Hidayat.', NULL),
+(63, 'pengacara_hukum_pidana', 'pengacara', '[\"pengacara hukum pidana\", \"pidana lawyer\", \"spesialis pidana\", \"pengacara pidana\"]', 'Siapa pengacara spesialis hukum pidana?', 'Pengacara yang menangani hukum pidana antara lain: Siti Aminah, Nina Kartika, dan Rudi Hartono.', NULL),
+(64, 'pengacara_berpengalaman', 'pengacara', '[\"pengacara pengalaman terbanyak\", \"lawyer senior\", \"pengacara lama\", \"pengalaman tertinggi\"]', 'Siapa pengacara dengan pengalaman terbanyak?', 'Fajar Maulana (14 tahun), Rahmat Hidayat (15 tahun), dan Yusuf Hidayat (12 tahun) adalah pengacara paling berpengalaman di platform ini.', NULL),
+(65, 'pengacara_hukum_bisnis', 'pengacara', '[\"pengacara hukum bisnis\", \"lawyer perusahaan\", \"spesialis bisnis\", \"pengacara corporate\"]', 'Siapa saja pengacara spesialis hukum bisnis dan perusahaan?', 'Beberapa pengacara dengan spesialisasi hukum bisnis dan perusahaan adalah: Budi Santoso, Yusuf Hidayat, Fajar Maulana, dan Desi Anggraini.', NULL),
+(66, 'hukum_paten', 'hukum kekayaan intelektual', '[\"hukum paten\", \"daftar paten\", \"hak paten\", \"mendaftarkan paten\", \"perlindungan paten\"]', 'Bagaimana cara mendaftarkan paten untuk inovasi saya?', 'Untuk mendaftarkan paten, Anda harus mengajukan permohonan ke Direktorat Jenderal Kekayaan Intelektual dan memenuhi persyaratan administratif serta teknis.', 'https://www.dgip.go.id'),
+(67, 'hukum_ketenagakerjaan', 'hukum ketenagakerjaan', '[\"hukum ketenagakerjaan\", \"hak karyawan\", \"phk\", \"cuti kerja\", \"gaji minimum\"]', 'Apa hak karyawan yang harus dipenuhi perusahaan?', 'Hak karyawan meliputi upah yang adil, cuti tahunan, jaminan sosial, perlindungan keselamatan kerja, dan prosedur PHK sesuai UU No.13 Tahun 2003.', 'https://peraturan.bpk.go.id/Home/Details/41317/uu-no-13-tahun-2003'),
+(68, 'hukum_perdata_keluarga', 'hukum keluarga', '[\"hukum perdata keluarga\", \"hak waris\", \"pernikahan\", \"perceraian\", \"hak asuh anak\"]', 'Bagaimana hukum mengatur perceraian dan hak asuh anak?', 'Perceraian diatur dalam UU Perdata dan pengadilan agama, dengan hak asuh anak biasanya diberikan kepada ibu kecuali ada alasan kuat lain.', 'https://peraturan.bpk.go.id/Home/Details/46974/kompilasi-hukum-islam'),
+(69, 'hukum_lingkungan', 'hukum lingkungan', '[\"hukum lingkungan\", \"perlindungan lingkungan\", \"limbah industri\", \"pencemaran udara\", \"sanksi lingkungan\"]', 'Apa sanksi bagi perusahaan yang mencemari lingkungan?', 'Sanksi bisa berupa denda, pencabutan izin usaha, dan pidana sesuai UU No.32 Tahun 2009 tentang Perlindungan dan Pengelolaan Lingkungan Hidup.', 'https://peraturan.bpk.go.id/Home/Details/39707/uu-no-32-tahun-2009'),
+(70, 'hukum_perpajakan', 'hukum pajak', '[\"hukum perpajakan\", \"pajak penghasilan\", \"pelaporan pajak\", \"sanksi pajak\", \"pajak badan\"]', 'Apa kewajiban wajib pajak badan usaha?', 'Wajib pajak badan harus melaporkan penghasilan, membayar pajak sesuai ketentuan, dan mematuhi peraturan perpajakan yang berlaku.', 'https://www.pajak.go.id'),
+(71, 'sapaan_halo', 'umum', '[\"halo\", \"hi\", \"hai\", \"hello\", \"selamat datang\"]', 'Hallo, ada yang bisa saya bantu?', 'Halo! Selamat datang di Cerdas Hukum. Ada yang bisa saya bantu hari ini?', NULL),
+(72, 'sapaan_selamat_pagi', 'umum', '[\"selamat pagi\", \"pagi\", \"good morning\"]', 'Selamat pagi, bagaimana saya bisa membantu?', 'Selamat pagi! Semoga hari Anda menyenangkan. Ada yang ingin Anda tanyakan tentang layanan kami?', NULL),
+(73, 'bantuan', 'panduan', '[\"bantuan\", \"tolong\", \"help\", \"membantu\", \"support\"]', 'Saya butuh bantuan terkait penggunaan platform', 'Tentu! Saya siap membantu Anda. Anda bisa menanyakan tentang cara konsultasi, pengajuan kasus, dan lain-lain.', NULL),
+(74, 'penawaran_layanan', 'umum', '[\"penawaran\", \"layanan\", \"konsultasi\", \"pengacara\", \"bantuan hukum\"]', 'Apa layanan yang tersedia di platform ini?', 'Cerdas Hukum menyediakan layanan konsultasi hukum online dengan pengacara profesional, pengajuan kasus, serta artikel edukasi hukum. Mau saya bantu carikan pengacara sesuai kebutuhan Anda?', NULL),
+(75, 'definisi_hukum', 'umum', '[\"apa itu hukum\", \"definisi hukum\", \"pengertian hukum\"]', 'Apa itu hukum?', 'Hukum adalah sekumpulan aturan atau norma yang mengatur perilaku manusia dalam masyarakat agar tercipta ketertiban dan keadilan.', 'https://id.wikipedia.org/wiki/Hukum'),
+(76, 'fungsi_hukum', 'umum', '[\"fungsi hukum\", \"tujuan hukum\", \"peran hukum\"]', 'Apa fungsi hukum dalam masyarakat?', 'Fungsi hukum adalah menjaga ketertiban, memberikan keadilan, melindungi hak dan kewajiban warga negara, serta menyelesaikan perselisihan.', 'https://peraturan.bpk.go.id/Home/Details/48160/kuhp'),
+(77, 'jenis_hukum', 'umum', '[\"jenis hukum\", \"macam hukum\", \"hukum pidana\", \"hukum perdata\", \"hukum tata negara\"]', 'Apa saja jenis-jenis hukum yang ada?', 'Jenis hukum utama meliputi hukum pidana, hukum perdata, hukum tata negara, hukum administrasi negara, dan hukum internasional.', 'https://peraturan.bpk.go.id'),
+(78, 'hukum_pidana', 'pidana', '[\"hukum pidana\", \"pidana\", \"jenis hukum pidana\"]', 'Apa itu hukum pidana?', 'Hukum pidana mengatur tindak pidana dan sanksi yang dikenakan kepada pelaku kejahatan.', 'https://peraturan.bpk.go.id/Home/Details/48160/kuhp'),
+(79, 'hukum_perdata', 'perdata', '[\"hukum perdata\", \"perdata\", \"jenis hukum perdata\"]', 'Apa itu hukum perdata?', 'Hukum perdata mengatur hubungan hukum antar individu, seperti kontrak, warisan, dan perkawinan.', 'https://peraturan.bpk.go.id/Home/Details/48159/kuhp-perdata'),
+(80, 'hukum_tata_negara', 'tata negara', '[\"hukum tata negara\", \"konstitusi\", \"undang undang dasar\"]', 'Apa itu hukum tata negara?', 'Hukum tata negara mengatur struktur dan fungsi lembaga negara serta hubungan antara negara dan warga negara.', 'https://peraturan.bpk.go.id/Home/Details/37974/uu-no-24-tahun-2003'),
+(81, 'sumber_hukum', 'umum', '[\"sumber hukum\", \"asal usul hukum\", \"darimana hukum berasal\"]', 'Apa saja sumber hukum di Indonesia?', 'Sumber hukum Indonesia meliputi Undang-Undang, Kebiasaan, Yurisprudensi, dan Doktrin.', 'https://peraturan.bpk.go.id'),
+(82, 'tujuan_hukum', 'umum', '[\"tujuan hukum\", \"apa tujuan hukum\"]', 'Apa tujuan dari hukum?', 'Tujuan hukum adalah menciptakan keadilan, ketertiban, keamanan, dan kepastian hukum di masyarakat.', 'https://id.wikipedia.org/wiki/Hukum'),
+(83, 'perbedaan_hukum', 'umum', '[\"perbedaan hukum pidana dan perdata\", \"pidana vs perdata\", \"jenis hukum\"]', 'Apa perbedaan antara hukum pidana dan hukum perdata?', 'Hukum pidana mengatur perbuatan yang dilarang negara dengan sanksi pidana, sedangkan hukum perdata mengatur hubungan antar individu tanpa sanksi pidana.', 'https://peraturan.bpk.go.id/Home/Details/48160/kuhp'),
+(84, 'contoh_kasus_hukum', 'umum', '[\"contoh kasus hukum\", \"kasus hukum\", \"kasus pidana\", \"kasus perdata\"]', 'Bisakah memberi contoh kasus hukum pidana dan perdata?', 'Contoh kasus pidana: pencurian, penganiayaan. Contoh kasus perdata: sengketa warisan, perceraian.', NULL),
+(85, 'hukum_dan_keadilan', 'umum', '[\"hukum dan keadilan\", \"hubungan hukum dan keadilan\"]', 'Apa hubungan antara hukum dan keadilan?', 'Hukum berfungsi sebagai alat untuk menegakkan keadilan dalam masyarakat melalui aturan yang berlaku.', NULL),
+(86, 'penegakan_hukum', 'umum', '[\"penegakan hukum\", \"bagaimana penegakan hukum\"]', 'Bagaimana proses penegakan hukum di Indonesia?', 'Penegakan hukum dilakukan oleh aparat seperti polisi, jaksa, dan pengadilan untuk memastikan aturan hukum ditaati dan pelanggar dihukum.', NULL),
+(87, 'hukum_dan_etika', 'umum', '[\"hukum dan etika\", \"perbedaan hukum dan etika\"]', 'Apa perbedaan antara hukum dan etika?', 'Hukum adalah aturan yang berlaku secara resmi dengan sanksi hukum, sedangkan etika adalah norma moral yang mengatur perilaku tanpa sanksi hukum.', NULL),
+(88, 'pendiri_cerdas_hukum', 'umum', '[\"pendiri cerdas hukum\", \"pemilik cerdas hukum\", \"siapa yang buat cerdas hukum\", \"founder cerdas hukum\"]', 'Siapakah pendiri atau pemilik platform Cerdas Hukum?', 'Platform Cerdas Hukum didirikan oleh tim profesional oleh Azzikra, Fajri, dan Vanes yang berkomitmen memberikan akses mudah dan terpercaya untuk konsultasi hukum secara digital di Indonesia.', NULL),
+(89, 'tentang_cerdas_hukum', 'umum', '[\"tentang cerdas hukum\", \"apa itu cerdas hukum\", \"profil cerdas hukum\", \"informasi cerdas hukum\"]', 'Apa itu platform Cerdas Hukum?', 'Cerdas Hukum adalah platform edukasi dan konsultasi hukum digital yang memudahkan masyarakat untuk mendapatkan informasi hukum dan berinteraksi langsung dengan pengacara profesional secara online.', NULL),
+(90, 'layanan_cerdas_hukum', 'umum', '[\"layanan cerdas hukum\", \"fitur cerdas hukum\", \"apa layanan di cerdas hukum\"]', 'Apa saja layanan yang disediakan oleh Cerdas Hukum?', 'Cerdas Hukum menyediakan layanan konsultasi hukum online, pengajuan kasus, chat langsung dengan pengacara, artikel edukasi hukum, serta pendaftaran pengacara.', NULL),
+(91, 'keamanan_data_cerdas_hukum', 'umum', '[\"keamanan data\", \"privasi data\", \"data pengguna\", \"perlindungan data\"]', 'Bagaimana keamanan data pengguna di Cerdas Hukum?', 'Cerdas Hukum menjamin keamanan dan kerahasiaan data pengguna dengan teknologi enkripsi dan kebijakan privasi yang ketat sesuai standar perlindungan data.', NULL),
+(92, 'cara_menggunakan_cerdas_hukum', 'panduan', '[\"cara menggunakan cerdas hukum\", \"panduan cerdas hukum\", \"bagaimana pakai cerdas hukum\"]', 'Bagaimana cara menggunakan platform Cerdas Hukum?', 'Anda dapat mendaftar akun, memilih pengacara sesuai kebutuhan, melakukan pembayaran, dan memulai konsultasi secara langsung melalui fitur chat di platform.', NULL),
+(93, 'siapa_pengacara_cerdas_hukum', 'pengacara', '[\"siapa pengacara\", \"daftar pengacara\", \"profil pengacara cerdas hukum\"]', 'Siapa saja pengacara yang tergabung di Cerdas Hukum?', 'Cerdas Hukum memiliki jaringan pengacara profesional dengan berbagai spesialisasi hukum yang telah terverifikasi oleh tim admin.', NULL),
+(94, 'cara_ajukan_kasus', 'panduan', '[\"cara ajukan kasus\", \"mengajukan kasus hukum\", \"proses ajukan kasus\"]', 'Bagaimana cara mengajukan kasus di platform?', 'Anda dapat mengajukan kasus dengan mengisi formulir yang tersedia di menu \"Ajukan Kasus\", lengkapi data dan unggah bukti pendukung, lalu kirimkan. Kasus Anda akan diproses oleh pengacara.', NULL),
+(95, 'cara_daftar_pengacara', 'panduan', '[\"cara daftar pengacara\", \"pendaftaran lawyer\", \"jadi pengacara di platform\"]', 'Bagaimana cara mendaftar sebagai pengacara di platform?', 'Klik menu \"Daftar Lawyer\", isi formulir pendaftaran lengkap dengan dokumen pendukung seperti KTP dan kartu advokat, lalu tunggu verifikasi dari admin.', NULL),
+(96, 'biaya_konsultasi', 'umum', '[\"biaya konsultasi\", \"tarif konsultasi\", \"harga konsultasi\"]', 'Berapa biaya konsultasi dengan pengacara?', 'Biaya konsultasi standar adalah Rp50.000 per sesi, namun dapat berbeda sesuai pengacara dan jenis konsultasi.', NULL),
+(97, 'waktu_kerja_pengacara', 'umum', '[\"waktu kerja pengacara\", \"jadwal konsultasi\", \"jam operasional\"]', 'Kapan waktu kerja pengacara tersedia untuk konsultasi?', 'Pengacara biasanya tersedia pada jam kerja normal, Senin sampai Jumat pukul 08.00-17.00, namun dapat berbeda tergantung pengacara.', NULL),
+(98, 'status_kasus', 'umum', '[\"status kasus\", \"update kasus\", \"progres kasus\"]', 'Bagaimana cara mengetahui status kasus yang saya ajukan?', 'Anda dapat melihat status kasus melalui menu \"Riwayat Kasus\" di akun Anda, yang menampilkan progres dan catatan terbaru.', NULL),
+(99, 'layanan_artikel_hukum', 'umum', '[\"artikel hukum\", \"berita hukum\", \"informasi hukum\"]', 'Apa layanan artikel yang tersedia di platform?', 'Platform menyediakan artikel edukasi hukum dan berita hukum terbaru yang dapat membantu Anda memahami berbagai topik hukum.', NULL),
+(100, 'pengaduan_keluhan', 'umum', '[\"pengaduan\", \"keluhan\", \"masalah layanan\"]', 'Bagaimana jika saya ingin menyampaikan keluhan atau pengaduan?', 'Anda bisa menghubungi layanan pelanggan melalui fitur kontak kami atau email resmi untuk menyampaikan keluhan dan pengaduan.', NULL),
+(101, 'cara_reset_password', 'panduan', '[\"lupa password\", \"reset password\", \"ganti password\"]', 'Apa yang harus saya lakukan jika lupa password?', 'Klik tombol \"Forgot Password\" di halaman login, masukkan email Anda, lalu ikuti petunjuk untuk mereset password melalui email.', NULL),
+(102, 'dukungan_teknis', 'umum', '[\"dukungan teknis\", \"bantuan teknis\", \"masalah teknis\"]', 'Saya mengalami masalah teknis saat menggunakan platform, apa yang harus saya lakukan?', 'Anda dapat menghubungi tim dukungan teknis melalui fitur kontak atau email untuk bantuan segera.', NULL),
+(103, 'cara_chat_pengacara', 'panduan', '[\"chat pengacara\", \"konsultasi chat\", \"cara bicara dengan lawyer\"]', 'Bagaimana cara memulai chat konsultasi dengan pengacara?', 'Setelah pembayaran selesai, Anda akan diarahkan ke halaman chat untuk berkomunikasi langsung dengan pengacara terkait.', NULL);
 
 -- --------------------------------------------------------
 
@@ -237,12 +326,14 @@ CREATE TABLE `konsultasi_session` (
 
 INSERT INTO `konsultasi_session` (`id`, `user_id`, `pengacara_id`, `start_time`, `duration`, `status`, `created_at`) VALUES
 (1, 2, 7, '2025-05-15 10:31:38', 60, 'aktif', '2025-05-15 03:31:38'),
-(2, 2, 9, '2025-05-15 12:33:04', 30, 'aktif', '2025-05-15 03:36:03'),
+(2, 2, 9, '2025-05-19 17:42:46', 30, 'aktif', '2025-05-15 03:36:03'),
 (3, 2, 5, '2025-05-15 11:25:02', 30, 'aktif', '2025-05-15 04:25:02'),
 (4, 3, 9, '2025-05-15 12:45:53', 60, 'aktif', '2025-05-15 04:33:03'),
 (5, 3, 1, '2025-05-15 11:37:40', 30, 'aktif', '2025-05-15 04:37:40'),
-(6, 14, 1, '2025-05-20 11:47:38', 30, 'aktif', '2025-05-15 13:33:44'),
-(7, 14, 2, '2025-05-19 12:07:38', 30, 'aktif', '2025-05-19 05:07:38');
+(6, 14, 1, '2025-05-15 20:34:28', 30, 'aktif', '2025-05-15 13:33:44'),
+(7, 2, 1, '2025-05-19 18:10:19', 30, 'aktif', '2025-05-19 11:10:19'),
+(8, 2, 3, '2025-05-19 18:24:59', 30, 'aktif', '2025-05-19 11:24:59'),
+(9, 2, 15, '2025-05-19 18:38:15', 30, 'aktif', '2025-05-19 11:38:15');
 
 -- --------------------------------------------------------
 
@@ -318,12 +409,8 @@ INSERT INTO `log_aktivitas` (`id`, `id_pengguna`, `aktivitas`, `waktu`) VALUES
 (70, 2, 'Status kasus ID 8 diubah menjadi \'Diproses\'', '2025-05-15 01:13:53'),
 (71, 2, 'Status kasus ID 8 diperbarui menjadi \"Selesai\"', '2025-05-15 01:14:13'),
 (72, 2, 'Status kasus ID 8 diubah menjadi \'Selesai\'', '2025-05-15 01:14:13'),
-(73, 14, 'Status kasus ID 9 diperbarui menjadi \"Diproses\"', '2025-05-19 04:52:48'),
-(74, 14, 'Status kasus ID 9 diubah menjadi \'Diproses\'', '2025-05-19 04:52:48'),
-(75, 14, 'Status kasus ID 10 diperbarui menjadi \"Diproses\"', '2025-05-19 05:49:49'),
-(76, 14, 'Status kasus ID 10 diubah menjadi \'Diproses\'', '2025-05-19 05:49:49'),
-(77, 14, 'Status kasus ID 10 diperbarui menjadi \"Selesai\"', '2025-05-19 05:50:02'),
-(78, 14, 'Status kasus ID 10 diubah menjadi \'Selesai\'', '2025-05-19 05:50:02');
+(73, 2, 'Status kasus ID 9 diperbarui menjadi \"Diproses\"', '2025-05-19 09:39:41'),
+(74, 2, 'Status kasus ID 9 diubah menjadi \'Diproses\'', '2025-05-19 09:39:41');
 
 -- --------------------------------------------------------
 
@@ -334,50 +421,77 @@ INSERT INTO `log_aktivitas` (`id`, `id_pengguna`, `aktivitas`, `waktu`) VALUES
 CREATE TABLE `log_pertanyaan_user` (
   `id` int NOT NULL,
   `user_id` int DEFAULT NULL,
-  `pertanyaan` text NOT NULL,
-  `intent_didapat` varchar(100) DEFAULT NULL,
+  `pertanyaan` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `intent_didapat` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
   `confidence_score` decimal(5,2) DEFAULT NULL,
   `waktu` timestamp NULL DEFAULT CURRENT_TIMESTAMP
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `log_pertanyaan_user`
 --
 
 INSERT INTO `log_pertanyaan_user` (`id`, `user_id`, `pertanyaan`, `intent_didapat`, `confidence_score`, `waktu`) VALUES
-(1, NULL, 'hallo', NULL, 0.00, '2025-05-16 09:16:05'),
-(2, NULL, 'hallo', NULL, 0.00, '2025-05-16 09:16:26'),
-(3, NULL, 'Kontrak kerja', 'kontrak kerja', 1.00, '2025-05-16 11:08:38'),
-(4, NULL, 'Apa itu KDRT', 'kdrt', 0.50, '2025-05-16 11:55:11'),
-(5, NULL, 'KDRT', 'kdrt', 1.00, '2025-05-16 11:55:21'),
-(6, NULL, 'tes', NULL, 0.00, '2025-05-16 13:08:27'),
-(7, NULL, 'tes', NULL, 0.00, '2025-05-16 13:10:03'),
-(8, NULL, 'hallo', NULL, 0.00, '2025-05-16 13:11:50'),
-(9, NULL, 'tes', NULL, 0.00, '2025-05-16 13:16:21'),
-(10, NULL, 'tes', NULL, 0.00, '2025-05-16 13:16:25'),
-(11, NULL, 'tes', NULL, 0.00, '2025-05-16 13:16:36'),
-(12, NULL, 'tes', NULL, 0.00, '2025-05-16 13:17:47'),
-(13, NULL, 'tes', NULL, 0.00, '2025-05-16 13:17:52'),
-(14, NULL, 'tes', NULL, 0.00, '2025-05-16 13:22:39'),
-(15, NULL, 'tes', NULL, 0.00, '2025-05-16 13:22:44'),
-(16, NULL, 'apa itu uu ite', 'ite', 0.57, '2025-05-16 13:26:42'),
-(17, NULL, 'a', NULL, 0.00, '2025-05-16 13:38:50'),
-(18, NULL, 'a', NULL, 0.00, '2025-05-16 13:38:53'),
-(19, NULL, 'sdasdas', NULL, 0.00, '2025-05-16 13:38:58'),
-(20, NULL, 'a', NULL, 0.00, '2025-05-16 13:42:38'),
-(21, NULL, 'a', NULL, 0.00, '2025-05-16 13:42:41'),
-(22, NULL, 'tes', NULL, 0.00, '2025-05-16 13:51:34'),
-(23, NULL, 'aaas', NULL, 0.00, '2025-05-16 14:01:26'),
-(24, NULL, 'apa itu KDRT', 'kdrt', 0.50, '2025-05-16 18:31:50'),
-(25, NULL, 'APA ITU uu ite', 'ite', 0.57, '2025-05-16 18:32:31'),
-(26, NULL, 'hallo', NULL, 0.00, '2025-05-16 18:32:40'),
-(27, NULL, 'hallo', NULL, 0.00, '2025-05-16 20:18:44'),
-(28, NULL, 'perceraian', 'perceraian', 1.00, '2025-05-16 21:26:04'),
-(29, NULL, 'saya punya masalah perceraian', 'perceraian', 0.53, '2025-05-16 21:26:26'),
-(30, NULL, 'berikan solusi nya', NULL, 0.00, '2025-05-16 21:26:35'),
-(31, NULL, 'apa itu uu ite', 'ite', 0.57, '2025-05-17 03:34:23'),
-(32, NULL, 'halo', NULL, 0.00, '2025-05-18 05:05:29'),
-(33, NULL, 'tes', NULL, 0.00, '2025-05-18 05:58:58');
+(1, NULL, 'hallo', NULL, '0.00', '2025-05-16 09:16:05'),
+(2, NULL, 'hallo', NULL, '0.00', '2025-05-16 09:16:26'),
+(3, NULL, 'Kontrak kerja', 'kontrak kerja', '1.00', '2025-05-16 11:08:38'),
+(4, NULL, 'Apa itu KDRT', 'kdrt', '0.50', '2025-05-16 11:55:11'),
+(5, NULL, 'KDRT', 'kdrt', '1.00', '2025-05-16 11:55:21'),
+(6, NULL, 'tes', NULL, '0.00', '2025-05-16 13:08:27'),
+(7, NULL, 'tes', NULL, '0.00', '2025-05-16 13:10:03'),
+(8, NULL, 'hallo', NULL, '0.00', '2025-05-16 13:11:50'),
+(9, NULL, 'tes', NULL, '0.00', '2025-05-16 13:16:21'),
+(10, NULL, 'tes', NULL, '0.00', '2025-05-16 13:16:25'),
+(11, NULL, 'tes', NULL, '0.00', '2025-05-16 13:16:36'),
+(12, NULL, 'tes', NULL, '0.00', '2025-05-16 13:17:47'),
+(13, NULL, 'tes', NULL, '0.00', '2025-05-16 13:17:52'),
+(14, NULL, 'tes', NULL, '0.00', '2025-05-16 13:22:39'),
+(15, NULL, 'tes', NULL, '0.00', '2025-05-16 13:22:44'),
+(16, NULL, 'apa itu uu ite', 'ite', '0.57', '2025-05-16 13:26:42'),
+(17, NULL, 'a', NULL, '0.00', '2025-05-16 13:38:50'),
+(18, NULL, 'a', NULL, '0.00', '2025-05-16 13:38:53'),
+(19, NULL, 'sdasdas', NULL, '0.00', '2025-05-16 13:38:58'),
+(20, NULL, 'a', NULL, '0.00', '2025-05-16 13:42:38'),
+(21, NULL, 'a', NULL, '0.00', '2025-05-16 13:42:41'),
+(22, NULL, 'tes', NULL, '0.00', '2025-05-16 13:51:34'),
+(23, NULL, 'aaas', NULL, '0.00', '2025-05-16 14:01:26'),
+(24, NULL, 'apa itu KDRT', 'kdrt', '0.50', '2025-05-16 18:31:50'),
+(25, NULL, 'APA ITU uu ite', 'ite', '0.57', '2025-05-16 18:32:31'),
+(26, NULL, 'hallo', NULL, '0.00', '2025-05-16 18:32:40'),
+(27, NULL, 'hallo', NULL, '0.00', '2025-05-16 20:18:44'),
+(28, NULL, 'perceraian', 'perceraian', '1.00', '2025-05-16 21:26:04'),
+(29, NULL, 'saya punya masalah perceraian', 'perceraian', '0.53', '2025-05-16 21:26:26'),
+(30, NULL, 'berikan solusi nya', NULL, '0.00', '2025-05-16 21:26:35'),
+(31, NULL, 'apa itu uu ite', 'ite', '0.57', '2025-05-17 03:34:23'),
+(32, NULL, 'hukum', 'warisan', '0.62', '2025-05-18 12:28:09'),
+(33, NULL, 'halo', NULL, '0.00', '2025-05-18 12:28:20'),
+(34, NULL, 'kdrt', 'kdrt', '1.00', '2025-05-19 04:06:05'),
+(35, NULL, 'haki', 'hak cipta', '1.00', '2025-05-19 04:08:28'),
+(36, NULL, 'pidana', NULL, '0.00', '2025-05-19 04:10:30'),
+(37, NULL, 'perdata', NULL, '0.00', '2025-05-19 04:10:36'),
+(38, NULL, 'penipuan', 'penipuan', '1.00', '2025-05-19 04:20:12'),
+(39, NULL, 'apa hukum pidana', 'definisi_hukum_pidana', '0.83', '2025-05-19 04:22:49'),
+(40, NULL, 'perdata', 'definisi_hukum_perdata', '0.67', '2025-05-19 04:22:56'),
+(41, NULL, 'apa cerdas hukum', 'apa_itu_cerdas_hukum', '0.87', '2025-05-19 04:29:15'),
+(42, NULL, 'bagaimana cara pendaftaran advokat', 'cara_daftar_lawyer', '0.61', '2025-05-19 04:37:24'),
+(43, NULL, 'bagaimana verifikasi advokat', 'cara_forgot_password', '0.56', '2025-05-19 04:37:43'),
+(44, NULL, 'bagaimana alur login', 'cara_login', '0.51', '2025-05-19 04:37:58'),
+(45, NULL, 'berita', NULL, '0.00', '2025-05-19 04:38:24'),
+(46, NULL, 'bagaimana cara konsultasi', 'cara_konsultasi', '0.74', '2025-05-19 04:38:51'),
+(47, NULL, 'chat pengacara', 'fitur_chat_pengacara', '1.00', '2025-05-19 04:46:41'),
+(48, NULL, 'profil', 'cara_edit_profil', '0.71', '2025-05-19 04:47:15'),
+(49, NULL, 'kontol', NULL, '0.00', '2025-05-19 05:06:21'),
+(50, NULL, 'ajukan kasus', 'cara_ajukan_kasus', '0.83', '2025-05-19 05:06:28'),
+(51, NULL, 'bagaimana cara login', 'cara_login', '0.64', '2025-05-19 05:06:36'),
+(52, NULL, 'apa yang dimaksud hukum pidana', 'definisi_hukum_pidana', '0.59', '2025-05-19 08:38:51'),
+(53, NULL, 'bagaimana cara konsultasi', 'cara_konsultasi', '0.74', '2025-05-19 08:41:52'),
+(54, NULL, 'halo', NULL, '0.00', '2025-05-20 04:08:55'),
+(55, NULL, 'apa itu hukum?', 'definisi_hukum_adat', '0.83', '2025-05-20 04:16:21'),
+(56, NULL, 'hukum', 'hak_asasi_manusia', '0.73', '2025-05-20 04:16:31'),
+(57, NULL, 'siapa pendiri cerdas hukum', 'pendiri_cerdas_hukum', '0.87', '2025-05-20 04:20:45'),
+(58, NULL, 'cara ajukan kasus', 'cara_ajukan_kasus', '1.00', '2025-05-20 04:24:31'),
+(59, NULL, 'cara konsultasi', 'cara_konsultasi', '1.00', '2025-05-20 04:24:46'),
+(60, NULL, 'cara komsultasi', 'cara_konsultasi', '0.85', '2025-05-20 04:25:03');
 
 -- --------------------------------------------------------
 
@@ -476,12 +590,17 @@ INSERT INTO `messages` (`id`, `sender_id`, `sender_role`, `receiver_id`, `receiv
 (72, 3, 'user', 9, 'pengacara', '', '1747287996055-992464305.png', '2025-05-15 12:46:36', 0),
 (73, 3, 'user', 9, 'pengacara', 'beli nih', NULL, '2025-05-15 12:46:40', 0),
 (74, 9, 'pengacara', 3, 'user', 'malah jualan cina', NULL, '2025-05-15 12:47:05', 0),
-(75, 14, 'user', 2, 'pengacara', 'tes', NULL, '2025-05-19 12:09:13', 0),
-(76, 14, 'user', 1, 'pengacara', 'halo', NULL, '2025-05-20 11:48:45', 0),
-(77, 14, 'user', 1, 'pengacara', 'tes untuk cek', NULL, '2025-05-20 11:50:29', 0),
-(78, 1, 'pengacara', 14, 'user', 'oke berhasil', NULL, '2025-05-20 11:52:44', 0),
-(79, 14, 'user', 1, 'pengacara', 'wrs', NULL, '2025-05-20 12:05:45', 0),
-(80, 1, 'pengacara', 14, 'user', 'sa', NULL, '2025-05-20 12:05:57', 0);
+(75, 2, 'user', 9, 'pengacara', 'malam', NULL, '2025-05-18 19:26:31', 0),
+(76, 9, 'pengacara', 2, 'user', 'yak\\', NULL, '2025-05-18 19:27:04', 0),
+(77, 2, 'user', 9, 'pengacara', 'oke', NULL, '2025-05-18 19:27:12', 0),
+(78, 9, 'pengacara', 2, 'user', '', '1747571329678-735393495.jpeg', '2025-05-18 19:28:49', 0),
+(79, 2, 'user', 9, 'pengacara', 'Selamat malam Pak Andi Prasetyo', NULL, '2025-05-18 20:05:14', 0),
+(80, 2, 'user', 9, 'pengacara', 'Saya Ingin Konsultasi terkait Hak waris', NULL, '2025-05-18 20:05:51', 0),
+(81, 2, 'user', 9, 'pengacara', 'Selamat malam Pak Andi Prasetyo', NULL, '2025-05-18 20:06:31', 0),
+(82, 2, 'user', 9, 'pengacara', 'Saya ingin konsultasi terkait HAKI', NULL, '2025-05-18 20:06:45', 0),
+(83, 9, 'pengacara', 2, 'user', 'Selamat malam Pak Samsudin, tentu saja saya akan membantu menangani kasus Anda', NULL, '2025-05-18 20:09:42', 0),
+(84, 2, 'user', 9, 'pengacara', 'Baik pak, saya akan mengirimkan dokumen untuk bapak analisis lebih lanjut', NULL, '2025-05-18 20:11:38', 0),
+(85, 2, 'user', 9, 'pengacara', '', '1747574019331-911943145.jpg', '2025-05-18 20:13:39', 0);
 
 -- --------------------------------------------------------
 
@@ -547,6 +666,9 @@ CREATE TABLE `pengacara` (
   `linkedin` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
   `instagram` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
   `twitter` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `bank_name` varchar(100) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `account_name` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `account_number` varchar(50) COLLATE utf8mb4_general_ci DEFAULT NULL,
   `resume_cv` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
   `portofolio` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
   `harga_konsultasi` int NOT NULL DEFAULT '50000',
@@ -558,26 +680,27 @@ CREATE TABLE `pengacara` (
 -- Dumping data for table `pengacara`
 --
 
-INSERT INTO `pengacara` (`id`, `nama`, `ktp`, `tanggal_lahir`, `jenis_kelamin`, `alamat`, `email`, `no_hp`, `nomor_induk_advokat`, `universitas`, `pendidikan`, `spesialisasi`, `pengalaman`, `upload_ktp`, `upload_foto`, `upload_kartu_advokat`, `upload_pkpa`, `username`, `password`, `tanggal_daftar`, `linkedin`, `instagram`, `twitter`, `resume_cv`, `portofolio`, `harga_konsultasi`, `reset_token`, `reset_token_expiry`) VALUES
-(1, 'Ahmad Fauzi', '3201010401010001', '1988-05-12', 'Laki-laki', 'Jl. Merdeka No.1 Jakarta', 'azzikrapraqasta1@gmail.com', '081234567890', 'ADV001', 'Universitas Indonesia', 'S1 Hukum', 'Hukum Perdata', 5, 'ktp1.png', '1747075461123-aguss.png', 'kartu1.png', 'pkpa1.png', 'ahmadf', 'root', '2025-04-20 20:03:57', NULL, NULL, NULL, NULL, NULL, 50000, NULL, NULL),
-(2, 'Siti Aminah', '3201010401010002', '1990-07-23', 'Perempuan', 'Jl. Sudirman No.2 Jakarta', 'siti.aminah@example.com', '081234567891', 'ADV002', 'Universitas Gadjah Mada', 'S2 Hukum', 'Hukum Pidana', 8, 'ktp2.png', '1746589437463-Siti.png', 'kartu2.png', 'pkpa2.png', 'sitia', 'hashedpassword2', '2025-04-20 20:03:57', NULL, NULL, NULL, NULL, NULL, 50000, '23BA92', '2025-05-14 13:03:19'),
-(3, 'Budi Santoso', '3201010401010003', '1985-03-11', 'Laki-laki', 'Jl. Thamrin No.3 Jakarta', 'budi.santoso@example.com', '081234567892', 'ADV003', 'Universitas Airlangga', 'S1 Hukum', 'Hukum Bisnis dan Perusahaan', 10, 'ktp3.png', '1746589565797-Budi.png', 'kartu3.png', 'pkpa3.png', 'budis', 'hashedpassword3', '2025-04-20 20:03:57', NULL, NULL, NULL, NULL, NULL, 50000, NULL, NULL),
-(4, 'Rina Kusuma', '3201010401010004', '1992-08-05', 'Perempuan', 'Jl. Gatot Subroto No.4 Jakarta', 'rina.kusuma@example.com', '081234567893', 'ADV004', 'Universitas Padjajaran', 'S1 Hukum', 'Hukum Perdata', 4, 'ktp4.png', '1746589603259-rina.png', 'kartu4.png', 'pkpa4.png', 'rinak', 'hashedpassword4', '2025-04-20 20:03:57', NULL, NULL, NULL, NULL, NULL, 50000, NULL, NULL),
-(5, 'Dedi Kurniawan', '3201010401010005', '1987-10-19', 'Laki-laki', 'Jl. Rasuna Said No.5 Jakarta', 'dedi.kurniawan@example.com', '081234567894', 'ADV005', 'Universitas Islam Indonesia', 'S1 Hukum', 'Hukum Perdata', 7, 'ktp5.png', '1746626478988-dedi.png', 'kartu5.png', 'pkpa5.png', 'dedik', 'hashedpassword5', '2025-04-20 20:03:57', NULL, NULL, NULL, NULL, NULL, 50000, NULL, NULL),
-(6, 'Nina Kartika', '3201010401010006', '1993-11-25', 'Perempuan', 'Jl. Casablanca No.6 Jakarta', 'nina.kartika@example.com', '081234567895', 'ADV006', 'Universitas Trisakti', 'S2 Hukum', 'Hukum Pidana', 6, 'ktp6.png', '1746626533725-nina.png', 'kartu6.png', 'pkpa6.png', 'ninak', 'hashedpassword6', '2025-04-20 20:03:57', NULL, NULL, NULL, NULL, NULL, 50000, NULL, NULL),
-(7, 'Yusuf Hidayat', '3201010401010007', '1984-02-10', 'Laki-laki', 'Jl. Kuningan No.7 Jakarta', 'yusuf.hidayat@example.com', '081234567896', 'ADV007', 'Universitas Muhammadiyah Jakarta', 'S1 Hukum', 'Hukum Bisnis dan Perusahaan', 12, 'ktp7.png', '1746628216720-yusuf.png', 'kartu7.png', 'pkpa7.png', 'yusufh', 'hashedpassword7', '2025-04-20 20:03:57', NULL, NULL, NULL, NULL, NULL, 50000, NULL, NULL),
-(8, 'Eka Putri', '3201010401010008', '1995-09-15', 'Perempuan', 'Jl. Tebet No.8 Jakarta', 'eka.putri@example.com', '081234567897', 'ADV008', 'Universitas Pelita Harapan', 'S1 Hukum', 'Hukum Keluarga', 3, 'ktp8.png', '1746628484534-eka.png', 'kartu8.png', 'pkpa8.png', 'ekap', 'hashedpassword8', '2025-04-20 20:03:57', NULL, NULL, NULL, NULL, NULL, 50000, NULL, NULL),
-(9, 'Andi Prasetyo', '3201010401010009', '1986-01-30', 'Laki-laki', 'Jl. Kalibata No.9 Jakarta', 'andi.prasetyo@example.com', '081234567898', 'ADV009', 'Universitas Diponegoro', 'S2 Hukum', 'Hukum HAKI', 9, 'ktp9.png', '1746626753680-andi.png', 'kartu9.png', 'pkpa9.png', 'andip', 'hashedpassword9', '2025-04-20 20:03:57', NULL, NULL, NULL, NULL, NULL, 50000, NULL, NULL),
-(10, 'Lia Rahmawati', '3201010401010010', '1991-04-22', 'Perempuan', 'Jl. Pasar Minggu No.10 Jakarta', 'lia.rahmawati@example.com', '081234567899', 'ADV010', 'Universitas Parahyangan', 'S1 Hukum', 'Hukum Perdata', 5, 'ktp10.png', '1746626854298-lia.png', 'kartu10.png', 'pkpa10.png', 'liar', 'hashedpassword10', '2025-04-20 20:03:57', NULL, NULL, NULL, NULL, NULL, 50000, NULL, NULL),
-(11, 'Dian Syafitri', '3201010401010011', '1990-06-16', 'Perempuan', 'Jl. Antasari No.11 Jakarta', 'dian.syafitri@example.com', '081234567800', 'ADV011', 'Universitas Andalas', 'S1 Hukum', 'Hukum Keluarga', 6, 'ktp11.png', '1746626891931-dian.png', 'kartu11.png', 'pkpa11.png', 'dians', 'hashedpassword11', '2025-04-20 20:03:57', NULL, NULL, NULL, NULL, NULL, 50000, NULL, NULL),
-(12, 'Fajar Maulana', '3201010401010012', '1983-12-08', 'Laki-laki', 'Jl. Mampang No.12 Jakarta', 'fajar.maulana@example.com', '081234567801', 'ADV012', 'Universitas Brawijaya', 'S1 Hukum', 'Hukum Bisnis dan Perusahaan', 14, 'ktp12.png', '1746626929858-fajar.png', 'kartu12.png', 'pkpa12.png', 'fajarm', 'hashedpassword12', '2025-04-20 20:03:57', NULL, NULL, NULL, NULL, NULL, 50000, NULL, NULL),
-(13, 'Mira Kartini', '3201010401010013', '1994-05-28', 'Perempuan', 'Jl. Cilandak No.13 Jakarta', 'mira.kartini@example.com', '081234567802', 'ADV013', 'Universitas Esa Unggul', 'S1 Hukum', 'Hukum Perdata', 2, 'ktp13.png', '1746626960953-mira.png', 'kartu13.png', 'pkpa13.png', 'mirak', 'hashedpassword13', '2025-04-20 20:03:57', NULL, NULL, NULL, NULL, NULL, 50000, NULL, NULL),
-(14, 'Rudi Hartono', '3201010401010014', '1989-08-30', 'Laki-laki', 'Jl. Prapanca No.14 Jakarta', 'rudi.hartono@example.com', '081234567803', 'ADV014', 'Universitas Atma Jaya', 'S1 Hukum', 'Hukum Pidana', 11, 'ktp14.png', '1746627617939-Rudi.png', 'kartu14.png', 'pkpa14.png', 'rudih', 'hashedpassword14', '2025-04-20 20:03:57', NULL, NULL, NULL, NULL, NULL, 50000, NULL, NULL),
-(15, 'Desi Anggraini', '3201010401010015', '1993-03-12', 'Perempuan', 'Jl. Cipete No.15 Jakarta', 'desi.anggraini@example.com', '081234567804', 'ADV015', 'Universitas Pancasila', 'S1 Hukum', 'Hukum Bisnis dan Perusahaan', 4, 'ktp15.png', '1746627665072-desi.png', 'kartu15.png', 'pkpa15.png', 'desia', 'hashedpassword15', '2025-04-20 20:03:57', NULL, NULL, NULL, NULL, NULL, 50000, NULL, NULL),
-(16, 'Rahmat Hidayat', '3201010401010016', '1982-11-20', 'Laki-laki', 'Jl. Kemang No.16 Jakarta', 'rahmat.hidayat@example.com', '081234567805', 'ADV016', 'Universitas Sultan Agung', 'S1 Hukum', 'Hukum Perdata', 15, 'ktp16.png', '1746627754050-rahmat.jpeg', 'kartu16.png', 'pkpa16.png', 'rahmath', 'hashedpassword16', '2025-04-20 20:03:57', NULL, NULL, NULL, NULL, NULL, 50000, NULL, NULL),
-(17, 'Louis', '3201010401010017', '1995-02-17', 'Perempuan', 'Jl. Lenteng Agung No.17 Jakarta', 'louis@gmail.com', '081234567806', 'ADV017', 'Universitas Mercu Buana', 'S2 Hukum', 'Hukum Perdata', 4, 'ktp17.png', '1746627792377-louis.png', 'kartu17.png', 'pkpa17.png', 'liliss', 'hashedpassword17', '2025-04-20 20:03:57', NULL, NULL, NULL, NULL, NULL, 50000, NULL, NULL),
-(19, 'Fitri Yuliani', '3201010401010019', '1992-06-14', 'Perempuan', 'Jl. Pasar Rebo No.19 Jakarta', 'fitri.yuliani@example.com', '081234567808', 'ADV019', 'Universitas Lampung', 'S1 Hukum', 'Hukum Keluarga', 5, 'ktp19.png', '1746627913183-fitrii.png', 'kartu19.png', 'pkpa19.png', 'fitriy', 'hashedpassword19', '2025-04-20 20:03:57', NULL, NULL, NULL, NULL, NULL, 50000, NULL, NULL),
-(20, 'Agus Saputra', '3201010401010020', '1988-01-01', 'Laki-laki', 'Jl. Condet No.20 Jakarta', 'agus.saputra@example.com', '081234567809', 'ADV020', 'Universitas Mulawarman', 'S1 Hukum', 'Hukum Ketenagakerjaan', 8, 'ktp20.png', '1746591929001-agus.png', 'kartu20.png', 'pkpa20.png', 'aguss', 'hashedpassword20', '2025-04-20 20:03:57', NULL, NULL, NULL, NULL, NULL, 50000, NULL, NULL);
+INSERT INTO `pengacara` (`id`, `nama`, `ktp`, `tanggal_lahir`, `jenis_kelamin`, `alamat`, `email`, `no_hp`, `nomor_induk_advokat`, `universitas`, `pendidikan`, `spesialisasi`, `pengalaman`, `upload_ktp`, `upload_foto`, `upload_kartu_advokat`, `upload_pkpa`, `username`, `password`, `tanggal_daftar`, `linkedin`, `instagram`, `twitter`, `bank_name`, `account_name`, `account_number`, `resume_cv`, `portofolio`, `harga_konsultasi`, `reset_token`, `reset_token_expiry`) VALUES
+(1, 'Ahmad Fauzi', '3201010401010001', '1988-05-12', 'Laki-laki', 'Jl. Merdeka No.1 Jakarta', 'azzikrapraqasta1@gmail.com', '081234567890', 'ADV001', 'Universitas Indonesia', 'S1 Hukum', 'Hukum Perdata', 5, 'ktp1.png', '1747075461123-aguss.png', 'kartu1.png', 'pkpa1.png', 'ahmadf', 'root', '2025-04-20 20:03:57', NULL, NULL, NULL, 'Bank BCA', 'Ahmadq', '821038123123', NULL, NULL, 50000, NULL, NULL),
+(2, 'Siti Aminah', '3201010401010002', '1990-07-23', 'Perempuan', 'Jl. Sudirman No.2 Jakarta', 'siti.aminah@example.com', '081234567891', 'ADV002', 'Universitas Gadjah Mada', 'S2 Hukum', 'Hukum Pidana', 8, 'ktp2.png', '1746589437463-Siti.png', 'kartu2.png', 'pkpa2.png', 'sitia', 'hashedpassword2', '2025-04-20 20:03:57', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 50000, '23BA92', '2025-05-14 13:03:19'),
+(3, 'Budi Santoso', '3201010401010003', '1985-03-11', 'Laki-laki', 'Jl. Thamrin No.3 Jakarta', 'budi.santoso@example.com', '081234567892', 'ADV003', 'Universitas Airlangga', 'S1 Hukum', 'Hukum Bisnis dan Perusahaan', 10, 'ktp3.png', '1746589565797-Budi.png', 'kartu3.png', 'pkpa3.png', 'budis', 'hashedpassword3', '2025-04-20 20:03:57', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 50000, NULL, NULL),
+(4, 'Rina Kusuma', '3201010401010004', '1992-08-05', 'Perempuan', 'Jl. Gatot Subroto No.4 Jakarta', 'rina.kusuma@example.com', '081234567893', 'ADV004', 'Universitas Padjajaran', 'S1 Hukum', 'Hukum Perdata', 4, 'ktp4.png', '1746589603259-rina.png', 'kartu4.png', 'pkpa4.png', 'rinak', 'hashedpassword4', '2025-04-20 20:03:57', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 50000, NULL, NULL),
+(5, 'Dedi Kurniawan', '3201010401010005', '1987-10-19', 'Laki-laki', 'Jl. Rasuna Said No.5 Jakarta', 'dedi.kurniawan@example.com', '081234567894', 'ADV005', 'Universitas Islam Indonesia', 'S1 Hukum', 'Hukum Perdata', 7, 'ktp5.png', '1746626478988-dedi.png', 'kartu5.png', 'pkpa5.png', 'dedik', 'hashedpassword5', '2025-04-20 20:03:57', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 50000, NULL, NULL),
+(6, 'Nina Kartika', '3201010401010006', '1993-11-25', 'Perempuan', 'Jl. Casablanca No.6 Jakarta', 'nina.kartika@example.com', '081234567895', 'ADV006', 'Universitas Trisakti', 'S2 Hukum', 'Hukum Pidana', 6, 'ktp6.png', '1746626533725-nina.png', 'kartu6.png', 'pkpa6.png', 'ninak', 'hashedpassword6', '2025-04-20 20:03:57', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 50000, NULL, NULL),
+(7, 'Yusuf Hidayat', '3201010401010007', '1984-02-10', 'Laki-laki', 'Jl. Kuningan No.7 Jakarta', 'yusuf.hidayat@example.com', '081234567896', 'ADV007', 'Universitas Muhammadiyah Jakarta', 'S1 Hukum', 'Hukum Bisnis dan Perusahaan', 12, 'ktp7.png', '1746628216720-yusuf.png', 'kartu7.png', 'pkpa7.png', 'yusufh', 'hashedpassword7', '2025-04-20 20:03:57', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 50000, NULL, NULL),
+(8, 'Eka Putri', '3201010401010008', '1995-09-15', 'Perempuan', 'Jl. Tebet No.8 Jakarta', 'eka.putri@example.com', '081234567897', 'ADV008', 'Universitas Pelita Harapan', 'S1 Hukum', 'Hukum Keluarga', 3, 'ktp8.png', '1746628484534-eka.png', 'kartu8.png', 'pkpa8.png', 'ekap', 'hashedpassword8', '2025-04-20 20:03:57', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 50000, NULL, NULL),
+(9, 'Andi Prasetyo', '3201010401010009', '1986-01-30', 'Laki-laki', 'Jl. Kalibata No.9 Jakarta', 'andi.prasetyo@example.com', '081234567898', 'ADV009', 'Universitas Diponegoro', 'S2 Hukum', 'Hukum HAKI', 9, 'ktp9.png', '1746626753680-andi.png', 'kartu9.png', 'pkpa9.png', 'andip', 'hashedpassword9', '2025-04-20 20:03:57', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 50000, NULL, NULL),
+(10, 'Lia Rahmawati', '3201010401010010', '1991-04-22', 'Perempuan', 'Jl. Pasar Minggu No.10 Jakarta', 'lia.rahmawati@example.com', '081234567899', 'ADV010', 'Universitas Parahyangan', 'S1 Hukum', 'Hukum Perdata', 5, 'ktp10.png', '1746626854298-lia.png', 'kartu10.png', 'pkpa10.png', 'liar', 'hashedpassword10', '2025-04-20 20:03:57', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 50000, NULL, NULL),
+(11, 'Dian Syafitri', '3201010401010011', '1990-06-16', 'Perempuan', 'Jl. Antasari No.11 Jakarta', 'dian.syafitri@example.com', '081234567800', 'ADV011', 'Universitas Andalas', 'S1 Hukum', 'Hukum Keluarga', 6, 'ktp11.png', '1746626891931-dian.png', 'kartu11.png', 'pkpa11.png', 'dians', 'hashedpassword11', '2025-04-20 20:03:57', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 50000, NULL, NULL),
+(12, 'Fajar Maulana', '3201010401010012', '1983-12-08', 'Laki-laki', 'Jl. Mampang No.12 Jakarta', 'fajar.maulana@example.com', '081234567801', 'ADV012', 'Universitas Brawijaya', 'S1 Hukum', 'Hukum Bisnis dan Perusahaan', 14, 'ktp12.png', '1746626929858-fajar.png', 'kartu12.png', 'pkpa12.png', 'fajarm', 'hashedpassword12', '2025-04-20 20:03:57', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 50000, NULL, NULL),
+(13, 'Mira Kartini', '3201010401010013', '1994-05-28', 'Perempuan', 'Jl. Cilandak No.13 Jakarta', 'mira.kartini@example.com', '081234567802', 'ADV013', 'Universitas Esa Unggul', 'S1 Hukum', 'Hukum Perdata', 2, 'ktp13.png', '1746626960953-mira.png', 'kartu13.png', 'pkpa13.png', 'mirak', 'hashedpassword13', '2025-04-20 20:03:57', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 50000, NULL, NULL),
+(14, 'Rudi Hartono', '3201010401010014', '1989-08-30', 'Laki-laki', 'Jl. Prapanca No.14 Jakarta', 'rudi.hartono@example.com', '081234567803', 'ADV014', 'Universitas Atma Jaya', 'S1 Hukum', 'Hukum Pidana', 11, 'ktp14.png', '1746627617939-Rudi.png', 'kartu14.png', 'pkpa14.png', 'rudih', 'hashedpassword14', '2025-04-20 20:03:57', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 50000, NULL, NULL),
+(15, 'Desi Anggraini', '3201010401010015', '1993-03-12', 'Perempuan', 'Jl. Cipete No.15 Jakarta', 'desi.anggraini@example.com', '081234567804', 'ADV015', 'Universitas Pancasila', 'S1 Hukum', 'Hukum Bisnis dan Perusahaan', 4, 'ktp15.png', '1746627665072-desi.png', 'kartu15.png', 'pkpa15.png', 'desia', 'hashedpassword15', '2025-04-20 20:03:57', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 50000, NULL, NULL),
+(16, 'Rahmat Hidayat', '3201010401010016', '1982-11-20', 'Laki-laki', 'Jl. Kemang No.16 Jakarta', 'rahmat.hidayat@example.com', '081234567805', 'ADV016', 'Universitas Sultan Agung', 'S1 Hukum', 'Hukum Perdata', 15, 'ktp16.png', '1746627754050-rahmat.jpeg', 'kartu16.png', 'pkpa16.png', 'rahmath', 'hashedpassword16', '2025-04-20 20:03:57', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 50000, NULL, NULL),
+(17, 'Louis', '3201010401010017', '1995-02-17', 'Perempuan', 'Jl. Lenteng Agung No.17 Jakarta', 'louis@gmail.com', '081234567806', 'ADV017', 'Universitas Mercu Buana', 'S2 Hukum', 'Hukum Perdata', 4, 'ktp17.png', '1746627792377-louis.png', 'kartu17.png', 'pkpa17.png', 'liliss', 'hashedpassword17', '2025-04-20 20:03:57', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 50000, NULL, NULL),
+(19, 'Fitri Yuliani', '3201010401010019', '1992-06-14', 'Perempuan', 'Jl. Pasar Rebo No.19 Jakarta', 'fitri.yuliani@example.com', '081234567808', 'ADV019', 'Universitas Lampung', 'S1 Hukum', 'Hukum Keluarga', 5, 'ktp19.png', '1746627913183-fitrii.png', 'kartu19.png', 'pkpa19.png', 'fitriy', 'hashedpassword19', '2025-04-20 20:03:57', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 50000, NULL, NULL),
+(20, 'Agus Saputra', '3201010401010020', '1988-01-01', 'Laki-laki', 'Jl. Condet No.20 Jakarta', 'agus.saputra@example.com', '081234567809', 'ADV020', 'Universitas Mulawarman', 'S1 Hukum', 'Hukum Ketenagakerjaan', 8, 'ktp20.png', '1746591929001-agus.png', 'kartu20.png', 'pkpa20.png', 'aguss', 'hashedpassword20', '2025-04-20 20:03:57', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 50000, NULL, NULL),
+(31, 'Ahmad Fauzi', '2222', '0222-02-22', 'Laki-laki', 'Jl. Merdeka No.1 Jakarta', 'fajri30.r@gmail.com', '2222224', '222223', 'Universitas Indonesia 3', 'S1 Hukum', 'Hukum perdata', 11, '1747330218227-Lawyer Login dan Register.png', '1747330218229-Lawyer Login dan Register.png', '1747330218230-Lawyer Login dan Register.png', '1747330218232-Lawyer Login dan Register.png', 'admin@cerdashukum.com', '222', '2025-05-16 00:35:14', 'https://x.com/', 'https://x.com/', 'https://x.com/', NULL, NULL, NULL, '1747330218233-Lawyer Login dan Register.png', '1747330218235-Lawyer Login dan Register.png', 50000, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -654,8 +777,8 @@ CREATE TABLE `users` (
 
 INSERT INTO `users` (`id`, `name`, `email`, `phone`, `password`, `gender`, `birthdate`, `created_at`, `address`, `photo`, `reset_token`, `reset_token_expiry`) VALUES
 (1, 'zikra', 'termiteindonesia@gmail.com', '089918181819', 'ayam', 'L', '1888-02-01', '2025-03-20 07:09:05', 'Jakarta Barat', '1747336247911.jpg', NULL, NULL),
-(2, 'fajri', 'fajri30.r@gmail.com', '085706125411', '12345678', 'L', '1988-03-01', '2025-03-20 07:13:06', 'Kebon Jeruk', NULL, 'B44A43', '2025-05-14 13:03:50'),
-(3, 'vanes', 'vanes@gmail.com', '08928188192', '12345678', 'L', '2025-10-03', '2025-03-20 07:26:06', NULL, NULL, NULL, NULL),
+(2, 'Gus samsudin', 'fajri30.r@gmail.com', '085706125411', '12345678', 'L', '1988-03-01', '2025-03-20 07:13:06', 'Kebon Jeruk', '1747573091381.jpg', 'F635FE', '2025-05-18 19:39:31'),
+(3, 'Vanes Lampung', 'vanes@gmail.com', '08928188192', '12345678', 'L', '2025-10-03', '2025-03-20 07:26:06', '', NULL, NULL, NULL),
 (4, 'human', 'human@gmail.com', '1234156161718', '12345678', 'L', '1888-01-01', '2025-03-20 07:32:57', NULL, NULL, NULL, NULL),
 (5, 'newest', 'newest@gmail.com', '09891817182', '12345678', 'P', '2000-10-10', '2025-03-20 08:48:30', NULL, NULL, NULL, NULL),
 (6, 'baru', 'baru@gmail.com', '12345678', '12345678', 'P', '2025-03-20', '2025-03-20 09:08:23', NULL, NULL, NULL, NULL),
@@ -670,8 +793,7 @@ INSERT INTO `users` (`id`, `name`, `email`, `phone`, `password`, `gender`, `birt
 (16, 'manusia', 'manusia@gmail.com', '089967372738', '222', 'L', '2025-05-01', '2025-04-15 08:23:51', NULL, NULL, NULL, NULL),
 (17, 'ihsan', 'ihsan@gmail.com', '8789907788', '333', 'L', '2025-04-15', '2025-04-15 08:26:36', NULL, NULL, NULL, NULL),
 (18, 'Ayunnie', 'sukagelay299@gmail.com', '0857061254118', '222', 'P', '2222-02-22', '2025-04-15 08:28:08', NULL, NULL, NULL, NULL),
-(19, 'ihsan', 'sukagelay9@gmail.com', '0857061254113', '222', 'P', '0002-02-22', '2025-04-15 08:29:35', NULL, NULL, NULL, NULL),
-(20, 'Vannes vernando ', 'vns3@gmail.com', '085781086148', '222', 'L', '2222-02-22', '2025-05-17 17:12:20', NULL, NULL, NULL, NULL);
+(19, 'ihsan', 'sukagelay9@gmail.com', '0857061254113', '222', 'P', '0002-02-22', '2025-04-15 08:29:35', NULL, NULL, NULL, NULL);
 
 --
 -- Indexes for dumped tables
@@ -800,13 +922,13 @@ ALTER TABLE `admin`
 -- AUTO_INCREMENT for table `ajukan_kasus`
 --
 ALTER TABLE `ajukan_kasus`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 
 --
 -- AUTO_INCREMENT for table `artikel`
 --
 ALTER TABLE `artikel`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=39;
 
 --
 -- AUTO_INCREMENT for table `artikel_berita`
@@ -818,7 +940,7 @@ ALTER TABLE `artikel_berita`
 -- AUTO_INCREMENT for table `faq_hukum`
 --
 ALTER TABLE `faq_hukum`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=104;
 
 --
 -- AUTO_INCREMENT for table `konsultasi`
@@ -830,31 +952,31 @@ ALTER TABLE `konsultasi`
 -- AUTO_INCREMENT for table `konsultasi_session`
 --
 ALTER TABLE `konsultasi_session`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `log_aktivitas`
 --
 ALTER TABLE `log_aktivitas`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=79;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=75;
 
 --
 -- AUTO_INCREMENT for table `log_pertanyaan_user`
 --
 ALTER TABLE `log_pertanyaan_user`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=34;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=61;
 
 --
 -- AUTO_INCREMENT for table `messages`
 --
 ALTER TABLE `messages`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=81;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=86;
 
 --
 -- AUTO_INCREMENT for table `pendaftaran_pengacara`
 --
 ALTER TABLE `pendaftaran_pengacara`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- AUTO_INCREMENT for table `pengacara`
@@ -884,7 +1006,7 @@ ALTER TABLE `transaksi`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 
 --
 -- Constraints for dumped tables
