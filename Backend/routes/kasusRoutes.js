@@ -45,4 +45,6 @@ router.get('/kasus/riwayat/:userId', kasusController.getRiwayatKasusByUser);
 // Ajukan kasus (fungsi lama)
 router.post('/ajukan-kasus', upload.single('bukti'), kasusController.ajukanKasus);
 
+router.get("/riwayat/pengacara/:pengacaraId", kasusController.getRiwayatKasusByPengacara);
+
 module.exports = router;

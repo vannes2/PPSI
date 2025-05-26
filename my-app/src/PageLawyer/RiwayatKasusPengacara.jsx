@@ -1,13 +1,13 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import "../CSS_Lawyer/RiwayatKasusPengacara.css"; // CSS khusus pengacara
+import "../CSS_Lawyer/RiwayatKasusPengacara.css";
 import HeaderLawyer from "../components/HeaderLawyer";
 import Footer from "../components/Footer";
 
 const RiwayatKasusPengacara = () => {
   const [kasusList, setKasusList] = useState([]);
   const [konsultasiList, setKonsultasiList] = useState([]);
-  const user = JSON.parse(localStorage.getItem("user")); // diasumsikan pengacara login disini
+  const user = JSON.parse(localStorage.getItem("user"));
   const pengacaraId = user?.id;
 
   useEffect(() => {
@@ -16,19 +16,17 @@ const RiwayatKasusPengacara = () => {
       fetch(`http://localhost:5000/api/kasus/riwayat/pengacara/${pengacaraId}`)
         .then((res) => res.json())
         .then((data) => {
-          console.log("Riwayat kasus pengacara:", data);
           setKasusList(data);
         })
-        .catch((err) => console.error("Gagal mengambil data riwayat kasus pengacara:", err));
+        .catch((err) => console.error("Gagal mengambil riwayat kasus pengacara:", err));
 
       // Fetch riwayat konsultasi pengacara
       fetch(`http://localhost:5000/api/konsultasi_session/riwayat/pengacara/${pengacaraId}`)
         .then((res) => res.json())
         .then((data) => {
-          console.log("Riwayat konsultasi pengacara:", data);
           setKonsultasiList(data);
         })
-        .catch((err) => console.error("Gagal mengambil data riwayat konsultasi pengacara:", err));
+        .catch((err) => console.error("Gagal mengambil riwayat konsultasi pengacara:", err));
     }
   }, [pengacaraId]);
 
@@ -37,15 +35,11 @@ const RiwayatKasusPengacara = () => {
       ? `http://localhost:5000/uploads/${foto}`
       : null;
 
-  const isFotoDefault = (foto) => !foto || foto === "default-profile.png";
-
-  const renderStatusKasus = (kasus) => {
-    if (!kasus.nama_user) {
-      return <span className="status-belum-diambil-user">Belum diambil User</span>;
-    }
+  const renderStatus = (item) => {
+    if (!item.nama_user) return <span className="status-belum-diambil-user">Belum diambil User</span>;
     return (
-      <span className={`status-${(kasus.status || "").toLowerCase() || "default"}`}>
-        {kasus.status || "Tidak Diketahui"}
+      <span className={`status-${(item.status || "").toLowerCase() || "default"}`}>
+        {item.status || "Tidak Diketahui"}
       </span>
     );
   };
@@ -72,30 +66,18 @@ const RiwayatKasusPengacara = () => {
                     )}
                   </div>
                   <div className="riwayat-card-content">
-                    <p>
-                      <strong>Nama User:</strong> {session.nama_user || "Belum ada user"}
-                    </p>
-                    <p>
-                      <strong>Harga Konsultasi:</strong> Rp {session.harga_konsultasi?.toLocaleString("id-ID")}
-                    </p>
-                    <p>
-                      <strong>Waktu Mulai:</strong> {new Date(session.start_time).toLocaleString()}
-                    </p>
-                    <p>
-                      <strong>Durasi (menit):</strong> {session.duration}
-                    </p>
-                    <p>
-                      <strong>Status:</strong> {renderStatusKasus(session)}
-                    </p>
+                    <p><strong>Nama User:</strong> {session.nama_user || "Belum ada user"}</p>
+                    <p><strong>Biaya:</strong> Rp {session.biaya?.toLocaleString("id-ID")}</p>
+                    <p><strong>Waktu Mulai:</strong> {new Date(session.start_time).toLocaleString()}</p>
+                    <p><strong>Durasi (menit):</strong> {session.duration}</p>
+                    <p><strong>Status:</strong> {renderStatus(session)}</p>
                     <div className="btn-group">
                       {session.id_user ? (
                         <Link to={`/user/detail/${session.id_user}`}>
                           <button className="btn detail-btn">Detail</button>
                         </Link>
                       ) : (
-                        <button className="btn detail-btn" disabled>
-                          Detail
-                        </button>
+                        <button className="btn detail-btn" disabled>Detail</button>
                       )}
                       <Link to={`/chat/user/${session.id_user}`}>
                         <button className="btn history-btn">Riwayat</button>
@@ -128,33 +110,20 @@ const RiwayatKasusPengacara = () => {
                     )}
                   </div>
                   <div className="riwayat-card-content">
-                    <p>
-                      <strong>Nama User:</strong> {kasus.nama_user || "Belum ada user"}
-                    </p>
-                    <p>
-                      <strong>Harga Konsultasi:</strong> Rp {kasus.harga_konsultasi?.toLocaleString("id-ID")}
-                    </p>
-                    <p>
-                      <strong>Jenis Pengerjaan:</strong> {kasus.jenis_pengerjaan}
-                    </p>
-                    <p>
-                      <strong>Area Praktik:</strong> {kasus.area_praktik}
-                    </p>
-                    <p>
-                      <strong>Estimasi Selesai:</strong> {new Date(kasus.estimasi_selesai).toLocaleDateString()}
-                    </p>
-                    <p>
-                      <strong>Status:</strong> {renderStatusKasus(kasus)}
-                    </p>
+                    <p><strong>Nama User:</strong> {kasus.nama_user || "Belum ada user"}</p>
+                    <p><strong>Biaya Minimal:</strong> Rp {kasus.biaya_min?.toLocaleString("id-ID")}</p>
+                    <p><strong>Biaya Maksimal:</strong> Rp {kasus.biaya_max?.toLocaleString("id-ID")}</p>
+                    <p><strong>Jenis Pengerjaan:</strong> {kasus.jenis_pengerjaan}</p>
+                    <p><strong>Area Praktik:</strong> {kasus.area_praktik}</p>
+                    <p><strong>Estimasi Selesai:</strong> {new Date(kasus.estimasi_selesai).toLocaleDateString()}</p>
+                    <p><strong>Status:</strong> {renderStatus(kasus)}</p>
                     <div className="btn-group">
                       {kasus.id_user ? (
                         <Link to={`/user/detail/${kasus.id_user}`}>
                           <button className="btn detail-btn">Detail</button>
                         </Link>
                       ) : (
-                        <button className="btn detail-btn" disabled>
-                          Detail
-                        </button>
+                        <button className="btn detail-btn" disabled>Detail</button>
                       )}
                       <Link to={`/DaftarKasus`}>
                         <button className="btn history-btn">Riwayat</button>
@@ -168,10 +137,7 @@ const RiwayatKasusPengacara = () => {
         </section>
       </div>
 
-      <br />
-      <br />
-      <br />
-      <br />
+      <br /><br /><br /><br />
       <div className="footer-separator"></div>
       <Footer />
     </div>

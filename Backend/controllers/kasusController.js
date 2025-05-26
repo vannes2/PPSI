@@ -196,3 +196,28 @@ exports.getRiwayatKasusByUser = (req, res) => {
     res.json(results);
   });
 };
+
+
+exports.getRiwayatKasusByPengacara = (req, res) => {
+  const pengacaraId = req.params.pengacaraId;
+
+  const sql = `
+    SELECT ak.*, 
+           p.id AS id_pengacara,
+           p.nama AS nama_pengacara, 
+           p.upload_foto AS foto_pengacara,
+           p.harga_konsultasi
+    FROM ajukan_kasus ak
+    LEFT JOIN pengacara p ON ak.lawyer_id = p.id
+    WHERE ak.lawyer_id = ?
+    ORDER BY ak.estimasi_selesai DESC
+  `;
+
+  db.query(sql, [pengacaraId], (err, results) => {
+    if (err) {
+      console.error("Error fetching riwayat kasus pengacara:", err);
+      return res.status(500).json({ message: "Gagal mengambil data riwayat kasus pengacara" });
+    }
+    res.json(results);
+  });
+};
