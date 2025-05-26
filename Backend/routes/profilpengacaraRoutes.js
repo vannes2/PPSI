@@ -18,8 +18,10 @@ const storage = multer.diskStorage({
 
 const upload = multer({ storage });
 
+// Endpoint ambil semua pengacara
 router.get("/profilpengacara", getAllPengacara);
+
+// Endpoint upload/update foto pengacara
 router.put("/profilpengacara/upload/:id", upload.single("foto"), uploadFotoPengacara);
 
 module.exports = router;
-
