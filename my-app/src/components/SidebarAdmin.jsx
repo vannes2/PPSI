@@ -141,12 +141,13 @@ const SidebarAdmin = ({ activeTab, onTabChange }) => {
               {!isCollapsed && "Artikel Berita"}
             </Link>
           </li>
-          <li className={activeTab === "transaksi" ? "nav-active" : ""}>
-            <Link to="/TransaksiKeuangan" onClick={() => handleClickAndClose("transaksi")}>
-              <HiOutlineCurrencyDollar className="icon-spacing" />
-              {!isCollapsed && "Transaksi Keuangan"}
-            </Link>
-          </li>
+          <li className={activeTab === "transaksiKeuangan" ? "nav-active" : ""}>
+  <Link to="/TransaksiKeuangan" onClick={() => handleClickAndClose("transaksiKeuangan")}>
+    <HiOutlineCurrencyDollar className="icon-spacing" />
+    {!isCollapsed && "Transaksi Keuangan"}
+  </Link>
+</li>
+
           <li className={activeTab === "faq" ? "nav-active" : ""}>
             <Link to="/faq" onClick={() => handleClickAndClose("faq")}>
               <HiOutlineQuestionMarkCircle className="icon-spacing" />

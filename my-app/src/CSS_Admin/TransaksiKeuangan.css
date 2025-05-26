@@ -1,0 +1,130 @@
+.admin-layout-wrapper {
+    display: flex;
+    min-height: 100vh;
+    background-color: #f9f9f9;
+  }
+  
+  .transaksi-container {
+    flex: 1;
+    padding: 40px;
+    background-color: #f9f9f9;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    box-sizing: border-box;
+    overflow-x: hidden;
+  }
+  
+  .transaksi-container h2 {
+    font-size: 28px;
+    margin-bottom: 32px;
+    color: #B31312;
+    font-weight: 700;
+    text-align: center;
+  }
+  
+  .keuangan-summary {
+    margin-bottom: 64px;
+  }
+  
+  .keuangan-summary h3 {
+    font-size: 20px;
+    font-weight: 700;
+    margin-bottom: 24px;
+    color: #B31312;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+  }
+  
+  .summary-row {
+    display: flex;
+    justify-content: center;
+    gap: 24px;
+    flex-wrap: wrap;
+    flex-shrink: 0;
+  }
+  
+  .summary-box {
+    flex: 0 0 300px;
+    background-color: #ffffff;
+    padding: 28px 32px;
+    border-radius: 16px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.07);
+    transition: transform 0.2s ease;
+    text-align: left;
+  }
+  
+  .summary-box:hover {
+    transform: translateY(-3px);
+  }
+  
+  /* ===== Warna dan border khas tiap box ===== */
+  .box-kotor {
+    background-color: #e0f0ff;
+    border-left: 6px solid #007bff;
+  }
+  
+  .box-bersih {
+    background-color: #e0fce4;
+    border-left: 6px solid #28a745;
+  }
+  
+  .box-pengeluaran {
+    background-color: #fff0f0;
+    border-left: 6px solid #dc3545;
+  }
+  
+  .box-total {
+    background-color: #fff4f4;
+    border-left: 6px solid #B31312;
+  }
+  
+  /* === Typography dalam box === */
+  .summary-box h4 {
+    font-size: 16px;
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 12px;
+  }
+  
+  .summary-box p {
+    font-size: 24px;
+    font-weight: bold;
+    color: #111;
+    margin: 0;
+  }
+  
+  /* === Error text === */
+  .error-text {
+    color: #B31312;
+    font-weight: 600;
+    font-size: 16px;
+    text-align: center;
+    margin-top: 16px;
+  }
+  
+  /* === Responsive untuk layar kecil === */
+  @media (max-width: 900px) {
+    .summary-row {
+      flex-direction: column;
+      align-items: center;
+    }
+  
+    .summary-box {
+      width: 100%;
+      max-width: 100%;
+    }
+  }
+  
+  /* Membuat halaman konten scrollable tanpa menggeser sidebar */
+.transaksi-container {
+    margin-left: 220px; /* Lebar sidebar */
+    height: 100vh;
+    overflow-y: auto;         /* Scroll hanya di kontennya */
+    padding: 40px;
+    background-color: #f9f9f9;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    box-sizing: border-box;
+  }
+  
