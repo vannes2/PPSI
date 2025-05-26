@@ -5,6 +5,51 @@ import Header from "../components/Header";
 import Footer from "../components/Footer";
 import { FaCommentDots, FaUserCheck, FaBalanceScale, FaBriefcase, FaCoins, FaTags } from "react-icons/fa";
 
+// Fungsi terbilang sederhana (angka sampai jutaan)
+const satuan = ["", "satu", "dua", "tiga", "empat", "lima", "enam", "tujuh", "delapan", "sembilan"];
+const belasan = ["sepuluh", "sebelas", "dua belas", "tiga belas", "empat belas", "lima belas", "enam belas", "tujuh belas", "delapan belas", "sembilan belas"];
+
+function terbilang(num) {
+  if (num === 0) return "nol";
+  if (num < 0) return "minus " + terbilang(Math.abs(num));
+
+  let hasil = "";
+
+  if (Math.floor(num / 1000000) > 0) {
+    hasil += terbilang(Math.floor(num / 1000000)) + " juta ";
+    num %= 1000000;
+  }
+  if (Math.floor(num / 1000) > 0) {
+    if (Math.floor(num / 1000) === 1) {
+      hasil += "seribu ";
+    } else {
+      hasil += terbilang(Math.floor(num / 1000)) + " ribu ";
+    }
+    num %= 1000;
+  }
+  if (Math.floor(num / 100) > 0) {
+    if (Math.floor(num / 100) === 1) {
+      hasil += "seratus ";
+    } else {
+      hasil += satuan[Math.floor(num / 100)] + " ratus ";
+    }
+    num %= 100;
+  }
+  if (num > 0) {
+    if (num < 10) {
+      hasil += satuan[num] + " ";
+    } else if (num >= 10 && num < 20) {
+      hasil += belasan[num - 10] + " ";
+    } else {
+      hasil += satuan[Math.floor(num / 10)] + " puluh ";
+      if (num % 10 > 0) {
+        hasil += satuan[num % 10] + " ";
+      }
+    }
+  }
+  return hasil.trim();
+}
+
 const Home = () => {
   const [pengacara, setPengacara] = useState([]);
   const [beritaTop, setBeritaTop] = useState([]);
@@ -222,36 +267,41 @@ const Home = () => {
                 className="product-item"
                 style={{ minWidth: `${cardWidth}px` }}
               >
-                {advokat.upload_foto ? (
-                  <img
-                    src={`http://localhost:5000/uploads/${advokat.upload_foto}`}
-                    alt={advokat.nama}
-                    className="foto-advokat"
-                  />
-                ) : (
-                  <div
-                    style={{
-                      width: "90px",
-                      height: "90px",
-                      borderRadius: "50%",
-                      backgroundColor: "#eee",
-                      display: "flex",
-                      alignItems: "center",
-                      justifyContent: "center",
-                      margin: "0 auto 12px",
-                    }}
-                  >
-                    <span
+                <div className="foto-advokat-container">
+                  {advokat.upload_foto ? (
+                    <img
+                      src={`http://localhost:5000/uploads/${advokat.upload_foto}`}
+                      alt={advokat.nama}
+                      className="foto-advokat"
+                    />
+                  ) : (
+                    <div
                       style={{
-                        color: "#999",
-                        fontSize: "12px",
-                        textAlign: "center",
+                        width: "90px",
+                        height: "90px",
+                        borderRadius: "50%",
+                        backgroundColor: "#eee",
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "center",
+                        margin: "0 auto 12px",
                       }}
                     >
-                      Tidak ada foto
-                    </span>
-                  </div>
-                )}
+                      <span
+                        style={{
+                          color: "#999",
+                          fontSize: "12px",
+                          textAlign: "center",
+                        }}
+                      >
+                        Tidak ada foto
+                      </span>
+                    </div>
+                  )}
+
+                  {/* Lingkaran hijau online */}
+                  <span className="online-indicator" title="Online" />
+                </div>
 
                 <h3>{advokat.nama}</h3>
 
@@ -267,10 +317,14 @@ const Home = () => {
                   </div>
                 </div>
 
-                {/* Biaya konsultasi di bawah */}
+                {/* Biaya konsultasi: ubah angka jadi tulisan terbilang */}
                 <div className="info-bar">
                   <FaCoins className="info-icon" />
-                  <span>Rp{advokat.harga_konsultasi?.toLocaleString() || "-"}</span>
+                  <span>
+                    {advokat.harga_konsultasi != null
+                      ? terbilang(advokat.harga_konsultasi) + " rupiah"
+                      : "-"}
+                  </span>
                 </div>
 
                 <Link to="/Login" state={{ pengacaraId: advokat.id }}>

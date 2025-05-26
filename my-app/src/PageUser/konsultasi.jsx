@@ -83,30 +83,61 @@ const Konsultasi = () => {
           ) : filteredPengacara.length > 0 ? (
             filteredPengacara.map((advokat) => (
               <div key={advokat.id} className="product-item">
-                <img
-                  src={
-                    advokat.upload_foto
-                      ? `http://localhost:5000/uploads/${advokat.upload_foto}`
-                      : "/assets/img/default-profile.png"
-                  }
-                  alt={`Foto ${advokat.nama}`}
-                  className="foto-advokat"
-                  style={{
-                    width: "120px",
-                    height: "120px",
-                    borderRadius: "50%",
-                    objectFit: "cover",
-                    marginBottom: "10px"
-                  }}
-                  onError={(e) => {
-                    e.target.onerror = null;
-                    e.target.src = "/assets/img/default-profile.png";
-                  }}
-                />
+                <div className="foto-advokat-container">
+                  {advokat.upload_foto ? (
+                    <img
+                      src={`http://localhost:5000/uploads/${advokat.upload_foto}`}
+                      alt={advokat.nama}
+                      className="foto-advokat"
+                    />
+                  ) : (
+                    <div
+                      style={{
+                        width: "160px",
+                        height: "200px",
+                        borderRadius: "12px",
+                        backgroundColor: "#eee",
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "center",
+                        margin: "0 auto 12px",
+                        overflow: "hidden",
+                      }}
+                    >
+                      <span
+                        style={{
+                          color: "#999",
+                          fontSize: "12px",
+                          textAlign: "center",
+                        }}
+                      >
+                        Tidak ada foto
+                      </span>
+                    </div>
+                  )}
+                  <span className="online-indicator" title="Online" />
+                </div>
+
                 <h3>{advokat.nama}</h3>
-                <p><strong>Spesialisasi:</strong> {advokat.spesialisasi}</p>
-                <p><strong>Pengalaman:</strong> {advokat.pengalaman} tahun</p>
-                <p><strong>Harga Konsultasi:</strong> Rp{advokat.harga_konsultasi?.toLocaleString() ?? "Memuat..."}</p>
+
+                <div className="info-bar-horizontal">
+                  <div className="info-bar">
+                    <i className="info-icon fa fa-tags" />
+                    <span>{advokat.spesialisasi || "-"}</span>
+                  </div>
+                  <div className="info-bar">
+                    <i className="info-icon fa fa-briefcase" />
+                    <span>{advokat.pengalaman ?? 0} tahun</span>
+                  </div>
+                </div>
+
+                <div className="info-bar">
+                  <i className="info-icon fa fa-coins" />
+                  <span>
+                    Rp{advokat.harga_konsultasi?.toLocaleString() || "-"}
+                  </span>
+                </div>
+
                 <button
                   className="btn-konsultasi"
                   onClick={() => handleKonsultasiClick(advokat.id)}

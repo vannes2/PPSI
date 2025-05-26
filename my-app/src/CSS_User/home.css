@@ -387,13 +387,13 @@ body {
 
 /* card konsisten*/
 .product-item .foto-advokat {
-  width: 160px !important; 
-  height: 160px !important;
-  border-radius: 50% !important;
+  width: 160px !important;
+  height: 200px !important;
+  border-radius: 12px !important;
   object-fit: cover;
-  margin: 0 auto 12px;
   display: block;
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  margin: 0 auto 12px;
 }
 
 
@@ -651,6 +651,32 @@ body {
   margin-bottom: 8px;
 }
 
+.foto-advokat-container {
+  position: relative;
+  display: inline-block;
+  border-radius: 12px;    /* Sesuaikan sama border-radius foto */
+  overflow: hidden;       /* Penting agar anak elemen yang keluar dipotong */
+  width: 160px;
+  height: 200px;          /* Sesuai ukuran foto persegi panjang */
+  margin-left: auto;
+  margin-right: auto;
+  display: block;
+}
+
+
+.online-indicator {
+  position: absolute;
+  top: 4px;       /* Lebih kecil, lingkaran masuk ke dalam foto */
+  right: 4px;
+  width: 16px;
+  height: 16px;
+  background-color: #4CAF50;
+  border-radius: 50%;
+  border: 2px solid white;
+  box-shadow: 0 0 6px #4CAF50;
+  pointer-events: none;
+  z-index: 10;    /* Pastikan di atas foto */
+}
 
 /* ======================= RESPONSIVE ======================= */
 @media (max-width: 1024px) {

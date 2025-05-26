@@ -1,4 +1,4 @@
-/* ======== DetailPengacara.css (Updated) ======== */
+/* ======== DetailPengacara.css (Final Responsive) ======== */
 /* Background kuning lembut + layout responsif */
 
 .detail-page {
@@ -20,7 +20,6 @@
   background: #fff;
   border-radius: 8px;
   padding: 30px;
-
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
 }
 
@@ -30,30 +29,30 @@
   font-size: 1.8rem;
   margin-bottom: 1.5rem;
   font-weight: 600;
-  text-align: center; /* ✅ Tambahkan ini */
+  text-align: center;
 }
-
 
 /* ---------- Card Layout ---------- */
 .detail-card {
   display: flex;
   gap: 2rem;
+  flex-wrap: wrap;
 }
 
 /* ---------- Foto ---------- */
 .detail-photo-container {
   flex: 0 0 250px;
+  max-width: 100%;
 }
 
 .detail-photo {
   width: 100%;
   height: 250px;
   object-fit: cover;
-  border-radius: 20px; /* Lebih bulat tapi tetap persegi panjang */
+  border-radius: 20px;
   border: 2px solid #fff;
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
 }
-
 
 /* ---------- Informasi ---------- */
 .detail-info {
@@ -69,12 +68,13 @@
   border-bottom: 1px solid #f0f0f0;
   display: flex;
   align-items: flex-start;
+  word-break: break-word;
+  justify-content: flex-start;
 }
-
 
 .detail-info strong {
   color: #3b3b3b;
-  min-width: 160px;
+  min-width: 140px;
   display: inline-block;
   font-weight: 500;
 }
@@ -98,23 +98,111 @@ footer {
   margin-top: auto;
 }
 
-/* ---------- Responsive ---------- */
-@media (max-width: 768px) {
+/* ===================== RESPONSIVE ===================== */
+
+/* Tablet */
+@media (max-width: 1024px) {
   .detail-card {
     flex-direction: column;
+    gap: 1.5rem;
   }
 
   .detail-photo-container {
-    flex: 1;
-    margin-bottom: 1.5rem;
+    max-width: 100%;
+    flex: 0 0 auto;
+    margin: 0 auto;
+  }
+
+  .detail-photo {
+    height: 200px;
   }
 
   .detail-info {
     grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+}
+
+/* Mobile L */
+@media (max-width: 768px) {
+  .detail-container {
+    width: 90%;
+    padding: 20px;
   }
 
+  .detail-page .detail-container h2 {
+    font-size: 1.5rem;
+  }
+
+  .detail-photo {
+    height: 180px;
+    border-radius: 10px;
+  }
+
+  .detail-info {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+
+  .detail-info p {
+    font-size: 1rem;
+  }
+}
+
+/* Mobile M (ukuran 375px) */
+@media (max-width: 375px) {
   .detail-container {
-    margin: 50px 15px;
-    padding: 20px;
+    padding: 16px;
+  }
+
+  .detail-info strong {
+    min-width: 100px;
+    font-size: 0.95rem;
+  }
+
+  .detail-info span {
+    font-size: 0.95rem;
+  }
+
+  .detail-info p {
+    font-size: 0.95rem;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .detail-photo {
+    height: 160px;
+  }
+}
+
+/* Mobile S (ukuran 320px) */
+@media (max-width: 320px) {
+  .detail-container {
+    padding: 14px;
+  }
+
+  .detail-info p {
+    font-size: 0.9rem;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 4px;
+  }
+
+  .detail-info strong {
+    min-width: unset;
+    width: 100%;
+    font-size: 0.9rem;
+  }
+
+  .detail-info span {
+    font-size: 0.9rem;
+  }
+
+  .detail-photo {
+    height: 140px;
+  }
+
+  .detail-page .detail-container h2 {
+    font-size: 1.3rem;
   }
 }

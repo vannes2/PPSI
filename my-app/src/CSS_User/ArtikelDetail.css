@@ -228,30 +228,39 @@
   .artikel-detail-main {
     width: 100%;
     padding: 20px 16px;
-    border-radius: 0;
-    box-shadow: none;
   }
 
   .artikel-detail-main h1 {
     font-size: 1.3rem; /* 20.8px */
-    margin-bottom: 18px;
+    margin-bottom: 16px;
   }
 
   .artikel-detail-list {
+    display: block;
     font-size: 0.9rem;
-    grid-template-columns: 1fr;
+    column-gap: 0;
   }
 
   .artikel-detail-list-label,
+  .artikel-detail-list-colon,
+  .artikel-detail-list-value {
+    display: block;
+    width: 100%;
+    padding: 2px 0;
+  }
+
   .artikel-detail-list-colon {
-    text-align: left;
-    white-space: normal;
-    margin-bottom: 4px;
+    display: none;
+  }
+
+  .artikel-detail-content p {
+    font-size: 1rem;
+    padding-left: 8px;
   }
 
   .artikel-download-btn {
-    padding: 10px 20px;
-    font-size: 0.85rem;
-    border-radius: 32px;
+    width: 100%;
+    padding: 12px 0;
+    font-size: 1rem;
   }
 }

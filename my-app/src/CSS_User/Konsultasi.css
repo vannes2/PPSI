@@ -51,41 +51,67 @@
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
-    gap: 30px;
+    gap: 30px;  /* Jarak antar card */
     padding: 20px;
 }
 
 /* Card Pengacara */
 .konsultasi-page .product-item {
     background-color: white;
-    border-radius: 15px;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    border-radius: 12px; /* Border radius dari Home */
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08); /* Shadow dari Home */
     padding: 20px;
     text-align: center;
-    width: 300px;
+    width: 250px; /* Lebar card disamakan dengan Home */
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
+    cursor: default;
 }
 
 .konsultasi-page .product-item:hover {
-    transform: scale(1.07);
-    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+    transform: translateY(-5px); /* Hover effect dari Home */
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.15);
 }
 
-/* Gambar Pengacara */
-.konsultasi-page .product-item img {
-    width: 120px;
-    height: 120px;
+/* Container dan Gambar Pengacara Persegi Panjang */
+.foto-advokat-container {
+    position: relative;
+    border-radius: 12px;
+    overflow: hidden;
+    width: 160px;
+    height: 200px;
+    margin: 0 auto 12px;
+    display: block;
+}
+
+.konsultasi-page .product-item img.foto-advokat {
+    width: 160px;
+    height: 200px;
+    border-radius: 12px;
     object-fit: cover;
-    border-radius: 50%;
-    margin-bottom: 15px;
+    display: block;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    margin: 0 auto 12px;
 }
 
-/* Teks dalam Card */
-.konsultasi-page .product-item p {
-    font-size: 18px;
-    color: #333;
-    line-height: 1.6;
+/* Jika ingin indikator online, bisa pakai style ini */
+
+.online-indicator {
+    position: absolute;
+    top: 4px;
+    right: 4px;
+    width: 16px;
+    height: 16px;
+    background-color: #4CAF50;
+    border-radius: 50%;
+    border: 2px solid rgba(255,255,255,0.7);
+    box-shadow: 0 0 6px #4CAF50;
+    pointer-events: none;
+    z-index: 10;
 }
+
 
 /* Button di dalam card pengacara dengan GRADASI */
 .konsultasi-page .btn-konsultasi {
@@ -104,6 +130,13 @@
     background: white;
     color: #B31312;
     border: 2px solid #B31312;
+}
+
+/* Teks dalam Card */
+.konsultasi-page .product-item p {
+    font-size: 18px;
+    color: #333;
+    line-height: 1.6;
 }
 
 /* Footer */
