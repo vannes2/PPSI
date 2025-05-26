@@ -128,3 +128,78 @@
     box-sizing: border-box;
   }
   
+  /* === Table Styling === */
+.table-wrapper {
+    overflow-x: auto;
+    margin-top: 32px;
+    border-radius: 12px;
+    background-color: #ffffff;
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.05);
+  }
+  
+  /* Table base */
+  .table-wrapper table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    font-family: inherit;
+    overflow: hidden;
+  }
+  
+  /* Header */
+  .table-wrapper thead {
+    background-color: #e0f0ff;
+  }
+  
+  .table-wrapper thead th {
+    padding: 14px 20px;
+    text-align: left;
+    font-weight: 600;
+    font-size: 14px;
+    color: #003e6b;
+    border-bottom: 2px solid #c2e0ff;
+  }
+  
+  /* Zebra rows */
+  .table-wrapper tbody tr:nth-child(even) {
+    background-color: #f5faff;
+  }
+  
+  .table-wrapper tbody tr:nth-child(odd) {
+    background-color: #ffffff;
+  }
+  
+  /* Data cells */
+  .table-wrapper tbody td {
+    padding: 12px 20px;
+    font-size: 14px;
+    color: #333;
+    border-bottom: 1px solid #ececec;
+  }
+  
+  /* Border radius ONLY on table corner cells */
+  .table-wrapper table thead th:first-child {
+    border-top-left-radius: 12px;
+  }
+  .table-wrapper table thead th:last-child {
+    border-top-right-radius: 12px;
+  }
+  .table-wrapper table tbody tr:last-child td:first-child {
+    border-bottom-left-radius: 12px;
+  }
+  .table-wrapper table tbody tr:last-child td:last-child {
+    border-bottom-right-radius: 12px;
+  }
+  
+  /* Scrollbar styling */
+  .table-wrapper::-webkit-scrollbar {
+    height: 8px;
+  }
+  .table-wrapper::-webkit-scrollbar-thumb {
+    background-color: #ccc;
+    border-radius: 4px;
+  }
+  .table-wrapper::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  
