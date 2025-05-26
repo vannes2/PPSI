@@ -346,8 +346,8 @@ textarea:focus {
 }
 
 .popup-button {
-  flex: 1;
-  padding: 14px 0;
+  flex: 1;              /* Membuat tombol mengisi ruang sama besar */
+  padding: 14px 0;      /* Padding vertikal agar tinggi tombol konsisten */
   border-radius: 14px;
   font-weight: 700;
   letter-spacing: 0.05em;
@@ -356,6 +356,12 @@ textarea:focus {
   border: none;
   box-shadow: 0 3px 10px rgba(179, 19, 18, 0.4);
   cursor: pointer;
+  height: 48px;         /* Tetapkan tinggi tombol agar sama */
+  min-width: 140px;     /* Optional: minimal lebar tombol */
+  display: flex;        /* Flex agar teks center */
+  align-items: center;
+  justify-content: center;
+  text-align: center;
 }
 
 .popup-button:hover {
@@ -368,13 +374,13 @@ textarea:focus {
 .popup-button.btn-cancel {
   background: #ccc;
   color: #333;
-  box-shadow: none;
+  box-shadow: none !important;
 }
 
 .popup-button.btn-cancel:hover {
   background: #999;
   color: #222;
-  box-shadow: none;
+  box-shadow: none !important;
 }
 
 /* ================= LOADING & ERROR ================= */

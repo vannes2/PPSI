@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.2.0
+-- version 5.2.1
 -- https://www.phpmyadmin.net/
 --
--- Host: localhost:3306
--- Generation Time: May 22, 2025 at 08:18 PM
--- Server version: 8.0.30
--- PHP Version: 8.3.16
+-- Host: 127.0.0.1
+-- Waktu pembuatan: 25 Bulan Mei 2025 pada 15.24
+-- Versi server: 10.4.28-MariaDB
+-- Versi PHP: 8.2.4
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -24,25 +24,25 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Table structure for table `admin`
+-- Struktur dari tabel `admin`
 --
 
 CREATE TABLE `admin` (
-  `id` int NOT NULL,
-  `name` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
-  `email` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
-  `phone` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `password` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
-  `gender` enum('laki-laki','perempuan') CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `id` int(11) NOT NULL,
+  `name` varchar(100) NOT NULL,
+  `email` varchar(100) NOT NULL,
+  `phone` varchar(20) DEFAULT NULL,
+  `password` varchar(255) NOT NULL,
+  `gender` enum('laki-laki','perempuan') NOT NULL,
   `birthdate` date DEFAULT NULL,
-  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `reset_token` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  `reset_token` varchar(255) DEFAULT NULL,
   `reset_token_expiry` datetime DEFAULT NULL,
-  `upload_foto` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL
+  `upload_foto` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `admin`
+-- Dumping data untuk tabel `admin`
 --
 
 INSERT INTO `admin` (`id`, `name`, `email`, `phone`, `password`, `gender`, `birthdate`, `created_at`, `reset_token`, `reset_token_expiry`, `upload_foto`) VALUES
@@ -51,30 +51,30 @@ INSERT INTO `admin` (`id`, `name`, `email`, `phone`, `password`, `gender`, `birt
 -- --------------------------------------------------------
 
 --
--- Table structure for table `ajukan_kasus`
+-- Struktur dari tabel `ajukan_kasus`
 --
 
 CREATE TABLE `ajukan_kasus` (
-  `id` int NOT NULL,
-  `user_id` int NOT NULL,
-  `nama` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
-  `email` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
-  `no_hp` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
-  `area_praktik` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
-  `jenis_pengerjaan` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
-  `biaya_min` int NOT NULL,
-  `biaya_max` int NOT NULL,
+  `id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `nama` varchar(100) NOT NULL,
+  `email` varchar(100) NOT NULL,
+  `no_hp` varchar(20) NOT NULL,
+  `area_praktik` varchar(50) NOT NULL,
+  `jenis_pengerjaan` varchar(50) NOT NULL,
+  `biaya_min` int(11) NOT NULL,
+  `biaya_max` int(11) NOT NULL,
   `estimasi_selesai` date NOT NULL,
-  `lokasi` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
-  `deskripsi` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
-  `status` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT 'Menunggu',
-  `bukti` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
-  `lawyer_id` int DEFAULT NULL
+  `lokasi` varchar(100) NOT NULL,
+  `deskripsi` text NOT NULL,
+  `status` varchar(20) DEFAULT 'Menunggu',
+  `bukti` varchar(255) DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT current_timestamp(),
+  `lawyer_id` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `ajukan_kasus`
+-- Dumping data untuk tabel `ajukan_kasus`
 --
 
 INSERT INTO `ajukan_kasus` (`id`, `user_id`, `nama`, `email`, `no_hp`, `area_praktik`, `jenis_pengerjaan`, `biaya_min`, `biaya_max`, `estimasi_selesai`, `lokasi`, `deskripsi`, `status`, `bukti`, `created_at`, `lawyer_id`) VALUES
@@ -100,58 +100,56 @@ INSERT INTO `ajukan_kasus` (`id`, `user_id`, `nama`, `email`, `no_hp`, `area_pra
 -- --------------------------------------------------------
 
 --
--- Table structure for table `artikel`
+-- Struktur dari tabel `artikel`
 --
 
 CREATE TABLE `artikel` (
-  `id` int NOT NULL,
-  `judul` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
-  `deskripsi` varchar(10000) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
-  `jenis_hukum` enum('Pidana','Perdata','Internasional','Ketenagakerjaan','HAKI','Keluarga','Administrasi Negara') CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `filePath` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
-  `coverPath` varchar(225) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `nomor` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
-  `tahun` int NOT NULL,
-  `jenis_dokumen` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
-  `tempat_penetapan` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
-  `status` enum('Aktif','Tidak Aktif') CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL DEFAULT 'Aktif',
+  `id` int(11) NOT NULL,
+  `judul` varchar(255) NOT NULL,
+  `deskripsi` varchar(10000) NOT NULL,
+  `jenis_hukum` enum('Pidana','Perdata','Internasional','Ketenagakerjaan','HAKI','Keluarga','Administrasi Negara') DEFAULT NULL,
+  `filePath` varchar(255) NOT NULL,
+  `coverPath` varchar(225) DEFAULT NULL,
+  `nomor` varchar(255) NOT NULL,
+  `tahun` int(11) NOT NULL,
+  `jenis_dokumen` varchar(255) NOT NULL,
+  `tempat_penetapan` varchar(255) NOT NULL,
+  `status` enum('Aktif','Tidak Aktif') NOT NULL DEFAULT 'Aktif',
   `tanggal_penetapan` date NOT NULL DEFAULT '2000-01-01'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `artikel`
+-- Dumping data untuk tabel `artikel`
 --
 
 INSERT INTO `artikel` (`id`, `judul`, `deskripsi`, `jenis_hukum`, `filePath`, `coverPath`, `nomor`, `tahun`, `jenis_dokumen`, `tempat_penetapan`, `status`, `tanggal_penetapan`) VALUES
-(29, 'Hukum Internasional', 'Hukum Internasional merupakan cabang ilmu hukum yang mengatur hubungan antar negara dan aktor internasional lainnya di dunia. Artikel ini membahas konsep dasar, prinsip-prinsip, serta ruang lingkup hukum internasional yang meliputi perjanjian internasional, norma, serta kebiasaan yang mengikat secara hukum bagi negara-negara anggota komunitas internasional. Selain itu, artikel ini juga menjelaskan peranan lembaga-lembaga internasional seperti Perserikatan Bangsa-Bangsa (PBB), Mahkamah Internasional, serta mekanisme penyelesaian sengketa antar negara.\r\n\r\nDengan memahami hukum internasional, kita dapat mengerti bagaimana aturan dan norma diterapkan untuk menjaga perdamaian, keamanan, serta keadilan global.', 'Internasional', 'uploads\\1747768089749.pdf', NULL, 'LEG/MEMO/005/II/2025', 2021, 'PDF', 'Dokumen ', 'Aktif', '2025-05-21'),
+(29, 'Dasar Hukum Internasional', 'Hukum Internasional merupakan cabang ilmu hukum yang mengatur hubungan antar negara dan aktor internasional lainnya di dunia. Artikel ini membahas konsep dasar, prinsip-prinsip, serta ruang lingkup hukum internasional yang meliputi perjanjian internasional, norma, serta kebiasaan yang mengikat secara hukum bagi negara-negara anggota komunitas internasional. Selain itu, artikel ini juga menjelaskan peranan lembaga-lembaga internasional seperti Perserikatan Bangsa-Bangsa (PBB), Mahkamah Internasional, serta mekanisme penyelesaian sengketa antar negara.\r\n\r\nDengan memahami hukum internasional, kita dapat mengerti bagaimana aturan dan norma diterapkan untuk menjaga perdamaian, keamanan, serta keadilan global.', 'Internasional', 'uploads\\1747768089749.pdf', NULL, 'LEG/MEMO/005/II/2025', 2020, 'PDF', 'Dokumen ', 'Aktif', '2025-05-23'),
 (30, 'Dasar Hukum Ketenagakerjaan', 'Hukum Ketenagakerjaan adalah cabang hukum yang mengatur hubungan antara pekerja, pemberi kerja, dan pemerintah dalam dunia kerja. Artikel ini mengulas berbagai aturan dan prinsip yang melindungi hak serta kewajiban pekerja dan pengusaha, termasuk perjanjian kerja, upah, jam kerja, keselamatan dan kesehatan kerja, serta penyelesaian perselisihan ketenagakerjaan.\r\n\r\nSelain itu, artikel ini juga membahas peranan Undang-Undang Ketenagakerjaan di Indonesia, mekanisme perlindungan tenaga kerja, dan kebijakan pemerintah dalam menciptakan kondisi kerja yang adil dan aman. Dengan memahami hukum ketenagakerjaan, baik pekerja maupun pengusaha dapat menjalankan hak dan kewajibannya secara seimbang demi terciptanya hubungan industrial yang harmonis dan produktif.', 'Ketenagakerjaan', 'uploads\\1747768492353.pdf', NULL, 'LEG/PND/008/IV/2025', 2018, 'PDF', 'Dokumen', 'Aktif', '2025-05-21'),
 (31, 'Hukum Hak Kekayaan Intelektual (HAKI)', 'Hukum Hak Atas Kekayaan Intelektual (HAKI) adalah cabang hukum yang melindungi karya-karya hasil kreativitas dan inovasi manusia, seperti karya seni, penemuan teknologi, merek dagang, dan desain industri. Artikel ini membahas berbagai jenis hak kekayaan intelektual, termasuk hak cipta, paten, merek dagang, desain industri, dan rahasia dagang, serta mekanisme perlindungan hukum yang diberikan kepada pemilik hak tersebut.  Selain itu, artikel ini juga menjelaskan pentingnya HAKI dalam mendorong kemajuan ilmu pengetahuan, teknologi, dan seni, serta bagaimana hukum ini membantu melindungi hak dan kepentingan pencipta atau penemu dari penyalahgunaan atau pembajakan. Pembahasan juga mencakup proses pendaftaran hak kekayaan intelektual di Indonesia dan tantangan dalam penegakan hukum HAKI di era digital.', 'HAKI', 'uploads\\1747768770683.pdf', NULL, 'LEG/PND/009/IV/2025', 2019, 'PDF', 'Dokumen', 'Aktif', '2025-05-21'),
 (32, 'Pengantar Hukum Tata Negara', 'Hukum Tata Negara merupakan cabang ilmu hukum yang mempelajari aturan dan prinsip dasar yang mengatur penyelenggaraan negara serta hubungan antara lembaga-lembaga negara dengan warga negara. Artikel ini memberikan pengantar mengenai konsep dasar hukum tata negara, termasuk bentuk dan sistem pemerintahan, pembagian kekuasaan, serta peran konstitusi sebagai sumber utama hukum tata negara.  Pembahasan juga mencakup hak dan kewajiban warga negara dalam sistem kenegaraan serta mekanisme pengawasan dan pertanggungjawaban pemerintah. Dengan memahami hukum tata negara, masyarakat dapat lebih sadar akan struktur negara dan tata kelola pemerintahan yang demokratis dan berdasarkan hukum.', 'Administrasi Negara', 'uploads\\1747769056072.pdf', NULL, '	LEG/PND/010/IV/2025', 2017, 'PDF', 'Dokumen', 'Aktif', '2025-05-21'),
 (33, 'Hukum Administrasi Negara', 'Hukum Administrasi Negara adalah cabang ilmu hukum yang mengatur tata cara dan prinsip penyelenggaraan administrasi pemerintahan oleh lembaga negara dan pejabat publik. Artikel ini membahas ruang lingkup hukum administrasi negara, termasuk peraturan tentang pembuatan keputusan administratif, pelaksanaan fungsi pemerintahan, serta mekanisme pengawasan dan penegakan hukum terhadap tindakan administratif.  Pembahasan juga menyoroti peran hukum administrasi negara dalam menjamin agar penyelenggaraan pemerintahan berjalan transparan, akuntabel, dan sesuai dengan prinsip negara hukum (rechtsstaat). Dengan memahami hukum administrasi negara, masyarakat dapat mengawasi kinerja pemerintah dan menuntut perlindungan hukum atas tindakan administratif yang merugikan.', 'Administrasi Negara', 'uploads\\1747769890162.pdf', NULL, 'LEG/PND/011/IV/2025', 2023, 'PDF', 'Dokumen', 'Aktif', '2025-05-21'),
 (34, 'Panduan Hukum Perdata', 'Hukum Perdata adalah cabang hukum yang mengatur hubungan hukum antara individu atau badan hukum secara privat, termasuk hak dan kewajiban yang timbul dalam kehidupan sehari-hari. Artikel ini membahas ruang lingkup hukum perdata seperti perjanjian, harta kekayaan, warisan, dan tanggung jawab perdata.  Selain itu, artikel ini menjelaskan prinsip-prinsip dasar hukum perdata, seperti itikad baik dan keadilan, serta mekanisme penyelesaian sengketa melalui peradilan perdata. Dengan memahami hukum perdata, masyarakat dapat melindungi hak-haknya dalam hubungan hukum pribadi dan menjalankan kewajiban secara tepat sesuai aturan yang berlaku.', 'Perdata', 'uploads\\1747770045750.pdf', NULL, 'LEG/PND/012/IV/2025', 2016, 'PDF', 'Dokumen', 'Aktif', '2025-05-21'),
 (35, 'Dasar-dasar Hukum Pidana Indonesia', 'Hukum Pidana Indonesia merupakan cabang hukum yang mengatur tentang perbuatan-perbuatan yang dilarang dan sanksi yang dikenakan terhadap pelanggarnya demi menjaga ketertiban dan keadilan dalam masyarakat. Artikel ini membahas konsep dasar hukum pidana, termasuk asas-asas hukum pidana, jenis-jenis tindak pidana, serta prosedur penegakan hukum pidana di Indonesia.  Pembahasan juga meliputi prinsip-prinsip seperti legalitas, kepastian hukum, dan perlindungan hak asasi manusia dalam proses pidana. Dengan memahami dasar-dasar hukum pidana, masyarakat dapat mengenali batasan perilaku yang diatur dan konsekuensi hukum yang mungkin timbul, sekaligus mendukung penegakan hukum yang adil dan efektif.', 'Pidana', 'uploads\\1747770129718.pdf', NULL, 'LEG/PND/013/IV/2025', 2015, 'PDF', 'Dokumen', 'Aktif', '2025-05-21'),
-(36, 'Hukum Keluarga Islam', 'Hukum Keluarga Islam adalah cabang hukum yang mengatur hubungan dan tata kelola keluarga berdasarkan prinsip-prinsip syariah Islam. Artikel ini membahas berbagai aspek penting dalam hukum keluarga Islam, seperti pernikahan, hak dan kewajiban suami-istri, perceraian, nafkah, warisan, serta hak anak.  Pembahasan juga mencakup dasar-dasar hukum Islam yang menjadi landasan aturan keluarga, termasuk Al-Qur’an dan Hadis, serta penerapan hukum keluarga Islam dalam sistem hukum nasional Indonesia. Dengan memahami hukum keluarga Islam, masyarakat dapat menjalankan kehidupan berkeluarga secara harmonis sesuai dengan ajaran agama dan ketentuan hukum yang berlaku.', 'Keluarga', 'uploads\\1747770459925.pdf', NULL, 'LEG/PND/013/IV/2025', 2022, 'PDF', 'Dokumen', 'Aktif', '2025-05-21'),
-(37, 'percobaan ke 9', '9', 'Pidana', 'uploads/pdf/1747775376782.pdf', 'uploads/covers/cover_1747775376785-01.jpg', '09', 2025, 'KDRT', 'KDRT', 'Aktif', '2025-05-16'),
-(38, 'percobaan 10 setelah konflik', 'semoga berhasil', 'Pidana', 'uploads/pdf/1747777205846.pdf', 'uploads/covers/cover_1747777205849-01.jpg', '10', 2025, 'PDF', 'Hukum', 'Aktif', '2025-05-16');
+(36, 'Hukum Keluarga Islam', 'Hukum Keluarga Islam adalah cabang hukum yang mengatur hubungan dan tata kelola keluarga berdasarkan prinsip-prinsip syariah Islam. Artikel ini membahas berbagai aspek penting dalam hukum keluarga Islam, seperti pernikahan, hak dan kewajiban suami-istri, perceraian, nafkah, warisan, serta hak anak.  Pembahasan juga mencakup dasar-dasar hukum Islam yang menjadi landasan aturan keluarga, termasuk Al-Qur’an dan Hadis, serta penerapan hukum keluarga Islam dalam sistem hukum nasional Indonesia. Dengan memahami hukum keluarga Islam, masyarakat dapat menjalankan kehidupan berkeluarga secara harmonis sesuai dengan ajaran agama dan ketentuan hukum yang berlaku.', 'Keluarga', 'uploads\\1747770459925.pdf', NULL, 'LEG/PND/013/IV/2025', 2022, 'PDF', 'Dokumen', 'Aktif', '2025-05-21');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `artikel_berita`
+-- Struktur dari tabel `artikel_berita`
 --
 
 CREATE TABLE `artikel_berita` (
-  `id` int NOT NULL,
-  `judul` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
-  `isi` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
-  `gambar` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `kategori` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
-  `top_berita` tinyint(1) DEFAULT '0'
+  `id` int(11) NOT NULL,
+  `judul` varchar(255) NOT NULL,
+  `isi` text NOT NULL,
+  `gambar` varchar(255) DEFAULT NULL,
+  `kategori` varchar(100) DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT current_timestamp(),
+  `top_berita` tinyint(1) DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `artikel_berita`
+-- Dumping data untuk tabel `artikel_berita`
 --
 
 INSERT INTO `artikel_berita` (`id`, `judul`, `isi`, `gambar`, `kategori`, `created_at`, `top_berita`) VALUES
@@ -167,21 +165,21 @@ INSERT INTO `artikel_berita` (`id`, `judul`, `isi`, `gambar`, `kategori`, `creat
 -- --------------------------------------------------------
 
 --
--- Table structure for table `faq_hukum`
+-- Struktur dari tabel `faq_hukum`
 --
 
 CREATE TABLE `faq_hukum` (
-  `id` int NOT NULL,
-  `intent` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `kategori` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `keywords` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci,
-  `contoh_pertanyaan` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci,
-  `response` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci,
-  `sumber_referensi` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL
+  `id` int(11) NOT NULL,
+  `intent` varchar(100) DEFAULT NULL,
+  `kategori` varchar(50) DEFAULT NULL,
+  `keywords` text DEFAULT NULL,
+  `contoh_pertanyaan` text DEFAULT NULL,
+  `response` text DEFAULT NULL,
+  `sumber_referensi` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `faq_hukum`
+-- Dumping data untuk tabel `faq_hukum`
 --
 
 INSERT INTO `faq_hukum` (`id`, `intent`, `kategori`, `keywords`, `contoh_pertanyaan`, `response`, `sumber_referensi`) VALUES
@@ -292,64 +290,65 @@ INSERT INTO `faq_hukum` (`id`, `intent`, `kategori`, `keywords`, `contoh_pertany
 -- --------------------------------------------------------
 
 --
--- Table structure for table `konsultasi`
+-- Struktur dari tabel `konsultasi`
 --
 
 CREATE TABLE `konsultasi` (
-  `id` int NOT NULL,
-  `id_pengguna` int NOT NULL,
-  `id_pengacara` int NOT NULL,
+  `id` int(11) NOT NULL,
+  `id_pengguna` int(11) NOT NULL,
+  `id_pengacara` int(11) NOT NULL,
   `tanggal_konsultasi` datetime NOT NULL,
-  `status` enum('Dijadwalkan','Selesai','Dibatalkan') CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT 'Dijadwalkan',
-  `catatan` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci
+  `status` enum('Dijadwalkan','Selesai','Dibatalkan') DEFAULT 'Dijadwalkan',
+  `catatan` text DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `konsultasi_session`
+-- Struktur dari tabel `konsultasi_session`
 --
 
 CREATE TABLE `konsultasi_session` (
-  `id` int NOT NULL,
-  `user_id` int NOT NULL,
-  `pengacara_id` int NOT NULL,
+  `id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `pengacara_id` int(11) NOT NULL,
   `start_time` datetime NOT NULL,
-  `duration` int NOT NULL,
-  `status` enum('aktif','selesai') CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT 'aktif',
-  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
+  `duration` int(11) NOT NULL,
+  `biaya` int(11) NOT NULL DEFAULT 0,
+  `status` enum('aktif','selesai') DEFAULT 'aktif',
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `konsultasi_session`
+-- Dumping data untuk tabel `konsultasi_session`
 --
 
-INSERT INTO `konsultasi_session` (`id`, `user_id`, `pengacara_id`, `start_time`, `duration`, `status`, `created_at`) VALUES
-(1, 2, 7, '2025-05-15 10:31:38', 60, 'aktif', '2025-05-15 03:31:38'),
-(2, 2, 9, '2025-05-19 17:42:46', 30, 'aktif', '2025-05-15 03:36:03'),
-(3, 2, 5, '2025-05-15 11:25:02', 30, 'aktif', '2025-05-15 04:25:02'),
-(4, 3, 9, '2025-05-15 12:45:53', 60, 'aktif', '2025-05-15 04:33:03'),
-(5, 3, 1, '2025-05-15 11:37:40', 30, 'aktif', '2025-05-15 04:37:40'),
-(6, 14, 1, '2025-05-15 20:34:28', 30, 'aktif', '2025-05-15 13:33:44'),
-(7, 2, 1, '2025-05-19 18:10:19', 30, 'aktif', '2025-05-19 11:10:19'),
-(8, 2, 3, '2025-05-19 18:24:59', 30, 'aktif', '2025-05-19 11:24:59'),
-(9, 2, 15, '2025-05-19 18:38:15', 30, 'aktif', '2025-05-19 11:38:15');
+INSERT INTO `konsultasi_session` (`id`, `user_id`, `pengacara_id`, `start_time`, `duration`, `biaya`, `status`, `created_at`) VALUES
+(1, 2, 7, '2025-05-15 10:31:38', 60, 100000, 'selesai', '2025-05-15 03:31:38'),
+(2, 2, 9, '2025-05-19 17:42:46', 30, 50000, 'selesai', '2025-05-15 03:36:03'),
+(3, 2, 5, '2025-05-15 11:25:02', 30, 50000, 'selesai', '2025-05-15 04:25:02'),
+(4, 3, 9, '2025-05-15 12:45:53', 60, 100000, 'selesai', '2025-05-15 04:33:03'),
+(5, 3, 1, '2025-05-15 11:37:40', 30, 50000, 'selesai', '2025-05-15 04:37:40'),
+(6, 14, 1, '2025-05-15 20:34:28', 30, 50000, 'selesai', '2025-05-15 13:33:44'),
+(7, 2, 1, '2025-05-19 18:10:19', 30, 50000, 'selesai', '2025-05-19 11:10:19'),
+(8, 2, 3, '2025-05-23 11:09:03', 60, 100000, 'selesai', '2025-05-19 11:24:59'),
+(9, 2, 15, '2025-05-19 18:38:15', 30, 50000, 'selesai', '2025-05-19 11:38:15');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `log_aktivitas`
+-- Struktur dari tabel `log_aktivitas`
 --
 
 CREATE TABLE `log_aktivitas` (
-  `id` int NOT NULL,
-  `id_pengguna` int NOT NULL,
-  `aktivitas` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
-  `waktu` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
+  `id` int(11) NOT NULL,
+  `id_pengguna` int(11) NOT NULL,
+  `aktivitas` text NOT NULL,
+  `waktu` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `log_aktivitas`
+-- Dumping data untuk tabel `log_aktivitas`
 --
 
 INSERT INTO `log_aktivitas` (`id`, `id_pengguna`, `aktivitas`, `waktu`) VALUES
@@ -415,104 +414,104 @@ INSERT INTO `log_aktivitas` (`id`, `id_pengguna`, `aktivitas`, `waktu`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `log_pertanyaan_user`
+-- Struktur dari tabel `log_pertanyaan_user`
 --
 
 CREATE TABLE `log_pertanyaan_user` (
-  `id` int NOT NULL,
-  `user_id` int DEFAULT NULL,
-  `pertanyaan` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
-  `intent_didapat` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `id` int(11) NOT NULL,
+  `user_id` int(11) DEFAULT NULL,
+  `pertanyaan` text NOT NULL,
+  `intent_didapat` varchar(100) DEFAULT NULL,
   `confidence_score` decimal(5,2) DEFAULT NULL,
-  `waktu` timestamp NULL DEFAULT CURRENT_TIMESTAMP
+  `waktu` timestamp NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `log_pertanyaan_user`
+-- Dumping data untuk tabel `log_pertanyaan_user`
 --
 
 INSERT INTO `log_pertanyaan_user` (`id`, `user_id`, `pertanyaan`, `intent_didapat`, `confidence_score`, `waktu`) VALUES
-(1, NULL, 'hallo', NULL, '0.00', '2025-05-16 09:16:05'),
-(2, NULL, 'hallo', NULL, '0.00', '2025-05-16 09:16:26'),
-(3, NULL, 'Kontrak kerja', 'kontrak kerja', '1.00', '2025-05-16 11:08:38'),
-(4, NULL, 'Apa itu KDRT', 'kdrt', '0.50', '2025-05-16 11:55:11'),
-(5, NULL, 'KDRT', 'kdrt', '1.00', '2025-05-16 11:55:21'),
-(6, NULL, 'tes', NULL, '0.00', '2025-05-16 13:08:27'),
-(7, NULL, 'tes', NULL, '0.00', '2025-05-16 13:10:03'),
-(8, NULL, 'hallo', NULL, '0.00', '2025-05-16 13:11:50'),
-(9, NULL, 'tes', NULL, '0.00', '2025-05-16 13:16:21'),
-(10, NULL, 'tes', NULL, '0.00', '2025-05-16 13:16:25'),
-(11, NULL, 'tes', NULL, '0.00', '2025-05-16 13:16:36'),
-(12, NULL, 'tes', NULL, '0.00', '2025-05-16 13:17:47'),
-(13, NULL, 'tes', NULL, '0.00', '2025-05-16 13:17:52'),
-(14, NULL, 'tes', NULL, '0.00', '2025-05-16 13:22:39'),
-(15, NULL, 'tes', NULL, '0.00', '2025-05-16 13:22:44'),
-(16, NULL, 'apa itu uu ite', 'ite', '0.57', '2025-05-16 13:26:42'),
-(17, NULL, 'a', NULL, '0.00', '2025-05-16 13:38:50'),
-(18, NULL, 'a', NULL, '0.00', '2025-05-16 13:38:53'),
-(19, NULL, 'sdasdas', NULL, '0.00', '2025-05-16 13:38:58'),
-(20, NULL, 'a', NULL, '0.00', '2025-05-16 13:42:38'),
-(21, NULL, 'a', NULL, '0.00', '2025-05-16 13:42:41'),
-(22, NULL, 'tes', NULL, '0.00', '2025-05-16 13:51:34'),
-(23, NULL, 'aaas', NULL, '0.00', '2025-05-16 14:01:26'),
-(24, NULL, 'apa itu KDRT', 'kdrt', '0.50', '2025-05-16 18:31:50'),
-(25, NULL, 'APA ITU uu ite', 'ite', '0.57', '2025-05-16 18:32:31'),
-(26, NULL, 'hallo', NULL, '0.00', '2025-05-16 18:32:40'),
-(27, NULL, 'hallo', NULL, '0.00', '2025-05-16 20:18:44'),
-(28, NULL, 'perceraian', 'perceraian', '1.00', '2025-05-16 21:26:04'),
-(29, NULL, 'saya punya masalah perceraian', 'perceraian', '0.53', '2025-05-16 21:26:26'),
-(30, NULL, 'berikan solusi nya', NULL, '0.00', '2025-05-16 21:26:35'),
-(31, NULL, 'apa itu uu ite', 'ite', '0.57', '2025-05-17 03:34:23'),
-(32, NULL, 'hukum', 'warisan', '0.62', '2025-05-18 12:28:09'),
-(33, NULL, 'halo', NULL, '0.00', '2025-05-18 12:28:20'),
-(34, NULL, 'kdrt', 'kdrt', '1.00', '2025-05-19 04:06:05'),
-(35, NULL, 'haki', 'hak cipta', '1.00', '2025-05-19 04:08:28'),
-(36, NULL, 'pidana', NULL, '0.00', '2025-05-19 04:10:30'),
-(37, NULL, 'perdata', NULL, '0.00', '2025-05-19 04:10:36'),
-(38, NULL, 'penipuan', 'penipuan', '1.00', '2025-05-19 04:20:12'),
-(39, NULL, 'apa hukum pidana', 'definisi_hukum_pidana', '0.83', '2025-05-19 04:22:49'),
-(40, NULL, 'perdata', 'definisi_hukum_perdata', '0.67', '2025-05-19 04:22:56'),
-(41, NULL, 'apa cerdas hukum', 'apa_itu_cerdas_hukum', '0.87', '2025-05-19 04:29:15'),
-(42, NULL, 'bagaimana cara pendaftaran advokat', 'cara_daftar_lawyer', '0.61', '2025-05-19 04:37:24'),
-(43, NULL, 'bagaimana verifikasi advokat', 'cara_forgot_password', '0.56', '2025-05-19 04:37:43'),
-(44, NULL, 'bagaimana alur login', 'cara_login', '0.51', '2025-05-19 04:37:58'),
-(45, NULL, 'berita', NULL, '0.00', '2025-05-19 04:38:24'),
-(46, NULL, 'bagaimana cara konsultasi', 'cara_konsultasi', '0.74', '2025-05-19 04:38:51'),
-(47, NULL, 'chat pengacara', 'fitur_chat_pengacara', '1.00', '2025-05-19 04:46:41'),
-(48, NULL, 'profil', 'cara_edit_profil', '0.71', '2025-05-19 04:47:15'),
-(49, NULL, 'kontol', NULL, '0.00', '2025-05-19 05:06:21'),
-(50, NULL, 'ajukan kasus', 'cara_ajukan_kasus', '0.83', '2025-05-19 05:06:28'),
-(51, NULL, 'bagaimana cara login', 'cara_login', '0.64', '2025-05-19 05:06:36'),
-(52, NULL, 'apa yang dimaksud hukum pidana', 'definisi_hukum_pidana', '0.59', '2025-05-19 08:38:51'),
-(53, NULL, 'bagaimana cara konsultasi', 'cara_konsultasi', '0.74', '2025-05-19 08:41:52'),
-(54, NULL, 'halo', NULL, '0.00', '2025-05-20 04:08:55'),
-(55, NULL, 'apa itu hukum?', 'definisi_hukum_adat', '0.83', '2025-05-20 04:16:21'),
-(56, NULL, 'hukum', 'hak_asasi_manusia', '0.73', '2025-05-20 04:16:31'),
-(57, NULL, 'siapa pendiri cerdas hukum', 'pendiri_cerdas_hukum', '0.87', '2025-05-20 04:20:45'),
-(58, NULL, 'cara ajukan kasus', 'cara_ajukan_kasus', '1.00', '2025-05-20 04:24:31'),
-(59, NULL, 'cara konsultasi', 'cara_konsultasi', '1.00', '2025-05-20 04:24:46'),
-(60, NULL, 'cara komsultasi', 'cara_konsultasi', '0.85', '2025-05-20 04:25:03');
+(1, NULL, 'hallo', NULL, 0.00, '2025-05-16 09:16:05'),
+(2, NULL, 'hallo', NULL, 0.00, '2025-05-16 09:16:26'),
+(3, NULL, 'Kontrak kerja', 'kontrak kerja', 1.00, '2025-05-16 11:08:38'),
+(4, NULL, 'Apa itu KDRT', 'kdrt', 0.50, '2025-05-16 11:55:11'),
+(5, NULL, 'KDRT', 'kdrt', 1.00, '2025-05-16 11:55:21'),
+(6, NULL, 'tes', NULL, 0.00, '2025-05-16 13:08:27'),
+(7, NULL, 'tes', NULL, 0.00, '2025-05-16 13:10:03'),
+(8, NULL, 'hallo', NULL, 0.00, '2025-05-16 13:11:50'),
+(9, NULL, 'tes', NULL, 0.00, '2025-05-16 13:16:21'),
+(10, NULL, 'tes', NULL, 0.00, '2025-05-16 13:16:25'),
+(11, NULL, 'tes', NULL, 0.00, '2025-05-16 13:16:36'),
+(12, NULL, 'tes', NULL, 0.00, '2025-05-16 13:17:47'),
+(13, NULL, 'tes', NULL, 0.00, '2025-05-16 13:17:52'),
+(14, NULL, 'tes', NULL, 0.00, '2025-05-16 13:22:39'),
+(15, NULL, 'tes', NULL, 0.00, '2025-05-16 13:22:44'),
+(16, NULL, 'apa itu uu ite', 'ite', 0.57, '2025-05-16 13:26:42'),
+(17, NULL, 'a', NULL, 0.00, '2025-05-16 13:38:50'),
+(18, NULL, 'a', NULL, 0.00, '2025-05-16 13:38:53'),
+(19, NULL, 'sdasdas', NULL, 0.00, '2025-05-16 13:38:58'),
+(20, NULL, 'a', NULL, 0.00, '2025-05-16 13:42:38'),
+(21, NULL, 'a', NULL, 0.00, '2025-05-16 13:42:41'),
+(22, NULL, 'tes', NULL, 0.00, '2025-05-16 13:51:34'),
+(23, NULL, 'aaas', NULL, 0.00, '2025-05-16 14:01:26'),
+(24, NULL, 'apa itu KDRT', 'kdrt', 0.50, '2025-05-16 18:31:50'),
+(25, NULL, 'APA ITU uu ite', 'ite', 0.57, '2025-05-16 18:32:31'),
+(26, NULL, 'hallo', NULL, 0.00, '2025-05-16 18:32:40'),
+(27, NULL, 'hallo', NULL, 0.00, '2025-05-16 20:18:44'),
+(28, NULL, 'perceraian', 'perceraian', 1.00, '2025-05-16 21:26:04'),
+(29, NULL, 'saya punya masalah perceraian', 'perceraian', 0.53, '2025-05-16 21:26:26'),
+(30, NULL, 'berikan solusi nya', NULL, 0.00, '2025-05-16 21:26:35'),
+(31, NULL, 'apa itu uu ite', 'ite', 0.57, '2025-05-17 03:34:23'),
+(32, NULL, 'hukum', 'warisan', 0.62, '2025-05-18 12:28:09'),
+(33, NULL, 'halo', NULL, 0.00, '2025-05-18 12:28:20'),
+(34, NULL, 'kdrt', 'kdrt', 1.00, '2025-05-19 04:06:05'),
+(35, NULL, 'haki', 'hak cipta', 1.00, '2025-05-19 04:08:28'),
+(36, NULL, 'pidana', NULL, 0.00, '2025-05-19 04:10:30'),
+(37, NULL, 'perdata', NULL, 0.00, '2025-05-19 04:10:36'),
+(38, NULL, 'penipuan', 'penipuan', 1.00, '2025-05-19 04:20:12'),
+(39, NULL, 'apa hukum pidana', 'definisi_hukum_pidana', 0.83, '2025-05-19 04:22:49'),
+(40, NULL, 'perdata', 'definisi_hukum_perdata', 0.67, '2025-05-19 04:22:56'),
+(41, NULL, 'apa cerdas hukum', 'apa_itu_cerdas_hukum', 0.87, '2025-05-19 04:29:15'),
+(42, NULL, 'bagaimana cara pendaftaran advokat', 'cara_daftar_lawyer', 0.61, '2025-05-19 04:37:24'),
+(43, NULL, 'bagaimana verifikasi advokat', 'cara_forgot_password', 0.56, '2025-05-19 04:37:43'),
+(44, NULL, 'bagaimana alur login', 'cara_login', 0.51, '2025-05-19 04:37:58'),
+(45, NULL, 'berita', NULL, 0.00, '2025-05-19 04:38:24'),
+(46, NULL, 'bagaimana cara konsultasi', 'cara_konsultasi', 0.74, '2025-05-19 04:38:51'),
+(47, NULL, 'chat pengacara', 'fitur_chat_pengacara', 1.00, '2025-05-19 04:46:41'),
+(48, NULL, 'profil', 'cara_edit_profil', 0.71, '2025-05-19 04:47:15'),
+(49, NULL, 'kontol', NULL, 0.00, '2025-05-19 05:06:21'),
+(50, NULL, 'ajukan kasus', 'cara_ajukan_kasus', 0.83, '2025-05-19 05:06:28'),
+(51, NULL, 'bagaimana cara login', 'cara_login', 0.64, '2025-05-19 05:06:36'),
+(52, NULL, 'apa yang dimaksud hukum pidana', 'definisi_hukum_pidana', 0.59, '2025-05-19 08:38:51'),
+(53, NULL, 'bagaimana cara konsultasi', 'cara_konsultasi', 0.74, '2025-05-19 08:41:52'),
+(54, NULL, 'halo', NULL, 0.00, '2025-05-20 04:08:55'),
+(55, NULL, 'apa itu hukum?', 'definisi_hukum_adat', 0.83, '2025-05-20 04:16:21'),
+(56, NULL, 'hukum', 'hak_asasi_manusia', 0.73, '2025-05-20 04:16:31'),
+(57, NULL, 'siapa pendiri cerdas hukum', 'pendiri_cerdas_hukum', 0.87, '2025-05-20 04:20:45'),
+(58, NULL, 'cara ajukan kasus', 'cara_ajukan_kasus', 1.00, '2025-05-20 04:24:31'),
+(59, NULL, 'cara konsultasi', 'cara_konsultasi', 1.00, '2025-05-20 04:24:46'),
+(60, NULL, 'cara komsultasi', 'cara_konsultasi', 0.85, '2025-05-20 04:25:03');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `messages`
+-- Struktur dari tabel `messages`
 --
 
 CREATE TABLE `messages` (
-  `id` int NOT NULL,
-  `sender_id` int NOT NULL,
-  `sender_role` enum('user','pengacara') CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
-  `receiver_id` int NOT NULL,
-  `receiver_role` enum('user','pengacara') CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
-  `message` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
-  `file` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `timestamp` datetime DEFAULT CURRENT_TIMESTAMP,
-  `is_read` tinyint(1) DEFAULT '0'
+  `id` int(11) NOT NULL,
+  `sender_id` int(11) NOT NULL,
+  `sender_role` enum('user','pengacara') NOT NULL,
+  `receiver_id` int(11) NOT NULL,
+  `receiver_role` enum('user','pengacara') NOT NULL,
+  `message` text NOT NULL,
+  `file` varchar(255) DEFAULT NULL,
+  `timestamp` datetime DEFAULT current_timestamp(),
+  `is_read` tinyint(1) DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `messages`
+-- Dumping data untuk tabel `messages`
 --
 
 INSERT INTO `messages` (`id`, `sender_id`, `sender_role`, `receiver_id`, `receiver_role`, `message`, `file`, `timestamp`, `is_read`) VALUES
@@ -600,84 +599,85 @@ INSERT INTO `messages` (`id`, `sender_id`, `sender_role`, `receiver_id`, `receiv
 (82, 2, 'user', 9, 'pengacara', 'Saya ingin konsultasi terkait HAKI', NULL, '2025-05-18 20:06:45', 0),
 (83, 9, 'pengacara', 2, 'user', 'Selamat malam Pak Samsudin, tentu saja saya akan membantu menangani kasus Anda', NULL, '2025-05-18 20:09:42', 0),
 (84, 2, 'user', 9, 'pengacara', 'Baik pak, saya akan mengirimkan dokumen untuk bapak analisis lebih lanjut', NULL, '2025-05-18 20:11:38', 0),
-(85, 2, 'user', 9, 'pengacara', '', '1747574019331-911943145.jpg', '2025-05-18 20:13:39', 0);
+(85, 2, 'user', 9, 'pengacara', '', '1747574019331-911943145.jpg', '2025-05-18 20:13:39', 0),
+(86, 2, 'user', 3, 'pengacara', 'kacau', NULL, '2025-05-23 11:10:00', 0);
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `pendaftaran_pengacara`
+-- Struktur dari tabel `pendaftaran_pengacara`
 --
 
 CREATE TABLE `pendaftaran_pengacara` (
-  `id` int NOT NULL,
-  `nama` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
-  `ktp` varchar(30) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `id` int(11) NOT NULL,
+  `nama` varchar(100) NOT NULL,
+  `ktp` varchar(30) NOT NULL,
   `tanggal_lahir` date NOT NULL,
-  `jenis_kelamin` enum('Laki-laki','Perempuan') CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
-  `alamat` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
-  `email` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
-  `no_hp` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
-  `nomor_induk_advokat` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
-  `universitas` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
-  `pendidikan` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
-  `spesialisasi` varchar(150) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
-  `pengalaman` int NOT NULL,
-  `upload_ktp` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `upload_foto` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `upload_kartu_advokat` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `upload_pkpa` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `username` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
-  `password` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
-  `tanggal_daftar` datetime DEFAULT CURRENT_TIMESTAMP,
-  `linkedin` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `instagram` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `twitter` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `resume_cv` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `portofolio` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL
+  `jenis_kelamin` enum('Laki-laki','Perempuan') NOT NULL,
+  `alamat` text NOT NULL,
+  `email` varchar(100) NOT NULL,
+  `no_hp` varchar(20) NOT NULL,
+  `nomor_induk_advokat` varchar(50) NOT NULL,
+  `universitas` varchar(100) NOT NULL,
+  `pendidikan` varchar(100) NOT NULL,
+  `spesialisasi` varchar(150) NOT NULL,
+  `pengalaman` int(11) NOT NULL,
+  `upload_ktp` varchar(255) DEFAULT NULL,
+  `upload_foto` varchar(255) DEFAULT NULL,
+  `upload_kartu_advokat` varchar(255) DEFAULT NULL,
+  `upload_pkpa` varchar(255) DEFAULT NULL,
+  `username` varchar(100) NOT NULL,
+  `password` varchar(255) NOT NULL,
+  `tanggal_daftar` datetime DEFAULT current_timestamp(),
+  `linkedin` varchar(255) DEFAULT NULL,
+  `instagram` varchar(255) DEFAULT NULL,
+  `twitter` varchar(255) DEFAULT NULL,
+  `resume_cv` varchar(255) DEFAULT NULL,
+  `portofolio` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `pengacara`
+-- Struktur dari tabel `pengacara`
 --
 
 CREATE TABLE `pengacara` (
-  `id` int NOT NULL,
-  `nama` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
-  `ktp` varchar(30) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `id` int(11) NOT NULL,
+  `nama` varchar(100) NOT NULL,
+  `ktp` varchar(30) NOT NULL,
   `tanggal_lahir` date NOT NULL,
-  `jenis_kelamin` enum('Laki-laki','Perempuan') CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
-  `alamat` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
-  `email` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
-  `no_hp` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
-  `nomor_induk_advokat` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
-  `universitas` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
-  `pendidikan` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
-  `spesialisasi` varchar(150) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
-  `pengalaman` int NOT NULL,
-  `upload_ktp` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `upload_foto` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `upload_kartu_advokat` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `upload_pkpa` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `username` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
-  `password` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
-  `tanggal_daftar` datetime DEFAULT CURRENT_TIMESTAMP,
-  `linkedin` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `instagram` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `twitter` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `bank_name` varchar(100) COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `account_name` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `account_number` varchar(50) COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `resume_cv` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `portofolio` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `harga_konsultasi` int NOT NULL DEFAULT '50000',
-  `reset_token` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `jenis_kelamin` enum('Laki-laki','Perempuan') NOT NULL,
+  `alamat` text NOT NULL,
+  `email` varchar(100) NOT NULL,
+  `no_hp` varchar(20) NOT NULL,
+  `nomor_induk_advokat` varchar(50) NOT NULL,
+  `universitas` varchar(100) NOT NULL,
+  `pendidikan` varchar(100) NOT NULL,
+  `spesialisasi` varchar(150) NOT NULL,
+  `pengalaman` int(11) NOT NULL,
+  `upload_ktp` varchar(255) DEFAULT NULL,
+  `upload_foto` varchar(255) DEFAULT NULL,
+  `upload_kartu_advokat` varchar(255) DEFAULT NULL,
+  `upload_pkpa` varchar(255) DEFAULT NULL,
+  `username` varchar(50) NOT NULL,
+  `password` varchar(255) NOT NULL,
+  `tanggal_daftar` datetime DEFAULT current_timestamp(),
+  `linkedin` varchar(255) DEFAULT NULL,
+  `instagram` varchar(255) DEFAULT NULL,
+  `twitter` varchar(255) DEFAULT NULL,
+  `bank_name` varchar(100) DEFAULT NULL,
+  `account_name` varchar(255) DEFAULT NULL,
+  `account_number` varchar(50) DEFAULT NULL,
+  `resume_cv` varchar(255) DEFAULT NULL,
+  `portofolio` varchar(255) DEFAULT NULL,
+  `harga_konsultasi` int(11) NOT NULL DEFAULT 50000,
+  `reset_token` varchar(255) DEFAULT NULL,
   `reset_token_expiry` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `pengacara`
+-- Dumping data untuk tabel `pengacara`
 --
 
 INSERT INTO `pengacara` (`id`, `nama`, `ktp`, `tanggal_lahir`, `jenis_kelamin`, `alamat`, `email`, `no_hp`, `nomor_induk_advokat`, `universitas`, `pendidikan`, `spesialisasi`, `pengalaman`, `upload_ktp`, `upload_foto`, `upload_kartu_advokat`, `upload_pkpa`, `username`, `password`, `tanggal_daftar`, `linkedin`, `instagram`, `twitter`, `bank_name`, `account_name`, `account_number`, `resume_cv`, `portofolio`, `harga_konsultasi`, `reset_token`, `reset_token_expiry`) VALUES
@@ -705,74 +705,74 @@ INSERT INTO `pengacara` (`id`, `nama`, `ktp`, `tanggal_lahir`, `jenis_kelamin`, 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `pengguna`
+-- Struktur dari tabel `pengguna`
 --
 
 CREATE TABLE `pengguna` (
-  `id` int NOT NULL,
-  `nama` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
-  `email` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
-  `password_hash` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
-  `no_hp` varchar(15) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `alamat` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci,
-  `tanggal_daftar` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
+  `id` int(11) NOT NULL,
+  `nama` varchar(100) NOT NULL,
+  `email` varchar(100) NOT NULL,
+  `password_hash` varchar(255) NOT NULL,
+  `no_hp` varchar(15) DEFAULT NULL,
+  `alamat` text DEFAULT NULL,
+  `tanggal_daftar` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `tanya_jawab`
+-- Struktur dari tabel `tanya_jawab`
 --
 
 CREATE TABLE `tanya_jawab` (
-  `id` int NOT NULL,
-  `id_pengguna` int NOT NULL,
-  `id_pengacara` int NOT NULL,
-  `pertanyaan` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
-  `jawaban` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci,
-  `status` enum('Menunggu','Dijawab') CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT 'Menunggu',
-  `tanggal_tanya` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `id` int(11) NOT NULL,
+  `id_pengguna` int(11) NOT NULL,
+  `id_pengacara` int(11) NOT NULL,
+  `pertanyaan` text NOT NULL,
+  `jawaban` text DEFAULT NULL,
+  `status` enum('Menunggu','Dijawab') DEFAULT 'Menunggu',
+  `tanggal_tanya` timestamp NOT NULL DEFAULT current_timestamp(),
   `tanggal_jawab` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `transaksi`
+-- Struktur dari tabel `transaksi`
 --
 
 CREATE TABLE `transaksi` (
-  `transaksi_id` int NOT NULL,
-  `pengacara_id` int NOT NULL,
-  `user_id` int NOT NULL,
-  `amount` int NOT NULL,
-  `status` enum('Pending','Success','Failed') CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL DEFAULT 'Pending',
-  `tanggal_transaksi` datetime DEFAULT CURRENT_TIMESTAMP
+  `transaksi_id` int(11) NOT NULL,
+  `pengacara_id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `amount` int(11) NOT NULL,
+  `status` enum('Pending','Success','Failed') NOT NULL DEFAULT 'Pending',
+  `tanggal_transaksi` datetime DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `users`
+-- Struktur dari tabel `users`
 --
 
 CREATE TABLE `users` (
-  `id` int NOT NULL,
-  `name` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
-  `email` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
-  `phone` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
-  `password` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
-  `gender` enum('L','P') CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `id` int(11) NOT NULL,
+  `name` varchar(100) NOT NULL,
+  `email` varchar(100) NOT NULL,
+  `phone` varchar(20) NOT NULL,
+  `password` varchar(255) NOT NULL,
+  `gender` enum('L','P') NOT NULL,
   `birthdate` date NOT NULL,
-  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `address` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `photo` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `reset_token` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  `address` varchar(255) DEFAULT NULL,
+  `photo` varchar(255) DEFAULT NULL,
+  `reset_token` varchar(255) DEFAULT NULL,
   `reset_token_expiry` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `users`
+-- Dumping data untuk tabel `users`
 --
 
 INSERT INTO `users` (`id`, `name`, `email`, `phone`, `password`, `gender`, `birthdate`, `created_at`, `address`, `photo`, `reset_token`, `reset_token_expiry`) VALUES
@@ -793,45 +793,45 @@ INSERT INTO `users` (`id`, `name`, `email`, `phone`, `password`, `gender`, `birt
 (16, 'manusia', 'manusia@gmail.com', '089967372738', '222', 'L', '2025-05-01', '2025-04-15 08:23:51', NULL, NULL, NULL, NULL),
 (17, 'ihsan', 'ihsan@gmail.com', '8789907788', '333', 'L', '2025-04-15', '2025-04-15 08:26:36', NULL, NULL, NULL, NULL),
 (18, 'Ayunnie', 'sukagelay299@gmail.com', '0857061254118', '222', 'P', '2222-02-22', '2025-04-15 08:28:08', NULL, NULL, NULL, NULL),
-(19, 'ihsan', 'sukagelay9@gmail.com', '0857061254113', '222', 'P', '0002-02-22', '2025-04-15 08:29:35', NULL, NULL, NULL, NULL);
+(19, 'ihsan', 'sukagay@gmail.com', '0857061254113', '222', 'P', '0002-02-22', '2025-04-15 08:29:35', '', NULL, NULL, NULL);
 
 --
 -- Indexes for dumped tables
 --
 
 --
--- Indexes for table `admin`
+-- Indeks untuk tabel `admin`
 --
 ALTER TABLE `admin`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `email` (`email`);
 
 --
--- Indexes for table `ajukan_kasus`
+-- Indeks untuk tabel `ajukan_kasus`
 --
 ALTER TABLE `ajukan_kasus`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `artikel`
+-- Indeks untuk tabel `artikel`
 --
 ALTER TABLE `artikel`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `artikel_berita`
+-- Indeks untuk tabel `artikel_berita`
 --
 ALTER TABLE `artikel_berita`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `faq_hukum`
+-- Indeks untuk tabel `faq_hukum`
 --
 ALTER TABLE `faq_hukum`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `konsultasi`
+-- Indeks untuk tabel `konsultasi`
 --
 ALTER TABLE `konsultasi`
   ADD PRIMARY KEY (`id`),
@@ -839,54 +839,54 @@ ALTER TABLE `konsultasi`
   ADD KEY `id_pengacara` (`id_pengacara`);
 
 --
--- Indexes for table `konsultasi_session`
+-- Indeks untuk tabel `konsultasi_session`
 --
 ALTER TABLE `konsultasi_session`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `unik_session` (`user_id`,`pengacara_id`,`status`);
 
 --
--- Indexes for table `log_aktivitas`
+-- Indeks untuk tabel `log_aktivitas`
 --
 ALTER TABLE `log_aktivitas`
   ADD PRIMARY KEY (`id`),
   ADD KEY `id_pengguna` (`id_pengguna`);
 
 --
--- Indexes for table `log_pertanyaan_user`
+-- Indeks untuk tabel `log_pertanyaan_user`
 --
 ALTER TABLE `log_pertanyaan_user`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `messages`
+-- Indeks untuk tabel `messages`
 --
 ALTER TABLE `messages`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `pendaftaran_pengacara`
+-- Indeks untuk tabel `pendaftaran_pengacara`
 --
 ALTER TABLE `pendaftaran_pengacara`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `email` (`email`);
 
 --
--- Indexes for table `pengacara`
+-- Indeks untuk tabel `pengacara`
 --
 ALTER TABLE `pengacara`
   ADD PRIMARY KEY (`id`),
   ADD KEY `email` (`email`);
 
 --
--- Indexes for table `pengguna`
+-- Indeks untuk tabel `pengguna`
 --
 ALTER TABLE `pengguna`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `email` (`email`);
 
 --
--- Indexes for table `tanya_jawab`
+-- Indeks untuk tabel `tanya_jawab`
 --
 ALTER TABLE `tanya_jawab`
   ADD PRIMARY KEY (`id`),
@@ -894,7 +894,7 @@ ALTER TABLE `tanya_jawab`
   ADD KEY `id_pengacara` (`id_pengacara`);
 
 --
--- Indexes for table `transaksi`
+-- Indeks untuk tabel `transaksi`
 --
 ALTER TABLE `transaksi`
   ADD PRIMARY KEY (`transaksi_id`),
@@ -902,138 +902,138 @@ ALTER TABLE `transaksi`
   ADD KEY `user_id` (`user_id`);
 
 --
--- Indexes for table `users`
+-- Indeks untuk tabel `users`
 --
 ALTER TABLE `users`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `email` (`email`);
 
 --
--- AUTO_INCREMENT for dumped tables
+-- AUTO_INCREMENT untuk tabel yang dibuang
 --
 
 --
--- AUTO_INCREMENT for table `admin`
+-- AUTO_INCREMENT untuk tabel `admin`
 --
 ALTER TABLE `admin`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
--- AUTO_INCREMENT for table `ajukan_kasus`
+-- AUTO_INCREMENT untuk tabel `ajukan_kasus`
 --
 ALTER TABLE `ajukan_kasus`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 
 --
--- AUTO_INCREMENT for table `artikel`
+-- AUTO_INCREMENT untuk tabel `artikel`
 --
 ALTER TABLE `artikel`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=39;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=39;
 
 --
--- AUTO_INCREMENT for table `artikel_berita`
+-- AUTO_INCREMENT untuk tabel `artikel_berita`
 --
 ALTER TABLE `artikel_berita`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
--- AUTO_INCREMENT for table `faq_hukum`
+-- AUTO_INCREMENT untuk tabel `faq_hukum`
 --
 ALTER TABLE `faq_hukum`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=104;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=104;
 
 --
--- AUTO_INCREMENT for table `konsultasi`
+-- AUTO_INCREMENT untuk tabel `konsultasi`
 --
 ALTER TABLE `konsultasi`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT for table `konsultasi_session`
+-- AUTO_INCREMENT untuk tabel `konsultasi_session`
 --
 ALTER TABLE `konsultasi_session`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
--- AUTO_INCREMENT for table `log_aktivitas`
+-- AUTO_INCREMENT untuk tabel `log_aktivitas`
 --
 ALTER TABLE `log_aktivitas`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=75;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=75;
 
 --
--- AUTO_INCREMENT for table `log_pertanyaan_user`
+-- AUTO_INCREMENT untuk tabel `log_pertanyaan_user`
 --
 ALTER TABLE `log_pertanyaan_user`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=61;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=61;
 
 --
--- AUTO_INCREMENT for table `messages`
+-- AUTO_INCREMENT untuk tabel `messages`
 --
 ALTER TABLE `messages`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=86;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=87;
 
 --
--- AUTO_INCREMENT for table `pendaftaran_pengacara`
+-- AUTO_INCREMENT untuk tabel `pendaftaran_pengacara`
 --
 ALTER TABLE `pendaftaran_pengacara`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
--- AUTO_INCREMENT for table `pengacara`
+-- AUTO_INCREMENT untuk tabel `pengacara`
 --
 ALTER TABLE `pengacara`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
 
 --
--- AUTO_INCREMENT for table `pengguna`
+-- AUTO_INCREMENT untuk tabel `pengguna`
 --
 ALTER TABLE `pengguna`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT for table `tanya_jawab`
+-- AUTO_INCREMENT untuk tabel `tanya_jawab`
 --
 ALTER TABLE `tanya_jawab`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT for table `transaksi`
+-- AUTO_INCREMENT untuk tabel `transaksi`
 --
 ALTER TABLE `transaksi`
-  MODIFY `transaksi_id` int NOT NULL AUTO_INCREMENT;
+  MODIFY `transaksi_id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT for table `users`
+-- AUTO_INCREMENT untuk tabel `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 
 --
--- Constraints for dumped tables
+-- Ketidakleluasaan untuk tabel pelimpahan (Dumped Tables)
 --
 
 --
--- Constraints for table `konsultasi`
+-- Ketidakleluasaan untuk tabel `konsultasi`
 --
 ALTER TABLE `konsultasi`
   ADD CONSTRAINT `konsultasi_ibfk_1` FOREIGN KEY (`id_pengguna`) REFERENCES `pengguna` (`id`) ON DELETE CASCADE,
   ADD CONSTRAINT `konsultasi_ibfk_2` FOREIGN KEY (`id_pengacara`) REFERENCES `pengacara` (`id`) ON DELETE CASCADE;
 
 --
--- Constraints for table `log_aktivitas`
+-- Ketidakleluasaan untuk tabel `log_aktivitas`
 --
 ALTER TABLE `log_aktivitas`
   ADD CONSTRAINT `fk_log_user` FOREIGN KEY (`id_pengguna`) REFERENCES `users` (`id`) ON DELETE CASCADE;
 
 --
--- Constraints for table `tanya_jawab`
+-- Ketidakleluasaan untuk tabel `tanya_jawab`
 --
 ALTER TABLE `tanya_jawab`
   ADD CONSTRAINT `tanya_jawab_ibfk_1` FOREIGN KEY (`id_pengguna`) REFERENCES `pengguna` (`id`) ON DELETE CASCADE,
   ADD CONSTRAINT `tanya_jawab_ibfk_2` FOREIGN KEY (`id_pengacara`) REFERENCES `pengacara` (`id`) ON DELETE CASCADE;
 
 --
--- Constraints for table `transaksi`
+-- Ketidakleluasaan untuk tabel `transaksi`
 --
 ALTER TABLE `transaksi`
   ADD CONSTRAINT `fk_pengacara_id` FOREIGN KEY (`pengacara_id`) REFERENCES `pengacara` (`id`) ON DELETE CASCADE,

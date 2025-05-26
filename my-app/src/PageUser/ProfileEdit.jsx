@@ -24,6 +24,9 @@ const ProfileEdit = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [successMessage, setSuccessMessage] = useState("");
+  
+  // Tambah state popup logout
+  const [showLogoutPopup, setShowLogoutPopup] = useState(false);
 
   useEffect(() => {
     if (!userId) {
@@ -103,6 +106,12 @@ const ProfileEdit = () => {
       });
   };
 
+  // Fungsi toggle popup logout
+  const toggleLogoutPopup = () => {
+    setShowLogoutPopup(!showLogoutPopup);
+  };
+
+  // Fungsi logout sebenarnya
   const handleLogout = () => {
     localStorage.removeItem("user");
     navigate("/");
@@ -137,7 +146,7 @@ const ProfileEdit = () => {
               onChange={handlePhotoChange}
               style={{ marginBottom: "10px" }}
             />
-            <button className="logout-btn" onClick={handleLogout}>Keluar Akun</button>
+            <button className="logout-btn" onClick={toggleLogoutPopup}>Keluar Akun</button>
           </div>
 
           <div className="profile-main">
@@ -201,6 +210,23 @@ const ProfileEdit = () => {
           </div>
         </div>
       </div>
+
+      {showLogoutPopup && (
+        <div className="popup-overlay">
+          <div className="popup-content">
+            <div className="popup-header">Anda Yakin Ingin Keluar?</div>
+            <div className="popup-button-container">
+              <button className="popup-button btn-cancel" onClick={toggleLogoutPopup}>
+                Batal
+              </button>
+              <button className="popup-button btn-exit" onClick={handleLogout}>
+                Keluar
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
       <br /><br />
       <div className="footer-separator"></div>
       <Footer />

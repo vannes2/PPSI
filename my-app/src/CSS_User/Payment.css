@@ -1,215 +1,212 @@
-/* Background utama abu-abu terang */
-.payment-page-wrapper {
+.payment-wrapper {
   background-color: #fefff0;
   min-height: 100vh;
-  padding: 40px 0;
+   overflow-x: hidden;
 }
 
-/* Container utama putih */
-.payment-page-wrapper .payment-page {
-  max-width: 480px;
-  margin: 0 auto;
-  padding: 24px 20px;
-  background: #fff; /* putih */
-  border-radius: 16px;
-  box-shadow: 0 12px 30px rgb(179 19 18 / 0.15); /* merah gelap transparan */
-}
 
-/* Loading & Error teks merah gelap */
-.payment-page-wrapper .error-text {
-  text-align: center;
-  font-weight: 600;
-  font-size: 1rem;
-  color: #B31312; /* Merah Gelap */
-}
-
-/* Card pembayaran: vertikal, fokus konten */
-.payment-page-wrapper .payment-card {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 20px;
-}
-
-/* Foto bundar dengan border merah gelap */
-.payment-page-wrapper .payment-photo {
-  width: 140px;
-  height: 140px;
-  border-radius: 50%;
-  overflow: hidden;
-  border: 3px solid #B31312; /* merah gelap */
-  box-shadow: 0 4px 10px rgb(179 19 18 / 0.3);
-  background-color: #ffc6c6; /* merah muda muda */
+.payment-content {
+  padding: 120px 16px 60px;
   display: flex;
   justify-content: center;
-  align-items: center;
-}
-
-.payment-page-wrapper .payment-photo img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-
-/* Placeholder foto */
-.payment-page-wrapper .photo-placeholder {
-  font-size: 1rem;
-  color: #666; /* abu-abu sedang */
-  text-align: center;
-  padding: 1rem;
-}
-
-/* Info advokat: teks abu-abu sedang, judul abu-abu gelap */
-.payment-page-wrapper .payment-info {
-  width: 100%;
-  text-align: center;
-  color: #666; /* abu-abu sedang */
-}
-
-.payment-page-wrapper .payment-info h2 {
-  font-weight: 700;
-  font-size: 1.6rem;
-  margin-bottom: 16px;
-  color: #3b3b3b; /* abu-abu gelap */
-}
-
-/* Detail ringkas pakai list */
-.payment-page-wrapper .payment-info ul {
-  list-style: none;
-  padding: 0;
-  margin: 0 0 24px 0;
-}
-
-.payment-page-wrapper .payment-info li {
-  font-size: 1rem;
-  margin-bottom: 12px;
-}
-
-.payment-page-wrapper .payment-info li span.label {
-  font-weight: 600;
-  color: #B31312; /* Merah Gelap */
-}
-
-/* Kontrol durasi horizontal, tombol bulat merah gelap */
-.payment-page-wrapper .duration-control {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 20px;
-  margin-bottom: 24px;
-}
-
-.payment-page-wrapper .duration-control button {
-  background-color: #B31312; /* Merah Gelap */
-  border: none;
-  color: white;
-  font-size: 1.2rem;
-  width: 44px;
-  height: 44px;
-  border-radius: 50%;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-  user-select: none;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  box-shadow: 0 3px 8px rgb(179 19 18 / 0.6);
-}
-
-.payment-page-wrapper .duration-control button:disabled {
-  background-color: #ccc; /* abu-abu muda */
-  cursor: not-allowed;
+  background-color: #fefff0;
   box-shadow: none;
 }
 
-.payment-page-wrapper .duration-control button:hover:not(:disabled) {
-  background-color: #7f0a0a; /* Merah gelap lebih gelap saat hover */
+
+.payment-card {
+  max-width: 960px;
+  width: 100%;
+  background-color: white;
+  border-radius: 16px;
+  padding: 32px 40px;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.08);
 }
 
-.payment-page-wrapper .duration-control span {
-  font-weight: 700;
-  font-size: 1.4rem;
-  color: #B31312; /* Merah Gelap */
-  min-width: 100px;
+.payment-title {
   text-align: center;
+  color: #b31312;
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 32px;
 }
 
-/* Tombol bayar dan detail */
-.payment-page-wrapper .payment-button-group {
+.payment-grid {
   display: flex;
-  gap: 16px;
-  justify-content: center;
-  margin-top: 30px;
+  gap: 40px;
   flex-wrap: wrap;
 }
 
-.payment-page-wrapper .btn-bayar,
-.payment-page-wrapper .btn-detail {
+.photo-section img {
+  width: 180px;
+  height: 240px;
+  object-fit: cover;
+  border-radius: 12px;
+  border: 3px solid #b31312;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.photo-placeholder {
+  width: 180px;
+  height: 240px;
+  background-color: #eee;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 0.9rem;
+  color: #666;
+  border-radius: 12px;
+}
+
+.info-section {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  font-size: 18px;
+  color: #222;
+  align-items: flex-start;
+}
+
+.info-row {
+  width: 100%;
+  display: flex;
+  gap: 16px;
+  justify-content: flex-start;
+  align-items: flex-start;
+  border-bottom: 1px solid #eee;
+  padding-bottom: 4px;
+  font-size: 18px;
+  font-weight: 500;
+}
+
+.info-row.total {
+  font-weight: bold;
+  font-size: 20px;
+  color: #1b4332;
+  margin-top: 12px;
+}
+
+.info-row.full-width {
+  grid-column: 1 / -1;
+}
+
+/* Durasi Konsultasi */
+.durasi-kontrol {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-left: 200px;
+}
+
+.durasi-kontrol button {
+  background-color: #b31312;
+  border: none;
   color: white;
-  font-weight: 700;
-  font-size: 1.1rem;
-  padding: 14px 28px;
-  border-radius: 40px;
-  text-decoration: none;
+  width: 36px;
+  height: 36px;
+  font-size: 20px;
+  font-weight: bold;
+  border-radius: 6px;
   cursor: pointer;
-  box-shadow: 0 6px 14px rgba(179, 19, 18, 0.5);
-  transition: background-color 0.3s ease, box-shadow 0.3s ease;
   display: flex;
   align-items: center;
   justify-content: center;
-  min-width: 180px;
+  transition: background-color 0.3s ease;
+}
+
+.durasi-kontrol button:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+.durasi-kontrol button:hover:not(:disabled) {
+  background-color: #921010;
+}
+
+.button-wrapper {
+  margin-top: 24px;
+  text-align: right;
+}
+
+.btn-payment {
+  background-color: #b31312;
+  color: white;
   border: none;
+  padding: 12px 24px;
+  border-radius: 32px;
+  font-size: 1rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
 }
 
-.payment-page-wrapper .btn-bayar {
-  background-color: #B31312; /* Merah Gelap */
+.btn-payment:hover {
+  background-color: #921010;
 }
 
-.payment-page-wrapper .btn-bayar:hover {
-  background-color: #7f0a0a;
-  box-shadow: 0 8px 20px rgba(127, 10, 10, 0.7);
+.info-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px 24px;
+  width: 100%;
 }
 
-.payment-page-wrapper .btn-detail {
-  background-color: #3b3b3b; /* abu-abu gelap */
-  box-shadow: 0 6px 14px rgba(59, 59, 59, 0.5);
+.info-row.icon-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 18px;
+  color: #333;
+  border-bottom: 1px solid #eee;
+  padding-bottom: 8px;
 }
 
-.payment-page-wrapper .btn-detail:hover {
-  background-color: #666;
-  box-shadow: 0 8px 20px rgba(102, 102, 102, 0.7);
+.info-icon {
+  width: 20px;
+  height: 20px;
+  color: #b31312;
 }
 
-/* Responsive - mobile */
-@media (max-width: 400px) {
-  .payment-page-wrapper .payment-page {
-    margin: 24px 12px;
-    padding: 20px 16px;
+.photo-name {
+  text-align: center;
+  margin-top: 12px;
+  font-size: 18px;
+  font-weight: 600;
+  color: #102a43;
+}
+
+.photo-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: -75px; /* naikkan posisi gambar */
+}
+
+.photo-section img {
+  width: 180px;
+  height: 240px;
+  object-fit: cover;
+  border-radius: 12px;
+  border: 3px solid #b31312;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+@media (max-width: 768px) {
+  .info-grid {
+    grid-template-columns: 1fr;
   }
-  .payment-page-wrapper .payment-photo {
-    width: 120px;
-    height: 120px;
-  }
-  .payment-page-wrapper .payment-info h2 {
-    font-size: 1.4rem;
-  }
-  .payment-page-wrapper .duration-control button {
-    width: 38px;
-    height: 38px;
-    font-size: 1rem;
-  }
-  .payment-page-wrapper .duration-control span {
-    min-width: 80px;
-    font-size: 1.1rem;
-  }
-  .payment-page-wrapper .btn-bayar,
-  .payment-page-wrapper .btn-detail {
-    font-size: 1.1rem;
-    padding: 14px 0;
-    width: 100%;
-    min-width: auto;
-  }
-  .payment-page-wrapper .payment-button-group {
+
+  .payment-grid {
     flex-direction: column;
+    align-items: center;
+  }
+
+  .info-section {
+    width: 100%;
+  }
+
+  .button-wrapper {
+    text-align: center;
   }
 }
