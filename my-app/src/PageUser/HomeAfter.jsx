@@ -198,7 +198,9 @@ const HomeAfter = () => {
           <Link to="/konsultasi" className="btn-selengkapnya">Selengkapnya &gt;</Link>
         </div>
 
-        <div className="product-scroll-wrapper" ref={scrollRef}
+        <div
+          className="product-scroll-wrapper"
+          ref={scrollRef}
           style={{
             width: `${cardWidth * visibleCards + cardGap * (visibleCards - 1)}px`,
             overflowX: "auto",
@@ -208,7 +210,8 @@ const HomeAfter = () => {
             padding: "10px",
             userSelect: "none",
             cursor: "grab",
-          }}>
+          }}
+        >
           {pengacara.length > 0 ? pengacara.map((advokat, index) => (
             <div key={advokat.id || index} className="product-item" style={{ minWidth: `${cardWidth}px` }}>
               {advokat.upload_foto ? (
@@ -218,28 +221,44 @@ const HomeAfter = () => {
                   className="foto-advokat"
                 />
               ) : (
-                <div style={{
-                  width: "120px", height: "120px", borderRadius: "50%",
-                  backgroundColor: "#eee", display: "flex",
-                  alignItems: "center", justifyContent: "center", marginBottom: "10px"
-                }}>
-                  <span style={{ color: "#999", fontSize: "12px", textAlign: "center" }}>Tidak ada foto</span>
+                <div
+                  style={{
+                    width: "90px",
+                    height: "90px",
+                    borderRadius: "50%",
+                    backgroundColor: "#eee",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    margin: "0 auto 12px",
+                  }}
+                >
+                  <span style={{ color: "#999", fontSize: "12px", textAlign: "center" }}>
+                    Tidak ada foto
+                  </span>
                 </div>
               )}
 
               <h3>{advokat.nama}</h3>
-              <div className="info-bar">
-                <FaTags className="info-icon" />
-                <span>{advokat.spesialisasi || "-"}</span>
+
+              {/* Bidang hukum dan pengalaman horizontal */}
+              <div className="info-bar-horizontal">
+                <div className="info-bar">
+                  <FaTags className="info-icon" />
+                  <span>{advokat.spesialisasi || "-"}</span>
+                </div>
+                <div className="info-bar">
+                  <FaBriefcase className="info-icon" />
+                  <span>{advokat.pengalaman ?? 0} tahun</span>
+                </div>
               </div>
-              <div className="info-bar">
-                <FaBriefcase className="info-icon" />
-                <span>{advokat.pengalaman ?? 0} tahun</span>
-              </div>
+
+              {/* Biaya konsultasi di bawah */}
               <div className="info-bar">
                 <FaCoins className="info-icon" />
                 <span>Rp{advokat.harga_konsultasi?.toLocaleString() || "-"}</span>
               </div>
+
               <Link to="/payment" state={{ pengacaraId: advokat.id }}>
                 <button className="btn-konsultasi">Klik Konsultasi</button>
               </Link>
@@ -255,8 +274,10 @@ const HomeAfter = () => {
         </div>
 
         <div className="slideshow-wrapper">
-          <div className="slideshow-track"
-            style={{ display: "flex", transition: "transform 0.5s ease-in-out", transform: `translateX(-${currentSlide * 100}%)` }}>
+          <div
+            className="slideshow-track"
+            style={{ display: "flex", transition: "transform 0.5s ease-in-out", transform: `translateX(-${currentSlide * 100}%)` }}
+          >
             {beritaTop.map((item) => (
               <div className="slide" key={item.id}>
                 <Link to={`/DetailBerita/${item.id}`}>

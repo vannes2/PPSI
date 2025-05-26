@@ -3,12 +3,12 @@ import { Link } from "react-router-dom";
 import "../CSS_User/Home.css";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
-import { FaCommentDots, FaUserCheck, FaBalanceScale } from "react-icons/fa";
+import { FaCommentDots, FaUserCheck, FaBalanceScale, FaBriefcase, FaCoins, FaTags } from "react-icons/fa";
 
 const Home = () => {
   const [pengacara, setPengacara] = useState([]);
   const [beritaTop, setBeritaTop] = useState([]);
-  const [setError] = useState(null);
+  const [, setError] = useState(null);
   const [currentSlide, setCurrentSlide] = useState(0);
 
   const scrollRef = useRef(null);
@@ -227,25 +227,18 @@ const Home = () => {
                     src={`http://localhost:5000/uploads/${advokat.upload_foto}`}
                     alt={advokat.nama}
                     className="foto-advokat"
-                    style={{
-                      width: "120px",
-                      height: "120px",
-                      borderRadius: "50%",
-                      objectFit: "cover",
-                      marginBottom: "10px",
-                    }}
                   />
                 ) : (
                   <div
                     style={{
-                      width: "120px",
-                      height: "120px",
+                      width: "90px",
+                      height: "90px",
                       borderRadius: "50%",
                       backgroundColor: "#eee",
                       display: "flex",
                       alignItems: "center",
                       justifyContent: "center",
-                      marginBottom: "10px",
+                      margin: "0 auto 12px",
                     }}
                   >
                     <span
@@ -259,10 +252,27 @@ const Home = () => {
                     </span>
                   </div>
                 )}
+
                 <h3>{advokat.nama}</h3>
-                <p><strong>Spesialisasi:</strong> {advokat.spesialisasi || "-"}</p>
-                <p><strong>Pengalaman:</strong> {advokat.pengalaman ?? 0} tahun</p>
-                <p><strong>Harga Konsultasi:</strong> Rp{advokat.harga_konsultasi?.toLocaleString() || "-"}</p>
+
+                {/* Bidang hukum dan pengalaman horizontal */}
+                <div className="info-bar-horizontal">
+                  <div className="info-bar">
+                    <FaTags className="info-icon" />
+                    <span>{advokat.spesialisasi || "-"}</span>
+                  </div>
+                  <div className="info-bar">
+                    <FaBriefcase className="info-icon" />
+                    <span>{advokat.pengalaman ?? 0} tahun</span>
+                  </div>
+                </div>
+
+                {/* Biaya konsultasi di bawah */}
+                <div className="info-bar">
+                  <FaCoins className="info-icon" />
+                  <span>Rp{advokat.harga_konsultasi?.toLocaleString() || "-"}</span>
+                </div>
+
                 <Link to="/Login" state={{ pengacaraId: advokat.id }}>
                   <button className="btn-konsultasi">Klik Konsultasi</button>
                 </Link>
@@ -277,9 +287,7 @@ const Home = () => {
       <section className="slideshow-section" style={{ marginTop: "60px" }}>
         <div className="slideshow-header">
           <h2 className="slideshow-heading">Berita Hukum Pilihan</h2>
-          <Link to="/Login" className="btn-selengkapnya">
-            Selengkapnya &gt;
-          </Link>
+          <Link to="/Login" className="btn-selengkapnya">Selengkapnya &gt;</Link>
         </div>
 
         <div className="slideshow-wrapper">

@@ -387,14 +387,15 @@ body {
 
 /* card konsisten*/
 .product-item .foto-advokat {
-  width: 90px;
-  height: 90px;
-  border-radius: 50%;
+  width: 160px !important; 
+  height: 160px !important;
+  border-radius: 50% !important;
   object-fit: cover;
-  margin: 0 auto 12px; /* Sedikit dikurangi untuk proporsional */
+  margin: 0 auto 12px;
   display: block;
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
 }
+
 
 .product-item h3 {
   font-size: 18px;
@@ -431,6 +432,7 @@ body {
   gap: 1rem;
   padding: 1rem;
   scrollbar-width: none;
+  scroll-snap-type: x mandatory;
 }
 
 .product-scroll-wrapper::-webkit-scrollbar {
@@ -449,6 +451,7 @@ body {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  scroll-snap-align: start;
 }
 
 .product-scroll-wrapper.active {
@@ -639,6 +642,13 @@ body {
 .info-icon {
   color: #B31312;
   font-size: 16px;
+}
+
+.info-bar-horizontal {
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+  margin-bottom: 8px;
 }
 
 
