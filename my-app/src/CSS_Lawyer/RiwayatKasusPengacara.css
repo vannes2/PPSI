@@ -1,0 +1,182 @@
+/* Container utama */
+.riwayat-pengacara-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+  font-family: Arial, sans-serif;
+}
+
+/* Layout dua kolom untuk riwayat konsultasi dan kasus */
+.riwayat-dua-kolom {
+  display: flex;
+  gap: 30px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+/* Section untuk masing-masing daftar */
+.riwayat-section {
+  flex: 1 1 45%;
+  background-color: #fff;
+  border-radius: 8px;
+  padding: 20px;
+  box-shadow: 0 3px 12px rgba(0,0,0,0.1);
+  min-width: 320px;
+}
+
+/* Judul section */
+.riwayat-title {
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: #b31312;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+/* List kartu */
+.card-list {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+/* Kartu kasus/konsultasi */
+.riwayat-card {
+  display: flex;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  overflow: hidden;
+  background: #fefefe;
+  transition: box-shadow 0.3s ease;
+}
+
+.riwayat-card:hover {
+  box-shadow: 0 8px 20px rgba(179, 19, 18, 0.3);
+}
+
+/* Bagian gambar di kartu */
+.riwayat-card-image {
+  width: 140px;
+  height: 140px;
+  flex-shrink: 0;
+  background-color: #eee;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  border-right: 1px solid #ddd;
+}
+
+.riwayat-card-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.no-image {
+  color: #999;
+  font-size: 0.9rem;
+  font-style: italic;
+}
+
+/* Konten dalam kartu */
+.riwayat-card-content {
+  flex: 1;
+  padding: 12px 18px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+/* Paragraf dalam konten */
+.riwayat-card-content p {
+  margin: 6px 0;
+  font-size: 0.95rem;
+  color: #333;
+}
+
+.riwayat-card-content strong {
+  color: #b31312;
+}
+
+/* Grup tombol */
+.btn-group {
+  margin-top: 10px;
+  display: flex;
+  gap: 10px;
+}
+
+/* Tombol */
+.btn {
+  padding: 8px 14px;
+  font-size: 0.9rem;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  user-select: none;
+  transition: background-color 0.25s ease;
+}
+
+.detail-btn {
+  background-color: #b31312;
+  color: white;
+}
+
+.detail-btn:hover:not(:disabled) {
+  background-color: #8a0e0e;
+}
+
+.history-btn {
+  background-color: #e0e0e0;
+  color: #333;
+}
+
+.history-btn:hover {
+  background-color: #cacaca;
+}
+
+/* Tombol disabled */
+.btn:disabled {
+  background-color: #bbb;
+  cursor: not-allowed;
+  color: #666;
+}
+
+/* Status */
+.status-belum-diambil-user,
+.status-belum-diambil-pengacara {
+  color: #d9534f;
+  font-weight: 600;
+}
+
+.status-selesai {
+  color: #28a745;
+  font-weight: 600;
+}
+
+.status-proses {
+  color: #ffc107;
+  font-weight: 600;
+}
+
+/* Garis pemisah vertikal */
+.vertical-separator {
+  width: 2px;
+  background-color: #b31312;
+  margin: 0 15px;
+  border-radius: 1px;
+  align-self: stretch;
+}
+
+/* Responsive */
+@media (max-width: 900px) {
+  .riwayat-dua-kolom {
+    flex-direction: column;
+    gap: 30px;
+  }
+  
+  .riwayat-section {
+    flex: 1 1 100%;
+  }
+}

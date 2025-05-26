@@ -87,7 +87,7 @@ const HeaderLawyer = () => {
             <Link to="/KonsultasiLawyer">KONSULTASI</Link>
           </li>
           <li>
-            <Link to="/Riwayat">RIWAYAT</Link>
+            <Link to="/RiwayatKasusPengacara">RIWAYAT</Link>
           </li>
           <li>
             <Link to="/ArtikelLawyer">DOKUMEN</Link>

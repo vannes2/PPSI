@@ -53,7 +53,7 @@ import ProfileEditLawyer from "./PageLawyer/ProfileEditLawyer";
 import DaftarKasusLawyer from "./PageLawyer/DaftarKasusLawyer";
 import ArtikelDetailLawyer from "./PageLawyer/ArtikelDetailLawyer";
 import RegisterBankAccount from "./PageLawyer/RegisterBankAccount";
-
+import RiwayatKasusPengacara from "./PageLawyer/RiwayatKasusPengacara";
 // import RiwayatKasus from "./PageUser/RiwayatKasus";
 // BotChat
 import ChatBotWidget from "./ChatBot/ChatBotWidget";
@@ -127,7 +127,7 @@ function App() {
                 <Route path="/ProfileEditLawyer" element={<ProfileEditLawyer />} />
                 <Route path="/DaftarKasusLawyer" element={<DaftarKasusLawyer />} />
                 <Route path="/artikel-lawyer/:id" element={<ArtikelDetailLawyer />} />
-
+                <Route path="/RiwayatKasusPengacara" element={<RiwayatKasusPengacara />} />
             </Routes>
         </Router>
     );
