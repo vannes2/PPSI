@@ -116,6 +116,7 @@ const TransaksiKeuangan = () => {
                     <tr>
                       <th>Nama Klien</th>
                       <th>Biaya</th>
+                      <th>Biaya Pengacara</th>
                       <th>Pengacara</th>
                       <th>Nama Rekening</th>
                       <th>No Rekening</th>
@@ -129,6 +130,7 @@ const TransaksiKeuangan = () => {
                       <tr key={row.id}>
                         <td>{row.nama}</td>
                         <td>{format(row.biaya_min)}</td>
+                        <td>{format(row.biaya_pengacara)}</td>
                         <td>{row.nama_pengacara || "-"}</td>
                         <td>{row.nama_rekening || "-"}</td>
                         <td>{row.no_rekening || "-"}</td>
@@ -136,9 +138,7 @@ const TransaksiKeuangan = () => {
                         <td>{formatTanggal(row.created_at)}</td>
                         <td>
                           {row.is_transferred ? (
-                            <span
-                              style={{ color: "green", fontWeight: "600" }}
-                            >
+                            <span style={{ color: "green", fontWeight: "600" }}>
                               Sudah Transfer
                             </span>
                           ) : (
@@ -185,6 +185,7 @@ const TransaksiKeuangan = () => {
                       <th>Waktu Mulai</th>
                       <th>Durasi (menit)</th>
                       <th>Biaya</th>
+                      <th>Biaya Pengacara</th>
                       <th>Status</th>
                       <th>Aksi</th>
                     </tr>
@@ -197,20 +198,17 @@ const TransaksiKeuangan = () => {
                         <td>{new Date(row.start_time).toLocaleString("id-ID")}</td>
                         <td>{row.duration}</td>
                         <td>{format(row.biaya)}</td>
+                        <td>{format(row.biaya_pengacara)}</td>
                         <td>{row.status}</td>
                         <td>
                           {row.is_transferred ? (
-                            <span
-                              style={{ color: "green", fontWeight: "600" }}
-                            >
+                            <span style={{ color: "green", fontWeight: "600" }}>
                               Sudah Transfer
                             </span>
                           ) : (
                             <button
                               disabled={updating}
-                              onClick={() =>
-                                handleMarkTransfer("konsultasi", row.id)
-                              }
+                              onClick={() => handleMarkTransfer("konsultasi", row.id)}
                             >
                               Tandai Sudah Transfer
                             </button>

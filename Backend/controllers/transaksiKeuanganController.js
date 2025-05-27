@@ -16,16 +16,16 @@ exports.getTotalPendapatan = (req, res) => {
     WHERE status = 'selesai'
   `;
 
-  // Ambil data ajukan_kasus selesai + is_transferred untuk hitung pengeluaran dan pendapatan bersih
+  // Ambil data ajukan_kasus selesai + is_transferred + biaya_pengacara untuk hitung pengeluaran dan pendapatan bersih
   const queryKasusDetail = `
-    SELECT biaya_min, is_transferred
+    SELECT biaya_min, biaya_pengacara, is_transferred
     FROM ajukan_kasus
     WHERE status = 'Selesai'
   `;
 
-  // Ambil data konsultasi selesai + is_transferred
+  // Ambil data konsultasi selesai + is_transferred + biaya_pengacara
   const queryKonsultasiDetail = `
-    SELECT biaya, is_transferred
+    SELECT biaya, biaya_pengacara, is_transferred
     FROM konsultasi_session
     WHERE status = 'selesai'
   `;
@@ -56,19 +56,22 @@ exports.getTotalPendapatan = (req, res) => {
 
           let pendapatan_bersih_kasus = 0;
           let pengeluaran_kasus = 0;
-          kasusRows.forEach(({ biaya_min, is_transferred }) => {
+          kasusRows.forEach(({ biaya_min, biaya_pengacara, is_transferred }) => {
             if (is_transferred === 1) {
-              pengeluaran_kasus += biaya_min * 0.8;
-              pendapatan_bersih_kasus += biaya_min * 0.2;
+              // gunakan biaya_pengacara jika ada, jika null fallback ke biaya_min * 0.8
+              const biayaAdvokat = biaya_pengacara !== null ? Number(biaya_pengacara) : biaya_min * 0.8;
+              pengeluaran_kasus += biayaAdvokat;
+              pendapatan_bersih_kasus += biaya_min - biayaAdvokat;
             }
           });
 
           let pendapatan_bersih_konsultasi = 0;
           let pengeluaran_konsultasi = 0;
-          konsultasiRows.forEach(({ biaya, is_transferred }) => {
+          konsultasiRows.forEach(({ biaya, biaya_pengacara, is_transferred }) => {
             if (is_transferred === 1) {
-              pengeluaran_konsultasi += biaya * 0.8;
-              pendapatan_bersih_konsultasi += biaya * 0.2;
+              const biayaAdvokat = biaya_pengacara !== null ? Number(biaya_pengacara) : biaya * 0.8;
+              pengeluaran_konsultasi += biayaAdvokat;
+              pendapatan_bersih_konsultasi += biaya - biayaAdvokat;
             }
           });
 
@@ -97,7 +100,7 @@ exports.getTotalPendapatan = (req, res) => {
 exports.getKasusSelesai = (req, res) => {
   const query = `
     SELECT 
-      id, nama, biaya_min, nama_pengacara, nama_rekening, no_rekening, status, created_at, is_transferred
+      id, nama, biaya_min, biaya_pengacara, nama_pengacara, nama_rekening, no_rekening, status, created_at, is_transferred
     FROM ajukan_kasus
     WHERE status = 'Selesai'
     ORDER BY created_at DESC
@@ -114,7 +117,7 @@ exports.getKasusSelesai = (req, res) => {
 exports.getKonsultasiSelesai = (req, res) => {
   const query = `
     SELECT 
-      id, nama_user, nama_pengacara, start_time, duration, biaya, status, is_transferred
+      id, nama_user, nama_pengacara, start_time, duration, biaya, biaya_pengacara, status, is_transferred
     FROM konsultasi_session
     WHERE status = 'selesai'
     ORDER BY start_time DESC
