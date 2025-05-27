@@ -1,19 +1,22 @@
+/* Container utama halaman payment */
 .payment-wrapper {
   background-color: #fefff0;
   min-height: 100vh;
-   overflow-x: hidden;
+  overflow-x: hidden;
+  font-family: Arial, sans-serif;
+  color: #333;
 }
 
-
+/* Konten utama di tengah halaman */
 .payment-content {
   padding: 120px 16px 60px;
   display: flex;
   justify-content: center;
   background-color: #fefff0;
-  box-shadow: none;
+  box-shadow: none !important;
 }
 
-
+/* Kartu pembayaran dengan bayangan dan border radius */
 .payment-card {
   max-width: 960px;
   width: 100%;
@@ -23,6 +26,7 @@
   box-shadow: 0 6px 16px rgba(0, 0, 0, 0.08);
 }
 
+/* Judul halaman */
 .payment-title {
   text-align: center;
   color: #b31312;
@@ -31,10 +35,19 @@
   margin-bottom: 32px;
 }
 
+/* Grid untuk foto dan info */
 .payment-grid {
   display: flex;
   gap: 40px;
   flex-wrap: wrap;
+}
+
+/* Bagian foto advokat */
+.photo-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: -75px;
 }
 
 .photo-section img {
@@ -58,6 +71,15 @@
   border-radius: 12px;
 }
 
+.photo-name {
+  margin-top: 12px;
+  font-size: 18px;
+  font-weight: 600;
+  color: #102a43;
+  text-align: center;
+}
+
+/* Bagian info advokat */
 .info-section {
   flex: 1;
   display: flex;
@@ -68,15 +90,20 @@
   align-items: flex-start;
 }
 
+.info-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px 24px;
+  width: 100%;
+}
+
 .info-row {
   width: 100%;
   display: flex;
   gap: 16px;
-  justify-content: flex-start;
-  align-items: flex-start;
+  align-items: center;
   border-bottom: 1px solid #eee;
-  padding-bottom: 4px;
-  font-size: 18px;
+  padding-bottom: 8px;
   font-weight: 500;
 }
 
@@ -91,12 +118,19 @@
   grid-column: 1 / -1;
 }
 
-/* Durasi Konsultasi */
+/* Icon di sebelah teks */
+.info-row.icon-row .info-icon {
+  width: 20px;
+  height: 20px;
+  color: #b31312;
+}
+
+/* Kontrol durasi konsultasi */
 .durasi-kontrol {
   display: flex;
   align-items: center;
   gap: 12px;
-  margin-left: 200px;
+  margin-left: auto;
 }
 
 .durasi-kontrol button {
@@ -109,10 +143,10 @@
   font-weight: bold;
   border-radius: 6px;
   cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
   transition: background-color 0.3s ease;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .durasi-kontrol button:disabled {
@@ -124,11 +158,13 @@
   background-color: #921010;
 }
 
+/* Wrapper tombol bayar */
 .button-wrapper {
   margin-top: 24px;
   text-align: right;
 }
 
+/* Tombol bayar */
 .btn-payment {
   background-color: #b31312;
   color: white;
@@ -141,72 +177,38 @@
   transition: background-color 0.3s ease;
 }
 
-.btn-payment:hover {
+.btn-payment:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+.btn-payment:hover:not(:disabled) {
   background-color: #921010;
 }
 
-.info-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 16px 24px;
-  width: 100%;
+/* Container embed Midtrans */
+#snap-container {
+  margin-top: 32px;
+  min-height: 700px;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
-.info-row.icon-row {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  font-size: 18px;
-  color: #333;
-  border-bottom: 1px solid #eee;
-  padding-bottom: 8px;
-}
-
-.info-icon {
-  width: 20px;
-  height: 20px;
-  color: #b31312;
-}
-
-.photo-name {
-  text-align: center;
-  margin-top: 12px;
-  font-size: 18px;
-  font-weight: 600;
-  color: #102a43;
-}
-
-.photo-section {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  margin-top: -75px; /* naikkan posisi gambar */
-}
-
-.photo-section img {
-  width: 180px;
-  height: 240px;
-  object-fit: cover;
-  border-radius: 12px;
-  border: 3px solid #b31312;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-}
-
+/* Responsive untuk layar kecil */
 @media (max-width: 768px) {
-  .info-grid {
-    grid-template-columns: 1fr;
-  }
-
   .payment-grid {
     flex-direction: column;
     align-items: center;
   }
-
-  .info-section {
-    width: 100%;
+  .info-grid {
+    grid-template-columns: 1fr;
   }
-
   .button-wrapper {
     text-align: center;
+  }
+  .durasi-kontrol {
+    margin-left: 0;
+    justify-content: center;
   }
 }

@@ -1,0 +1,276 @@
+.checkout-page {
+  /* Color Palette hanya berlaku di dalam .checkout-page */
+  --merah-gelap: #B31312;
+  --merah-muda-muda: #ffc6c6;
+  --abu-gelap: #3b3b3b;
+  --abu-sedang: #666;
+  --abu-terang: #f4f4f4;
+  --putih-kekuningan: #fefff0;
+  --putih: #fff;
+  --abu-muda: #ccc;
+
+  background-color: var(--putih-kekuningan);
+  min-height: 100vh;
+  font-family: Arial, sans-serif;
+  color: var(--abu-gelap);
+  overflow-x: hidden;
+}
+
+.checkout-page #snap-container {
+  min-height: 800px;    /* tambah tinggi minimum */
+  max-width: 700px;     /* lebarkan container */
+  width: 100%;          /* responsif */
+  margin-left: auto;
+  margin-right: auto;
+  background-color: var(--putih);
+  border: 1px solid var(--abu-muda);
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+/* Wrapper container baru untuk dua kolom */
+.checkout-page .content-wrapper {
+  display: flex !important;
+  flex-direction: row !important;
+  flex-wrap: nowrap !important;
+  gap: 60px;
+  max-width: 1200px;
+  margin: 80px auto 60px;
+  padding: 0 20px;
+  background-color: var(--putih);
+  border-radius: 16px;
+  box-shadow: none;
+  background-color: #fefff0;
+}
+
+/* Scoped box-sizing untuk halaman checkout */
+.checkout-page *, 
+.checkout-page *::before, 
+.checkout-page *::after {
+  box-sizing: border-box;
+}
+
+/* Kolom kiri: main checkout */
+.checkout-page .left-main {
+  flex: 2 1 600px;
+  min-width: 300px;
+  padding: 32px 40px;
+  border-radius: 16px;
+  background-color: #fefff0;
+  box-shadow: none;
+}
+
+/* Kolom kanan: riwayat kasus */
+.checkout-page .right-section {
+  flex: 1 1 480px;
+  min-width: 280px;
+  padding: 32px 24px;
+  max-height: 900px;
+  overflow-y: auto; /* ubah dari scroll ke auto agar scrollbar muncul saat perlu */
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* Internet Explorer 10+ */
+  width: 100%; /* pastikan memenuhi ruang */
+}
+
+.checkout-page .right-section::-webkit-scrollbar {
+  display: none; /* sembunyikan scrollbar di Chrome, Safari */
+}
+
+/* Foto standar pada card riwayat */
+.checkout-page .riwayat-card-image img {
+  width: 120px;
+  height: 160px;
+  border-radius: 8px;
+  object-fit: cover;
+}
+
+/* Foto lebih kecil untuk card konfirmasi pembayaran */
+.checkout-page .confirm-card .confirm-card-image {
+  width: 80px;   /* ukuran lebih kecil */
+  height: 110px;
+  border-radius: 8px;
+  object-fit: cover;
+  margin-top: 10px; 
+}
+
+
+.vertical-separator {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  width: 1px;
+  background-color: var(--abu-muda);
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+/* Header dan detail checkout */
+.checkout-page .checkout-title {
+  font-size: 28px;
+  font-weight: 700;
+  color: var(--merah-gelap);
+  text-align: center;
+  margin-bottom: 32px;
+}
+
+.checkout-page .checkout-details {
+  font-size: 18px;
+  color: var(--abu-sedang);
+  margin-bottom: 40px;
+  line-height: 1.6;
+}
+
+.checkout-page .checkout-details p {
+  margin: 10px 0;
+}
+
+.checkout-page .checkout-details strong {
+  color: var(--abu-gelap);
+}
+
+/* Tombol kembali */
+.checkout-page .btn-back {
+  background-color: var(--merah-gelap);
+  color: var(--putih);
+  border: none;
+  padding: 12px 24px;
+  border-radius: 32px;
+  font-size: 1rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  display: block;
+  margin: 0 auto;
+}
+
+.checkout-page .btn-back:hover {
+  background-color: var(--merah-muda-muda);
+  color: var(--merah-gelap);
+}
+
+/* Container snap embed */
+.checkout-page #snap-container {
+  margin-top: 32px;
+  min-height: 700px;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+  background-color: var(--putih);
+  border: 1px solid var(--abu-muda);
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+/* Pesan error */
+.checkout-page .error-text {
+  color: var(--merah-gelap);
+  font-weight: 600;
+  font-size: 18px;
+  text-align: center;
+  margin: 40px 0;
+}
+
+/* Styling card riwayat kasus */
+.checkout-page .riwayat-card {
+  width: 100%; /* pastikan card penuhi lebar container */
+  display: flex;
+  background: var(--putih);
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  margin-bottom: 20px;
+  padding: 16px;
+  gap: 16px;
+  box-sizing: border-box;
+}
+
+.checkout-page .riwayat-card-image img,
+.checkout-page .riwayat-card-image .no-image {
+  width: 120px;
+  height: 160px;
+  border-radius: 8px;
+  object-fit: cover;
+  background-color: #eee;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--abu-sedang);
+  font-size: 0.9rem;
+}
+
+.checkout-page .riwayat-card-content {
+  flex: 1;
+  font-size: 16px;
+  color: var(--abu-gelap);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.checkout-page .riwayat-card-content p {
+  margin: 4px 0;
+}
+
+.checkout-page .btn-group {
+  margin-top: 12px;
+}
+
+.checkout-page .btn {
+  background-color: var(--merah-gelap);
+  color: var(--putih);
+  border: none;
+  border-radius: 20px;
+  padding: 8px 16px;
+  font-weight: 600;
+  cursor: pointer;
+  margin-right: 10px;
+  transition: background-color 0.3s ease;
+}
+
+.checkout-page .btn:hover:not(:disabled) {
+  background-color: var(--merah-muda-muda);
+  color: var(--merah-gelap);
+}
+
+.checkout-page .btn:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+/* Responsive */
+@media (max-width: 992px) {
+  .checkout-page .content-wrapper {
+    flex-direction: column;
+    padding: 16px;
+    max-width: 100%;
+    margin: 40px auto 40px;
+  }
+
+  .checkout-page .left-main,
+  .checkout-page .right-section {
+    min-width: 100%;
+    max-height: none;
+    padding: 16px 0;
+    border-left: none;
+  }
+
+  .checkout-page #snap-container {
+    max-width: 100%;
+    min-height: 600px;
+  }
+}
+
+@media (max-width: 768px) {
+  .checkout-page .checkout-title {
+    font-size: 24px;
+    margin-bottom: 24px;
+  }
+
+  .checkout-page .checkout-details {
+    font-size: 16px;
+  }
+
+  .checkout-page .btn-back {
+    padding: 10px 20px;
+    font-size: 0.9rem;
+  }
+}

@@ -39,43 +39,18 @@ const Payment = () => {
     getAdvokat();
   }, [state?.pengacaraId]);
 
-  const handlePayment = async () => {
-    const user = JSON.parse(localStorage.getItem("user"));
-    if (!advokat || !user) return;
+  const handlePayment = () => {
+    if (!advokat) return;
 
-    const unitPrice = 50000;
-    const totalPrice = (duration / 30) * unitPrice;
+    const totalPrice = (duration / 30) * 50000;
 
-    try {
-      const response = await fetch("http://localhost:5000/api/payment/transaction", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          pengacara_id: advokat.id,
-          user_id: user.id,
-          durasi_konsultasi: duration,
-          total_harga: totalPrice,
-        }),
-      });
-      const data = await response.json();
-
-      if (data.token) {
-        window.snap.pay(data.token, {
-          onSuccess: () => {
-            alert("✅ Pembayaran sukses!");
-            navigate(`/chat/pengacara/${advokat.id}`, { state: { durasi: duration } });
-          },
-          onPending: () => alert("⏳ Menunggu pembayaran..."),
-          onError: () => alert("❌ Pembayaran gagal."),
-          onClose: () => alert("⚠️ Transaksi dibatalkan."),
-        });
-      } else {
-        alert("Gagal memproses transaksi.");
-      }
-    } catch (err) {
-      alert("Terjadi kesalahan saat memproses pembayaran.");
-      console.error(err);
-    }
+    navigate("/checkout", {
+      state: {
+        advokat,
+        duration,
+        totalPrice,
+      },
+    });
   };
 
   return (
@@ -89,8 +64,8 @@ const Payment = () => {
             <p>Memuat data advokat...</p>
           ) : error ? (
             <p className="error-text">{error}</p>
-          ) : (
-            advokat && (
+          ) : advokat ? (
+            <>
               <div className="payment-grid">
                 <div className="photo-section">
                   {advokat.upload_foto ? (
@@ -159,8 +134,8 @@ const Payment = () => {
                   </div>
                 </div>
               </div>
-            )
-          )}
+            </>
+          ) : null}
         </div>
       </main>
       <div className="footer-separator"></div>
