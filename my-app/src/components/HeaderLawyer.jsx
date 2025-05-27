@@ -49,6 +49,7 @@ const HeaderLawyer = () => {
         />
       );
     }
+    // Jika tidak ada foto, tampilkan icon User
     return <User size={size} color="#B31312" className={className} />;
   };
 
