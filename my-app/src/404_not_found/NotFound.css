@@ -1,0 +1,153 @@
+/* ======= NotFound.css dengan Efek Animasi ======= */
+
+.notfound-page {
+  background: linear-gradient(135deg, #fdf6e3, #f5e3bc);
+  color: #222;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  font-family: 'Poppins', sans-serif;
+}
+
+.notfound-content {
+  position: relative;
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  padding: 20px;
+}
+
+.notfound-overlay {
+  position: relative;
+  z-index: 1;
+  text-align: center;
+  max-width: 720px;
+  padding: 40px 20px;
+  backdrop-filter: blur(6px);
+  background: rgba(255, 255, 255, 0.6);
+  border-radius: 20px;
+  box-shadow: 0 8px 30px rgba(0,0,0,0.1);
+}
+
+.notfound-heading {
+  font-size: 180px;
+  margin-bottom: 15px;
+  font-weight: 900;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+  position: relative;
+  color: #222;
+  user-select: none;
+  animation: pulseScale 3s ease-in-out infinite;
+}
+
+/* Animasi pulse scale untuk angka */
+@keyframes pulseScale {
+  0%, 100% { transform: scale(1); color: #222; }
+  50% { transform: scale(1.1); color: #b31312; }
+}
+
+.angka-hitam {
+  color: #000;
+  animation: floatUpDown 4s ease-in-out infinite;
+}
+
+.angka-merah {
+  color: #b31312;
+  animation: floatUpDown 4s ease-in-out infinite 0.5s;
+}
+
+/* Animasi float up and down */
+@keyframes floatUpDown {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+
+/* Wrapper angka 4 terakhir */
+.angka-four-wrapper {
+  position: relative;
+  display: inline-block;
+}
+
+/* GIF animasi */
+.notfound-gif-overlap {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) rotate(-10deg);
+  height: 1.1em;
+  width: auto;
+  pointer-events: none;
+  z-index: 10;
+  opacity: 0.9;
+  animation: swingRotate 4s ease-in-out infinite;
+}
+
+/* Animasi swing rotate GIF */
+@keyframes swingRotate {
+  0%, 100% { transform: translate(-50%, -50%) rotate(-10deg); }
+  50% { transform: translate(-50%, -50%) rotate(10deg); }
+}
+
+.notfound-overlay h2 {
+  font-size: 36px;
+  margin-bottom: 15px;
+  font-weight: 700;
+  color: #444;
+  text-shadow: 1px 1px 3px rgba(179, 19, 18, 0.3);
+}
+
+.notfound-overlay p {
+  font-size: 20px;
+  margin-bottom: 20px;
+  color: #555;
+}
+
+.back-home {
+  background-color: #b31312;
+  color: #fff;
+  padding: 14px 30px;
+  border-radius: 50px;
+  text-decoration: none;
+  font-weight: 700;
+  font-size: 18px;
+  box-shadow: 0 4px 15px rgba(179, 19, 18, 0.6);
+  transition: all 0.3s ease;
+  display: inline-block;
+  cursor: pointer;
+  user-select: none;
+  margin-left: 100px;
+
+}
+
+.back-home:hover {
+  background-color: #7f0e0f;
+  box-shadow: 0 6px 20px rgba(127, 14, 15, 0.8);
+  transform: scale(1.05);
+  color: #fff;
+}
+
+/* Responsive untuk layar kecil */
+@media (max-width: 600px) {
+  .notfound-heading {
+    font-size: 110px;
+    gap: 10px;
+  }
+  .notfound-gif-overlap {
+    height: 0.9em;
+  }
+  .notfound-overlay h2 {
+    font-size: 28px;
+  }
+  .notfound-overlay p {
+    font-size: 16px;
+  }
+  .back-home {
+    font-size: 16px;
+    padding: 12px 24px;
+  }
+}
