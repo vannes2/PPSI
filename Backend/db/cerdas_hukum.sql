@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 25 Bulan Mei 2025 pada 15.24
+-- Waktu pembuatan: 27 Bulan Mei 2025 pada 12.01
 -- Versi server: 10.4.28-MariaDB
 -- Versi PHP: 8.2.4
 
@@ -63,6 +63,7 @@ CREATE TABLE `ajukan_kasus` (
   `area_praktik` varchar(50) NOT NULL,
   `jenis_pengerjaan` varchar(50) NOT NULL,
   `biaya_min` int(11) NOT NULL,
+  `biaya_pengacara` decimal(15,2) DEFAULT NULL,
   `biaya_max` int(11) NOT NULL,
   `estimasi_selesai` date NOT NULL,
   `lokasi` varchar(100) NOT NULL,
@@ -70,32 +71,33 @@ CREATE TABLE `ajukan_kasus` (
   `status` varchar(20) DEFAULT 'Menunggu',
   `bukti` varchar(255) DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT current_timestamp(),
-  `lawyer_id` int(11) DEFAULT NULL
+  `lawyer_id` int(11) DEFAULT NULL,
+  `is_transferred` tinyint(1) DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data untuk tabel `ajukan_kasus`
 --
 
-INSERT INTO `ajukan_kasus` (`id`, `user_id`, `nama`, `email`, `no_hp`, `area_praktik`, `jenis_pengerjaan`, `biaya_min`, `biaya_max`, `estimasi_selesai`, `lokasi`, `deskripsi`, `status`, `bukti`, `created_at`, `lawyer_id`) VALUES
-(1, 1, 'Azzikra Praqasta Kusuma', 'azzikrapraqasta2522@gmail.com', '081316443334', 'Perdata', 'Pembuatan Dokumen', 2000000, 500000, '2025-05-10', 'Jakarta', 'Dokumen Perjanjian dengan perusahaan X', 'Menunggu', NULL, '2025-05-07 10:45:10', 1),
-(2, 1, 'Joko', 'zikra@gmail.com', '081316443332', 'Pidana', 'Pembuatan Dokumen', 500000, 500000, '2025-05-19', 'Bandung', 'Dokumen Perjanjian dengan perusahaan Y', 'Menunggu', NULL, '2025-05-07 12:28:30', 1),
-(3, 14, 'Vanes', 'vns@gmail.com', '085781086148', 'Perusahaan', 'Negosiasi', 500000, 500000, '2025-05-26', 'Surabaya', 'perusahaan yang memiliki sengketa akibat keterlambatan pembayaran', 'Menunggu', NULL, '2025-05-07 12:36:06', 1),
-(4, 1, 'Agus', 'zikra00101@gmail.com', '085781086148', 'Perusahaan', 'Litigasi', 500000, 5000000, '2025-05-26', 'Jakarta', 'Tes', 'Menunggu', NULL, '2025-05-07 13:24:06', 1),
-(5, 1, 'Azzikra Praqasta Kusuma', 'termiteindonesia@gmail.com', '085781086148', 'Perdata', 'Negosiasi', 1000000000, 500000, '2025-06-01', 'Jakarta Barat', 'tes 3', 'Diproses', NULL, '2025-05-12 10:58:06', 1),
-(6, 1, 'Umar Ali', 'sayaumarali@gmail.com', '085781086148', 'Keluarga', 'Pendampingan', 1000000, 50000000, '2025-06-01', 'Bandung', 'KDRT', 'Selesai', '1747053599169-Anggota1.pdf', '2025-05-12 12:39:59', 1),
-(7, 2, 'fajri', 'fajri30.r@gmail.com', '085706125411', 'Perdata', 'Pembuatan Dokumen', 1000000, 2000000, '2025-05-14', 'Jakarta', 'Warisan', 'Selesai', '1747201804678-PENGUMUMAN Libur Hari Raya Waisak 2569 BE.pdf', '2025-05-14 05:50:04', 9),
-(8, 2, 'fajri', 'fajri30.r@gmail.com', '085706125411', 'Pidana', 'Pendampingan', 1000000, 2000000, '2025-05-14', 'Jakarta', 'Pasal pasal', 'Selesai', '1747271588186-Laporan Zitline_Fajri Ramadhan.pdf', '2025-05-15 01:13:08', 9),
-(9, 2, 'Gus samsudinn', 'samsudin@gmail.com', '089876654334', 'Pidana', 'Negosiasi', 30000000, 40000000, '2025-05-01', 'Lampung', 'Tindak kasus pembunuhan ', 'Diproses', NULL, '2025-05-19 09:37:39', 3),
-(10, 2, 'Jhoni', 'fajri30.r@gmail.com', '089876632332', 'Perdata', 'Pembuatan Dokumen', 1000000, 1200000, '2025-05-09', 'Tangerang', 'Data hak waris', 'Menunggu', NULL, '2025-05-19 09:47:18', NULL),
-(11, 2, 'Sherly', 'sherly@gmail.com', '087656761212', 'Perusahaan', 'Pendampingan', 2000000, 2500000, '2025-05-19', 'Jakarta', 'Kasus perusahaan', 'Menunggu', NULL, '2025-05-19 09:49:04', NULL),
-(12, 2, 'Vernando', 'vernando@gmail.com', '08994335111', 'Keluarga', 'Konsultasi', 1500000, 2000000, '2025-05-16', 'Depok', 'hak asuh anak', 'Menunggu', NULL, '2025-05-19 09:50:34', 3),
-(13, 2, 'Sherly', 'fajri30.r@gmail.com', '087656761212', 'Perdata', 'Konsultasi', 2000000, 2500000, '2025-05-19', 'Jakarta', 'konsul', 'Menunggu', NULL, '2025-05-19 11:07:56', NULL),
-(14, 2, 'Sherly', 'fajri30.r@gmail.com', '087656761212', 'Keluarga', 'Negosiasi', 1000000, 2500000, '2025-05-19', 'Jakarta', 'good', 'Menunggu', NULL, '2025-05-19 11:14:50', NULL),
-(15, 2, 'fajri', 'fajri30.r@gmail.com', '085706125411', 'Tenaga Kerja', 'Konsultasi', 1000000, 1500000, '2025-05-19', 'Jakarta', 'new', 'Menunggu', NULL, '2025-05-19 11:23:32', NULL),
-(16, 2, 'Samsul', 'fajri30.r@gmail.com', '089876654334', 'Pidana', 'Pendampingan', 750000, 1000000, '2025-05-19', 'Lampung', 'Oke', 'Menunggu', NULL, '2025-05-19 11:31:49', NULL),
-(17, 2, 'Jhoni', 'fajri30.r@gmail.com', '089876632332', 'Perusahaan', 'Pembuatan Dokumen', 500000, 599999, '2025-05-19', 'Jakarta', 'new', 'Menunggu', NULL, '2025-05-19 11:37:06', NULL),
-(18, 2, 'fajri', 'fajri30.r@gmail.com', '085706125411', 'Pidana', 'Pembuatan Dokumen', 900000, 1500000, '2025-05-19', 'Jakarta', 'new', 'Menunggu', NULL, '2025-05-19 11:41:21', NULL);
+INSERT INTO `ajukan_kasus` (`id`, `user_id`, `nama`, `email`, `no_hp`, `area_praktik`, `jenis_pengerjaan`, `biaya_min`, `biaya_pengacara`, `biaya_max`, `estimasi_selesai`, `lokasi`, `deskripsi`, `status`, `bukti`, `created_at`, `lawyer_id`, `is_transferred`) VALUES
+(1, 1, 'Azzikra Praqasta Kusuma', 'azzikrapraqasta2522@gmail.com', '081316443334', 'Perdata', 'Pembuatan Dokumen', 2000000, 1600000.00, 500000, '2025-05-10', 'Jakarta', 'Dokumen Perjanjian dengan perusahaan X', 'Menunggu', NULL, '2025-05-07 10:45:10', 1, 0),
+(2, 1, 'Joko', 'zikra@gmail.com', '081316443332', 'Pidana', 'Pembuatan Dokumen', 500000, 400000.00, 500000, '2025-05-19', 'Bandung', 'Dokumen Perjanjian dengan perusahaan Y', 'Menunggu', NULL, '2025-05-07 12:28:30', 1, 0),
+(3, 14, 'Vanes', 'vns@gmail.com', '085781086148', 'Perusahaan', 'Negosiasi', 500000, 400000.00, 500000, '2025-05-26', 'Surabaya', 'perusahaan yang memiliki sengketa akibat keterlambatan pembayaran', 'Menunggu', NULL, '2025-05-07 12:36:06', 1, 0),
+(4, 1, 'Agus', 'zikra00101@gmail.com', '085781086148', 'Perusahaan', 'Litigasi', 500000, 400000.00, 5000000, '2025-05-26', 'Jakarta', 'Tes', 'Menunggu', NULL, '2025-05-07 13:24:06', 1, 0),
+(5, 1, 'Azzikra Praqasta Kusuma', 'termiteindonesia@gmail.com', '085781086148', 'Perdata', 'Negosiasi', 1000000000, 800000000.00, 500000, '2025-06-01', 'Jakarta Barat', 'tes 3', 'Diproses', NULL, '2025-05-12 10:58:06', 1, 0),
+(6, 1, 'Umar Ali', 'sayaumarali@gmail.com', '085781086148', 'Keluarga', 'Pendampingan', 1000000, 800000.00, 50000000, '2025-06-01', 'Bandung', 'KDRT', 'Selesai', '1747053599169-Anggota1.pdf', '2025-05-12 12:39:59', 1, 1),
+(7, 2, 'fajri', 'fajri30.r@gmail.com', '085706125411', 'Perdata', 'Pembuatan Dokumen', 1000000, 800000.00, 2000000, '2025-05-14', 'Jakarta', 'Warisan', 'Selesai', '1747201804678-PENGUMUMAN Libur Hari Raya Waisak 2569 BE.pdf', '2025-05-14 05:50:04', 9, 1),
+(8, 2, 'fajri', 'fajri30.r@gmail.com', '085706125411', 'Pidana', 'Pendampingan', 1000000, 800000.00, 2000000, '2025-05-14', 'Jakarta', 'Pasal pasal', 'Selesai', '1747271588186-Laporan Zitline_Fajri Ramadhan.pdf', '2025-05-15 01:13:08', 9, 0),
+(9, 2, 'Gus samsudinn', 'samsudin@gmail.com', '089876654334', 'Pidana', 'Negosiasi', 30000000, 24000000.00, 40000000, '2025-05-01', 'Lampung', 'Tindak kasus pembunuhan ', 'Selesai', NULL, '2025-05-19 09:37:39', 3, 1),
+(10, 2, 'Jhoni', 'fajri30.r@gmail.com', '089876632332', 'Perdata', 'Pembuatan Dokumen', 1000000, 800000.00, 1200000, '2025-05-09', 'Tangerang', 'Data hak waris', 'Selesai', NULL, '2025-05-19 09:47:18', 3, 0),
+(11, 2, 'Sherly', 'sherly@gmail.com', '087656761212', 'Perusahaan', 'Pendampingan', 2000000, 1600000.00, 2500000, '2025-05-19', 'Jakarta', 'Kasus perusahaan', 'Menunggu', NULL, '2025-05-19 09:49:04', NULL, 0),
+(12, 2, 'Vernando', 'vernando@gmail.com', '08994335111', 'Keluarga', 'Konsultasi', 1500000, 1200000.00, 2000000, '2025-05-16', 'Depok', 'hak asuh anak', 'Menunggu', NULL, '2025-05-19 09:50:34', 3, 0),
+(13, 2, 'Sherly', 'fajri30.r@gmail.com', '087656761212', 'Perdata', 'Konsultasi', 2000000, 1600000.00, 2500000, '2025-05-19', 'Jakarta', 'konsul', 'Menunggu', NULL, '2025-05-19 11:07:56', NULL, 0),
+(14, 2, 'Sherly', 'fajri30.r@gmail.com', '087656761212', 'Keluarga', 'Negosiasi', 1000000, 800000.00, 2500000, '2025-05-19', 'Jakarta', 'good', 'Menunggu', NULL, '2025-05-19 11:14:50', NULL, 0),
+(15, 2, 'fajri', 'fajri30.r@gmail.com', '085706125411', 'Tenaga Kerja', 'Konsultasi', 1000000, 800000.00, 1500000, '2025-05-19', 'Jakarta', 'new', 'Menunggu', NULL, '2025-05-19 11:23:32', NULL, 0),
+(16, 2, 'Samsul', 'fajri30.r@gmail.com', '089876654334', 'Pidana', 'Pendampingan', 750000, 600000.00, 1000000, '2025-05-19', 'Lampung', 'Oke', 'Menunggu', NULL, '2025-05-19 11:31:49', NULL, 0),
+(17, 2, 'Jhoni', 'fajri30.r@gmail.com', '089876632332', 'Perusahaan', 'Pembuatan Dokumen', 500000, 400000.00, 599999, '2025-05-19', 'Jakarta', 'new', 'Menunggu', NULL, '2025-05-19 11:37:06', NULL, 0),
+(18, 2, 'fajri', 'fajri30.r@gmail.com', '085706125411', 'Pidana', 'Pembuatan Dokumen', 900000, 720000.00, 1500000, '2025-05-19', 'Jakarta', 'new', 'Menunggu', NULL, '2025-05-19 11:41:21', 3, 0);
 
 -- --------------------------------------------------------
 
@@ -315,24 +317,31 @@ CREATE TABLE `konsultasi_session` (
   `start_time` datetime NOT NULL,
   `duration` int(11) NOT NULL,
   `biaya` int(11) NOT NULL DEFAULT 0,
+  `biaya_pengacara` decimal(15,2) DEFAULT NULL,
   `status` enum('aktif','selesai') DEFAULT 'aktif',
-  `created_at` timestamp NOT NULL DEFAULT current_timestamp()
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  `is_transferred` tinyint(1) DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data untuk tabel `konsultasi_session`
 --
 
-INSERT INTO `konsultasi_session` (`id`, `user_id`, `pengacara_id`, `start_time`, `duration`, `biaya`, `status`, `created_at`) VALUES
-(1, 2, 7, '2025-05-15 10:31:38', 60, 100000, 'selesai', '2025-05-15 03:31:38'),
-(2, 2, 9, '2025-05-19 17:42:46', 30, 50000, 'selesai', '2025-05-15 03:36:03'),
-(3, 2, 5, '2025-05-15 11:25:02', 30, 50000, 'selesai', '2025-05-15 04:25:02'),
-(4, 3, 9, '2025-05-15 12:45:53', 60, 100000, 'selesai', '2025-05-15 04:33:03'),
-(5, 3, 1, '2025-05-15 11:37:40', 30, 50000, 'selesai', '2025-05-15 04:37:40'),
-(6, 14, 1, '2025-05-15 20:34:28', 30, 50000, 'selesai', '2025-05-15 13:33:44'),
-(7, 2, 1, '2025-05-19 18:10:19', 30, 50000, 'selesai', '2025-05-19 11:10:19'),
-(8, 2, 3, '2025-05-23 11:09:03', 60, 100000, 'selesai', '2025-05-19 11:24:59'),
-(9, 2, 15, '2025-05-19 18:38:15', 30, 50000, 'selesai', '2025-05-19 11:38:15');
+INSERT INTO `konsultasi_session` (`id`, `user_id`, `pengacara_id`, `start_time`, `duration`, `biaya`, `biaya_pengacara`, `status`, `created_at`, `is_transferred`) VALUES
+(1, 2, 7, '2025-05-15 10:31:38', 60, 100000, 80000.00, 'selesai', '2025-05-15 03:31:38', 1),
+(2, 2, 9, '2025-05-19 17:42:46', 30, 50000, 40000.00, 'selesai', '2025-05-15 03:36:03', 1),
+(3, 2, 5, '2025-05-15 11:25:02', 30, 50000, 40000.00, 'selesai', '2025-05-15 04:25:02', 0),
+(4, 3, 9, '2025-05-15 12:45:53', 60, 100000, 80000.00, 'selesai', '2025-05-15 04:33:03', 1),
+(5, 3, 1, '2025-05-15 11:37:40', 30, 50000, 40000.00, 'selesai', '2025-05-15 04:37:40', 0),
+(6, 14, 1, '2025-05-15 20:34:28', 30, 50000, 40000.00, 'selesai', '2025-05-15 13:33:44', 1),
+(7, 2, 1, '2025-05-19 18:10:19', 30, 50000, 40000.00, 'selesai', '2025-05-19 11:10:19', 1),
+(8, 2, 3, '2025-05-23 11:09:03', 60, 100000, 80000.00, 'selesai', '2025-05-19 11:24:59', 0),
+(9, 2, 15, '2025-05-19 18:38:15', 30, 50000, 40000.00, 'selesai', '2025-05-19 11:38:15', 0),
+(11, 2, 9, '2025-05-27 16:48:49', 30, 50000, 40000.00, 'aktif', '2025-05-25 13:43:14', 1),
+(12, 3, 7, '2025-05-25 20:44:43', 60, 100000, 80000.00, 'aktif', '2025-05-25 13:44:43', 0),
+(13, 2, 20, '2025-05-27 16:17:58', 60, 100000, 80000.00, 'aktif', '2025-05-27 09:17:58', 0),
+(14, 2, 2, '2025-05-27 16:41:09', 30, 50000, 40000.00, 'aktif', '2025-05-27 09:41:09', 0),
+(15, 2, 3, '2025-05-27 16:50:58', 60, 100000, 80000.00, 'aktif', '2025-05-27 09:50:58', 0);
 
 -- --------------------------------------------------------
 
@@ -409,7 +418,13 @@ INSERT INTO `log_aktivitas` (`id`, `id_pengguna`, `aktivitas`, `waktu`) VALUES
 (71, 2, 'Status kasus ID 8 diperbarui menjadi \"Selesai\"', '2025-05-15 01:14:13'),
 (72, 2, 'Status kasus ID 8 diubah menjadi \'Selesai\'', '2025-05-15 01:14:13'),
 (73, 2, 'Status kasus ID 9 diperbarui menjadi \"Diproses\"', '2025-05-19 09:39:41'),
-(74, 2, 'Status kasus ID 9 diubah menjadi \'Diproses\'', '2025-05-19 09:39:41');
+(74, 2, 'Status kasus ID 9 diubah menjadi \'Diproses\'', '2025-05-19 09:39:41'),
+(75, 2, 'Status kasus ID 10 diperbarui menjadi \"Diproses\"', '2025-05-27 10:00:06'),
+(76, 2, 'Status kasus ID 10 diubah menjadi \'Diproses\'', '2025-05-27 10:00:06'),
+(77, 2, 'Status kasus ID 10 diperbarui menjadi \"Selesai\"', '2025-05-27 10:00:10'),
+(78, 2, 'Status kasus ID 10 diubah menjadi \'Selesai\'', '2025-05-27 10:00:10'),
+(79, 2, 'Status kasus ID 9 diperbarui menjadi \"Selesai\"', '2025-05-27 10:00:13'),
+(80, 2, 'Status kasus ID 9 diubah menjadi \'Selesai\'', '2025-05-27 10:00:13');
 
 -- --------------------------------------------------------
 
@@ -490,7 +505,9 @@ INSERT INTO `log_pertanyaan_user` (`id`, `user_id`, `pertanyaan`, `intent_didapa
 (57, NULL, 'siapa pendiri cerdas hukum', 'pendiri_cerdas_hukum', 0.87, '2025-05-20 04:20:45'),
 (58, NULL, 'cara ajukan kasus', 'cara_ajukan_kasus', 1.00, '2025-05-20 04:24:31'),
 (59, NULL, 'cara konsultasi', 'cara_konsultasi', 1.00, '2025-05-20 04:24:46'),
-(60, NULL, 'cara komsultasi', 'cara_konsultasi', 0.85, '2025-05-20 04:25:03');
+(60, NULL, 'cara komsultasi', 'cara_konsultasi', 0.85, '2025-05-20 04:25:03'),
+(61, NULL, 'halo', 'sapaan_halo', 1.00, '2025-05-27 09:13:05'),
+(62, NULL, 'bagaimana cara konsultasi', 'cara_konsultasi', 0.74, '2025-05-27 09:13:18');
 
 -- --------------------------------------------------------
 
@@ -600,7 +617,12 @@ INSERT INTO `messages` (`id`, `sender_id`, `sender_role`, `receiver_id`, `receiv
 (83, 9, 'pengacara', 2, 'user', 'Selamat malam Pak Samsudin, tentu saja saya akan membantu menangani kasus Anda', NULL, '2025-05-18 20:09:42', 0),
 (84, 2, 'user', 9, 'pengacara', 'Baik pak, saya akan mengirimkan dokumen untuk bapak analisis lebih lanjut', NULL, '2025-05-18 20:11:38', 0),
 (85, 2, 'user', 9, 'pengacara', '', '1747574019331-911943145.jpg', '2025-05-18 20:13:39', 0),
-(86, 2, 'user', 3, 'pengacara', 'kacau', NULL, '2025-05-23 11:10:00', 0);
+(86, 2, 'user', 3, 'pengacara', 'kacau', NULL, '2025-05-23 11:10:00', 0),
+(87, 3, 'user', 7, 'pengacara', 'halo', NULL, '2025-05-25 20:45:09', 0),
+(88, 7, 'pengacara', 3, 'user', 'tes', NULL, '2025-05-25 20:47:32', 0),
+(89, 3, 'user', 7, 'pengacara', 'ok', NULL, '2025-05-25 20:47:41', 0),
+(90, 2, 'user', 20, 'pengacara', 'tes', NULL, '2025-05-27 16:18:41', 0),
+(91, 2, 'user', 20, 'pengacara', 'masuk', NULL, '2025-05-27 16:18:45', 0);
 
 -- --------------------------------------------------------
 
@@ -683,13 +705,13 @@ CREATE TABLE `pengacara` (
 INSERT INTO `pengacara` (`id`, `nama`, `ktp`, `tanggal_lahir`, `jenis_kelamin`, `alamat`, `email`, `no_hp`, `nomor_induk_advokat`, `universitas`, `pendidikan`, `spesialisasi`, `pengalaman`, `upload_ktp`, `upload_foto`, `upload_kartu_advokat`, `upload_pkpa`, `username`, `password`, `tanggal_daftar`, `linkedin`, `instagram`, `twitter`, `bank_name`, `account_name`, `account_number`, `resume_cv`, `portofolio`, `harga_konsultasi`, `reset_token`, `reset_token_expiry`) VALUES
 (1, 'Ahmad Fauzi', '3201010401010001', '1988-05-12', 'Laki-laki', 'Jl. Merdeka No.1 Jakarta', 'azzikrapraqasta1@gmail.com', '081234567890', 'ADV001', 'Universitas Indonesia', 'S1 Hukum', 'Hukum Perdata', 5, 'ktp1.png', '1747075461123-aguss.png', 'kartu1.png', 'pkpa1.png', 'ahmadf', 'root', '2025-04-20 20:03:57', NULL, NULL, NULL, 'Bank BCA', 'Ahmadq', '821038123123', NULL, NULL, 50000, NULL, NULL),
 (2, 'Siti Aminah', '3201010401010002', '1990-07-23', 'Perempuan', 'Jl. Sudirman No.2 Jakarta', 'siti.aminah@example.com', '081234567891', 'ADV002', 'Universitas Gadjah Mada', 'S2 Hukum', 'Hukum Pidana', 8, 'ktp2.png', '1746589437463-Siti.png', 'kartu2.png', 'pkpa2.png', 'sitia', 'hashedpassword2', '2025-04-20 20:03:57', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 50000, '23BA92', '2025-05-14 13:03:19'),
-(3, 'Budi Santoso', '3201010401010003', '1985-03-11', 'Laki-laki', 'Jl. Thamrin No.3 Jakarta', 'budi.santoso@example.com', '081234567892', 'ADV003', 'Universitas Airlangga', 'S1 Hukum', 'Hukum Bisnis dan Perusahaan', 10, 'ktp3.png', '1746589565797-Budi.png', 'kartu3.png', 'pkpa3.png', 'budis', 'hashedpassword3', '2025-04-20 20:03:57', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 50000, NULL, NULL),
+(3, 'Budi Santoso', '3201010401010003', '1985-03-11', 'Laki-laki', 'Jl. Thamrin No.3 Jakarta', 'budi.santoso@example.com', '081234567892', 'ADV003', 'Universitas Airlangga', 'S1 Hukum', 'Hukum Bisnis dan Perusahaan', 10, 'ktp3.png', '1746589565797-Budi.png', 'kartu3.png', 'pkpa3.png', 'budis', 'hashedpassword3', '2025-04-20 20:03:57', NULL, NULL, NULL, 'Bank BRI', 'Santoso Budi', '117897666322', NULL, NULL, 50000, NULL, NULL),
 (4, 'Rina Kusuma', '3201010401010004', '1992-08-05', 'Perempuan', 'Jl. Gatot Subroto No.4 Jakarta', 'rina.kusuma@example.com', '081234567893', 'ADV004', 'Universitas Padjajaran', 'S1 Hukum', 'Hukum Perdata', 4, 'ktp4.png', '1746589603259-rina.png', 'kartu4.png', 'pkpa4.png', 'rinak', 'hashedpassword4', '2025-04-20 20:03:57', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 50000, NULL, NULL),
 (5, 'Dedi Kurniawan', '3201010401010005', '1987-10-19', 'Laki-laki', 'Jl. Rasuna Said No.5 Jakarta', 'dedi.kurniawan@example.com', '081234567894', 'ADV005', 'Universitas Islam Indonesia', 'S1 Hukum', 'Hukum Perdata', 7, 'ktp5.png', '1746626478988-dedi.png', 'kartu5.png', 'pkpa5.png', 'dedik', 'hashedpassword5', '2025-04-20 20:03:57', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 50000, NULL, NULL),
 (6, 'Nina Kartika', '3201010401010006', '1993-11-25', 'Perempuan', 'Jl. Casablanca No.6 Jakarta', 'nina.kartika@example.com', '081234567895', 'ADV006', 'Universitas Trisakti', 'S2 Hukum', 'Hukum Pidana', 6, 'ktp6.png', '1746626533725-nina.png', 'kartu6.png', 'pkpa6.png', 'ninak', 'hashedpassword6', '2025-04-20 20:03:57', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 50000, NULL, NULL),
 (7, 'Yusuf Hidayat', '3201010401010007', '1984-02-10', 'Laki-laki', 'Jl. Kuningan No.7 Jakarta', 'yusuf.hidayat@example.com', '081234567896', 'ADV007', 'Universitas Muhammadiyah Jakarta', 'S1 Hukum', 'Hukum Bisnis dan Perusahaan', 12, 'ktp7.png', '1746628216720-yusuf.png', 'kartu7.png', 'pkpa7.png', 'yusufh', 'hashedpassword7', '2025-04-20 20:03:57', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 50000, NULL, NULL),
 (8, 'Eka Putri', '3201010401010008', '1995-09-15', 'Perempuan', 'Jl. Tebet No.8 Jakarta', 'eka.putri@example.com', '081234567897', 'ADV008', 'Universitas Pelita Harapan', 'S1 Hukum', 'Hukum Keluarga', 3, 'ktp8.png', '1746628484534-eka.png', 'kartu8.png', 'pkpa8.png', 'ekap', 'hashedpassword8', '2025-04-20 20:03:57', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 50000, NULL, NULL),
-(9, 'Andi Prasetyo', '3201010401010009', '1986-01-30', 'Laki-laki', 'Jl. Kalibata No.9 Jakarta', 'andi.prasetyo@example.com', '081234567898', 'ADV009', 'Universitas Diponegoro', 'S2 Hukum', 'Hukum HAKI', 9, 'ktp9.png', '1746626753680-andi.png', 'kartu9.png', 'pkpa9.png', 'andip', 'hashedpassword9', '2025-04-20 20:03:57', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 50000, NULL, NULL),
+(9, 'Andi Prasetyo', '3201010401010009', '1986-01-30', 'Laki-laki', 'Jl. Kalibata No.9 Jakarta', 'andi.prasetyo@example.com', '081234567898', 'ADV009', 'Universitas Diponegoro', 'S2 Hukum', 'Hukum HAKI', 9, 'ktp9.png', '1746626753680-andi.png', 'kartu9.png', 'pkpa9.png', 'andip', 'hashedpassword9', '2025-04-20 20:03:57', NULL, NULL, NULL, 'Bank BNI', 'Prasetyo Andi', '92241456789', NULL, NULL, 50000, NULL, NULL),
 (10, 'Lia Rahmawati', '3201010401010010', '1991-04-22', 'Perempuan', 'Jl. Pasar Minggu No.10 Jakarta', 'lia.rahmawati@example.com', '081234567899', 'ADV010', 'Universitas Parahyangan', 'S1 Hukum', 'Hukum Perdata', 5, 'ktp10.png', '1746626854298-lia.png', 'kartu10.png', 'pkpa10.png', 'liar', 'hashedpassword10', '2025-04-20 20:03:57', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 50000, NULL, NULL),
 (11, 'Dian Syafitri', '3201010401010011', '1990-06-16', 'Perempuan', 'Jl. Antasari No.11 Jakarta', 'dian.syafitri@example.com', '081234567800', 'ADV011', 'Universitas Andalas', 'S1 Hukum', 'Hukum Keluarga', 6, 'ktp11.png', '1746626891931-dian.png', 'kartu11.png', 'pkpa11.png', 'dians', 'hashedpassword11', '2025-04-20 20:03:57', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 50000, NULL, NULL),
 (12, 'Fajar Maulana', '3201010401010012', '1983-12-08', 'Laki-laki', 'Jl. Mampang No.12 Jakarta', 'fajar.maulana@example.com', '081234567801', 'ADV012', 'Universitas Brawijaya', 'S1 Hukum', 'Hukum Bisnis dan Perusahaan', 14, 'ktp12.png', '1746626929858-fajar.png', 'kartu12.png', 'pkpa12.png', 'fajarm', 'hashedpassword12', '2025-04-20 20:03:57', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 50000, NULL, NULL),
@@ -777,7 +799,7 @@ CREATE TABLE `users` (
 
 INSERT INTO `users` (`id`, `name`, `email`, `phone`, `password`, `gender`, `birthdate`, `created_at`, `address`, `photo`, `reset_token`, `reset_token_expiry`) VALUES
 (1, 'zikra', 'termiteindonesia@gmail.com', '089918181819', 'ayam', 'L', '1888-02-01', '2025-03-20 07:09:05', 'Jakarta Barat', '1747336247911.jpg', NULL, NULL),
-(2, 'Gus samsudin', 'fajri30.r@gmail.com', '085706125411', '12345678', 'L', '1988-03-01', '2025-03-20 07:13:06', 'Kebon Jeruk', '1747573091381.jpg', 'F635FE', '2025-05-18 19:39:31'),
+(2, 'Fajri', 'fajri30.r@gmail.com', '085706125411', '12345678', 'L', '1988-03-01', '2025-03-20 07:13:06', 'Kebon Jeruk', '1747573091381.jpg', 'F635FE', '2025-05-18 19:39:31'),
 (3, 'Vanes Lampung', 'vanes@gmail.com', '08928188192', '12345678', 'L', '2025-10-03', '2025-03-20 07:26:06', '', NULL, NULL, NULL),
 (4, 'human', 'human@gmail.com', '1234156161718', '12345678', 'L', '1888-01-01', '2025-03-20 07:32:57', NULL, NULL, NULL, NULL),
 (5, 'newest', 'newest@gmail.com', '09891817182', '12345678', 'P', '2000-10-10', '2025-03-20 08:48:30', NULL, NULL, NULL, NULL),
@@ -952,25 +974,25 @@ ALTER TABLE `konsultasi`
 -- AUTO_INCREMENT untuk tabel `konsultasi_session`
 --
 ALTER TABLE `konsultasi_session`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- AUTO_INCREMENT untuk tabel `log_aktivitas`
 --
 ALTER TABLE `log_aktivitas`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=75;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=81;
 
 --
 -- AUTO_INCREMENT untuk tabel `log_pertanyaan_user`
 --
 ALTER TABLE `log_pertanyaan_user`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=61;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=63;
 
 --
 -- AUTO_INCREMENT untuk tabel `messages`
 --
 ALTER TABLE `messages`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=87;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=92;
 
 --
 -- AUTO_INCREMENT untuk tabel `pendaftaran_pengacara`

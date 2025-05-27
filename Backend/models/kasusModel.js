@@ -6,7 +6,7 @@ const KasusModel = {
       user_id, nama, email, noHp, areaPraktik,
       jenisPengerjaan, biayaMin, biayaMax,
       estimasiSelesai, lokasi, deskripsi, bukti,
-      status, lawyer_id
+      status, lawyer_id, biaya_pengacara
     } = data;
 
     const sql = `
@@ -14,9 +14,9 @@ const KasusModel = {
         user_id, nama, email, no_hp, area_praktik,
         jenis_pengerjaan, biaya_min, biaya_max,
         estimasi_selesai, lokasi, deskripsi, bukti,
-        status, lawyer_id
+        status, lawyer_id, biaya_pengacara
       )
-      VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+      VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
     `;
 
     db.query(sql, [
@@ -24,7 +24,8 @@ const KasusModel = {
       jenisPengerjaan, biayaMin, biayaMax,
       estimasiSelesai, lokasi, deskripsi, bukti || null,
       status || "Menunggu",
-      lawyer_id || null
+      lawyer_id || null,
+      biaya_pengacara || 0
     ], callback);
   },
 
@@ -47,6 +48,7 @@ const KasusModel = {
       bukti: "bukti",
       status: "status",
       lawyer_id: "lawyer_id",
+      biaya_pengacara: "biaya_pengacara"
     };
 
     for (const key in data) {

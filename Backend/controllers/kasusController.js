@@ -1,11 +1,15 @@
 const db = require('../config/database');
 const KasusModel = require('../models/kasusModel');
 
-// Create kasus baru (mirip ajukanKasus, tapi beri nama lebih umum)
+// Create kasus baru (tambahkan biaya_pengacara = 80% dari biayaMin)
 exports.createKasus = (req, res) => {
   const data = req.body;
   let bukti = req.file ? req.file.filename : null;
-  const newKasus = { ...data, bukti };
+
+  const biayaMin = Number(data.biayaMin || 0);
+  const biaya_pengacara = Math.round(biayaMin * 0.8);
+
+  const newKasus = { ...data, bukti, biaya_pengacara };
 
   KasusModel.createKasus(newKasus, (err, result) => {
     if (err) {
@@ -16,13 +20,19 @@ exports.createKasus = (req, res) => {
   });
 };
 
-// Update kasus (update seluruh data kasus, termasuk status dll)
+// Update kasus (update seluruh data kasus, termasuk biaya_pengacara)
 exports.updateKasus = (req, res) => {
   const id = req.params.id;
   const data = req.body;
   if (req.file) {
     data.bukti = req.file.filename;
   }
+
+  if (data.biayaMin !== undefined) {
+    const biayaMin = Number(data.biayaMin);
+    data.biaya_pengacara = Math.round(biayaMin * 0.8);
+  }
+
   KasusModel.updateKasus(id, data, (err) => {
     if (err) {
       console.error('Gagal mengupdate kasus:', err);
@@ -83,7 +93,11 @@ exports.deleteKasus = (req, res) => {
 exports.ajukanKasus = (req, res) => {
   const data = req.body;
   let bukti = req.file ? req.file.filename : null;
-  const newKasus = { ...data, bukti };
+
+  const biayaMin = Number(data.biayaMin || 0);
+  const biaya_pengacara = Math.round(biayaMin * 0.8);
+
+  const newKasus = { ...data, bukti, biaya_pengacara };
 
   KasusModel.createKasus(newKasus, (err) => {
     if (err) {
