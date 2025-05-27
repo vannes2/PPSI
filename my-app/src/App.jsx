@@ -63,6 +63,9 @@ import SidebarAdmin from "./components/SidebarAdmin";
 import ScrollToTop from "./components/ScrollToTop";
 import '@fortawesome/fontawesome-free/css/all.min.css';
 
+//PAGE 404
+import NotFound from "./404_not_found/NotFound";
+
 function App() {
     return (
         <Router>
@@ -128,6 +131,10 @@ function App() {
                 <Route path="/DaftarKasusLawyer" element={<DaftarKasusLawyer />} />
                 <Route path="/artikel-lawyer/:id" element={<ArtikelDetailLawyer />} />
                 <Route path="/RiwayatKasusPengacara" element={<RiwayatKasusPengacara />} />
+
+                {/* Not Found*/}
+                <Route path="*" element={<NotFound />} />
+
             </Routes>
         </Router>
     );
