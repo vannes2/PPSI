@@ -207,3 +207,122 @@
 .transaksi-table-wrapper::-webkit-scrollbar-track {
   background: transparent;
 }
+
+/* Filter container dengan grid 4 kolom */
+.filter-container {
+  display: grid;
+  grid-template-columns: 300px 140px 140px 120px;
+  align-items: center;
+  gap: 12px;
+  margin-top: 20px;   /* jarak atas */
+  margin-bottom: 20px; /* jarak bawah */
+}
+
+/* Filter di tengah horizontal */
+.filter-container.filter-center {
+  justify-content: center; /* center horizontal */
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* Input text pencarian */
+.filter-container input[type="text"] {
+  padding: 6px 12px;
+  font-size: 14px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  width: 100%;
+  transition: border-color 0.2s ease;
+}
+
+.filter-container input[type="text"]:focus {
+  border-color: #b31312;
+  outline: none;
+}
+
+/* Dropdown select untuk sort */
+.filter-container select {
+  padding: 6px 12px;
+  font-size: 14px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  background-color: white;
+  cursor: pointer;
+  width: 100%;
+  transition: border-color 0.2s ease;
+}
+
+.filter-container select:focus {
+  border-color: #b31312;
+  outline: none;
+}
+
+/* Tombol Reset Filter */
+.filter-container button {
+  padding: 6px 12px;
+  font-size: 14px;
+  font-weight: 600;
+  color: white;
+  background-color: #b31312;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+  width: 100%;
+}
+
+.filter-container button:hover:not(:disabled) {
+  background-color: #8a0e0e;
+}
+
+.filter-container button:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+/* Responsive - layar sempit */
+@media (max-width: 650px) {
+  .filter-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .filter-container input[type="text"],
+  .filter-container select,
+  .filter-container button {
+    width: 100%;
+  }
+}
+
+/* Wrapper tabel agar scroll horizontal jika overflow */
+.transaksi-table-wrapper {
+  overflow-x: auto;
+  margin-top: 12px;
+}
+
+/* Styling tabel */
+.transaksi-table-wrapper table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 14px;
+}
+
+.transaksi-table-wrapper th,
+.transaksi-table-wrapper td {
+  padding: 8px 10px;
+  border: 1px solid #ccc;
+  text-align: left;
+  vertical-align: middle;
+}
+
+.transaksi-table-wrapper th {
+  background-color: #f2f2f2;
+  font-weight: 600;
+}
+
+/* Style error text */
+.error-text {
+  color: #b31312;
+  font-weight: 600;
+}

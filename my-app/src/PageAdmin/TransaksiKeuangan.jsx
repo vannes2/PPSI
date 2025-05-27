@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useMemo } from "react";
 import axios from "axios";
 import SidebarAdmin from "../components/SidebarAdmin";
 import "../CSS_Admin/TransaksiKeuangan.css";
@@ -11,6 +11,16 @@ const TransaksiKeuangan = () => {
   const [error, setError] = useState(null);
   const [activeTab, setActiveTab] = useState("transaksiKeuangan");
   const [updating, setUpdating] = useState(false);
+
+  // State filter & search kasus
+  const [searchKasus, setSearchKasus] = useState("");
+  const [sortKasusField, setSortKasusField] = useState("created_at");
+  const [sortKasusOrder, setSortKasusOrder] = useState("desc");
+
+  // State filter & search konsultasi
+  const [searchKonsultasi, setSearchKonsultasi] = useState("");
+  const [sortKonsultasiField, setSortKonsultasiField] = useState("start_time");
+  const [sortKonsultasiOrder, setSortKonsultasiOrder] = useState("desc");
 
   const fetchData = async () => {
     setLoading(true);
@@ -45,9 +55,58 @@ const TransaksiKeuangan = () => {
       day: "numeric",
     });
 
+  // Fungsi sorting generic
+  const sortData = (array, field, order, isDate = false) => {
+    return [...array].sort((a, b) => {
+      let valA = a[field];
+      let valB = b[field];
+      if (isDate) {
+        valA = new Date(valA);
+        valB = new Date(valB);
+      }
+      if (typeof valA === "string") valA = valA.toLowerCase();
+      if (typeof valB === "string") valB = valB.toLowerCase();
+
+      if (valA < valB) return order === "asc" ? -1 : 1;
+      if (valA > valB) return order === "asc" ? 1 : -1;
+      return 0;
+    });
+  };
+
+  // Filter + search + sort Kasus
+  const filteredKasus = useMemo(() => {
+    let filtered = kasus.filter(
+      (item) =>
+        (item.nama?.toLowerCase().includes(searchKasus.toLowerCase()) ||
+          item.nama_pengacara?.toLowerCase().includes(searchKasus.toLowerCase()))
+    );
+    filtered = sortData(
+      filtered,
+      sortKasusField,
+      sortKasusOrder,
+      sortKasusField === "created_at"
+    );
+    return filtered;
+  }, [kasus, searchKasus, sortKasusField, sortKasusOrder]);
+
+  // Filter + search + sort Konsultasi
+  const filteredKonsultasi = useMemo(() => {
+    let filtered = konsultasi.filter(
+      (item) =>
+        (item.nama_user?.toLowerCase().includes(searchKonsultasi.toLowerCase()) ||
+          item.nama_pengacara?.toLowerCase().includes(searchKonsultasi.toLowerCase()))
+    );
+    filtered = sortData(
+      filtered,
+      sortKonsultasiField,
+      sortKonsultasiOrder,
+      sortKonsultasiField === "start_time"
+    );
+    return filtered;
+  }, [konsultasi, searchKonsultasi, sortKonsultasiField, sortKonsultasiOrder]);
+
   const handleMarkTransfer = async (type, id) => {
-    if (!window.confirm("Tandai pembayaran ini sudah ditransfer ke pengacara?"))
-      return;
+    if (!window.confirm("Tandai pembayaran ini sudah ditransfer ke pengacara?")) return;
 
     try {
       setUpdating(true);
@@ -95,6 +154,40 @@ const TransaksiKeuangan = () => {
             {/* AJUKAN KASUS */}
             <section className="keuangan-summary">
               <h3>🧾 Pendapatan dari Ajukan Kasus</h3>
+
+              {/* Search & Filter Kasus */}
+              <div className="filter-container filter-center">
+                <input
+                  type="text"
+                  placeholder="Cari nama klien atau pengacara..."
+                  value={searchKasus}
+                  onChange={(e) => setSearchKasus(e.target.value)}
+                />
+                <select
+                  value={sortKasusField}
+                  onChange={(e) => setSortKasusField(e.target.value)}
+                >
+                  <option value="created_at">Waktu</option>
+                  <option value="biaya_min">Biaya</option>
+                </select>
+                <select
+                  value={sortKasusOrder}
+                  onChange={(e) => setSortKasusOrder(e.target.value)}
+                >
+                  <option value="desc">Terbaru ke Terlama / Terbesar ke Terkecil</option>
+                  <option value="asc">Terlama ke Terbaru / Terkecil ke Terbesar</option>
+                </select>
+                <button
+                  onClick={() => {
+                    setSearchKasus("");
+                    setSortKasusField("created_at");
+                    setSortKasusOrder("desc");
+                  }}
+                >
+                  Reset Filter
+                </button>
+              </div>
+
               <div className="summary-row">
                 <div className="summary-box box-kotor">
                   <h4>Pendapatan Kotor</h4>
@@ -109,6 +202,8 @@ const TransaksiKeuangan = () => {
                   <p>{format(data.pengeluaran_kasus)}</p>
                 </div>
               </div>
+                  <br></br>
+
               {/* Tabel Kasus */}
               <div className="transaksi-table-wrapper">
                 <table>
@@ -126,7 +221,7 @@ const TransaksiKeuangan = () => {
                     </tr>
                   </thead>
                   <tbody>
-                    {kasus.map((row) => (
+                    {filteredKasus.map((row) => (
                       <tr key={row.id}>
                         <td>{row.nama}</td>
                         <td>{format(row.biaya_min)}</td>
@@ -160,6 +255,40 @@ const TransaksiKeuangan = () => {
             {/* KONSULTASI */}
             <section className="keuangan-summary">
               <h3>💬 Pendapatan dari Konsultasi</h3>
+
+              {/* Search & Filter Konsultasi */}
+              <div className="filter-container filter-center">
+                <input
+                  type="text"
+                  placeholder="Cari nama user atau pengacara..."
+                  value={searchKonsultasi}
+                  onChange={(e) => setSearchKonsultasi(e.target.value)}
+                />
+                <select
+                  value={sortKonsultasiField}
+                  onChange={(e) => setSortKonsultasiField(e.target.value)}
+                >
+                  <option value="start_time">Waktu</option>
+                  <option value="biaya">Biaya</option>
+                </select>
+                <select
+                  value={sortKonsultasiOrder}
+                  onChange={(e) => setSortKonsultasiOrder(e.target.value)}
+                >
+                  <option value="desc">Terbaru ke Terlama / Terbesar ke Terkecil</option>
+                  <option value="asc">Terlama ke Terbaru / Terkecil ke Terbesar</option>
+                </select>
+                <button
+                  onClick={() => {
+                    setSearchKonsultasi("");
+                    setSortKonsultasiField("start_time");
+                    setSortKonsultasiOrder("desc");
+                  }}
+                >
+                  Reset Filter
+                </button>
+              </div>
+
               <div className="summary-row">
                 <div className="summary-box box-kotor">
                   <h4>Pendapatan Kotor</h4>
@@ -174,9 +303,10 @@ const TransaksiKeuangan = () => {
                   <p>{format(data.pengeluaran_konsultasi)}</p>
                 </div>
               </div>
-
+                              
               {/* Tabel Konsultasi */}
               <div className="transaksi-table-wrapper">
+                <br></br>
                 <table>
                   <thead>
                     <tr>
@@ -191,7 +321,7 @@ const TransaksiKeuangan = () => {
                     </tr>
                   </thead>
                   <tbody>
-                    {konsultasi.map((row) => (
+                    {filteredKonsultasi.map((row) => (
                       <tr key={row.id}>
                         <td>{row.nama_user || "-"}</td>
                         <td>{row.nama_pengacara || "-"}</td>
