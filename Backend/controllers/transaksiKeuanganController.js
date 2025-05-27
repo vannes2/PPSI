@@ -13,7 +13,6 @@ exports.getTotalPendapatan = (req, res) => {
   const queryTotalKonsultasi = `
     SELECT SUM(biaya) AS total_konsultasi_kotor
     FROM konsultasi_session
-    WHERE status = 'selesai'
   `;
 
   // Ambil data ajukan_kasus selesai + is_transferred + biaya_pengacara untuk hitung pengeluaran dan pendapatan bersih
@@ -27,7 +26,6 @@ exports.getTotalPendapatan = (req, res) => {
   const queryKonsultasiDetail = `
     SELECT biaya, biaya_pengacara, is_transferred
     FROM konsultasi_session
-    WHERE status = 'selesai'
   `;
 
   db.query(queryTotalKasus, (err1, resultTotalKasus) => {
@@ -142,9 +140,10 @@ exports.updateTransferStatus = (req, res) => {
       message: "Type harus 'kasus' atau 'konsultasi'",
     });
 
-  const query = `UPDATE ${tableName} SET is_transferred = 1 WHERE id = ?`;
+  // Step 1: Update is_transferred = 1
+  const updateTransferQuery = `UPDATE ${tableName} SET is_transferred = 1 WHERE id = ?`;
 
-  db.query(query, [id], (err, result) => {
+  db.query(updateTransferQuery, [id], (err, result) => {
     if (err) {
       console.error("❌ Error update status transfer:", err);
       return res.status(500).json({ message: "Gagal update status transfer" });
@@ -152,6 +151,37 @@ exports.updateTransferStatus = (req, res) => {
     if (result.affectedRows === 0) {
       return res.status(404).json({ message: "Data tidak ditemukan" });
     }
-    res.status(200).json({ message: "Status transfer berhasil diupdate" });
+
+    // Jika tipe konsultasi, update biaya_pengacara = biaya * 0.8
+    if (type === "konsultasi") {
+      // Ambil nilai biaya saat ini dari record yang diupdate
+      const selectQuery = `SELECT biaya FROM konsultasi_session WHERE id = ?`;
+      db.query(selectQuery, [id], (selectErr, rows) => {
+        if (selectErr) {
+          console.error("❌ Error ambil data biaya konsultasi:", selectErr);
+          return res.status(500).json({ message: "Gagal mengambil data biaya konsultasi" });
+        }
+        if (rows.length === 0) {
+          return res.status(404).json({ message: "Data konsultasi tidak ditemukan" });
+        }
+
+        const biaya = Number(rows[0].biaya) || 0;
+        const biaya_pengacara = Math.round(biaya * 0.8);
+
+        // Update biaya_pengacara di tabel
+        const updateBiayaAdvokatQuery = `UPDATE konsultasi_session SET biaya_pengacara = ? WHERE id = ?`;
+        db.query(updateBiayaAdvokatQuery, [biaya_pengacara, id], (updateErr) => {
+          if (updateErr) {
+            console.error("❌ Error update biaya_pengacara:", updateErr);
+            return res.status(500).json({ message: "Gagal update biaya pengacara" });
+          }
+          return res.status(200).json({ message: "Status transfer dan biaya pengacara berhasil diupdate" });
+        });
+      });
+    } else {
+      // Untuk kasus, anggap sudah update biaya_pengacara saat input, langsung return sukses
+      return res.status(200).json({ message: "Status transfer berhasil diupdate" });
+    }
   });
 };
+
