@@ -58,6 +58,7 @@ app.use("/api/transaksi", transaksiRoutes);
 app.use("/api/chatbot", require("./routes/botRoutes"));
 app.use("/api/chatbot", botRoutes);
 app.use("/api/transaksi-keuangan", transaksiKeuanganRoutes);
+app.use('/api/transaksi', transaksiKeuanganRoutes);
 app.use("/api", riwayatPengacaraRoutes);
 
 // app.use("/api/kasus", riwayatKasusRoutes);

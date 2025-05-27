@@ -10,26 +10,30 @@ const TransaksiKeuangan = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [activeTab, setActiveTab] = useState("transaksiKeuangan");
+  const [updating, setUpdating] = useState(false);
+
+  const fetchData = async () => {
+    setLoading(true);
+    setError(null);
+    try {
+      const [resKeuangan, resKasus, resKonsultasi] = await Promise.all([
+        axios.get("http://localhost:5000/api/transaksi-keuangan/total"),
+        axios.get("http://localhost:5000/api/transaksi/ajukan-kasus"),
+        axios.get("http://localhost:5000/api/transaksi/konsultasi-session"),
+      ]);
+
+      setData(resKeuangan.data);
+      setKasus(resKasus.data);
+      setKonsultasi(resKonsultasi.data);
+    } catch (err) {
+      console.error(err);
+      setError("Gagal mengambil data transaksi keuangan");
+    } finally {
+      setLoading(false);
+    }
+  };
 
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const [resKeuangan, resKasus, resKonsultasi] = await Promise.all([
-          axios.get("http://localhost:5000/api/transaksi-keuangan/total"),
-          axios.get("http://localhost:5000/api/transaksi/ajukan-kasus"),
-          axios.get("http://localhost:5000/api/transaksi/konsultasi-session"),
-        ]);
-
-        setData(resKeuangan.data);
-        setKasus(resKasus.data.filter(k => k.status.toLowerCase() === 'selesai'));
-        setKonsultasi(resKonsultasi.data);
-      } catch (err) {
-        console.error(err);
-        setError("Gagal mengambil data transaksi keuangan");
-      } finally {
-        setLoading(false);
-      }
-    };
     fetchData();
   }, []);
 
@@ -40,6 +44,22 @@ const TransaksiKeuangan = () => {
       month: "long",
       day: "numeric",
     });
+
+  const handleMarkTransfer = async (type, id) => {
+    if (!window.confirm("Tandai pembayaran ini sudah ditransfer ke pengacara?"))
+      return;
+
+    try {
+      setUpdating(true);
+      await axios.put(`http://localhost:5000/api/transaksi/transfer/${type}/${id}`);
+      await fetchData();
+    } catch (err) {
+      alert("Gagal memperbarui status transfer");
+      console.error(err);
+    } finally {
+      setUpdating(false);
+    }
+  };
 
   return (
     <div className="admin-layout-wrapper">
@@ -53,7 +73,7 @@ const TransaksiKeuangan = () => {
           <p className="error-text">{error}</p>
         ) : (
           <>
-            {/* === TOTAL === */}
+            {/* TOTAL */}
             <section className="keuangan-summary">
               <h3>📊 Total Keseluruhan</h3>
               <div className="summary-row">
@@ -72,7 +92,7 @@ const TransaksiKeuangan = () => {
               </div>
             </section>
 
-            {/* === AJUKAN KASUS === */}
+            {/* AJUKAN KASUS */}
             <section className="keuangan-summary">
               <h3>🧾 Pendapatan dari Ajukan Kasus</h3>
               <div className="summary-row">
@@ -90,32 +110,46 @@ const TransaksiKeuangan = () => {
                 </div>
               </div>
               {/* Tabel Kasus */}
-              <div className="table-wrapper">
+              <div className="transaksi-table-wrapper">
                 <table>
                   <thead>
                     <tr>
-                      <th>Nama Klien</th>                      
+                      <th>Nama Klien</th>
                       <th>Biaya</th>
+                      <th>Biaya Pengacara</th>
                       <th>Pengacara</th>
                       <th>Nama Rekening</th>
                       <th>No Rekening</th>
                       <th>Status</th>
                       <th>Tanggal</th>
+                      <th>Aksi</th>
                     </tr>
                   </thead>
                   <tbody>
                     {kasus.map((row) => (
                       <tr key={row.id}>
-                        <td>{row.nama}</td>                
-                        
-                        <td>
-                          {format(row.biaya_min)}
-                        </td>
+                        <td>{row.nama}</td>
+                        <td>{format(row.biaya_min)}</td>
+                        <td>{format(row.biaya_pengacara)}</td>
                         <td>{row.nama_pengacara || "-"}</td>
                         <td>{row.nama_rekening || "-"}</td>
                         <td>{row.no_rekening || "-"}</td>
                         <td>{row.status}</td>
                         <td>{formatTanggal(row.created_at)}</td>
+                        <td>
+                          {row.is_transferred ? (
+                            <span style={{ color: "green", fontWeight: "600" }}>
+                              Sudah Transfer
+                            </span>
+                          ) : (
+                            <button
+                              disabled={updating}
+                              onClick={() => handleMarkTransfer("kasus", row.id)}
+                            >
+                              Tandai Sudah Transfer
+                            </button>
+                          )}
+                        </td>
                       </tr>
                     ))}
                   </tbody>
@@ -123,7 +157,7 @@ const TransaksiKeuangan = () => {
               </div>
             </section>
 
-            {/* === KONSULTASI === */}
+            {/* KONSULTASI */}
             <section className="keuangan-summary">
               <h3>💬 Pendapatan dari Konsultasi</h3>
               <div className="summary-row">
@@ -142,7 +176,7 @@ const TransaksiKeuangan = () => {
               </div>
 
               {/* Tabel Konsultasi */}
-              <div className="table-wrapper">
+              <div className="transaksi-table-wrapper">
                 <table>
                   <thead>
                     <tr>
@@ -151,7 +185,9 @@ const TransaksiKeuangan = () => {
                       <th>Waktu Mulai</th>
                       <th>Durasi (menit)</th>
                       <th>Biaya</th>
+                      <th>Biaya Pengacara</th>
                       <th>Status</th>
+                      <th>Aksi</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -162,7 +198,22 @@ const TransaksiKeuangan = () => {
                         <td>{new Date(row.start_time).toLocaleString("id-ID")}</td>
                         <td>{row.duration}</td>
                         <td>{format(row.biaya)}</td>
+                        <td>{format(row.biaya_pengacara)}</td>
                         <td>{row.status}</td>
+                        <td>
+                          {row.is_transferred ? (
+                            <span style={{ color: "green", fontWeight: "600" }}>
+                              Sudah Transfer
+                            </span>
+                          ) : (
+                            <button
+                              disabled={updating}
+                              onClick={() => handleMarkTransfer("konsultasi", row.id)}
+                            >
+                              Tandai Sudah Transfer
+                            </button>
+                          )}
+                        </td>
                       </tr>
                     ))}
                   </tbody>
