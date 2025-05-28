@@ -116,6 +116,8 @@ const getRiwayatByUserId = (userId, callback) => {
            p.nama AS nama_pengacara,
            p.upload_foto AS foto_pengacara,
            p.harga_konsultasi
+           p.nama_rekening,
+           p.no_rekening
     FROM konsultasi_session ks
     LEFT JOIN pengacara p ON ks.pengacara_id = p.id
     WHERE ks.user_id = ?
