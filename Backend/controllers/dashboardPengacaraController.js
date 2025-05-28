@@ -86,13 +86,18 @@ exports.getDetailTransaksi = (req, res) => {
   const pengacaraId = req.params.id;
 
   const sql = `
-    SELECT 'Kasus' AS jenis, id, biaya_pengacara, is_transferred, created_at AS tanggal
-    FROM ajukan_kasus
-    WHERE lawyer_id = ? AND status = 'Selesai'
+    SELECT 'Kasus' AS jenis, ak.id, u.name AS nama_user, ak.biaya_pengacara, ak.is_transferred, ak.created_at AS tanggal
+    FROM ajukan_kasus ak
+    LEFT JOIN users u ON ak.user_id = u.id
+    WHERE ak.lawyer_id = ? AND ak.status = 'Selesai'
+
     UNION ALL
-    SELECT 'Konsultasi', id, biaya_pengacara, is_transferred, start_time
-    FROM konsultasi_session
-    WHERE pengacara_id = ? AND status = 'selesai'
+
+    SELECT 'Konsultasi', ks.id, u.name AS nama_user, ks.biaya_pengacara, ks.is_transferred, ks.start_time AS tanggal
+    FROM konsultasi_session ks
+    LEFT JOIN users u ON ks.user_id = u.id
+    WHERE ks.pengacara_id = ? AND ks.status = 'selesai'
+
     ORDER BY tanggal DESC
   `;
 

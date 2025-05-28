@@ -87,18 +87,26 @@ const DashboardPengacara = () => {
       </div>
 
       {/* Grafik Pendapatan */}
-      <div className="chart-section">
-        <h3 className="chart-title">Grafik Pendapatan Bulanan</h3>
-        <ResponsiveContainer width="100%" height={300}>
-          <LineChart data={grafikData}>
-            <CartesianGrid stroke="#ccc" />
-            <XAxis dataKey="bulan" />
-            <YAxis />
-            <Tooltip />
-            <Line type="monotone" dataKey="total" stroke="#4F46E5" />
-          </LineChart>
-        </ResponsiveContainer>
-      </div>
+{/* Grafik Pendapatan */}
+<div className="chart-section">
+  <h3 className="chart-title">Grafik Pendapatan Bulanan</h3>
+  <ResponsiveContainer width="100%" height={300}>
+    <LineChart data={grafikData}>
+      <CartesianGrid stroke="#ccc" strokeDasharray="5 5" />
+      <XAxis dataKey="bulan" />
+      <YAxis />
+      <Tooltip />
+      <Line
+        type="monotone"
+        dataKey="total"
+        stroke="#4F46E5"
+        strokeWidth={3}
+        dot={{ r: 4, stroke: '#4F46E5', strokeWidth: 2, fill: '#fff' }}
+        activeDot={{ r: 6 }}
+      />
+    </LineChart>
+  </ResponsiveContainer>
+</div>
 
       {/* Tabel Transaksi */}
       <div className="table-section">
@@ -114,34 +122,35 @@ const DashboardPengacara = () => {
         <div className="overflow-x-auto">
           <table className="transaction-table">
             <thead>
-              <tr>
+            <tr>
                 <th>Jenis</th>
-                <th>ID</th>
+                <th>Nama Klien</th>
                 <th>Honor (Rp)</th>
                 <th>Status Transfer</th>
                 <th>Tanggal</th>
-              </tr>
+            </tr>
             </thead>
             <tbody>
-              {detailTransaksi.map((trx, index) => (
+            {detailTransaksi.map((trx, index) => (
                 <tr key={index}>
-                  <td>{trx.jenis}</td>
-                  <td>{trx.id}</td>
-                  <td>Rp {trx.biaya_pengacara.toLocaleString()}</td>
-                  <td className={trx.is_transferred === 1 ? "status-success" : "status-pending"}>
+                <td>{trx.jenis}</td>
+                <td>{trx.nama_user || 'Tidak diketahui'}</td>
+                <td>Rp {trx.biaya_pengacara.toLocaleString()}</td>
+                <td className={trx.is_transferred === 1 ? "status-success" : "status-pending"}>
                     {trx.is_transferred === 1 ? "Sudah Transfer" : "Belum Transfer"}
-                  </td>
-                  <td>{new Date(trx.tanggal).toLocaleDateString()}</td>
+                </td>
+                <td>{new Date(trx.tanggal).toLocaleDateString()}</td>
                 </tr>
-              ))}
-              {detailTransaksi.length === 0 && (
+            ))}
+            {detailTransaksi.length === 0 && (
                 <tr>
-                  <td colSpan="5" style={{ textAlign: 'center', padding: '1rem', color: '#6b7280' }}>
+                <td colSpan="5" style={{ textAlign: 'center', padding: '1rem', color: '#6b7280' }}>
                     Belum ada transaksi.
-                  </td>
+                </td>
                 </tr>
-              )}
+            )}
             </tbody>
+
           </table>
         </div>
       </div>
