@@ -9,9 +9,7 @@ exports.getRiwayatKonsultasiByUser = (req, res) => {
            p.id AS id_pengacara, 
            p.nama AS nama_pengacara,
            p.upload_foto AS foto_pengacara,
-           p.harga_konsultasi,
-           p.nama_rekening,
-           p.no_rekening
+           p.harga_konsultasi
     FROM konsultasi_session ks
     LEFT JOIN pengacara p ON ks.pengacara_id = p.id
     WHERE ks.user_id = ?
@@ -63,9 +61,7 @@ exports.getRiwayatKonsultasiByPengacara = (req, res) => {
            p.id AS id_pengacara,
            p.nama AS nama_pengacara,
            p.upload_foto AS foto_pengacara,
-           p.harga_konsultasi,
-           p.nama_rekening,
-           p.no_rekening
+           p.harga_konsultasi
     FROM konsultasi_session ks
     LEFT JOIN pengacara p ON ks.pengacara_id = p.id
     WHERE ks.pengacara_id = ?
@@ -78,36 +74,5 @@ exports.getRiwayatKonsultasiByPengacara = (req, res) => {
       return res.status(500).json({ message: "Gagal mengambil data riwayat konsultasi pengacara" });
     }
     res.json(results);
-  });
-};
-
-exports.getKonsultasiSelesai = (req, res) => {
-  const query = `
-    SELECT 
-      ks.id,
-      ks.user_id,
-      ks.pengacara_id,
-      ks.nama_user,
-      p.nama AS nama_pengacara,
-      ks.start_time,
-      ks.duration,
-      ks.biaya,
-      ks.biaya_pengacara,
-      ks.status,
-      ks.is_transferred,
-      p.account_name,
-      p.account_number
-    FROM konsultasi_session ks
-    LEFT JOIN pengacara p ON ks.pengacara_id = p.id
-    WHERE ks.status = 'selesai'
-    ORDER BY ks.start_time DESC
-  `;
-
-  db.query(query, (err, results) => {
-    if (err) {
-      console.error("❌ Gagal mengambil data konsultasi selesai:", err);
-      return res.status(500).json({ message: "Gagal mengambil data konsultasi selesai" });
-    }
-    res.status(200).json(results);
   });
 };
