@@ -54,6 +54,8 @@ import DaftarKasusLawyer from "./PageLawyer/DaftarKasusLawyer";
 import ArtikelDetailLawyer from "./PageLawyer/ArtikelDetailLawyer";
 import RegisterBankAccount from "./PageLawyer/RegisterBankAccount";
 import RiwayatKasusPengacara from "./PageLawyer/RiwayatKasusPengacara";
+import DashboardPengacara from "./PageLawyer/DashboardPengacara";
+
 // import RiwayatKasus from "./PageUser/RiwayatKasus";
 // BotChat
 import ChatBotWidget from "./ChatBot/ChatBotWidget";
@@ -134,7 +136,10 @@ function App() {
                 <Route path="/DaftarKasusLawyer" element={<DaftarKasusLawyer />} />
                 <Route path="/artikel-lawyer/:id" element={<ArtikelDetailLawyer />} />
                 <Route path="/RiwayatKasusPengacara" element={<RiwayatKasusPengacara />} />
-
+<Route
+  path="/DashboardPengacara"
+  element={<DashboardPengacara pengacaraId={localStorage.getItem("pengacaraId")} />}
+/>
                 {/* Not Found*/}
                 <Route path="*" element={<NotFound />} />
                 {/* CheckOut*/}
