@@ -1,0 +1,154 @@
+/* Container Utama */
+.dashboard-container {
+  padding: 2rem;
+  background-color: #f9fafb;
+  min-height: 100vh;
+  font-family: 'Segoe UI', sans-serif;
+}
+
+/* Judul Dashboard */
+.dashboard-title {
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: #1f2937;
+  margin-bottom: 2rem;
+}
+
+/* Grid Ringkasan */
+.summary-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1.5rem;
+  margin-bottom: 2.5rem;
+}
+
+/* Kartu Ringkasan */
+.summary-card {
+  background-color: white;
+  border-radius: 1rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+  padding: 1.5rem;
+}
+
+.summary-card h3 {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #374151;
+  margin-bottom: 0.5rem;
+}
+
+.summary-card p {
+  font-size: 1.25rem;
+  font-weight: 700;
+}
+
+/* Warna Text Custom */
+.text-green {
+  color: #16a34a;
+}
+
+.text-yellow {
+  color: #ca8a04;
+}
+
+.text-blue {
+  color: #2563eb;
+}
+
+.text-purple {
+  color: #7c3aed;
+}
+
+/* Grafik */
+.chart-section {
+  background-color: white;
+  border-radius: 1rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+  padding: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.chart-title {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #374151;
+  margin-bottom: 1rem;
+}
+
+/* Tabel Transaksi */
+.table-section {
+  background-color: white;
+  border-radius: 1rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+  padding: 1.5rem;
+}
+
+.table-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.table-header h3 {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #374151;
+}
+
+/* Tombol Export */
+.export-button {
+  background-color: #2563eb;
+  color: white;
+  padding: 0.5rem 1rem;
+  border-radius: 0.375rem;
+  border: none;
+  cursor: pointer;
+  font-size: 0.9rem;
+  transition: background-color 0.3s;
+}
+
+.export-button:hover {
+  background-color: #1e40af;
+}
+
+/* Tabel */
+.transaction-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.875rem;
+}
+
+.transaction-table th,
+.transaction-table td {
+  padding: 0.75rem;
+  text-align: left;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.transaction-table th {
+  background-color: #f3f4f6;
+  font-weight: 600;
+  color: #374151;
+}
+
+.transaction-table td {
+  color: #374151;
+}
+
+.transaction-table td.status-success {
+  color: #16a34a;
+}
+
+.transaction-table td.status-pending {
+  color: #ca8a04;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .table-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
+  }
+}

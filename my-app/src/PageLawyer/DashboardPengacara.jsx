@@ -5,6 +5,7 @@ import { saveAs } from "file-saver";
 import {
   LineChart, Line, CartesianGrid, XAxis, YAxis, Tooltip, ResponsiveContainer,
 } from 'recharts';
+import '../CSS_Lawyer/DashboardPengacara.css';
 
 const exportToExcel = (data) => {
   const worksheet = XLSX.utils.json_to_sheet(data);
@@ -58,36 +59,36 @@ const DashboardPengacara = () => {
     fetchAllData();
   }, [lawyerId]);
 
-  if (loading) return <div className="p-4">Loading...</div>;
-  if (error) return <div className="p-4 text-red-500">{error}</div>;
+  if (loading) return <div className="dashboard-container">Loading...</div>;
+  if (error) return <div className="dashboard-container text-red-500">{error}</div>;
 
   return (
-    <div className="p-6 bg-gray-50 min-h-screen">
-      <h2 className="text-2xl font-bold mb-6 text-gray-800">Dashboard Pengacara</h2>
+    <div className="dashboard-container">
+      <h2 className="dashboard-title">Dashboard Pengacara</h2>
 
       {/* Ringkasan */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
-        <div className="p-6 bg-white rounded-2xl shadow">
-          <h3 className="text-lg font-semibold text-gray-700">Pendapatan Total</h3>
-          <p className="text-green-600 text-xl font-bold mt-2">Rp {summary.total_pendapatan_semua.toLocaleString()}</p>
+      <div className="summary-grid">
+        <div className="summary-card">
+          <h3>Pendapatan Total</h3>
+          <p className="text-green">Rp {summary.total_pendapatan_semua.toLocaleString()}</p>
         </div>
-        <div className="p-6 bg-white rounded-2xl shadow">
-          <h3 className="text-lg font-semibold text-gray-700">Sisa Belum Ditransfer</h3>
-          <p className="text-yellow-600 text-xl font-bold mt-2">Rp {summary.sisa_belum_ditransfer.toLocaleString()}</p>
+        <div className="summary-card">
+          <h3>Sisa Belum Ditransfer</h3>
+          <p className="text-yellow">Rp {summary.sisa_belum_ditransfer.toLocaleString()}</p>
         </div>
-        <div className="p-6 bg-white rounded-2xl shadow">
-          <h3 className="text-lg font-semibold text-gray-700">Total Kasus Selesai</h3>
-          <p className="text-blue-600 text-xl font-bold mt-2">{summary.total_kasus_selesai} kasus</p>
+        <div className="summary-card">
+          <h3>Total Kasus Selesai</h3>
+          <p className="text-blue">{summary.total_kasus_selesai} kasus</p>
         </div>
-        <div className="p-6 bg-white rounded-2xl shadow">
-          <h3 className="text-lg font-semibold text-gray-700">Total Konsultasi Selesai</h3>
-          <p className="text-purple-600 text-xl font-bold mt-2">{summary.total_konsultasi_selesai} sesi</p>
+        <div className="summary-card">
+          <h3>Total Konsultasi Selesai</h3>
+          <p className="text-purple">{summary.total_konsultasi_selesai} sesi</p>
         </div>
       </div>
 
       {/* Grafik Pendapatan */}
-      <div className="bg-white p-6 rounded-2xl shadow mb-8">
-        <h3 className="text-lg font-semibold mb-4 text-gray-700">Grafik Pendapatan Bulanan</h3>
+      <div className="chart-section">
+        <h3 className="chart-title">Grafik Pendapatan Bulanan</h3>
         <ResponsiveContainer width="100%" height={300}>
           <LineChart data={grafikData}>
             <CartesianGrid stroke="#ccc" />
@@ -100,40 +101,44 @@ const DashboardPengacara = () => {
       </div>
 
       {/* Tabel Transaksi */}
-      <div className="bg-white p-6 rounded-2xl shadow mb-4">
-        <div className="flex justify-between items-center mb-4">
-          <h3 className="text-lg font-semibold text-gray-700">Detail Transaksi Honor</h3>
+      <div className="table-section">
+        <div className="table-header">
+          <h3>Detail Transaksi Honor</h3>
           <button
             onClick={() => exportToExcel(detailTransaksi)}
-            className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700"
+            className="export-button"
           >
             Export ke Excel
           </button>
         </div>
         <div className="overflow-x-auto">
-          <table className="min-w-full text-sm">
+          <table className="transaction-table">
             <thead>
-              <tr className="bg-gray-100 text-left">
-                <th className="p-2">Jenis</th>
-                <th className="p-2">ID</th>
-                <th className="p-2">Honor (Rp)</th>
-                <th className="p-2">Status Transfer</th>
-                <th className="p-2">Tanggal</th>
+              <tr>
+                <th>Jenis</th>
+                <th>ID</th>
+                <th>Honor (Rp)</th>
+                <th>Status Transfer</th>
+                <th>Tanggal</th>
               </tr>
             </thead>
             <tbody>
               {detailTransaksi.map((trx, index) => (
-                <tr key={index} className="border-b">
-                  <td className="p-2">{trx.jenis}</td>
-                  <td className="p-2">{trx.id}</td>
-                  <td className="p-2">Rp {trx.biaya_pengacara.toLocaleString()}</td>
-                  <td className="p-2">{trx.is_transferred === 1 ? "Sudah Transfer" : "Belum Transfer"}</td>
-                  <td className="p-2">{new Date(trx.tanggal).toLocaleDateString()}</td>
+                <tr key={index}>
+                  <td>{trx.jenis}</td>
+                  <td>{trx.id}</td>
+                  <td>Rp {trx.biaya_pengacara.toLocaleString()}</td>
+                  <td className={trx.is_transferred === 1 ? "status-success" : "status-pending"}>
+                    {trx.is_transferred === 1 ? "Sudah Transfer" : "Belum Transfer"}
+                  </td>
+                  <td>{new Date(trx.tanggal).toLocaleDateString()}</td>
                 </tr>
               ))}
               {detailTransaksi.length === 0 && (
                 <tr>
-                  <td colSpan="5" className="text-center py-4 text-gray-500">Belum ada transaksi.</td>
+                  <td colSpan="5" style={{ textAlign: 'center', padding: '1rem', color: '#6b7280' }}>
+                    Belum ada transaksi.
+                  </td>
                 </tr>
               )}
             </tbody>
