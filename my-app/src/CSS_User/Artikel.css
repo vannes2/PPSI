@@ -242,163 +242,140 @@
   text-decoration: underline;
 }
 
-
-.card {
-  display: flex;
-  background: #fff;
-  border-radius: 12px;
-  box-shadow: 0 6px 16px rgb(179 19 18 / 0.15);
-  overflow: hidden;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-  cursor: default;
+/* KonsultasiCard.css */
+.konsultasi-card {
+  background-color: #ffffff;
+  border-radius: 16px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  padding: 2rem;
+  width: 100%;
+  max-width: 500px;
+  margin: 0 auto 2rem;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  border: 1px solid #ddd;
+  transition: box-shadow 0.3s ease;
 }
 
-.card:hover {
-  transform: translateY(-6px);
-  box-shadow: 0 12px 24px rgb(179 19 18 / 0.35);
+.konsultasi-card:hover {
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
 }
 
-.card-image-wrapper {
-  flex-shrink: 0;
-  width: 140px;
-  height: 140px;
-  background: #eee;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  overflow: hidden;
-  border-right: 1.5px solid #f0f0f0;
-  border-top-left-radius: 12px;
-  border-bottom-left-radius: 12px;
-  position: relative;
-  padding-top: 10px;
+.konsultasi-header {
+  margin-bottom: 1.25rem;
+  padding-bottom: 0.7rem;
+  border-bottom: 1px solid #f0f0f0;
 }
 
-.card-image {
-  max-height: 110px;
-  max-width: 100%;
-  object-fit: contain;
-  display: block;
-  transition: transform 0.3s ease;
+.konsultasi-nama {
+  font-size: 22px;
+  color: #B31312;
+  margin: 0;
+  font-weight: 800;
+  line-height: 1.2;
+  letter-spacing: 0.02em;
 }
 
-.card:hover .card-image {
-  transform: scale(1.05);
-}
-
-.card-content {
-  flex: 1;
-  padding: 16px 24px;
+.konsultasi-details {
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 1.25rem;
 }
 
-.card-title {
-  font-size: 1.3rem;
-  font-weight: 700;
-  margin-bottom: 14px;
-  color: #222;
-  user-select: text;
-}
-
-.card-details {
+.detail-item {
   display: flex;
-  flex-wrap: wrap;
-  gap: 12px 40px;
-  font-size: 0.95rem;
-  color: #444;
-}
-
-.card-details > div {
-  display: flex;
-  min-width: 180px;
   justify-content: space-between;
   align-items: center;
-  flex: 1 1 40%;
+  padding: 0.5rem 0;
 }
 
-.card-details dt {
-  font-weight: 600;
-  color: #b31312;
-}
-
-.card-details dd {
-  margin: 0;
-  color: #555;
-  text-align: right;
-}
-
-.card-details dd > span {
+.detail-label {
   font-weight: 700;
-  padding: 2px 8px;
-  border-radius: 14px;
-  display: inline-block;
-  min-width: 90px;
-  text-align: center;
+  color: #555;
+  font-size: 16px;
 }
 
-.status-belum-diambil {
-  background-color: #f8d7da;
-  color: #842029;
+.detail-value {
+  font-weight: 400;
+  color: #333;
+  font-size: 16px;
 }
 
-.status-selesai {
-  background-color: #d1e7dd;
-  color: #0f5132;
+.status-badge {
+  padding: 8px 16px;
+  border-radius: 30px;
+  font-size: 14px;
+  font-weight: 700;
+  text-transform: capitalize;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  user-select: none;
 }
 
-.status-proses {
-  background-color: #fff3cd;
-  color: #664d03;
+.status-badge.aktif {
+  background: linear-gradient(90deg, #e8f5e9 0%, #c8e6c9 100%);
+  color: #2e7d32;
+  border: 1px solid #a5d6a7;
 }
 
-.status-unknown {
-  background-color: #e2e3e5;
-  color: #41464b;
+.divider {
+  height: 1px;
+  background-color: #f3a5a5;
+  margin: 1.5rem 0;
+  border: none;
+  box-shadow: 0 1px 2px rgba(179, 19, 18, 0.1);
 }
 
-.card-actions {
-  margin-top: 18px;
-  display: flex;
-  gap: 14px;
-  flex-wrap: wrap;
+.history-title {
+  font-size: 18px;
+  color: #B31312;
+  margin: 0 0 1rem 0;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .konsultasi-card {
+    padding: 1.5rem;
+    border-radius: 12px;
+  }
+  
+  .konsultasi-nama {
+    font-size: 20px;
+  }
+  
+  .detail-label,
+  .detail-value {
+    font-size: 15px;
+  }
+  
+  .status-badge {
+    padding: 6px 12px;
+    font-size: 13px;
+  }
 }
 
 @media (max-width: 480px) {
-  .card {
+  .konsultasi-card {
+    padding: 1.25rem;
+    border-radius: 10px;
+  }
+  
+  .konsultasi-nama {
+    font-size: 18px;
+  }
+  
+  .detail-item {
     flex-direction: column;
-    align-items: center;
+    align-items: flex-start;
+    gap: 0.25rem;
   }
-
-  .card-image-wrapper {
-    width: 100%;
-    height: 220px;
-    border-radius: 12px 12px 0 0;
-    border-right: none;
-    padding-top: 0;
-  }
-
-  .card-content {
-    padding: 18px 16px;
-    text-align: center;
-  }
-
-  .card-details {
-    display: block;
-  }
-
-  .card-details > div {
-    display: flex;
-    justify-content: space-between;
-    padding: 6px 0;
-  }
-
-  .card-actions {
-    justify-content: center;
+  
+  .history-title {
+    font-size: 16px;
   }
 }
-
 
 /* =================== RESPONSIVE =================== */
 @media (max-width: 1280px) {

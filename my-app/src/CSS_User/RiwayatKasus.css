@@ -1,16 +1,17 @@
 .riwayat-container {
-  padding: 120px 0px 60px;
+  padding: auto;
   background-color: #fefde9;
   font-family: 'Segoe UI', sans-serif;
+  margin-top: 100px;
 }
 
 /* Container dua kolom dengan garis pembatas vertikal */
 .riwayat-dua-kolom {
   display: flex;
-  gap: 40px;
+  gap: 60px;
   justify-content: center;
   align-items: flex-start;
-  max-width: 1200px;
+  max-width: 1400px;
   margin: 0 auto;
   padding: 0 20px;
   position: relative;
@@ -19,7 +20,7 @@
 /* Set lebar untuk masing-masing kolom */
 .riwayat-section {
   flex: 1;
-  min-width: 300px;
+  min-width: 350px;
 }
 
 /* Judul di tengah */
@@ -42,58 +43,76 @@
   margin-bottom: 10px;
 }
 
-/* Styling card dan isi tetap seperti biasa */
+/* Styling card */
 .card-list {
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: 25px;
 }
 
 .riwayat-card {
-  max-width: 420px;
+  max-width: 650px;
   width: 100%;
   display: flex;
   background-color: white;
   border-left: 6px solid #b31312;
   box-shadow: 0 2px 8px rgba(0,0,0,0.08);
   border-radius: 8px;
-  padding: 16px;
-  align-items: center;
+  padding: 25px;
+  align-items: flex-start;
   margin: 0 auto;
 }
 
-/* Foto Profil Persegi Panjang dengan Ujung Bundar */
+/* Foto Profil */
 .riwayat-card-image img {
-  width: 90px;      /* Lebar gambar persegi panjang */
-  height: 120px;      /* Tinggi gambar persegi panjang */
-  border-radius: 8px; /* Ujung bundar pada gambar */
+  width: 100px;
+  height: 130px;
+  border-radius: 8px;
   object-fit: cover;
-  margin-right: 24px; /* Mengurangi jarak antara gambar dan konten */
-  margin-top: -50px;  /* Menggeser foto ke atas */
+  margin-right: 30px;
+  margin-top: -10px; /* Diubah dari -40px ke -20px (turunkan 20px) */
+  margin-bottom: 20px; /* Ditambahkan untuk spacing bawah */
 }
 
-/* Jika tidak ada gambar profil, tampilkan placeholder */
+/* Placeholder jika tidak ada gambar */
 .riwayat-card-image .no-image {
   font-size: 16px;
   font-weight: bold;
   color: #B31312;
   text-align: center;
-  width: 80px;        /* Lebar placeholder sama dengan foto profil */
-  height: 120px;      /* Tinggi placeholder sama dengan foto profil */
+  width: 100px;
+  height: 130px;
   display: flex;
   justify-content: center;
   align-items: center;
   background-color: #f0f0f0;
-  border-radius: 8px; /* Ujung bundar pada placeholder */
-  object-fit: cover;  /* Menjaga keseragaman penampilan */
-  margin-right: 24px; /* Mengatur jarak dengan konten di sebelah kanan */
-  margin-top: -50px;  /* Menjaga posisi foto agar lebih ke atas */
+  border-radius: 8px;
+  margin-right: 30px;
+  margin-top: -10px; /* Diubah dari -40px ke -20px (turunkan 20px) */
+  margin-bottom: 20px; /* Ditambahkan untuk spacing bawah */
 }
 
 /* Konten teks dalam kartu */
+.riwayat-card-content {
+  width: 100%;
+  display: grid;
+  grid-template-columns: auto 1fr; /* Diubah dari 200px 1fr ke auto 1fr */
+  gap: 12px 5px; /* Jarak horizontal diperkecil */
+  align-items: baseline;
+}
+
 .riwayat-card-content p {
-  margin: 4px 0;
-  font-size: 15px;
+  margin: 0;
+  display: contents;
+}
+
+.riwayat-card-content strong {
+  display: inline-block;
+  text-align: left; /* Diubah dari right ke left */
+  padding-right: 10px; /* Padding kanan dikurangi */
+  color: #555;
+  font-weight: 600;
+  min-width: 150px; /* Lebar minimum untuk konsistensi */
 }
 
 /* Status warna */
@@ -112,55 +131,118 @@
   font-weight: bold;
 }
 
+.status-badge {
+  display: inline-block;
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-weight: bold;
+  font-size: 14px;
+  text-align: center;
+  min-width: 100px;
+  color: white;
+}
+
+.status-aktif {
+  background-color: #e0e0e0; /* abu-abu muda agar terlihat beda */
+  color: #000000; /* hitam */
+  font-weight: bold;
+}
+
+
+.status-menunggu {
+  background-color: #d97706;
+}
+
+.status-diproses {
+  background-color: #2563eb;
+}
+
+.status-selesai {
+  background-color: #16a34a;
+}
+
+.status-belum-diambil-pengacara {
+  background-color: #b31312;
+}
+
+
+.status-belum-diambil-pengacara {
+  color: #b31312;
+  font-weight: bold;
+}
+
 /* Tombol */
 .btn-group {
-  margin-top: 12px;
+  margin-top: 20px;
   display: flex;
-  gap: 10px;
+  gap: 12px;
+  justify-content: flex-end;
 }
 
 .detail-btn {
-  background-color: #B31312;
+  background-color: #B31312 !important;
   color: #fff !important;
-  border: 2px solid;
-  padding: 6px 14px;
+  border: 2px solid #B31312 !important;
+  padding: 8px 16px;
   border-radius: 4px;
   font-weight: 600;
   cursor: pointer;
   transition: all 0.3s ease;
-  user-select: none;
 }
 
 .detail-btn:hover {
   background-color: #fff !important;
   color: #B31312 !important;
-  border: 2px solid #B31312;
+}
+
+.detail-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
 }
 
 .history-btn {
-  background-color: #B31312;
-  color: #fff !important;
-  border: 2px solid;
-  padding: 6px 14px;
+  background-color: #fff !important;
+  color: #B31312 !important;
+  border: 2px solid #B31312 !important;
+  padding: 8px 16px;
   border-radius: 4px;
   font-weight: 600;
   cursor: pointer;
   transition: all 0.3s ease;
-  user-select: none;
 }
 
 .history-btn:hover {
- background-color: #fff !important;
-  color: #B31312 !important;
-  border: 2px solid #B31312;
+  background-color: #B31312 !important;
+  color: #fff !important;
 }
 
 /* Responsive */
 @media (max-width: 900px) {
   .riwayat-dua-kolom {
     flex-direction: column;
+    gap: 40px;
   }
   .vertical-separator {
     display: none;
+  }
+  .riwayat-card {
+    max-width: 100%;
+    flex-direction: column;
+  }
+  .riwayat-card-image img, 
+  .riwayat-card-image .no-image {
+    margin: 0 auto 20px;
+    margin-top: -30px;
+  }
+  .riwayat-card-content {
+    grid-template-columns: 1fr;
+  }
+  .riwayat-card-content strong {
+    text-align: left;
+    padding-right: 0;
+    margin-top: 8px;
+  }
+  .btn-group {
+    justify-content: center;
   }
 }

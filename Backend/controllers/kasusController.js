@@ -186,32 +186,32 @@ exports.ambilKasus = (req, res) => {
   );
 };
 
-// Fungsi getRiwayatKasusByUser tetap sama
-exports.getRiwayatKasusByUser = (req, res) => {
-  const userId = req.params.userId;
+// Fungsi getRiwayatKasusByUser yang lama
+// exports.getRiwayatKasusByUser = (req, res) => {
+//   const userId = req.params.userId;
 
-  const sql = `
-    SELECT ak.*, 
-           p.id AS id_pengacara,
-           p.nama AS nama_pengacara, 
-           p.upload_foto AS foto_pengacara,
-           p.harga_konsultasi 
-    FROM ajukan_kasus ak
-    LEFT JOIN pengacara p ON ak.lawyer_id = p.id
-    WHERE ak.user_id = ?
-    ORDER BY ak.estimasi_selesai DESC
-  `;
+//   const sql = `
+//     SELECT ak.*, 
+//            p.id AS id_pengacara,
+//            p.nama AS nama_pengacara, 
+//            p.upload_foto AS foto_pengacara,
+//            p.harga_konsultasi 
+//     FROM ajukan_kasus ak
+//     LEFT JOIN pengacara p ON ak.lawyer_id = p.id
+//     WHERE ak.user_id = ?
+//     ORDER BY ak.estimasi_selesai DESC
+//   `;
 
-  db.query(sql, [userId], (err, results) => {
-    if (err) {
-      console.error("Error fetching riwayat kasus:", err);
-      return res.status(500).json({ message: "Gagal mengambil data riwayat kasus" });
-    }
-    res.json(results);
-  });
-};
+//   db.query(sql, [userId], (err, results) => {
+//     if (err) {
+//       console.error("Error fetching riwayat kasus:", err);
+//       return res.status(500).json({ message: "Gagal mengambil data riwayat kasus" });
+//     }
+//     res.json(results);
+//   });
+// };
 
-
+// gw edit bagain ini juga //
 exports.getRiwayatKasusByPengacara = (req, res) => {
   const pengacaraId = req.params.pengacaraId;
 

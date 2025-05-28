@@ -8,7 +8,8 @@ import {
   FaUserCheck,
   FaBalanceScale,
   FaBriefcase,
-  FaMoneyBillWave,
+  FaMoneyBillWave, 
+  FaGraduationCap,
   FaTags,
 } from "react-icons/fa";
 
@@ -291,7 +292,8 @@ const Home = () => {
                     <span>{advokat.pengalaman ?? 0} tahun</span>
                   </div>
                 </div>
-
+                  
+                  <div className="info-bar-horizontal">
                 <div className="info-bar">
                   <FaMoneyBillWave className="info-icon" />
                   <span>
@@ -301,10 +303,18 @@ const Home = () => {
                   </span>
                 </div>
 
+                 {/* ✅ Tambahan bagian pendidikan */}
+                <div className="info-bar">
+                  <FaGraduationCap className="info-icon" />
+                  <span>{advokat.pendidikan || "-"}</span>
+                </div>
+                </div>
+
                 <Link to="/Login" state={{ pengacaraId: advokat.id }}>
                   <button className="btn-konsultasi">Klik Konsultasi</button>
                 </Link>
               </div>
+         
             ))
           ) : (
             <p>Belum ada advokat terdaftar</p>

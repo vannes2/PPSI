@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import "../CSS_User/Home.css";
 import HeaderAfter from "../components/HeaderAfter";
 import Footer from "../components/Footer";
-import { FaCommentDots, FaUserCheck, FaBalanceScale, FaBriefcase, FaMoneyBillWave, FaTags } from "react-icons/fa";
+import { FaCommentDots, FaUserCheck, FaBalanceScale, FaBriefcase,  FaGraduationCap, FaMoneyBillWave, FaTags } from "react-icons/fa";
 
 const HomeAfter = () => {
   const [pengacara, setPengacara] = useState([]);
@@ -259,10 +259,17 @@ const HomeAfter = () => {
                   <span>{advokat.pengalaman ?? 0} tahun</span>
                 </div>
               </div>
+              <div className="info-bar-horizontal">
 
               <div className="info-bar">
                 <FaMoneyBillWave className="info-icon" />
                 <span>{advokat.harga_konsultasi != null ? ` ${advokat.harga_konsultasi.toLocaleString("id-ID")}` : "-"}</span>
+              </div>
+
+              <div className="info-bar">
+                <FaGraduationCap className="info-icon" />
+                <span>{advokat.pendidikan || "-"}</span>
+              </div>
               </div>
 
               <Link to="/payment" state={{ pengacaraId: advokat.id }}>

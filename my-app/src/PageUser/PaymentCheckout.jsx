@@ -135,7 +135,7 @@ const PaymentCheckout = () => {
           if (isKonsultasi) {
             navigate(`/chat/pengacara/${advokat.id}`, { state: { durasi: duration } });
           } else {
-            navigate("/riwayat-pengajuan");
+            navigate("/RiwayatKasus");
           }
         },
         onPending: () => alert("⏳ Menunggu pembayaran..."),
@@ -175,7 +175,7 @@ const PaymentCheckout = () => {
         <HeaderAfter />
         <main className="checkout-content">
           <p className="error-text">{error}</p>
-          <button onClick={() => navigate("/")} className="btn-back">
+          <button onClick={() => navigate("/HomeAfter")} className="btn-back">
             Kembali
           </button>
         </main>
