@@ -105,7 +105,9 @@ const TransaksiPengacara = () => {
           <th>Nama Pengacara</th>
           <th>Waktu Mulai</th>
           <th>Durasi (menit)</th>
-          <th>Biaya</th> {/* Kolom baru */}
+          <th>Biaya</th> 
+          <th>Nama Rekening</th>
+          <th>No Rekening</th>
           <th>Status</th>
         </tr>
       </thead>
@@ -117,6 +119,8 @@ const TransaksiPengacara = () => {
       <td>{new Date(row.start_time).toLocaleString('id-ID')}</td>
       <td>{row.duration}</td>
       <td>Rp{row.biaya?.toLocaleString() || '0'}</td>
+      <td>{row.nama_rekening || "-"}</td>
+      <td>{row.no_rekening || "-"}</td>
       <td>{row.status}</td>
     </tr>
   ))}

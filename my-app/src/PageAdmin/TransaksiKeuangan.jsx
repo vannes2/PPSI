@@ -357,10 +357,13 @@ const TransaksiKeuangan = () => {
                       <th>Durasi (menit)</th>
                       <th>Biaya</th>
                       <th>Biaya Pengacara</th>
+                      <th>Nama Rekening</th>
+                      <th>No Rekening</th>
                       <th>Status</th>
                       <th>Aksi</th>
                     </tr>
                   </thead>
+
                   <tbody>
                     {filteredKonsultasi.map((row) => (
                       <tr key={row.id}>
@@ -370,6 +373,8 @@ const TransaksiKeuangan = () => {
                         <td>{row.duration}</td>
                         <td>{format(row.biaya)}</td>
                         <td>{format(row.biaya_pengacara)}</td>
+                        <td>{row.nama_rekening || "-"}</td>
+                        <td>{row.no_rekening || "-"}</td>
                         <td>{row.status}</td>
                         <td>
                           {row.is_transferred ? (
