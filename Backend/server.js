@@ -27,6 +27,7 @@ const transaksiRoutes = require("./routes/transaksiRoutes"); // Pastikan ini ada
 const konsultasiRoutes = require("./routes/konsultasiRoutes");
 const transaksiKeuanganRoutes = require("./routes/transaksiKeuanganRoutes");
 const riwayatPengacaraRoutes = require("./routes/riwayatPengacaraRoutes");
+const dashboardRoutes = require('./routes/dashboardPengacaraRoutes');
 
 const botRoutes = require("./routes/botRoutes");
 const app = express();
@@ -60,6 +61,7 @@ app.use("/api/chatbot", botRoutes);
 app.use("/api/transaksi-keuangan", transaksiKeuanganRoutes);
 app.use('/api/transaksi', transaksiKeuanganRoutes);
 app.use("/api", riwayatPengacaraRoutes);
+app.use('/api', dashboardRoutes);
 
 // app.use("/api/kasus", riwayatKasusRoutes);
 app.use("/api/konsultasi_session", konsultasiRoutes);

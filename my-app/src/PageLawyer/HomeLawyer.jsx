@@ -63,7 +63,7 @@ const HomeLawyer = () => {
           </p>
 
           <div className="button-group">
-            <Link to="/DashboardLawyer" className="btn btn-dashboard">
+            <Link to="/DashboardPengacara" className="btn btn-dashboard">
               <FaTachometerAlt className="icon" />
               Dashboard Saya
             </Link>
