@@ -3,52 +3,7 @@ import { Link } from "react-router-dom";
 import "../CSS_User/Home.css";
 import HeaderAfter from "../components/HeaderAfter";
 import Footer from "../components/Footer";
-import { FaCommentDots, FaUserCheck, FaBalanceScale, FaBriefcase, FaCoins, FaTags } from "react-icons/fa";
-
-// Fungsi terbilang sederhana (angka sampai jutaan)
-const satuan = ["", "satu", "dua", "tiga", "empat", "lima", "enam", "tujuh", "delapan", "sembilan"];
-const belasan = ["sepuluh", "sebelas", "dua belas", "tiga belas", "empat belas", "lima belas", "enam belas", "tujuh belas", "delapan belas", "sembilan belas"];
-
-function terbilang(num) {
-  if (num === 0) return "nol";
-  if (num < 0) return "minus " + terbilang(Math.abs(num));
-
-  let hasil = "";
-
-  if (Math.floor(num / 1000000) > 0) {
-    hasil += terbilang(Math.floor(num / 1000000)) + " juta ";
-    num %= 1000000;
-  }
-  if (Math.floor(num / 1000) > 0) {
-    if (Math.floor(num / 1000) === 1) {
-      hasil += "seribu ";
-    } else {
-      hasil += terbilang(Math.floor(num / 1000)) + " ribu ";
-    }
-    num %= 1000;
-  }
-  if (Math.floor(num / 100) > 0) {
-    if (Math.floor(num / 100) === 1) {
-      hasil += "seratus ";
-    } else {
-      hasil += satuan[Math.floor(num / 100)] + " ratus ";
-    }
-    num %= 100;
-  }
-  if (num > 0) {
-    if (num < 10) {
-      hasil += satuan[num] + " ";
-    } else if (num >= 10 && num < 20) {
-      hasil += belasan[num - 10] + " ";
-    } else {
-      hasil += satuan[Math.floor(num / 10)] + " puluh ";
-      if (num % 10 > 0) {
-        hasil += satuan[num % 10] + " ";
-      }
-    }
-  }
-  return hasil.trim();
-}
+import { FaCommentDots, FaUserCheck, FaBalanceScale, FaBriefcase, FaMoneyBillWave, FaTags } from "react-icons/fa";
 
 const HomeAfter = () => {
   const [pengacara, setPengacara] = useState([]);
@@ -306,8 +261,8 @@ const HomeAfter = () => {
               </div>
 
               <div className="info-bar">
-                <FaCoins className="info-icon" />
-                <span>{advokat.harga_konsultasi != null ? terbilang(advokat.harga_konsultasi) + " rupiah" : "-"}</span>
+                <FaMoneyBillWave className="info-icon" />
+                <span>{advokat.harga_konsultasi != null ? ` ${advokat.harga_konsultasi.toLocaleString("id-ID")}` : "-"}</span>
               </div>
 
               <Link to="/payment" state={{ pengacaraId: advokat.id }}>

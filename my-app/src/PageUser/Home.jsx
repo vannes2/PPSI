@@ -3,52 +3,15 @@ import { Link } from "react-router-dom";
 import "../CSS_User/Home.css";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
-import { FaCommentDots, FaUserCheck, FaBalanceScale, FaBriefcase, FaCoins, FaTags } from "react-icons/fa";
+import {
+  FaCommentDots,
+  FaUserCheck,
+  FaBalanceScale,
+  FaBriefcase,
+  FaMoneyBillWave,
+  FaTags,
+} from "react-icons/fa";
 
-// Fungsi terbilang sederhana (angka sampai jutaan)
-const satuan = ["", "satu", "dua", "tiga", "empat", "lima", "enam", "tujuh", "delapan", "sembilan"];
-const belasan = ["sepuluh", "sebelas", "dua belas", "tiga belas", "empat belas", "lima belas", "enam belas", "tujuh belas", "delapan belas", "sembilan belas"];
-
-function terbilang(num) {
-  if (num === 0) return "nol";
-  if (num < 0) return "minus " + terbilang(Math.abs(num));
-
-  let hasil = "";
-
-  if (Math.floor(num / 1000000) > 0) {
-    hasil += terbilang(Math.floor(num / 1000000)) + " juta ";
-    num %= 1000000;
-  }
-  if (Math.floor(num / 1000) > 0) {
-    if (Math.floor(num / 1000) === 1) {
-      hasil += "seribu ";
-    } else {
-      hasil += terbilang(Math.floor(num / 1000)) + " ribu ";
-    }
-    num %= 1000;
-  }
-  if (Math.floor(num / 100) > 0) {
-    if (Math.floor(num / 100) === 1) {
-      hasil += "seratus ";
-    } else {
-      hasil += satuan[Math.floor(num / 100)] + " ratus ";
-    }
-    num %= 100;
-  }
-  if (num > 0) {
-    if (num < 10) {
-      hasil += satuan[num] + " ";
-    } else if (num >= 10 && num < 20) {
-      hasil += belasan[num - 10] + " ";
-    } else {
-      hasil += satuan[Math.floor(num / 10)] + " puluh ";
-      if (num % 10 > 0) {
-        hasil += satuan[num % 10] + " ";
-      }
-    }
-  }
-  return hasil.trim();
-}
 
 const Home = () => {
   const [pengacara, setPengacara] = useState([]);
@@ -60,7 +23,8 @@ const Home = () => {
   const cardWidth = 270;
   const cardGap = 20;
   const visibleCards = 5;
-  const totalScrollWidth = cardWidth * visibleCards + cardGap * (visibleCards - 1);
+  const totalScrollWidth =
+    cardWidth * visibleCards + cardGap * (visibleCards - 1);
 
   const autoScrollTimeout = useRef(null);
   const autoScrollInterval = useRef(null);
@@ -186,14 +150,21 @@ const Home = () => {
   return (
     <div className="home-before-page">
       <Header />
-      <br /><br /><br />
+      <br />
+      <br />
+      <br />
 
       <section className="hero">
         <div className="hero-text">
           <h1 id="top-hero">Selesaikan Masalah Hukum Anda Bersama Kami</h1>
-          <p>Daftarkan diri Anda dan konsultasikan masalah hukum Anda bersama Advokat terpercaya.</p>
+          <p>
+            Daftarkan diri Anda dan konsultasikan masalah hukum Anda bersama
+            Advokat terpercaya.
+          </p>
           <div className="buttons">
-            <Link to="/Login"><button>Konsultasi</button></Link>
+            <Link to="/Login">
+              <button>Konsultasi</button>
+            </Link>
           </div>
         </div>
         <div className="hero-image">
@@ -217,7 +188,10 @@ const Home = () => {
           <Link to="/Login" className="feature-item-home">
             <FaBalanceScale className="icon-feature" />
             <h3>Berita & Artikel Hukum</h3>
-            <p>Baca informasi dan edukasi hukum terkini secara lengkap dan terpercaya.</p>
+            <p>
+              Baca informasi dan edukasi hukum terkini secara lengkap dan
+              terpercaya.
+            </p>
           </Link>
         </div>
       </section>
@@ -225,25 +199,29 @@ const Home = () => {
       <section className="topik-hukum">
         <h2>Pilih topik hukum yang diperlukan!</h2>
         <div className="topik-icons">
-          {["Hukum Pidana", "HAKI", "KDRT", "Perceraian", "Hukum Perdata"].map((topik) => (
-            <Link to="/Login" state={{ jenis_hukum: topik }} key={topik}>
-              <div className="topik-icon">
-                <img
-                  className="topik-icons"
-                  src={`/assets/img/icons${topik.replace(/\s/g, "")}.png`}
-                  alt={topik}
-                />
-                <p>{topik}</p>
-              </div>
-            </Link>
-          ))}
+          {["Hukum Pidana", "HAKI", "KDRT", "Perceraian", "Hukum Perdata"].map(
+            (topik) => (
+              <Link to="/Login" state={{ jenis_hukum: topik }} key={topik}>
+                <div className="topik-icon">
+                  <img
+                    className="topik-icons"
+                    src={`/assets/img/icons${topik.replace(/\s/g, "")}.png`}
+                    alt={topik}
+                  />
+                  <p>{topik}</p>
+                </div>
+              </Link>
+            )
+          )}
         </div>
       </section>
 
       <section className="products" style={{ marginTop: "40px" }}>
         <div className="advokat-header">
           <h2 className="advokat-heading">Advokat Yang Tersedia</h2>
-          <Link to="/Login" className="btn-selengkapnya">Selengkapnya &gt;</Link>
+          <Link to="/Login" className="btn-selengkapnya">
+            Selengkapnya &gt;
+          </Link>
         </div>
 
         <div
@@ -298,14 +276,11 @@ const Home = () => {
                       </span>
                     </div>
                   )}
-
-                  {/* Lingkaran hijau online */}
                   <span className="online-indicator" title="Online" />
                 </div>
 
                 <h3>{advokat.nama}</h3>
 
-                {/* Bidang hukum dan pengalaman horizontal */}
                 <div className="info-bar-horizontal">
                   <div className="info-bar">
                     <FaTags className="info-icon" />
@@ -317,12 +292,11 @@ const Home = () => {
                   </div>
                 </div>
 
-                {/* Biaya konsultasi: ubah angka jadi tulisan terbilang */}
                 <div className="info-bar">
-                  <FaCoins className="info-icon" />
+                  <FaMoneyBillWave className="info-icon" />
                   <span>
                     {advokat.harga_konsultasi != null
-                      ? terbilang(advokat.harga_konsultasi) + " rupiah"
+                      ? `${advokat.harga_konsultasi.toLocaleString("id-ID")}`
                       : "-"}
                   </span>
                 </div>
@@ -341,7 +315,9 @@ const Home = () => {
       <section className="slideshow-section" style={{ marginTop: "60px" }}>
         <div className="slideshow-header">
           <h2 className="slideshow-heading">Berita Hukum Pilihan</h2>
-          <Link to="/Login" className="btn-selengkapnya">Selengkapnya &gt;</Link>
+          <Link to="/Login" className="btn-selengkapnya">
+            Selengkapnya &gt;
+          </Link>
         </div>
 
         <div className="slideshow-wrapper">

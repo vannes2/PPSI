@@ -3,6 +3,7 @@ import { useNavigate, useLocation } from "react-router-dom";
 import Footer from "../components/Footer";
 import HeaderAfter from "../components/HeaderAfter";
 import "../CSS_User/konsultasi.css";
+import { FaTags, FaBriefcase, FaMoneyBillWave } from "react-icons/fa";
 
 const Konsultasi = () => {
   const { state } = useLocation();
@@ -122,19 +123,19 @@ const Konsultasi = () => {
 
                 <div className="info-bar-horizontal">
                   <div className="info-bar">
-                    <i className="info-icon fa fa-tags" />
+                    <FaTags className="info-icon" />
                     <span>{advokat.spesialisasi || "-"}</span>
                   </div>
                   <div className="info-bar">
-                    <i className="info-icon fa fa-briefcase" />
+                    <FaBriefcase className="info-icon" />
                     <span>{advokat.pengalaman ?? 0} tahun</span>
                   </div>
                 </div>
 
                 <div className="info-bar">
-                  <i className="info-icon fa fa-coins" />
+                  <FaMoneyBillWave className="info-icon" />
                   <span>
-                    Rp{advokat.harga_konsultasi?.toLocaleString() || "-"}
+                    {advokat.harga_konsultasi?.toLocaleString("id-ID") || "-"}
                   </span>
                 </div>
 
