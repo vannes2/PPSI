@@ -326,3 +326,29 @@
   color: #b31312;
   font-weight: 600;
 }
+
+.chart-flex-wrapper {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 24px;
+  margin: 24px auto;
+  max-width: 1000px;
+}
+
+.chart-box {
+  background: #fff;
+  padding: 16px;
+  border-radius: 10px;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.05);
+  flex: 1 1 400px;
+  min-width: 280px;
+  max-width: 420px;
+  
+  display: flex;
+  flex-direction: column;
+  justify-content: center; /* posisikan isi ke tengah vertikal */
+  align-items: center;     /* posisikan ke tengah horizontal */
+}
+
+

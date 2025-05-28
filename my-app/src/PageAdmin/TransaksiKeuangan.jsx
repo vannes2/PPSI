@@ -2,6 +2,10 @@ import { useEffect, useState, useMemo } from "react";
 import axios from "axios";
 import SidebarAdmin from "../components/SidebarAdmin";
 import "../CSS_Admin/TransaksiKeuangan.css";
+import { Chart as ChartJS, LineElement, ArcElement, CategoryScale, LinearScale, PointElement, Tooltip, Legend } from "chart.js";
+import { Line, Pie } from "react-chartjs-2";
+
+ChartJS.register(LineElement, ArcElement, CategoryScale, LinearScale, PointElement, Tooltip, Legend);
 
 const TransaksiKeuangan = () => {
   const [data, setData] = useState({});
@@ -75,33 +79,15 @@ const TransaksiKeuangan = () => {
 
   // Filter + search + sort Kasus
   const filteredKasus = useMemo(() => {
-    let filtered = kasus.filter(
-      (item) =>
-        (item.nama?.toLowerCase().includes(searchKasus.toLowerCase()) ||
-          item.nama_pengacara?.toLowerCase().includes(searchKasus.toLowerCase()))
-    );
-    filtered = sortData(
-      filtered,
-      sortKasusField,
-      sortKasusOrder,
-      sortKasusField === "created_at"
-    );
+    let filtered = kasus.filter((item) => item.nama?.toLowerCase().includes(searchKasus.toLowerCase()) || item.nama_pengacara?.toLowerCase().includes(searchKasus.toLowerCase()));
+    filtered = sortData(filtered, sortKasusField, sortKasusOrder, sortKasusField === "created_at");
     return filtered;
   }, [kasus, searchKasus, sortKasusField, sortKasusOrder]);
 
   // Filter + search + sort Konsultasi
   const filteredKonsultasi = useMemo(() => {
-    let filtered = konsultasi.filter(
-      (item) =>
-        (item.nama_user?.toLowerCase().includes(searchKonsultasi.toLowerCase()) ||
-          item.nama_pengacara?.toLowerCase().includes(searchKonsultasi.toLowerCase()))
-    );
-    filtered = sortData(
-      filtered,
-      sortKonsultasiField,
-      sortKonsultasiOrder,
-      sortKonsultasiField === "start_time"
-    );
+    let filtered = konsultasi.filter((item) => item.nama_user?.toLowerCase().includes(searchKonsultasi.toLowerCase()) || item.nama_pengacara?.toLowerCase().includes(searchKonsultasi.toLowerCase()));
+    filtered = sortData(filtered, sortKonsultasiField, sortKonsultasiOrder, sortKonsultasiField === "start_time");
     return filtered;
   }, [konsultasi, searchKonsultasi, sortKonsultasiField, sortKonsultasiOrder]);
 
@@ -151,29 +137,100 @@ const TransaksiKeuangan = () => {
               </div>
             </section>
 
+            <div className="chart-flex-wrapper">
+              <div className="chart-box">
+                <h4 style={{ marginBottom: "12px" }}>📈 Grafik Pendapatan & Pengeluaran</h4>
+                <Line
+                  data={{
+                    labels: ["Januari", "Februari", "Maret", "April", "Mei", "Juni", "Juli", "Agustus", "September", "Oktober", "November", "Desember"],
+                    datasets: [
+                      {
+                        label: "Pendapatan",
+                        data: [2500000, 2800000, 3000000, 3300000, 3600000, 3900000, 4100000, 4200000, 4400000, 4600000, 4800000, 5000000],
+                        borderColor: "#4CAF50",
+                        backgroundColor: "rgba(76, 175, 80, 0.2)",
+                        tension: 0.3,
+                        pointRadius: 3,
+                      },
+                      {
+                        label: "Pengeluaran",
+                        data: [1800000, 2000000, 2200000, 2400000, 2600000, 2800000, 3000000, 3200000, 3400000, 3600000, 3800000, 4000000],
+                        borderColor: "#F44336",
+                        backgroundColor: "rgba(244, 67, 54, 0.2)",
+                        tension: 0.3,
+                        pointRadius: 3,
+                      },
+                    ],
+                  }}
+                  options={{
+                    responsive: true,
+                    plugins: {
+                      legend: { position: "bottom" },
+                      tooltip: {
+                        callbacks: {
+                          label: function (context) {
+                            return `Rp${context.raw.toLocaleString("id-ID")}`;
+                          },
+                        },
+                      },
+                    },
+                    scales: {
+                      y: {
+                        beginAtZero: true,
+                        ticks: {
+                          callback: (value) => `Rp${value.toLocaleString("id-ID")}`,
+                        },
+                      },
+                    },
+                  }}
+                />
+              </div>
+
+              <div className="chart-box">
+                <h4 style={{ marginBottom: "12px" }}>📊 Komposisi Transaksi Keuangan</h4>
+                <Pie
+                  data={{
+                    labels: ["Total Kotor", "Pendapatan Bersih", "Total Pengeluaran"],
+                    datasets: [
+                      {
+                        label: "Jumlah (Rp)",
+                        data: [data.total_kotor || 0, data.pendapatan_bersih || 0, data.total_pengeluaran || 0],
+                        backgroundColor: ["#42A5F5", "#66BB6A", "#EF5350"],
+                        borderColor: ["#ffffff", "#ffffff", "#ffffff"],
+                        borderWidth: 1,
+                      },
+                    ],
+                  }}
+                  options={{
+                    responsive: true,
+                    plugins: {
+                      legend: { position: "bottom" },
+                      tooltip: {
+                        callbacks: {
+                          label: function (context) {
+                            const value = context.raw || 0;
+                            return `${context.label}: Rp${value.toLocaleString("id-ID")}`;
+                          },
+                        },
+                      },
+                    },
+                  }}
+                />
+              </div>
+            </div>
+
             {/* AJUKAN KASUS */}
             <section className="keuangan-summary">
               <h3>🧾 Pendapatan dari Ajukan Kasus</h3>
 
               {/* Search & Filter Kasus */}
               <div className="filter-container filter-center">
-                <input
-                  type="text"
-                  placeholder="Cari nama klien atau pengacara..."
-                  value={searchKasus}
-                  onChange={(e) => setSearchKasus(e.target.value)}
-                />
-                <select
-                  value={sortKasusField}
-                  onChange={(e) => setSortKasusField(e.target.value)}
-                >
+                <input type="text" placeholder="Cari nama klien atau pengacara..." value={searchKasus} onChange={(e) => setSearchKasus(e.target.value)} />
+                <select value={sortKasusField} onChange={(e) => setSortKasusField(e.target.value)}>
                   <option value="created_at">Waktu</option>
                   <option value="biaya_min">Biaya</option>
                 </select>
-                <select
-                  value={sortKasusOrder}
-                  onChange={(e) => setSortKasusOrder(e.target.value)}
-                >
+                <select value={sortKasusOrder} onChange={(e) => setSortKasusOrder(e.target.value)}>
                   <option value="desc">Terbaru ke Terlama / Terbesar ke Terkecil</option>
                   <option value="asc">Terlama ke Terbaru / Terkecil ke Terbesar</option>
                 </select>
@@ -202,7 +259,7 @@ const TransaksiKeuangan = () => {
                   <p>{format(data.pengeluaran_kasus)}</p>
                 </div>
               </div>
-                  <br></br>
+              <br></br>
 
               {/* Tabel Kasus */}
               <div className="transaksi-table-wrapper">
@@ -233,14 +290,9 @@ const TransaksiKeuangan = () => {
                         <td>{formatTanggal(row.created_at)}</td>
                         <td>
                           {row.is_transferred ? (
-                            <span style={{ color: "green", fontWeight: "600" }}>
-                              Sudah Transfer
-                            </span>
+                            <span style={{ color: "green", fontWeight: "600" }}>Sudah Transfer</span>
                           ) : (
-                            <button
-                              disabled={updating}
-                              onClick={() => handleMarkTransfer("kasus", row.id)}
-                            >
+                            <button disabled={updating} onClick={() => handleMarkTransfer("kasus", row.id)}>
                               Tandai Sudah Transfer
                             </button>
                           )}
@@ -258,23 +310,12 @@ const TransaksiKeuangan = () => {
 
               {/* Search & Filter Konsultasi */}
               <div className="filter-container filter-center">
-                <input
-                  type="text"
-                  placeholder="Cari nama user atau pengacara..."
-                  value={searchKonsultasi}
-                  onChange={(e) => setSearchKonsultasi(e.target.value)}
-                />
-                <select
-                  value={sortKonsultasiField}
-                  onChange={(e) => setSortKonsultasiField(e.target.value)}
-                >
+                <input type="text" placeholder="Cari nama user atau pengacara..." value={searchKonsultasi} onChange={(e) => setSearchKonsultasi(e.target.value)} />
+                <select value={sortKonsultasiField} onChange={(e) => setSortKonsultasiField(e.target.value)}>
                   <option value="start_time">Waktu</option>
                   <option value="biaya">Biaya</option>
                 </select>
-                <select
-                  value={sortKonsultasiOrder}
-                  onChange={(e) => setSortKonsultasiOrder(e.target.value)}
-                >
+                <select value={sortKonsultasiOrder} onChange={(e) => setSortKonsultasiOrder(e.target.value)}>
                   <option value="desc">Terbaru ke Terlama / Terbesar ke Terkecil</option>
                   <option value="asc">Terlama ke Terbaru / Terkecil ke Terbesar</option>
                 </select>
@@ -303,7 +344,7 @@ const TransaksiKeuangan = () => {
                   <p>{format(data.pengeluaran_konsultasi)}</p>
                 </div>
               </div>
-                              
+
               {/* Tabel Konsultasi */}
               <div className="transaksi-table-wrapper">
                 <br></br>
@@ -332,14 +373,9 @@ const TransaksiKeuangan = () => {
                         <td>{row.status}</td>
                         <td>
                           {row.is_transferred ? (
-                            <span style={{ color: "green", fontWeight: "600" }}>
-                              Sudah Transfer
-                            </span>
+                            <span style={{ color: "green", fontWeight: "600" }}>Sudah Transfer</span>
                           ) : (
-                            <button
-                              disabled={updating}
-                              onClick={() => handleMarkTransfer("konsultasi", row.id)}
-                            >
+                            <button disabled={updating} onClick={() => handleMarkTransfer("konsultasi", row.id)}>
                               Tandai Sudah Transfer
                             </button>
                           )}
