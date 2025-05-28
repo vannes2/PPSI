@@ -44,7 +44,7 @@ const Payment = () => {
 
     const totalPrice = (duration / 30) * 50000;
 
-    navigate("/checkout", {
+    navigate("/PaymentCheckout", {
       state: {
         advokat,
         duration,

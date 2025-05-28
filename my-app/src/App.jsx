@@ -67,7 +67,7 @@ import '@fortawesome/fontawesome-free/css/all.min.css';
 import NotFound from "./404_not_found/NotFound";
 
 //CheckOut
-import CheckOut from "./PageUser/CheckOut"
+import PaymentCheckout from "./PageUser/PaymentCheckout"
 
 function App() {
     return (
@@ -138,7 +138,7 @@ function App() {
                 {/* Not Found*/}
                 <Route path="*" element={<NotFound />} />
                 {/* CheckOut*/}
-                <Route path="/CheckOut" element={<CheckOut />}/>
+                <Route path="/PaymentCheckout" element={<PaymentCheckout />}/>
             </Routes>
         </Router>
     );

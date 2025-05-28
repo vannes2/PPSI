@@ -121,7 +121,7 @@
 
 .detail-btn {
   background-color: #B31312;
-  color: #fff;
+  color: #fff !important;
   border: 2px solid;
   padding: 6px 14px;
   border-radius: 4px;
@@ -132,15 +132,15 @@
 }
 
 .detail-btn:hover {
-  background-color: #fff;
-  color: #B31312;
+  background-color: #fff !important;
+  color: #B31312 !important;
   border: 2px solid #B31312;
 }
 
 .history-btn {
-  background-color: #fff !important;
-  color: #B31312 !important;
-  border: 2px solid #B31312 !important;
+  background-color: #B31312;
+  color: #fff !important;
+  border: 2px solid;
   padding: 6px 14px;
   border-radius: 4px;
   font-weight: 600;
@@ -150,15 +150,9 @@
 }
 
 .history-btn:hover {
-  background-color: #B31312 !important;
-  color: #fff !important;
-  border: 2px solid #B31312 !important;
-  padding: 6px 14px;
-  border-radius: 4px;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  user-select: none;
+ background-color: #fff !important;
+  color: #B31312 !important;
+  border: 2px solid #B31312;
 }
 
 /* Responsive */
