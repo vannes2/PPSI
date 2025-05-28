@@ -86,7 +86,7 @@ exports.getTotalPendapatan = (req, res) => {
             pengeluaran_konsultasi,
             total_kotor,
             pendapatan_bersih,
-            total_pengeluaran,
+            total_pengeluaran
           });
         });
       });
@@ -112,34 +112,18 @@ exports.getKasusSelesai = (req, res) => {
   });
 };
 
-// Mendapatkan data konsultasi selesai untuk admin (dengan informasi rekening)
-// Mendapatkan data konsultasi selesai untuk admin, termasuk rekening pengacara
 exports.getKonsultasiSelesai = (req, res) => {
   const query = `
     SELECT 
-      ks.id,
-      ks.user_id,
-      ks.pengacara_id,
-      ks.nama_user,
-      p.nama AS nama_pengacara,
-      ks.start_time,
-      ks.duration,
-      ks.biaya,
-      ks.biaya_pengacara,
-      ks.status,
-      ks.is_transferred,
-      p.account_name,
-      p.account_number
-    FROM konsultasi_session ks
-    LEFT JOIN pengacara p ON ks.pengacara_id = p.id
-
-    ORDER BY ks.start_time DESC
+      id, nama_user, nama_pengacara, start_time, duration, biaya, biaya_pengacara, status, is_transferred
+    FROM konsultasi_session
+    WHERE status = 'selesai'
+    ORDER BY start_time DESC
   `;
-
   db.query(query, (err, results) => {
     if (err) {
-      console.error("❌ Gagal mengambil data konsultasi selesai:", err);
-      return res.status(500).json({ message: "Gagal mengambil data konsultasi selesai" });
+      console.error("❌ Error mengambil data konsultasi:", err);
+      return res.status(500).json({ message: "Gagal mengambil data konsultasi" });
     }
     res.status(200).json(results);
   });
@@ -200,3 +184,4 @@ exports.updateTransferStatus = (req, res) => {
     }
   });
 };
+
