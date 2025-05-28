@@ -12,6 +12,8 @@ const PaymentCheckout = () => {
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(true);
   const [token, setToken] = useState(null);
+  const [userProfile, setUserProfile] = useState(null);
+  const [profileLoading, setProfileLoading] = useState(true);
 
   const isKonsultasi = !!state?.advokat;
   const advokat = state?.advokat || null;
@@ -21,6 +23,37 @@ const PaymentCheckout = () => {
   const kasusData = state?.kasusData || null;
   const biayaKasus = state?.biaya || 0;
 
+  // Fungsi untuk mendapatkan URL foto
+  const getPhotoUrl = (photoPath) => {
+    if (!photoPath || photoPath === "default-profile.png") {
+      return "/assets/images/emptyprofile.png";
+    }
+    return `http://localhost:5000/uploads/${photoPath}`;
+  };
+
+  // Fetch user profile data
+  useEffect(() => {
+    const fetchUserProfile = async () => {
+      const user = JSON.parse(localStorage.getItem("user"));
+      if (!user) return;
+
+      try {
+        const response = await fetch(`http://localhost:5000/api/profile/id/${user.id}`);
+        if (!response.ok) throw new Error("Gagal mengambil data profil");
+        
+        const data = await response.json();
+        setUserProfile(data);
+      } catch (err) {
+        console.error("Error fetching profile:", err);
+      } finally {
+        setProfileLoading(false);
+      }
+    };
+
+    fetchUserProfile();
+  }, []);
+
+  // Handle payment initialization
   useEffect(() => {
     const fetchData = async () => {
       const user = JSON.parse(localStorage.getItem("user"));
@@ -34,7 +67,6 @@ const PaymentCheckout = () => {
         let paymentResponse;
 
         if (isKonsultasi) {
-          // Konsultasi Pengacara
           if (!advokat || !duration || !totalPrice) {
             setError("Data pembayaran konsultasi tidak lengkap.");
             setLoading(false);
@@ -52,7 +84,6 @@ const PaymentCheckout = () => {
             }),
           });
         } else {
-          // Pembayaran Ajukan Kasus
           if (!kasusData || !biayaKasus) {
             setError("Data pengajuan kasus tidak lengkap.");
             setLoading(false);
@@ -89,6 +120,7 @@ const PaymentCheckout = () => {
     fetchData();
   }, [advokat, duration, totalPrice, kasusData, biayaKasus, isKonsultasi, navigate]);
 
+  // Initialize Midtrans payment
   useEffect(() => {
     if (token && isEmbeddedActive && window.snap?.embed) {
       if (window.snap.hide) window.snap.hide();
@@ -119,10 +151,13 @@ const PaymentCheckout = () => {
     }
   }, [token, isEmbeddedActive, advokat, duration, isKonsultasi, navigate]);
 
-  const getFotoPengacaraUrl = (foto) =>
-    foto && foto !== "default-profile.png" ? `http://localhost:5000/uploads/${foto}` : null;
+  const formatDate = (dateString) => {
+    if (!dateString) return "-";
+    const options = { year: 'numeric', month: 'long', day: 'numeric' };
+    return new Date(dateString).toLocaleDateString('id-ID', options);
+  };
 
-  if (loading) {
+  if (loading || profileLoading) {
     return (
       <div className="checkout-wrapper checkout-page">
         <HeaderAfter />
@@ -175,15 +210,15 @@ const PaymentCheckout = () => {
             {isKonsultasi ? (
               <>
                 <div className="riwayat-card-image">
-                  {getFotoPengacaraUrl(advokat?.upload_foto) ? (
-                    <img
-                      className="confirm-card-image"
-                      src={getFotoPengacaraUrl(advokat.upload_foto)}
-                      alt={advokat.nama}
-                    />
-                  ) : (
-                    <span className="no-image">No Image</span>
-                  )}
+                  <img
+                    className="confirm-card-image"
+                    src={getPhotoUrl(advokat?.upload_foto)}
+                    alt={advokat?.nama || "Pengacara"}
+                    onError={(e) => {
+                      e.target.onerror = null;
+                      e.target.src = "/assets/images/emptyprofile.png";
+                    }}
+                  />
                 </div>
                 <div className="riwayat-card-content">
                   <p><strong>Nama Pengacara:</strong> {advokat?.nama}</p>
@@ -193,14 +228,31 @@ const PaymentCheckout = () => {
                 </div>
               </>
             ) : (
-              <div className="riwayat-card-content">
-                <p><strong>Nama:</strong> {kasusData?.nama}</p>
-                <p><strong>Email:</strong> {kasusData?.email}</p>
-                <p><strong>Nomor HP:</strong> {kasusData?.noHp}</p>
-                <p><strong>Jenis Pengerjaan:</strong> {kasusData?.jenisPengerjaan}</p>
-                <p><strong>Biaya Minimum:</strong> Rp {biayaKasus.toLocaleString("id-ID")}</p>
-                <p><strong>Deskripsi:</strong> {kasusData?.deskripsi}</p>
-              </div>
+              <>
+                <div className="riwayat-card-image">
+                 <img
+                    className="confirm-card-image"
+                    src={`http://localhost:5000${userProfile?.photo_url}`}
+                    alt={userProfile?.name || "Profil"}
+                    onError={(e) => {
+                      e.target.onerror = null;
+                      e.target.src = "/assets/images/emptyprofile.png";
+                    }}
+                  />
+                </div>
+                <div className="riwayat-card-content">
+                  <p><strong>Nama:</strong> {kasusData?.nama || userProfile?.name}</p>
+                  <p><strong>Email:</strong> {kasusData?.email || userProfile?.email}</p>
+                  <p><strong>Nomor HP:</strong> {kasusData?.noHp || userProfile?.phone}</p>
+                  <p><strong>Area Hukum:</strong> {kasusData?.areaPraktik || '-'}</p>
+                  <p><strong>Jenis Pengerjaan:</strong> {kasusData?.jenisPengerjaan || '-'}</p>
+                  <p><strong>Biaya Minimum:</strong> Rp {biayaKasus.toLocaleString("id-ID")}</p>
+                  <p><strong>Biaya Maksimum:</strong> Rp {kasusData?.biayaMax?.toLocaleString("id-ID") || '-'}</p>
+                  <p><strong>Estimasi Selesai:</strong> {formatDate(kasusData?.estimasiSelesai)}</p>
+                  <p><strong>Lokasi:</strong> {kasusData?.lokasi || '-'}</p>
+                  <p><strong>Deskripsi:</strong> {kasusData?.deskripsi || '-'}</p>
+                </div>
+              </>
             )}
           </div>
         </section>

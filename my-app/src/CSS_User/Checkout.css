@@ -1,5 +1,4 @@
 .checkout-page {
-  /* Color Palette hanya berlaku di dalam .checkout-page */
   --merah-gelap: #B31312;
   --merah-muda-muda: #ffc6c6;
   --abu-gelap: #3b3b3b;
@@ -17,9 +16,9 @@
 }
 
 .checkout-page #snap-container {
-  min-height: 800px;    /* tambah tinggi minimum */
-  max-width: 700px;     /* lebarkan container */
-  width: 100%;          /* responsif */
+  min-height: 800px;
+  max-width: 700px;
+  width: 100%;
   margin-left: auto;
   margin-right: auto;
   background-color: var(--putih);
@@ -28,7 +27,6 @@
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
 
-/* Wrapper container baru untuk dua kolom */
 .checkout-page .content-wrapper {
   display: flex !important;
   flex-direction: row !important;
@@ -37,46 +35,41 @@
   max-width: 1200px;
   margin: 80px auto 60px;
   padding: 0 20px;
-  background-color: var(--putih);
+  background-color: var(--putih-kekuningan);
   border-radius: 16px;
   box-shadow: none;
-  background-color: #fefff0;
 }
 
-/* Scoped box-sizing untuk halaman checkout */
 .checkout-page *, 
 .checkout-page *::before, 
 .checkout-page *::after {
   box-sizing: border-box;
 }
 
-/* Kolom kiri: main checkout */
 .checkout-page .left-main {
   flex: 2 1 600px;
   min-width: 300px;
   padding: 32px 40px;
   border-radius: 16px;
-  background-color: #fefff0;
+  background-color: var(--putih-kekuningan);
   box-shadow: none;
 }
 
-/* Kolom kanan: riwayat kasus */
 .checkout-page .right-section {
   flex: 1 1 480px;
   min-width: 280px;
   padding: 32px 24px;
   max-height: 900px;
-  overflow-y: auto; /* ubah dari scroll ke auto agar scrollbar muncul saat perlu */
-  scrollbar-width: none; /* Firefox */
-  -ms-overflow-style: none; /* Internet Explorer 10+ */
-  width: 100%; /* pastikan memenuhi ruang */
+  overflow-y: auto;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  width: 100%;
 }
 
 .checkout-page .right-section::-webkit-scrollbar {
-  display: none; /* sembunyikan scrollbar di Chrome, Safari */
+  display: none;
 }
 
-/* Foto standar pada card riwayat */
 .checkout-page .riwayat-card-image img {
   width: 120px;
   height: 160px;
@@ -84,15 +77,24 @@
   object-fit: cover;
 }
 
-/* Foto lebih kecil untuk card konfirmasi pembayaran */
-.checkout-page .confirm-card .confirm-card-image {
-  width: 80px;   /* ukuran lebih kecil */
-  height: 110px;
-  border-radius: 8px;
-  object-fit: cover;
-  margin-top: 10px; 
+/* Perbesar ukuran gambar & konten konfirmasi */
+.checkout-page .confirm-card {
+  font-size: 18px;
+  padding: 24px;
+  gap: 24px;
 }
 
+.checkout-page .confirm-card .confirm-card-image {
+  width: 120px;
+  height: 160px;
+  border-radius: 8px;
+  object-fit: cover;
+  margin-top: 10px;
+}
+
+.checkout-page .confirm-card .riwayat-card-content p {
+  margin: 8px 0;
+}
 
 .vertical-separator {
   position: fixed;
@@ -104,7 +106,6 @@
   transform: translateX(-50%);
 }
 
-/* Header dan detail checkout */
 .checkout-page .checkout-title {
   font-size: 28px;
   font-weight: 700;
@@ -128,7 +129,6 @@
   color: var(--abu-gelap);
 }
 
-/* Tombol kembali */
 .checkout-page .btn-back {
   background-color: var(--merah-gelap);
   color: var(--putih);
@@ -148,7 +148,6 @@
   color: var(--merah-gelap);
 }
 
-/* Container snap embed */
 .checkout-page #snap-container {
   margin-top: 32px;
   min-height: 700px;
@@ -161,7 +160,6 @@
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
 
-/* Pesan error */
 .checkout-page .error-text {
   color: var(--merah-gelap);
   font-weight: 600;
@@ -170,9 +168,8 @@
   margin: 40px 0;
 }
 
-/* Styling card riwayat kasus */
 .checkout-page .riwayat-card {
-  width: 100%; /* pastikan card penuhi lebar container */
+  width: 100%;
   display: flex;
   background: var(--putih);
   border-radius: 12px;
