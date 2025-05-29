@@ -183,7 +183,9 @@
 }
 
 .btn-payment:hover:not(:disabled) {
-  background-color: #921010;
+  background-color: #fff; /* Background putih saat hover */
+    color: #B31312; /* Teks berwarna merah sesuai tema utama */
+    border: 2px solid #B31312;
 }
 
 /* Container embed Midtrans */
@@ -195,20 +197,127 @@
   margin-right: auto;
 }
 
+/* Gaya untuk button-wrapper agar tombol berdampingan */
+.payment-content .button-group-horizontal {
+    display: flex; /* Mengaktifkan Flexbox */
+    gap: 15px;    /* Jarak antar tombol */
+    margin-top: 30px; /* Opsional: Atur jarak dari elemen di atasnya */
+    flex-wrap: wrap; /* Jika di layar kecil, tombol bisa pindah baris */
+    justify-content: center; /* Pusatkan tombol jika ada sisa ruang */
+}
+
+
 /* Responsive untuk layar kecil */
 @media (max-width: 768px) {
-  .payment-grid {
-    flex-direction: column;
-    align-items: center;
-  }
-  .info-grid {
-    grid-template-columns: 1fr;
-  }
-  .button-wrapper {
-    text-align: center;
-  }
-  .durasi-kontrol {
-    margin-left: 0;
-    justify-content: center;
-  }
+    .payment-grid {
+        flex-direction: column;
+        align-items: center;
+    }
+    .info-grid {
+        grid-template-columns: 1fr;
+    }
+    .button-wrapper {
+        /* text-align: center; -- ini sudah di handle oleh justify-content: center di .button-group-horizontal */
+    }
+    .durasi-kontrol {
+        margin-left: 0;
+        justify-content: center;
+    }
+
+    /* Penyesuaian tombol di mobile */
+    .payment-content .button-group-horizontal {
+        flex-direction: row;
+        flex-wrap: wrap;
+        gap: 10px;
+        justify-content: center;
+    }
+
+    .payment-content .btn-payment {
+        flex-grow: 1;
+        max-width: 180px;
+        padding: 10px 15px;
+        font-size: 0.9em;
+    }
+
+    /* Perbaikan untuk foto profil advokat di mobile */
+    .photo-section {
+        margin-top: 0;
+        padding-top: 20px;
+        width: 100%;
+    }
+
+    .photo-section img,
+    .photo-placeholder {
+        width: 120px;
+        height: 160px;
+    }
+
+    .photo-name {
+        font-size: 1.2em;
+    }
+
+    /* ========================================================================= */
+    /* PERBAIKAN PADDING KANAN KIRI PADA PAYMENT-CARD UNTUK MOBILE             */
+    /* ========================================================================= */
+    .payment-card {
+        padding: 20px 25px; /* Sesuaikan padding: atas/bawah 20px, kiri/kanan 25px */
+    }
+
+    .payment-grid {
+        gap: 20px;
+    }
+}
+
+/* Untuk layar yang sangat kecil (misal iPhone SE, <= 480px) */
+@media (max-width: 480px) {
+    .payment-content {
+        padding: 90px 10px 30px;
+    }
+
+    .payment-card {
+        padding: 15px 20px; /* Sesuaikan padding: atas/bawah 15px, kiri/kanan 20px */
+        border-radius: 12px;
+    }
+
+    .photo-section img,
+    .photo-placeholder {
+        width: 100px;
+        height: 133px;
+    }
+
+    .photo-name {
+        font-size: 1.1em;
+    }
+
+    .payment-title {
+        font-size: 1.5em;
+        margin-bottom: 20px;
+    }
+
+    .info-section {
+        font-size: 0.95em;
+        gap: 6px;
+    }
+
+    .info-grid {
+        gap: 10px;
+    }
+
+    .info-row {
+        padding-bottom: 6px;
+    }
+
+    .info-row.total {
+        font-size: 1.1em;
+    }
+
+    /* Penyesuaian tombol untuk layar sangat kecil */
+    .payment-content .button-group-horizontal {
+        gap: 8px;
+    }
+    .payment-content .btn-payment {
+        max-width: 150px;
+        padding: 8px 12px;
+        font-size: 0.85em;
+    }
 }

@@ -1,106 +1,126 @@
-:root {
-    --primary-color: #b20000;     /* merah seperti tombol profil */
-    --accent-color: #ffcc00;      /* emas */
-    --background-light: #fffcec;  /* latar belakang soft */
-    --text-dark: #333;
-  }
+/* HAPUS blok :root { ... } sepenuhnya */
 
-  /* ========== Font lama ==============
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  */
-  
-  .page-wrapper {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 6rem 1rem 4rem 1rem;
-    min-height: 100vh;
-  }
-  
-  .ajukan-kasus-container {
-    background-color: #fff;
+/* Definisikan variabel di dalam selector kontainer utama halaman ini */
+.ajukan-kasus-container {
+    /* Palet Warna Baru Anda - DIDEFINISIKAN DI SINI */
+    --merah-gelap: #B31312;
+    --merah-muda-muda: #ffc6c6;
+    --abu-abu-gelap: #3b3b3b;
+    --abu-abu-sedang: #666;
+    --abu-abu-terang: #f4f4f4;
+    --putih-kekuningan: #fefff0;
+    --putih: #fff;
+    --abu-abu-muda: #ccc;
+
+    /* Menggunakan variabel baru sesuai palet */
+    --primary-color: var(--merah-gelap);
+    --text-dark: var(--abu-abu-gelap);
+    --text-paragraph: var(--abu-abu-sedang);
+    --background-page: var(--putih-kekuningan); /* Perhatikan ini nanti */
+    --card-background: var(--putih);
+    --border-color: var(--abu-abu-muda);
+
+    /* Gaya yang sudah ada untuk .ajukan-kasus-container */
+    background-color: var(--card-background); /* Menggunakan putih untuk latar belakang kartu */
     padding: 2.5rem 2rem;
     border-radius: 16px;
     box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
     width: 100%;
     max-width: 850px;
-  }
-  
-  .ajukan-kasus-container h2 {
+}
+
+/* Page wrapper perlu diatur background-nya secara terpisah jika tidak ada di dalam .ajukan-kasus-container */
+/* Jika .page-wrapper di luar .ajukan-kasus-container di HTML, maka variabel --background-page tidak akan sampai.
+   Anda harus langsung set warnanya di sini. */
+.page-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 6rem 1rem 4rem 1rem;
+    min-height: 100vh;
+    background-color: #fefff0; /* Langsung set warnanya, tidak bisa pakai variabel dari .ajukan-kasus-container */
+}
+
+
+/* ========== Font lama ==============
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+*/
+
+
+.ajukan-kasus-container h2 {
     text-align: center;
-    color: var(--primary-color);
+    color: var(--primary-color); /* Merah Gelap */
     font-weight: bold;
     margin-bottom: 0.4rem;
-  }
-  
-  .ajukan-kasus-container p {
+}
+
+.ajukan-kasus-container p {
     text-align: center;
-    color: var(--text-dark);
+    color: var(--text-paragraph); /* Abu-abu Sedang */
     margin-bottom: 2rem;
     font-size: 14px;
-  }
-  
-  .ajukan-kasus-form {
+}
+
+.ajukan-kasus-form {
     display: flex;
     flex-direction: column;
     gap: 1.2rem;
     margin: 0 auto;
-  }
-  
-  .form-row {
+}
+
+.form-row {
     display: flex;
     gap: 20px;
     flex-wrap: wrap;
-  }
-  
-  .form-group {
+}
+
+.form-group {
     flex: 1;
     display: flex;
     flex-direction: column;
-  }
-  
-  .form-group.full {
+}
+
+.form-group.full {
     width: 100%;
-  }
-  
-  .form-group label {
+}
+
+.form-group label {
     font-weight: 600;
     margin-bottom: 6px;
     font-size: 14px;
-    color: #333;
-  }
-  
-  .form-group input,
-  .form-group select,
-  .form-group textarea {
+    color: var(--text-dark); /* Abu-abu Gelap untuk label */
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
     padding: 0.8rem;
-    border: 1px solid #ccc;
+    border: 1px solid var(--border-color); /* Abu-abu Muda untuk border input */
     border-radius: 8px;
     font-size: 1rem;
     width: 100%;
-  }
+}
 
-  .form-group.full button {
+.form-group.full button {
+    background: var(--primary-color); /* Merah Gelap */
+}
 
-    background: #b20000;  
-  }
-  
-  textarea {
+textarea {
     resize: vertical;
     height: 110px;
-  }
-  
-  .green-text {
-    color: green;
+}
+
+.green-text {
+    color: green; /* Warna hijau tidak ada di palet, biarkan saja jika memang harus hijau */
     font-size: 0.9rem;
     margin-top: -0.5rem;
-  }
-  
-  /* Tombol */
-  .btn-kirim {
+}
+
+/* Tombol Kirim */
+.btn-kirim {
     padding: 0.9rem;
-    background-color: var(--primary-color);
-    color: white;
+    background-color: var(--primary-color) !; /* Merah Gelap */
+    color: var(--putih); /* Putih untuk teks tombol */
     font-weight: 600;
     border: none;
     border-radius: 8px;
@@ -108,20 +128,21 @@
     transition: background-color 0.3s;
     width: 100%;
     text-align: center;
-  }
-  
-  .btn-kirim:hover {
-    background-color: #920000;
-  }
-  
-  .footer-separator {
-    border-top: 1px solid #ddd;
-  }
-  
-  /* Responsif */
-  @media (max-width: 768px) {
+}
+
+.btn-kirim:hover {
+    background-color: #fff !important; /* Background putih saat hover */
+    color: #B31312 !important; /* Teks berwarna merah sesuai tema utama */
+    border: 2px solid #B31312 !important; /* Ini adalah sedikit lebih gelap dari --merah-gelap */
+}
+
+.footer-separator {
+    border-top: 1px solid var(--abu-abu-muda); /* Abu-abu Muda */
+}
+
+/* Responsif */
+@media (max-width: 768px) {
     .form-row {
-      flex-direction: column;
+        flex-direction: column;
     }
-  }
-  
+}

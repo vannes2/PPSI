@@ -186,10 +186,6 @@ exports.ambilKasus = (req, res) => {
   );
 };
 
-<<<<<<< HEAD
-=======
-// Fungsi getRiwayatKasusByUser yang lama
->>>>>>> f7decb48e1ba5609ba5629e83a4380a82b6ef064
 
 exports.getRiwayatKasusByUser = (req, res) => {
   const userId = req.params.userId;

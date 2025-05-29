@@ -13,7 +13,7 @@ const PaymentCheckout = () => {
   const [loading, setLoading] = useState(true);
   const [token, setToken] = useState(null);
   const [userProfile, setUserProfile] = useState(null);
-  const [profileLoading, setProfileLoading] = useState(true);
+  const [profileLoading, setLoadingProfile] = useState(true); // Ganti setUserProfile ke setLoadingProfile
 
   const isKonsultasi = !!state?.advokat;
   const advokat = state?.advokat || null;
@@ -21,14 +21,19 @@ const PaymentCheckout = () => {
   const totalPrice = state?.totalPrice || 0;
 
   const kasusData = state?.kasusData || null;
-  const biayaKasus = state?.biaya || 0;
+  const biayaKasus = state?.biaya || 0; // Ini biaya_min dari ajukan kasus
 
   // Fungsi untuk mendapatkan URL foto
-  const getPhotoUrl = (photoPath) => {
-    if (!photoPath || photoPath === "default-profile.png") {
+  const getPhotoUrl = (photoFilename, isAdvokat = false) => {
+    if (!photoFilename || photoFilename === "default-profile.png" || photoFilename === "") {
       return "/assets/images/emptyprofile.png";
     }
-    return `http://localhost:5000/uploads/${photoPath}`;
+    // Jika itu foto pengacara, gunakan path "uploads/"
+    if (isAdvokat) {
+      return `http://localhost:5000/uploads/${photoFilename}`;
+    }
+    // Jika itu foto pengguna, gunakan path "uploads/profile_photos/${photoFilename}"
+    return `http://localhost:5000/uploads/profile_photos/${photoFilename}`;
   };
 
   // Fetch user profile data
@@ -46,7 +51,7 @@ const PaymentCheckout = () => {
       } catch (err) {
         console.error("Error fetching profile:", err);
       } finally {
-        setProfileLoading(false);
+        setLoadingProfile(false); // Gunakan setLoadingProfile
       }
     };
 
@@ -84,6 +89,7 @@ const PaymentCheckout = () => {
             }),
           });
         } else {
+          // Ini adalah pembayaran untuk pengajuan kasus
           if (!kasusData || !biayaKasus) {
             setError("Data pengajuan kasus tidak lengkap.");
             setLoading(false);
@@ -96,6 +102,13 @@ const PaymentCheckout = () => {
             body: JSON.stringify({
               user_id: user.id,
               biaya_min: biayaKasus,
+              area_praktik: kasusData.areaPraktik,
+              jenis_pengerjaan: kasusData.jenisPengerjaan,
+              deskripsi_kasus: kasusData.deskripsi,
+              lokasi_kasus: kasusData.lokasi,
+              thumbnail_bukti_kasus: kasusData.thumbnailBuktiKasus, 
+              estimasi_selesai: kasusData.estimasiSelesai,
+              biaya_max: kasusData.biayaMax
             }),
           });
         }
@@ -119,6 +132,7 @@ const PaymentCheckout = () => {
 
     fetchData();
   }, [advokat, duration, totalPrice, kasusData, biayaKasus, isKonsultasi, navigate]);
+
 
   // Initialize Midtrans payment
   useEffect(() => {
@@ -153,8 +167,21 @@ const PaymentCheckout = () => {
 
   const formatDate = (dateString) => {
     if (!dateString) return "-";
+    const date = new Date(dateString);
+
+    // Periksa apakah tanggal valid
+    if (isNaN(date.getTime())) {
+        // Jika tidak valid, coba anggap itu angka tahun jika bisa di-parse sebagai integer
+        const yearInt = parseInt(dateString);
+        if (!isNaN(yearInt) && String(yearInt) === String(dateString)) {
+            return yearInt; // Hanya tampilkan tahun jika memang angka tahun
+        }
+        return "-"; // Jika tidak valid dan bukan angka tahun, tampilkan '-'
+    }
+    
+    // Jika tanggal valid, format seperti biasa
     const options = { year: 'numeric', month: 'long', day: 'numeric' };
-    return new Date(dateString).toLocaleDateString('id-ID', options);
+    return date.toLocaleDateString('id-ID', options);
   };
 
   if (loading || profileLoading) {
@@ -212,7 +239,7 @@ const PaymentCheckout = () => {
                 <div className="riwayat-card-image">
                   <img
                     className="confirm-card-image"
-                    src={getPhotoUrl(advokat?.upload_foto)}
+                    src={getPhotoUrl(advokat?.upload_foto, true)}
                     alt={advokat?.nama || "Pengacara"}
                     onError={(e) => {
                       e.target.onerror = null;
@@ -220,19 +247,29 @@ const PaymentCheckout = () => {
                     }}
                   />
                 </div>
+                {/* === START PERUBAHAN HTML UNTUK KONSULTASI === */}
+                {/* Konten riwayat-card-content kini langsung strong dan span */}
                 <div className="riwayat-card-content">
-                  <p><strong>Nama Pengacara:</strong> {advokat?.nama}</p>
-                  <p><strong>Spesialisasi:</strong> {advokat?.spesialisasi}</p>
-                  <p><strong>Durasi Konsultasi:</strong> {duration} menit</p>
-                  <p><strong>Total Biaya:</strong> Rp {totalPrice.toLocaleString("id-ID")}</p>
+                    {/* Baris 1: Nama Pengacara & Spesialisasi */}
+                    <strong>Nama Pengacara:</strong> <span>{advokat?.nama}</span>
+                    <strong>Spesialisasi:</strong> <span>{advokat?.spesialisasi}</span>
+                    {/* Baris 2: Durasi Konsultasi & (placeholder jika ada lagi) */}
+                    <strong>Durasi Konsultasi:</strong> <span>{duration} menit</span>
+                    {/* Anda bisa tambahkan item lain di sini jika ada pasangan yang pas di samping Durasi */}
+                    {/* Misalnya: <strong>Rating:</strong> <span>{advokat?.rating}</span> */}
+
+                    {/* Baris Penuh: Total Biaya */}
+                    {/* full-row-item digunakan pada strong dan span untuk membuatnya mengambil seluruh lebar grid */}
+                    <strong className="full-row-item">Total Biaya:</strong> <span className="full-row-item">Rp {totalPrice.toLocaleString("id-ID")}</span>
                 </div>
+                {/* === END PERUBAHAN HTML UNTUK KONSULTASI === */}
               </>
             ) : (
               <>
                 <div className="riwayat-card-image">
-                 <img
+                  <img
                     className="confirm-card-image"
-                    src={`http://localhost:5000${userProfile?.photo_url}`}
+                    src={getPhotoUrl(userProfile?.photo)}
                     alt={userProfile?.name || "Profil"}
                     onError={(e) => {
                       e.target.onerror = null;
@@ -240,18 +277,32 @@ const PaymentCheckout = () => {
                     }}
                   />
                 </div>
+                {/* === START PERUBAHAN HTML UNTUK KASUS === */}
+                {/* Konten riwayat-card-content kini langsung strong dan span */}
                 <div className="riwayat-card-content">
-                  <p><strong>Nama:</strong> {kasusData?.nama || userProfile?.name}</p>
-                  <p><strong>Email:</strong> {kasusData?.email || userProfile?.email}</p>
-                  <p><strong>Nomor HP:</strong> {kasusData?.noHp || userProfile?.phone}</p>
-                  <p><strong>Area Hukum:</strong> {kasusData?.areaPraktik || '-'}</p>
-                  <p><strong>Jenis Pengerjaan:</strong> {kasusData?.jenisPengerjaan || '-'}</p>
-                  <p><strong>Biaya Minimum:</strong> Rp {biayaKasus.toLocaleString("id-ID")}</p>
-                  <p><strong>Biaya Maksimum:</strong> Rp {kasusData?.biayaMax?.toLocaleString("id-ID") || '-'}</p>
-                  <p><strong>Estimasi Selesai:</strong> {formatDate(kasusData?.estimasiSelesai)}</p>
-                  <p><strong>Lokasi:</strong> {kasusData?.lokasi || '-'}</p>
-                  <p><strong>Deskripsi:</strong> {kasusData?.deskripsi || '-'}</p>
+                    {/* Baris 1: Nama & Email */}
+                    <strong>Nama:</strong> <span>{kasusData?.nama || userProfile?.name}</span>
+                    <strong>Email:</strong> <span>{kasusData?.email || userProfile?.email}</span>
+                    {/* Baris 2: No. HP & Area Hukum */}
+                    <strong>No. HP:</strong> <span>{kasusData?.noHp || userProfile?.phone}</span>
+                    <strong>Area Hukum:</strong> <span>{kasusData?.areaPraktik || '-'}</span>
+                    {/* Baris 3: Jenis Pengerjaan & Lokasi */}
+                    <strong>Jenis Pengerjaan:</strong> <span>{kasusData?.jenisPengerjaan || '-'}</span>
+                    <strong>Lokasi:</strong> <span>{kasusData?.lokasi || '-'}</span>
+                    {/* Baris 4: Estimasi Selesai */}
+                    {/* Ini hanya satu item, jadi akan mengambil setengah lebar */}
+                    <strong>Estimasi Selesai:</strong> <span>{formatDate(kasusData?.estimasiSelesai)}</span>
+                    {/* Jika Anda ingin item ini juga mengisi setengah baris dan ada item lain di sebelahnya,
+                        tambahkan item lain di sini atau ubah grid-template-columns di CSS untuk kasus ini */}
+
+                    {/* Baris Penuh: Biaya Min & Biaya Max */}
+                    <strong className="full-row-item">Biaya Min:</strong> <span className="full-row-item">Rp {biayaKasus.toLocaleString("id-ID")}</span>
+                    <strong className="full-row-item">Biaya Max:</strong> <span className="full-row-item">Rp {kasusData?.biayaMax?.toLocaleString("id-ID") || '-'}</span>
+                    
+                    {/* Baris Penuh: Deskripsi */}
+                    <strong className="full-row-item">Deskripsi:</strong> <span className="full-row-item">{kasusData?.deskripsi || '-'}</span>
                 </div>
+                {/* === END PERUBAHAN HTML UNTUK KASUS === */}
               </>
             )}
           </div>
