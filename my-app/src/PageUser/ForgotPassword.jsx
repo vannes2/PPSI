@@ -38,10 +38,6 @@ const ForgotPassword = () => {
     <div className="forgot-container">
       <Header/>
       <div className="forgot-card">
-        <br/>
-        <br/>
-        <br/>
-        <br/>
         <h2>Lupa Password</h2>
         <p>Masukkan email yang terdaftar. Kami akan mengirimkan kode OTP untuk reset password Anda.</p>
 

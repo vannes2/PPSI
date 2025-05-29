@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useLocation, useNavigate, Link } from "react-router-dom"; // Import Link
 import HeaderAfter from "../components/HeaderAfter";
 import Footer from "../components/Footer";
 import "../CSS_User/Payment.css";
@@ -20,12 +20,15 @@ const Payment = () => {
 
     const getAdvokat = async () => {
       try {
+        // Asumsi endpoint ini mengembalikan array, dan kita mencari yang sesuai
         const res = await fetch("http://localhost:5000/api/profilpengacara");
         const data = await res.json();
         const found = data.find((p) => p.id === state.pengacaraId);
         if (found) {
           setAdvokat(found);
-          setMaxDuration(found.pengalaman * 60);
+          // Mengatur maxDuration berdasarkan pengalaman jika pengalaman adalah tahun
+          // 1 tahun pengalaman = 60 menit durasi maksimal
+          setMaxDuration(found.pengalaman * 60); 
         } else {
           setError("Advokat tidak ditemukan.");
         }
@@ -42,7 +45,9 @@ const Payment = () => {
   const handlePayment = () => {
     if (!advokat) return;
 
-    const totalPrice = (duration / 30) * 50000;
+    // Pastikan advokat.harga_konsultasi digunakan di sini. Fallback ke 50000 jika null/undefined
+    const hargaPerUnit = advokat.harga_konsultasi || 50000; 
+    const totalPrice = (duration / 30) * hargaPerUnit;
 
     navigate("/PaymentCheckout", {
       state: {
@@ -81,6 +86,7 @@ const Payment = () => {
                     <div className="photo-placeholder">Tidak ada foto</div>
                   )}
                   <h3 className="photo-name">{advokat.nama}</h3>
+                  {/* Tombol detail tidak lagi di sini, dipindahkan ke button-wrapper */}
                 </div>
 
                 <div className="info-section">
@@ -123,11 +129,15 @@ const Payment = () => {
 
                     <div className="info-row total">
                       <span>Total Biaya:</span>
-                      <span>Rp {(duration / 30 * 50000).toLocaleString("id-ID")}</span>
+                      <span>Rp {(duration / 30 * (advokat.harga_konsultasi || 50000)).toLocaleString("id-ID")}</span>
                     </div>
                   </div>
 
-                  <div className="button-wrapper">
+                  {/* BUTTON WRAPPER - Tombol Bayar Sekarang dan Detail Advokat */}
+                  <div className="button-wrapper button-group-horizontal">
+                    <Link to={`/pengacara/detail/${advokat.id}`} className="btn-payment">
+                      Detail Advokat
+                    </Link>
                     <button className="btn-payment" onClick={handlePayment}>
                       Bayar Sekarang
                     </button>
