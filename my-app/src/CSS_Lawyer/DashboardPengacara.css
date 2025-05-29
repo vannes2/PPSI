@@ -1,86 +1,89 @@
 /* Container Utama */
 .dashboard-container {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   padding: 2rem;
   background-color: #f9fafb;
   min-height: 100vh;
-  font-family: 'Segoe UI', sans-serif;
 }
 
 /* Judul Dashboard */
 .dashboard-title {
-  font-size: 1.75rem;
-  font-weight: 700;
+  font-size: 2rem;
+  font-weight: bold;
+  margin-bottom: 1.5rem;
+  text-align: center;
   color: #1f2937;
-  margin-bottom: 2rem;
 }
 
-/* Grid Ringkasan */
+/* Ringkasan */
 .summary-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  gap: 1.5rem;
-  margin-bottom: 2.5rem;
+  gap: 1rem;
+  margin-bottom: 2rem;
 }
 
-/* Kartu Ringkasan */
 .summary-card {
   background-color: white;
   border-radius: 1rem;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
   padding: 1.5rem;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+  text-align: center;
 }
 
 .summary-card h3 {
   font-size: 1.1rem;
-  font-weight: 600;
-  color: #374151;
+  color: #4b5563;
   margin-bottom: 0.5rem;
 }
 
-.summary-card p {
-  font-size: 1.25rem;
-  font-weight: 700;
-}
-
-/* Warna Text Custom */
 .text-green {
-  color: #16a34a;
+  color: #10b981;
+  font-weight: bold;
+  font-size: 1.2rem;
 }
 
 .text-yellow {
-  color: #ca8a04;
+  color: #f59e0b;
+  font-weight: bold;
+  font-size: 1.2rem;
 }
 
 .text-blue {
-  color: #2563eb;
+  color: #3b82f6;
+  font-weight: bold;
+  font-size: 1.2rem;
 }
 
 .text-purple {
-  color: #7c3aed;
+  color: #8b5cf6;
+  font-weight: bold;
+  font-size: 1.2rem;
 }
 
-/* Grafik */
+/* Grafik Pendapatan */
 .chart-section {
   background-color: white;
-  border-radius: 1rem;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
   padding: 1.5rem;
+  border-radius: 1rem;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
   margin-bottom: 2rem;
 }
 
 .chart-title {
-  font-size: 1.1rem;
-  font-weight: 600;
-  color: #374151;
+  font-size: 1.2rem;
+  font-weight: bold;
   margin-bottom: 1rem;
+  color: #374151;
 }
 
 /* Tabel Transaksi */
 .table-section {
   background-color: white;
-  border-radius: 1rem;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
   padding: 1.5rem;
+  border-radius: 1rem;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+  margin-bottom: 2rem;
 }
 
 .table-header {
@@ -91,64 +94,77 @@
 }
 
 .table-header h3 {
-  font-size: 1.1rem;
-  font-weight: 600;
+  font-size: 1.2rem;
   color: #374151;
 }
 
-/* Tombol Export */
 .export-button {
-  background-color: #2563eb;
+  background-color: #3b82f6;
   color: white;
-  padding: 0.5rem 1rem;
-  border-radius: 0.375rem;
+  padding: 0.6rem 1.2rem;
   border: none;
+  border-radius: 0.5rem;
+  font-weight: bold;
   cursor: pointer;
-  font-size: 0.9rem;
-  transition: background-color 0.3s;
+  transition: background-color 0.3s ease;
 }
 
 .export-button:hover {
-  background-color: #1e40af;
+  background-color: #2563eb;
 }
 
-/* Tabel */
 .transaction-table {
   width: 100%;
   border-collapse: collapse;
-  font-size: 0.875rem;
+}
+
+.transaction-table thead {
+  background-color: #f3f4f6;
+  text-align: left;
 }
 
 .transaction-table th,
 .transaction-table td {
-  padding: 0.75rem;
-  text-align: left;
+  padding: 0.75rem 1rem;
   border-bottom: 1px solid #e5e7eb;
+  font-size: 0.95rem;
 }
 
-.transaction-table th {
-  background-color: #f3f4f6;
-  font-weight: 600;
+.transaction-table tbody tr:hover {
+  background-color: #f9fafb;
+}
+
+.status-success {
+  color: #10b981;
+  font-weight: bold;
+}
+
+.status-pending {
+  color: #f97316;
+  font-weight: bold;
+}
+
+/* Ringkasan Status Transfer */
+.total-status-section {
+  margin-top: 1.5rem;
+  background-color: #f9fafb;
+  padding: 1rem;
+  border-radius: 0.75rem;
+  border: 1px solid #e5e7eb;
+  font-weight: bold;
   color: #374151;
 }
 
-.transaction-table td {
-  color: #374151;
-}
-
-.transaction-table td.status-success {
-  color: #16a34a;
-}
-
-.transaction-table td.status-pending {
-  color: #ca8a04;
-}
-
-/* Responsive */
+/* Responsif Tambahan */
 @media (max-width: 768px) {
   .table-header {
     flex-direction: column;
     align-items: flex-start;
     gap: 0.5rem;
+  }
+
+  .export-button {
+    width: 100%;
+    text-align: center;
   }
 }
