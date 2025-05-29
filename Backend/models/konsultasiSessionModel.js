@@ -66,35 +66,35 @@ const createOrUpdateSession = async (userId, pengacaraId, duration) => {
 };
 
 // Fungsi untuk menandai session selesai jika durasi habis (tidak berubah)
-const finishSessionIfExpired = (sessionId) => {
-  return new Promise((resolve, reject) => {
-    // Ambil data session dulu
-    const selectSql = "SELECT start_time, duration, status FROM konsultasi_session WHERE id = ?";
-    db.query(selectSql, [sessionId], (err, results) => {
-      if (err) return reject(err);
-      if (results.length === 0) return resolve(null);
+// const finishSessionIfExpired = (sessionId) => {
+//   return new Promise((resolve, reject) => {
+//     // Ambil data session dulu
+//     const selectSql = "SELECT start_time, duration, status FROM konsultasi_session WHERE id = ?";
+//     db.query(selectSql, [sessionId], (err, results) => {
+//       if (err) return reject(err);
+//       if (results.length === 0) return resolve(null);
 
-      const session = results[0];
-      if (session.status !== 'aktif') return resolve(null); // Jika sudah selesai, abaikan
+//       const session = results[0];
+//       if (session.status !== 'aktif') return resolve(null); // Jika sudah selesai, abaikan
 
-      const startTime = new Date(session.start_time);
-      const now = new Date();
-      const diffMs = now - startTime;
-      const diffMinutes = diffMs / 60000;
+//       const startTime = new Date(session.start_time);
+//       const now = new Date();
+//       const diffMs = now - startTime;
+//       const diffMinutes = diffMs / 60000;
 
-      // Jika waktu sudah lewat durasi, update status jadi 'selesai'
-      if (diffMinutes >= session.duration) {
-        const updateSql = "UPDATE konsultasi_session SET status = 'selesai' WHERE id = ?";
-        db.query(updateSql, [sessionId], (err2, result) => {
-          if (err2) return reject(err2);
-          resolve(result);
-        });
-      } else {
-        resolve(null); // Belum habis
-      }
-    });
-  });
-};
+//       // Jika waktu sudah lewat durasi, update status jadi 'selesai'
+//       if (diffMinutes >= session.duration) {
+//         const updateSql = "UPDATE konsultasi_session SET status = 'selesai' WHERE id = ?";
+//         db.query(updateSql, [sessionId], (err2, result) => {
+//           if (err2) return reject(err2);
+//           resolve(result);
+//         });
+//       } else {
+//         resolve(null); // Belum habis
+//       }
+//     });
+//   });
+// };
 
 // Fungsi untuk mendapatkan session konsultasi aktif (tidak berubah)
 const getSession = (userId, pengacaraId) => {
@@ -115,7 +115,7 @@ const getRiwayatByUserId = (userId, callback) => {
            p.id AS id_pengacara, 
            p.nama AS nama_pengacara,
            p.upload_foto AS foto_pengacara,
-           p.harga_konsultasi
+           p.harga_konsultasi,
            p.nama_rekening,
            p.no_rekening
     FROM konsultasi_session ks
@@ -125,6 +125,66 @@ const getRiwayatByUserId = (userId, callback) => {
   `;
   db.query(sql, [userId], callback);
 };
+
+
+
+// update Fungsi untuk menandai session selesai//
+
+// Fungsi untuk menandai session selesai jika durasi habis (diperbaiki)
+const finishSessionIfExpired = (sessionId) => {
+    return new Promise((resolve, reject) => {
+        // Ambil data session dulu
+        const selectSql = "SELECT start_time, duration, status, user_id, pengacara_id FROM konsultasi_session WHERE id = ?"; // Menambahkan user_id dan pengacara_id untuk diagnosa di masa mendatang jika unik_session melibatkan mereka
+        db.query(selectSql, [sessionId], (err, results) => {
+            if (err) {
+                console.error("Error fetching session details in finishSessionIfExpired (SELECT):", err);
+                return reject(err);
+            }
+            if (results.length === 0) {
+                console.log(`Sesi ID ${sessionId} tidak ditemukan.`);
+                return resolve(null); // Sesi tidak ditemukan
+            }
+
+            // BARIS INI YANG HILANG DAN PERLU DIKEMBALIKAN:
+            const session = results[0]; // <<<---- INI PENTING!
+
+            // Jika status sudah selain 'aktif', abaikan update
+            if (session.status !== 'aktif') {
+                console.log(`Sesi ID ${sessionId} sudah tidak aktif (status: ${session.status}), tidak perlu diupdate.`);
+                return resolve(null);
+            }
+
+            const startTime = new Date(session.start_time);
+            const now = new Date();
+            const diffMs = now - startTime;
+            const diffMinutes = diffMs / 60000;
+
+            // Jika waktu sudah lewat durasi, update status jadi 'selesai'
+            if (diffMinutes >= session.duration) {
+                const updateSql = "UPDATE konsultasi_session SET status = 'selesai' WHERE id = ?";
+                db.query(updateSql, [sessionId], (err2, result) => {
+                    if (err2) {
+                        console.error(`Error updating session ID ${sessionId} to 'selesai':`, err2);
+                        // Tangani ER_DUP_ENTRY secara spesifik
+                        if (err2.code === 'ER_DUP_ENTRY') {
+                            console.warn(`ER_DUP_ENTRY detected for session ID ${sessionId} when setting to 'selesai'. This might mean a conflicting entry already exists.`);
+                            // Anda bisa memilih untuk resolve sebagai sukses jika tujuan status 'selesai' secara logis sudah tercapai
+                            return resolve({ status: 'already_completed_or_conflicting_entry_exists' });
+                        }
+                        // Untuk error lain, tetap reject
+                        return reject(err2);
+                    }
+                    console.log(`Sesi ID ${sessionId} berhasil diupdate menjadi 'selesai'. Affected rows: ${result.affectedRows}`);
+                    resolve(result);
+                });
+            } else {
+                console.log(`Sesi ID ${sessionId} belum habis waktunya.`);
+                resolve(null); // Belum habis
+            }
+        });
+    });
+};
+
 
 module.exports = {
   createOrUpdateSession,
