@@ -99,32 +99,31 @@ body, html, #root {
   box-shadow: 0 12px 24px rgb(179 19 18 / 0.35);
 }
 
-/* Bagian gambar dengan padding-top agar gambar agak turun */
+/* PERUBAHAN STYLE GAMBAR PROFIL */
 .card-image-wrapper {
   flex-shrink: 0;
   width: 140px;
   height: 140px;
-  background: #eee;
-  display: flex;
+  background: #f0f0f0;
+  display: flex; /* Tetap digunakan untuk memusatkan placeholder jika gambar tidak ada */
   align-items: center;
   justify-content: center;
-  overflow: hidden;
-  border-right: 1.5px solid #f0f0f0;
+  overflow: hidden; /* Penting agar gambar tidak keluar dari batas wrapper */
+  border-right: 1.5px solid #e7e7e7;
   border-top-left-radius: 12px;
   border-bottom-left-radius: 12px;
   position: relative;
-
-  padding-top: 10px; /* Membuat gambar turun 10px */
 }
 
-/* Gambar proporsional dan tidak terlalu tinggi */
 .card-image {
-  max-height: 110px; /* Kurangi tinggi agar ada ruang bawah */
-  max-width: 100%;
-  object-fit: contain;
+  width: 100%;  /* Gambar mengisi lebar wrapper */
+  height: 100%; /* Gambar mengisi tinggi wrapper */
+  object-fit: cover;   /* Membuat gambar mengisi area dan terpotong jika perlu (ukuran seragam) */
+  object-position: center 40%; /* Menggeser fokus gambar sedikit ke atas, sehingga konten tampak sedikit lebih ke bawah. Sesuaikan nilai 40% jika perlu (misal 35% atau 45%) */
   display: block;
   transition: transform 0.3s ease;
 }
+/* AKHIR PERUBAHAN STYLE GAMBAR PROFIL */
 
 .card:hover .card-image {
   transform: scale(1.05);
@@ -135,6 +134,8 @@ body, html, #root {
   color: #999;
   font-style: italic;
   user-select: none;
+  text-align: center;
+  padding: 10px;
 }
 
 /* Konten kartu */
@@ -211,9 +212,14 @@ body, html, #root {
   color: #0f5132;
 }
 
-.status-proses {
+.status-diproses, .status-proses { /* Menangani kedua kemungkinan nama kelas */
   background-color: #fff3cd;
   color: #664d03;
+}
+
+.status-menunggu {
+    background-color: #cfe2ff;
+    color: #084298;
 }
 
 .status-unknown {
@@ -241,10 +247,10 @@ body, html, #root {
   transition: background-color 0.25s ease, color 0.25s ease;
   text-decoration: none;
   text-align: center;
-  display: inline-flex;       /* Area tombol penuh dan hover menyeluruh */
+  display: inline-flex;
   align-items: center;
   justify-content: center;
-  color: inherit;             /* Warna teks ikut */
+  color: inherit;
 }
 
 /* Tombol primary */
@@ -327,14 +333,16 @@ body, html, #root {
     height: 220px;
     border-radius: 12px 12px 0 0;
     border-right: none;
-    padding-top: 0; /* hilangkan padding-top di mobile */
+  }
+  .card-image {
+    object-position: center center; /* Di mobile, mungkin lebih baik kembali ke tengah standar */
   }
   .card-content {
     padding: 18px 16px;
     text-align: center;
   }
   .card-details {
-    display: block; /* agar label dan isi bawahnya di mobile */
+    display: block;
   }
   .card-details > div {
     display: flex;

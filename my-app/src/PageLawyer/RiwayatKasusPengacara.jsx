@@ -15,18 +15,25 @@ const RiwayatKasusPengacara = () => {
       fetch(`http://localhost:5000/api/kasus/riwayat/pengacara/${pengacaraId}`)
         .then((res) => res.json())
         .then((data) => setKasusList(data))
-        .catch((err) => console.error("Gagal mengambil riwayat kasus pengacara:", err));
+        .catch((err) =>
+          console.error("Gagal mengambil riwayat kasus pengacara:", err)
+        );
 
-      fetch(`http://localhost:5000/api/konsultasi_session/riwayat/pengacara/${pengacaraId}`)
+      fetch(
+        `http://localhost:5000/api/konsultasi_session/riwayat/pengacara/${pengacaraId}`
+      )
         .then((res) => res.json())
         .then((data) => setKonsultasiList(data))
-        .catch((err) => console.error("Gagal mengambil riwayat konsultasi pengacara:", err));
+        .catch((err) =>
+          console.error("Gagal mengambil riwayat konsultasi pengacara:", err)
+        );
     }
   }, [pengacaraId]);
 
-  const getFotoUserUrl = (foto) =>
-    foto && foto !== "default-profile.png"
-      ? `http://localhost:5000/uploads/${foto}`
+  // Perbaikan di sini: Menyesuaikan path ke folder foto profil user
+  const getFotoUserUrl = (fotoFilename) =>
+    fotoFilename && fotoFilename !== "default-profile.png"
+      ? `http://localhost:5000/uploads/profile_photos/${fotoFilename}`
       : null;
 
   const renderStatus = (item) => {
@@ -46,7 +53,10 @@ const RiwayatKasusPengacara = () => {
   const formatDateTime = (dateStr) => {
     if (!dateStr) return "-";
     const date = new Date(dateStr);
-    return date.toLocaleString("id-ID", { dateStyle: "medium", timeStyle: "short" });
+    return date.toLocaleString("id-ID", {
+      dateStyle: "medium",
+      timeStyle: "short",
+    });
   };
 
   const formatDate = (dateStr) => {
@@ -73,7 +83,7 @@ const RiwayatKasusPengacara = () => {
                       {getFotoUserUrl(session.foto_user) ? (
                         <img
                           src={getFotoUserUrl(session.foto_user)}
-                          alt={`Foto ${session.nama_user}`}
+                          alt={`Foto ${session.nama_user || "User"}`}
                           className="card-image"
                           loading="lazy"
                         />
@@ -82,11 +92,15 @@ const RiwayatKasusPengacara = () => {
                       )}
                     </div>
                     <div className="card-content">
-                      <h3 className="card-title">{session.nama_user || "User Tidak Diketahui"}</h3>
+                      <h3 className="card-title">
+                        {session.nama_user || "User Tidak Diketahui"}
+                      </h3>
                       <dl className="card-details">
                         <div>
                           <dt>Biaya:</dt>
-                          <dd>Rp {session.biaya?.toLocaleString("id-ID") || "-"}</dd>
+                          <dd>
+                            Rp {session.biaya?.toLocaleString("id-ID") || "-"}
+                          </dd>
                         </div>
                         <div>
                           <dt>Waktu Mulai:</dt>
@@ -102,7 +116,7 @@ const RiwayatKasusPengacara = () => {
                         </div>
                       </dl>
                       <div className="card-actions">
-                        <Link to={`/chat/user/${session.id_user}`} className="btn btn-secondary">
+                        <Link to={`/KonsultasiLawyer`} className="btn btn-secondary">
                           Riwayat Chat
                         </Link>
                       </div>
@@ -129,7 +143,7 @@ const RiwayatKasusPengacara = () => {
                       {getFotoUserUrl(kasus.foto_user) ? (
                         <img
                           src={getFotoUserUrl(kasus.foto_user)}
-                          alt={`Foto ${kasus.nama_user}`}
+                          alt={`Foto ${kasus.nama_user || "User"}`}
                           className="card-image"
                           loading="lazy"
                         />
@@ -138,15 +152,23 @@ const RiwayatKasusPengacara = () => {
                       )}
                     </div>
                     <div className="card-content">
-                      <h3 className="card-title">{kasus.nama_user || "User Tidak Diketahui"}</h3>
+                      <h3 className="card-title">
+                        {kasus.nama_user || "User Tidak Diketahui"}
+                      </h3>
                       <dl className="card-details">
                         <div>
                           <dt>Biaya Minimal:</dt>
-                          <dd>Rp {kasus.biaya_min?.toLocaleString("id-ID") || "-"}</dd>
+                          <dd>
+                            Rp{" "}
+                            {kasus.biaya_min?.toLocaleString("id-ID") || "-"}
+                          </dd>
                         </div>
                         <div>
                           <dt>Biaya Maksimal:</dt>
-                          <dd>Rp {kasus.biaya_max?.toLocaleString("id-ID") || "-"}</dd>
+                          <dd>
+                            Rp{" "}
+                            {kasus.biaya_max?.toLocaleString("id-ID") || "-"}
+                          </dd>
                         </div>
                         <div>
                           <dt>Jenis Pengerjaan:</dt>
@@ -166,7 +188,10 @@ const RiwayatKasusPengacara = () => {
                         </div>
                       </dl>
                       <div className="card-actions">
-                        <Link to={`/DaftarKasus`} className="btn btn-secondary">
+                        <Link
+                          to={`/DaftarKasusLawyer`}
+                          className="btn btn-secondary"
+                        >
                           Riwayat Kasus
                         </Link>
                       </div>
@@ -178,7 +203,7 @@ const RiwayatKasusPengacara = () => {
           </section>
         </main>
       </div>
-            <div className="footer-separator"></div>
+      <div className="footer-separator"></div>
       <Footer />
     </>
   );
