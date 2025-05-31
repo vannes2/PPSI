@@ -1,4 +1,4 @@
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route, useLocation } from "react-router-dom"; // <-- Import useLocation
 import Home from "./PageUser/Home";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
@@ -33,8 +33,8 @@ import TambahArtikel from "./PageAdmin/TambahArtikel";
 import LawyerRegistrations from "./PageAdmin/LawyerRegistrations";
 import ProfilAdmin from "./PageAdmin/ProfilAdmin";
 import UserManagement from "./PageAdmin/UserManagement";
-import ArtikelBeritaUser from "./PageUser/ArtikelBerita"; 
-import ArtikelBeritaAdmin from "./PageAdmin/ArtikelBeritaAdmin"; 
+import ArtikelBeritaUser from "./PageUser/ArtikelBerita";
+import ArtikelBeritaAdmin from "./PageAdmin/ArtikelBeritaAdmin";
 import RiwayatPertanyaanUser from "./PageAdmin/RiwayatPertanyaanUser";
 import FaqAdmin from "./PageAdmin/FaqAdmin";
 import AdminKasus from "./PageAdmin/AdminKasus";
@@ -72,81 +72,107 @@ import NotFound from "./404_not_found/NotFound";
 import PaymentCheckout from "./PageUser/PaymentCheckout"
 
 function App() {
-    return (
-        <Router>
-             <ScrollToTop />
-              <ChatBotWidget />
-            <Routes>
-                {/* ✅ Public Routes */}
-                <Route path="/" element={<Home />} />
-                <Route path="/Header" element={<Header />} />
-                <Route path="/Footer" element={<Footer />} />
-                <Route path="/AboutUs" element={<AboutUs />} />
-                <Route path="/Login" element={<Login />} />
-                <Route path="/SignUp" element={<SignUp />} />
-                <Route path="/Artikel" element={<Artikel />} />
+  return (
+    <Router>
+      <AppContent /> {/* Pindahkan logika dan rendering ke komponen terpisah */}
+    </Router>
+  );
+}
 
-                {/* ✅ User Routes */}
-                <Route path="/HomeAfter" element={<HomeAfter />} />
-                <Route path="/AboutUsAfter" element={<AboutUsAfter />} />
-                <Route path="/ProfileEdit" element={<ProfileEdit />} />
-                <Route path="/ProfileView" element={<ProfileView />} />
-                <Route path="/konsultasi" element={<Konsultasi />} />
-                <Route path="/payment" element={<Payment />} />
-                <Route path="/chat/pengacara/:lawyerId" element={<ChatPage />} />
-                <Route path="/chat/:contactRole/:contactId" element={<ChatPage />} /> {/* fallback tambahan jika dibutuhkan */}
-                <Route path="/AjukanKasus" element={<AjukanKasus />} />
-                <Route path="/DaftarKasus" element={<DaftarKasus />} />
-                <Route path="/forgot-password" element={<ForgotPassword />} />
-                <Route path="/verify-otp" element={<VerifyOtp />} />
-                <Route path="/reset-password" element={<ResetPassword />} />
-                <Route path="/ArtikelBerita" element={<ArtikelBeritaUser />} />
-                <Route path="/DetailBerita/:id" element={<DetailBerita />} />
-                <Route path="/artikel/:id" element={<ArtikelDetail />} />
-                <Route path="/RiwayatKasus" element={<RiwayatKasus />} />
-                <Route path="/pengacara/detail/:id" element={<DetailPengacara />} />
+// Buat komponen baru untuk menangani logika chatbot
+function AppContent() {
+  const location = useLocation(); // Gunakan useLocation di dalam komponen yang dirender oleh Router
 
-                {/* ✅ Admin Routes */}
-                <Route path="/HomeAdmin" element={<HomeAdmin />} />
-                <Route path="/EditPengacara/:id" element={<EditPengacara />} />
-                <Route path="/ViewPengacara/:id" element={<ViewPengacara />} />
-                <Route path="/TambahPengacara" element={<TambahPengacara />} />
-                <Route path="/TambahArtikel" element={<TambahArtikel />} />
-                <Route path="/LawyerRegistrations" element={<LawyerRegistrations />} />
-                <Route path="/ProfilAdmin" element={<ProfilAdmin />} />
-                <Route path="/UserManagement" element={<UserManagement />} />
-                <Route path="/SidebarAdmin" element={<SidebarAdmin />} />
-                <Route path="/ArtikelBeritaAdmin" element={<ArtikelBeritaAdmin />} />
-                <Route path="/log-pertanyaan" element={<RiwayatPertanyaanUser />} />
-                <Route path="/faq" element={<FaqAdmin />} />
-                <Route path="/admin/kasus" element={<AdminKasus />} />                
-                <Route path="/register-bank" element={<RegisterBankAccount />} />
-                <Route path="/transaksi" element={<TransaksiPengacara />} />
-                <Route path="/TransaksiKeuangan" element={<TransaksiKeuangan />} />
+  // Tentukan rute di mana chatbot TIDAK boleh muncul
+  // Perhatikan rute untuk ChatPage:
+  // - /chat/pengacara/:lawyerId
+  // - /chat/:contactRole/:contactId
+  const hideChatbotRoutes = [
+    '/chat/pengacara/', // Untuk rute dinamis yang dimulai dengan ini
+    '/chat/',           // Untuk rute dinamis yang dimulai dengan ini (jika ada yang tanpa role)
+  ];
 
-                {/* ✅ Lawyer Routes */}
-                <Route path="/RegisterLawyerPage" element={<RegisterLawyerPage />} />
-                <Route path="/HomeLawyer" element={<HomeLawyer />} />
-                <Route path="/ArtikelLawyer" element={<ArtikelLawyer />} />
-                <Route path="/AboutLawyer" element={<AboutLawyer />} />
-                <Route path="/ProfileLawyer" element={<ProfileLawyer />} />
-                <Route path="/KonsultasiLawyer" element={<KonsultasiLawyer />} />
-                <Route path="/SelectUser" element={<SelectUser />} />
-                <Route path="/ProfileEditLawyer" element={<ProfileEditLawyer />} />
-                <Route path="/DaftarKasusLawyer" element={<DaftarKasusLawyer />} />
-                <Route path="/artikel-lawyer/:id" element={<ArtikelDetailLawyer />} />
-                <Route path="/RiwayatKasusPengacara" element={<RiwayatKasusPengacara />} />
-<Route
-  path="/DashboardPengacara"
-  element={<DashboardPengacara pengacaraId={localStorage.getItem("pengacaraId")} />}
-/>
-                {/* Not Found*/}
-                <Route path="*" element={<NotFound />} />
-                {/* CheckOut*/}
-                <Route path="/PaymentCheckout" element={<PaymentCheckout />}/>
-            </Routes>
-        </Router>
-    );
+  // Fungsi untuk memeriksa apakah rute saat ini harus menyembunyikan chatbot
+  const shouldHideChatbot = hideChatbotRoutes.some(routePrefix => 
+    location.pathname.startsWith(routePrefix)
+  );
+
+  return (
+    <>
+      <ScrollToTop />
+      {/* Render ChatBotWidget hanya jika shouldHideChatbot adalah false */}
+      {!shouldHideChatbot && <ChatBotWidget />}
+      <Routes>
+        {/* ✅ Public Routes */}
+        <Route path="/" element={<Home />} />
+        <Route path="/Header" element={<Header />} />
+        <Route path="/Footer" element={<Footer />} />
+        <Route path="/AboutUs" element={<AboutUs />} />
+        <Route path="/Login" element={<Login />} />
+        <Route path="/SignUp" element={<SignUp />} />
+        <Route path="/Artikel" element={<Artikel />} />
+
+        {/* ✅ User Routes */}
+        <Route path="/HomeAfter" element={<HomeAfter />} />
+        <Route path="/AboutUsAfter" element={<AboutUsAfter />} />
+        <Route path="/ProfileEdit" element={<ProfileEdit />} />
+        <Route path="/ProfileView" element={<ProfileView />} />
+        <Route path="/konsultasi" element={<Konsultasi />} />
+        <Route path="/payment" element={<Payment />} />
+        <Route path="/chat/pengacara/:lawyerId" element={<ChatPage />} />
+        <Route path="/chat/:contactRole/:contactId" element={<ChatPage />} /> {/* fallback tambahan jika dibutuhkan */}
+        <Route path="/AjukanKasus" element={<AjukanKasus />} />
+        <Route path="/DaftarKasus" element={<DaftarKasus />} />
+        <Route path="/forgot-password" element={<ForgotPassword />} />
+        <Route path="/verify-otp" element={<VerifyOtp />} />
+        <Route path="/reset-password" element={<ResetPassword />} />
+        <Route path="/ArtikelBerita" element={<ArtikelBeritaUser />} />
+        <Route path="/DetailBerita/:id" element={<DetailBerita />} />
+        <Route path="/artikel/:id" element={<ArtikelDetail />} />
+        <Route path="/RiwayatKasus" element={<RiwayatKasus />} />
+        <Route path="/pengacara/detail/:id" element={<DetailPengacara />} />
+
+        {/* ✅ Admin Routes */}
+        <Route path="/HomeAdmin" element={<HomeAdmin />} />
+        <Route path="/EditPengacara/:id" element={<EditPengacara />} />
+        <Route path="/ViewPengacara/:id" element={<ViewPengacara />} />
+        <Route path="/TambahPengacara" element={<TambahPengacara />} />
+        <Route path="/TambahArtikel" element={<TambahArtikel />} />
+        <Route path="/LawyerRegistrations" element={<LawyerRegistrations />} />
+        <Route path="/ProfilAdmin" element={<ProfilAdmin />} />
+        <Route path="/UserManagement" element={<UserManagement />} />
+        <Route path="/SidebarAdmin" element={<SidebarAdmin />} />
+        <Route path="/ArtikelBeritaAdmin" element={<ArtikelBeritaAdmin />} />
+        <Route path="/log-pertanyaan" element={<RiwayatPertanyaanUser />} />
+        <Route path="/faq" element={<FaqAdmin />} />
+        <Route path="/admin/kasus" element={<AdminKasus />} />
+        <Route path="/register-bank" element={<RegisterBankAccount />} />
+        <Route path="/transaksi" element={<TransaksiPengacara />} />
+        <Route path="/TransaksiKeuangan" element={<TransaksiKeuangan />} />
+
+        {/* ✅ Lawyer Routes */}
+        <Route path="/RegisterLawyerPage" element={<RegisterLawyerPage />} />
+        <Route path="/HomeLawyer" element={<HomeLawyer />} />
+        <Route path="/ArtikelLawyer" element={<ArtikelLawyer />} />
+        <Route path="/AboutLawyer" element={<AboutLawyer />} />
+        <Route path="/ProfileLawyer" element={<ProfileLawyer />} />
+        <Route path="/KonsultasiLawyer" element={<KonsultasiLawyer />} />
+        <Route path="/SelectUser" element={<SelectUser />} />
+        <Route path="/ProfileEditLawyer" element={<ProfileEditLawyer />} />
+        <Route path="/DaftarKasusLawyer" element={<DaftarKasusLawyer />} />
+        <Route path="/artikel-lawyer/:id" element={<ArtikelDetailLawyer />} />
+        <Route path="/RiwayatKasusPengacara" element={<RiwayatKasusPengacara />} />
+        <Route
+          path="/DashboardPengacara"
+          element={<DashboardPengacara pengacaraId={localStorage.getItem("pengacaraId")} />}
+        />
+        {/* Not Found*/}
+        <Route path="*" element={<NotFound />} />
+        {/* CheckOut*/}
+        <Route path="/PaymentCheckout" element={<PaymentCheckout />} />
+      </Routes>
+    </>
+  );
 }
 
 export default App;

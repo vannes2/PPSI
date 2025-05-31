@@ -8,11 +8,10 @@ import {
   FaUserCheck,
   FaBalanceScale,
   FaBriefcase,
-  FaMoneyBillWave, 
+  FaMoneyBillWave,
   FaGraduationCap,
   FaTags,
 } from "react-icons/fa";
-
 
 const Home = () => {
   const [pengacara, setPengacara] = useState([]);
@@ -283,38 +282,37 @@ const Home = () => {
                 <h3>{advokat.nama}</h3>
 
                 <div className="info-bar-horizontal">
-                  <div className="info-bar">
+                  <div className="info-bar info-box-border"> {/* Applied new class */}
                     <FaTags className="info-icon" />
                     <span>{advokat.spesialisasi || "-"}</span>
                   </div>
-                  <div className="info-bar">
+                  <div className="info-bar info-box-border"> {/* Applied new class */}
                     <FaBriefcase className="info-icon" />
                     <span>{advokat.pengalaman ?? 0} tahun</span>
                   </div>
                 </div>
-                  
-                  <div className="info-bar-horizontal">
-                <div className="info-bar">
-                  <FaMoneyBillWave className="info-icon" />
-                  <span>
-                    {advokat.harga_konsultasi != null
-                      ? `${advokat.harga_konsultasi.toLocaleString("id-ID")}`
-                      : "-"}
-                  </span>
-                </div>
 
-                 {/* ✅ Tambahan bagian pendidikan */}
-                <div className="info-bar">
-                  <FaGraduationCap className="info-icon" />
-                  <span>{advokat.pendidikan || "-"}</span>
-                </div>
+                <div className="info-bar-horizontal">
+                  <div className="info-bar info-box-border"> {/* Applied new class */}
+                    <FaMoneyBillWave className="info-icon" />
+                    <span>
+                      {advokat.harga_konsultasi != null
+                        ? `${advokat.harga_konsultasi.toLocaleString("id-ID")}`
+                        : "-"}
+                    </span>
+                  </div>
+
+                  {/* ✅ Tambahan bagian pendidikan */}
+                  <div className="info-bar info-box-border"> {/* Applied new class */}
+                    <FaGraduationCap className="info-icon" />
+                    <span>{advokat.pendidikan || "-"}</span>
+                  </div>
                 </div>
 
                 <Link to="/Login" state={{ pengacaraId: advokat.id }}>
                   <button className="btn-konsultasi">Klik Konsultasi</button>
                 </Link>
               </div>
-         
             ))
           ) : (
             <p>Belum ada advokat terdaftar</p>

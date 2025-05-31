@@ -77,34 +77,61 @@
   /* Hilangkan properti background image dan properti terkait */
 }
 
-
+/* --- START CHAT BUBBLE UPDATE --- */
 .message {
-  max-width: 60%;
-  margin: 10px 0;
-  padding: 10px 15px;
-  border-radius: 8px;
-  word-wrap: break-word;
-  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.15);
-  font-size: 14px;
+ max-width: 60%;
+ margin: 10px 0;
+ padding: 10px 15px;
+ border-radius: 8px; /* Default border-radius untuk semua sisi */
+ word-wrap: break-word;
+ box-shadow: 0 1px 2px rgba(0, 0, 0, 0.15);
+ font-size: 14px;
+ position: relative; /* Penting untuk pseudo-element ::after */
 }
 
 .sent {
-  background: #dcf8c6;
-  margin-left: auto;
+ background: #dcf8c6;
+ margin-left: auto;
+ border-top-right-radius: 0; /* Membuat sudut kanan atas "runcing" */
+}
+
+.sent::after {
+ content: "";
+ position: absolute;
+ top: 1px;
+ right: -8px; /* Geser sedikit ke kanan agar tetap terhubung */
+ border-width: 12px 12px 0 0; /* Lebar border lebih besar: atas 12px, kanan 12px */
+ border-style: solid;
+ border-color: #dcf8c6 transparent transparent transparent;
+ display: block;
+ width: 0;
 }
 
 .received {
-  background: #fff;
-  margin-right: auto;
+ background: #fff;
+ margin-right: auto;
+ border-top-left-radius: 0; /* Membuat sudut kiri atas "runcing" */
+}
+
+.received::after {
+ content: "";
+ position: absolute;
+ top: 1px;
+ left: -8px; /* Geser sedikit ke kiri agar tetap terhubung */
+ border-width: 12px 0 0 12px; /* Lebar border lebih besar: atas 12px, kiri 12px */
+ border-style: solid;
+ border-color: #fff transparent transparent transparent;
+ display: block;
+ width: 0;
 }
 
 .time {
-  font-size: 11px;
-  text-align: right;
-  margin-top: 5px;
-  color: #999;
+ font-size: 11px;
+ text-align: right;
+ margin-top: 5px;
+ color: #999;
 }
-
+/* --- END CHAT BUBBLE UPDATE --- */
 
 
 .form-control {
@@ -118,13 +145,13 @@
   outline: none;
   font-size: 14px;
   box-sizing: border-box;
-  box-shadow: inset 0 1px 2px rgba(0,0,0,0.1);
+  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1);
 }
 
 
 .chat-input {
   display: flex;
-  flex-direction: row;  /* pastikan ini row */
+  flex-direction: row; /* pastikan ini row */
   align-items: center;
   padding: 10px 15px;
   background: #f0f2f5;
@@ -132,15 +159,17 @@
   gap: 10px;
   width: 100%;
   max-width: 100%;
+  box-sizing: border-box; /* PENTING agar padding tidak mempengaruhi ukuran */
 }
 
 .input-group {
-  display: flex;       /* jadikan flexbox */
+  display: flex; /* jadikan flexbox */
   flex-direction: row; /* default, pastikan baris horizontal */
   align-items: center; /* vertikal center */
-  gap: 8px;            /* jarak antar elemen */
-  width: 100%;         /* ambil lebar penuh container */
-  min-width: 0;
+  gap: 8px; /* jarak antar elemen */
+  width: 100%; /* ambil lebar penuh container */
+  min-width: 0; /* penting agar input bisa mengecil */
+  box-sizing: border-box;
 }
 
 
@@ -162,6 +191,9 @@
   align-items: center;
   justify-content: center;
   color: #555;
+  flex-shrink: 0; /* agar icon tidak mengecil */
+  width: 40px;
+  height: 40px;
 }
 
 
@@ -177,6 +209,7 @@
   align-items: center;
   justify-content: center;
   transition: background 0.3s, transform 0.2s;
+  flex-shrink: 0; /* agar tombol tidak mengecil */
 }
 
 .chat-input button:hover {
@@ -184,7 +217,8 @@
   transform: scale(1.1);
 }
 
-.chat-input, .input-group {
+.chat-input,
+.input-group {
   flex-direction: row !important;
 }
 
@@ -274,281 +308,16 @@
   .message {
     font-size: 12px;
     max-width: 80%;
+    /* Di mobile, Anda mungkin ingin menghilangkan runcing atau menyederhanakannya */
+    border-radius: 8px !important; /* Reset border radius asli di mobile */
   }
 
-  .chat-input input {
-    font-size: 12px;
-    padding: 10px 15px;
+  /* Sembunyikan runcing di mobile */
+  .message.sent::after,
+  .message.received::after {
+    display: none;
   }
 
-  .chat-input button {
-    width: 40px;
-    height: 40px;
-  }
-}
-.chat-app {
-  display: flex;
-  flex-direction: column;
-  min-height: 100vh;
-  margin-top: 120px; /* Jarak dari header */
-  background-color: #ffffff;
-}
-
-.chat-container {
-  display: flex;
-  flex: 1;
-  padding: 0 20px;
-  gap: 20px;
-}
-
-.sidebar {
-  width: 250px;
-  background: #f9f9f9;
-  border-right: 1px solid #ddd;
-  display: flex;
-  flex-direction: column;
-  max-height: 100%;
-  min-height: 80vh;
-  overflow-y: auto;
-}
-
-.chat-window {
-  flex: 1;
-  background: #fff;
-  border-radius: 10px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-  display: flex;
-  flex-direction: column;
-  max-height: 90vh;
-  min-height: 80vh;
-}
-
-.contact-list li {
-  display: flex;
-  align-items: center;
-  gap: 10px; /* jarak antar foto dan nama */
-  cursor: pointer;
-}
-
-/* Styling foto profil */
-.contact-photo-img,
-.photo-placeholder {
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  object-fit: cover;
-  background-color: #ddd;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.contact-info {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-}
-
-.chat-header {
-  padding: 15px;
-  background: #f0f2f5;
-  border-bottom: 1px solid #d1d7db;
-  font-weight: bold;
-  text-align: center;
-}
-
-.chat-messages {
-  flex: 1;
-  overflow-y: auto;
-  padding: 20px;
-  background-color: #ece5dd; /* Ganti background image dengan warna solid */
-  /* Hilangkan properti background image dan properti terkait */
-}
-
-.message {
-  max-width: 60%;
-  margin: 10px 0;
-  padding: 10px 15px;
-  border-radius: 8px;
-  word-wrap: break-word;
-  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.15);
-  font-size: 14px;
-}
-
-.sent {
-  background: #dcf8c6;
-  margin-left: auto;
-}
-
-.received {
-  background: #fff;
-  margin-right: auto;
-}
-
-.time {
-  font-size: 11px;
-  text-align: right;
-  margin-top: 5px;
-  color: #999;
-}
-
-.chat-input {
-  display: flex;
-  flex-direction: row;  /* pastikan ini row */
-  align-items: center;
-  padding: 10px 15px;
-  background: #f0f2f5;
-  border-top: 1px solid #d1d7db;
-  gap: 10px;
-  width: 100%;
-  max-width: 100%;
-  box-sizing: border-box; /* PENTING agar padding tidak mempengaruhi ukuran */
-}
-
-.input-group {
-  display: flex;       /* jadikan flexbox */
-  flex-direction: row; /* default, pastikan baris horizontal */
-  align-items: center; /* vertikal center */
-  gap: 8px;            /* jarak antar elemen */
-  width: 100%;         /* ambil lebar penuh container */
-  min-width: 0;        /* penting agar input bisa mengecil */
-  box-sizing: border-box;
-}
-
-.form-control {
-  flex-grow: 1;        /* agar input bisa melebar mengisi ruang tersisa */
-  flex-shrink: 1;
-  flex-basis: 0;       /* ukuran dasar 0 agar flex-grow maksimal */
-  min-width: 0;        /* mencegah overflow flexbox */
-  width: auto;         /* jangan pakai 100% karena flexbox yang atur lebar */
-  padding: 12px 18px;
-  border: none;
-  border-radius: 25px;
-  background: #fff;
-  outline: none;
-  font-size: 14px;
-  box-sizing: border-box;
-  box-shadow: inset 0 1px 2px rgba(0,0,0,0.1);
-}
-
-.chat-input label {
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: #555;
-  flex-shrink: 0; /* agar icon tidak mengecil */
-  width: 40px;
-  height: 40px;
-}
-
-.chat-input button {
-  width: 50px;
-  height: 50px;
-  background: #25d366;
-  border: none;
-  border-radius: 50%;
-  color: white;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: background 0.3s, transform 0.2s;
-  flex-shrink: 0; /* agar tombol tidak mengecil */
-}
-
-.chat-input button:hover {
-  background: #128c7e;
-  transform: scale(1.1);
-}
-
-.no-chat {
-  text-align: center;
-  color: #777;
-  padding: 30px;
-}
-
-.chat-header-info {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 10px;
-}
-
-.lawyer-photo {
-  width: 40px; /* Ukuran foto lebih kecil */
-  height: 40px; /* Tinggi foto sama dengan lebar */
-  object-fit: cover; /* Memastikan gambar tidak terdistorsi */
-  border-radius: 50%; /* Membuat gambar menjadi bulat */
-}
-
-.photo-placeholder {
-  width: 40px; /* Ukuran placeholder lebih kecil */
-  height: 40px; /* Tinggi placeholder sama dengan lebar */
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background-color: #ddd;
-  border-radius: 50%;
-  color: white;
-}
-
-/* Styling foto profil di sidebar */
-.contact-photo {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-right: 10px;
-}
-
-.contact-photo-img {
-  width: 40px; /* Ukuran foto lebih kecil */
-  height: 40px; /* Tinggi foto sama dengan lebar */
-  object-fit: cover; /* Memastikan gambar tidak terdistorsi */
-  border-radius: 50%; /* Membuat gambar menjadi bulat */
-}
-
-.photo-placeholder {
-  width: 40px; /* Ukuran placeholder lebih kecil */
-  height: 40px; /* Tinggi placeholder sama dengan lebar */
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background-color: #ddd;
-  border-radius: 50%;
-  color: white;
-  font-size: 12px;
-}
-
-@media (max-width: 768px) {
-  .chat-container {
-    flex-direction: column;
-    padding: 10px;
-  }
-
-  .sidebar {
-    width: 100%;
-    max-height: 200px;
-    min-height: 50vh;
-  }
-
-  .chat-window {
-    max-height: 400px;
-    min-height: 60vh;
-  }
-
-  .chat-header {
-    font-size: 16px;
-  }
-
-  .chat-messages {
-    padding: 15px;
-  }
-
-  .message {
-    font-size: 12px;
-    max-width: 80%;
-  }
 
   .chat-input input {
     font-size: 12px;
