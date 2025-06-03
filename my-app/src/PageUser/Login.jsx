@@ -22,17 +22,21 @@ const Login = () => {
     setPopupMessage(message);
     setPopupType(type);
     setShowPopup(true);
-    setTimeout(() => setShowPopup(false), 2000);
+    setTimeout(() => setShowPopup(false), 2000); // Popup tetap hilang setelah 2 detik
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setIsLoading(true);
+    setIsLoading(true); // 1. Aktifkan loading
     setPopupMessage("");
     setPopupType("success");
     setShowPopup(false);
 
     try {
+      // Tunggu selama 2 detik (2000 milidetik) - INI YANG DIUBAH
+      await new Promise(resolve => setTimeout(resolve, 2000)); // 2. Delay sekarang 2 detik
+
+      // 3. Lanjutkan dengan proses fetch
       const response = await fetch("http://localhost:5000/api/login", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -44,7 +48,6 @@ const Login = () => {
       if (response.ok) {
         if (result.user && result.user.role) {
           showPopupAlert("Login berhasil", "success");
-          // Simpan data user lengkap (termasuk photo_url)
           localStorage.setItem("user", JSON.stringify(result.user));
 
           setTimeout(() => {
@@ -53,7 +56,7 @@ const Login = () => {
             else if (userRole === "user") navigate("/HomeAfter");
             else if (userRole === "pengacara") navigate("/HomeLawyer");
             else showPopupAlert("Role tidak dikenal", "error");
-          }, 2000);
+          }, 2000); // Delay sebelum navigasi tetap 2 detik
         } else {
           showPopupAlert("Login gagal: data user tidak valid.", "error");
         }
@@ -62,9 +65,9 @@ const Login = () => {
       }
     } catch (error) {
       console.error("Terjadi kesalahan:", error);
-      showPopupAlert("Gagal terhubung ke server.", "error");
+      showPopupAlert("Gagal terhubung ke server atau terjadi kesalahan sistem.", "error");
     } finally {
-      setIsLoading(false);
+      setIsLoading(false); // 4. Nonaktifkan loading
     }
   };
 
@@ -170,7 +173,6 @@ const Login = () => {
         </div>
       )}
 
-      {/* Loading Spinner */}
       {isLoading && (
         <div className="popup-overlay">
           <div className="popup-content loading">

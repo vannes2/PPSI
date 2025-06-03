@@ -90,6 +90,15 @@ function AppContent() {
   const hideChatbotRoutes = [
     '/chat/pengacara/', // Untuk rute dinamis yang dimulai dengan ini
     '/chat/',           // Untuk rute dinamis yang dimulai dengan ini (jika ada yang tanpa role)
+    '/KonsultasiLawyer',
+    '/HomeAdmin',
+    '/UserManagement',
+    '/TambahPengacara',
+    '/Transaksi',
+    '/TambahArtikel',
+    '/ArtikelBeritaAdmin',
+    '/TransaksiKeuangan',
+    '/admin/kasus'
   ];
 
   // Fungsi untuk memeriksa apakah rute saat ini harus menyembunyikan chatbot

@@ -23,6 +23,12 @@ const AjukanKasus = () => {
 
   const [file, setFile] = useState(null);
 
+  // State baru untuk pop-up
+  const [isLoading, setIsLoading] = useState(false);
+  const [showPopup, setShowPopup] = useState(false);
+  const [popupMessage, setPopupMessage] = useState("");
+  const [popupType, setPopupType] = useState("success"); // 'success' atau 'error'
+
   useEffect(() => {
     const user = JSON.parse(localStorage.getItem('user'));
     if (user && user.id) {
@@ -40,7 +46,24 @@ const AjukanKasus = () => {
     script.src = 'https://app.sandbox.midtrans.com/snap/snap.js';
     script.setAttribute('data-client-key', midtransClientKey);
     document.body.appendChild(script);
+
+    // Cleanup script saat komponen unmount
+    return () => {
+      document.body.removeChild(script);
+    };
   }, []);
+
+  // Fungsi untuk menampilkan pop-up notifikasi
+  const showPopupAlert = (message, type = "success") => {
+    setPopupMessage(message);
+    setPopupType(type);
+    setShowPopup(true);
+    // Pop-up akan hilang setelah 3 detik
+    setTimeout(() => {
+      setShowPopup(false);
+      setPopupMessage("");
+    }, 3000);
+  };
 
   const handleChange = (e) => {
     setFormData(prev => ({
@@ -55,9 +78,11 @@ const AjukanKasus = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setIsLoading(true); // Aktifkan pop-up loading
 
     if (Number(formData.biayaMin) < 500000) {
-      alert('Biaya minimal harus Rp500.000');
+      setIsLoading(false); // Nonaktifkan loading jika validasi gagal
+      showPopupAlert('Biaya minimal harus Rp500.000', 'error');
       return;
     }
 
@@ -68,18 +93,18 @@ const AjukanKasus = () => {
     if (file) data.append('bukti', file);
 
     try {
+      // Langkah 1: Kirim pengajuan kasus
       const response = await fetch('http://localhost:5000/api/ajukan-kasus', {
         method: 'POST',
         body: data,
       });
 
       if (!response.ok) {
-        alert('Gagal mengirim pengajuan.');
-        return;
+        const errorData = await response.json();
+        throw new Error(errorData.message || 'Gagal mengirim pengajuan.');
       }
 
-      alert('Pengajuan kasus Anda telah dikirim!');
-
+      // Langkah 2: Buat transaksi pembayaran
       const paymentResponse = await fetch('http://localhost:5000/api/payment-kasus/transaction-kasus', {
         method: 'POST',
         headers: {
@@ -92,40 +117,47 @@ const AjukanKasus = () => {
       });
 
       if (!paymentResponse.ok) {
-        alert('Gagal membuat transaksi pembayaran.');
-        return;
+        const errorData = await paymentResponse.json();
+        throw new Error(errorData.message || 'Gagal membuat transaksi pembayaran.');
       }
 
       const paymentData = await paymentResponse.json();
 
-      // Alihkan ke halaman PaymentCheckout
-      navigate('/PaymentCheckout', {
-        state: {
-          token: paymentData.token,
-          biaya: formData.biayaMin,
-          kasusData: formData
-        }
-      });
+      showPopupAlert('Pengajuan kasus Anda telah dikirim dan transaksi pembayaran berhasil dibuat!', 'success');
 
-      // Reset form
-      setFormData({
-        user_id: formData.user_id,
-        nama: '',
-        email: '',
-        noHp: '',
-        areaPraktik: '',
-        jenisPengerjaan: '',
-        biayaMin: '',
-        biayaMax: '',
-        estimasiSelesai: '',
-        lokasi: '',
-        deskripsi: ''
-      });
-      setFile(null);
+      // Tunda navigasi agar pengguna bisa melihat pop-up sukses
+      setTimeout(() => {
+        // Alihkan ke halaman PaymentCheckout
+        navigate('/PaymentCheckout', {
+          state: {
+            token: paymentData.token,
+            biaya: formData.biayaMin,
+            kasusData: formData
+          }
+        });
+
+        // Reset form setelah navigasi
+        setFormData({
+          user_id: formData.user_id, // Pertahankan user_id
+          nama: '',
+          email: '',
+          noHp: '',
+          areaPraktik: '',
+          jenisPengerjaan: '',
+          biayaMin: '',
+          biayaMax: '',
+          estimasiSelesai: '',
+          lokasi: '',
+          deskripsi: ''
+        });
+        setFile(null);
+      }, 3000); // Sesuaikan dengan durasi pop-up
 
     } catch (error) {
       console.error('Error:', error);
-      alert('Terjadi kesalahan saat mengirim data.');
+      showPopupAlert(error.message || 'Terjadi kesalahan saat mengirim data.', 'error');
+    } finally {
+      setIsLoading(false); // Nonaktifkan pop-up loading
     }
   };
 
@@ -221,6 +253,28 @@ const AjukanKasus = () => {
       </div>
       <div className="footer-separator" />
       <Footer />
+
+      {/* Pop-up Notifikasi (Sukses/Gagal) */}
+      {showPopup && (
+        <div className="popup-overlay">
+          <div className="popup-box">
+            <div className={`popup-icon ${popupType === "error" ? "error" : ""}`}>
+              {popupType === "error" ? "✖" : "✔"}
+            </div>
+            <p className="popup-message">{popupMessage}</p>
+          </div>
+        </div>
+      )}
+
+      {/* Pop-up Loading */}
+      {isLoading && (
+        <div className="popup-overlay">
+          <div className="popup-content loading">
+            <div className="spinner"></div>
+            <p>Mengirim pengajuan...</p>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
