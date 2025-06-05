@@ -21,8 +21,8 @@ const AboutUsAfter = () => {
           </div>
           <div className="content-aboutus">
             <p>
-              Cerdas Hukum adalah platform yang memberikan akses mudah bagi masyarakat untuk memahami hukum dan mendapatkan konsultasi gratis dari para ahli. 
-              Dengan tujuan meningkatkan kesadaran dan literasi hukum, Cerdas Hukum menyediakan berbagai layanan, seperti artikel edukatif, tanya jawab hukum,
+              Cerdas Hukum adalah platform yang memberikan akses mudah bagi masyarakat untuk memahami hukum dan mendapatkan konsultasi dengan harga terjangkau dengan para ahli. 
+              Memiliki tujuan meningkatkan kesadaran dan literasi hukum, Cerdas Hukum menyediakan berbagai layanan, seperti artikel edukatif, tanya jawab hukum,
               serta konsultasi langsung dengan pengacara profesional.
             </p>
           </div>

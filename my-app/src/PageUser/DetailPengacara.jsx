@@ -74,8 +74,7 @@ const DetailPengacara = () => {
           <p><strong>Nama:</strong> <span>{pengacara.nama}</span></p>
           <p><strong>Jenis Kelamin:</strong> <span>{pengacara.jenis_kelamin}</span></p>
           <p><strong>Alamat:</strong> <span>{pengacara.alamat}</span></p>
-          <p><strong>Email:</strong> <span>{pengacara.email}</span></p>
-          <p><strong>No HP:</strong> <span>{pengacara.no_hp}</span></p>
+          <p><strong>Pengalaman:</strong> <span>{pengacara.pengalaman} tahun</span></p>
         </div>
 
         <div>
@@ -83,7 +82,6 @@ const DetailPengacara = () => {
           <p><strong>Universitas:</strong> <span>{pengacara.universitas}</span></p>
           <p><strong>Pendidikan:</strong> <span>{pengacara.pendidikan}</span></p>
           <p><strong>Spesialisasi:</strong> <span>{pengacara.spesialisasi}</span></p>
-          <p><strong>Pengalaman:</strong> <span>{pengacara.pengalaman} tahun</span></p>
         </div>
       </div>
     </div>
