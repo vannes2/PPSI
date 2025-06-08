@@ -89,6 +89,7 @@ function AppContent() {
   // - /chat/pengacara/:lawyerId
   // - /chat/:contactRole/:contactId
   const hideChatbotRoutes = [
+    '/admin/dashboard',
     '/chat/pengacara/', // Untuk rute dinamis yang dimulai dengan ini
     '/chat/',           // Untuk rute dinamis yang dimulai dengan ini (jika ada yang tanpa role)
     '/KonsultasiLawyer',

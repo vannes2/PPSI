@@ -12,7 +12,6 @@ const AdminLayout = ({ children }) => {
         width: "100vw",
         margin: 0,
         padding: 0,
-        overflow: "hidden",
       }}
     >
       {/* Sidebar */}
@@ -20,16 +19,14 @@ const AdminLayout = ({ children }) => {
 
       {/* Konten Utama */}
       <div
-        className="dashboard-content"
-        style={{
-          flexGrow: 1,
-          display: "flex",
-          flexDirection: "column",
-          overflow: "auto",
-          width: "100%",
-          maxWidth: "100%", // <--- pastikan ini
-          backgroundColor: "#f1f5f9",
-        }}
+        // className="dashboard-content"
+        // style={{
+        //   flexGrow: 1,
+        //   display: "flex",
+        //   flexDirection: "column",
+        //   overflowY: "auto", // Scroll vertikal tetap aktif
+        //   backgroundColor: "#1f2937",
+        // }}
       >
         <div
           className="dashboard-inner"
@@ -39,7 +36,8 @@ const AdminLayout = ({ children }) => {
             boxSizing: "border-box",
             height: "100%",
             width: "100%",
-            maxWidth: "100%", // <--- pastikan ini juga
+            maxWidth: "100%",
+            overflowY: "auto",
           }}
         >
           {children}
