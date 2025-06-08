@@ -94,7 +94,7 @@ const SidebarAdmin = ({ activeTab, onTabChange }) => {
 
         <ul>
           <li className={activeTab === "dashboard" ? "nav-active" : ""}>
-            <Link to="/" onClick={() => handleClickAndClose("dashboard")}>
+            <Link to="/admin/dashboard" onClick={() => handleClickAndClose("dashboard")}>
               <HiOutlineHome className="icon-spacing" />
               {!isCollapsed && "Dashboard"}
             </Link>
