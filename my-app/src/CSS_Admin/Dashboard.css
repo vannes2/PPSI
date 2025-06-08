@@ -23,13 +23,43 @@ body {
 .main-content {
   background-color: var(--color-background-card);
   padding: 2rem 2.5rem;
-  min-height: 100vh;
   box-sizing: border-box;
   border-radius: 16px;
   margin: 1.5rem auto;
-  max-width: 1200px;
+  
+  width: 100%;
+  max-width: 1400px; /* maksimal lebar untuk layar besar */
+  
   box-shadow: var(--shadow-strong);
+  transition: padding 0.3s ease;
+  
+  min-height: calc(100vh - 80px); /* misal 80px untuk header/footer, sesuaikan jika perlu */
+  /* Hilangkan min-height: 100vh supaya gak terlalu besar di layar kecil */
 }
+
+/* Padding lebih luas di layar desktop */
+@media (min-width: 1024px) {
+  .main-content {
+    padding: 2rem 4rem;
+  }
+}
+
+/* Untuk layar sangat besar */
+@media (min-width: 1600px) {
+  .main-content {
+    max-width: 1600px;
+  }
+}
+
+/* Responsif di layar kecil */
+@media (max-width: 768px) {
+  .main-content {
+    margin: 1rem;
+    padding: 1.5rem 1.5rem;
+    min-height: auto; /* supaya gak paksa tinggi */
+  }
+}
+
 
 /* HEADER DASHBOARD */
 .dashboard-header {
@@ -130,11 +160,12 @@ body {
   line-height: 1.1;
 }
 
-/* RINGKASAN KEUANGAN */
+/* RINGKASAN KEUANGAN (DIUBAH JADI HORIZONTAL SEPERTI STATISTIK) */
 .financial-summary {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 2rem;
+  display: flex; /* horizontal flex */
+  gap: 1.5rem;
+  overflow-x: auto;
+  padding-bottom: 1rem;
 }
 
 .financial-card {
@@ -144,6 +175,8 @@ body {
   border: 1.5px solid var(--color-border);
   box-shadow: var(--shadow-light);
   transition: all 0.3s ease;
+  min-width: 280px; /* minimal lebar card supaya rapi */
+  flex-shrink: 0; /* supaya gak mengecil */
 }
 
 .financial-card:hover {
@@ -180,23 +213,51 @@ body {
   overflow: hidden;
   box-shadow: var(--shadow-light);
   color: var(--color-text-primary);
+  table-layout: fixed;
 }
 
-.data-table th,
-.data-table td {
-  padding: 1rem 1.5rem;
-  border-bottom: 1px solid var(--color-border);
-  font-size: 0.95rem;
-  text-align: left;
-}
-
+/* Header tetap pakai warna accent */
 .data-table thead th {
   background-color: var(--color-background-card);
   color: var(--color-accent);
   font-weight: 700;
   border-bottom: 2px solid var(--color-accent);
+  padding: 1rem 1.5rem;
+  text-align: left;
 }
 
+/* Warna kolom berbeda untuk tiap kolom */
+.data-table tbody td {
+  padding: 1rem 1.5rem;
+  border-bottom: 1px solid var(--color-border);
+  font-size: 0.95rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* Variasi warna kolom, 5 kolom contoh */
+.data-table tbody td:nth-child(1) {
+  background-color: #3b4a63; /* lebih gelap dari card */
+}
+
+.data-table tbody td:nth-child(2) {
+  background-color: #435576; /* sedikit lebih terang */
+}
+
+.data-table tbody td:nth-child(3) {
+  background-color: #4b5e8a; /* medium blue slate */
+}
+
+.data-table tbody td:nth-child(4) {
+  background-color: #5a729c; /* lebih terang */
+}
+
+.data-table tbody td:nth-child(5) {
+  background-color: #6887af; /* lebih terang lagi */
+}
+
+/* Hover baris */
 .data-table tbody tr:hover {
   background-color: #3c536b;
   cursor: pointer;
@@ -266,8 +327,22 @@ body {
     justify-content: center;
   }
 
+  .financial-summary {
+    flex-direction: column;
+  }
+
+  .financial-card {
+    min-width: auto;
+    width: 100%;
+  }
+
   .main-content {
     margin: 1rem;
     padding: 1.5rem;
+  }
+
+  /* Untuk tabel agar nyaman di hp, bisa di scroll horizontal */
+  .data-table {
+    font-size: 0.9rem;
   }
 }
