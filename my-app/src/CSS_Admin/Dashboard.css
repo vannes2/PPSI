@@ -168,9 +168,11 @@ body {
 .data-table {
   width: 100%;
   border-collapse: collapse;
+   background-color: var(--color-surface-2);
 }
 .data-table thead th {
   background-color: rgba(0,0,0,0.2);
+   background-color: var(--color-surface-2);
   color: var(--color-text-primary);
   font-weight: 600;
   padding: 0.8rem 1rem;
@@ -182,6 +184,7 @@ body {
 }
 .data-table tbody tr {
   transition: background-color 0.2s ease, color 0.2s ease;
+    background-color: rgba(0,0,0,0.2);
 }
 .data-table tbody tr:nth-child(even) {
   background-color: rgba(0,0,0,0.1);
@@ -189,6 +192,7 @@ body {
 .data-table tbody td {
   padding: 0.9rem 1rem;
   border-bottom: 1px solid var(--color-border);
+  
   font-size: 0.9rem;
   vertical-align: middle;
   white-space: normal;
