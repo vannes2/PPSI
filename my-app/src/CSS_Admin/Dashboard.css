@@ -1,348 +1,235 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
+
+/* ===== 1. TEMA & VARIABEL UTAMA ===== */
 :root {
-  --color-background-main: #34495E;    /* Dark Slate (background utama) */
-  --color-background-card: #2C3E50;    /* Card background, lebih terang */
-  --color-text-primary: #F5F5F5;       /* Light Grey (teks dan ikon) */
-  --color-accent: #DAA520;             /* Mustard Gold (highlight & aksen) */
-  --color-text-muted: #BDC3C7;         /* Soft grey untuk teks pendukung */
-  --color-border: #3A4A63;             /* Border card dan tabel */
+  --color-background: #1f2b38;
+  --color-surface-1: #2c3e50;
+  --color-surface-2: #34495e;
+  --color-accent-1: #f39c12;
+  --color-accent-2: #e67e22;
+  --color-text-primary: #ecf0f1;
+  --color-text-secondary: #a3b1c2;
+  --color-border: #3d566e;
+  --color-success: #27ae60;
+  --color-warning: #f1c40f;
+  --color-danger: #c0392b;
+  --color-info: #3498db;
   --font-family: 'Poppins', sans-serif;
-
-  --shadow-light: 0 4px 8px rgba(0, 0, 0, 0.3);
-  --shadow-strong: 0 8px 20px rgba(0, 0, 0, 0.5);
+  --radius-sm: 8px;
+  --radius-md: 14px;
+  --radius-lg: 20px;
+  --spacing-md: 1.5rem;
+  --spacing-lg: 2rem;
+  --shadow-soft: 0 4px 12px rgba(0, 0, 0, 0.15);
+  --shadow-strong: 0 10px 30px rgba(0, 0, 0, 0.25);
+  --transition-smooth: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
 }
 
-/* BODY & BACKGROUND UTAMA */
+/* ===== 2. GAYA GLOBAL ===== */
+* { box-sizing: border-box; margin: 0; padding: 0; }
 body {
-  margin: 0;
   font-family: var(--font-family);
-  background-color: var(--color-background-main);
+  background-color: var(--color-background);
   color: var(--color-text-primary);
+  line-height: 1.6;
 }
 
-/* KONTEN UTAMA */
+/* ===== 3. SCROLLBAR & LAYOUT ===== */
+::-webkit-scrollbar { width: 8px; height: 8px; }
+::-webkit-scrollbar-track { background: var(--color-background); }
+::-webkit-scrollbar-thumb { background-color: var(--color-surface-2); border-radius: 10px; border: 2px solid var(--color-background); }
+::-webkit-scrollbar-thumb:hover { background-color: var(--color-accent-1); }
 .main-content {
-  background-color: var(--color-background-card);
-  padding: 2rem 2.5rem;
-  box-sizing: border-box;
-  border-radius: 16px;
-  margin: 1.5rem auto;
-  
-  width: 100%;
-  max-width: 1400px; /* maksimal lebar untuk layar besar */
-  
+  background-color: var(--color-surface-1);
+  border-radius: var(--radius-lg);
   box-shadow: var(--shadow-strong);
-  transition: padding 0.3s ease;
-  
-  min-height: calc(100vh - 80px); /* misal 80px untuk header/footer, sesuaikan jika perlu */
-  /* Hilangkan min-height: 100vh supaya gak terlalu besar di layar kecil */
+  padding: var(--spacing-lg);
+  margin: 1.5rem auto;
+  max-width: 1600px;
 }
-
-/* Padding lebih luas di layar desktop */
-@media (min-width: 1024px) {
-  .main-content {
-    padding: 2rem 4rem;
-  }
-}
-
-/* Untuk layar sangat besar */
-@media (min-width: 1600px) {
-  .main-content {
-    max-width: 1600px;
-  }
-}
-
-/* Responsif di layar kecil */
-@media (max-width: 768px) {
-  .main-content {
-    margin: 1rem;
-    padding: 1.5rem 1.5rem;
-    min-height: auto; /* supaya gak paksa tinggi */
-  }
-}
-
-
-/* HEADER DASHBOARD */
 .dashboard-header {
-  margin-bottom: 2.5rem;
+  text-align: center;
+  margin-bottom: var(--spacing-lg);
 }
-
 .dashboard-header h1 {
-  font-size: 2.5rem;
+  font-size: 2.8rem;
   font-weight: 700;
-  color: var(--color-accent);
-  margin: 0 0 0.4rem 0;
+  background: linear-gradient(90deg, var(--color-accent-1), var(--color-accent-2));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  letter-spacing: 1px;
 }
+.dashboard-header p { font-size: 1.1rem; color: var(--color-text-secondary); max-width: 600px; margin: 0.5rem auto 0; }
 
-.dashboard-header p {
-  font-size: 1.1rem;
-  color: var(--color-text-muted);
-  margin: 0;
-}
-
-/* BAGIAN SECTION CARD */
+/* ===== 5. KARTU SECTION & KARTU STATISTIK ===== */
 .dashboard-section {
-  background-color: var(--color-background-main);
-  border-radius: 14px;
-  padding: 2rem;
-  margin-bottom: 2rem;
-  box-shadow: var(--shadow-light);
+  background-color: transparent;
+  padding: 0;
+  border: none;
+  box-shadow: none;
+  margin-bottom: var(--spacing-lg);
+}
+.dashboard-section:hover { 
+  transform: none; 
+  box-shadow: none;
+}
+.dashboard-section h2 { 
+  color: var(--color-text-primary); 
+  font-weight: 600; 
+  font-size: 1.5rem; 
+  margin-bottom: var(--spacing-md); 
+  padding-bottom: 0.75rem; 
+  border-bottom: 1px solid var(--color-border); 
+}
+.stats-grid-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-md);
+}
+.stats-grid { 
+  display: flex; 
+  gap: var(--spacing-md);
+  overflow-x: auto;
+  padding-bottom: 1rem;
+}
+.stat-card { 
+  background: var(--color-surface-2); 
+  border-radius: var(--radius-md); 
+  padding: 1.25rem 1.5rem; 
+  display: flex; 
+  align-items: center; 
+  gap: 1.25rem; 
   border: 1px solid var(--color-border);
-  transition: box-shadow 0.3s ease, transform 0.3s ease;
+  transition: var(--transition-smooth); 
+  min-width: 270px; 
+  flex-shrink: 0; 
 }
-
-.dashboard-section:hover {
-  box-shadow: 0 10px 30px rgba(218, 165, 32, 0.6);
+.stat-card:hover { 
   transform: translateY(-5px);
+  border-color: var(--color-accent-1); 
+  box-shadow: var(--shadow-medium);
 }
+.stat-icon { background: linear-gradient(45deg, var(--color-accent-1), var(--color-accent-2)); color: #fff; border-radius: 50%; width: 60px; height: 60px; display: flex; align-items: center; justify-content: center; font-size: 2rem; flex-shrink: 0; box-shadow: 0 4px 10px rgba(0,0,0,0.3); }
+.stat-card-content h3 { color: var(--color-text-secondary); font-weight: 400; font-size: 0.95rem; margin-bottom: 0.25rem; }
+.stat-card-content p { color: var(--color-text-primary); font-weight: 700; font-size: 2rem; }
 
-.dashboard-section h2 {
-  color: var(--color-accent);
-  font-weight: 700;
-  margin-top: 0;
-  margin-bottom: 1.5rem;
-  font-size: 1.8rem;
+/* ===== 6. RINGKASAN KEUANGAN ===== */
+.financial-summary { 
+  display: flex; 
+  gap: var(--spacing-md); 
+  overflow-x: auto; 
+  padding-bottom: 1rem; 
 }
-
-/* STATISTIK KARTU */
-.stats-grid {
-  display: flex;
-  gap: 1.5rem;
-  overflow-x: auto;
-  padding-bottom: 1rem;
+.financial-card { 
+  background-color: var(--color-surface-2); 
+  border-radius: var(--radius-md); 
+  padding: 1.5rem; 
+  border: 1px solid var(--color-border);
+  border-left: 5px solid var(--color-accent-1); 
+  transition: var(--transition-smooth); 
+  min-width: 290px; 
+  flex-shrink: 0; 
 }
-
-.stat-card {
-  background-color: var(--color-background-card);
-  border-radius: 12px;
-  box-shadow: var(--shadow-light);
-  padding: 1.5rem 2rem;
-  min-width: 260px;
-  display: flex;
-  align-items: center;
-  gap: 1.25rem;
-  border: 1.5px solid transparent;
-  transition: all 0.3s ease;
-  flex-shrink: 0;
-}
-
-.stat-card:hover {
-  border-color: var(--color-accent);
-  box-shadow: 0 15px 32px rgba(218, 165, 32, 0.45);
-  transform: translateY(-6px);
-}
-
-.stat-icon {
-  background-color: var(--color-accent);
-  color: var(--color-background-main);
-  border-radius: 50%;
-  width: 55px;
-  height: 55px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 2rem;
-  box-shadow: 0 4px 10px rgba(218, 165, 32, 0.7);
-  flex-shrink: 0;
-}
-
-.stat-card-content h3 {
-  margin: 0 0 0.4rem 0;
-  font-weight: 600;
-  font-size: 1rem;
-  color: var(--color-text-muted);
-}
-
-.stat-card-content p {
-  margin: 0;
-  font-weight: 700;
-  font-size: 1.9rem;
-  color: var(--color-text-primary);
-  line-height: 1.1;
-}
-
-/* RINGKASAN KEUANGAN (DIUBAH JADI HORIZONTAL SEPERTI STATISTIK) */
-.financial-summary {
-  display: flex; /* horizontal flex */
-  gap: 1.5rem;
-  overflow-x: auto;
-  padding-bottom: 1rem;
-}
-
-.financial-card {
-  background-color: var(--color-background-main);
-  border-radius: 12px;
-  padding: 2rem;
-  border: 1.5px solid var(--color-border);
-  box-shadow: var(--shadow-light);
-  transition: all 0.3s ease;
-  min-width: 280px; /* minimal lebar card supaya rapi */
-  flex-shrink: 0; /* supaya gak mengecil */
-}
-
 .financial-card:hover {
-  border-color: var(--color-accent);
-  box-shadow: 0 14px 32px rgba(218, 165, 32, 0.5);
   transform: translateY(-5px);
+  box-shadow: var(--shadow-medium);
+  border-color: var(--color-accent-1);
 }
+.financial-card h3 { color: var(--color-text-secondary); font-size: 1.1rem; }
+.financial-card p { color: var(--color-text-primary); font-weight: 700; font-size: 2.2rem; }
 
-.financial-card h3 {
-  margin-bottom: 0.8rem;
-  font-weight: 600;
-  font-size: 1.2rem;
-  color: var(--color-text-muted);
+/* ===== 7. LAYOUT TABEL BERPASANGAN ===== */
+.section-pair { 
+  display: flex; 
+  gap: var(--spacing-lg); 
+  align-items: flex-start; 
 }
-
-.financial-card p {
-  margin: 0;
-  font-weight: 700;
-  font-size: 2rem;
-  color: var(--color-accent);
+.section-pair .dashboard-section { 
+  flex: 1 1 0; 
+  min-width: 0; 
+  margin-bottom: 0; 
+  background-color: var(--color-surface-1);
+  padding: var(--spacing-lg);
+  border: 1px solid var(--color-border);
+  box-shadow: var(--shadow-soft);
+  border-radius: var(--radius-lg);
 }
+.section-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: var(--spacing-md); }
+.section-header h2 { font-size: 1.25rem; border: none; padding: 0; margin: 0; }
+.section-header .button { padding: 0.4rem 1rem; font-size: 0.85rem; }
 
-/* TABEL DATA */
+/* ===== 8. DESAIN TABEL (Gaya Kompak & Profesional) ===== */
 .table-responsive {
-  overflow-x: auto;
-  margin-top: 1.5rem;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  background-color: var(--color-surface-2);
 }
-
 .data-table {
   width: 100%;
   border-collapse: collapse;
-  background-color: var(--color-background-main);
-  border-radius: 14px;
-  overflow: hidden;
-  box-shadow: var(--shadow-light);
-  color: var(--color-text-primary);
-  table-layout: fixed;
 }
-
-/* Header tetap pakai warna accent */
 .data-table thead th {
-  background-color: var(--color-background-card);
-  color: var(--color-accent);
-  font-weight: 700;
-  border-bottom: 2px solid var(--color-accent);
-  padding: 1rem 1.5rem;
-  text-align: left;
-}
-
-/* Warna kolom berbeda untuk tiap kolom */
-.data-table tbody td {
-  padding: 1rem 1.5rem;
-  border-bottom: 1px solid var(--color-border);
-  font-size: 0.95rem;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-}
-
-/* Variasi warna kolom, 5 kolom contoh */
-.data-table tbody td:nth-child(1) {
-  background-color: #3b4a63; /* lebih gelap dari card */
-}
-
-.data-table tbody td:nth-child(2) {
-  background-color: #435576; /* sedikit lebih terang */
-}
-
-.data-table tbody td:nth-child(3) {
-  background-color: #4b5e8a; /* medium blue slate */
-}
-
-.data-table tbody td:nth-child(4) {
-  background-color: #5a729c; /* lebih terang */
-}
-
-.data-table tbody td:nth-child(5) {
-  background-color: #6887af; /* lebih terang lagi */
-}
-
-/* Hover baris */
-.data-table tbody tr:hover {
-  background-color: #3c536b;
-  cursor: pointer;
-  color: var(--color-accent);
-}
-
-/* BADGE STATUS */
-.status-badge {
-  display: inline-block;
-  padding: 0.35rem 0.9rem;
-  border-radius: 20px;
-  font-size: 0.85rem;
-  font-weight: 700;
+  background-color: rgba(0,0,0,0.2);
   color: var(--color-text-primary);
-  text-transform: capitalize;
-  letter-spacing: 0.5px;
+  font-weight: 600;
+  padding: 0.8rem 1rem;
+  text-align: left;
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  border-bottom: 2px solid var(--color-accent-1);
+}
+.data-table tbody tr {
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+.data-table tbody tr:nth-child(even) {
+  background-color: rgba(0,0,0,0.1);
+}
+.data-table tbody td {
+  padding: 0.9rem 1rem;
+  border-bottom: 1px solid var(--color-border);
+  font-size: 0.9rem;
+  vertical-align: middle;
+  white-space: normal;
+  overflow-wrap: break-word;
+  /* Tambahkan transisi untuk warna teks */
+  transition: color 0.2s ease;
+}
+.data-table tbody tr:last-child td {
+  border-bottom: none;
 }
 
-.status-badge.menunggu {
-  background-color: #fff8e1;
-  color: #f39c12;
-}
-
-.status-badge.aktif {
-  background-color: #e8f5e9;
-  color: #28a745;
-}
-
-.status-badge.selesai {
-  background-color: #f3f4f6;
-  color: #546e7a;
-}
-
-.status-badge.batal {
-  background-color: #fdecea;
-  color: #c62828;
-}
-
-/* BUTTON UTAMA */
-.button {
-  background-color: var(--color-accent);
-  color: var(--color-background-main);
-  border: none;
-  padding: 0.65rem 1.5rem;
-  font-weight: 700;
-  font-size: 1rem;
-  border-radius: 8px;
-  box-shadow: 0 6px 16px rgba(218, 165, 32, 0.7);
+/* === PERUBAHAN DI SINI: EFEK HOVER YANG LEBIH SEIMBANG === */
+.data-table tbody tr:hover {
+  background-color: var(--color-surface-2);
   cursor: pointer;
-  transition: all 0.3s ease;
+}
+/* Hanya teks di kolom pertama yang berubah warna saat hover */
+.data-table tbody tr:hover td:first-child {
+  color: var(--color-accent-1);
+  font-weight: 600;
 }
 
-.button:hover {
-  box-shadow: 0 8px 22px rgba(218, 165, 32, 0.9);
-  opacity: 0.95;
-}
+/* ===== 9. KOMPONEN KECIL LAINNYA ===== */
+.status-badge { display: inline-block; padding: 0.4rem 1rem; border-radius: 50px; font-size: 0.85rem; font-weight: 500; text-transform: capitalize; }
+.status-badge.menunggu { background-color: rgba(241, 196, 15, 0.2); color: var(--color-warning); }
+.status-badge.diproses, .status-badge.aktif { background-color: rgba(52, 152, 219, 0.2); color: var(--color-info); }
+.status-badge.selesai { background-color: rgba(39, 174, 96, 0.2); color: var(--color-success); }
+.status-badge.batal { background-color: rgba(192, 57, 43, 0.2); color: var(--color-danger); }
+.button { background: linear-gradient(90deg, var(--color-accent-1), var(--color-accent-2)); color: #fff; border: none; padding: 0.75rem 1.5rem; font-weight: 600; border-radius: var(--radius-sm); cursor: pointer; transition: var(--transition-smooth); box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2); }
+.button:hover { transform: translateY(-3px); box-shadow: 0 6px 12px rgba(243, 156, 18, 0.4); }
+.no-data { text-align: center; color: var(--color-text-secondary); padding: 3rem 1rem; font-size: 1rem; }
+.loading-spinner, .error-message { text-align: center; padding: 4rem; }
 
-/* RESPONSIVE */
+/* ===== 10. RESPONSIVE DESIGN ===== */
+@media (max-width: 1200px) {
+  .section-pair { flex-direction: column; gap: var(--spacing-lg); }
+}
 @media (max-width: 768px) {
-  .stats-grid {
-    flex-direction: column;
-  }
-
-  .stat-card {
-    min-width: auto;
-    width: 100%;
-    justify-content: center;
-  }
-
-  .financial-summary {
-    flex-direction: column;
-  }
-
-  .financial-card {
-    min-width: auto;
-    width: 100%;
-  }
-
-  .main-content {
-    margin: 1rem;
-    padding: 1.5rem;
-  }
-
-  /* Untuk tabel agar nyaman di hp, bisa di scroll horizontal */
-  .data-table {
-    font-size: 0.9rem;
-  }
+  .main-content { padding: 1rem; margin: 1rem; }
+  .dashboard-header h1 { font-size: 2.2rem; }
+  .stats-grid-wrapper, .financial-summary { flex-direction: column; align-items: stretch; }
+  .dashboard-section { padding: var(--spacing-md); }
+  .data-table tbody td, .data-table thead th { padding: 0.8rem 0.75rem; }
 }

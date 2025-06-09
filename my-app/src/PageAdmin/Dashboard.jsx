@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-import '../CSS_Admin/Dashboard.css';
+import '../CSS_Admin/Dashboard.css'; // Pastikan path ini benar
 import AdminLayout from "../components/AdminLayout";
 
 const API_BASE_URL = 'http://localhost:5000';
@@ -45,27 +45,30 @@ function Dashboard() {
         const lawyers = lawyersRes.data || [];
         const cases = casesRes.data || [];
         const consultations = consultationsRes.data || [];
-        const financial = financialRes.data || { total_kotor: 0, pendapatan_bersih: 0, total_pengeluaran: 0 };
+        const financial = financialRes.data || {
+          total_kotor: 0,
+          pendapatan_bersih: 0,
+          total_pengeluaran: 0
+        };
 
         setStats({
           totalUsers: users.length,
           totalLawyers: lawyers.length,
           totalCases: cases.length,
           totalConsultations: consultations.length,
-          totalRevenue: financial.total_kotor || 0,
+          totalRevenue: financial.total_kotor,
           pendingCases: cases.filter(c => c.status?.toLowerCase() === 'menunggu').length,
           activeConsultations: consultations.filter(c => c.status?.toLowerCase() === 'aktif').length,
         });
 
         setRecentData({
-          cases: [...cases].slice(-5).reverse(),
-          consultations: [...consultations].slice(-5).reverse(),
-          lawyers: [...lawyers].slice(-5).reverse(),
-          users: [...users].slice(-5).reverse(),
+          cases: cases.slice(-5).reverse(),
+          consultations: consultations.slice(-5).reverse(),
+          lawyers: lawyers.slice(-5).reverse(),
+          users: users.slice(-5).reverse(),
         });
 
         setFinancialData(financial);
-
       } catch (err) {
         if (err.name !== "CanceledError") {
           setError("Gagal memuat data dashboard. Pastikan server berjalan dan coba lagi.");
@@ -83,12 +86,15 @@ function Dashboard() {
   const formatDate = (dateString) => {
     if (!dateString) return '-';
     const date = new Date(dateString);
-    return isNaN(date.getTime()) ? '-' : date.toLocaleDateString('id-ID', {
-      year: 'numeric', month: 'long', day: 'numeric'
-    });
+    return isNaN(date.getTime())
+      ? '-'
+      : date.toLocaleDateString('id-ID', {
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric'
+      });
   };
 
-  // Semua statistik disimpan di sini, 6 item
   const statItems = [
     { title: "Total Pengguna", value: stats.totalUsers, icon: "👥" },
     { title: "Total Pengacara", value: stats.totalLawyers, icon: "👨‍⚖️" },
@@ -102,7 +108,7 @@ function Dashboard() {
     {
       title: "Kasus Terbaru",
       data: recentData.cases,
-      columns: ["ID Kasus", "Nama Kasus", "Status", "Tanggal Dibuat"],
+      columns: ["ID Kasus", "Nama Kasus", "Status", "Tanggal"],
       renderRow: (k) => [
         `#${k.id}`,
         k.nama || "Tanpa Nama",
@@ -127,13 +133,12 @@ function Dashboard() {
     {
       title: "Pengacara Terbaru",
       data: recentData.lawyers,
-      columns: ["ID", "Nama", "Spesialisasi", "Pengalaman", "Status"],
+      columns: ["ID", "Nama", "Spesialisasi", "Status"],
       renderRow: (p) => [
         `#${p.id}`,
         p.nama || "Tanpa Nama",
         p.spesialisasi || '-',
-        p.pengalaman ? `${p.pengalaman} tahun` : '-',
-        <span className={`status-badge ${p.status?.toLowerCase() || 'active'}`}>{p.status || 'Aktif'}</span>
+        <span className={`status-badge ${p.status?.toLowerCase() || 'aktif'}`}>{p.status || 'Aktif'}</span>
       ],
       path: "/admin/pengacara"
     },
@@ -151,114 +156,109 @@ function Dashboard() {
     }
   ];
 
-  if (loading) {
-    return (
-      <AdminLayout>
-        <div className="loading-spinner"><p>Memuat data dashboard...</p></div>
-      </AdminLayout>
-    );
-  }
-
-  if (error) {
-    return (
-      <AdminLayout>
-        <div className="error-message">
-          <p>{error}</p>
-          <button onClick={() => window.location.reload()} className="button button-primary">
-            Coba Lagi
-          </button>
-        </div>
-      </AdminLayout>
-    );
-  }
+  const renderTableSection = (section, key) => (
+    <section className="dashboard-section" key={key}>
+      <div className="section-header">
+        <h2>{section.title}</h2>
+        <button className="button" onClick={() => navigate(section.path)}>Lihat Semua</button>
+      </div>
+      <div className="table-responsive">
+        <table className="data-table">
+          <thead>
+            <tr>{section.columns.map((col, i) => <th key={i}>{col}</th>)}</tr>
+          </thead>
+          <tbody>
+            {section.data.length > 0 ? (
+              section.data.map((item, i) => (
+                <tr key={item.id || i} onClick={() => navigate(`${section.path}/${item.id}`)}>
+                  {section.renderRow(item).map((cell, j) => <td key={j}>{cell}</td>)}
+                </tr>
+              ))
+            ) : (
+              <tr>
+                <td colSpan={section.columns.length} className="no-data">Tidak ada data terbaru</td>
+              </tr>
+            )}
+          </tbody>
+        </table>
+      </div>
+    </section>
+  );
 
   return (
     <AdminLayout>
       <main className="main-content">
-        <div className="dashboard-header">
-          <h1>Dashboard Admin</h1>
-          <p>Ringkasan aktivitas dan statistik platform Cerdas Hukum.</p>
-        </div>
-
-        <section className="dashboard-section">
-          <h2>Statistik Platform</h2>
-          <div className="stats-grid-wrapper">
-            <div className="stats-grid">
-              {statItems.slice(0, 3).map((item, idx) => (
-                <div className="stat-card" key={idx}>
-                  <span className="stat-icon">{item.icon}</span>
-                  <div className="stat-card-content">
-                    <h3>{item.title}</h3>
-                    <p>{item.value ?? 0}</p>
-                  </div>
-                </div>
-              ))}
-            </div>
-
-            <div className="stats-grid">
-              {statItems.slice(3, 6).map((item, idx) => (
-                <div className="stat-card" key={idx + 3}>
-                  <span className="stat-icon">{item.icon}</span>
-                  <div className="stat-card-content">
-                    <h3>{item.title}</h3>
-                    <p>{item.value ?? 0}</p>
-                  </div>
-                </div>
-              ))}
-            </div>
+        {loading ? (
+          <div className="loading-spinner"><p>Memuat data dashboard...</p></div>
+        ) : error ? (
+          <div className="error-message">
+            <p>{error}</p>
+            <button onClick={() => window.location.reload()} className="button button-primary">Coba Lagi</button>
           </div>
-        </section>
+        ) : (
+          <>
+            <div className="dashboard-header">
+              <h1>Dashboard Admin</h1>
+              <p>Ringkasan aktivitas dan statistik platform Cerdas Hukum.</p>
+            </div>
 
-        <section className="dashboard-section">
-          <h2>Data Keuangan</h2>
-          <div className="financial-summary">
-            <div className="financial-card">
-              <h3>Pendapatan Kotor</h3>
-              <p>Rp {financialData.total_kotor?.toLocaleString('id-ID') || 0}</p>
-            </div>
-            <div className="financial-card">
-              <h3>Pendapatan Bersih</h3>
-              <p>Rp {financialData.pendapatan_bersih?.toLocaleString('id-ID') || 0}</p>
-            </div>
-            <div className="financial-card">
-              <h3>Total Pengeluaran</h3>
-              <p>Rp {financialData.total_pengeluaran?.toLocaleString('id-ID') || 0}</p>
-            </div>
-          </div>
-        </section>
+            <section className="dashboard-section">
+              <h2>Statistik Platform</h2>
+              <div className="stats-grid-wrapper">
+                <div className="stats-grid">
+                  {statItems.slice(0, 3).map((item, idx) => (
+                    <div className="stat-card" key={idx}>
+                      <span className="stat-icon">{item.icon}</span>
+                      <div className="stat-card-content">
+                        <h3>{item.title}</h3>
+                        <p>{item.value ?? 0}</p>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+                <div className="stats-grid">
+                  {statItems.slice(3).map((item, idx) => (
+                    <div className="stat-card" key={idx + 3}>
+                      <span className="stat-icon">{item.icon}</span>
+                      <div className="stat-card-content">
+                        <h3>{item.title}</h3>
+                        <p>{item.value ?? 0}</p>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </section>
 
-        {tableSections.map((section, idx) => (
-          <section className="dashboard-section" key={idx}>
-            <div className="section-header">
-              <h2>{section.title}</h2>
-              <button className="button button-primary" onClick={() => navigate(section.path)}>
-                Lihat Semua
-              </button>
+            <section className="dashboard-section">
+              <h2>Data Keuangan</h2>
+              <div className="financial-summary">
+                <div className="financial-card">
+                  <h3>Pendapatan Kotor</h3>
+                  <p>Rp {financialData.total_kotor?.toLocaleString('id-ID') || 0}</p>
+                </div>
+                <div className="financial-card">
+                  <h3>Pendapatan Bersih</h3>
+                  <p>Rp {financialData.pendapatan_bersih?.toLocaleString('id-ID') || 0}</p>
+                </div>
+                <div className="financial-card">
+                  <h3>Total Pengeluaran</h3>
+                  <p>Rp {financialData.total_pengeluaran?.toLocaleString('id-ID') || 0}</p>
+                </div>
+              </div>
+            </section>
+
+            <div className="section-pair">
+              {tableSections[0] && renderTableSection(tableSections[0], 0)}
+              {tableSections[1] && renderTableSection(tableSections[1], 1)}
             </div>
-            <div className="table-responsive">
-              <table className="data-table">
-                <thead>
-                  <tr>{section.columns.map((col, i) => <th key={i}>{col}</th>)}</tr>
-                </thead>
-                <tbody>
-                  {section.data.length > 0 ? (
-                    section.data.map((item, i) => (
-                      <tr key={item.id || i} onClick={() => navigate(`${section.path}/${item.id}`)}>
-                        {section.renderRow(item).map((cell, j) => <td key={j}>{cell}</td>)}
-                      </tr>
-                    ))
-                  ) : (
-                    <tr>
-                      <td colSpan={section.columns.length} className="no-data">
-                        Tidak ada data terbaru
-                      </td>
-                    </tr>
-                  )}
-                </tbody>
-              </table>
+
+            <div className="section-pair">
+              {tableSections[2] && renderTableSection(tableSections[2], 2)}
+              {tableSections[3] && renderTableSection(tableSections[3], 3)}
             </div>
-          </section>
-        ))}
+          </>
+        )}
       </main>
     </AdminLayout>
   );
