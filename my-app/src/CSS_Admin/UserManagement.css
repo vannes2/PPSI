@@ -282,8 +282,7 @@ h2 {
   left: 0;
   width: 100%;
   height: 100%;
-   background-color: var( --bg-dark);
-  background: rgba(17, 24, 39, 0.9); /* #111827 -> var(--bg-darker) */
+  background: rgba(0, 0, 0, 0.5); /* Fokus ke form */
   display: flex;
   justify-content: center;
   align-items: center;
@@ -291,18 +290,20 @@ h2 {
 }
 
 .modal-content {
-  color: var( --bg-dark);
+  background-color: #fff; /* Bersih, modern */
   padding: 25px 30px;
   border-radius: 12px;
   max-width: 500px;
   width: 100%;
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+  color: var(--text-dark);
+  border-top: 6px solid var(--primary); /* Strip oranye */
 }
 
 .modal-content h3 {
   margin-bottom: 15px;
-  font-size: 1.5rem;
-  color: var(--text-light);
+  font-size: 1.6rem;
+  color: var(--primary-hover); /* Oranye utama */
 }
 
 .modal-content label {
@@ -310,22 +311,33 @@ h2 {
   margin-top: 15px;
   margin-bottom: 6px;
   font-weight: 500;
-  color: var(--text-muted);
+   color: var( --bg-darker);
 }
 
 .modal-content input {
   width: 100%;
   padding: 10px;
   border-radius: 6px;
-  border: 1px solid var(--input-border);
-  background-color: var(--input-bg);
-  color: var(--text-light);
+  border: 1px solid var(--primary);
+  background-color: #f9f9f9;
+  color: var(--text-dark);
   font-size: 1rem;
+  transition: 0.2s ease;
 }
 
 .modal-content input:focus {
   outline: none;
-  border-color: var(--primary);
+  border-color: var(--accent);
+  background-color: #fff;
+  box-shadow: 0 0 0 2px rgba(243, 156, 18, 0.2); /* efek glow oranye */
+}
+
+.modal-content input::placeholder {
+  color: var(--text-medium, #999); 
+}
+
+.modal-content input {
+  color: var(--text-dark, #2c3e50);
 }
 
 .modal-actions {
@@ -333,6 +345,33 @@ h2 {
   display: flex;
   justify-content: flex-end;
   gap: 10px;
+}
+
+.save-btn {
+  background: linear-gradient(to right, #f39c12, #e67e22);
+  color: #fff;
+  padding: 10px 20px;
+  border-radius: 8px;
+  font-weight: 600;
+  border: none;
+  cursor: pointer;
+  margin-top: 20px;
+  transition: background 0.3s;
+}
+
+.save-btn:hover {
+  background: linear-gradient(to right, #e67e22, #f39c12);
+}
+
+.cancel-btn {
+  background-color: #34495e;
+  color: #fff;
+  padding: 10px 20px;
+  border-radius: 8px;
+  font-weight: 600;
+  border: none;
+  margin-left: 10px;
+  cursor: pointer;
 }
 
 /* ================================================== */
