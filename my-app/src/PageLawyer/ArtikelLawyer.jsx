@@ -1,11 +1,11 @@
 import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
 import axios from "axios";
-import HeaderAfter from "../components/HeaderLawyer";
+import HeaderLawyer from "../components/HeaderLawyer";
 import Footer from "../components/Footer";
 import "../CSS_User/Artikel.css";
 
-const Artikel = () => {
+const ArtikelLawyer = () => {
   const [artikels, setArtikels] = useState([]);
   const [loading, setLoading] = useState(true);
   const [filterText, setFilterText] = useState("");
@@ -39,7 +39,7 @@ const Artikel = () => {
 
   return (
     <div className="artikel-page">
-      <HeaderAfter />
+      <HeaderLawyer />
       <br /><br />
       <div className="artikel-header-bar">
         <h1 className="artikel-heading">Daftar Dokumen</h1>
@@ -69,9 +69,13 @@ const Artikel = () => {
                         className="artikel-filter-input-inline"
                       >
                         <option value="">Semua Jenis</option>
-                        <option value="KDRT">KDRT</option>
-                        <option value="perceraian">perceraian</option>
-                        <option value="pelanggaran_HAM">pelanggaran HAM</option>
+                        <option value="Pidana">Pidana</option>
+                        <option value="Perdata">Perdata</option>
+                        <option value="Internasional">Internasional</option>
+                        <option value="Ketenagakerjaan">Ketenagakerjaan</option>
+                        <option value="HAKI">HAKI</option>
+                        <option value="Keluarga">Keluarga</option>
+                        <option value="Administrasi Negara">Administrasi Negara</option>
                       </select>
                     </div>
                   </th>
@@ -89,7 +93,7 @@ const Artikel = () => {
                     <tr key={artikel.id} className="artikel-tr artikel-tr-hover">
                       <td className={`artikel-td ${index === filteredArtikels.length - 1 ? "artikel-td-rounded" : ""}`}>
                         <div className="artikel-judul">
-                          <Link to={`/artikel-lawyer/${artikel.id}`} className="artikel-judul-link">
+                         <Link to={`/artikel-lawyer/${artikel.id}`} className="artikel-judul-link">
                             {artikel.judul}
                           </Link>
                         </div>
@@ -129,4 +133,4 @@ const Artikel = () => {
   );
 };
 
-export default Artikel;
+export default ArtikelLawyer;
