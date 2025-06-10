@@ -5,7 +5,7 @@
   display: flex;
   flex-direction: column;
   min-height: 100vh;
-  background-color: #fefff0; /* Soft yellow */
+  background-color: #fefff0 !important; /* Soft yellow */
   font-family: Arial, sans-serif;
   color: #3b3b3b;
   overflow-x: hidden;
@@ -52,6 +52,7 @@
   border-radius: 20px;
   border: 2px solid #fff;
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  margin-bottom: -300px;
 }
 
 /* ---------- Informasi ---------- */
@@ -96,6 +97,195 @@ footer {
   position: relative;
   z-index: 1;
   margin-top: auto;
+}
+
+/* Dalam DetailPengacara.css */
+
+/* --- Pengaturan Global/Dasar Halaman --- */
+.detail-page {
+    min-height: 100vh; /* Pastikan halaman setidaknya setinggi viewport */
+    display: flex;
+    flex-direction: column; /* Konten utama akan tersusun vertikal */
+    justify-content: space-between; /* Header di atas, Footer di bawah, konten di tengah */
+    background-color: #f5f5f5; /* Warna latar belakang halaman */
+    font-family: 'Arial', sans-serif; /* Opsional: Font yang lebih modern */
+    color: #333; /* Warna teks default */
+}
+
+.detail-container {
+    max-width: 1000px; /* Lebar maksimum kontainer utama */
+    margin: 0 auto; /* Pusatkan kontainer utama di halaman */
+    padding: 20px;
+    flex-grow: 1; /* Kontainer akan mengambil ruang yang tersedia */
+}
+
+/* --- Kartu Detail Pengacara Utama --- */
+.detail-card {
+    display: flex; /* Aktifkan Flexbox untuk foto dan info */
+    align-items: flex-start; /* Sejajarkan item (foto dan info) di bagian atas */
+    padding: 25px; /* Padding lebih banyak */
+    border: 1px solid #e0e0e0; /* Border lebih terang */
+    border-radius: 12px; /* Sudut lebih membulat */
+    background-color: #fff;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.08); /* Bayangan lebih halus dan lebih menonjol */
+    margin-bottom: 30px; /* Jarak antara kartu utama dan informasi tambahan */
+    transition: transform 0.3s ease-in-out; /* Efek hover untuk kartu */
+}
+
+.detail-card:hover {
+    transform: translateY(-5px); /* Sedikit naik saat di-hover */
+}
+
+.detail-photo-container {
+    flex-shrink: 0; /* Mencegah container foto mengecil */
+    margin-right: 35px; /* Jarak dari info detail */
+    text-align: center;
+}
+
+.detail-photo {
+    width: 200px; /* Ukuran foto sedikit lebih besar */
+    height: 200px;
+    object-fit: cover; /* Memastikan gambar mengisi area tanpa distorsi */
+    border-radius: 50%; /* Membuat foto bulat sempurna */
+    border: 5px solid #f0f0f0; /* Border foto yang lebih menonjol */
+    box-shadow: 0 4px 15px rgba(0,0,0,0.15); /* Bayangan untuk foto */
+}
+
+.detail-info {
+    display: grid;
+    grid-template-columns: 1fr 1fr; /* Dua kolom untuk informasi */
+    gap: 15px 40px; /* Jarak antar baris dan kolom */
+    flex-grow: 1; /* Memastikan mengambil ruang yang tersedia */
+    font-size: 1.08em; /* Ukuran teks informasi lebih besar */
+}
+
+.detail-info p {
+    margin-bottom: 0; /* Hapus margin bawah default dari p */
+    display: flex; /* Untuk mensejajarkan strong dan span */
+    align-items: center; /* Pusatkan secara vertikal */
+}
+
+.detail-info strong {
+    min-width: 120px; /* Lebar minimum untuk label seperti "Nama:", "Alamat:" */
+    display: inline-block; /* Agar min-width bekerja */
+    color: #555;
+    font-weight: 600; /* Sedikit lebih tebal */
+}
+
+.detail-info span {
+    word-break: break-word; /* Memastikan teks panjang tidak melampaui batas */
+    color: #333;
+}
+
+/* --- Bagian Informasi Tambahan (Fokus Perbaikan) --- */
+.additional-info-card {
+    margin-top: 30px; /* Jarak dari kartu detail utama */
+    padding: 30px; /* Padding lebih banyak */
+    border: 1px solid #e0e0e0;
+    border-radius: 12px;
+    background-color: #fff5d6;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.08);
+    display: flex;
+    flex-direction: column; /* Konten di dalamnya akan menumpuk secara vertikal (judul, lalu konten) */
+    align-items: center; /* Pusatkan konten secara horizontal */
+}
+
+.additional-info-card h3 {
+    margin-bottom: 30px; /* Jarak dari konten di bawahnya */
+    color: #b31312;
+    font-size: 2em; /* UKURAN JUDUL "INFORMASI TAMBAHAN" LEBIH BESAR */
+    font-weight: 700; /* Lebih tebal */
+    text-align: center;
+    width: 100%; /* Memastikan mengambil lebar penuh untuk centering */
+    border-bottom: 2px solid #f0f0f0; /* Garis bawah pemisah */
+    padding-bottom: 15px; /* Jarak teks ke garis bawah */
+}
+
+/* Ini adalah container yang membuat resume dan sosial media sejajar */
+.additional-info-content {
+    display: flex; /* AKTIFKAN FLEXBOX DI SINI */
+    flex-direction: row; /* Atur item secara horizontal */
+    flex-wrap: wrap; /* Izinkan wrapping ke baris berikutnya jika layar terlalu kecil */
+    justify-content: center; /* Pusatkan item secara horizontal */
+    align-items: flex-start; /* Sejajarkan item di bagian atas (penting jika ada tinggi berbeda) */
+    gap: 50px; /* Jarak yang lebih besar antara resume dan sosial media */
+    width: 100%; /* Memastikan mengambil lebar penuh */
+    max-width: 800px; /* Batasi lebar untuk tampilan yang lebih baik */
+}
+
+.resume-section {
+    flex-shrink: 0; /* Mencegah item mengecil */
+    display: flex; /* Jadikan flex untuk konten resume */
+    flex-direction: column; /* Item dalam resume-section akan menumpuk vertikal */
+    align-items: center; /* Pusatkan konten resume secara horizontal */
+    text-align: center;
+}
+
+.info-item {
+    margin-bottom: 0; /* Hapus margin bawah jika ada */
+    font-size: 1.2em; /* UKURAN TEKS "RESUME/CV" LEBIH BESAR */
+}
+
+.info-link {
+    display: inline-flex; /* Agar ikon dan teks sejajar */
+    align-items: center; /* Untuk vertikal alignment */
+    color: #007bff; /* Warna biru standar untuk tautan */
+    text-decoration: none;
+    font-weight: 600; /* Sedikit lebih tebal */
+    transition: color 0.2s ease-in-out; /* Efek transisi untuk warna */
+}
+
+.info-link:hover {
+    color: #0056b3; /* Warna hover lebih gelap */
+    text-decoration: underline;
+}
+
+.icon-margin {
+    margin-right: 12px; /* Spasi antara ikon dan teks */
+    font-size: 1.6em; /* UKURAN IKON RESUME LEBIH BESAR */
+}
+
+/* Gaya untuk bagian link media sosial */
+.social-media-links {
+    display: flex; /* Menggunakan flexbox untuk tata letak horizontal ikon */
+    justify-content: center; /* Pusatkan ikon secara horizontal */
+    gap: 35px; /* Jarak antar ikon media sosial, sedikit diperbesar */
+    align-items: center; /* Pusatkan ikon secara vertikal */
+}
+
+.social-icon-link {
+    color: #555; /* Warna default yang lebih netral */
+    transition: transform 0.2s ease-in-out, color 0.2s ease-in-out; /* Efek transisi saat hover */
+}
+
+.social-icon-link .svg-inline--fa { /* Targetkan ikon Font Awesome di dalam link */
+    font-size: 2.5em; /* UKURAN IKON MEDIA SOSIAL LEBIH BESAR (misal 2.5x ukuran default) */
+}
+
+.social-icon-link:hover {
+    transform: scale(1.2); /* Memperbesar ikon saat di-hover */
+}
+
+/* Warna spesifik untuk setiap ikon media sosial */
+.linkedin-color {
+    color: #0A66C2; /* Warna LinkedIn resmi */
+}
+.linkedin-color:hover {
+    color: #0e76a8;
+}
+
+.instagram-color {
+    color: #E4405F; /* Warna Instagram */
+}
+.instagram-color:hover {
+    color: #c32aa3;
+}
+
+.twitter-color {
+    color: #1DA1F2; /* Warna Twitter resmi */
+}
+.twitter-color:hover {
+    color: #1a8cd8;
 }
 
 /* ===================== RESPONSIVE ===================== */

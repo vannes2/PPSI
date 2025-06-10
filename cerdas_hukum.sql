@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 27 Bulan Mei 2025 pada 12.01
+-- Waktu pembuatan: 10 Jun 2025 pada 11.01
 -- Versi server: 10.4.28-MariaDB
 -- Versi PHP: 8.2.4
 
@@ -87,7 +87,7 @@ INSERT INTO `ajukan_kasus` (`id`, `user_id`, `nama`, `email`, `no_hp`, `area_pra
 (5, 1, 'Azzikra Praqasta Kusuma', 'termiteindonesia@gmail.com', '085781086148', 'Perdata', 'Negosiasi', 1000000000, 800000000.00, 500000, '2025-06-01', 'Jakarta Barat', 'tes 3', 'Diproses', NULL, '2025-05-12 10:58:06', 1, 0),
 (6, 1, 'Umar Ali', 'sayaumarali@gmail.com', '085781086148', 'Keluarga', 'Pendampingan', 1000000, 800000.00, 50000000, '2025-06-01', 'Bandung', 'KDRT', 'Selesai', '1747053599169-Anggota1.pdf', '2025-05-12 12:39:59', 1, 1),
 (7, 2, 'fajri', 'fajri30.r@gmail.com', '085706125411', 'Perdata', 'Pembuatan Dokumen', 1000000, 800000.00, 2000000, '2025-05-14', 'Jakarta', 'Warisan', 'Selesai', '1747201804678-PENGUMUMAN Libur Hari Raya Waisak 2569 BE.pdf', '2025-05-14 05:50:04', 9, 1),
-(8, 2, 'fajri', 'fajri30.r@gmail.com', '085706125411', 'Pidana', 'Pendampingan', 1000000, 800000.00, 2000000, '2025-05-14', 'Jakarta', 'Pasal pasal', 'Selesai', '1747271588186-Laporan Zitline_Fajri Ramadhan.pdf', '2025-05-15 01:13:08', 9, 0),
+(8, 2, 'fajri', 'fajri30.r@gmail.com', '085706125411', 'Pidana', 'Pendampingan', 1000000, 800000.00, 2000000, '2025-05-14', 'Jakarta', 'Pasal pasal', 'Selesai', '1747271588186-Laporan Zitline_Fajri Ramadhan.pdf', '2025-05-15 01:13:08', 9, 1),
 (9, 2, 'Gus samsudinn', 'samsudin@gmail.com', '089876654334', 'Pidana', 'Negosiasi', 30000000, 24000000.00, 40000000, '2025-05-01', 'Lampung', 'Tindak kasus pembunuhan ', 'Selesai', NULL, '2025-05-19 09:37:39', 3, 1),
 (10, 2, 'Jhoni', 'fajri30.r@gmail.com', '089876632332', 'Perdata', 'Pembuatan Dokumen', 1000000, 800000.00, 1200000, '2025-05-09', 'Tangerang', 'Data hak waris', 'Selesai', NULL, '2025-05-19 09:47:18', 3, 0),
 (11, 2, 'Sherly', 'sherly@gmail.com', '087656761212', 'Perusahaan', 'Pendampingan', 2000000, 1600000.00, 2500000, '2025-05-19', 'Jakarta', 'Kasus perusahaan', 'Menunggu', NULL, '2025-05-19 09:49:04', NULL, 0),
@@ -97,7 +97,34 @@ INSERT INTO `ajukan_kasus` (`id`, `user_id`, `nama`, `email`, `no_hp`, `area_pra
 (15, 2, 'fajri', 'fajri30.r@gmail.com', '085706125411', 'Tenaga Kerja', 'Konsultasi', 1000000, 800000.00, 1500000, '2025-05-19', 'Jakarta', 'new', 'Menunggu', NULL, '2025-05-19 11:23:32', NULL, 0),
 (16, 2, 'Samsul', 'fajri30.r@gmail.com', '089876654334', 'Pidana', 'Pendampingan', 750000, 600000.00, 1000000, '2025-05-19', 'Lampung', 'Oke', 'Menunggu', NULL, '2025-05-19 11:31:49', NULL, 0),
 (17, 2, 'Jhoni', 'fajri30.r@gmail.com', '089876632332', 'Perusahaan', 'Pembuatan Dokumen', 500000, 400000.00, 599999, '2025-05-19', 'Jakarta', 'new', 'Menunggu', NULL, '2025-05-19 11:37:06', NULL, 0),
-(18, 2, 'fajri', 'fajri30.r@gmail.com', '085706125411', 'Pidana', 'Pembuatan Dokumen', 900000, 720000.00, 1500000, '2025-05-19', 'Jakarta', 'new', 'Menunggu', NULL, '2025-05-19 11:41:21', 3, 0);
+(18, 2, 'fajri', 'fajri30.r@gmail.com', '085706125411', 'Pidana', 'Pembuatan Dokumen', 900000, 720000.00, 1500000, '2025-05-19', 'Jakarta', 'new', 'Menunggu', NULL, '2025-05-19 11:41:21', 3, 0),
+(19, 14, 'Ahmad Fauzi', 'vns@gmail.com', '987656789', 'Perdata', 'Pendampingan', 500000, 400000.00, 500000, '2222-02-22', 'jakarta', 'sdas', 'Menunggu', NULL, '2025-05-28 07:43:33', NULL, 0),
+(20, 14, 'vannes', 'vns@gmail.com', '987656789', 'Perdata', 'Konsultasi', 500000, 400000.00, 500000, '2006-02-22', 'jakarta', 'sa', 'Menunggu', NULL, '2025-05-28 08:55:11', NULL, 0),
+(21, 14, 'manusia dingin', 'vns@gmail.com', '987656789', 'Tenaga Kerja', 'Konsultasi', 500000, 400000.00, 500000, '2026-05-23', 'jakarta', 'testing', 'Menunggu', '1748423100876-LogoKecil.png', '2025-05-28 09:05:00', NULL, 0),
+(22, 14, 'manusia dingin', 'vns@gmail.com', '987656789', 'Pidana', 'Pendampingan', 500000, 400000.00, 500000, '2222-02-22', 'jakarta', 'sadsa', 'Menunggu', NULL, '2025-05-28 09:13:31', NULL, 0),
+(23, 14, 'Ahmad Fauzi', 'vns@gmail.com', '987656789', 'Pidana', 'Pendampingan', 500000, 400000.00, 500000, '2222-02-22', 'jakarta', 'aa', 'Menunggu', NULL, '2025-05-28 09:33:04', NULL, 0),
+(24, 14, 'vannes', 'vns@gmail.com', '987656789', 'Perdata', 'Pembuatan Dokumen', 500000, 400000.00, 500000, '4444-03-23', 'jakarta', 'sasa', 'Menunggu', NULL, '2025-05-28 09:39:01', NULL, 0),
+(25, 14, 'Ahmad Fauzi', 'vns@gmail.com', '987656789', 'Perdata', 'Pendampingan', 500000, 400000.00, 500000, '6332-02-21', 'jakarta', 'saaa', 'Menunggu', '1748425974795-WIN_20250526_11_01_41_Pro.jpg', '2025-05-28 09:52:54', NULL, 0),
+(26, 14, 'manusia dingin', 'vns@gmail.com', '987656789', 'Perdata', 'Pendampingan', 500000, 400000.00, 500000, '2005-04-22', 'jakarta', 'TES', 'Menunggu', '1748426627009-WIN_20250526_11_01_41_Pro.jpg', '2025-05-28 10:03:47', NULL, 0),
+(27, 14, 'manusia dingin', 'vns@gmail.com', '987656789', 'Perdata', 'Pendampingan', 500000, 400000.00, 500000, '2005-04-22', 'jakarta', 'TES', 'Menunggu', '1748426632451-WIN_20250526_11_01_41_Pro.jpg', '2025-05-28 10:03:52', NULL, 0),
+(28, 14, 'manusia dingin', 'vns@gmail.com', '987656789', 'Perdata', 'Pendampingan', 500000, 400000.00, 500000, '2005-04-22', 'jakarta', 'TES', 'Menunggu', '1748426733153-WIN_20250526_11_01_41_Pro.jpg', '2025-05-28 10:05:33', NULL, 0),
+(29, 14, 'manusia dingin', 'vns@gmail.com', '987656789', 'Perdata', 'Pendampingan', 500000, 400000.00, 500000, '2005-04-22', 'jakarta', 'TES', 'Menunggu', '1748426751151-WIN_20250526_11_01_41_Pro.jpg', '2025-05-28 10:05:51', NULL, 0),
+(30, 14, 'manusia dingin', 'vns@gmail.com', '987656789', 'Perdata', 'Pendampingan', 500000, 400000.00, 500000, '2005-04-22', 'jakarta', 'TES', 'Menunggu', '1748426762584-WIN_20250526_11_01_41_Pro.jpg', '2025-05-28 10:06:02', NULL, 0),
+(31, 14, 'manusia dingin', 'vns@gmail.com', '987656789', 'Perdata', 'Pendampingan', 500000, 400000.00, 500000, '2005-04-22', 'jakarta', 'TES', 'Menunggu', '1748426765810-WIN_20250526_11_01_41_Pro.jpg', '2025-05-28 10:06:05', NULL, 0),
+(32, 14, 'manusia dingin', 'vns@gmail.com', '987656789', 'Perdata', 'Konsultasi', 500000, 400000.00, 500000, '2222-02-22', 'jakarta', 'SAS', 'Menunggu', '1748426878184-WIN_20250526_11_01_41_Pro.jpg', '2025-05-28 10:07:58', NULL, 0),
+(33, 14, 'Ahmad Fauzi', 'vns@gmail.com', '333', 'Perdata', 'Pendampingan', 500000, 400000.00, 500000, '3333-03-01', 'jakarta', 'SAA', 'Menunggu', NULL, '2025-05-28 10:09:06', NULL, 0),
+(34, 14, 'Ahmad Fauzi', 'vns@gmail.com', '333', 'Perdata', 'Konsultasi', 500000, 400000.00, 500000, '2222-02-03', 'jakarta', '2', 'Menunggu', NULL, '2025-05-28 10:10:39', NULL, 0),
+(35, 14, 'vanes', 'vns@gmail.com', '0986544', 'Pidana', 'Pendampingan', 500000, 400000.00, 500000, '2222-02-22', 'jakarta ', 'sas', 'Menunggu', '1748429281335-WIN_20250526_11_01_41_Pro.jpg', '2025-05-28 10:48:01', NULL, 0),
+(36, 14, 'vanes', 'vns@gmail.com', '085781086148', 'Perdata', 'Pendampingan', 500000, 400000.00, 500000, '2222-02-22', 'jakarta ', 'sfas', 'Menunggu', NULL, '2025-05-28 10:55:25', NULL, 0),
+(37, 14, 'vanes', 'vns@gmail.com', '085781086148', 'Keluarga', 'Konsultasi', 500000, 400000.00, 500000, '2222-02-22', 'jakarta ', 'sa', 'Menunggu', NULL, '2025-05-28 11:43:16', NULL, 0),
+(38, 14, 'vanes', 'vns@gmail.com', '085781086148', 'Pidana', 'Konsultasi', 500000, 400000.00, 500000, '2222-02-22', 'jakarta ', 'sasa', 'Menunggu', '1748433123923-WIN_20250526_11_01_41_Pro.jpg', '2025-05-28 11:52:03', NULL, 0),
+(39, 14, 'vanes', 'vns@gmail.com', '0986544', 'Keluarga', 'Pendampingan', 500000, 400000.00, 500000, '2222-02-22', 'jakarta ', 'sas', 'Menunggu', NULL, '2025-05-28 11:55:40', NULL, 0),
+(40, 14, 'percobaan', 'vns@gmail.com', '085781086148', 'Perdata', 'Pendampingan', 500000, 400000.00, 500000, '2222-02-22', 'jakarta ', 'sadas', 'Menunggu', NULL, '2025-05-28 19:53:50', NULL, 0),
+(41, 14, 'vanes', 'vns@gmail.com', '0986544', 'Perusahaan', 'Litigasi', 500000, 400000.00, 500000, '9999-09-09', 'jakarta ', 'sas', 'Menunggu', NULL, '2025-05-28 19:55:22', NULL, 0),
+(42, 14, 'SENKA - Perfect Whip Berry Bright', 'vns@gmail.com', '085781086148', 'Perdata', 'Pendampingan', 500000, 400000.00, 500000, '3333-03-22', 'jakarta ', 'daf', 'Menunggu', NULL, '2025-05-28 19:58:02', NULL, 0),
+(43, 14, 'vanes', 'vns@gmail.com', '085781086148', 'Pidana', 'Konsultasi', 500000, 400000.00, 500000, '7584-02-22', 'jakarta ', 'testing setelah pull', 'Menunggu', NULL, '2025-05-29 10:24:02', NULL, 0),
+(44, 14, 'testing', 'vns@gmail.com', '085781086148', 'Perdata', 'Pendampingan', 500000, 400000.00, 500000, '2222-02-22', 'jakarta ', 'testing', 'Menunggu', NULL, '2025-05-29 11:20:56', NULL, 0),
+(45, 14, 'Perfect Whip Berry Bright', 'vns@gmail.com', '085781086148', 'testing', 'Pendampingan', 500000, 400000.00, 500000, '9990-09-08', 'jakarta ', 'testing\r\n', 'Menunggu', NULL, '2025-05-29 11:22:55', NULL, 0);
 
 -- --------------------------------------------------------
 
@@ -132,7 +159,8 @@ INSERT INTO `artikel` (`id`, `judul`, `deskripsi`, `jenis_hukum`, `filePath`, `c
 (33, 'Hukum Administrasi Negara', 'Hukum Administrasi Negara adalah cabang ilmu hukum yang mengatur tata cara dan prinsip penyelenggaraan administrasi pemerintahan oleh lembaga negara dan pejabat publik. Artikel ini membahas ruang lingkup hukum administrasi negara, termasuk peraturan tentang pembuatan keputusan administratif, pelaksanaan fungsi pemerintahan, serta mekanisme pengawasan dan penegakan hukum terhadap tindakan administratif.  Pembahasan juga menyoroti peran hukum administrasi negara dalam menjamin agar penyelenggaraan pemerintahan berjalan transparan, akuntabel, dan sesuai dengan prinsip negara hukum (rechtsstaat). Dengan memahami hukum administrasi negara, masyarakat dapat mengawasi kinerja pemerintah dan menuntut perlindungan hukum atas tindakan administratif yang merugikan.', 'Administrasi Negara', 'uploads\\1747769890162.pdf', NULL, 'LEG/PND/011/IV/2025', 2023, 'PDF', 'Dokumen', 'Aktif', '2025-05-21'),
 (34, 'Panduan Hukum Perdata', 'Hukum Perdata adalah cabang hukum yang mengatur hubungan hukum antara individu atau badan hukum secara privat, termasuk hak dan kewajiban yang timbul dalam kehidupan sehari-hari. Artikel ini membahas ruang lingkup hukum perdata seperti perjanjian, harta kekayaan, warisan, dan tanggung jawab perdata.  Selain itu, artikel ini menjelaskan prinsip-prinsip dasar hukum perdata, seperti itikad baik dan keadilan, serta mekanisme penyelesaian sengketa melalui peradilan perdata. Dengan memahami hukum perdata, masyarakat dapat melindungi hak-haknya dalam hubungan hukum pribadi dan menjalankan kewajiban secara tepat sesuai aturan yang berlaku.', 'Perdata', 'uploads\\1747770045750.pdf', NULL, 'LEG/PND/012/IV/2025', 2016, 'PDF', 'Dokumen', 'Aktif', '2025-05-21'),
 (35, 'Dasar-dasar Hukum Pidana Indonesia', 'Hukum Pidana Indonesia merupakan cabang hukum yang mengatur tentang perbuatan-perbuatan yang dilarang dan sanksi yang dikenakan terhadap pelanggarnya demi menjaga ketertiban dan keadilan dalam masyarakat. Artikel ini membahas konsep dasar hukum pidana, termasuk asas-asas hukum pidana, jenis-jenis tindak pidana, serta prosedur penegakan hukum pidana di Indonesia.  Pembahasan juga meliputi prinsip-prinsip seperti legalitas, kepastian hukum, dan perlindungan hak asasi manusia dalam proses pidana. Dengan memahami dasar-dasar hukum pidana, masyarakat dapat mengenali batasan perilaku yang diatur dan konsekuensi hukum yang mungkin timbul, sekaligus mendukung penegakan hukum yang adil dan efektif.', 'Pidana', 'uploads\\1747770129718.pdf', NULL, 'LEG/PND/013/IV/2025', 2015, 'PDF', 'Dokumen', 'Aktif', '2025-05-21'),
-(36, 'Hukum Keluarga Islam', 'Hukum Keluarga Islam adalah cabang hukum yang mengatur hubungan dan tata kelola keluarga berdasarkan prinsip-prinsip syariah Islam. Artikel ini membahas berbagai aspek penting dalam hukum keluarga Islam, seperti pernikahan, hak dan kewajiban suami-istri, perceraian, nafkah, warisan, serta hak anak.  Pembahasan juga mencakup dasar-dasar hukum Islam yang menjadi landasan aturan keluarga, termasuk Al-Qur’an dan Hadis, serta penerapan hukum keluarga Islam dalam sistem hukum nasional Indonesia. Dengan memahami hukum keluarga Islam, masyarakat dapat menjalankan kehidupan berkeluarga secara harmonis sesuai dengan ajaran agama dan ketentuan hukum yang berlaku.', 'Keluarga', 'uploads\\1747770459925.pdf', NULL, 'LEG/PND/013/IV/2025', 2022, 'PDF', 'Dokumen', 'Aktif', '2025-05-21');
+(36, 'Hukum Keluarga Islam', 'Hukum Keluarga Islam adalah cabang hukum yang mengatur hubungan dan tata kelola keluarga berdasarkan prinsip-prinsip syariah Islam. Artikel ini membahas berbagai aspek penting dalam hukum keluarga Islam, seperti pernikahan, hak dan kewajiban suami-istri, perceraian, nafkah, warisan, serta hak anak.  Pembahasan juga mencakup dasar-dasar hukum Islam yang menjadi landasan aturan keluarga, termasuk Al-Qur’an dan Hadis, serta penerapan hukum keluarga Islam dalam sistem hukum nasional Indonesia. Dengan memahami hukum keluarga Islam, masyarakat dapat menjalankan kehidupan berkeluarga secara harmonis sesuai dengan ajaran agama dan ketentuan hukum yang berlaku.', 'Keluarga', 'uploads\\1747770459925.pdf', NULL, 'LEG/PND/013/IV/2025', 2022, 'PDF', 'Dokumen', 'Aktif', '2025-05-21'),
+(39, 'tes edit', 'tes edit', 'Perdata', 'uploads/1748516820696.pdf', 'uploads/covers/cover_1748516820698-01.jpg', '91', 2028, 'tes edit', 'tes edit', 'Aktif', '4666-02-19');
 
 -- --------------------------------------------------------
 
@@ -337,11 +365,27 @@ INSERT INTO `konsultasi_session` (`id`, `user_id`, `pengacara_id`, `start_time`,
 (7, 2, 1, '2025-05-19 18:10:19', 30, 50000, 40000.00, 'selesai', '2025-05-19 11:10:19', 1),
 (8, 2, 3, '2025-05-23 11:09:03', 60, 100000, 80000.00, 'selesai', '2025-05-19 11:24:59', 0),
 (9, 2, 15, '2025-05-19 18:38:15', 30, 50000, 40000.00, 'selesai', '2025-05-19 11:38:15', 0),
-(11, 2, 9, '2025-05-27 16:48:49', 30, 50000, 40000.00, 'aktif', '2025-05-25 13:43:14', 1),
+(11, 2, 9, '2025-05-31 23:30:37', 30, 50000, 40000.00, 'aktif', '2025-05-25 13:43:14', 1),
 (12, 3, 7, '2025-05-25 20:44:43', 60, 100000, 80000.00, 'aktif', '2025-05-25 13:44:43', 0),
 (13, 2, 20, '2025-05-27 16:17:58', 60, 100000, 80000.00, 'aktif', '2025-05-27 09:17:58', 0),
-(14, 2, 2, '2025-05-27 16:41:09', 30, 50000, 40000.00, 'aktif', '2025-05-27 09:41:09', 0),
-(15, 2, 3, '2025-05-27 16:50:58', 60, 100000, 80000.00, 'aktif', '2025-05-27 09:50:58', 0);
+(14, 2, 2, '2025-06-10 11:10:50', 30, 50000, 40000.00, 'aktif', '2025-05-27 09:41:09', 0),
+(15, 2, 3, '2025-05-27 16:50:58', 60, 100000, 80000.00, 'aktif', '2025-05-27 09:50:58', 0),
+(16, 14, 3, '2025-05-28 19:59:21', 30, 50000, 40000.00, 'selesai', '2025-05-27 10:46:29', 1),
+(17, 14, 2, '2025-05-28 17:42:27', 30, 50000, 40000.00, 'selesai', '2025-05-27 10:57:22', 1),
+(18, 14, 4, '2025-05-28 18:55:16', 30, 50000, 40000.00, 'selesai', '2025-05-27 13:36:41', 0),
+(19, 14, 20, '2025-05-29 00:10:06', 30, 50000, 40000.00, 'selesai', '2025-05-27 18:29:07', 0),
+(20, 14, 9, '2025-05-28 14:45:30', 30, 50000, 40000.00, 'selesai', '2025-05-27 19:07:22', 0),
+(21, 14, 8, '2025-05-28 17:53:39', 30, 50000, 40000.00, 'selesai', '2025-05-28 09:01:47', 0),
+(22, 14, 7, '2025-05-28 16:32:10', 30, 50000, 40000.00, 'selesai', '2025-05-28 09:32:10', 0),
+(24, 14, 13, '2025-05-28 17:48:15', 30, 50000, 40000.00, 'selesai', '2025-05-28 10:44:26', 0),
+(26, 14, 12, '2025-05-28 18:48:23', 30, 50000, 40000.00, 'selesai', '2025-05-28 11:48:23', 0),
+(27, 14, 19, '2025-05-28 20:04:00', 30, 50000, 40000.00, 'selesai', '2025-05-28 13:04:00', 0),
+(28, 14, 11, '2025-05-29 02:51:46', 30, 50000, 40000.00, 'selesai', '2025-05-28 19:50:28', 0),
+(30, 14, 16, '2025-05-29 14:05:00', 30, 50000, 40000.00, 'selesai', '2025-05-29 07:04:59', 0),
+(31, 14, 3, '2025-05-29 14:44:17', 30, 50000, 40000.00, 'selesai', '2025-05-29 07:06:16', 1),
+(32, 14, 2, '2025-05-29 17:14:12', 30, 50000, 40000.00, 'selesai', '2025-05-29 10:14:11', 1),
+(33, 14, 9, '2025-05-29 17:18:02', 30, 50000, 40000.00, 'selesai', '2025-05-29 10:17:58', 1),
+(35, 14, 13, '2025-05-29 17:21:32', 30, 50000, 40000.00, 'selesai', '2025-05-29 10:21:32', 1);
 
 -- --------------------------------------------------------
 
@@ -507,7 +551,13 @@ INSERT INTO `log_pertanyaan_user` (`id`, `user_id`, `pertanyaan`, `intent_didapa
 (59, NULL, 'cara konsultasi', 'cara_konsultasi', 1.00, '2025-05-20 04:24:46'),
 (60, NULL, 'cara komsultasi', 'cara_konsultasi', 0.85, '2025-05-20 04:25:03'),
 (61, NULL, 'halo', 'sapaan_halo', 1.00, '2025-05-27 09:13:05'),
-(62, NULL, 'bagaimana cara konsultasi', 'cara_konsultasi', 0.74, '2025-05-27 09:13:18');
+(62, NULL, 'bagaimana cara konsultasi', 'cara_konsultasi', 0.74, '2025-05-27 09:13:18'),
+(63, NULL, 'tes', 'tes', 1.00, '2025-05-29 11:18:48'),
+(64, NULL, 'tes edit', 'tes edit', 1.00, '2025-05-29 11:19:21'),
+(65, NULL, 'halo', 'sapaan_halo', 1.00, '2025-06-06 13:24:23'),
+(66, NULL, 'apa itu hukum', 'definisi_hukum', 1.00, '2025-06-06 13:24:45'),
+(67, NULL, 'apa itu cerdas hukum', 'apa_itu_cerdas_hukum', 1.00, '2025-06-06 13:25:05'),
+(68, NULL, 'apa saja fitur cerdas hukum', 'fitur_platform', 0.81, '2025-06-06 13:25:37');
 
 -- --------------------------------------------------------
 
@@ -622,7 +672,18 @@ INSERT INTO `messages` (`id`, `sender_id`, `sender_role`, `receiver_id`, `receiv
 (88, 7, 'pengacara', 3, 'user', 'tes', NULL, '2025-05-25 20:47:32', 0),
 (89, 3, 'user', 7, 'pengacara', 'ok', NULL, '2025-05-25 20:47:41', 0),
 (90, 2, 'user', 20, 'pengacara', 'tes', NULL, '2025-05-27 16:18:41', 0),
-(91, 2, 'user', 20, 'pengacara', 'masuk', NULL, '2025-05-27 16:18:45', 0);
+(91, 2, 'user', 20, 'pengacara', 'masuk', NULL, '2025-05-27 16:18:45', 0),
+(92, 14, 'user', 2, 'pengacara', 'halo', NULL, '2025-05-27 20:31:02', 0),
+(93, 14, 'user', 3, 'pengacara', 'sas', NULL, '2025-05-28 00:43:48', 0),
+(94, 14, 'user', 3, 'pengacara', 'sa', NULL, '2025-05-28 00:45:28', 0),
+(95, 14, 'user', 20, 'pengacara', 'tes', NULL, '2025-05-29 00:11:28', 0),
+(96, 14, 'user', 11, 'pengacara', 'tes', NULL, '2025-05-29 02:52:14', 0),
+(97, 14, 'user', 2, 'pengacara', 'testing', NULL, '2025-05-29 17:15:01', 0),
+(98, 2, 'pengacara', 14, 'user', 'testing', NULL, '2025-05-29 17:15:22', 0),
+(99, 2, 'pengacara', 14, 'user', 'masuk', NULL, '2025-05-29 17:15:28', 0),
+(100, 2, 'pengacara', 14, 'user', 'testing ke 2', NULL, '2025-05-29 17:34:06', 0),
+(101, 14, 'user', 2, 'pengacara', 'di terima', NULL, '2025-05-29 17:34:56', 0),
+(102, 2, 'user', 2, 'pengacara', 'halo', NULL, '2025-06-10 11:11:07', 0);
 
 -- --------------------------------------------------------
 
@@ -722,7 +783,8 @@ INSERT INTO `pengacara` (`id`, `nama`, `ktp`, `tanggal_lahir`, `jenis_kelamin`, 
 (17, 'Louis', '3201010401010017', '1995-02-17', 'Perempuan', 'Jl. Lenteng Agung No.17 Jakarta', 'louis@gmail.com', '081234567806', 'ADV017', 'Universitas Mercu Buana', 'S2 Hukum', 'Hukum Perdata', 4, 'ktp17.png', '1746627792377-louis.png', 'kartu17.png', 'pkpa17.png', 'liliss', 'hashedpassword17', '2025-04-20 20:03:57', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 50000, NULL, NULL),
 (19, 'Fitri Yuliani', '3201010401010019', '1992-06-14', 'Perempuan', 'Jl. Pasar Rebo No.19 Jakarta', 'fitri.yuliani@example.com', '081234567808', 'ADV019', 'Universitas Lampung', 'S1 Hukum', 'Hukum Keluarga', 5, 'ktp19.png', '1746627913183-fitrii.png', 'kartu19.png', 'pkpa19.png', 'fitriy', 'hashedpassword19', '2025-04-20 20:03:57', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 50000, NULL, NULL),
 (20, 'Agus Saputra', '3201010401010020', '1988-01-01', 'Laki-laki', 'Jl. Condet No.20 Jakarta', 'agus.saputra@example.com', '081234567809', 'ADV020', 'Universitas Mulawarman', 'S1 Hukum', 'Hukum Ketenagakerjaan', 8, 'ktp20.png', '1746591929001-agus.png', 'kartu20.png', 'pkpa20.png', 'aguss', 'hashedpassword20', '2025-04-20 20:03:57', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 50000, NULL, NULL),
-(31, 'Ahmad Fauzi', '2222', '0222-02-22', 'Laki-laki', 'Jl. Merdeka No.1 Jakarta', 'fajri30.r@gmail.com', '2222224', '222223', 'Universitas Indonesia 3', 'S1 Hukum', 'Hukum perdata', 11, '1747330218227-Lawyer Login dan Register.png', '1747330218229-Lawyer Login dan Register.png', '1747330218230-Lawyer Login dan Register.png', '1747330218232-Lawyer Login dan Register.png', 'admin@cerdashukum.com', '222', '2025-05-16 00:35:14', 'https://x.com/', 'https://x.com/', 'https://x.com/', NULL, NULL, NULL, '1747330218233-Lawyer Login dan Register.png', '1747330218235-Lawyer Login dan Register.png', 50000, NULL, NULL);
+(31, 'Ahmad Fauzi', '2222', '0222-02-22', 'Laki-laki', 'Jl. Merdeka No.1 Jakarta', 'fajri30.r@gmail.com', '2222224', '222223', 'Universitas Indonesia 3', 'S1 Hukum', 'Hukum perdata', 11, '1747330218227-Lawyer Login dan Register.png', '1747330218229-Lawyer Login dan Register.png', '1747330218230-Lawyer Login dan Register.png', '1747330218232-Lawyer Login dan Register.png', 'admin@cerdashukum.com', '222', '2025-05-16 00:35:14', 'https://x.com/', 'https://x.com/', 'https://x.com/', NULL, NULL, NULL, '1747330218233-Lawyer Login dan Register.png', '1747330218235-Lawyer Login dan Register.png', 50000, NULL, NULL),
+(32, 'ts', '31234433', '0222-02-22', 'Laki-laki', 'Jl. Merdeka No.1 Jakarta', 'vns@gmail.com', '22222456777', '22222352', 'Universitas Indonesia', 'S1 Huuku', 'Hukum keluarga', 7, '1748516675670-WIN_20250526_11_01_41_Pro.jpg', '1748516675674-WIN_20250526_11_01_41_Pro.jpg', '1748516675678-WIN_20250526_11_01_41_Pro.jpg', '1748516675680-WIN_20250526_11_01_41_Pro.jpg', 'testing', '222', '2025-05-29 18:04:52', 'https://x.com/', 'https://x.com/', 'https://x.com/', NULL, NULL, NULL, '1748516675684-WIN_20250526_11_01_41_Pro.jpg', '1748516675686-WIN_20250526_11_01_41_Pro.jpg', 50000, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -799,7 +861,7 @@ CREATE TABLE `users` (
 
 INSERT INTO `users` (`id`, `name`, `email`, `phone`, `password`, `gender`, `birthdate`, `created_at`, `address`, `photo`, `reset_token`, `reset_token_expiry`) VALUES
 (1, 'zikra', 'termiteindonesia@gmail.com', '089918181819', 'ayam', 'L', '1888-02-01', '2025-03-20 07:09:05', 'Jakarta Barat', '1747336247911.jpg', NULL, NULL),
-(2, 'Fajri', 'fajri30.r@gmail.com', '085706125411', '12345678', 'L', '1988-03-01', '2025-03-20 07:13:06', 'Kebon Jeruk', '1747573091381.jpg', 'F635FE', '2025-05-18 19:39:31'),
+(2, 'Fajri', 'fajri30.r@gmail.com', '085706125411', '12345678', 'L', '1988-03-01', '2025-03-20 07:13:06', 'Kebon Jeruk', '1749218036024.png', 'F635FE', '2025-05-18 19:39:31'),
 (3, 'Vanes Lampung', 'vanes@gmail.com', '08928188192', '12345678', 'L', '2025-10-03', '2025-03-20 07:26:06', '', NULL, NULL, NULL),
 (4, 'human', 'human@gmail.com', '1234156161718', '12345678', 'L', '1888-01-01', '2025-03-20 07:32:57', NULL, NULL, NULL, NULL),
 (5, 'newest', 'newest@gmail.com', '09891817182', '12345678', 'P', '2000-10-10', '2025-03-20 08:48:30', NULL, NULL, NULL, NULL),
@@ -810,12 +872,12 @@ INSERT INTO `users` (`id`, `name`, `email`, `phone`, `password`, `gender`, `birt
 (10, 'abc', 'abc@gmail.com', '123456', '12345678', 'L', '1222-11-11', '2025-03-27 03:18:49', NULL, NULL, NULL, NULL),
 (11, 'Vannes vernando ', 'vanesvernando72@gmail.com', '085781086148', '222', 'L', '2222-02-22', '2025-04-09 11:05:26', NULL, NULL, NULL, NULL),
 (13, 'Vannes vernando ', 'vanesvernando@gmail.com', '085781086148', '333', 'L', '0033-03-31', '2025-04-09 11:07:27', NULL, NULL, NULL, NULL),
-(14, 'Vannes vernando ', 'vns@gmail.com', '085781086148', '222', 'L', '2222-02-22', '2025-04-09 11:30:29', NULL, NULL, NULL, NULL),
+(14, 'Vannes vernando ', 'vns@gmail.com', '085781086148', '222', 'L', '2222-02-22', '2025-04-09 11:30:29', '', '1748429171884.jpg', NULL, NULL),
 (15, 'Vannes vernando ', 'cba@gmail.com', '085781086148', '222', 'L', '2222-02-22', '2025-04-09 14:20:19', NULL, NULL, NULL, NULL),
 (16, 'manusia', 'manusia@gmail.com', '089967372738', '222', 'L', '2025-05-01', '2025-04-15 08:23:51', NULL, NULL, NULL, NULL),
 (17, 'ihsan', 'ihsan@gmail.com', '8789907788', '333', 'L', '2025-04-15', '2025-04-15 08:26:36', NULL, NULL, NULL, NULL),
 (18, 'Ayunnie', 'sukagelay299@gmail.com', '0857061254118', '222', 'P', '2222-02-22', '2025-04-15 08:28:08', NULL, NULL, NULL, NULL),
-(19, 'ihsan', 'sukagay@gmail.com', '0857061254113', '222', 'P', '0002-02-22', '2025-04-15 08:29:35', '', NULL, NULL, NULL);
+(21, 'testing', 'testing@email.com', '997479383989', '123456', 'L', '2000-01-01', '2025-05-29 11:02:13', 'tes', NULL, NULL, NULL);
 
 --
 -- Indexes for dumped tables
@@ -865,7 +927,7 @@ ALTER TABLE `konsultasi`
 --
 ALTER TABLE `konsultasi_session`
   ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `unik_session` (`user_id`,`pengacara_id`,`status`);
+  ADD UNIQUE KEY `unik_session` (`user_id`,`pengacara_id`,`start_time`);
 
 --
 -- Indeks untuk tabel `log_aktivitas`
@@ -944,25 +1006,25 @@ ALTER TABLE `admin`
 -- AUTO_INCREMENT untuk tabel `ajukan_kasus`
 --
 ALTER TABLE `ajukan_kasus`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=46;
 
 --
 -- AUTO_INCREMENT untuk tabel `artikel`
 --
 ALTER TABLE `artikel`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=39;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=40;
 
 --
 -- AUTO_INCREMENT untuk tabel `artikel_berita`
 --
 ALTER TABLE `artikel_berita`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT untuk tabel `faq_hukum`
 --
 ALTER TABLE `faq_hukum`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=104;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=106;
 
 --
 -- AUTO_INCREMENT untuk tabel `konsultasi`
@@ -974,7 +1036,7 @@ ALTER TABLE `konsultasi`
 -- AUTO_INCREMENT untuk tabel `konsultasi_session`
 --
 ALTER TABLE `konsultasi_session`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=36;
 
 --
 -- AUTO_INCREMENT untuk tabel `log_aktivitas`
@@ -986,25 +1048,25 @@ ALTER TABLE `log_aktivitas`
 -- AUTO_INCREMENT untuk tabel `log_pertanyaan_user`
 --
 ALTER TABLE `log_pertanyaan_user`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=63;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=69;
 
 --
 -- AUTO_INCREMENT untuk tabel `messages`
 --
 ALTER TABLE `messages`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=92;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=103;
 
 --
 -- AUTO_INCREMENT untuk tabel `pendaftaran_pengacara`
 --
 ALTER TABLE `pendaftaran_pengacara`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- AUTO_INCREMENT untuk tabel `pengacara`
 --
 ALTER TABLE `pengacara`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
 
 --
 -- AUTO_INCREMENT untuk tabel `pengguna`
@@ -1028,7 +1090,7 @@ ALTER TABLE `transaksi`
 -- AUTO_INCREMENT untuk tabel `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
 
 --
 -- Ketidakleluasaan untuk tabel pelimpahan (Dumped Tables)
