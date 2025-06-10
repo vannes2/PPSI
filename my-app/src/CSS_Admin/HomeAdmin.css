@@ -1,463 +1,277 @@
-/* ------------------------------------------ */
-/* WRAPPER LAYOUT */
-/* ------------------------------------------ */
-.dashboard-wrapper {
-  display: flex;
-  height: 100vh;
-  overflow-x: hidden;
-  font-family: sans-serif;
-  background-color: #f3f4f6;
+/* ========================================== */
+/* DESAIN SISTEM & PALET WARNA                */
+/* ========================================== */
+:root {
+    --color-background: #1f2b38;
+    --color-surface-1: #2c3e50;
+    --color-surface-2: #34495e; /* Digunakan untuk hover */
+    --color-accent-1: #f39c12;
+    --color-accent-2: #e67e22;
+    --color-text-primary: #ecf0f1;
+    --color-text-secondary: #a3b1c2;
+    --color-border: #3d566e;
+    --color-success: #27ae60;
+    --color-warning: #f1c40f;
+    --color-danger: #c0392b;
+    --color-info: #3498db;
+    --font-family: 'Poppins', sans-serif;
+    --radius-sm: 6px; /* Radius diperkecil */
+    --radius-md: 10px;/* Radius diperkecil */
+    --shadow-soft: 0 4px 12px rgba(0, 0, 0, 0.15);
+    --transition-smooth: all 0.2s ease-in-out;
 }
 
-/* ------------------------------------------ */
-/* SIDEBAR */
-/* ------------------------------------------ */
-.dashboard-sidebar {
-  flex-shrink: 0;
-  width: 250px;
-  background: #1f2937;
-  color: #ffffff;
-  padding: 20px;
-  box-sizing: border-box;
-  display: flex;
-  flex-direction: column;
+/* ========================================== */
+/* BODY & GLOBAL (Ukuran diperkecil)          */
+/* ========================================== */
+body {
+    font-family: var(--font-family);
+    background-color: var(--color-background);
+    color: var(--color-text-primary);
+    padding: 16px; /* Padding diperkecil */
+    /* Simulating the main content area */
+    margin-left: 250px; 
 }
 
-.dashboard-sidebar h2 {
-  font-size: 1.5rem;
-  font-weight: bold;
-  margin-bottom: 30px;
-  text-align: center;
+.content-wrapper {
+    max-width: 100%; /* Memaksimalkan lebar */
+    margin: 0 auto;
 }
 
-.dashboard-sidebar ul {
-  list-style: none;
-  padding: 0;
-  margin: 0;
+/* ========================================== */
+/* DETAIL DATA & HEADER (Ukuran diperkecil)   */
+/* ========================================== */
+.detail-data {
+    background-color: var(--color-surface-1);
+    padding: 16px 20px; /* Padding diperkecil */
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-soft);
+    margin-bottom: 20px; /* Margin diperkecil */
+    border: 1px solid var(--color-border);
 }
 
-.dashboard-sidebar li {
-  margin-bottom: 15px;
+.detail-data h2 {
+    margin-top: 0;
+    margin-bottom: 4px;
+    color: var(--color-text-primary);
+    font-size: 1.3rem; /* Font diperkecil */
 }
 
-.dashboard-sidebar button {
-  display: flex;
-  align-items: center;
-  width: 100%;
-  padding: 10px;
-  background: none;
-  border: none;
-  color: inherit;
-  font-size: 1rem;
-  cursor: pointer;
-  border-radius: 6px;
-  text-align: left;
-  transition: background 0.3s ease;
+.detail-data p {
+    margin: 2px 0;
+    color: var(--color-text-secondary);
+    font-size: 0.85rem; /* Font diperkecil */
 }
 
-.dashboard-sidebar button:hover,
-.dashboard-sidebar .nav-active button {
-  background: #374151;
+/* ========================================== */
+/* SEARCH & TOOLBAR                           */
+/* ========================================== */
+.header-toolbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    gap: 16px;
 }
 
-.icon-spacing {
-  margin-right: 10px;
-  font-size: 1.2rem;
-}
-
-/* ------------------------------------------ */
-/* MAIN CONTENT */
-/* ------------------------------------------ */
-.dashboard-content {
-  flex-grow: 1;
-  background: #f3f4f6;
-  min-height: 100vh;
-  box-sizing: border-box;
-  overflow-x: auto;
-  padding: 40px 24px;
-  position: relative;
-}
-
-.dashboard-content p {
-  color: #000000;
-}
-
-/* ------------------------------------------ */
-/* SEARCH & TOOLBAR */
-/* ------------------------------------------ */
 .search-input {
-  width: 100%;
-  max-width: 320px;
-  padding: 10px 12px;
-  border: 1px solid #d1d5db;
-  border-radius: 6px;
-  margin-bottom: 20px;
-  font-size: 14px;
-  background: #fff;
+    width: 100%;
+    max-width: 350px; /* Diperkecil */
+    padding: 8px 14px; /* Diperkecil */
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-sm);
+    margin-top: 8px;
+    font-size: 0.9rem; /* Diperkecil */
+    background: var(--color-surface-2);
+    color: var(--color-text-primary);
+    transition: var(--transition-smooth);
+}
+
+.search-input::placeholder {
+    color: var(--color-text-secondary);
+}
+
+.search-input:focus {
+    outline: none;
+    border-color: var(--color-accent-1);
+    box-shadow: 0 0 0 3px rgba(243, 156, 18, 0.4);
 }
 
 .toolbar {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  margin-bottom: 20px;
-  flex-wrap: wrap;
+    display: flex;
+    gap: 10px;
+    margin-top: 16px;
 }
 
-/* ------------------------------------------ */
-/* BUTTON STYLES */
-/* ------------------------------------------ */
+/* ========================================== */
+/* BUTTON STYLES (Ukuran diperkecil)          */
+/* ========================================== */
 .btn-primary,
 .btn-refresh,
 .btn-view,
 .btn-edit,
 .btn-delete {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  padding: 8px 14px;
-  font-size: 14px;
-  font-weight: 600;
-  border: none;
-  border-radius: 6px;
-  cursor: pointer;
-  transition: all 0.2s ease-in-out;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 7px 14px; /* Diperkecil */
+    border: none;
+    border-radius: var(--radius-sm);
+    font-size: 0.8rem; /* Diperkecil */
+    font-weight: 600;
+    cursor: pointer;
+    transition: var(--transition-smooth);
+    white-space: nowrap;
 }
 
 .btn-primary {
-  background-color: #10b981;
-  color: #ffffff;
+    background-color: var(--color-accent-1);
+    color: var(--color-background);
+    font-weight: 700;
+}
+.btn-primary:hover {
+    background-color: var(--color-accent-2);
+    transform: translateY(-1px);
 }
 
 .btn-refresh {
-  background-color: #111827;
-  color: #ffffff;
+    background-color: var(--color-surface-2);
+    color: var(--color-text-primary);
+    border: 1px solid var(--color-border);
+}
+.btn-refresh:hover {
+    filter: brightness(1.2);
+    transform: translateY(-1px);
 }
 
-.btn-view {
-  background-color: #3b82f6;
-  color: #ffffff;
+.table-actions .btn-view,
+.table-actions .btn-edit,
+.table-actions .btn-delete {
+    padding: 5px 10px; /* Diperkecil */
+    font-size: 0.75rem; /* Diperkecil */
 }
 
-.btn-edit {
-  background-color: #06b6d4;
-  color: #ffffff;
-}
+.btn-view { background-color: var(--color-info); color: #ffffff; }
+.btn-edit { background-color: var(--color-warning); color: var(--color-background); font-weight: 700; }
+.btn-delete { background-color: var(--color-danger); color: #ffffff; }
 
-.btn-delete {
-  background-color: #ef4444;
-  color: #ffffff;
-}
-
-.btn-primary:hover,
-.btn-refresh:hover,
-.btn-view:hover,
-.btn-edit:hover,
-.btn-delete:hover {
-  opacity: 0.9;
-  transform: scale(1.05);
-}
-
-/* ------------------------------------------ */
-/* TABLE & CONTAINER */
-/* ------------------------------------------ */
-.detail-data {
-  width: 100%;
-  padding: 0 16px;
-  margin: 0 auto;
-  box-sizing: border-box;
-}
-
-/* Container luar dengan overflow horizontal aktif */
-/* Wrapper tabel dengan posisi relatif agar scroll muncul tepat di bawah area tabel */
-/* ===================== */
-/* WRAPPER TABEL LEBAR  */
-/* ===================== */
+/* ========================================== */
+/* TABLE & CONTAINER                          */
+/* ========================================== */
 .table-wrapper {
-  width: 100%;
-  background: #fff;
-  border-radius: 8px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-  margin-top: 20px;
-  padding: 0;
-  overflow: visible; /* tidak mengatur overflow di sini */
+    width: 100%;
+    background: var(--color-surface-1);
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-soft);
+    margin-top: 20px;
+    padding: 12px; /* Diperkecil */
+    box-sizing: border-box;
+    overflow: hidden;
+    border: 1px solid var(--color-border);
 }
 
-/* ===================== */
-/* SCROLL TABEL DALAM    */
-/* ===================== */
 .table-scroll {
-  overflow-x: auto;
-  overflow-y: hidden;
-  width: 100%;
-  -webkit-overflow-scrolling: touch;
-  padding-bottom: 2px;
+    overflow-x: auto;
+    width: 100%;
 }
 
-.table-scroll::-webkit-scrollbar {
-  height: 10px;
-}
+.table-scroll::-webkit-scrollbar { height: 8px; }
+.table-scroll::-webkit-scrollbar-thumb { background: var(--color-border); border-radius: 4px; }
+.table-scroll::-webkit-scrollbar-track { background: transparent; }
 
-.table-scroll::-webkit-scrollbar-thumb {
-  background: #ccc;
-  border-radius: 4px;
-}
-
-.table-scroll::-webkit-scrollbar-track {
-  background: transparent;
-}
-
-/* ===================== */
-/* STRUKTUR TABEL        */
-/* ===================== */
 .table-scroll table {
-  min-width: 1400px; /* bisa kamu atur sesuai jumlah kolom */
-  width: 100%;
-  border-collapse: collapse;
-  table-layout: auto;
-  font-size: 14px;
-  white-space: nowrap;
+    width: 100%;
+    min-width: 1600px; /* Min-width disesuaikan */
+    border-collapse: collapse;
 }
 
+/* UKURAN FONT & PADDING TABEL (diperkecil sesuai permintaan) */
 .table-scroll th,
 .table-scroll td {
-  padding: 12px 16px;
-  border: 1px solid #e5e7eb;
-  text-align: left;
-  white-space: nowrap;
-  vertical-align: middle;
-  color: #000;
+    padding: 8px 10px; /* Padding diperkecil secara signifikan */
+    border: none;
+    border-bottom: 1px solid var(--color-border);
+    text-align: left;
+    vertical-align: middle;
+    font-size: 12px; /* Font data diperkecil */
 }
 
-
-.table-scroll tbody tr:hover {
-  background-color: #f9fafb;
+.table-scroll th {
+    font-weight: 600;
+    text-transform: uppercase;
+    font-size: 10px; /* Font header diperkecil */
+    position: sticky;
+    top: 0;
+    z-index: 2;
 }
 
-.table-scroll img {
-  max-width: 60px;
-  max-height: 60px;
-  object-fit: cover;
-  border-radius: 6px;
+.table-scroll tbody tr:last-child td {
+    border-bottom: none;
 }
 
 .table-actions {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 8px;
-  flex-wrap: wrap;
-}
-
-/* ------------------------------------------ */
-/* FIX COLUMN WIDTH PER KOLOM */
-/* ------------------------------------------ */
-.table-scroll th:nth-child(1),  /* ID */
-.table-scroll td:nth-child(1) {
-  width: 40px;
-  text-align: center;
-}
-
-.table-scroll th:nth-child(2),  /* Nama */
-.table-scroll td:nth-child(2) {
-  min-width: 120px;
-}
-
-.table-scroll th:nth-child(3),  /* KTP */
-.table-scroll td:nth-child(3) {
-  min-width: 140px;
-}
-
-.table-scroll th:nth-child(4),  /* Tgl Lahir */
-.table-scroll td:nth-child(4) {
-  min-width: 120px;
-}
-
-.table-scroll th:nth-child(5),  /* Jenis Kelamin */
-.table-scroll td:nth-child(5) {
-  min-width: 110px;
-}
-
-.table-scroll th:nth-child(6),  /* Alamat */
-.table-scroll td:nth-child(6) {
-  min-width: 160px;
-}
-
-.table-scroll th:nth-child(7),  /* Email */
-.table-scroll td:nth-child(7) {
-  min-width: 180px;
-}
-
-.table-scroll th:nth-child(8),  /* No HP */
-.table-scroll td:nth-child(8) {
-  min-width: 120px;
-}
-
-.table-scroll th:nth-child(9),  /* No Induk Advokat */
-.table-scroll td:nth-child(9) {
-  min-width: 140px;
-}
-
-.table-scroll th:nth-child(10),  /* Universitas */
-.table-scroll td:nth-child(10) {
-  min-width: 160px;
-}
-
-.table-scroll th:nth-child(11),
-.table-scroll td:nth-child(11) {
-  min-width: 120px; /* Pendidikan */
-}
-
-.table-scroll th:nth-child(12),
-.table-scroll td:nth-child(12) {
-  min-width: 140px; /* Spesialisasi */
-}
-
-.table-scroll th:nth-child(13),
-.table-scroll td:nth-child(13) {
-  width: 80px; /* Pengalaman */
-  text-align: center;
-}
-
-.table-scroll th:nth-child(14),
-.table-scroll td:nth-child(14) {
-  min-width: 100px; /* Upload KTP */
-}
-
-.table-scroll th:nth-child(15),
-.table-scroll td:nth-child(15) {
-  width: 80px; /* Foto */
-  text-align: center;
-}
-
-.table-scroll th:nth-child(16),
-.table-scroll td:nth-child(16) {
-  min-width: 100px; /* Kartu Advokat */
-}
-
-.table-scroll th:nth-child(17),
-.table-scroll td:nth-child(17) {
-  min-width: 100px; /* PKPA */
-}
-
-.table-scroll th:nth-child(18),
-.table-scroll td:nth-child(18) {
-  min-width: 100px; /* Username */
-}
-
-.table-scroll th:nth-child(19),
-.table-scroll td:nth-child(19) {
-  min-width: 100px; /* Password */
-}
-
-.table-scroll th:nth-child(20),
-.table-scroll td:nth-child(20) {
-  min-width: 160px; /* Tanggal Daftar */
-}
-
-.table-scroll th:nth-child(21),
-.table-scroll td:nth-child(21) {
-  width: 130px; /* Aksi */
-  text-align: center;
-}
-
-.dashboard-wrapper {
-  display: flex;
-  min-height: 100vh;
-  background-color: #f3f4f6;
-  overflow: hidden;
-}
-
-.dashboard-sidebar {
-  width: 250px;
-  background-color: #1f2937;
-  color: white;
-  padding: 20px;
-  box-sizing: border-box;
-  flex-shrink: 0;
-}
-
-.dashboard-content {
-  flex-grow: 1;
-  padding: 40px 24px;
-  background: #f3f4f6;
-  min-height: 100vh;
-  box-sizing: border-box;
-  overflow-x: auto;
-}
-
-
-/* ------------------------------------------ */
-/* RESPONSIVE */
-/* ------------------------------------------ */
-@media (max-width: 768px) {
-  .dashboard-sidebar {
-    width: 200px;
-  }
-
-  .dashboard-content {
-    padding: 30px 20px;
-  }
-
-  .search-input {
-    width: 100%;
-  }
-
-  .table-scroll {
-    min-width: 100%;
-  }
-
-  .table-scroll table,
-  .table-scroll thead,
-  .table-scroll tbody,
-  .table-scroll th,
-  .table-scroll td,
-  .table-scroll tr {
-    display: block;
-  }
-
-  .table-scroll thead {
-    display: none;
-  }
-
-  .table-scroll tr {
-    margin-bottom: 16px;
-    border: 1px solid #e5e7eb;
-    border-radius: 8px;
-    background: #ffffff;
-    padding: 12px;
-  }
-
-  .table-scroll td {
     display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 10px;
-    border: none;
-    border-bottom: 1px solid #e5e7eb;
-    font-size: 14px;
-  }
-
-  .table-scroll td:last-child {
-    border-bottom: none;
-  }
-
-  .table-scroll td::before {
-    content: attr(data-label);
-    font-weight: bold;
-    flex-shrink: 0;
-    margin-right: 10px;
-    color: #374151;
-  }
+    gap: 8px;
 }
 
-@media (max-width: 480px) {
-  .dashboard-sidebar {
-    display: none;
-  }
+/* SKEMA WARNA BARIS TABEL (disederhanakan sesuai permintaan) */
+.table-scroll th {
+    background-color: var(--color-surface-2);
+    color: var(--color-text-secondary);
+}
+.table-scroll tbody tr {
+    background-color: var(--color-surface-1); /* Warna dasar baris ganjil */
+    transition: var(--transition-smooth);
+}
+.table-scroll tbody tr:nth-child(even) {
+    background-color: var(--color-background); /* Warna belang untuk baris genap */
+}
+.table-scroll tbody tr:hover {
+    background-color: var(--color-surface-2); /* Warna saat kursor di atas baris */
+}
 
-  .dashboard-content {
-    margin-left: 0;
-    padding: 20px;
-  }
+
+/* ========================================== */
+/* COLUMN WIDTH (Ukuran diperkecil)           */
+/* ========================================== */
+.table-scroll th:nth-child(1), .table-scroll td:nth-child(1) { width: 40px; text-align: center; } /* ID */
+.table-scroll th:nth-child(2), .table-scroll td:nth-child(2) { min-width: 140px; } /* NAMA */
+.table-scroll th:nth-child(3), .table-scroll td:nth-child(3) { min-width: 130px; } /* KTP */
+.table-scroll th:nth-child(4), .table-scroll td:nth-child(4) { min-width: 110px; } /* TGL LAHIR */
+.table-scroll th:nth-child(5), .table-scroll td:nth-child(5) { min-width: 100px; } /* JENIS KELAMIN */
+.table-scroll th:nth-child(6), .table-scroll td:nth-child(6) { min-width: 180px; } /* ALAMAT */
+.table-scroll th:nth-child(7), .table-scroll td:nth-child(7) { min-width: 160px; } /* EMAIL */
+.table-scroll th:nth-child(8), .table-scroll td:nth-child(8) { min-width: 110px; } /* NO HP */
+.table-scroll th:nth-child(9), .table-scroll td:nth-child(9) { min-width: 120px; } /* NO INDUK ADVOKAT */
+.table-scroll th:nth-child(10), .table-scroll td:nth-child(10) { min-width: 150px; } /* UNIVERSITAS */
+.table-scroll th:nth-child(11), .table-scroll td:nth-child(11) { min-width: 180px; text-align: center; } /* AKSI */
+
+/* ========================================== */
+/* PEWARNAAN TEXT KOLOM (SESUAI PERMINTAAN)   */
+/* ========================================== */
+/* ID: Warna sekunder agar tidak terlalu menonjol */
+.table-scroll td:nth-child(1) {
+    color: var(--color-text-secondary);
+}
+
+/* Nama: Warna aksen utama agar menonjol */
+.table-scroll td:nth-child(2) {
+    color: var(--color-accent-1);
+    font-weight: 600;
+}
+
+/* Email: Warna info */
+.table-scroll td:nth-child(7) {
+    color: var(--color-info);
+}
+
+/* No Induk Advokat: Warna warning */
+.table-scroll td:nth-child(9) {
+    color: var(--color-warning);
+    font-weight: 600;
+}
+
+/* Universitas: Warna success */
+.table-scroll td:nth-child(10) {
+    color: var(--color-success);
 }
