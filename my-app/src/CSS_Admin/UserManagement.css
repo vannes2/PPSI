@@ -41,8 +41,8 @@ h2 {
   color:#f39c12;
 }
 .user-management-container {
-  padding: 30px;
-  background-color: var(--bg-dark);
+  padding: 50px;
+  background-color: var( --card-bg);
   color: var(--text-light);
   max-width: 1400px;
   margin: 1.5rem auto;
