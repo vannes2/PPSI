@@ -162,7 +162,7 @@ const AjukanKasus = () => {
   };
 
   return (
-    <div>
+    <div className='page-main'>
       <HeaderAfter />
       <div className="page-wrapper">
         <div className="ajukan-kasus-container">

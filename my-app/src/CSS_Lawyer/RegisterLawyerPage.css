@@ -196,11 +196,233 @@
   100% { transform: rotate(360deg); }
 }
 
-    
-  /* Responsive Mobile */
-  @media (max-width: 768px) {
-    .register-lawyer-page .container-form-row {
-      flex-direction: column;
+/* ================= RESPONSIVE ================= */
+
+/* Untuk layar dengan lebar maksimal 1024px (Tablet Besar) */
+@media (max-width: 1024px) {
+    .register-lawyer-page {
+        padding: 30px 15px; /* Sedikit kurangi padding halaman */
     }
-  }
-  
+
+    .register-lawyer-page .title {
+        font-size: 38px; /* Ukuran judul lebih kecil */
+        margin-top: 30px;
+        margin-bottom: 25px;
+    }
+
+    .register-lawyer-page .form-register-lawyer {
+        padding: 25px;
+        max-width: 800px; /* Kurangi max-width form */
+    }
+
+    .register-lawyer-page .container-form {
+        gap: 18px; /* Kurangi gap antar grup form */
+    }
+
+    .register-lawyer-page .container-form-row,
+    .register-lawyer-page .akun-row {
+        gap: 15px; /* Kurangi gap antar item dalam satu baris */
+        flex-direction: column; /* Tumpuk jadi kolom di tablet */
+        align-items: center; /* Tengahkan items */
+    }
+
+    .register-lawyer-page .form-group {
+        width: 100%; /* Ambil lebar penuh */
+        max-width: 500px; /* Batasi lebar maksimum grup form */
+        min-width: unset; /* Hilangkan min-width sebelumnya */
+    }
+
+    .register-lawyer-page .form-group input,
+    .register-lawyer-page .form-group select,
+    .register-lawyer-page .form-group input[type="file"] {
+        width: 100%; /* Input mengambil lebar penuh dari form-group */
+        padding: 12px; /* Sesuaikan padding */
+        font-size: 15px;
+    }
+
+    .register-lawyer-page .akun-row .form-group input {
+        width: 100% !important; /* Pastikan input akun juga full width */
+    }
+
+    .register-lawyer-page .submit-btn {
+        padding: 15px;
+        font-size: 16px;
+    }
+
+    .register-lawyer-page .info-pendaftaran {
+        padding: 10px 14px;
+        font-size: 13px;
+    }
+
+    /* Pop-up adjustments for tablet */
+    .popup-content {
+        max-width: 350px;
+        padding: 25px;
+    }
+    .popup-content .checkmark,
+    .popup-content .error-icon {
+        width: 50px;
+        height: 50px;
+        font-size: 30px;
+    }
+    .popup-content p { /* Assuming popup message is a <p> tag */
+        font-size: 16px;
+    }
+}
+
+/* Untuk layar dengan lebar maksimal 768px (Tablet Sedang/Vertikal) */
+@media (max-width: 768px) {
+    .register-lawyer-page {
+        padding: 25px 10px; /* Kurangi padding halaman lagi */
+    }
+
+    .register-lawyer-page .title {
+        font-size: 32px; /* Judul lebih kecil */
+        margin-top: 25px;
+        margin-bottom: 20px;
+    }
+
+    .register-lawyer-page .form-register-lawyer {
+        padding: 20px;
+        max-width: 600px; /* Batasi max-width form */
+    }
+
+    .register-lawyer-page .container-form {
+        gap: 15px; /* Kurangi gap antar grup form */
+    }
+
+    .register-lawyer-page .form-group {
+        max-width: 100%; /* Full width */
+    }
+
+    .register-lawyer-page .form-group input,
+    .register-lawyer-page .form-group select,
+    .register-lawyer-page .form-group input[type="file"] {
+        padding: 10px; /* Kurangi padding input */
+        font-size: 14px;
+    }
+
+    .register-lawyer-page .form-group label {
+        font-size: 14px; /* Sesuaikan ukuran label */
+    }
+
+    .register-lawyer-page .checkbox-group {
+        font-size: 13px;
+    }
+
+    .register-lawyer-page .checkbox-group input[type="checkbox"] {
+        width: 14px;
+        height: 14px;
+    }
+
+    .register-lawyer-page .submit-btn {
+        padding: 12px;
+        font-size: 15px;
+    }
+
+    /* Pop-up adjustments for smaller tablet */
+    .popup-content {
+        max-width: 300px;
+        padding: 20px;
+    }
+    .popup-content .checkmark,
+    .popup-content .error-icon {
+        width: 45px;
+        height: 45px;
+        font-size: 28px;
+    }
+    .popup-content p {
+        font-size: 15px;
+    }
+}
+
+/* Untuk layar dengan lebar maksimal 480px (Ponsel) */
+@media (max-width: 480px) {
+    .register-lawyer-page {
+        padding: 15px 8px; /* Padding minimal untuk ponsel */
+    }
+
+    .register-lawyer-page .title {
+        font-size: 28px; /* Judul lebih kecil lagi */
+        margin-top: 20px;
+        margin-bottom: 15px;
+    }
+
+    .register-lawyer-page .form-register-lawyer {
+        padding: 15px;
+        border-radius: 15px; /* Sedikit lebih kecil */
+        box-shadow: 0 2px 10px rgba(241, 241, 241, 0.1);
+    }
+
+    .register-lawyer-page .container-form {
+        gap: 12px; /* Gap lebih kecil */
+    }
+
+    /* Pastikan semua row di ponsel selalu tumpuk vertikal */
+    .register-lawyer-page .container-form-row,
+    .register-lawyer-page .akun-row {
+        flex-direction: column;
+        gap: 12px;
+        align-items: stretch; /* Meregangkan ke lebar penuh */
+    }
+
+    .register-lawyer-page .form-group {
+        min-width: unset; /* Pastikan tidak ada min-width yang mengganggu */
+    }
+
+    .register-lawyer-page .form-group input,
+    .register-lawyer-page .form-group select,
+    .register-lawyer-page .form-group input[type="file"] {
+        padding: 8px; /* Padding input lebih kecil */
+        font-size: 13px;
+        border-radius: 5px; /* Sudut lebih halus */
+    }
+
+    .register-lawyer-page .form-group label {
+        font-size: 13px; /* Ukuran label lebih kecil */
+        margin-bottom: 4px;
+    }
+
+    .register-lawyer-page .info-pendaftaran {
+        padding: 8px 10px;
+        font-size: 12px;
+    }
+
+    .register-lawyer-page .checkbox-group {
+        gap: 8px;
+        font-size: 12px;
+    }
+
+    .register-lawyer-page .checkbox-group input[type="checkbox"] {
+        width: 12px;
+        height: 12px;
+    }
+
+    .register-lawyer-page .submit-btn {
+        padding: 10px;
+        font-size: 14px;
+        border-radius: 5px;
+    }
+
+    /* Pop-up adjustments for mobile */
+    .popup-content {
+        max-width: 280px;
+        padding: 15px;
+        border-radius: 10px;
+    }
+    .popup-content .checkmark,
+    .popup-content .error-icon {
+        width: 40px;
+        height: 40px;
+        font-size: 24px;
+        margin-bottom: 8px;
+    }
+    .popup-content p {
+        font-size: 14px;
+    }
+    .popup-content.loading .spinner {
+        width: 30px;
+        height: 30px;
+        border-width: 4px;
+    }
+}

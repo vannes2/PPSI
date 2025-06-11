@@ -63,15 +63,33 @@
   gap: 15px;
 }
 
+/* Temukan bagian ini di CSS Anda: */
 .Login-page .main input {
   width: 100%;
   padding: 15px;
-  border: 1px solid #ccc;
+  border: 1px solid #ccc; /* Border default */
   border-radius: 5px;
   background-color: white;
   color: black;
+  /* TAMBAHKAN ATAU MODIFIKASI INI */
+  transition: border-color 0.3s ease, box-shadow 0.3s ease; /* Penting untuk transisi halus */
 }
 
+/* Tambahkan bagian ini untuk efek HOVER */
+.Login-page .main input:hover {
+  border-color: #B31312; /* Border menjadi merah marun saat di-hover */
+  box-shadow: 0 0 10px rgba(179, 19, 18, 0.45); /* Efek glow saat di-hover */
+}
+
+/* Pastikan bagian :focus tetap ada dan berada setelah :hover jika warnanya berbeda */
+/* (Aturan :focus Anda sudah cukup baik) */
+.Login-page .main input:focus {
+  border-color: #B31312; /* Warna border saat fokus */
+  outline: none; /* Hilangkan outline default browser */
+  box-shadow: 0 0 10px rgba(179, 19, 18, 0.45); /* Efek glow saat fokus */
+}
+
+/* KODE LAINNYA DI CSS ANDA TETAP SAMA */
 /* Link */
 .Login-page .login-admin {
   font-size: 14px;
@@ -217,7 +235,6 @@
   0% { transform: rotate(0deg); }
   100% { transform: rotate(360deg); }
 }
-
 
 /* ================= RESPONSIVE ================= */
 
