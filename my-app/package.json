@@ -16,14 +16,17 @@
     "@fortawesome/free-solid-svg-icons": "^6.7.2",
     "@fortawesome/react-fontawesome": "^0.2.2",
     "axios": "^1.8.4",
+    "jspdf": "^3.0.1",
     "lucide-react": "^0.483.0",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "react-icons": "^5.5.0",
+    "react-paginate": "^8.3.0",
     "react-router-dom": "^7.3.0",
     "react-table": "^7.8.0",
     "recharts": "^2.15.3",
-    "swiper": "^11.2.6"
+    "swiper": "^11.2.6",
+    "xlsx": "^0.18.5"
   },
   "devDependencies": {
     "@eslint/js": "^9.13.0",

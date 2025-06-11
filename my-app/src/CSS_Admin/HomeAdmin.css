@@ -124,18 +124,24 @@ body {
     white-space: nowrap;
 }
 
+.btn-primary  {
+     background-color: var(--color-accent-1);
+    color: var(--color-background);
+      
+}
+
 .btn-primary {
-    background-color: var(--color-accent-1);
+    background-color: var(--color-accent-1) !important;
     color: var(--color-background);
     font-weight: 700;
 }
 .btn-primary:hover {
-    background-color: var(--color-accent-2);
+    background-color: var(--color-accent-2) !important;
     transform: translateY(-1px);
 }
 
 .btn-refresh {
-    background-color: var(--color-surface-2);
+    background-color: var(--color-surface-2) !important;
     color: var(--color-text-primary);
     border: 1px solid var(--color-border);
 }
@@ -219,6 +225,56 @@ body {
     background-color: var(--color-surface-2);
     color: var(--color-text-secondary);
 }
+
+.table-scroll th:nth-child(3), .table-scroll td:nth-child(3) {
+      color: var( --color-text-primary); 
+    } /* KTP */
+
+.table-scroll th:nth-child(3), .table-scroll td:nth-child(4) {
+      color: var( --color-text-primary); 
+    }
+
+.table-scroll th:nth-child(3), .table-scroll td:nth-child(5) {
+      color: var( --color-text-primary); 
+    }
+
+.table-scroll th:nth-child(3), .table-scroll td:nth-child(6) {
+      color: var( --color-text-primary); 
+    }
+
+.table-scroll th:nth-child(3), .table-scroll td:nth-child(8) {
+      color: var( --color-text-primary); 
+    }
+    
+.table-scroll th:nth-child(3), .table-scroll td:nth-child(11) {
+      color: var( --color-text-primary); 
+    }
+.table-scroll th:nth-child(3), .table-scroll td:nth-child(12) {
+      color: var( --color-text-primary); 
+    }
+.table-scroll th:nth-child(3), .table-scroll td:nth-child(13) {
+      color: var( --color-text-primary); 
+    }
+.table-scroll th:nth-child(3), .table-scroll td:nth-child(14) {
+      color: var( --color-text-primary); 
+    }  
+.table-scroll th:nth-child(3), .table-scroll td:nth-child(16) {
+      color: var( --color-text-primary); 
+    }
+.table-scroll th:nth-child(3), .table-scroll td:nth-child(17) {
+      color: var( --color-text-primary); 
+    }
+.table-scroll th:nth-child(3), .table-scroll td:nth-child(18) {
+      color: var( --color-text-primary); 
+    }
+.table-scroll th:nth-child(3), .table-scroll td:nth-child(19) {
+      color: var( --color-text-primary); 
+    }
+.table-scroll th:nth-child(3), .table-scroll td:nth-child(20) {
+      color: var( --color-text-primary); 
+    }
+   
+    
 .table-scroll tbody tr {
     background-color: var(--color-surface-1); /* Warna dasar baris ganjil */
     transition: var(--transition-smooth);
@@ -236,7 +292,7 @@ body {
 /* ========================================== */
 .table-scroll th:nth-child(1), .table-scroll td:nth-child(1) { width: 40px; text-align: center; } /* ID */
 .table-scroll th:nth-child(2), .table-scroll td:nth-child(2) { min-width: 140px; } /* NAMA */
-.table-scroll th:nth-child(3), .table-scroll td:nth-child(3) { min-width: 130px; } /* KTP */
+.table-scroll th:nth-child(3), .table-scroll td:nth-child(3) { min-width: 130px; color: var (--color-accent-2); } /* KTP */
 .table-scroll th:nth-child(4), .table-scroll td:nth-child(4) { min-width: 110px; } /* TGL LAHIR */
 .table-scroll th:nth-child(5), .table-scroll td:nth-child(5) { min-width: 100px; } /* JENIS KELAMIN */
 .table-scroll th:nth-child(6), .table-scroll td:nth-child(6) { min-width: 180px; } /* ALAMAT */

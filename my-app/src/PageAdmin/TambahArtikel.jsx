@@ -2,9 +2,10 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import AdminLayout from "../components/AdminLayout";
 import "../CSS_Admin/Pengacara.css";
-import { FaTrash, FaEdit } from "react-icons/fa";
+import { FaTrash, FaEdit, FaTimes } from "react-icons/fa";
 
 const TambahArtikel = () => {
+  // State untuk form fields
   const [judul, setJudul] = useState("");
   const [deskripsi, setDeskripsi] = useState("");
   const [jenis_hukum, setJenishukum] = useState("");
@@ -16,29 +17,34 @@ const TambahArtikel = () => {
   const [tempat_penetapan, setTempatPenetapan] = useState("");
   const [status, setStatus] = useState("Aktif");
 
+  // State untuk manajemen data dan UI
   const [artikelList, setArtikelList] = useState([]);
   const [editId, setEditId] = useState(null);
-
-  // State untuk filter dan search
   const [searchTerm, setSearchTerm] = useState("");
   const [filterJenis, setFilterJenis] = useState("");
   const [filterStatus, setFilterStatus] = useState("");
 
+  // State baru untuk kontrol modal
+  const [showModal, setShowModal] = useState(false);
+
+  const jenisHukumOptions = ["Pidana", "Perdata", "Internasional", "Ketenagakerjaan", "HAKI", "Keluarga", "Administrasi Negara"];
+
+  useEffect(() => {
+    fetchArtikelList();
+  }, []);
+
+  const fetchArtikelList = async () => {
+    try {
+      const res = await axios.get("http://localhost:5000/api/artikel");
+      setArtikelList(res.data);
+    } catch (err) {
+      console.error("Gagal ambil data artikel:", err);
+    }
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
-
-    if (
-      !judul ||
-      !deskripsi ||
-      !jenis_hukum ||
-      (!filePdf && !editId) ||
-      !nomor ||
-      !tahun ||
-      !jenis_dokumen ||
-      !tanggal_penetapan ||
-      !tempat_penetapan ||
-      !status
-    ) {
+    if (!judul || !deskripsi || !jenis_hukum || (!filePdf && !editId) || !nomor || !tahun || !jenis_dokumen || !tanggal_penetapan || !tempat_penetapan || !status) {
       return alert("Semua field wajib diisi!");
     }
 
@@ -59,41 +65,31 @@ const TambahArtikel = () => {
         await axios.put(`http://localhost:5000/api/artikel/${editId}`, formData, {
           headers: { "Content-Type": "multipart/form-data" },
         });
-        alert("Artikel berhasil diperbarui");
-        setEditId(null);
+        alert("Dokumen berhasil diperbarui");
       } else {
         await axios.post("http://localhost:5000/api/artikel", formData, {
           headers: { "Content-Type": "multipart/form-data" },
         });
-        alert("Artikel berhasil ditambahkan!");
+        alert("Dokumen berhasil ditambahkan!");
       }
-
       resetForm();
       fetchArtikelList();
+      setShowModal(false); 
     } catch (error) {
-      console.error("Gagal menyimpan artikel:", error);
-      alert("Terjadi kesalahan saat menyimpan artikel");
-    }
-  };
-
-  const fetchArtikelList = async () => {
-    try {
-      const res = await axios.get("http://localhost:5000/api/artikel");
-      setArtikelList(res.data);
-    } catch (err) {
-      console.error("Gagal ambil data artikel:", err);
+      console.error("Gagal menyimpan dokumen:", error);
+      alert("Terjadi kesalahan saat menyimpan dokumen");
     }
   };
 
   const handleDeleteArtikel = async (id) => {
-    if (!window.confirm("Apakah yakin ingin menghapus artikel ini?")) return;
+    if (!window.confirm("Apakah yakin ingin menghapus dokumen ini?")) return;
     try {
       await axios.delete(`http://localhost:5000/api/artikel/${id}`);
-      alert("Artikel berhasil dihapus");
+      alert("Dokumen berhasil dihapus");
       fetchArtikelList();
     } catch (err) {
-      console.error("Gagal menghapus artikel:", err);
-      alert("Gagal menghapus artikel");
+      console.error("Gagal menghapus dokumen:", err);
+      alert("Gagal menghapus dokumen");
     }
   };
 
@@ -105,10 +101,16 @@ const TambahArtikel = () => {
     setNomor(artikel.nomor);
     setTahun(artikel.tahun);
     setJenisDokumen(artikel.jenis_dokumen);
-    setTanggalPenetapan(artikel.tanggal_penetapan.slice(0, 10));
+    setTanggalPenetapan(new Date(artikel.tanggal_penetapan).toISOString().slice(0, 10));
     setTempatPenetapan(artikel.tempat_penetapan);
     setStatus(artikel.status);
     setFilePdf(null);
+    setShowModal(true); 
+  };
+  
+  const openAddModal = () => {
+    resetForm();
+    setShowModal(true);
   };
 
   const resetForm = () => {
@@ -125,11 +127,12 @@ const TambahArtikel = () => {
     setStatus("Aktif");
   };
 
-  useEffect(() => {
-    fetchArtikelList();
-  }, []);
+  const resetFilters = () => {
+    setSearchTerm("");
+    setFilterJenis("");
+    setFilterStatus("");
+  };
 
-  // Filtered & searched artikel list
   const filteredArtikel = artikelList.filter((item) => {
     const matchSearch = item.judul.toLowerCase().includes(searchTerm.toLowerCase());
     const matchJenis = filterJenis ? item.jenis_hukum === filterJenis : true;
@@ -139,175 +142,75 @@ const TambahArtikel = () => {
 
   return (
     <AdminLayout>
-      <div className="tambah-artikel-page">
-        <h2 className="admin-title">{editId ? "Edit Artikel" : "Tambah Artikel Baru"}</h2>
-        <form onSubmit={handleSubmit} className="admin-form" encType="multipart/form-data">
-          <input
-            type="text"
-            placeholder="Judul Artikel"
-            value={judul}
-            onChange={(e) => setJudul(e.target.value)}
-            className="admin-input"
-            required
-          />
-
-          <select
-            value={jenis_hukum}
-            onChange={(e) => setJenishukum(e.target.value)}
-            className="admin-input"
-            required
-          >
-            <option value="">Pilih Jenis Hukum</option>
-            <option value="Pidana">Hukum Pidana</option>
-            <option value="Perdata">Hukum Perdata</option>
-            <option value="Internasional">Hukum Internasional</option>
-            <option value="Ketenagakerjaan">Hukum Ketenagakerjaan</option>
-            <option value="HAKI">Hukum HAKI</option>
-            <option value="Keluarga">Hukum Keluarga</option>
-            <option value="Administrasi Negara">Hukum Administrasi Negara</option>
-          </select>
-
-          <input
-            type="text"
-            placeholder="Deskripsi Artikel"
-            value={deskripsi}
-            onChange={(e) => setDeskripsi(e.target.value)}
-            className="admin-input"
-            required
-          />
-
-          <input
-            type="text"
-            placeholder="Nomor Dokumen"
-            value={nomor}
-            onChange={(e) => setNomor(e.target.value)}
-            className="admin-input"
-            required
-          />
-
-          <input
-            type="number"
-            placeholder="Tahun"
-            value={tahun}
-            onChange={(e) => setTahun(e.target.value)}
-            className="admin-input"
-            required
-          />
-
-          <input
-            type="text"
-            placeholder="Jenis Dokumen"
-            value={jenis_dokumen}
-            onChange={(e) => setJenisDokumen(e.target.value)}
-            className="admin-input"
-            required
-          />
-
-          <input
-            type="date"
-            value={tanggal_penetapan}
-            onChange={(e) => setTanggalPenetapan(e.target.value)}
-            className="admin-input"
-            required
-          />
-
-          <input
-            type="text"
-            placeholder="Tempat Penetapan"
-            value={tempat_penetapan}
-            onChange={(e) => setTempatPenetapan(e.target.value)}
-            className="admin-input"
-            required
-          />
-
-          <select
-            value={status}
-            onChange={(e) => setStatus(e.target.value)}
-            className="admin-input"
-            required
-          >
-            <option value="Aktif">Aktif</option>
-            <option value="Tidak Aktif">Tidak Aktif</option>
-          </select>
-
-          <input
-            type="file"
-            accept="application/pdf"
-            onChange={(e) => setFilePdf(e.target.files[0])}
-            className="admin-input"
-          />
-
-          <button type="submit" className="admin-submit-button">
-            {editId ? "Perbarui Artikel" : "Simpan Artikel"}
-          </button>
-          {editId && (
-            <button
-              type="button"
-              onClick={resetForm}
-              className="admin-submit-button"
-              style={{ background: "#888", marginLeft: "10px" }}
-            >
-              Batal Edit
-            </button>
-          )}
-        </form>
-
-        {/* FILTERS */}
-        <div style={{ marginTop: "30px", marginBottom: "10px", display: "flex", gap: "15px", flexWrap: "wrap" }}>
-          <input
-            type="text"
-            placeholder="Cari judul artikel..."
-            value={searchTerm}
-            onChange={(e) => setSearchTerm(e.target.value)}
-            style={{ padding: "8px 12px", flex: "1 1 250px" }}
-          />
-          <select
-            value={filterJenis}
-            onChange={(e) => setFilterJenis(e.target.value)}
-            style={{ padding: "8px 12px", flex: "1 1 200px" }}
-          >
-            <option value="">Semua Jenis Hukum</option>
-            <option value="Pidana">Hukum Pidana</option>
-            <option value="Perdata">Hukum Perdata</option>
-            <option value="Internasional">Hukum Internasional</option>
-            <option value="Ketenagakerjaan">Hukum Ketenagakerjaan</option>
-            <option value="HAKI">Hukum HAKI</option>
-            <option value="Keluarga">Hukum Keluarga</option>
-            <option value="Administrasi Negara">Hukum Administrasi Negara</option>
-          </select>
-          <select
-            value={filterStatus}
-            onChange={(e) => setFilterStatus(e.target.value)}
-            style={{ padding: "8px 12px", flex: "1 1 150px" }}
-          >
-            <option value="">Semua Status</option>
-            <option value="Aktif">Aktif</option>
-            <option value="Tidak Aktif">Tidak Aktif</option>
-          </select>
-          <button
-            type="button"
-            onClick={() => {
-              setSearchTerm("");
-              setFilterJenis("");
-              setFilterStatus("");
-            }}
-            style={{
-              padding: "8px 16px",
-              backgroundColor: "#ef4444",
-              color: "#fff",
-              border: "none",
-              borderRadius: "5px",
-              cursor: "pointer",
-            }}
-          >
-            Reset Filter
+      <div className="admin-content-container">
+        
+        {/* BAGIAN HEADER YANG BENAR */}
+        <div className="page-header">
+          <h1 className="page-title">Manajemen Dokumen Hukum</h1>
+          <button onClick={openAddModal} className="btn btn-primary-action">
+            Tambah Dokumen Baru
           </button>
         </div>
 
-        <h3 className="admin-title">Daftar Artikel</h3>
-        <div className="table-wrapper">
-          <div className="table-scroll">
-            <table className="admin-table">
+        {/* Modal untuk Form Tambah/Edit */}
+        {showModal && (
+          <div className="modal-overlay">
+            <div className="modal-content">
+              <h2 className="modal-title">{editId ? "Edit Dokumen Hukum" : "Tambah Dokumen Hukum Baru"}</h2>
+              <form onSubmit={handleSubmit} className="admin-form">
+                <div className="form-grid">
+                  <input type="text" placeholder="Judul Dokumen" value={judul} onChange={(e) => setJudul(e.target.value)} className="admin-input" required />
+                  <input type="text" placeholder="Nomor Dokumen" value={nomor} onChange={(e) => setNomor(e.target.value)} className="admin-input" required />
+                  <textarea placeholder="Deskripsi Singkat" value={deskripsi} onChange={(e) => setDeskripsi(e.target.value)} className="admin-input" required style={{gridColumn: "span 2", height: "80px"}} />
+                  <select value={jenis_hukum} onChange={(e) => setJenishukum(e.target.value)} className="admin-input" required>
+                    <option value="">Pilih Jenis Hukum</option>
+                    {jenisHukumOptions.map(opt => <option key={opt} value={opt}>Hukum {opt}</option>)}
+                  </select>
+                  <input type="number" placeholder="Tahun Penetapan" value={tahun} onChange={(e) => setTahun(e.target.value)} className="admin-input" required />
+                  <input type="text" placeholder="Jenis Dokumen (e.g., UU, PP, Perpres)" value={jenis_dokumen} onChange={(e) => setJenisDokumen(e.target.value)} className="admin-input" required />
+                  <input type="text" placeholder="Tempat Penetapan" value={tempat_penetapan} onChange={(e) => setTempatPenetapan(e.target.value)} className="admin-input" required />
+                  <div className="input-with-label">
+                    <label htmlFor="tanggal_penetapan">Tanggal Penetapan</label>
+                    <input id="tanggal_penetapan" type="date" value={tanggal_penetapan} onChange={(e) => setTanggalPenetapan(e.target.value)} className="admin-input" required />
+                  </div>
+                  <select value={status} onChange={(e) => setStatus(e.target.value)} className="admin-input" required>
+                    <option value="Aktif">Status: Aktif</option>
+                    <option value="Tidak Aktif">Status: Tidak Aktif</option>
+                  </select>
+                  <div className="input-with-label" style={{gridColumn: "span 2"}}>
+                    <label htmlFor="file_pdf">{editId ? "Ganti File PDF (Opsional)" : "Upload File PDF (Wajib)"}</label>
+                    <input id="file_pdf" type="file" accept="application/pdf" onChange={(e) => setFilePdf(e.target.files[0])} className="admin-input" />
+                  </div>
+                </div>
+                <div className="form-actions">
+                  <button type="submit" className="btn btn-primary-action">{editId ? "Perbarui Dokumen" : "Simpan Dokumen"}</button>
+                  <button type="button" onClick={() => { setShowModal(false); resetForm(); }} className="btn btn-secondary-action">Tutup</button>
+                </div>
+              </form>
+            </div>
+          </div>
+        )}
+
+        {/* KARTU KONTEN UTAMA YANG BENAR */}
+        <div className="content-card">
+          <div className="filter-bar">
+            <input type="text" placeholder="Cari berdasarkan judul..." value={searchTerm} onChange={(e) => setSearchTerm(e.target.value)} className="filter-input"/>
+            <select value={filterJenis} onChange={(e) => setFilterJenis(e.target.value)} className="filter-select">
+              <option value="">Semua Jenis Hukum</option>
+              {jenisHukumOptions.map(opt => <option key={opt} value={opt}>Hukum {opt}</option>)}
+            </select>
+            <select value={filterStatus} onChange={(e) => setFilterStatus(e.target.value)} className="filter-select">
+              <option value="">Semua Status</option>
+              <option value="Aktif">Aktif</option>
+              <option value="Tidak Aktif">Tidak Aktif</option>
+            </select>
+            <button onClick={resetFilters} className="btn btn-reset-action">
+              <FaTimes /> Reset
+            </button>
+          </div>
+
+          <div className="table-container">
+            <table className="data-table">
               <thead>
                 <tr>
                   <th>ID</th>
@@ -316,7 +219,7 @@ const TambahArtikel = () => {
                   <th>Nomor</th>
                   <th>Tahun</th>
                   <th>Status</th>
-                  <th>Cover</th>
+                  <th>File</th>
                   <th>Aksi</th>
                 </tr>
               </thead>
@@ -325,45 +228,28 @@ const TambahArtikel = () => {
                   filteredArtikel.map((item) => (
                     <tr key={item.id}>
                       <td>{item.id}</td>
-                      <td>{item.judul}</td>
+                      <td className="td-judul">{item.judul}</td>
                       <td>{item.jenis_hukum}</td>
                       <td>{item.nomor}</td>
                       <td>{item.tahun}</td>
-                      <td>{item.status}</td>
                       <td>
-                        {item.coverPath ? (
-                          <img
-                            src={`http://localhost:5000/${item.coverPath}`}
-                            alt="cover"
-                            width="50"
-                            style={{ borderRadius: "4px" }}
-                          />
-                        ) : (
-                          "Tidak Ada"
-                        )}
+                        <span className={`status-badge status-${item.status.toLowerCase().replace(" ", "-")}`}>{item.status}</span>
                       </td>
-                      <td style={{ display: "flex", gap: "8px" }}>
-                        <button
-                          className="btn-edit"
-                          onClick={() => handleEditArtikel(item)}
-                        >
-                          <FaEdit /> Edit
+                      <td>
+                        <a href={`http://localhost:5000/uploads/${item.file_path}`} target="_blank" rel="noreferrer" className="table-link">Lihat</a>
+                      </td>
+                      <td className="table-actions">
+                        <button className="btn-icon" onClick={() => handleEditArtikel(item)}>
+                          <FaEdit />
                         </button>
-                        <button
-                          className="btn-delete"
-                          onClick={() => handleDeleteArtikel(item.id)}
-                        >
-                          <FaTrash /> Hapus
+                        <button className="btn-icon" onClick={() => handleDeleteArtikel(item.id)}>
+                          <FaTrash />
                         </button>
                       </td>
                     </tr>
                   ))
                 ) : (
-                  <tr>
-                    <td colSpan="8" style={{ textAlign: "center", padding: "20px" }}>
-                      Tidak ada data yang sesuai filter.
-                    </td>
-                  </tr>
+                  <tr><td colSpan="8" className="no-data">Tidak ada data ditemukan.</td></tr>
                 )}
               </tbody>
             </table>

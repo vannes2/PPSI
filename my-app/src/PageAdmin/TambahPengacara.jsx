@@ -1,6 +1,6 @@
 import { useEffect, useState, useCallback } from "react";
 import axios from "axios";
-import SidebarAdmin from "../components/SidebarAdmin";
+import AdminLayout from "../components/AdminLayout";
 import "../CSS_Admin/TambahPengacara.css";
 
 const TambahPengacara = () => {
@@ -116,8 +116,8 @@ const TambahPengacara = () => {
   };
 
   return (
+     <AdminLayout>
     <div style={{ display: "flex" }}>
-      <SidebarAdmin />
       <div style={{ flex: 1, padding: "20px" }} className="Main-Content">
         <h2>Daftar Pendaftaran Pengacara (Belum Disetujui)</h2>
         <div className="table-container">
@@ -323,6 +323,7 @@ const TambahPengacara = () => {
         </div>
       </div>
     </div>
+    </AdminLayout>
   );
 };
 
