@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { useParams } from "react-router-dom";
-import HeaderAfter from "../components/HeaderLawyer";
 import Footer from "../components/Footer";
 import "../CSS_User/ArtikelDetail.css";
+import HeaderLawyer from "../components/HeaderLawyer";
 
 const ArtikelDetail = () => {
   const { id } = useParams();
@@ -32,7 +32,7 @@ const ArtikelDetail = () => {
 
   return (
     <div className="artikel-detail-page">
-      <HeaderAfter />
+      <HeaderLawyer />
       <br /><br /><br />
       <div className="artikel-detail-main">
         {loading ? (

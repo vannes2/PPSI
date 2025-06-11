@@ -16,16 +16,16 @@ export const getAllPengacara = async () => {
 
 // Ambil pengacara berdasarkan ID
 export const getPengacaraById = async (id) => {
-  try {
-    const [rows] = await db.query(
-      "SELECT id, nama, email, no_hp, spesialisasi, pengalaman, pendidikan, tanggal_daftar FROM pengacara WHERE id = ?",
-      [id]
-    );
-    return rows[0];
-  } catch (error) {
-    console.error("Error mengambil pengacara by ID:", error);
-    return null;
-  }
+try {
+const [rows] = await db.query(
+"SELECT id, nama, email, no_hp, spesialisasi, pengalaman, pendidikan, tanggal_daftar, jenis_kelamin, alamat, nomor_induk_advokat, universitas, upload_foto, resume_cv, linkedin, instagram, twitter FROM pengacara WHERE id = ?", // <--- TAMBAHKAN KOLOM DI SINI
+[id]
+);
+return rows[0];
+} catch (error) {
+console.error("Error mengambil pengacara by ID:", error);
+return null;
+}
 };
 
 // Tambah pengacara baru

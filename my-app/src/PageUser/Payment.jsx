@@ -136,7 +136,7 @@ const Payment = () => {
                   {/* BUTTON WRAPPER - Tombol Bayar Sekarang dan Detail Advokat */}
                   <div className="button-wrapper button-group-horizontal">
                     <Link to={`/pengacara/detail/${advokat.id}`} className="btn-payment">
-                      Detail Advokat
+                      Detail Pengacara
                     </Link>
                     <button className="btn-payment" onClick={handlePayment}>
                       Bayar Sekarang
