@@ -1,33 +1,206 @@
-.transaksi-container {
+/* ===== 1. TEMA & VARIABEL UTAMA (VERSI FINAL) ===== */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
+
+:root {
+  --color-background: #1f2b38;
+  --color-surface: #2c3e50;
+  --color-header-surface: #34495e;
+  --color-text-primary: #ecf0f1;
+  --color-text-secondary: #a3b1c2;
+  --color-border: #3d566e;
+  --color-accent-orange: #f39c12;
+  --color-danger: #e74c3c;
+  --color-edit: #f1c40f;
+  --color-view: #3498db;
+  --font-family: 'Poppins', sans-serif;
+  --radius-main: 8px;
+  --transition-smooth: all 0.25s ease-out;
+}
+
+/* ===== 2. LAYOUT & CONTAINER UTAMA ===== */
+.app-container {
   max-width: 1200px;
   margin: auto;
-  padding: 24px;
-  font-family: 'Segoe UI', sans-serif;
+  padding: 2rem 3rem;
+  font-family: var(--font-family);
+  background-color: var(--color-background);
+  color: var(--color-text-primary);
+  min-height: 100vh;
 }
 
+/* ===== 3. JUDUL HALAMAN ===== */
+.section-title {
+  margin: 2.5rem 0 1.5rem 0;
+  color: var(--color-text-secondary);
+  font-weight: 500;
+  text-align: center;
+  font-size: 1.2rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+.section-title.accent {
+  color: var(--color-accent-orange);
+}
+
+/* ===== 4. KOMPONEN TABEL ===== */
 .table-wrapper {
-  overflow-x: auto;
+  background-color: var(--color-surface);
+  border-radius: var(--radius-main);
+  overflow: hidden;
+  padding: 0.8rem; /* Padding wrapper juga dikecilkan */
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
   margin-bottom: 40px;
 }
-
-table {
+.table-container {
+  overflow-x: auto; 
+}
+.table-wrapper table {
   width: 100%;
   border-collapse: collapse;
-  margin-top: 12px;
 }
 
-th, td {
-  border: 1px solid #ccc;
-  padding: 10px;
+/* [PERBAIKAN UKURAN] Padding dan font size pada batas minimum */
+.table-wrapper table th,
+.table-wrapper table td {
+  padding: 0.4rem 0.6rem;      /* Sangat kecil, hampir tidak ada jarak */
+  font-size: 0.75rem;         /* UKURAN FONT MINIMUM, mungkin sulit dibaca */
+  white-space: nowrap;      
   text-align: left;
+  vertical-align: middle;
+  border: none;
+  border-bottom: 1px solid var(--color-border);
+  color: var(--color-text-secondary);
+}
+.table-wrapper table th {
+  background-color: var(--color-header-surface);
+  color: var(--color-text-primary);
+  font-weight: 600;
+  text-transform: uppercase;
+  font-size: 0.7rem; /* Ukuran font header sangat kecil */
+  letter-spacing: -0.5px; /* Teks dirapatkan */
+}
+.table-wrapper table tbody tr:last-child td {
+  border-bottom: none;
+}
+.table-wrapper table tbody tr:hover {
+  background-color: rgba(255, 255, 255, 0.05);
 }
 
-th {
-  background-color: #f8f8f8;
+/* ===== 5. ELEMEN DALAM TABEL ===== */
+.table-wrapper td.primary-text,
+.table-wrapper td a {
+  color: var(--color-accent-orange);
+  font-weight: 600;
+  text-decoration: none;
+}
+.table-wrapper td a:hover {
+  text-decoration: underline;
+}
+.table-wrapper td .actions-cell {
+  display: flex;
+  gap: 0.5rem; /* Jarak antar tombol aksi minimum */
+  align-items: center;
+}
+.table-wrapper td button {
+  padding: 0;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  font-size: 0.8rem; /* Ukuran ikon aksi minimum */
+  transition: var(--transition-smooth);
+  line-height: 1;
+}
+.table-wrapper button.view { color: var(--color-view); }
+.table-wrapper button.edit { color: var(--color-edit); }
+.table-wrapper button.delete { color: var(--color-danger); }
+.table-wrapper button:hover {
+  transform: scale(1.2);
+}
+
+/* ===== 6. RESPONSIVE DESIGN ===== */
+@media (max-width: 768px) {
+  .app-container {
+    padding: 1rem 0.5rem;
+  }
+  .table-wrapper table th,
+  .table-wrapper table td {
+    padding: 0.4rem 0.5rem;
+    font-size: 0.7rem; 
+  }
+}
+/* ===== 7. TRANSAKSI CONTAINER KHUSUS ===== */
+.transaksi-container {
+  background-color: var(--color-background) !important;
+  color: var(--color-text-primary) !important;
+  font-family: var(--font-family) !important;
+  max-width: 1200px;
+  margin: auto;
+  padding: 2rem 3rem;
+  min-height: 100vh;
+}
+
+/* ===== 8. HEADING CUSTOM ===== */
+h2 {
+  color: var(--color-accent-orange) !important;
+  font-family: var(--font-family);
   font-weight: 600;
 }
 
-h2 {
-  margin-top: 40px;
-  color: #333;
+/* ===== 9. DESAIN TABEL KASUS SUPER RINGKAS (ALTERNATIF) ===== */
+/* Gunakan kelas ini pada tag <table> Anda: <table class="compact-case-table"> */
+
+.table-wrapper table.compact-case-table th,
+.table-wrapper table.compact-case-table td {
+  padding: 0.8rem 1rem; /* Kembalikan padding ke ukuran yang nyaman dibaca */
+  font-size: 0.85rem;   /* Kembalikan font ke ukuran yang nyaman dibaca */
+  white-space: normal; /* Izinkan teks untuk turun baris */
+  vertical-align: top;  /* Ratakan konten ke atas */
+}
+
+/* Mengatur sel utama untuk pengelompokan */
+.table-wrapper table.compact-case-table td .case-group {
+  margin-bottom: 0.5rem;
+}
+.table-wrapper table.compact-case-table td .case-group:last-child {
+  margin-bottom: 0;
+}
+
+/* Judul kecil di dalam grup */
+.table-wrapper table.compact-case-table td .case-group-title {
+  display: block;
+  font-size: 0.7rem;
+  color: var(--color-text-secondary);
+  font-weight: 600;
+  text-transform: uppercase;
+  margin-bottom: 2px;
+}
+
+/* Konten utama di dalam grup */
+.table-wrapper table.compact-case-table td .case-group-content {
+  display: block;
+  color: var(--color-text-primary);
+  font-weight: 500;
+}
+
+/* Memberi warna khusus untuk status */
+.table-wrapper table.compact-case-table td .status {
+  padding: 2px 8px;
+  border-radius: 12px;
+  font-size: 0.7rem;
+  font-weight: 600;
+  text-align: center;
+  display: inline-block;
+}
+
+.table-wrapper table.compact-case-table td .status.selesai {
+  background-color: rgba(46, 204, 113, 0.2);
+  color: #2ecc71;
+}
+.table-wrapper table.compact-case-table td .status.diproses {
+  background-color: rgba(52, 152, 219, 0.2);
+  color: #3498db;
+}
+.table-wrapper table.compact-case-table td .status.dibatalkan {
+  background-color: rgba(231, 76, 60, 0.2);
+  color: var(--color-danger);
 }

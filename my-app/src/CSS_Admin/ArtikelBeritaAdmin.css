@@ -1,24 +1,30 @@
+/* ==============================================
+   CSS HALAMAN ADMIN BERITA - TEMA GELAP
+   ============================================== */
+
+/* ===== 1. LAYOUT UTAMA ===== */
 .admin-page-layout {
   display: flex;
-  background-color: #f8f9fc;
+  background-color: var(--color-background); /* [THEME] Latar belakang utama */
   min-height: 100vh;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-family: var(--font-family); /* [THEME] Font konsisten */
 }
 
 .admin-berita-container {
   flex: 1;
-  padding: 40px 60px;
-  background-color: #fff;
-  box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.03);
+  padding: 2rem 3rem;
+  background-color: var(--color-background); /* [THEME] Latar container */
 }
 
 .admin-berita-container h2 {
-  font-size: 24px;
-  color: #1d3557;
+  font-size: 1.5rem; /* Disesuaikan */
+  color: var(--color-text-secondary); /* [THEME] Warna judul */
   margin-bottom: 30px;
-  border-bottom: 2px solid #dee2e6;
-  padding-bottom: 10px;
+  border-bottom: 1px solid var(--color-border); /* [THEME] Border */
+  padding-bottom: 15px;
   text-align: center;
+  text-transform: uppercase;
+  letter-spacing: 1px;
 }
 
 .form-and-top-preview {
@@ -27,25 +33,41 @@
   gap: 30px;
 }
 
+/* ===== 2. FORMULIR INPUT BERITA ===== */
 #admin-artikel-berita form {
   width: 60%;
   display: flex;
   flex-direction: column;
   gap: 15px;
   padding: 25px;
-  border-radius: 8px;
-  background-color: #f1f5f9;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+  border-radius: var(--radius-main);
+  background-color: var(--color-surface); /* [THEME] Latar form */
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+#admin-artikel-berita form label {
+    color: var(--color-text-secondary);
+    font-size: 0.9rem;
+    font-weight: 500;
 }
 
 #admin-artikel-berita form input[type="text"],
 #admin-artikel-berita form textarea,
 #admin-artikel-berita form input[type="file"] {
   padding: 10px 12px;
-  border: 1px solid #ccc;
-  border-radius: 6px;
+  border: 1px solid var(--color-border); /* [THEME] Border input */
+  background-color: var(--color-background); /* [THEME] Latar input */
+  color: var(--color-text-primary); /* [THEME] Warna teks input */
+  border-radius: var(--radius-main);
   font-size: 14px;
   resize: vertical;
+  transition: border-color 0.2s;
+}
+
+#admin-artikel-berita form input[type="text"]:focus,
+#admin-artikel-berita form textarea:focus {
+    border-color: var(--color-accent-orange); /* [THEME] Highlight saat aktif */
+    outline: none;
 }
 
 #admin-artikel-berita form textarea {
@@ -53,26 +75,27 @@
 }
 
 #admin-artikel-berita form button {
-  background-color: #2a9d8f;
-  color: white;
-  padding: 10px;
+  background-color: var(--color-accent-orange); /* [THEME] Tombol utama */
+  color: var(--color-background);
+  font-weight: 600;
+  padding: 12px;
   font-size: 15px;
   border: none;
-  border-radius: 6px;
+  border-radius: var(--radius-main);
   cursor: pointer;
   transition: background-color 0.2s;
 }
 
 #admin-artikel-berita form button:hover {
-  background-color: #21867a;
+  background-color: #d1860f; /* Varian hover lebih gelap */
 }
 
-/* Preview Top Berita */
+/* ===== 3. PREVIEW BERITA TOP ===== */
 .top-preview-container {
   width: 35%;
-  padding: 15px;
-  background-color: #edf2f7;
-  border-radius: 8px;
+  padding: 20px;
+  background-color: var(--color-surface); /* [THEME] Latar */
+  border-radius: var(--radius-main);
   height: fit-content;
 }
 
@@ -80,14 +103,18 @@
   margin-top: 0;
   font-size: 16px;
   margin-bottom: 15px;
-  color: #1d3557;
+  color: var(--color-text-primary); /* [THEME] Warna teks */
+  border-bottom: 1px solid var(--color-border);
+  padding-bottom: 10px;
 }
 
 .top-preview-item {
   display: flex;
   align-items: center;
-  gap: 10px;
-  margin-bottom: 10px;
+  gap: 12px;
+  margin-bottom: 12px;
+  font-size: 0.9rem;
+  color: var(--color-text-secondary);
 }
 
 .top-preview-item img {
@@ -97,64 +124,73 @@
   border-radius: 4px;
 }
 
-/* List Artikel Scrollable */
+.top-checkbox {
+  width: 18px;
+  height: 18px;
+  margin-top: 4px;
+  cursor: pointer;
+}
+
+
+/* ===== 4. DAFTAR ARTIKEL BERITA ===== */
 .berita-list {
   margin-top: 30px;
   display: flex;
   flex-direction: column;
   gap: 20px;
-  max-height: 500px;
+  max-height: 500px; /* Sesuaikan jika perlu */
   overflow-y: auto;
   padding-right: 10px;
 }
 
-/* Tombol Tambah di Atas */
+/* Tombol Tambah Card */
 .tambah-card {
   order: -1;
   display: flex;
   justify-content: center;
   align-items: center;
   height: 100px;
-  border: 2px dashed #ccc;
-  border-radius: 10px;
-  background-color: #f7f7f7;
+  border: 2px dashed var(--color-border); /* [THEME] Border */
+  border-radius: var(--radius-main);
+  background-color: transparent;
   cursor: pointer;
   transition: all 0.3s ease;
 }
 
 .tambah-card:hover {
-  background-color: #f0f0f0;
-  border-color: #999;
+  background-color: rgba(255, 255, 255, 0.05); /* [THEME] Efek hover */
+  border-color: var(--color-text-secondary);
 }
 
 .tambah-content {
   text-align: center;
-  color: #666;
+  color: var(--color-text-secondary); /* [THEME] Warna teks */
   font-size: 16px;
 }
 
 .plus-icon {
   font-size: 38px;
   font-weight: bold;
-  color: #b31312;
+  color: var(--color-danger); /* [THEME] Warna ikon plus */
   margin-bottom: 4px;
 }
 
-/* Setiap Item Berita */
+/* Setiap Item Kartu Berita */
 .berita-item {
   display: flex;
-  background-color: #ffffff;
-  border: 1px solid #e3e3e3;
-  border-radius: 10px;
+  background-color: var(--color-surface); /* [THEME] Latar kartu */
+  border: 1px solid var(--color-border); /* [THEME] Border kartu */
+  border-radius: var(--radius-main);
   padding: 15px;
   gap: 20px;
   align-items: flex-start;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
-  transition: transform 0.2s ease;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
 .berita-item:hover {
-  transform: scale(1.01);
+  transform: translateY(-3px);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
 }
 
 .berita-item img {
@@ -162,53 +198,48 @@
   height: 100px;
   object-fit: cover;
   border-radius: 6px;
-  border: 1px solid #ccc;
+  border: 1px solid var(--color-border); /* [THEME] Border gambar */
 }
 
 .berita-item h4 {
   margin: 0;
   font-size: 18px;
-  color: #e63946;
+  color: var(--color-accent-orange); /* [THEME] Warna judul berita */
 }
 
 .berita-item p {
   margin: 6px 0 10px;
-  color: #444;
+  color: var(--color-text-secondary); /* [THEME] Warna teks deskripsi */
   font-size: 14px;
   max-width: 500px;
 }
 
-.berita-item button {
-  background-color: #457b9d;
-  color: #fff;
+.berita-item .actions button {
+  background-color: var(--color-view); /* [THEME] Tombol Edit */
+  color: var(--color-text-primary);
   border: none;
   padding: 6px 12px;
   margin-right: 8px;
   border-radius: 4px;
   font-size: 13px;
   cursor: pointer;
+  transition: background-color 0.2s;
 }
 
-.berita-item button:hover {
-  background-color: #365c79;
+.berita-item .actions button:hover {
+  filter: brightness(120%);
 }
 
-.berita-item button:last-child {
-  background-color: #e63946;
+.berita-item .actions button.delete-btn {
+  background-color: var(--color-danger); /* [THEME] Tombol Hapus */
 }
 
-.berita-item button:last-child:hover {
-  background-color: #c82333;
-}
 
-.top-checkbox {
-  width: 18px;
-  height: 18px;
-  margin-top: 4px;
-}
-
-/* Responsive */
+/* ===== 5. RESPONSIVE DESIGN ===== */
 @media (max-width: 768px) {
+  .admin-berita-container {
+      padding: 1.5rem 1rem;
+  }
   .form-and-top-preview {
     flex-direction: column;
   }
@@ -226,6 +257,7 @@
 
   .berita-item img {
     width: 100%;
+    max-width: 250px;
     height: auto;
   }
 }

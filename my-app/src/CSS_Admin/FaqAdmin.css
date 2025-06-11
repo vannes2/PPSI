@@ -1,205 +1,321 @@
+/* ==============================================
+   CSS HALAMAN ADMIN FAQ - TEMA GELAP (MODERN)
+   ============================================== */
+
+/* ===== 1. LAYOUT UTAMA ===== */
 .faq-admin-container {
-  padding: 24px;
-  background: #fff;
-  border-radius: 8px;
-  max-width: 1100px;
-  margin: 0 auto;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    max-width: 1200px;
+    margin: 3rem auto; /* Margin atas dan bawah untuk jarak */
+    padding: 2rem 3rem;
+    font-family: var(--font-family);
+    background-color: var(--color-background);
+    color: var(--color-text-primary);
+    border-radius: var(--radius-main); /* Radius pada container utama */
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3); /* Shadow untuk kesan modern */
 }
 
-/* Style Form */
+.faq-admin-container h2 {
+    margin-bottom: 2.5rem;
+    padding-bottom: 1rem;
+    color: var(--color-accent-orange); /* Warna judul yang menonjol */
+    font-size: 2rem; /* Ukuran judul lebih besar */
+    font-weight: 600;
+    text-align: center;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    border-bottom: 2px solid var(--color-accent-orange); /* Garis bawah yang tegas */
+}
+
+/* ===== 2. FORMULIR FAQ ===== */
 .faq-form {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 16px;
-  margin-bottom: 20px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); /* Layout grid responsif */
+    gap: 20px; /* Jarak antar elemen form */
+    padding: 30px;
+    background-color: var(--color-surface);
+    border-radius: calc(var(--radius-main) * 1.5); /* Border radius lebih bulat */
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.25); /* Shadow lebih halus */
 }
 
-.faq-form > div {
-  flex: 1 1 48%;
-  display: flex;
-  flex-direction: column;
+.faq-form .full-width {
+    grid-column: 1 / -1; /* Elemen memanjang selebar kontainer */
 }
 
 .faq-form label {
-  font-weight: 600;
-  margin-bottom: 6px;
-  color: #333;
-  font-size: 14px;
+    display: block;
+    margin-bottom: 8px;
+    color: var(--color-text-secondary);
+    font-size: 0.95rem;
+    font-weight: 500;
 }
 
 .faq-form input,
 .faq-form textarea,
 .faq-form select {
-  padding: 10px 12px;
-  font-size: 14px;
-  border: 1.5px solid #ccc;
-  border-radius: 6px;
-  transition: border-color 0.3s ease;
-  font-family: inherit;
-  resize: vertical;
-  min-height: 36px;
-}
-
-.faq-form textarea {
-  min-height: 60px;
+    width: 100%;
+    padding: 12px 15px;
+    font-size: 0.95rem;
+    color: var(--color-text-primary);
+    background-color: var(--color-background);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-main);
+    transition: border-color 0.2s, box-shadow 0.2s; /* Transisi untuk fokus */
 }
 
 .faq-form input:focus,
 .faq-form textarea:focus,
 .faq-form select:focus {
-  outline: none;
-  border-color: #2563eb; /* biru terang */
-  box-shadow: 0 0 5px rgba(37, 99, 235, 0.4);
+    outline: none;
+    border-color: var(--color-accent-orange);
+    box-shadow: 0 0 5px rgba(var(--color-accent-orange-rgb), 0.5); /* Efek glow saat fokus */
 }
 
-/* Tombol */
+.faq-form .button-group {
+    grid-column: 1 / -1;
+    display: flex;
+    justify-content: flex-end; /* Tombol di sisi kanan */
+    gap: 15px;
+    margin-top: 25px;
+}
+
 .faq-form button {
-  background-color: #2563eb;
-  color: white;
-  padding: 10px 20px;
-  border: none;
-  border-radius: 6px;
-  font-weight: 700;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-  margin-top: 24px;
-  flex: 1 1 100%;
-  max-width: 160px;
+    padding: 12px 25px;
+    font-size: 1rem;
+    font-weight: 600;
+    border: none;
+    border-radius: var(--radius-main); /* Radius konsisten */
+    cursor: pointer;
+    transition: transform 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
 }
 
 .faq-form button:hover {
-  background-color: #1e40af;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
-.btn-cancel {
-  background-color: #ef4444;
-  margin-left: 12px;
-  max-width: 100px;
+.faq-form button:active {
+    transform: translateY(0);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
 
-.btn-cancel:hover {
-  background-color: #b91c1c;
+.faq-form button.btn-submit { /* Ganti 'first-child' dengan class yang lebih deskriptif */
+    background-color: var(--color-accent-orange);
+    color: var(--color-background);
 }
 
-/* Pesan error */
+.faq-form button.btn-cancel {
+    background-color: var(--color-surface);
+    color: var(--color-text-secondary);
+    border: 1px solid var(--color-border);
+}
+
 .error-msg {
-  color: #b91c1c;
-  margin-bottom: 12px;
-  font-weight: 600;
+    grid-column: 1 / -1;
+    margin-bottom: 20px;
+    padding: 15px;
+    color: var(--color-danger);
+    background-color: rgba(var(--color-danger-rgb), 0.1); /* Latar belakang error lembut */
+    border: 1px solid var(--color-danger);
+    border-radius: var(--radius-main);
+    text-align: center;
 }
 
-/* Style Filter (container bawah form) */
-.faq-admin-container > div[style*="display: flex"] {
-  margin-bottom: 24px;
+/* ===== 3. FILTER & SEARCH ===== */
+.filter-controls {
+    display: flex;
+    flex-wrap: wrap; /* Agar responsif */
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 2rem;
 }
 
-.faq-admin-container > div[style*="display: flex"] input,
-.faq-admin-container > div[style*="display: flex"] select,
-.faq-admin-container > div[style*="display: flex"] button {
-  font-size: 14px;
-  border-radius: 6px;
-  border: 1.5px solid #ccc;
-  padding: 10px 12px;
-  font-family: inherit;
-  transition: border-color 0.3s ease;
+.filter-controls input,
+.filter-controls select {
+    flex-grow: 1; /* Memenuhi ruang yang tersedia */
+    padding: 10px 15px;
+    font-size: 0.9rem;
+    color: var(--color-text-primary);
+    background-color: var(--color-background);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-main);
+    transition: border-color 0.2s;
 }
 
-.faq-admin-container > div[style*="display: flex"] input:focus,
-.faq-admin-container > div[style*="display: flex"] select:focus {
-  outline: none;
-  border-color: #2563eb;
-  box-shadow: 0 0 5px rgba(37, 99, 235, 0.4);
+.filter-controls input:focus,
+.filter-controls select:focus {
+    outline: none;
+    border-color: var(--color-accent-orange);
 }
 
-.faq-admin-container > div[style*="display: flex"] button {
-  background-color: #ef4444;
-  color: #fff;
-  border: none;
-  cursor: pointer;
-  max-width: 140px;
+.filter-controls button {
+    flex-shrink: 0; /* Mencegah tombol menyusut */
+    padding: 10px 20px;
+    font-weight: 500;
+    color: var(--color-text-primary);
+    background-color: var(--color-danger);
+    border: none;
+    border-radius: var(--radius-main);
+    cursor: pointer;
+    transition: filter 0.2s;
 }
 
-.faq-admin-container > div[style*="display: flex"] button:hover {
-  background-color: #b91c1c;
+.filter-controls button:hover {
+    filter: brightness(120%);
 }
 
-/* Tabel FAQ */
+/* ===== 4. TABEL DATA ===== */
+.table-wrapper {
+    background-color: var(--color-surface);
+    border-radius: var(--radius-main);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    overflow: hidden; /* Penting untuk border-radius */
+}
+
+.table-container {
+    overflow-x: auto; /* Memungkinkan scroll horizontal jika perlu */
+}
+
 .faq-table {
-  width: 1200px; /* Lebar tetap lebih besar dari container supaya ada scroll */
-  border-collapse: collapse;
-  margin-top: 12px;
-  font-size: 14px;
-  font-family: inherit;
-  box-sizing: border-box;
-  min-width: unset; /* hapus min-width agar tidak override */
+    width: 100%;
+    border-collapse: collapse;
 }
 
-.faq-table th,
-.faq-table td {
-  border: 1px solid #ddd;
-  padding: 10px 14px;
-  vertical-align: top;
-  word-break: break-word;
+.faq-table thead th {
+    padding: 1rem 1.5rem;
+    font-size: 0.9rem;
+    font-weight: 600;
+    text-align: left;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: var(--color-text-primary);
+    background-color: var(--color-header-surface);
 }
 
-.faq-table th {
-  background-color: #f3f4f6;
-  font-weight: 700;
-  color: #374151;
-  text-align: left;
+.faq-table tbody tr {
+    border-bottom: 1px solid var(--color-border);
+    transition: background-color 0.2s;
 }
 
-/* Lebarkan kolom nomor (ID) dan aksi (button) */
-.faq-table th:first-child,
-.faq-table td:first-child {
-  width: 70px;
-  text-align: center;
+.faq-table tbody tr:last-child {
+    border-bottom: none;
 }
 
-.faq-table th:last-child,
-.faq-table td:last-child {
-  width: 180px;
-  white-space: nowrap;
-  text-align: center;
+.faq-table tbody tr:hover {
+    background-color: rgba(var(--color-accent-orange-rgb), 0.05); /* Efek hover lebih lembut dan sesuai aksen */
 }
 
-/* Tombol di tabel */
-.faq-table button {
-  padding: 6px 12px;
-  border-radius: 5px;
-  border: none;
-  cursor: pointer;
-  font-size: 13px;
-  margin-right: 8px;
-  transition: background-color 0.3s ease;
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
+.faq-table tbody td {
+    padding: 1rem 1.5rem;
+    font-size: 0.9rem;
+    color: var(--color-text-secondary);
+    vertical-align: middle; /* Jaga konten sel tetap di tengah */
 }
 
-.faq-table button:hover {
-  opacity: 0.85;
+/* Penyesuaian kolom spesifik */
+.faq-table thead th:nth-child(1), /* Kolom ID */
+.faq-table tbody td:nth-child(1) {
+    width: 5%;
+    text-align: center;
 }
 
-.faq-table button.btn-delete {
-  background-color: #ef4444;
-  color: white;
+.faq-table .actions {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0.75rem;
 }
 
-.faq-table button:not(.btn-delete) {
-  background-color: #2563eb;
-  color: white;
+.faq-table .btn-action {
+    padding: 8px;
+    font-size: 1.1rem; /* Sedikit lebih besar untuk klik yang mudah */
+    background: none;
+    border: none;
+    cursor: pointer;
+    transition: transform 0.2s ease-in-out, color 0.2s ease-in-out;
 }
 
-/* Responsive scroll dan form */
+.faq-table .btn-action:hover {
+    transform: scale(1.15);
+}
+
+.faq-table .btn-edit { color: var(--color-edit); }
+.faq-table .btn-delete { color: var(--color-danger); }
+.faq-table .btn-edit:hover { color: var(--color-accent-orange); }
+.faq-table .btn-delete:hover { filter: brightness(120%); }
+
+/* ===== 5. RESPONSIVE ===== */
 @media (max-width: 768px) {
-  .faq-table {
-    width: 100%; /* buat tabel full container di layar kecil */
-  }
+    .faq-admin-container {
+        padding: 1.5rem 1rem;
+        margin: 1.5rem auto;
+    }
 
-  .faq-form > div {
-    flex: 1 1 100%;
-  }
+    .faq-form {
+        padding: 20px;
+        grid-template-columns: 1fr; /* Satu kolom untuk mobile */
+    }
+
+    .filter-controls {
+        flex-direction: column;
+        align-items: stretch; /* Tombol dan input jadi selebar kontainer */
+    }
+
+    .faq-table thead {
+        display: none; /* Sembunyikan header tabel di mobile */
+    }
+
+    .faq-table tbody, .faq-table tr, .faq-table td {
+        display: block; /* Ubah tabel menjadi layout block */
+    }
+
+    .faq-table tbody tr {
+        margin-bottom: 1.5rem;
+        border: 1px solid var(--color-border);
+        border-radius: var(--radius-main);
+        padding: 1rem;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    }
+
+    .faq-table tbody td {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 0.75rem 0.5rem;
+        border-bottom: 1px dashed var(--color-border);
+        text-align: right;
+    }
+    
+    .faq-table tbody tr td:last-child {
+        border-bottom: none;
+    }
+
+    .faq-table tbody td:before {
+        content: attr(data-label); /* Mengambil label dari atribut data-* */
+        font-weight: bold;
+        color: var(--color-text-primary); /* Label lebih menonjol */
+        text-align: left;
+        margin-right: 1rem;
+    }
+
+    .faq-table .actions {
+        justify-content: flex-end; /* Aksi di kanan */
+        padding-top: 1rem;
+    }
+
+    .faq-table .actions:before {
+        content: ""; /* Kosongkan label untuk kolom aksi */
+    }
 }
 
+/* ===== 6. ICON STYLING (Asumsi Font Awesome atau library ikon lain terpasang) ===== */
+.faq-table .btn-action i {
+    font-size: 1rem;
+    vertical-align: middle;
+}
+/* Tidak perlu styling hover khusus di sini karena sudah ditangani oleh .btn-action:hover */
+
+/* ===== 7. UTILITY CLASS ===== */
+.text-accent {
+    color: var(--color-accent-orange);
+    font-weight: bold;
+}

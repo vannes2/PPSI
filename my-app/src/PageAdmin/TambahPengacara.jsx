@@ -1,13 +1,16 @@
 import { useEffect, useState, useCallback } from "react";
 import axios from "axios";
 import AdminLayout from "../components/AdminLayout";
+// Pastikan file CSS ini berisi kode dari jawaban saya sebelumnya
 import "../CSS_Admin/TambahPengacara.css";
 
 const TambahPengacara = () => {
+  // =================================================================
+  // TIDAK ADA PERUBAHAN PADA LOGIKA & STATE MANAGEMENT
+  // =================================================================
   const [pengacaras, setPengacaras] = useState([]);
   const [registrations, setRegistrations] = useState([]);
 
-  // Ambil data pengacara yang sudah disetujui
   const fetchPengacaras = useCallback(async () => {
     try {
       const response = await axios.get("http://localhost:5000/api/pengacara");
@@ -17,22 +20,16 @@ const TambahPengacara = () => {
     }
   }, []);
 
-  // Ambil data pendaftaran pengacara yang belum disetujui
   const fetchRegistrations = useCallback(async () => {
     try {
       const response = await axios.get("http://localhost:5000/api/lawyers/registrations");
-
       const now = new Date();
-
-      // Hitung deadline dan status expired tiap pendaftar
       const regs = response.data.map(reg => {
         const registrationDate = new Date(reg.tanggal_daftar);
         const deadlineDate = new Date(registrationDate);
         deadlineDate.setMinutes(deadlineDate.getMinutes() + 10);
-
         const diffMs = deadlineDate - now;
         const isExpired = diffMs <= 0;
-
         return {
           ...reg,
           deadline: deadlineDate,
@@ -40,14 +37,12 @@ const TambahPengacara = () => {
           remainingMs: diffMs > 0 ? diffMs : 0,
         };
       });
-
       setRegistrations(regs);
     } catch (error) {
       console.error("Error fetching registrations:", error);
     }
   }, []);
 
-  // Setujui pendaftaran
   const handleApprove = async (id) => {
     try {
       await axios.post(`http://localhost:5000/api/lawyers/approve/${id}`);
@@ -60,11 +55,9 @@ const TambahPengacara = () => {
     }
   };
 
-  // Tolak pendaftaran
   const handleReject = async (id) => {
     const confirmReject = window.confirm("Yakin ingin menolak dan menghapus pendaftaran ini?");
     if (!confirmReject) return;
-
     try {
       await axios.delete(`http://localhost:5000/api/lawyers/reject/${id}`);
       alert("Pendaftaran telah ditolak dan dihapus.");
@@ -75,7 +68,6 @@ const TambahPengacara = () => {
     }
   };
 
-  // Format tanggal ke dd/mm/yyyy
   const formatDate = (isoDate) => {
     if (!isoDate) return "-";
     const date = new Date(isoDate);
@@ -86,243 +78,174 @@ const TambahPengacara = () => {
     });
   };
 
-  // Hitung sisa waktu (menit dan detik)
   const calculateRemainingTime = (remainingMs) => {
     if (remainingMs <= 0) return "Kadaluarsa";
-
     const diffMinutes = Math.floor(remainingMs / (1000 * 60));
     const diffSeconds = Math.floor((remainingMs % (1000 * 60)) / 1000);
-
-    return `${diffMinutes} menit ${diffSeconds} detik lagi`;
+    return `${diffMinutes} menit ${diffSeconds} detik`;
   };
 
   useEffect(() => {
     fetchPengacaras();
     fetchRegistrations();
-
-    // Refresh setiap 1 detik agar timer berjalan
     const interval = setInterval(() => {
       fetchRegistrations();
     }, 1000);
-
     return () => clearInterval(interval);
   }, [fetchPengacaras, fetchRegistrations]);
 
-  // Warna background baris berdasarkan waktu tersisa
-  const getRowBackgroundColor = (reg) => {
-    if (reg.isExpired) return "#ffebee"; // merah muda (expired)
-    if (reg.remainingMs <= 3 * 60 * 1000) return "#fff9c4"; // kuning muda (<= 3 menit)
-    return "inherit"; // default
+  // [MODIFIKASI UI] Warna disesuaikan dengan tema gelap
+  const getRowStyle = (reg) => {
+    if (reg.isExpired) {
+      // Warna merah transparan yang sesuai tema
+      return { backgroundColor: "rgba(231, 76, 60, 0.2)" };
+    }
+    if (reg.remainingMs <= 3 * 60 * 1000) {
+      // Warna kuning transparan yang sesuai tema
+      return { backgroundColor: "rgba(241, 196, 15, 0.2)" };
+    }
+    return {}; // Default
   };
 
+  // =================================================================
+  // PERUBAHAN TOTAL PADA TAMPILAN JSX
+  // =================================================================
   return (
-     <AdminLayout>
-    <div style={{ display: "flex" }}>
-      <div style={{ flex: 1, padding: "20px" }} className="Main-Content">
-        <h2>Daftar Pendaftaran Pengacara (Belum Disetujui)</h2>
-        <div className="table-container">
-          <table
-            border="1"
-            cellPadding="10"
-            style={{ borderCollapse: "collapse", width: "100%", marginBottom: "40px" }}
-          >
-            <thead>
-              <tr>
-                <th>Nama</th>
-                <th>Email</th>
-                <th>No. HP</th>
-                <th>Alamat</th>
-                <th>Tanggal Lahir</th>
-                <th>Jenis Kelamin</th>
-                <th>Spesialisasi</th>
-                <th>Universitas</th>
-                <th>Pendidikan</th>
-                <th>Pengalaman</th>
-                <th>Nomor Induk Advokat</th>
-                <th>KTP</th>
-                <th>Foto</th>
-                <th>Kartu Advokat</th>
-                <th>PKPA</th>
-                <th>LinkedIn</th>
-                <th>Instagram</th>
-                <th>Twitter / X</th>
-                <th>Resume / CV</th>
-                <th>Batas Waktu</th>
-                <th>Aksi</th>
-              </tr>
-            </thead>
-            <tbody>
-              {registrations.length === 0 ? (
+    <AdminLayout>
+      <div className="container">
+        {/* === BAGIAN PENDAFTARAN BELUM DISETUJUI === */}
+        <h2 className="section-title">Daftar Pendaftaran Pengacara (Belum Disetujui)</h2>
+        <div className={`table-wrapper ${registrations.length === 0 ? "is-empty" : ""}`}>
+          <div className="table-container">
+            <table>
+              <thead>
                 <tr>
-                  <td colSpan="21" style={{ textAlign: "center" }}>
-                    Tidak ada pendaftaran.
-                  </td>
+                  <th>Nama</th>
+                  <th>Kontak</th>
+                  <th>Spesialisasi</th>
+                  <th>Pendidikan</th>
+                  <th>Dokumen</th>
+                  <th>Sosial Media</th>
+                  <th>Batas Waktu</th>
+                  <th>Aksi</th>
                 </tr>
-              ) : (
-                registrations.map((lawyer) => (
-                  <tr key={lawyer.id} style={{ backgroundColor: getRowBackgroundColor(lawyer) }}>
-                    <td>{lawyer.nama}</td>
-                    <td>{lawyer.email}</td>
-                    <td>{lawyer.no_hp}</td>
-                    <td>{lawyer.alamat}</td>
-                    <td>{formatDate(lawyer.tanggal_lahir)}</td>
-                    <td>{lawyer.jenis_kelamin}</td>
-                    <td>{lawyer.spesialisasi}</td>
-                    <td>{lawyer.universitas}</td>
-                    <td>{lawyer.pendidikan}</td>
-                    <td>{lawyer.pengalaman} tahun</td>
-                    <td>{lawyer.nomor_induk_advokat}</td>
-                    <td>
-                      <a
-                        href={`http://localhost:5000/uploads/${lawyer.upload_ktp}`}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                      >
-                        Lihat
-                      </a>
-                    </td>
-                    <td>
-                      <a
-                        href={`http://localhost:5000/uploads/${lawyer.upload_foto}`}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                      >
-                        Lihat
-                      </a>
-                    </td>
-                    <td>
-                      <a
-                        href={`http://localhost:5000/uploads/${lawyer.upload_kartu_advokat}`}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                      >
-                        Lihat
-                      </a>
-                    </td>
-                    <td>
-                      <a
-                        href={`http://localhost:5000/uploads/${lawyer.upload_pkpa}`}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                      >
-                        Lihat
-                      </a>
-                    </td>
-
-                    <td>
-                      {lawyer.linkedin ? (
-                        <a href={lawyer.linkedin} target="_blank" rel="noopener noreferrer">
-                          LinkedIn
-                        </a>
-                      ) : (
-                        "-"
-                      )}
-                    </td>
-                    <td>
-                      {lawyer.instagram ? (
-                        <a href={lawyer.instagram} target="_blank" rel="noopener noreferrer">
-                          Instagram
-                        </a>
-                      ) : (
-                        "-"
-                      )}
-                    </td>
-                    <td>
-                      {lawyer.twitter ? (
-                        <a href={lawyer.twitter} target="_blank" rel="noopener noreferrer">
-                          Twitter
-                        </a>
-                      ) : (
-                        "-"
-                      )}
-                    </td>
-                    <td>
-                      {lawyer.resume_cv ? (
-                        <a
-                          href={`http://localhost:5000/uploads/${lawyer.resume_cv}`}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                        >
-                          Lihat Resume
-                        </a>
-                      ) : (
-                        "-"
-                      )}
-                    </td>
-
-                    <td>
-                      {lawyer.isExpired ? (
-                        "Kadaluarsa"
-                      ) : (
-                        <>
-                          {formatDate(lawyer.deadline)} <br />
-                          <small>({calculateRemainingTime(lawyer.remainingMs)})</small>
-                        </>
-                      )}
-                    </td>
-                    <td>
-                      <button
-                        onClick={() => handleApprove(lawyer.id)}
-                        style={{ marginLeft: "8px", backgroundColor: "#27AE60", color: "white" }}
-                        disabled={lawyer.isExpired}
-                      >
-                        Setujui
-                      </button>
-                      <button
-                        onClick={() => handleReject(lawyer.id)}
-                        style={{ marginLeft: "8px", backgroundColor: "red", color: "white" }}
-                      >
-                        Tolak
-                      </button>
-                    </td>
+              </thead>
+              <tbody>
+                {registrations.length === 0 ? (
+                  <tr>
+                    <td colSpan="8">Tidak ada pendaftaran.</td>
                   </tr>
-                ))
-              )}
-            </tbody>
-          </table>
+                ) : (
+                  registrations.map((lawyer) => (
+                    <tr key={lawyer.id} style={getRowStyle(lawyer)}>
+                      <td className="primary-text">{lawyer.nama}</td>
+                      <td>
+                        {lawyer.email}
+                        <br />
+                        <small>{lawyer.no_hp}</small>
+                      </td>
+                      <td>{lawyer.spesialisasi}</td>
+                      <td>
+                        {lawyer.pendidikan}
+                        <br />
+                        <small>{lawyer.universitas}</small>
+                      </td>
+                      <td>
+                        <a href={`http://localhost:5000/uploads/${lawyer.upload_ktp}`} target="_blank" rel="noopener noreferrer">KTP</a> |{" "}
+                        <a href={`http://localhost:5000/uploads/${lawyer.upload_kartu_advokat}`} target="_blank" rel="noopener noreferrer">Kartu</a> |{" "}
+                        <a href={`http://localhost:5000/uploads/${lawyer.upload_pkpa}`} target="_blank" rel="noopener noreferrer">PKPA</a> |{" "}
+                        <a href={`http://localhost:5000/uploads/${lawyer.resume_cv}`} target="_blank" rel="noopener noreferrer">CV</a>
+                      </td>
+                      <td>
+                        {lawyer.linkedin && <a href={lawyer.linkedin} target="_blank" rel="noopener noreferrer">LinkedIn</a>}
+                        {lawyer.instagram && <> | <a href={lawyer.instagram} target="_blank" rel="noopener noreferrer">Instagram</a></>}
+                      </td>
+                      <td>
+                        {lawyer.isExpired ? (
+                          <span style={{ color: "var(--color-danger)" }}>Kadaluarsa</span>
+                        ) : (
+                          <>
+                            {formatDate(lawyer.deadline)} <br />
+                            <small>({calculateRemainingTime(lawyer.remainingMs)})</small>
+                          </>
+                        )}
+                      </td>
+                      <td>
+                        <div className="actions-cell">
+                          <button
+                            onClick={() => handleApprove(lawyer.id)}
+                            className="view"
+                            title="Setujui Pendaftaran"
+                            disabled={lawyer.isExpired}
+                          >
+                            <i className="fas fa-check"></i>
+                          </button>
+                          <button
+                            onClick={() => handleReject(lawyer.id)}
+                            className="delete"
+                            title="Tolak Pendaftaran"
+                          >
+                            <i className="fas fa-times"></i>
+                          </button>
+                        </div>
+                      </td>
+                    </tr>
+                  ))
+                )}
+              </tbody>
+            </table>
+          </div>
         </div>
 
-        <h2>Daftar Pengacara (Sudah Disetujui)</h2>
-        <div className="table-container">
-          <table border="1" cellPadding="10" style={{ borderCollapse: "collapse", width: "100%" }}>
-            <thead>
-              <tr>
-                <th>Nama</th>
-                <th>Email</th>
-                <th>Spesialisasi</th>
-                <th>No. HP</th>
-                <th>Alamat</th>
-                <th>Aksi</th>
-              </tr>
-            </thead>
-            <tbody>
-              {pengacaras.length === 0 ? (
+        {/* === BAGIAN PENGACARA SUDAH DISETUJUI === */}
+        <h2 className="section-title">Daftar Pengacara (Sudah Disetujui)</h2>
+        <div className={`table-wrapper ${pengacaras.length === 0 ? "is-empty" : ""}`}>
+          <div className="table-container">
+            <table>
+              <thead>
                 <tr>
-                  <td colSpan="6" style={{ textAlign: "center" }}>
-                    Tidak ada data pengacara.
-                  </td>
+                  <th>Nama</th>
+                  <th>Email</th>
+                  <th>Spesialisasi</th>
+                  <th>No. HP</th>
+                  <th>Alamat</th>
+                  <th>Aksi</th>
                 </tr>
-              ) : (
-                pengacaras.map((pengacara) => (
-                  <tr key={pengacara.id}>
-                    <td>{pengacara.nama}</td>
-                    <td>{pengacara.email}</td>
-                    <td>{pengacara.spesialisasi}</td>
-                    <td>{pengacara.no_hp}</td>
-                    <td>{pengacara.alamat}</td>
-                    <td>
-                      <button className="view">Lihat</button>
-                      <button className="edit">Edit</button>
-                      <button className="delete">Hapus</button>
-                    </td>
+              </thead>
+              <tbody>
+                {pengacaras.length === 0 ? (
+                  <tr>
+                    <td colSpan="6">Tidak ada data pengacara.</td>
                   </tr>
-                ))
-              )}
-            </tbody>
-          </table>
+                ) : (
+                  pengacaras.map((pengacara) => (
+                    <tr key={pengacara.id}>
+                      <td className="primary-text">{pengacara.nama}</td>
+                      <td>{pengacara.email}</td>
+                      <td>{pengacara.spesialisasi}</td>
+                      <td>{pengacara.no_hp}</td>
+                      <td>{pengacara.alamat}</td>
+                      <td>
+                        <div className="actions-cell">
+                          <button className="view" title="Lihat Detail">
+                            <i className="fas fa-eye"></i>
+                          </button>
+                          <button className="edit" title="Edit Data">
+                            <i className="fas fa-pencil-alt"></i>
+                          </button>
+                          <button className="delete" title="Hapus Data">
+                            <i className="fas fa-trash"></i>
+                          </button>
+                        </div>
+                      </td>
+                    </tr>
+                  ))
+                )}
+              </tbody>
+            </table>
+          </div>
         </div>
       </div>
-    </div>
     </AdminLayout>
   );
 };

@@ -197,7 +197,7 @@ h2 {
 
 .user-table th,
 .user-table td {
-  padding: 12px 18px; /* Padding sedikit lebih besar */
+  padding: 22px 28px; /* Padding sedikit lebih besar */
   text-align: left;
   background-color: var( --card-bg);
   border-bottom: 1px solid var(--border);
