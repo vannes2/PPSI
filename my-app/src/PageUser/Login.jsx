@@ -87,6 +87,7 @@ const Login = () => {
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 required
+                className="Email"
               />
               <p>Kata sandi</p>
               <div className="password-wrapper">
