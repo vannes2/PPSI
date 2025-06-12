@@ -1,58 +1,190 @@
-.log-container {
-  display: flex;
-  min-height: 80vh;
-  background-color: #f9f9f9;
-  font-family: Arial, sans-serif;
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
+
+/* ===================================================================
+   CSS HALAMAN RIWAYAT PERTANYAAN
+   =================================================================== */
+
+/* --- Variabel Utama (Konsisten dengan halaman lain) --- */
+:root {
+    --color-background: #1f2b38;
+    --color-surface-1: #2c3e50;
+    --color-surface-2: #34495e;
+    --color-accent-1: #f39c12;
+    --color-accent-2: #e67e22;
+    --color-text-primary: #ecf0f1;
+    --color-text-secondary: #a3b1c2;
+    --color-border: #3d566e;
+    --color-success: #27ae60;
+    --color-warning: #f1c40f;
+    --color-danger: #c0392b;
+    --color-info: #3498db;
+    --font-family: 'Poppins', sans-serif;
+    --radius-sm: 8px;
+    --radius-md: 14px;
+    --radius-lg: 20px;
+    --spacing-md: 1.5rem;
+    --spacing-lg: 2rem;
+    --transition-smooth: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
 }
 
-main {
-  flex: 1;
-  padding: 20px;
-  background: #fff;
-  border-radius: 8px;
-  box-shadow: 0 2px 8px rgb(0 0 0 / 0.1);
-  margin-left: 20px;
-  overflow-x: auto;
+/* --- Struktur Halaman --- */
+.riwayat-pertanyaan-container {
+    padding: var(--spacing-lg);
+    font-family: var(--font-family);
+    color: var(--color-text-primary);
 }
 
-h2 {
-  margin-bottom: 20px;
-  color: #333;
+.riwayat-header {
+    margin-bottom: var(--spacing-lg);
+}
+
+.riwayat-header h2 {
+    font-size: 2.2rem;
+    font-weight: 700;
+    letter-spacing: 1px;
+    background: linear-gradient(90deg, var(--color-accent-1), var(--color-accent-2));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    display: inline-block;
+}
+
+/* --- Desain Tabel Profesional --- */
+.table-wrapper {
+    background-color: var(--color-surface-1);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    padding: var(--spacing-md);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    overflow: hidden; /* Penting untuk border-radius */
 }
 
 .log-table {
-  width: 100%;
-  border-collapse: collapse;
-  font-size: 14px;
+    width: 100%;
+    border-collapse: separate; /* Diubah agar bisa styling per baris */
+    border-spacing: 0 10px; /* Jarak vertikal antar baris */
 }
 
-.log-table thead tr {
-  background-color: #007bff;
-  color: white;
+.log-table thead th {
+    color: var(--color-text-secondary);
+    font-weight: 600;
+    padding: 1rem 1.5rem;
+    text-align: left;
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    border-bottom: 2px solid var(--color-border);
 }
 
-.log-table th,
-.log-table td {
-  padding: 12px 15px;
-  border: 1px solid #ddd;
-  text-align: left;
-  vertical-align: middle;
-}
-
-.log-table tbody tr:nth-child(even) {
-  background-color: #f2f2f2;
+.log-table tbody tr {
+    background-color: var(--color-surface-2);
+    border-radius: var(--radius-sm);
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    transition: var(--transition-smooth);
 }
 
 .log-table tbody tr:hover {
-  background-color: #e9f5ff;
-  cursor: pointer;
+    transform: translateY(-4px) scale(1.01);
+    box-shadow: 0 6px 15px rgba(0,0,0,0.2);
+    background-color: var(--color-surface-2);
 }
 
-input#searchInput {
-  width: 300px;
-  padding: 8px 12px;
-  margin-bottom: 15px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  font-size: 14px;
+.log-table tbody td {
+    color: var(--color-text-secondary);
+    padding: 1rem 1.5rem;
+    font-size: 0.95rem;
+    vertical-align: middle;
+    border-bottom: 1px solid var(--color-border);
+}
+
+.log-table tbody tr td:first-child { border-top-left-radius: var(--radius-sm); border-bottom-left-radius: var(--radius-sm); }
+.log-table tbody tr td:last-child { border-top-right-radius: var(--radius-sm); border-bottom-right-radius: var(--radius-sm); }
+
+/* Penanganan teks panjang di kolom Pertanyaan */
+.log-table .pertanyaan-cell {
+    max-width: 350px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    cursor: help; /* Memberi isyarat bisa di-hover */
+}
+
+
+/* --- [MODERN] Visualisasi Intent & Confidence --- */
+.intent-badge {
+    background-color: rgba(52, 152, 218, 0.15);
+    color: var(--color-info);
+    padding: 0.3rem 0.8rem;
+    border-radius: 50px;
+    font-weight: 600;
+    font-size: 0.85rem;
+    display: inline-block;
+}
+
+.confidence-bar-wrapper {
+    background-color: var(--color-border);
+    border-radius: 50px;
+    height: 24px;
+    width: 100px;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+}
+
+.confidence-bar {
+    height: 100%;
+    border-radius: 50px;
+    transition: width 0.5s ease-out;
+}
+
+.confidence-bar.high { background-color: var(--color-success); }
+.confidence-bar.medium { background-color: var(--color-warning); }
+.confidence-bar.low { background-color: var(--color-danger); }
+
+.confidence-text {
+    position: absolute;
+    width: 100%;
+    text-align: center;
+    color: #fff;
+    font-weight: 600;
+    font-size: 0.85rem;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+}
+
+/* --- Responsive Design --- */
+@media (max-width: 992px) {
+    .log-table thead {
+        display: none;
+    }
+    .log-table tbody, .log-table tr, .log-table td {
+        display: block;
+        width: 100%;
+    }
+    .log-table tbody tr {
+        margin-bottom: 1.5rem;
+        border-radius: var(--radius-md);
+    }
+    .log-table tbody td {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 1rem;
+        border-bottom: 1px dashed var(--color-border);
+        text-align: right;
+    }
+    .log-table tbody td:last-child {
+        border-bottom: none;
+    }
+    .log-table tbody td::before {
+        content: attr(data-label);
+        font-weight: bold;
+        color: var(--color-text-primary);
+        margin-right: 1rem;
+        text-align: left;
+    }
+    .log-table .pertanyaan-cell {
+        max-width: 100%;
+        white-space: normal;
+        text-align: right;
+    }
 }
