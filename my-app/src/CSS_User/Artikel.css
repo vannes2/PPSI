@@ -231,7 +231,7 @@
 
 /* =================== JUDUL TANPA GARIS & BOLD =================== */
 .artikel-judul-link {
-  color: #000;
+  color: #000 !important;
   font-weight: 800;
   font-size: 22px;
   text-decoration: none;

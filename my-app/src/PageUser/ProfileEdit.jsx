@@ -150,7 +150,7 @@ const ProfileEdit = () => {
           </div>
 
           <div className="profile-main">
-            <h1 className="section-title">Edit Profil</h1>
+            <h1 className="Edit">Edit Profil</h1>
             {error && <p className="error-message">{error}</p>}
             {successMessage && <p className="save-message">{successMessage}</p>}
 
@@ -202,7 +202,7 @@ const ProfileEdit = () => {
                     onChange={handleChange}
                   />
                 </div>
-                <button type="submit" className="save-btn">
+                <button type="submit" className="btn-save">
                   Simpan
                 </button>
               </div>

@@ -93,7 +93,7 @@ const ProfileView = () => {
           </div>
 
           <div className="profile-main">
-            <h1 className="section-title">Informasi Profil</h1>
+            <h1 className="Edit">Informasi Profil</h1>
             <div className="profile-info-grid">
               <div className="profile-field">
                 <span className="profile-label">Nama</span>

@@ -402,8 +402,8 @@ const ChatPage = () => {
           </div>
 
           {isLocked ? (
-            <div style={{ padding: "10px", textAlign: "center" }}>
-              <button className="btn btn-primary" onClick={() => navigate("/payment", { state: { pengacaraId: activeLawyerId } })}>
+            <div style={{ padding: "10px", textAlign: "center",  }}>
+              <button className="Konsul" onClick={() => navigate("/payment", { state: { pengacaraId: activeLawyerId } })}>
                 Konsultasi Lagi
               </button>
             </div>

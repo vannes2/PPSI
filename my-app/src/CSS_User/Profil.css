@@ -200,11 +200,11 @@ input[type="file"]:focus {
 
 /* ================= BUTTONS ================= */
 .logout-btn,
-.save-btn,
+.btn-save,
 .edit-profile-btn,
 .popup-button,
 .auth-buttons button {
-  background: linear-gradient(to right, #b31217, #e52d27);
+  background: linear-gradient(to right, #b31217, #e52d27) !important;
   color: white;
   border: none;
   padding: 12px 28px;
@@ -223,7 +223,7 @@ input[type="file"]:focus {
 }
 
 .logout-btn:hover,
-.save-btn:hover,
+.btn-save:hover,
 .edit-profile-btn:hover,
 .popup-button:hover,
 .auth-buttons button:hover {
@@ -231,6 +231,7 @@ input[type="file"]:focus {
   color: #B31312 !important;
   border: 2px solid #B31312 !important;
   box-shadow: none;
+  transform: none;
 }
 
 /* Tombol batal */
@@ -253,7 +254,7 @@ input[type="file"]:focus {
   user-select: text;
 }
 
-.section-title {
+.Edit{
   font-size: 24px;
   font-weight: 900;
   margin-bottom: 28px;

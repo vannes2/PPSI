@@ -6,6 +6,15 @@
   background-color: #ffffff;
 }
 
+.Konsul{
+  background-color: blue;
+  color: white;
+}
+
+.Konsul:hover {
+    transform: scale(1.1);
+}
+
 .chat-container {
   display: flex;
   flex: 1;
