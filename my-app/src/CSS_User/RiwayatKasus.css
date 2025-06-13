@@ -148,21 +148,24 @@
   font-weight: bold;
 }
 
-
 .status-menunggu {
   background-color: #d97706;
+  color: #d97706;
 }
 
 .status-diproses {
   background-color: #2563eb;
+  color: #2563eb;
 }
 
 .status-selesai {
   background-color: #16a34a;
+  color: #16a34a;
 }
 
 .status-belum-diambil-pengacara {
   background-color: #b31312;
+  color: #ffffff !important;
 }
 
 
