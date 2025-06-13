@@ -40,7 +40,7 @@ const TransaksiPengacara = () => {
   return (
     <AdminLayout>
       <div className="transaksi-container">
-        <h2>Transaksi Ajukan Kasus (Selesai)</h2>
+        <h2 className='transaksi-h2'>Transaksi Ajukan Kasus (Selesai)</h2>
 
         {loading ? (
           <p>Memuat data...</p>
@@ -88,7 +88,7 @@ const TransaksiPengacara = () => {
         )}
 
 
-<h2>Transaksi Konsultasi Session (Selesai)</h2>
+<h2 className='transaksi-h2'>Transaksi Konsultasi Session (Selesai)</h2>
 
 {loading ? (
   <p>Memuat data...</p>

@@ -184,6 +184,7 @@ font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 
 .btn-detail:hover {
   background-color: #8f1010;
+  color: #fff;
 }
 
 /* === Footer Space === */

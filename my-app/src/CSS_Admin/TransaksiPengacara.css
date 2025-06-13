@@ -140,7 +140,8 @@
 }
 
 /* ===== 8. HEADING CUSTOM ===== */
-h2 {
+
+.transaksi-h2 h2{ 
   color: var(--color-accent-orange) !important;
   font-family: var(--font-family);
   font-weight: 600;
