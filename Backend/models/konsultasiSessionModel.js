@@ -185,8 +185,39 @@ const finishSessionIfExpired = (sessionId) => {
     });
 };
 
+const getAll = () => {
+  return new Promise((resolve, reject) => {
+    // Query untuk mengambil data dengan join ke tabel pengacara dan user
+    const dataSql = `
+      SELECT 
+        ks.*, 
+        p.nama AS nama_pengacara,
+        u.name AS nama_user
+      FROM konsultasi_session ks
+      LEFT JOIN pengacara p ON ks.pengacara_id = p.id
+      LEFT JOIN users u ON ks.user_id = u.id
+      ORDER BY ks.start_time DESC
+    `;
+
+    // Query untuk menghitung total data
+    const totalSql = "SELECT COUNT(*) as total FROM konsultasi_session";
+
+    // Menjalankan kedua query secara bersamaan
+    db.query(dataSql, (err, data) => {
+      if (err) return reject(err);
+      db.query(totalSql, (err2, totalResult) => {
+        if (err2) return reject(err2);
+        resolve({
+          data: data,
+          total: totalResult[0].total,
+        });
+      });
+    });
+  });
+};
 
 module.exports = {
+  getAll,
   createOrUpdateSession,
   finishSessionIfExpired,
   getSession,

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import '../CSS_Admin/Dashboard.css'; // Pastikan path ini benar
@@ -28,10 +28,12 @@ function Dashboard() {
         setError(null);
 
         const endpoints = {
-          users: `${API_BASE_URL}/api/auth/users`,
+          users: `${API_BASE_URL}/api/simple-users`,
           lawyers: `${API_BASE_URL}/api/pengacara`,
           cases: `${API_BASE_URL}/api/kasus`,
-          consultations: `${API_BASE_URL}/api/konsultasi_session`,
+          // --- PERUBAHAN ENDPOINT KONSULTASI ---
+          consultations: `${API_BASE_URL}/api/konsultasi`, // Diubah dari /api/konsultasi_session
+          // ------------------------------------
           financial: `${API_BASE_URL}/api/transaksi-keuangan/total`,
         };
 
@@ -44,26 +46,31 @@ function Dashboard() {
         const users = usersRes.data || [];
         const lawyers = lawyersRes.data || [];
         const cases = casesRes.data || [];
-        const consultations = consultationsRes.data || [];
         const financial = financialRes.data || {
           total_kotor: 0,
           pendapatan_bersih: 0,
           total_pengeluaran: 0
         };
 
+        // --- PENYESUAIAN CARA MEMBACA DATA KONSULTASI ---
+        // Karena endpoint baru mengembalikan { data: [...], total: ... }
+        const consultationList = consultationsRes.data ? consultationsRes.data.data : [];
+        const totalConsultations = consultationsRes.data ? consultationsRes.data.total : 0;
+        // -------------------------------------------------
+
         setStats({
           totalUsers: users.length,
           totalLawyers: lawyers.length,
           totalCases: cases.length,
-          totalConsultations: consultations.length,
+          totalConsultations: totalConsultations, // Menggunakan total dari API
           totalRevenue: financial.total_kotor,
           pendingCases: cases.filter(c => c.status?.toLowerCase() === 'menunggu').length,
-          activeConsultations: consultations.filter(c => c.status?.toLowerCase() === 'aktif').length,
+          activeConsultations: consultationList.filter(c => c.status?.toLowerCase() === 'aktif').length,
         });
 
         setRecentData({
           cases: cases.slice(-5).reverse(),
-          consultations: consultations.slice(-5).reverse(),
+          consultations: consultationList.slice(-5).reverse(), // Menggunakan daftar konsultasi dari API
           lawyers: lawyers.slice(-5).reverse(),
           users: users.slice(-5).reverse(),
         });
@@ -123,7 +130,7 @@ function Dashboard() {
       columns: ["ID", "Pengguna", "Pengacara", "Status", "Tanggal"],
       renderRow: (k) => [
         `#${k.id}`,
-        k.nama_user || `User #${k.user_id || 'N/A'}`,
+        k.nama_user || `User #${k.user_id || 'N/A'}`, // Sekarang bisa menampilkan nama user
         k.nama_pengacara || `Pengacara #${k.pengacara_id || 'N/A'}`,
         <span className={`status-badge ${k.status?.toLowerCase()}`}>{k.status || 'N/A'}</span>,
         formatDate(k.start_time)

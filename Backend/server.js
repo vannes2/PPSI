@@ -62,6 +62,7 @@ app.use("/api/transaksi-keuangan", transaksiKeuanganRoutes);
 app.use('/api/transaksi', transaksiKeuanganRoutes);
 app.use("/api", riwayatPengacaraRoutes);
 app.use('/api', dashboardRoutes);
+app.use('/api/konsultasi', konsultasiRoutes);
 
 // app.use("/api/kasus", riwayatKasusRoutes);
 app.use("/api/konsultasi_session", konsultasiRoutes);

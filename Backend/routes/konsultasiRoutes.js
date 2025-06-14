@@ -9,6 +9,7 @@ router.get("/riwayat/:userId", konsultasiController.getRiwayatKonsultasiByUser);
 // Endpoint untuk riwayat konsultasi pengacara
 router.get("/riwayat/pengacara/:pengacaraId", konsultasiController.getRiwayatKonsultasiByPengacara);
 
+router.get("/", konsultasiController.getAllKonsultasi);
 
 module.exports = router;
 
