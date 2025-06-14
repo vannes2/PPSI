@@ -100,7 +100,8 @@ function AppContent() {
     '/TambahArtikel',
     '/ArtikelBeritaAdmin',
     '/TransaksiKeuangan',
-    '/admin/kasus'
+    '/admin/kasus',
+    '/ProfilAdmin'
   ];
 
   // Fungsi untuk memeriksa apakah rute saat ini harus menyembunyikan chatbot

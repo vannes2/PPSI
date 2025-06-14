@@ -1,7 +1,10 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-import { FaSignOutAlt } from "react-icons/fa";
+import {
+  FaSignOutAlt, FaEnvelope, FaPhone, FaVenusMars, FaCalendarAlt, FaKey, FaUser
+} from "react-icons/fa";
+import AdminLayout from "../components/AdminLayout";
 import SidebarAdmin from "../components/SidebarAdmin";
 import "../CSS_Admin/ProfilAdmin.css";
 
@@ -13,13 +16,8 @@ const ProfilAdmin = () => {
   const [isEditing, setIsEditing] = useState(false);
   const [selectedFile, setSelectedFile] = useState(null);
   const [password, setPassword] = useState("");
-
   const [formData, setFormData] = useState({
-    name: "",
-    email: "",
-    phone: "",
-    gender: "",
-    birthdate: ""
+    name: "", email: "", phone: "", gender: "", birthdate: ""
   });
 
   const navigate = useNavigate();
@@ -34,7 +32,7 @@ const ProfilAdmin = () => {
           email: response.data.email || "",
           phone: response.data.phone || "",
           gender: response.data.gender || "",
-          birthdate: response.data.birthdate || ""
+          birthdate: response.data.birthdate?.substring(0, 10) || ""
         });
       } catch (error) {
         console.error("Error fetching admin data:", error);
@@ -42,17 +40,10 @@ const ProfilAdmin = () => {
     };
 
     fetchAdminData();
-
-    const login = new Date().toLocaleString("id-ID", {
-      weekday: "long",
-      year: "numeric",
-      month: "long",
-      day: "numeric",
-      hour: "2-digit",
-      minute: "2-digit",
-      second: "2-digit"
-    });
-    setLoginTime(login);
+    setLoginTime(new Date().toLocaleString("id-ID", {
+      weekday: "long", year: "numeric", month: "long", day: "numeric",
+      hour: "2-digit", minute: "2-digit", second: "2-digit"
+    }));
 
     const savedLogout = localStorage.getItem("lastLogoutTime");
     if (savedLogout) setLastLogoutTime(savedLogout);
@@ -60,15 +51,9 @@ const ProfilAdmin = () => {
 
   const handleLogout = () => {
     const logoutTime = new Date().toLocaleString("id-ID", {
-      weekday: "long",
-      year: "numeric",
-      month: "long",
-      day: "numeric",
-      hour: "2-digit",
-      minute: "2-digit",
-      second: "2-digit"
+      weekday: "long", year: "numeric", month: "long", day: "numeric",
+      hour: "2-digit", minute: "2-digit", second: "2-digit"
     });
-
     localStorage.setItem("lastLogoutTime", logoutTime);
     localStorage.removeItem("user");
     navigate("/login");
@@ -76,10 +61,7 @@ const ProfilAdmin = () => {
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setFormData((prev) => ({
-      ...prev,
-      [name]: value
-    }));
+    setFormData(prev => ({ ...prev, [name]: value }));
   };
 
   const handleFileChange = (e) => {
@@ -88,10 +70,9 @@ const ProfilAdmin = () => {
 
   const handleSave = async () => {
     if (!password) {
-      alert("⚠️ Mohon masukkan password untuk konfirmasi perubahan");
+      alert("⚠️ Masukkan password untuk konfirmasi");
       return;
     }
-
     try {
       await axios.put("http://localhost:5000/api/admin/profile/update", {
         ...formData,
@@ -101,7 +82,6 @@ const ProfilAdmin = () => {
       if (selectedFile) {
         const fileData = new FormData();
         fileData.append("foto", selectedFile);
-
         await axios.put("http://localhost:5000/api/admin/profile/upload-foto", fileData, {
           headers: { "Content-Type": "multipart/form-data" }
         });
@@ -113,117 +93,86 @@ const ProfilAdmin = () => {
       window.location.reload();
     } catch (error) {
       console.error("Gagal update profil:", error);
-      alert("❌ Gagal memperbarui profil: " + (error.response?.data?.message || ""));
+      alert("❌ Gagal memperbarui profil");
     }
   };
 
   if (!adminData) return <div className="loading">Loading...</div>;
 
   return (
-    <div className="dashboard-wrapper flex">
-      <SidebarAdmin activeTab={activeTab} onTabChange={setActiveTab} />
-      <main className="admin-page">
-        <div className="profil-admin-container">
-          <h1>Profil Admin</h1>
+    <AdminLayout>
+      <div className="dashboard-wrapper flex">
+        <main className="admin-profile-page">
+          <div className="profile-card">
+            <div className="profile-header" />
 
-          {/* Foto */}
-          <div className="admin-photo">
-            <img
-              src={
-                adminData.upload_foto
-                  ? `http://localhost:5000/uploads/${adminData.upload_foto}`
-                  : "/assets/images/admin-avatar.png"
-              }
-              alt="Foto Admin"
-              className="admin-profile-photo"
-            />
-            {isEditing && (
-              <input type="file" accept="image/*" onChange={handleFileChange} />
-            )}
-          </div>
+            <div className="profile-body">
+              <div className="profile-photo">
+                <img
+                  src={
+                    adminData.upload_foto
+                      ? `http://localhost:5000/uploads/${adminData.upload_foto}`
+                      : "/assets/images/admin-avatar.png"
+                  }
+                  alt="Foto Admin"
+                />
+                {isEditing && (
+                  <input type="file" accept="image/*" onChange={handleFileChange} />
+                )}
+              </div>
 
-          {/* Detail Profil */}
-          <section className="admin-details">
-            <div className="admin-info">
-              <label>Nama</label>
-              {isEditing ? (
-                <input type="text" name="name" value={formData.name} onChange={handleChange} />
-              ) : (
-                <p>{adminData.name}</p>
-              )}
+              <div className="profile-info">
+                <h2>{adminData.name}</h2>
+                <p><FaUser /> Administrator</p>
+                <p><FaEnvelope /> {adminData.email}</p>
+                <p><FaPhone /> {adminData.phone || "-"}</p>
+                <p><FaVenusMars /> {adminData.gender || "-"}</p>
+                <p><FaCalendarAlt /> {adminData.birthdate?.substring(0, 10) || "-"}</p>
 
-              <label>Email</label>
-              {isEditing ? (
-                <input type="email" name="email" value={formData.email} onChange={handleChange} />
-              ) : (
-                <p>{adminData.email}</p>
-              )}
-
-              <label>Nomor HP</label>
-              {isEditing ? (
-                <input type="text" name="phone" value={formData.phone} onChange={handleChange} />
-              ) : (
-                <p>{adminData.phone || "-"}</p>
-              )}
-
-              <label>Jenis Kelamin</label>
-              {isEditing ? (
-                <select name="gender" value={formData.gender} onChange={handleChange}>
-                  <option value="">Pilih</option>
-                  <option value="laki-laki">Laki-laki</option>
-                  <option value="perempuan">Perempuan</option>
-                </select>
-              ) : (
-                <p>{adminData.gender || "-"}</p>
-              )}
-
-              <label>Tanggal Lahir</label>
-              {isEditing ? (
-                <input type="date" name="birthdate" value={formData.birthdate} onChange={handleChange} />
-              ) : (
-                <p>{adminData.birthdate || "-"}</p>
-              )}
-
-              {isEditing && (
-                <>
-                  <label>Password (untuk konfirmasi)</label>
-                  <input
-                    type="password"
-                    name="password"
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                    placeholder="Masukkan password akun"
-                  />
-                </>
-              )}
-
-              <p><strong>Login Aktif Sejak:</strong> <span className="login-time">{loginTime}</span></p>
-              {lastLogoutTime && (
-                <p><strong>Terakhir Logout:</strong> <span className="logout-time">{lastLogoutTime}</span></p>
-              )}
+                {isEditing && (
+                  <div className="edit-fields">
+                    <input type="text" name="name" placeholder="Nama" value={formData.name} onChange={handleChange} />
+                    <input type="email" name="email" placeholder="Email" value={formData.email} onChange={handleChange} />
+                    <input type="text" name="phone" placeholder="No. HP" value={formData.phone} onChange={handleChange} />
+                    <select name="gender" value={formData.gender} onChange={handleChange}>
+                      <option value="">Pilih Gender</option>
+                      <option value="laki-laki">Laki-laki</option>
+                      <option value="perempuan">Perempuan</option>
+                    </select>
+                    <input type="date" name="birthdate" value={formData.birthdate} onChange={handleChange} />
+                    <div className="password-confirm">
+                      <FaKey />
+                      <input type="password" name="password" placeholder="Konfirmasi Password" value={password} onChange={(e) => setPassword(e.target.value)} />
+                    </div>
+                  </div>
+                )}
+              </div>
             </div>
-          </section>
 
-          {/* Tombol Aksi */}
-          <div className="action-buttons">
-            {isEditing ? (
-              <>
-                <button className="btn btn-primary" onClick={handleSave}>Simpan Perubahan</button>
-                <button className="btn btn-secondary" onClick={() => {
-                  setIsEditing(false);
-                  setPassword("");
-                }}>Batal</button>
-              </>
-            ) : (
-              <button className="btn btn-edit" onClick={() => setIsEditing(true)}>Edit Profil</button>
-            )}
-            <button className="btn btn-delete" onClick={handleLogout}>
-              <FaSignOutAlt /> Log Out
-            </button>
+            <div className="profile-footer">
+              <div className="login-info">
+                <p><strong>Login Aktif Sejak:</strong> {loginTime}</p>
+                {lastLogoutTime && <p><strong>Terakhir Logout:</strong> {lastLogoutTime}</p>}
+              </div>
+
+              <div className="button-group">
+                {isEditing ? (
+                  <>
+                    <button className="btn save" onClick={handleSave}>Simpan</button>
+                    <button className="btn cancel" onClick={() => { setIsEditing(false); setPassword(""); }}>Batal</button>
+                  </>
+                ) : (
+                  <button className="btn edit" onClick={() => setIsEditing(true)}>Edit Profil</button>
+                )}
+                <button className="btn logout" onClick={handleLogout}>
+                  <FaSignOutAlt /> Log Out
+                </button>
+              </div>
+            </div>
           </div>
-        </div>
-      </main>
-    </div>
+        </main>
+      </div>
+    </AdminLayout>
   );
 };
 

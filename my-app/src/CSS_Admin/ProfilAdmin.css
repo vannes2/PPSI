@@ -1,227 +1,262 @@
-/* ================= MAIN LAYOUT ================= */
-.dashboard-wrapper {
-  display: flex;
-  min-height: 100vh;
-  background-color: #f7f7f7;
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap');
+
+/* ============================================== */
+/* ===         PALET WARNA & VARIABEL         === */
+/* ============================================== */
+:root {
+  --color-background: #1f2b38;
+  --color-surface-1: #2c3e50;
+  --color-surface-2: #34495e;
+  --color-accent-1: #f39c12;
+  --color-accent-2: #e67e22;
+  --color-text-primary: #ecf0f1;
+  --color-text-secondary: #a3b1c2;
+  --color-border: #3d566e;
+  --color-success: #27ae60;
+  --color-warning: #f1c40f;
+  --color-danger: #c0392b;
+  --color-info: #3498db;
+  --font-family: 'Poppins', sans-serif;
+  --radius-sm: 8px;
+  --radius-md: 14px;
+  --radius-lg: 20px;
+  --spacing-md: 1.5rem;
+  --spacing-lg: 2rem;
+  --shadow-soft: 0 4px 12px rgba(0, 0, 0, 0.15);
+  --shadow-strong: 0 10px 30px rgba(0, 0, 0, 0.25);
+  --transition-smooth: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
 }
 
-/* ================= SIDEBAR ================= */
-.sidebar-admin {
-  width: 250px;
-  background-color: #1e293b;
-  color: white;
-  display: flex;
-  flex-direction: column;
-  padding: 20px 0;
-  box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
+/* ============================================== */
+/* ===       RESET & GAYA DASAR GLOBAL        === */
+/* ============================================== */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: var(--font-family);
 }
 
-/* ================= CONTENT WRAPPER ================= */
-.admin-page {
-  flex: 1;
+body {
+  background-color: var(--color-background);
+}
+
+/* ============================================== */
+/* ===             LAYOUT UTAMA               === */
+/* ============================================== */
+.admin-profile-page {
+  width: 100%;
+  padding: var(--spacing-lg);
   display: flex;
   justify-content: center;
-  padding: 100px 20px 40px; /* ✅ Tambah padding atas agar foto terlihat */
+  background-color: var(--color-background);
 }
 
-/* ================= CONTAINER ================= */
-.profil-admin-container {
-  background-color: #ffffff;
-  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+.profile-card {
+  background-color: var(--color-surface-1);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-strong);
+  overflow: hidden;
   width: 100%;
-  max-width: 700px;
-  padding: 40px;
-  border-radius: 12px;
-  text-align: left;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  margin-bottom: 40px;
+  max-width: 1140px;
 }
 
-/* ================= TITLE ================= */
-h1 {
-  color: #333;
-  font-size: 32px;
-  font-weight: 600;
-  text-align: center;
-  margin-bottom: 25px;
-  width: 100%;
-  line-height: 1.3;
+.profile-header {
+  height: 140px;
+  background: linear-gradient(135deg, var(--color-accent-1), var(--color-accent-2));
 }
 
-/* ================= FOTO PROFIL ================= */
-.admin-photo {
-  width: 160px;
-  height: 160px;
-  margin-bottom: 30px;
-  position: relative;
-}
-
-.admin-profile-photo {
-  width: 100%;
-  height: 100%;
-  border-radius: 50%;
-  object-fit: cover;
-  border: 3px solid #1e40af;
-  background-color: #fff;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-}
-
-.admin-photo input[type="file"] {
-  margin-top: 10px;
-  width: 100%;
-  font-size: 14px;
-}
-
-/* ================= INFO FORM ================= */
-.admin-details {
-  width: 100%;
-  margin-bottom: 35px;
-}
-
-.admin-info {
-  width: 100%;
-}
-
-.admin-info label {
-  display: block;
-  margin-bottom: 4px;
-  color: #333;
-  font-weight: 500;
-}
-
-.admin-info input,
-.admin-info select {
-  width: 100%;
-  padding: 10px 14px;
-  margin-bottom: 16px;
-  border: 1px solid #cbd5e1;
-  border-radius: 8px;
-  font-size: 15px;
-  background-color: #f9fafb;
-}
-
-.admin-info p {
-  font-size: 17px;
-  color: #555;
-  margin-bottom: 16px;
-  line-height: 1.7;
-}
-
-.admin-info strong {
-  font-weight: 600;
-  color: #333;
-}
-
-.registered-date,
-.login-time {
-  color: #1e40af;
-  font-weight: 600;
-}
-
-/* ================= TOMBOL AKSI ================= */
-.action-buttons {
+.profile-body {
   display: flex;
   flex-wrap: wrap;
-  gap: 12px;
+  padding: var(--spacing-lg);
+  gap: var(--spacing-lg);
   justify-content: center;
+}
+
+/* ============================================== */
+/* ===        FOTO & INFORMASI PROFIL         === */
+/* ============================================== */
+.profile-photo {
+  flex: 1 1 240px;
+  text-align: center;
+}
+
+.profile-photo img {
+  width: 180px;
+  height: 180px;
+  border-radius: 50%;
+  border: 5px solid var(--color-accent-1);
+  object-fit: cover;
+  margin-bottom: 1rem;
+}
+
+.profile-photo input[type="file"] {
+  margin-top: 0.5rem;
+  color: var(--color-text-secondary);
+}
+
+.profile-info {
+  flex: 2 1 500px;
+  color: var(--color-text-primary);
+}
+
+.profile-info h2 {
+  font-size: 2rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+}
+
+.profile-info p {
+  display: flex;
+  align-items: center;
+  font-size: 1rem;
+  margin: 6px 0;
+  color: var(--color-text-secondary);
+}
+
+.profile-info p svg {
+  margin-right: 8px;
+  color: var(--color-accent-1);
+}
+
+/* ============================================== */
+/* ===            FORM MODE EDIT              === */
+/* ============================================== */
+.edit-fields {
+  margin-top: 1.2rem;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 14px;
+}
+
+.edit-fields input,
+.edit-fields select {
+  width: 100%;
+  padding: 10px 14px;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  font-size: 1rem;
+  transition: var(--transition-smooth);
+  background-color: var(--color-surface-2);
+  color: var(--color-text-primary);
+}
+
+.edit-fields input:focus,
+.edit-fields select:focus {
+  border-color: var(--color-accent-1);
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(243, 156, 18, 0.2);
+}
+
+.password-confirm {
+  display: flex;
+  gap: 10px;
+  grid-column: span 2;
+}
+
+.password-confirm input {
+  flex: 1;
+}
+
+/* ============================================== */
+/* ===           FOOTER & TOMBOL              === */
+/* ============================================== */
+.profile-footer {
+  border-top: 1px solid var(--color-border);
+  padding: var(--spacing-md) var(--spacing-lg);
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  background-color: var(--color-surface-2);
+}
+
+.login-info p {
+  font-size: 0.95rem;
+  color: var(--color-text-secondary);
+  margin: 4px 0;
+}
+
+.button-group {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
   margin-top: 10px;
 }
 
 .btn {
-  padding: 10px 18px;
+  padding: 10px 20px;
+  font-size: 0.95rem;
+  font-weight: 500;
   border: none;
-  border-radius: 8px;
-  font-size: 15px;
-  font-weight: 600;
+  border-radius: var(--radius-sm);
   cursor: pointer;
-  transition: all 0.2s ease-in-out;
+  transition: var(--transition-smooth);
+  display: flex;
+  align-items: center;
+  gap: 8px;
 }
 
-.btn-primary {
-  background-color: #2563eb;
-  color: white;
+.btn.edit {
+  background-color: var(--color-accent-1);
+  color: var(--color-background);
 }
 
-.btn-secondary {
-  background-color: #64748b;
-  color: white;
+.btn.save {
+  background-color: var(--color-success);
+  color: var(--color-text-primary);
 }
 
-.btn-edit {
-  background-color: #0ea5e9;
-  color: white;
+.btn.cancel {
+  background-color: var(--color-surface-1);
+  color: var(--color-text-secondary);
+  border: 1px solid var(--color-border);
 }
 
-.btn-delete {
-  background-color: #dc2626;
-  color: white;
+.btn.logout {
+  background-color: var(--color-danger);
+  color: var(--color-text-primary);
 }
 
 .btn:hover {
-  transform: scale(1.03);
+  transform: translateY(-2px);
+  opacity: 0.9;
 }
 
-/* ================= LOADING ================= */
 .loading {
-  color: #333;
-  font-size: 18px;
   text-align: center;
-  margin-top: 40px;
-  font-weight: 600;
+  font-size: 1.2rem;
+  color: var(--color-text-secondary);
+  padding: var(--spacing-lg);
 }
 
-/* ================= RESPONSIVE ================= */
-@media (max-width: 768px) {
-  .dashboard-wrapper {
+/* ============================================== */
+/* ===          DESAIN RESPONSIVE             === */
+/* ============================================== */
+@media (max-width: 992px) {
+  .edit-fields {
+    grid-template-columns: 1fr;
+  }
+  .password-confirm {
     flex-direction: column;
-  }
-
-  .admin-page {
-    padding-top: 80px; /* ✅ Tambah ruang atas untuk mobile */
-  }
-
-  .profil-admin-container {
-    width: 90%;
-    padding: 30px;
-  }
-
-  .admin-profile-photo {
-    width: 130px;
-    height: 130px;
-  }
-
-  .admin-info input,
-  .admin-info select {
-    font-size: 14px;
-  }
-
-  h1 {
-    font-size: 28px;
+    grid-column: span 1;
   }
 }
 
-@media (max-width: 480px) {
-  .admin-page {
-    padding-top: 60px;
+@media (max-width: 768px) {
+  .profile-body {
+    flex-direction: column;
+    align-items: center;
+    padding: var(--spacing-lg);
   }
-
-  .profil-admin-container {
-    padding: 24px;
+  .profile-footer {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--spacing-md);
   }
-
-  .admin-profile-photo {
-    width: 110px;
-    height: 110px;
-  }
-
-  .btn {
-    font-size: 14px;
-    padding: 10px 14px;
-  }
-
-  h1 {
-    font-size: 24px;
+  .profile-info,
+  .profile-photo {
+    text-align: center;
   }
 }
