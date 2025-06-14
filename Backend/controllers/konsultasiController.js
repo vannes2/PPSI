@@ -119,3 +119,14 @@ exports.getRiwayatKonsultasiByPengacara = (req, res) => {
     res.json(results);
   });
 };
+
+exports.getAllKonsultasi = async (req, res) => {
+  try {
+    // Panggil fungsi getAll dari model
+    const result = await konsultasiSessionModel.getAll();
+    res.json(result); // Kirim data dan total
+  } catch (err) {
+    console.error("Error fetching all konsultasi:", err);
+    res.status(500).json({ message: "Gagal mengambil semua data konsultasi" });
+  }
+};
