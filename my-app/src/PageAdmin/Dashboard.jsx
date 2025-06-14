@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import '../CSS_Admin/Dashboard.css'; // Pastikan path ini benar
@@ -27,13 +27,16 @@ function Dashboard() {
         setLoading(true);
         setError(null);
 
+        // --- PERUBAHAN DI SINI ---
+        // Endpoint 'users' diubah agar sesuai dengan simpleUserRoutes.js
         const endpoints = {
-          users: `${API_BASE_URL}/api/auth/users`,
+          users: `${API_BASE_URL}/api/simple-users`, // Endpoint disesuaikan
           lawyers: `${API_BASE_URL}/api/pengacara`,
           cases: `${API_BASE_URL}/api/kasus`,
           consultations: `${API_BASE_URL}/api/konsultasi_session`,
           financial: `${API_BASE_URL}/api/transaksi-keuangan/total`,
         };
+        // ------------------------
 
         const requests = Object.values(endpoints).map(url =>
           axios.get(url, { signal: controller.signal }).catch(() => ({ data: null }))
@@ -41,6 +44,8 @@ function Dashboard() {
 
         const [usersRes, lawyersRes, casesRes, consultationsRes, financialRes] = await Promise.all(requests);
 
+        // Data dari 'simpleUserModel' memiliki properti 'name', 'email', 'phone'
+        // Kode yang ada sudah kompatibel untuk menanganinya.
         const users = usersRes.data || [];
         const lawyers = lawyersRes.data || [];
         const cases = casesRes.data || [];
@@ -148,9 +153,9 @@ function Dashboard() {
       columns: ["ID", "Nama", "Email", "Telepon"],
       renderRow: (u) => [
         `#${u.id}`,
-        u.name || u.nama || '-',
+        u.name || u.nama || '-', // Kompatibel dengan data 'name' dari backend
         u.email || '-',
-        u.phone || u.no_hp || '-'
+        u.phone || u.no_hp || '-' // Kompatibel dengan data 'phone' dari backend
       ],
       path: "/admin/pengguna"
     }
