@@ -2,332 +2,250 @@
 /* DESAIN SISTEM & PALET WARNA                */
 /* ========================================== */
 :root {
-    --color-background: #1f2b38;
-    --color-surface-1: #2c3e50;
-    --color-surface-2: #34495e; /* Digunakan untuk hover */
-    --color-accent-1: #f39c12;
-    --color-accent-2: #e67e22;
-    --color-text-primary: #ecf0f1;
-    --color-text-secondary: #a3b1c2;
-    --color-border: #3d566e;
-    --color-success: #27ae60;
-    --color-warning: #f1c40f;
-    --color-danger: #c0392b;
-    --color-info: #3498db;
-    --font-family: 'Poppins', sans-serif;
-    --radius-sm: 6px; /* Radius diperkecil */
-    --radius-md: 10px;/* Radius diperkecil */
-    --shadow-soft: 0 4px 12px rgba(0, 0, 0, 0.15);
-    --transition-smooth: all 0.2s ease-in-out;
+  --color-background: #1f2b38;
+  --color-surface-1: #2c3e50;
+  --color-surface-2: #34495e; /* Digunakan untuk hover */
+  --color-accent-1: #f39c12;
+  --color-accent-2: #e67e22;
+  --color-text-primary: #ecf0f1;
+  --color-text-secondary: #a3b1c2;
+  --color-border: #3d566e;
+  --color-success: #27ae60;
+  --color-warning: #f1c40f;
+  --color-danger: #c0392b;
+  --color-info: #3498db;
+  --font-family: 'Poppins', sans-serif;
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --shadow-soft: 0 4px 12px rgba(0, 0, 0, 0.15);
+  --transition-smooth: all 0.2s ease-in-out;
 }
 
 /* ========================================== */
-/* BODY & GLOBAL (Ukuran diperkecil)          */
+/* BODY & GLOBAL STYLES                       */
 /* ========================================== */
 body {
-    font-family: var(--font-family);
-    background-color: var(--color-background);
-    color: var(--color-text-primary);
-    padding: 16px; /* Padding diperkecil */
-    /* Simulating the main content area */
-    margin-left: 250px; 
-}
-
-.content-wrapper {
-    max-width: 100%; /* Memaksimalkan lebar */
-    margin: 0 auto;
+  font-family: var(--font-family);
+  background-color: var(--color-background);
+  color: var(--color-text-primary);
 }
 
 /* ========================================== */
-/* DETAIL DATA & HEADER (Ukuran diperkecil)   */
+/* PERBAIKAN UNTUK MEMASTIKAN SCROLL MUNCUL   */
+/* ========================================== */
+.home-admin-container {
+  width: 100%;
+  overflow-x: hidden; /* Mencegah container ini ikut melebar */
+}
+
+/* ========================================== */
+/* DETAIL DATA & HEADER                       */
 /* ========================================== */
 .detail-data {
-    background-color: var(--color-surface-1);
-    padding: 16px 20px; /* Padding diperkecil */
-    border-radius: var(--radius-md);
-    box-shadow: var(--shadow-soft);
-    margin-bottom: 20px; /* Margin diperkecil */
-    border: 1px solid var(--color-border);
+  background-color: var(--color-surface-1);
+  padding: 16px 24px;
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-soft);
+  margin-bottom: 20px;
+  border: 1px solid var(--color-border);
 }
 
 .detail-data h2 {
-    margin-top: 0;
-    margin-bottom: 4px;
-    color: var(--color-text-primary);
-    font-size: 1.3rem; /* Font diperkecil */
+  margin-top: 0;
+  margin-bottom: 4px;
+  color: var(--color-text-primary);
+  font-size: 1.3rem;
 }
 
 .detail-data p {
-    margin: 2px 0;
-    color: var(--color-text-secondary);
-    font-size: 0.85rem; /* Font diperkecil */
+  margin: 2px 0;
+  color: var(--color-text-secondary);
+  font-size: 0.85rem;
 }
 
 /* ========================================== */
 /* SEARCH & TOOLBAR                           */
 /* ========================================== */
-.header-toolbar {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
-    flex-wrap: wrap;
-    gap: 16px;
+.header-controls {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 16px;
+  margin-bottom: 20px;
 }
 
 .search-input {
-    width: 100%;
-    max-width: 350px; /* Diperkecil */
-    padding: 8px 14px; /* Diperkecil */
-    border: 1px solid var(--color-border);
-    border-radius: var(--radius-sm);
-    margin-top: 8px;
-    font-size: 0.9rem; /* Diperkecil */
-    background: var(--color-surface-2);
-    color: var(--color-text-primary);
-    transition: var(--transition-smooth);
+  width: 100%;
+  max-width: 350px;
+  padding: 8px 14px;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  font-size: 0.9rem;
+  background: var(--color-surface-2);
+  color: var(--color-text-primary);
+  transition: var(--transition-smooth);
 }
 
 .search-input::placeholder {
-    color: var(--color-text-secondary);
+  color: var(--color-text-secondary);
 }
 
 .search-input:focus {
-    outline: none;
-    border-color: var(--color-accent-1);
-    box-shadow: 0 0 0 3px rgba(243, 156, 18, 0.4);
+  outline: none;
+  border-color: var(--color-accent-1);
+  box-shadow: 0 0 0 3px rgba(243, 156, 18, 0.4);
 }
 
 .toolbar {
-    display: flex;
-    gap: 10px;
-    margin-top: 16px;
+  display: flex;
+  gap: 10px;
 }
 
 /* ========================================== */
-/* BUTTON STYLES (Ukuran diperkecil)          */
+/* BUTTON STYLES                              */
 /* ========================================== */
 .btn-primary,
 .btn-refresh,
 .btn-view,
 .btn-edit,
 .btn-delete {
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-    padding: 7px 14px; /* Diperkecil */
-    border: none;
-    border-radius: var(--radius-sm);
-    font-size: 0.8rem; /* Diperkecil */
-    font-weight: 600;
-    cursor: pointer;
-    transition: var(--transition-smooth);
-    white-space: nowrap;
-}
-
-.btn-primary  {
-     background-color: var(--color-accent-1);
-    color: var(--color-background);
-      
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 7px 14px;
+  border: none;
+  border-radius: var(--radius-sm);
+  font-size: 0.8rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: var(--transition-smooth);
+  white-space: nowrap;
 }
 
 .btn-primary {
-    background-color: var(--color-accent-1) !important;
-    color: var(--color-background);
-    font-weight: 700;
+  background-color: var(--color-accent-1);
+  color: var(--color-background);
+  font-weight: 700;
 }
 .btn-primary:hover {
-    background-color: var(--color-accent-2) !important;
-    transform: translateY(-1px);
+  background-color: var(--color-accent-2);
+  transform: translateY(-1px);
 }
 
 .btn-refresh {
-    background-color: var(--color-surface-2) !important;
-    color: var(--color-text-primary);
-    border: 1px solid var(--color-border);
+  background-color: var(--color-surface-2);
+  color: var(--color-text-primary);
+  border: 1px solid var(--color-border);
 }
 .btn-refresh:hover {
-    filter: brightness(1.2);
-    transform: translateY(-1px);
+  filter: brightness(1.2);
+  transform: translateY(-1px);
 }
 
 .table-actions .btn-view,
 .table-actions .btn-edit,
 .table-actions .btn-delete {
-    padding: 5px 10px; /* Diperkecil */
-    font-size: 0.75rem; /* Diperkecil */
+  padding: 5px 10px;
+  font-size: 0.75rem;
 }
 
 .btn-view { background-color: var(--color-info); color: #ffffff; }
 .btn-edit { background-color: var(--color-warning); color: var(--color-background); font-weight: 700; }
 .btn-delete { background-color: var(--color-danger); color: #ffffff; }
 
+.btn-view:hover, .btn-edit:hover, .btn-delete:hover {
+    filter: brightness(1.15);
+    transform: translateY(-1px);
+}
+
 /* ========================================== */
 /* TABLE & CONTAINER                          */
 /* ========================================== */
 .table-wrapper {
-    width: 100%;
-    background: var(--color-surface-1);
-    border-radius: var(--radius-md);
-    box-shadow: var(--shadow-soft);
-    margin-top: 20px;
-    padding: 12px; /* Diperkecil */
-    box-sizing: border-box;
-    overflow: hidden;
-    border: 1px solid var(--color-border);
+  width: 100%;
+  background: var(--color-surface-1);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-soft);
+  padding: 12px;
+  box-sizing: border-box;
+  overflow: hidden;
+  border: 1px solid var(--color-border);
 }
 
 .table-scroll {
-    overflow-x: auto;
-    width: 100%;
+  overflow-x: auto;
+  width: 100%;
 }
 
-.table-scroll::-webkit-scrollbar { height: 8px; }
-.table-scroll::-webkit-scrollbar-thumb { background: var(--color-border); border-radius: 4px; }
-.table-scroll::-webkit-scrollbar-track { background: transparent; }
+.table-scroll::-webkit-scrollbar { height: 10px; }
+.table-scroll::-webkit-scrollbar-thumb { background: var(--color-border); border-radius: 5px; }
+.table-scroll::-webkit-scrollbar-thumb:hover { background: var(--color-surface-2); }
+.table-scroll::-webkit-scrollbar-track { background: var(--color-background); border-radius: 5px; }
 
 .table-scroll table {
-    width: 100%;
-    min-width: 1600px; /* Min-width disesuaikan */
-    border-collapse: collapse;
+  width: 100%;
+  min-width: 2200px; 
+  border-collapse: collapse;
 }
 
-/* UKURAN FONT & PADDING TABEL (diperkecil sesuai permintaan) */
 .table-scroll th,
 .table-scroll td {
-    padding: 8px 10px; /* Padding diperkecil secara signifikan */
-    border: none;
-    border-bottom: 1px solid var(--color-border);
-    text-align: left;
-    vertical-align: middle;
-    font-size: 12px; /* Font data diperkecil */
+  padding: 10px 12px;
+  border: none;
+  border-bottom: 1px solid var(--color-border);
+  text-align: left;
+  vertical-align: middle;
+  font-size: 12px;
+  white-space: nowrap;
 }
 
 .table-scroll th {
-    font-weight: 600;
-    text-transform: uppercase;
-    font-size: 10px; /* Font header diperkecil */
-    position: sticky;
-    top: 0;
-    z-index: 2;
+  font-weight: 600;
+  text-transform: uppercase;
+  font-size: 10px;
+  position: sticky;
+  top: 0;
+  z-index: 2;
+  background-color: var(--color-surface-2);
+  color: var(--color-text-secondary);
 }
 
 .table-scroll tbody tr:last-child td {
-    border-bottom: none;
+  border-bottom: none;
+}
+
+.table-scroll tbody tr {
+  background-color: var(--color-surface-1);
+  transition: var(--transition-smooth);
+}
+.table-scroll tbody tr:nth-child(even) {
+  background-color: var(--color-background);
+}
+.table-scroll tbody tr:hover {
+  background-color: var(--color-surface-2);
 }
 
 .table-actions {
-    display: flex;
-    gap: 8px;
+  display: flex;
+  gap: 8px;
 }
-
-/* SKEMA WARNA BARIS TABEL (disederhanakan sesuai permintaan) */
-.table-scroll th {
-    background-color: var(--color-surface-2);
-    color: var(--color-text-secondary);
-}
-
-.table-scroll th:nth-child(3), .table-scroll td:nth-child(3) {
-      color: var( --color-text-primary); 
-    } /* KTP */
-
-.table-scroll th:nth-child(3), .table-scroll td:nth-child(4) {
-      color: var( --color-text-primary); 
-    }
-
-.table-scroll th:nth-child(3), .table-scroll td:nth-child(5) {
-      color: var( --color-text-primary); 
-    }
-
-.table-scroll th:nth-child(3), .table-scroll td:nth-child(6) {
-      color: var( --color-text-primary); 
-    }
-
-.table-scroll th:nth-child(3), .table-scroll td:nth-child(8) {
-      color: var( --color-text-primary); 
-    }
-    
-.table-scroll th:nth-child(3), .table-scroll td:nth-child(11) {
-      color: var( --color-text-primary); 
-    }
-.table-scroll th:nth-child(3), .table-scroll td:nth-child(12) {
-      color: var( --color-text-primary); 
-    }
-.table-scroll th:nth-child(3), .table-scroll td:nth-child(13) {
-      color: var( --color-text-primary); 
-    }
-.table-scroll th:nth-child(3), .table-scroll td:nth-child(14) {
-      color: var( --color-text-primary); 
-    }  
-.table-scroll th:nth-child(3), .table-scroll td:nth-child(16) {
-      color: var( --color-text-primary); 
-    }
-.table-scroll th:nth-child(3), .table-scroll td:nth-child(17) {
-      color: var( --color-text-primary); 
-    }
-.table-scroll th:nth-child(3), .table-scroll td:nth-child(18) {
-      color: var( --color-text-primary); 
-    }
-.table-scroll th:nth-child(3), .table-scroll td:nth-child(19) {
-      color: var( --color-text-primary); 
-    }
-.table-scroll th:nth-child(3), .table-scroll td:nth-child(20) {
-      color: var( --color-text-primary); 
-    }
-   
-    
-.table-scroll tbody tr {
-    background-color: var(--color-surface-1); /* Warna dasar baris ganjil */
-    transition: var(--transition-smooth);
-}
-.table-scroll tbody tr:nth-child(even) {
-    background-color: var(--color-background); /* Warna belang untuk baris genap */
-}
-.table-scroll tbody tr:hover {
-    background-color: var(--color-surface-2); /* Warna saat kursor di atas baris */
-}
-
 
 /* ========================================== */
-/* COLUMN WIDTH (Ukuran diperkecil)           */
+/* PEWARNAAN TEXT KOLOM SPESIFIK              */
 /* ========================================== */
-.table-scroll th:nth-child(1), .table-scroll td:nth-child(1) { width: 40px; text-align: center; } /* ID */
-.table-scroll th:nth-child(2), .table-scroll td:nth-child(2) { min-width: 140px; } /* NAMA */
-.table-scroll th:nth-child(3), .table-scroll td:nth-child(3) { min-width: 130px; color: var (--color-accent-2); } /* KTP */
-.table-scroll th:nth-child(4), .table-scroll td:nth-child(4) { min-width: 110px; } /* TGL LAHIR */
-.table-scroll th:nth-child(5), .table-scroll td:nth-child(5) { min-width: 100px; } /* JENIS KELAMIN */
-.table-scroll th:nth-child(6), .table-scroll td:nth-child(6) { min-width: 180px; } /* ALAMAT */
-.table-scroll th:nth-child(7), .table-scroll td:nth-child(7) { min-width: 160px; } /* EMAIL */
-.table-scroll th:nth-child(8), .table-scroll td:nth-child(8) { min-width: 110px; } /* NO HP */
-.table-scroll th:nth-child(9), .table-scroll td:nth-child(9) { min-width: 120px; } /* NO INDUK ADVOKAT */
-.table-scroll th:nth-child(10), .table-scroll td:nth-child(10) { min-width: 150px; } /* UNIVERSITAS */
-.table-scroll th:nth-child(11), .table-scroll td:nth-child(11) { min-width: 180px; text-align: center; } /* AKSI */
-
-/* ========================================== */
-/* PEWARNAAN TEXT KOLOM (SESUAI PERMINTAAN)   */
-/* ========================================== */
-/* ID: Warna sekunder agar tidak terlalu menonjol */
 .table-scroll td:nth-child(1) {
-    color: var(--color-text-secondary);
+  color: var(--color-text-secondary);
+  font-weight: bold;
 }
-
-/* Nama: Warna aksen utama agar menonjol */
 .table-scroll td:nth-child(2) {
-    color: var(--color-accent-1);
-    font-weight: 600;
+  color: var(--color-accent-1);
+  font-weight: 600;
 }
-
-/* Email: Warna info */
 .table-scroll td:nth-child(7) {
-    color: var(--color-info);
+  color: var(--color-info);
 }
-
-/* No Induk Advokat: Warna warning */
 .table-scroll td:nth-child(9) {
-    color: var(--color-warning);
-    font-weight: 600;
-}
-
-/* Universitas: Warna success */
-.table-scroll td:nth-child(10) {
-    color: var(--color-success);
+  color: var(--color-warning);
+  font-weight: 600;
 }

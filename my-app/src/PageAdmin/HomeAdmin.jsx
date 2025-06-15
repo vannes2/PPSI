@@ -1,39 +1,19 @@
 import { useState, useEffect, useRef } from "react";
-import { FaTrash, FaPlus, FaEye, FaEdit } from "react-icons/fa"; // hapus FaEyeSlash karena kita pakai SVG custom
+import { FaTrash, FaPlus, FaEye, FaEdit } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-import "../CSS_Admin/HomeAdmin.css";
+import "../CSS_Admin/HomeAdmin.css"; 
 import AdminLayout from "../components/AdminLayout";
 
+// Komponen Ikon SVG
 const EyeIcon = () => (
-  <svg
-    xmlns="http://www.w3.org/2000/svg"
-    width="24"
-    height="24"
-    fill="none"
-    stroke="#B31312"
-    strokeWidth="2"
-    strokeLinecap="round"
-    strokeLinejoin="round"
-    viewBox="0 0 24 24"
-  >
+  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" stroke="#3498db" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" viewBox="0 0 24 24" >
     <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" />
     <circle cx="12" cy="12" r="3" />
   </svg>
 );
-
 const EyeSlashIcon = () => (
-  <svg
-    xmlns="http://www.w3.org/2000/svg"
-    width="24"
-    height="24"
-    fill="none"
-    stroke="#B31312"
-    strokeWidth="2"
-    strokeLinecap="round"
-    strokeLinejoin="round"
-    viewBox="0 0 24 24"
-  >
+  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" stroke="#a3b1c2" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" viewBox="0 0 24 24" >
     <path d="M17.94 17.94A10.94 10.94 0 0 1 12 19c-5.5 0-9.9-3.6-11-8 1.06-3.67 4.5-7 11-7a10.94 10.94 0 0 1 5.94 1.94" />
     <line x1="1" y1="1" x2="23" y2="23" />
   </svg>
@@ -103,20 +83,21 @@ const HomeAdmin = () => {
   return (
     <AdminLayout>
       {activeTab === "pengacara" && (
-        <div>
+        <div className="home-admin-container">
           <div className="detail-data">
             <h2>Daftar Pengacara</h2>
             <p><strong>Tabel:</strong> pengacara</p>
             <p><strong>Jumlah Data:</strong> {filteredPengacara.length}</p>
+          </div>
 
+          <div className="header-controls">
             <input
               className="search-input"
               type="text"
-              placeholder="Cari pengacara..."
+              placeholder="Cari pengacara berdasarkan nama..."
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
             />
-
             <div className="toolbar">
               <button className="btn-primary" onClick={handleAddClick}>
                 <FaPlus /> Tambah
@@ -132,7 +113,6 @@ const HomeAdmin = () => {
               <table>
                 <thead>
                   <tr>
-                    {/* Semua kolom */}
                     <th>ID</th>
                     <th>Nama</th>
                     <th>KTP</th>
@@ -145,7 +125,7 @@ const HomeAdmin = () => {
                     <th>Universitas</th>
                     <th>Pendidikan</th>
                     <th>Spesialisasi</th>
-                    <th>Pengalaman</th>
+                    <th>Pengalaman (Tahun)</th>
                     <th>Upload KTP</th>
                     <th>Foto</th>
                     <th>Kartu Advokat</th>
@@ -163,7 +143,7 @@ const HomeAdmin = () => {
                         <td>{lawyer.id}</td>
                         <td>{lawyer.nama}</td>
                         <td>{lawyer.ktp}</td>
-                        <td>{lawyer.tanggal_lahir}</td>
+                        <td>{new Date(lawyer.tanggal_lahir).toLocaleDateString('id-ID')}</td>
                         <td>{lawyer.jenis_kelamin}</td>
                         <td>{lawyer.alamat}</td>
                         <td>{lawyer.email}</td>
@@ -179,71 +159,39 @@ const HomeAdmin = () => {
                             <img
                               src={`http://localhost:5000/uploads/${lawyer.upload_foto}`}
                               alt="foto"
-                              width="50"
-                              style={{ borderRadius: "5px" }}
+                              width="40"
+                              style={{ borderRadius: "4px", verticalAlign: "middle" }}
                             />
                           ) : (
-                            "Tidak Ada"
+                            "N/A"
                           )}
                         </td>
                         <td>{lawyer.upload_kartu_advokat}</td>
                         <td>{lawyer.upload_pkpa}</td>
                         <td>{lawyer.username}</td>
-                        <td
-                          style={{
-                            display: "flex",
-                            alignItems: "center",
-                            gap: "8px",
-                            whiteSpace: "nowrap",
-                          }}
-                        >
-                          <span style={{ userSelect: "text" }}>
+                        <td style={{ display: "flex", alignItems: "center", gap: "8px" }} >
+                          <span style={{ userSelect: "none" }}>
                             {showPasswords[lawyer.id] ? lawyer.password : "••••••••"}
                           </span>
                           <button
                             type="button"
                             onClick={() => toggleShowPassword(lawyer.id)}
-                            aria-label={
-                              showPasswords[lawyer.id]
-                                ? "Sembunyikan password"
-                                : "Tampilkan password"
-                            }
-                            title={
-                              showPasswords[lawyer.id]
-                                ? "Sembunyikan password"
-                                : "Tampilkan password"
-                            }
-                            style={{
-                              background: "none",
-                              border: "none",
-                              cursor: "pointer",
-                              padding: 0,
-                              display: "flex",
-                              alignItems: "center",
-                            }}
+                            title={showPasswords[lawyer.id] ? "Sembunyikan" : "Tampilkan"}
+                            style={{ background: "none", border: "none", cursor: "pointer", padding: 0, display: "flex" }}
                           >
                             {showPasswords[lawyer.id] ? <EyeSlashIcon /> : <EyeIcon />}
                           </button>
                         </td>
-                        <td>{lawyer.tanggal_daftar}</td>
+                        <td>{new Date(lawyer.tanggal_daftar).toLocaleDateString('id-ID')}</td>
                         <td>
                           <div className="table-actions">
-                            <button
-                              className="btn-view"
-                              onClick={() => handleViewClick(lawyer.id)}
-                            >
+                            <button className="btn-view" onClick={() => handleViewClick(lawyer.id)}>
                               <FaEye /> View
                             </button>
-                            <button
-                              className="btn-edit"
-                              onClick={() => handleEditClick(lawyer.id)}
-                            >
+                            <button className="btn-edit" onClick={() => handleEditClick(lawyer.id)}>
                               <FaEdit /> Edit
                             </button>
-                            <button
-                              className="btn-delete"
-                              onClick={() => handleDelete(lawyer.id)}
-                            >
+                            <button className="btn-delete" onClick={() => handleDelete(lawyer.id)}>
                               <FaTrash /> Delete
                             </button>
                           </div>
@@ -252,10 +200,7 @@ const HomeAdmin = () => {
                     ))
                   ) : (
                     <tr>
-                      <td
-                        colSpan="21"
-                        style={{ textAlign: "center", color: "#888", padding: "20px" }}
-                      >
+                      <td colSpan="21" style={{ textAlign: "center", color: "var(--color-text-secondary)", padding: "40px" }} >
                         🔍 Data pengacara tidak ditemukan.
                       </td>
                     </tr>

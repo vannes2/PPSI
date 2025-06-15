@@ -1,12 +1,12 @@
 /* ==========================================================================
    DESAIN DARK MODE UNTUK MANAJEMEN DOKUMEN HUKUM
-   (MODAL TELAH DISESUAIKAN MENJADI TEMA TERANG SESUAI GAMBAR)
+   (FINAL DENGAN PERBAIKAN SCROLLBAR)
    ========================================================================== */
 
 /* Import Font */
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
 
-/* Variabel Warna Global (Tema User Management) */
+/* Variabel Warna Global */
 :root {
   --bg-dark-primary: #1f2b38;
   --bg-dark-secondary: #2c3e50;
@@ -26,21 +26,24 @@
   
   --font-main: 'Poppins', sans-serif;
   --radius-main: 6px;
-  --radius-md: 12px; /* Radius lebih besar untuk modal */
+  --radius-md: 12px;
   --transition-main: 0.2s ease-in-out;
 }
 
-/* PENTING: Menimpa style dasar jika ada */
 body {
   background-color: var(--bg-dark-primary) !important;
   font-family: var(--font-main);
   color: var(--text-secondary-dark-theme);
 }
 
+/* PERBAIKAN KUNCI UNTUK SCROLLBAR */
 .admin-content-container {
   padding: 2rem 3rem;
   max-width: 1400px;
   margin: 1rem auto;
+  width: 100%;
+  overflow-x: hidden;
+  box-sizing: border-box;
 }
 
 /* Header Halaman */
@@ -54,16 +57,17 @@ body {
   margin: 0 0 1rem 0;
 }
 
-/* Kartu Konten Utama (Untuk Filter & Tabel) */
+/* Kartu Konten Utama */
 .content-card {
   background-color: var(--bg-dark-secondary);
   border-radius: var(--radius-main);
   padding: 2rem;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
 }
 
 /* --- Tombol (Style Umum) --- */
 .btn {
-  padding: 0.8rem 1.8rem; /* Sedikit lebih besar */
+  padding: 0.8rem 1.8rem;
   border-radius: var(--radius-main);
   border: none;
   font-family: var(--font-main);
@@ -77,7 +81,7 @@ body {
   gap: 0.5rem;
 }
 
-/* (Tombol di luar modal) */
+/* Tombol di luar modal */
 .btn-primary-action {
   background-color: var(--accent-primary);
   color: #fff;
@@ -87,9 +91,15 @@ body {
   transform: translateY(-2px);
 }
 .btn-reset-action {
-  background-color: var(--accent-danger);
+  background-color: var(--bg-dark-tertiary);
   color: var(--text-primary-dark-theme);
+  border: 1px solid var(--border-dark);
 }
+.btn-reset-action:hover {
+  border-color: var(--accent-danger);
+  color: var(--accent-danger);
+}
+
 .btn-icon {
   background: transparent;
   border: none;
@@ -97,8 +107,16 @@ body {
   cursor: pointer;
   font-size: 1.1rem;
   padding: 0.4rem;
+  transition: var(--transition-main);
 }
-.btn-icon:hover { transform: scale(1.2); }
+.btn-icon:hover { 
+    transform: scale(1.2); 
+    color: var(--accent-primary);
+}
+.btn-icon:last-child:hover {
+    color: var(--accent-danger);
+}
+
 
 /* --- Filter Bar --- */
 .filter-bar {
@@ -131,6 +149,7 @@ body {
 .data-table {
   width: 100%;
   border-collapse: collapse;
+  min-width: 900px; /* Atur lebar minimal tabel */
 }
 .data-table th, .data-table td {
   padding: 1rem;
@@ -177,12 +196,12 @@ body {
   color: var(--accent-success);
 }
 .status-tidak-aktif {
-  background-color: rgba(163, 177, 194, 0.15);
-  color: var(--text-secondary-dark-theme);
+  background-color: rgba(231, 76, 60, 0.15);
+  color: var(--accent-danger);
 }
 
 /* ==========================================================================
-   MODAL STYLE (DIUBAH KE TEMA TERANG)
+   MODAL STYLE (TEMA TERANG)
    ========================================================================== */
 .modal-overlay {
   position: fixed;
@@ -194,14 +213,14 @@ body {
   padding: 1rem;
 }
 .modal-content {
-  background-color: #ffffff; /* Latar belakang modal menjadi putih */
-  color: var(--text-on-light-bg); /* Teks default di modal menjadi gelap */
-  padding: 0; /* Padding dihilangkan untuk memberi ruang pada header gradient */
+  background-color: #ffffff;
+  color: var(--text-on-light-bg);
+  padding: 0;
   border-radius: var(--radius-md);
   width: 100%;
-  max-width: 550px; /* Disesuaikan agar lebih ramping */
+  max-width: 550px;
   max-height: 90vh;
-  overflow: hidden; /* Penting untuk border-radius */
+  overflow: hidden;
   box-shadow: 0 10px 30px rgba(0,0,0,0.3);
   display: flex;
   flex-direction: column;
@@ -237,14 +256,16 @@ body {
 /* Input di dalam Modal */
 .modal-content .admin-input {
   width: 100%;
-  background-color: #fff;
+  background-color: #f9f9f9;
   border: 1px solid #ccc;
   color: var(--text-on-light-bg);
   padding: 0.8rem 1rem;
   border-radius: var(--radius-main);
+  transition: var(--transition-main);
 }
 .modal-content .admin-input:focus {
   outline: none;
+  background-color: #fff;
   border-color: var(--accent-primary);
   box-shadow: 0 0 0 3px rgba(243, 156, 18, 0.2);
 }
@@ -253,7 +274,7 @@ body {
   display: block;
   margin-bottom: 0.5rem;
   font-weight: 600;
-  color: #555; /* Warna label lebih gelap */
+  color: #555;
 }
 
 /* Tombol Aksi di dalam Modal */
@@ -274,16 +295,16 @@ body {
   border: none;
 }
 .modal-content .btn-primary-action:hover {
-  background-position: right center; /* Efek hover gradient */
-  transform: none; /* Hilangkan transform agar lebih smooth */
+  background-position: right center;
+  transform: none;
 }
 
 /* Tombol Cancel/Tutup di Modal */
 .modal-content .btn-secondary-action {
-  background-color: var(--bg-dark-secondary);
+  background-color: #6c757d;
   color: var(--text-primary-dark-theme);
   border: none;
 }
 .modal-content .btn-secondary-action:hover {
-  filter: brightness(120%);
+  background-color: #5a6268;
 }

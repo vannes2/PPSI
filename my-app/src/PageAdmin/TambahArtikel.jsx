@@ -5,7 +5,7 @@ import "../CSS_Admin/Pengacara.css";
 import { FaTrash, FaEdit, FaTimes } from "react-icons/fa";
 
 const TambahArtikel = () => {
-  // State untuk form fields
+  // State dan fungsi tidak ada perubahan, semua tetap sama
   const [judul, setJudul] = useState("");
   const [deskripsi, setDeskripsi] = useState("");
   const [jenis_hukum, setJenishukum] = useState("");
@@ -17,14 +17,12 @@ const TambahArtikel = () => {
   const [tempat_penetapan, setTempatPenetapan] = useState("");
   const [status, setStatus] = useState("Aktif");
 
-  // State untuk manajemen data dan UI
   const [artikelList, setArtikelList] = useState([]);
   const [editId, setEditId] = useState(null);
   const [searchTerm, setSearchTerm] = useState("");
   const [filterJenis, setFilterJenis] = useState("");
   const [filterStatus, setFilterStatus] = useState("");
 
-  // State baru untuk kontrol modal
   const [showModal, setShowModal] = useState(false);
 
   const jenisHukumOptions = ["Pidana", "Perdata", "Internasional", "Ketenagakerjaan", "HAKI", "Keluarga", "Administrasi Negara"];
@@ -144,7 +142,6 @@ const TambahArtikel = () => {
     <AdminLayout>
       <div className="admin-content-container">
         
-        {/* BAGIAN HEADER YANG BENAR */}
         <div className="page-header">
           <h1 className="page-title">Manajemen Dokumen Hukum</h1>
           <button onClick={openAddModal} className="btn btn-primary-action">
@@ -152,46 +149,75 @@ const TambahArtikel = () => {
           </button>
         </div>
 
-        {/* Modal untuk Form Tambah/Edit */}
+        {/* Modal Telah Disesuaikan dengan Struktur CSS Baru */}
         {showModal && (
           <div className="modal-overlay">
             <div className="modal-content">
-              <h2 className="modal-title">{editId ? "Edit Dokumen Hukum" : "Tambah Dokumen Hukum Baru"}</h2>
+              {/* Header Modal Baru */}
+              <div className="modal-header">
+                <h2 className="modal-title">{editId ? "Edit Dokumen Hukum" : "Tambah Dokumen Baru"}</h2>
+              </div>
+
+              {/* Form di dalam Modal */}
               <form onSubmit={handleSubmit} className="admin-form">
                 <div className="form-grid">
-                  <input type="text" placeholder="Judul Dokumen" value={judul} onChange={(e) => setJudul(e.target.value)} className="admin-input" required />
-                  <input type="text" placeholder="Nomor Dokumen" value={nomor} onChange={(e) => setNomor(e.target.value)} className="admin-input" required />
-                  <textarea placeholder="Deskripsi Singkat" value={deskripsi} onChange={(e) => setDeskripsi(e.target.value)} className="admin-input" required style={{gridColumn: "span 2", height: "80px"}} />
-                  <select value={jenis_hukum} onChange={(e) => setJenishukum(e.target.value)} className="admin-input" required>
-                    <option value="">Pilih Jenis Hukum</option>
-                    {jenisHukumOptions.map(opt => <option key={opt} value={opt}>Hukum {opt}</option>)}
-                  </select>
-                  <input type="number" placeholder="Tahun Penetapan" value={tahun} onChange={(e) => setTahun(e.target.value)} className="admin-input" required />
-                  <input type="text" placeholder="Jenis Dokumen (e.g., UU, PP, Perpres)" value={jenis_dokumen} onChange={(e) => setJenisDokumen(e.target.value)} className="admin-input" required />
-                  <input type="text" placeholder="Tempat Penetapan" value={tempat_penetapan} onChange={(e) => setTempatPenetapan(e.target.value)} className="admin-input" required />
+                  <div className="input-with-label">
+                    <label htmlFor="judul">Judul Dokumen</label>
+                    <input id="judul" type="text" placeholder="Contoh: UU No. 1 Tahun 2023" value={judul} onChange={(e) => setJudul(e.target.value)} className="admin-input" required />
+                  </div>
+                  <div className="input-with-label">
+                    <label htmlFor="deskripsi">Deskripsi Singkat</label>
+                    <textarea id="deskripsi" placeholder="Jelaskan isi pokok dokumen di sini..." value={deskripsi} onChange={(e) => setDeskripsi(e.target.value)} className="admin-input" required />
+                  </div>
+                  <div className="input-with-label">
+                    <label htmlFor="jenis_dokumen">Jenis Dokumen</label>
+                    <input id="jenis_dokumen" type="text" placeholder="Contoh: Undang-Undang, PP, Perpres" value={jenis_dokumen} onChange={(e) => setJenisDokumen(e.target.value)} className="admin-input" required />
+                  </div>
+                  <div className="input-with-label">
+                    <label htmlFor="nomor">Nomor Dokumen</label>
+                    <input id="nomor" type="text" placeholder="Contoh: 1" value={nomor} onChange={(e) => setNomor(e.target.value)} className="admin-input" required />
+                  </div>
+                  <div className="input-with-label">
+                    <label htmlFor="tahun">Tahun Penetapan</label>
+                    <input id="tahun" type="number" placeholder="Contoh: 2023" value={tahun} onChange={(e) => setTahun(e.target.value)} className="admin-input" required />
+                  </div>
+                  <div className="input-with-label">
+                    <label htmlFor="jenis_hukum">Bidang Hukum</label>
+                    <select id="jenis_hukum" value={jenis_hukum} onChange={(e) => setJenishukum(e.target.value)} className="admin-input" required>
+                      <option value="">Pilih Jenis Hukum</option>
+                      {jenisHukumOptions.map(opt => <option key={opt} value={opt}>Hukum {opt}</option>)}
+                    </select>
+                  </div>
                   <div className="input-with-label">
                     <label htmlFor="tanggal_penetapan">Tanggal Penetapan</label>
                     <input id="tanggal_penetapan" type="date" value={tanggal_penetapan} onChange={(e) => setTanggalPenetapan(e.target.value)} className="admin-input" required />
                   </div>
-                  <select value={status} onChange={(e) => setStatus(e.target.value)} className="admin-input" required>
-                    <option value="Aktif">Status: Aktif</option>
-                    <option value="Tidak Aktif">Status: Tidak Aktif</option>
-                  </select>
-                  <div className="input-with-label" style={{gridColumn: "span 2"}}>
+                  <div className="input-with-label">
+                    <label htmlFor="tempat_penetapan">Tempat Penetapan</label>
+                    <input id="tempat_penetapan" type="text" placeholder="Contoh: Jakarta" value={tempat_penetapan} onChange={(e) => setTempatPenetapan(e.target.value)} className="admin-input" required />
+                  </div>
+                  <div className="input-with-label">
+                    <label htmlFor="status">Status Keberlakuan</label>
+                    <select id="status" value={status} onChange={(e) => setStatus(e.target.value)} className="admin-input" required>
+                      <option value="Aktif">Aktif</option>
+                      <option value="Tidak Aktif">Tidak Aktif</option>
+                    </select>
+                  </div>
+                  <div className="input-with-label">
                     <label htmlFor="file_pdf">{editId ? "Ganti File PDF (Opsional)" : "Upload File PDF (Wajib)"}</label>
                     <input id="file_pdf" type="file" accept="application/pdf" onChange={(e) => setFilePdf(e.target.files[0])} className="admin-input" />
                   </div>
                 </div>
+                
                 <div className="form-actions">
+                  <button type="button" onClick={() => { setShowModal(false); resetForm(); }} className="btn btn-secondary-action">Batal</button>
                   <button type="submit" className="btn btn-primary-action">{editId ? "Perbarui Dokumen" : "Simpan Dokumen"}</button>
-                  <button type="button" onClick={() => { setShowModal(false); resetForm(); }} className="btn btn-secondary-action">Tutup</button>
                 </div>
               </form>
             </div>
           </div>
         )}
 
-        {/* KARTU KONTEN UTAMA YANG BENAR */}
         <div className="content-card">
           <div className="filter-bar">
             <input type="text" placeholder="Cari berdasarkan judul..." value={searchTerm} onChange={(e) => setSearchTerm(e.target.value)} className="filter-input"/>
@@ -236,7 +262,7 @@ const TambahArtikel = () => {
                         <span className={`status-badge status-${item.status.toLowerCase().replace(" ", "-")}`}>{item.status}</span>
                       </td>
                       <td>
-                        <a href={`http://localhost:5000/uploads/${item.file_path}`} target="_blank" rel="noreferrer" className="table-link">Lihat</a>
+                        <a href={`http://localhost:5000/uploads/${item.file_path}`} target="_blank" rel="noreferrer" className="table-link">Lihat PDF</a>
                       </td>
                       <td className="table-actions">
                         <button className="btn-icon" onClick={() => handleEditArtikel(item)}>
