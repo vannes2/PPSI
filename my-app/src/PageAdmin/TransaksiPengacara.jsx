@@ -50,6 +50,7 @@ const TransaksiPengacara = () => {
           <p>Tidak ada data kasus yang selesai.</p>
         ) : (
           <div className="table-wrapper">
+            <div className='table-container'> 
             <table>
               <thead>
                 <tr>
@@ -84,6 +85,7 @@ const TransaksiPengacara = () => {
                 ))}
               </tbody>
             </table>
+            </div>
           </div>
         )}
 
@@ -98,6 +100,7 @@ const TransaksiPengacara = () => {
   <p>Tidak ada data konsultasi yang selesai.</p>
 ) : (
   <div className="table-wrapper">
+    <div className='table-container'>
     <table>
       <thead>
         <tr>
@@ -127,6 +130,7 @@ const TransaksiPengacara = () => {
 </tbody>
 
     </table>
+    </div>
   </div>
 )}
 
