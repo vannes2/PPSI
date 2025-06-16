@@ -135,7 +135,7 @@ function Dashboard() {
         <span className={`status-badge ${k.status?.toLowerCase()}`}>{k.status || 'N/A'}</span>,
         formatDate(k.start_time)
       ],
-      path: "/admin/konsultasi"
+      path: "/TransaksiKeuangan"
     },
     {
       title: "Pengacara Terbaru",
@@ -147,7 +147,7 @@ function Dashboard() {
         p.spesialisasi || '-',
         <span className={`status-badge ${p.status?.toLowerCase() || 'aktif'}`}>{p.status || 'Aktif'}</span>
       ],
-      path: "/admin/pengacara"
+      path: "/HomeAdmin"
     },
     {
       title: "Pengguna Terbaru",

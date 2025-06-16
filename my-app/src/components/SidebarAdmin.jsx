@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import {
     HiBars3, HiChevronDoubleLeft, HiChevronDoubleRight, HiOutlineHome, 
     HiOutlineUserGroup, HiOutlineDocumentText, HiOutlineNewspaper, 
@@ -76,10 +76,6 @@ const SidebarAdmin = () => {
             <aside className={`sidebar ${isCollapsed ? "collapsed" : ""}`}>
                 {/* [PERBAIKAN] Area Brand/Logo dan Tombol Toggle digabung di atas */}
                 <div className="sidebar-brand">
-                    <Link to="/admin/dashboard" className="logo-link">
-                         <img src="/logo.svg" alt="Logo" className="logo-img" />
-                        {!isCollapsed && <span className="logo-text">Cerdas Hukum</span>}
-                    </Link>
                     {!isCollapsed && (
                         <button className="sidebar-toggle" onClick={toggleSidebar}>
                             <HiChevronDoubleLeft />
