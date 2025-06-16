@@ -3,6 +3,10 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import '../CSS_Admin/Dashboard.css'; // Pastikan path ini benar
 import AdminLayout from "../components/AdminLayout";
+import {
+  BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, PieChart, Pie, Cell, Legend
+} from 'recharts';
+
 
 const API_BASE_URL = 'http://localhost:5000';
 
@@ -159,7 +163,7 @@ function Dashboard() {
         u.email || '-',
         u.phone || u.no_hp || '-'
       ],
-      path: "/admin/pengguna"
+      path: "/UserManagement"
     }
   ];
 
@@ -211,6 +215,51 @@ function Dashboard() {
 
             <section className="dashboard-section">
               <h2>Statistik Platform</h2>
+              <div className="charts-grid">
+                <div className="chart-card">
+                  <h3>Perbandingan Total</h3>
+                  <ResponsiveContainer width="100%" height={250}>
+                    <BarChart data={[
+                      { name: 'Pengguna', value: stats.totalUsers },
+                      { name: 'Pengacara', value: stats.totalLawyers },
+                      { name: 'Kasus', value: stats.totalCases },
+                      { name: 'Konsultasi', value: stats.totalConsultations }
+                    ]}>
+                      <XAxis dataKey="name" />
+                      <YAxis />
+                      <Tooltip />
+                      <Bar dataKey="value" fill="#f39c12" />
+                    </BarChart>
+                  </ResponsiveContainer>
+                </div>
+
+                <div className="chart-card">
+                  <h3>Distribusi Status Kasus</h3>
+                  <ResponsiveContainer width="100%" height={250}>
+                    <PieChart>
+                      <Pie
+                        data={[
+                          { name: 'Menunggu', value: stats.pendingCases },
+                          { name: 'Selesai', value: stats.totalCases - stats.pendingCases }
+                        ]}
+                        dataKey="value"
+                        nameKey="name"
+                        cx="50%"
+                        cy="50%"
+                        outerRadius={80}
+                        fill="#8884d8"
+                        label
+                      >
+                        <Cell fill="#f1c40f" />
+                        <Cell fill="#27ae60" />
+                      </Pie>
+                      <Legend />
+                      <Tooltip />
+                    </PieChart>
+                  </ResponsiveContainer>
+                </div>
+              </div>
+
               <div className="stats-grid-wrapper">
                 <div className="stats-grid">
                   {statItems.slice(0, 3).map((item, idx) => (

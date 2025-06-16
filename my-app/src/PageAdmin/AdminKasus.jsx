@@ -231,7 +231,9 @@ const AdminKasus = () => {
         {kasusMenunggu.length === 0 ? (
           <p className="no-data">Tidak ada kasus dengan status Menunggu.</p>
         ) : (
-          <TableKasus data={kasusMenunggu} onEdit={handleEdit} onDelete={handleDelete} />
+          <div className="table-wrapper">
+            <TableKasus data={kasusMenunggu} onEdit={handleEdit} onDelete={handleDelete} />
+          </div>
         )}
 
         {/* Tabel Kasus Lainnya */}
@@ -239,7 +241,9 @@ const AdminKasus = () => {
         {kasusLainnya.length === 0 ? (
           <p className="no-data">Tidak ada kasus dengan status selain Menunggu.</p>
         ) : (
-          <TableKasus data={kasusLainnya} onEdit={handleEdit} onDelete={handleDelete} />
+          <div className="table-wrapper">
+            <TableKasus data={kasusLainnya} onEdit={handleEdit} onDelete={handleDelete} />
+          </div>
         )}
 
         {/* Modal Edit Kasus */}

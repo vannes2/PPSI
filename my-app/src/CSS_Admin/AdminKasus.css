@@ -32,6 +32,7 @@
     padding: var(--spacing-lg);
     font-family: var(--font-family);
     color: var(--color-text-primary);
+    margin-left: auto;
 }
 
 .admin-kasus-container h2 {
@@ -90,7 +91,9 @@
 
 /* --- 3. Tabel Kasus --- */
 .table-wrapper {
-    overflow-x: auto; /* Agar tabel bisa di-scroll horizontal di layar kecil */
+  overflow-x: auto;
+  width: 100%;
+  padding-bottom: 1rem; /* opsional agar tidak mepet bawah */
 }
 
 .admin-kasus-table {

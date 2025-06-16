@@ -283,7 +283,9 @@
     filter: none;
     box-shadow: none;
 }
-
+canvas{
+    margin-bottom: 40px;
+}
 /* --- Responsive Design --- */
 @media (max-width: 1200px) {
     .section-pair { grid-template-columns: 1fr; }

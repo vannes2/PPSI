@@ -74,7 +74,7 @@ const AdminLayout = ({ children }) => {
           width: 100%;
           max-width: 100%;
           min-height: 100vh;
-          overflow-x: hidden;
+          overflow-x: auto;
           background-color: var(--bg-dark);
         }
 
