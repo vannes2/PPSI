@@ -1,0 +1,176 @@
+/* --- Container & Layout Utama --- */
+.admin-review-container {
+    max-width: 1200px;
+    margin: 2rem auto;
+    padding: 2rem;
+    background-color: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+    font-family: 'Poppins', sans-serif;
+}
+
+.admin-review-container h1 {
+    text-align: center;
+    color: #333;
+    margin-bottom: 2rem;
+}
+
+/* --- Form Tambah Data --- */
+.add-review-button {
+    display: block;
+    margin-bottom: 1.5rem;
+    padding: 10px 20px;
+    font-size: 1rem;
+    font-weight: 500;
+    color: #fff;
+    background-color: #007bff;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.2s ease-in-out;
+}
+
+.add-review-button:hover {
+    background-color: #0056b3;
+}
+
+.add-form-container {
+    padding: 1.5rem;
+    background-color: #f9fafb;
+    border: 1px solid #e5e7eb;
+    border-radius: 8px;
+    margin-bottom: 2rem;
+}
+
+.add-form-container h3 {
+    margin-top: 0;
+    margin-bottom: 1.5rem;
+}
+
+.form-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1rem;
+    margin-bottom: 1rem;
+}
+
+/* --- Input & Tabel --- */
+.search-input {
+    width: 100%;
+    padding: 12px 15px;
+    font-size: 1rem;
+    margin-bottom: 1.5rem;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    box-sizing: border-box;
+}
+
+.table-container {
+    overflow-x: auto;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.95rem;
+}
+
+th, td {
+    padding: 12px 15px;
+    text-align: left;
+    border-bottom: 1px solid #e5e7eb;
+    vertical-align: middle;
+}
+
+thead th {
+    background-color: #f3f4f6;
+    font-weight: 600;
+    color: #374151;
+}
+
+tbody tr:hover {
+    background-color: #f9fafb;
+}
+
+/* --- Tombol Aksi di dalam Tabel --- */
+td button {
+    padding: 6px 12px;
+    font-size: 0.875rem;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    color: white;
+    margin-right: 5px;
+    transition: opacity 0.2s;
+}
+
+td button:last-child {
+    margin-right: 0;
+}
+
+td button:hover {
+    opacity: 0.85;
+}
+
+.edit-button {
+    background-color: #17a2b8; /* Biru Info */
+}
+
+.delete-button {
+    background-color: #dc3545; /* Merah Bahaya */
+}
+
+.save-button {
+    background-color: #28a745; /* Hijau Sukses */
+}
+
+.cancel-button {
+    background-color: #6c757d; /* Abu-abu Sekunder */
+}
+
+/* --- Styling untuk Form di dalam Tabel (Mode Edit) --- */
+td input[type="number"],
+td textarea {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    font-family: inherit;
+    font-size: 0.95rem;
+}
+
+td textarea {
+    resize: vertical;
+}
+
+/* --- Elemen Form Tambah --- */
+.add-form-container select,
+.add-form-container input,
+.add-form-container textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    box-sizing: border-box;
+    font-size: 1rem;
+}
+
+.add-form-container textarea {
+    margin-bottom: 1rem;
+}
+
+.add-form-container button[type="submit"] {
+    width: 100%;
+    padding: 12px;
+    font-size: 1rem;
+    background-color: #28a745;
+    border: none;
+    border-radius: 6px;
+    color: white;
+    cursor: pointer;
+}
+
+.add-form-container button[type="submit"]:hover {
+    background-color: #218838;
+}

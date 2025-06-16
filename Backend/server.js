@@ -28,6 +28,7 @@ const konsultasiRoutes = require("./routes/konsultasiRoutes");
 const transaksiKeuanganRoutes = require("./routes/transaksiKeuanganRoutes");
 const riwayatPengacaraRoutes = require("./routes/riwayatPengacaraRoutes");
 const dashboardRoutes = require('./routes/dashboardPengacaraRoutes');
+const reviewRoutes = require('./routes/reviews');
 
 const botRoutes = require("./routes/botRoutes");
 const app = express();
@@ -36,6 +37,7 @@ const app = express();
 app.use(cors());
 app.use(bodyParser.json());
 
+app.use('/api/reviews', reviewRoutes);
 // Gunakan rute API
 app.use("/api", authRoutes);
 app.use("/api", lawyerRoutes);
