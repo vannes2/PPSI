@@ -198,7 +198,7 @@ function Dashboard() {
 
   return (
     <AdminLayout>
-      <main className="main-content">
+      <main className="main-content dashboard-page">
         {loading ? (
           <div className="loading-spinner"><p>Memuat data dashboard...</p></div>
         ) : error ? (

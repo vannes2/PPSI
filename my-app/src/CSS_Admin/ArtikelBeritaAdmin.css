@@ -236,17 +236,38 @@
 
 
 /* ===== 5. RESPONSIVE DESIGN ===== */
-@media (max-width: 768px) {
+@media (max-width: 1024px) and (min-width: 769px) {
   .admin-berita-container {
-      padding: 1.5rem 1rem;
+    padding: 1.5rem 2rem;
   }
+
   .form-and-top-preview {
     flex-direction: column;
+    gap: 1.5rem;
   }
 
   #admin-artikel-berita form,
   .top-preview-container {
     width: 100%;
+  }
+
+  #admin-artikel-berita form {
+    padding: 20px;
+  }
+
+  #admin-artikel-berita form button {
+    font-size: 14px;
+    padding: 10px 14px;
+  }
+
+  .top-preview-item {
+    font-size: 0.85rem;
+    gap: 10px;
+  }
+
+  .top-preview-item img {
+    width: 36px;
+    height: 36px;
   }
 
   .berita-item {
@@ -257,7 +278,21 @@
 
   .berita-item img {
     width: 100%;
-    max-width: 250px;
+    max-width: 300px;
     height: auto;
+  }
+
+  .berita-item h4 {
+    font-size: 1rem;
+  }
+
+  .berita-item p {
+    font-size: 13px;
+    max-width: 90%;
+  }
+
+  .berita-item .actions button {
+    font-size: 12px;
+    padding: 5px 10px;
   }
 }

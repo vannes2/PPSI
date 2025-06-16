@@ -313,16 +313,50 @@
 }
 
 /* --- 7. Responsive --- */
-@media (max-width: 768px) {
-    .input-row {
-        flex-direction: column;
-        gap: 1.5rem;
-        margin-bottom: 0;
-    }
-    .input-group {
-        margin-bottom: 1.5rem;
-    }
-    .modal-content {
-        padding: var(--spacing-md);
-    }
+@media (max-width: 1023px) and (min-width: 769px) {
+  .admin-kasus-container {
+    padding: var(--spacing-md);
+  }
+
+  .admin-kasus-container h2 {
+    font-size: 1.8rem;
+    text-align: center;
+  }
+
+  .filter-search {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .filter-search input[type="search"] {
+    width: 100%;
+  }
+
+  .admin-kasus-table {
+    min-width: 1000px; /* biar masih bisa discroll */
+    font-size: 0.85rem;
+  }
+
+  .table-wrapper {
+    overflow-x: auto;
+  }
+
+  .modal-content {
+    padding: var(--spacing-md);
+  }
+
+  .input-row {
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+
+  .input-group.half,
+  .input-group.third {
+    flex-basis: 100%;
+  }
+
+  .form-buttons {
+    flex-direction: column;
+    align-items: stretch;
+  }
 }

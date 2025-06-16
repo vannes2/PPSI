@@ -244,68 +244,55 @@
 .faq-table .btn-delete:hover { filter: brightness(120%); }
 
 /* ===== 5. RESPONSIVE ===== */
-@media (max-width: 768px) {
-    .faq-admin-container {
-        padding: 1.5rem 1rem;
-        margin: 1.5rem auto;
-    }
+@media (max-width: 1024px) and (min-width: 769px) {
+  .faq-admin-container {
+    padding: 2rem 1.5rem;
+  }
 
-    .faq-form {
-        padding: 20px;
-        grid-template-columns: 1fr; /* Satu kolom untuk mobile */
-    }
+  .faq-form {
+    grid-template-columns: 1fr 1fr; /* Tetap 2 kolom tapi lebih fleksibel */
+    padding: 25px;
+    gap: 15px;
+  }
 
-    .filter-controls {
-        flex-direction: column;
-        align-items: stretch; /* Tombol dan input jadi selebar kontainer */
-    }
+  .filter-controls {
+    flex-wrap: wrap;
+    gap: 10px;
+  }
 
-    .faq-table thead {
-        display: none; /* Sembunyikan header tabel di mobile */
-    }
+  .faq-form button {
+    padding: 10px 20px;
+    font-size: 0.95rem;
+  }
 
-    .faq-table tbody, .faq-table tr, .faq-table td {
-        display: block; /* Ubah tabel menjadi layout block */
-    }
+  .faq-table thead th {
+    font-size: 0.85rem;
+    padding: 0.75rem 1rem;
+  }
 
-    .faq-table tbody tr {
-        margin-bottom: 1.5rem;
-        border: 1px solid var(--color-border);
-        border-radius: var(--radius-main);
-        padding: 1rem;
-        box-shadow: 0 2px 5px rgba(0,0,0,0.2);
-    }
+  .faq-table tbody td {
+    font-size: 0.85rem;
+    padding: 0.75rem 1rem;
+  }
 
-    .faq-table tbody td {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        padding: 0.75rem 0.5rem;
-        border-bottom: 1px dashed var(--color-border);
-        text-align: right;
-    }
-    
-    .faq-table tbody tr td:last-child {
-        border-bottom: none;
-    }
+  .faq-form input,
+  .faq-form textarea,
+  .faq-form select {
+    font-size: 0.9rem;
+    padding: 10px 12px;
+  }
 
-    .faq-table tbody td:before {
-        content: attr(data-label); /* Mengambil label dari atribut data-* */
-        font-weight: bold;
-        color: var(--color-text-primary); /* Label lebih menonjol */
-        text-align: left;
-        margin-right: 1rem;
-    }
+  .faq-form .button-group {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 10px;
+  }
 
-    .faq-table .actions {
-        justify-content: flex-end; /* Aksi di kanan */
-        padding-top: 1rem;
-    }
-
-    .faq-table .actions:before {
-        content: ""; /* Kosongkan label untuk kolom aksi */
-    }
+  .faq-table .btn-action i {
+    font-size: 1.1rem;
+  }
 }
+
 
 /* ===== 6. ICON STYLING (Asumsi Font Awesome atau library ikon lain terpasang) ===== */
 .faq-table .btn-action i {

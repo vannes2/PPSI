@@ -249,3 +249,56 @@ body {
   color: var(--color-warning);
   font-weight: 600;
 }
+
+@media (max-width: 1024px) {
+  .header-controls {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 12px;
+  }
+
+  .toolbar {
+    justify-content: flex-start;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+
+  .search-input {
+    width: 100%;
+    max-width: none;
+  }
+
+  .detail-data {
+    padding: 1rem;
+  }
+
+  .detail-data h2 {
+    font-size: 1.1rem;
+  }
+
+  .detail-data p {
+    font-size: 0.8rem;
+  }
+
+  .btn-primary,
+  .btn-refresh,
+  .btn-view,
+  .btn-edit,
+  .btn-delete {
+    font-size: 0.75rem;
+    padding: 6px 10px;
+  }
+
+  .table-scroll table {
+    min-width: 1000px; /* Kurangi min-width agar tidak terlalu besar */
+  }
+
+  .table-scroll {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .table-wrapper {
+    padding: 1rem;
+  }
+}
