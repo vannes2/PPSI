@@ -36,7 +36,9 @@ exports.updateReview = async (req, res) => {
         }
         const [updatedReview] = await db.promise().execute(`
             SELECT r.id, r.rating, r.komentar, r.tanggal_review, u.name as user_name, p.nama as pengacara_name
-            FROM review_pengacara r JOIN users u ON r.user_id = u.id JOIN pengacara p ON r.pengacara_id = p.id
+            FROM review_pengacara r 
+            JOIN users u ON r.user_id = u.id 
+            JOIN pengacara p ON r.pengacara_id = p.id
             WHERE r.id = ?`, 
             [reviewId]
         );
@@ -71,7 +73,9 @@ exports.adminCreateReview = async (req, res) => {
         const [result] = await db.promise().execute(sql, [pengacara_id, user_id, rating, komentar]);
         const [newReview] = await db.promise().execute(
             `SELECT r.id, r.rating, r.komentar, r.tanggal_review, u.name as user_name, p.nama as pengacara_name
-             FROM review_pengacara r JOIN users u ON r.user_id = u.id JOIN pengacara p ON r.pengacara_id = p.id
+             FROM review_pengacara r 
+             JOIN users u ON r.user_id = u.id 
+             JOIN pengacara p ON r.pengacara_id = p.id
              WHERE r.id = ?`,
             [result.insertId]
         );
@@ -79,5 +83,38 @@ exports.adminCreateReview = async (req, res) => {
     } catch (error) {
         console.error("Error di adminCreateReview:", error);
         res.status(500).json({ message: 'Terjadi kesalahan pada server.' });
+    }
+};
+
+// 5. CREATE (Create a Review by User)
+exports.createUserReview = async (req, res) => {
+    const { pengacara_id, user_id, rating, komentar, kasus_id = null, konsultasi_id = null } = req.body;
+
+    if (!pengacara_id || !user_id || !rating) {
+        return res.status(400).json({ message: 'Pengacara ID, User ID, dan Rating wajib diisi.' });
+    }
+
+    try {
+        // Cek apakah sudah pernah memberikan review
+        const [existing] = await db.promise().execute(
+            `SELECT id FROM review_pengacara 
+             WHERE user_id = ? AND pengacara_id = ? 
+             AND (kasus_id = ? OR konsultasi_id = ?)`,
+            [user_id, pengacara_id, kasus_id, konsultasi_id]
+        );
+
+        if (existing.length > 0) {
+            return res.status(400).json({ message: 'Anda sudah memberi ulasan.' });
+        }
+
+        const sql = `INSERT INTO review_pengacara 
+                     (pengacara_id, user_id, rating, komentar, kasus_id, konsultasi_id) 
+                     VALUES (?, ?, ?, ?, ?, ?)`;
+        await db.promise().execute(sql, [pengacara_id, user_id, rating, komentar, kasus_id, konsultasi_id]);
+
+        res.status(201).json({ message: 'Ulasan berhasil dikirim!' });
+    } catch (error) {
+        console.error("Error di createUserReview:", error);
+        res.status(500).json({ message: 'Gagal menyimpan ulasan.' });
     }
 };

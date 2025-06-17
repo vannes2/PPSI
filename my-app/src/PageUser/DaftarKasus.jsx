@@ -8,7 +8,7 @@ import UserReviewForm from '../components/UserReviewForm'; // Pastikan path ini 
 
 const DaftarKasus = () => {
     const [kasusList, setKasusList] = useState([]);
-    const [tab, setTab] = useState("Menunggu");
+    const [tab, setTab] = useState("Selesai"); // --- DISESUAIKAN ---: Default ke tab 'Selesai' agar lebih relevan
     const [user, setUser] = useState(null);
     const navigate = useNavigate();
 
@@ -22,7 +22,6 @@ const DaftarKasus = () => {
             const parsed = JSON.parse(storedUser);
             setUser(parsed);
 
-            // Fetch data dari API
             fetch(`http://localhost:5000/api/kasus/riwayat/${parsed.id}`)
                 .then((res) => {
                     if (!res.ok) {
@@ -32,10 +31,7 @@ const DaftarKasus = () => {
                     return res.json();
                 })
                 .then((data) => {
-                    // --- TAMBAHAN ---: Tambahkan properti 'sudahDireview' jika ada datanya di API Anda
-                    // Untuk sekarang kita anggap belum ada yang direview
-                    const dataWithReviewStatus = data.map(k => ({ ...k, sudahDireview: false })); // Ganti logika ini jika perlu
-                    setKasusList(dataWithReviewStatus);
+                    setKasusList(data);
                 })
                 .catch((err) => {
                     console.error('Gagal memuat data kasus:', err);
@@ -43,8 +39,9 @@ const DaftarKasus = () => {
                 });
         } else {
             console.log('User not logged in.');
+            // navigate('/login'); // Sebaiknya diarahkan ke login jika user tidak ditemukan
         }
-    }, []); // useEffect ini sekarang hanya fetch data sekali saat komponen dimuat
+    }, []); // --- DISESUAIKAN ---: Hapus [tab] agar data hanya di-fetch sekali untuk efisiensi
 
     // --- TAMBAHAN ---: Fungsi-fungsi untuk menangani modal ulasan
     const handleOpenReviewModal = (kasus) => {
@@ -58,13 +55,8 @@ const DaftarKasus = () => {
     };
 
     const handleReviewSuccess = (kasusId) => {
-        alert('Terima kasih! Ulasan Anda telah berhasil dikirim.');
-        // Tandai bahwa kasus ini sudah direview di UI agar tombol hilang
-        setKasusList(prev =>
-            prev.map(kasus =>
-                kasus.id === kasusId ? { ...kasus, sudahDireview: true } : kasus
-            )
-        );
+        alert(`Terima kasih! Ulasan Anda untuk kasus ID ${kasusId} telah berhasil dikirim.`);
+        // Tidak ada lagi logika untuk menyembunyikan tombol, sesuai permintaan
     };
 
     const filteredKasus = kasusList.filter((k) => k.status === tab);
@@ -97,11 +89,8 @@ const DaftarKasus = () => {
                     {filteredKasus.length === 0 ? (
                         <div className="empty-state">
                             <img src="/assets/empty-box.png" alt="Empty" className="empty-icon" />
-                            <p className="empty-title">Tidak ada Project</p>
-                            <p className="empty-desc">Daftar project akan ditampilkan jika telah menambah project</p>
-                            <button className="ajukan-btn-static" onClick={() => navigate('/AjukanKasus')}>
-                                Ajukan Kasus
-                            </button>
+                            <p className="empty-title">Tidak ada Kasus</p>
+                            <p className="empty-desc">Daftar kasus dengan status '{tab}' akan muncul di sini.</p>
                         </div>
                     ) : (
                         <>
@@ -114,7 +103,7 @@ const DaftarKasus = () => {
                                             <th>Area Praktik</th>
                                             <th>Pengerjaan</th>
                                             <th>Status</th>
-                                            <th>Estimasi</th>
+                                            <th>Estimasi Selesai</th>
                                             <th>Biaya</th>
                                             <th>Nama Pengacara</th>
                                             {/* --- TAMBAHAN ---: Kolom untuk tombol aksi */}
@@ -123,23 +112,20 @@ const DaftarKasus = () => {
                                     </thead>
                                     <tbody>
                                         {filteredKasus.map((kasus, index) => (
-                                            <tr key={index}>
+                                            <tr key={kasus.id}>
                                                 <td>{index + 1}</td>
                                                 <td>{kasus.area_praktik}</td>
                                                 <td>{kasus.jenis_pengerjaan}</td>
-                                                <td>{kasus.status}</td>
+                                                <td><span className={`status-badge status-${kasus.status.toLowerCase()}`}>{kasus.status}</span></td>
                                                 <td>{new Date(kasus.estimasi_selesai).toLocaleDateString('id-ID')}</td>
                                                 <td>Rp{Number(kasus.biaya_min).toLocaleString()} - Rp{Number(kasus.biaya_max).toLocaleString()}</td>
                                                 <td>{kasus.nama_pengacara || '-'}</td>
                                                 {/* --- TAMBAHAN ---: Logika untuk tombol "Beri Ulasan" */}
                                                 <td>
-                                                    {kasus.status === 'Selesai' && !kasus.sudahDireview && kasus.lawyer_id && (
+                                                    {kasus.status === 'Selesai' && kasus.lawyer_id && (
                                                         <button className="btn-ulasan" onClick={() => handleOpenReviewModal(kasus)}>
                                                             Beri Ulasan
                                                         </button>
-                                                    )}
-                                                    {kasus.status === 'Selesai' && kasus.sudahDireview && (
-                                                        <span>Sudah Direview</span>
                                                     )}
                                                 </td>
                                             </tr>
@@ -150,24 +136,18 @@ const DaftarKasus = () => {
 
                             {/* --- Tampilan Card Mobile --- */}
                             <div className="card-list-wrapper mobile-list-cards">
-                                {filteredKasus.map((kasus, index) => (
-                                    <div key={index} className="kasus-card">
-                                        <div className="card-item"><span className="card-label">No:</span><span className="card-value">{index + 1}</span></div>
+                                {filteredKasus.map((kasus) => (
+                                    <div key={kasus.id} className="kasus-card">
                                         <div className="card-item"><span className="card-label">Area Praktik:</span><span className="card-value">{kasus.area_praktik}</span></div>
                                         <div className="card-item"><span className="card-label">Pengerjaan:</span><span className="card-value">{kasus.jenis_pengerjaan}</span></div>
-                                        <div className="card-item"><span className="card-label">Status:</span><span className="card-value status">{kasus.status}</span></div>
-                                        <div className="card-item"><span className="card-label">Estimasi:</span><span className="card-value">{new Date(kasus.estimasi_selesai).toLocaleDateString('id-ID')}</span></div>
-                                        <div className="card-item"><span className="card-label">Biaya:</span><span className="card-value">Rp{Number(kasus.biaya_min).toLocaleString()} - Rp{Number(kasus.biaya_max).toLocaleString()}</span></div>
-                                        <div className="card-item"><span className="card-label">Nama Pengacara:</span><span className="card-value">{kasus.nama_pengacara || '-'}</span></div>
+                                        <div className="card-item"><span className="card-label">Status:</span><span className="card-value"><span className={`status-badge status-${kasus.status.toLowerCase()}`}>{kasus.status}</span></span></div>
+                                        <div className="card-item"><span className="card-label">Pengacara:</span><span className="card-value">{kasus.nama_pengacara || '-'}</span></div>
                                         {/* --- TAMBAHAN ---: Tombol "Beri Ulasan" untuk tampilan mobile */}
                                         <div className="card-action">
-                                            {kasus.status === 'Selesai' && !kasus.sudahDireview && kasus.lawyer_id && (
+                                            {kasus.status === 'Selesai' && kasus.lawyer_id && (
                                                 <button className="btn-ulasan" onClick={() => handleOpenReviewModal(kasus)}>
                                                     Beri Ulasan
                                                 </button>
-                                            )}
-                                            {kasus.status === 'Selesai' && kasus.sudahDireview && (
-                                                <span className="reviewed-text">Sudah Direview</span>
                                             )}
                                         </div>
                                     </div>

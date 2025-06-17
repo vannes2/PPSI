@@ -1,9 +1,15 @@
+:root {
+  --color-primary: #B31312;
+  --color-accent: #f39c12;
+  --color-bg: #ffffff;
+  --color-text: #3b3b3b;
+  --color-text-light: #ecf0f1;
+  --modal-shadow: rgba(0, 0, 0, 0.1);
+}
+
 .modal-overlay {
   position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
+  inset: 0;
   background-color: rgba(0, 0, 0, 0.6);
   display: flex;
   align-items: center;
@@ -12,15 +18,18 @@
   animation: fade-in 0.3s ease-out;
 }
 
-@keyframes fade-in { from { opacity: 0; } to { opacity: 1; } }
+@keyframes fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
 
 .modal-content {
-  background-color: white;
-  padding: 2rem;
-  border-radius: 8px;
+  background: var(--color-bg);
+  border-radius: 12px;
   width: 90%;
   max-width: 500px;
-  box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+  box-shadow: 0 8px 30px var(--modal-shadow);
+  overflow: hidden;
   animation: slide-down 0.3s ease-out;
 }
 
@@ -30,25 +39,138 @@
 }
 
 .modal-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  border-bottom: 1px solid #eee;
-  padding-bottom: 1rem;
-  margin-bottom: 1rem;
+  padding: 1.5rem;
+  background: linear-gradient(90deg, #d15310, var(--color-accent));
+  color: var(--color-text-light);
+  text-align: center;
+  position: relative;
 }
 
-.modal-header h3 { margin: 0; color: #333; }
-.close-button { background: none; border: none; font-size: 1.8rem; cursor: pointer; color: #888; }
-.form-group { margin-bottom: 1.5rem; }
-.form-group label { display: block; margin-bottom: 0.5rem; color: #555; font-weight: bold; }
-.form-group textarea { width: 100%; padding: 0.75rem; border: 1px solid #ccc; border-radius: 4px; font-size: 1rem; font-family: inherit; }
-.star-input-user span { font-size: 2.5rem; color: #e4e5e9; cursor: pointer; transition: color 0.2s; }
-.star-input-user span.active { color: #ffc107; }
+.modal-header h3 {
+  margin: 0;
+  font-size: 1.5rem;
+  font-weight: 700;
+  line-height: 1.3;
+}
 
-.modal-footer { display: flex; justify-content: flex-end; gap: 1rem; margin-top: 1.5rem; }
-.modal-footer button { padding: 10px 20px; border-radius: 5px; border: none; cursor: pointer; font-weight: bold; }
-.btn-primary { background-color: #007bff; color: white; }
-.btn-primary:disabled { background-color: #a0cfff; }
-.btn-secondary { background-color: #f1f1f1; color: #333; border: 1px solid #ddd; }
-.error-message { color: #e74c3c; background-color: #fdd; padding: 10px; border-radius: 4px; text-align: center; margin-bottom: 1rem; }
+.modal-header .lawyer-name {
+  display: block;
+  margin-top: 0.5rem;
+  font-size: 1.25rem;
+}
+
+.close-button {
+  position: absolute;
+  top: 0.75rem;
+  right: 1rem;
+  background: none;
+  border: none;
+  font-size: 1.75rem;
+  color: var(--color-text-light);
+  cursor: pointer;
+  transition: color 0.2s ease;
+}
+
+.close-button:hover {
+  color: var(--color-bg);
+}
+
+.modal-body {
+  padding: 1.5rem;
+}
+
+.form-group {
+  margin-bottom: 1.5rem;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 0.5rem;
+  color: var(--color-text);
+  font-weight: 600;
+}
+
+.form-group textarea {
+  width: 100%;
+  padding: 0.75rem;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 1rem;
+  font-family: inherit;
+  transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+.form-group textarea:focus {
+  outline: none;
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 3px rgba(179, 19, 18, 0.15);
+}
+
+.star-input-user span {
+  font-size: 2.5rem;
+  color: #e4e5e9;
+  cursor: pointer;
+  transition: color 0.2s, transform 0.2s;
+  margin-right: 0.25rem;
+}
+
+.star-input-user span:hover,
+.star-input-user span.active {
+  color: var(--color-accent);
+  transform: scale(1.1);
+}
+
+.modal-footer {
+  padding: 1.5rem;
+  display: flex;
+  justify-content: flex-end;
+  gap: 1rem;
+  background: #fafafa;
+}
+
+.modal-footer button {
+  padding: 0.6rem 1.5rem;
+  border-radius: 8px;
+  border: 2px solid transparent;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.btn-primary {
+  background-color: var(--color-primary);
+  color: var(--color-text-light);
+  border-color: var(--color-primary);
+}
+
+.btn-primary:hover:not(:disabled) {
+  background-color: var(--color-bg);
+  color: var(--color-primary);
+}
+
+.btn-primary:disabled {
+  background-color: #f3a9a9;
+  border-color: #f3a9a9;
+  cursor: not-allowed;
+}
+
+.btn-secondary {
+  background-color: #f1f1f1;
+  color: #333;
+  border-color: #ddd;
+}
+
+.btn-secondary:hover {
+  background-color: #e9e9e9;
+  border-color: #ccc;
+}
+
+.error-message {
+  color: #721c24;
+  background-color: #f8d7da;
+  border: 1px solid #f5c6cb;
+  padding: 10px;
+  border-radius: 4px;
+  text-align: center;
+  margin-bottom: 1rem;
+}
