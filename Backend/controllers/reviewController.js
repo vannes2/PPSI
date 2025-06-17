@@ -118,3 +118,22 @@ exports.createUserReview = async (req, res) => {
         res.status(500).json({ message: 'Gagal menyimpan ulasan.' });
     }
 };
+
+// 5. Get Average Rating & Total Reviews by Pengacara ID
+exports.getRatingByPengacara = async (req, res) => {
+    const { pengacaraId } = req.params;
+    try {
+        const [result] = await db.promise().execute(`
+            SELECT 
+                AVG(rating) AS average_rating,
+                COUNT(*) AS total_reviews
+            FROM review_pengacara
+            WHERE pengacara_id = ?
+        `, [pengacaraId]);
+
+        res.status(200).json(result[0]);
+    } catch (error) {
+        console.error("Error di getRatingByPengacara:", error);
+        res.status(500).json({ message: "Gagal mengambil data rating." });
+    }
+};

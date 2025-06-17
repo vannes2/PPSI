@@ -4,6 +4,7 @@ const reviewController = require('../controllers/reviewController');
 
 // === ROUTE UNTUK USER ===
 router.post('/', reviewController.createUserReview); // User kirim review
+router.get('/rating/:pengacaraId', reviewController.getRatingByPengacara);
 
 // === ROUTE UNTUK ADMIN ===
 router.get('/all', reviewController.getAllReviews);        // Ambil semua review

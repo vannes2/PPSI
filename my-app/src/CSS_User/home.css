@@ -822,3 +822,8 @@ body {
   width: 12px;
   height: 12px;
 }
+
+.rating-stars {
+  text-align: center;
+  margin: 10px 0;
+}
