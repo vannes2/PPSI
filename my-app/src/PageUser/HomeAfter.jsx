@@ -3,7 +3,15 @@ import { Link } from "react-router-dom";
 import "../CSS_User/Home.css";
 import HeaderAfter from "../components/HeaderAfter";
 import Footer from "../components/Footer";
-import { FaCommentDots, FaUserCheck, FaBalanceScale, FaBriefcase,  FaGraduationCap, FaMoneyBillWave, FaTags } from "react-icons/fa";
+import {
+  FaCommentDots,
+  FaUserCheck,
+  FaBalanceScale,
+  FaBriefcase,
+  FaGraduationCap,
+  FaMoneyBillWave,
+  FaTags,
+} from "react-icons/fa";
 
 const HomeAfter = () => {
   const [pengacara, setPengacara] = useState([]);
@@ -21,17 +29,40 @@ const HomeAfter = () => {
   const autoScrollInterval = useRef(null);
   const lastInteractionTime = useRef(Date.now());
 
+  // ✅ Fetch pengacara + rating
   useEffect(() => {
-    fetch("http://localhost:5000/api/profilpengacara")
-      .then((res) => {
+    const fetchPengacaraWithRating = async () => {
+      try {
+        const res = await fetch("http://localhost:5000/api/profilpengacara");
         if (!res.ok) throw new Error("Gagal ambil data");
-        return res.json();
-      })
-      .then((data) => setPengacara(data))
-      .catch((err) => {
+        const data = await res.json();
+
+        const dataDenganRating = await Promise.all(
+          data.map(async (pengacara) => {
+            try {
+              const ratingRes = await fetch(
+                `http://localhost:5000/api/reviews/rating/${pengacara.id}`
+              );
+              const ratingData = await ratingRes.json();
+              return {
+                ...pengacara,
+                rating: ratingData.average_rating || 0,
+              };
+            } catch (error) {
+              console.error("Gagal ambil rating:", error);
+              return { ...pengacara, rating: 0 };
+            }
+          })
+        );
+
+        setPengacara(dataDenganRating);
+      } catch (err) {
         console.error(err);
         setError(err.message);
-      });
+      }
+    };
+
+    fetchPengacaraWithRating();
 
     fetch("http://localhost:5000/api/artikel-berita/top")
       .then((res) => res.json())
@@ -243,7 +274,6 @@ const HomeAfter = () => {
                     </span>
                   </div>
                 )}
-
                 <span className="online-indicator" title="Online" />
               </div>
 
@@ -259,17 +289,41 @@ const HomeAfter = () => {
                   <span>{advokat.pengalaman ?? 0} tahun</span>
                 </div>
               </div>
+
               <div className="info-bar-horizontal">
-
-              <div className="info-bar">
-                <FaMoneyBillWave className="info-icon" />
-                <span>{advokat.harga_konsultasi != null ? ` ${advokat.harga_konsultasi.toLocaleString("id-ID")}` : "-"}</span>
+                <div className="info-bar">
+                  <FaMoneyBillWave className="info-icon" />
+                  <span>{advokat.harga_konsultasi != null ? `${advokat.harga_konsultasi.toLocaleString("id-ID")}` : "-"}</span>
+                </div>
+                <div className="info-bar">
+                  <FaGraduationCap className="info-icon" />
+                  <span>{advokat.pendidikan || "-"}</span>
+                </div>
               </div>
 
-              <div className="info-bar">
-                <FaGraduationCap className="info-icon" />
-                <span>{advokat.pendidikan || "-"}</span>
-              </div>
+              {/* ⭐ RATING STARS */}
+              <div className="rating-stars">
+                {(() => {
+                  const rating = Number(advokat.rating) || 0;
+                  const fullStars = Math.floor(rating);
+                  const hasHalfStar = rating - fullStars >= 0.25 && rating - fullStars < 0.75;
+                  const emptyStars = 5 - fullStars - (hasHalfStar ? 1 : 0);
+
+                  return (
+                    <>
+                      {[...Array(fullStars)].map((_, i) => (
+                        <span key={`full-${i}`} className="star full">★</span>
+                      ))}
+                      {hasHalfStar && <span className="star half">⯪</span>}
+                      {[...Array(emptyStars)].map((_, i) => (
+                        <span key={`empty-${i}`} className="star empty">★</span>
+                      ))}
+                    </>
+                  );
+                })()}
+                <span className="rating-number">
+                  ({isNaN(Number(advokat.rating)) ? "0.0" : Number(advokat.rating).toFixed(1)})
+                </span>
               </div>
 
               <Link to="/payment" state={{ pengacaraId: advokat.id }}>
@@ -289,7 +343,11 @@ const HomeAfter = () => {
         <div className="slideshow-wrapper">
           <div
             className="slideshow-track"
-            style={{ display: "flex", transition: "transform 0.5s ease-in-out", transform: `translateX(-${currentSlide * 100}%)` }}
+            style={{
+              display: "flex",
+              transition: "transform 0.5s ease-in-out",
+              transform: `translateX(-${currentSlide * 100}%)`,
+            }}
           >
             {beritaTop.map((item) => (
               <div className="slide" key={item.id}>

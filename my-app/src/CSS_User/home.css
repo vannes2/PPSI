@@ -173,15 +173,15 @@ body {
 
 /* Button Klik Konsultasi dengan Gradasi */
 .home-before-page .btn-konsultasi {
-  margin-top: 15px;
+  margin-top: 6px; /* reduce from 15px to bring it closer to the rating */
+  padding: 0.5rem 1rem;
   background: linear-gradient(to right, #b31217, #e52d27);
   color: white;
   border: none;
-  border-radius: 10px;
-  padding: 8px 16px;
+  border-radius: 8px;
   cursor: pointer;
   font-weight: bold;
-  transition: all 0.3s ease-in-out;
+  transition: background-color 0.3s;
 }
 
 .home-before-page .btn-konsultasi:hover {
@@ -259,6 +259,66 @@ body {
   margin-top: 5px; /* Menjaga jarak antara ikon dan teks */
   line-height: 1.5;
 }
+
+.rating-stars {
+  text-align: center;
+  margin: 6px 0 4px; /* tighter vertical space */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+
+.star {
+  font-size: 24px;
+  margin-right: 2px;
+  transition: transform 0.2s ease;
+}
+
+.star.full {
+  color: #f39c12;
+}
+
+.star.half {
+  color: #f39c12;
+}
+
+.star.empty {
+  color: #ccc;
+}
+
+.star:hover {
+  transform: scale(1.1);
+}
+
+.rating-number {
+  margin-left: 6px;
+  color: #777;
+  font-size: 16px;
+}
+
+.star {
+  font-size: 24px;
+}
+
+.star.full {
+  color: #f39c12;
+}
+
+.star.half {
+  color: #f39c12; /* Optional: create a custom half-star icon instead */
+}
+
+.star.empty {
+  color: #ccc;
+}
+
+.rating-number {
+  margin-left: 6px;
+  color: #777;
+  font-size: 16px;
+}
+
 
 /* ======================= RESPONSIVE ======================= */
 @media (max-width: 1024px) {
@@ -648,7 +708,7 @@ body {
   display: flex;
   gap: 20px;
   justify-content: center;
-  margin-bottom: 8px;
+  margin-bottom: 4px; /* reduce space below info-bar */
 }
 
 .foto-advokat-container {

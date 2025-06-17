@@ -16,7 +16,7 @@ import {
 const Home = () => {
   const [pengacara, setPengacara] = useState([]);
   const [beritaTop, setBeritaTop] = useState([]);
-  const [, setError] = useState(null);
+  const [error, setError] = useState(null);
   const [currentSlide, setCurrentSlide] = useState(0);
 
   const scrollRef = useRef(null);
@@ -30,32 +30,69 @@ const Home = () => {
   const autoScrollInterval = useRef(null);
   const lastInteractionTime = useRef(Date.now());
 
+  // ✅ Fetch Pengacara + Rating
   useEffect(() => {
-    fetch("http://localhost:5000/api/profilpengacara")
-      .then((res) => {
-        if (!res.ok) throw new Error("Gagal ambil data");
-        return res.json();
-      })
-      .then((data) => setPengacara(data))
-      .catch((err) => {
-        console.error(err);
-        setError(err.message);
-      });
+    const fetchPengacaraWithRating = async () => {
+      try {
+        const res = await fetch("http://localhost:5000/api/profilpengacara");
+        if (!res.ok) throw new Error("Gagal ambil data pengacara");
+        const data = await res.json();
 
-    fetch("http://localhost:5000/api/artikel-berita/top")
-      .then((res) => res.json())
-      .then((data) => setBeritaTop(data))
-      .catch((err) => console.error("Gagal fetch top berita:", err));
+        const pengacaraWithRating = await Promise.all(
+          data.map(async (p) => {
+            try {
+              const ratingRes = await fetch(
+                `http://localhost:5000/api/reviews/rating/${p.id}`
+              );
+              const ratingData = await ratingRes.json();
+              return {
+                ...p,
+                rating: ratingData.average_rating || 0,
+              };
+            } catch (error) {
+              console.error(
+                `Gagal ambil rating untuk pengacara ID ${p.id}:`,
+                error
+              );
+              return { ...p, rating: 0 };
+            }
+          })
+        );
+
+        setPengacara(pengacaraWithRating);
+      } catch (err) {
+        console.error("Error saat ambil data:", err);
+        setError(err.message);
+      }
+    };
+
+    fetchPengacaraWithRating();
   }, []);
 
+  // ✅ Fetch Berita
   useEffect(() => {
-    if (beritaTop.length === 0) return;
+    const fetchBerita = async () => {
+      try {
+        const res = await fetch("http://localhost:5000/api/artikel-berita/top");
+        const berita = await res.json();
+        setBeritaTop(berita);
+      } catch (err) {
+        console.error("Gagal fetch top berita:", err);
+      }
+    };
+
+    fetchBerita();
+  }, []);
+
+  // ✅ Slider Logic
+  useEffect(() => {
     const interval = setInterval(() => {
       setCurrentSlide((prev) => (prev + 1) % beritaTop.length);
     }, 4000);
     return () => clearInterval(interval);
   }, [beritaTop]);
 
+  // ✅ Scroll Advokat
   useEffect(() => {
     const slider = scrollRef.current;
     if (!slider) return;
@@ -103,13 +140,10 @@ const Home = () => {
       stopAutoScroll();
       autoScrollInterval.current = setInterval(() => {
         const now = Date.now();
-        const slider = scrollRef.current;
-        if (!slider) return;
+        const maxScrollLeft = slider.scrollWidth - slider.clientWidth;
+        const isAtEnd = Math.abs(slider.scrollLeft - maxScrollLeft) < 5;
 
         if (now - lastInteractionTime.current > 2000) {
-          const maxScrollLeft = slider.scrollWidth - slider.clientWidth;
-          const isAtEnd = Math.abs(slider.scrollLeft - maxScrollLeft) < 5;
-
           if (isAtEnd) {
             slider.scrollTo({ left: 0, behavior: "auto" });
           } else {
@@ -150,10 +184,9 @@ const Home = () => {
   return (
     <div className="home-before-page">
       <Header />
-      <br />
-      <br />
-      <br />
+      <br /><br /><br />
 
+      {/* Hero Section */}
       <section className="hero">
         <div className="hero-text">
           <h1 id="top-hero">Selesaikan Masalah Hukum Anda Bersama Kami</h1>
@@ -172,6 +205,7 @@ const Home = () => {
         </div>
       </section>
 
+      {/* Fitur */}
       <section className="features-lawyer-home">
         <h2>Konsultasikan Permasalah Hukum Anda Bersama Kami!</h2>
         <div className="features-grid-home">
@@ -188,14 +222,12 @@ const Home = () => {
           <Link to="/Login" className="feature-item-home">
             <FaBalanceScale className="icon-feature" />
             <h3>Berita & Artikel Hukum</h3>
-            <p>
-              Baca informasi dan edukasi hukum terkini secara lengkap dan
-              terpercaya.
-            </p>
+            <p>Baca informasi hukum terkini secara lengkap.</p>
           </Link>
         </div>
       </section>
 
+      {/* Topik Hukum */}
       <section className="topik-hukum">
         <h2>Pilih topik hukum yang diperlukan!</h2>
         <div className="topik-icons">
@@ -216,121 +248,136 @@ const Home = () => {
         </div>
       </section>
 
-<section className="products" style={{ marginTop: "40px" }}>
-  <div className="advokat-header">
-    <h2 className="advokat-heading">Advokat Yang Tersedia</h2>
-    <Link to="/Login" className="btn-selengkapnya">
-      Selengkapnya &gt;
-    </Link>
-  </div>
-
-  <div
-    className="product-scroll-wrapper"
-    ref={scrollRef}
-    style={{
-      width: `${cardWidth * visibleCards + cardGap * (visibleCards - 1)}px`,
-      overflowX: "auto",
-      margin: "0 auto",
-      display: "flex",
-      gap: `${cardGap}px`,
-      padding: "10px",
-      userSelect: "none",
-      cursor: "grab",
-    }}
-  >
-    {pengacara.length > 0 ? (
-      pengacara.map((advokat, index) => (
-        <div
-          key={advokat.id || index}
-          className="product-item"
-          style={{ minWidth: `${cardWidth}px` }}
-        >
-          <div className="foto-advokat-container">
-            {advokat.upload_foto ? (
-              <img
-                src={`http://localhost:5000/uploads/${advokat.upload_foto}`}
-                alt={advokat.nama}
-                className="foto-advokat"
-              />
-            ) : (
-              <div
-                style={{
-                  width: "90px",
-                  height: "90px",
-                  borderRadius: "50%",
-                  backgroundColor: "#eee",
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  margin: "0 auto 12px",
-                }}
-              >
-                <span
-                  style={{
-                    color: "#999",
-                    fontSize: "12px",
-                    textAlign: "center",
-                  }}
-                >
-                  Tidak ada foto
-                </span>
-              </div>
-            )}
-            <span className="online-indicator" title="Online" />
-          </div>
-
-          <h3>{advokat.nama}</h3>
-
-          <div className="info-bar-horizontal">
-            <div className="info-bar info-box-border">
-              <FaTags className="info-icon" />
-              <span>{advokat.spesialisasi || "-"}</span>
-            </div>
-            <div className="info-bar info-box-border">
-              <FaBriefcase className="info-icon" />
-              <span>{advokat.pengalaman ?? 0} tahun</span>
-            </div>
-          </div>
-
-          <div className="info-bar-horizontal">
-            <div className="info-bar info-box-border">
-              <FaMoneyBillWave className="info-icon" />
-              <span>
-                {advokat.harga_konsultasi != null
-                  ? `${advokat.harga_konsultasi.toLocaleString("id-ID")}`
-                  : "-"}
-              </span>
-            </div>
-            <div className="info-bar info-box-border">
-              <FaGraduationCap className="info-icon" />
-              <span>{advokat.pendidikan || "-"}</span>
-            </div>
-          </div>
-
-          {/* ⭐ Penilaian Bintang */}
-          <div className="rating-stars">
-            {Array.from({ length: 5 }, (_, i) => (
-              <span key={i} style={{ color: i < advokat.rating ? "#f39c12" : "#ccc", fontSize: "18px" }}>
-                ★
-              </span>
-            ))}
-            <span style={{ marginLeft: "6px", color: "#777", fontSize: "14px" }}>
-              ({advokat.rating?.toFixed(1) || "0.0"})
-            </span>
-          </div>
-
-          <Link to="/Login" state={{ pengacaraId: advokat.id }}>
-            <button className="btn-konsultasi">Klik Konsultasi</button>
+      {/* Daftar Pengacara */}
+      <section className="products" style={{ marginTop: "40px" }}>
+        <div className="advokat-header">
+          <h2 className="advokat-heading">Advokat Yang Tersedia</h2>
+          <Link to="/Login" className="btn-selengkapnya">
+            Selengkapnya &gt;
           </Link>
         </div>
-      ))
-    ) : (
-      <p>Belum ada advokat terdaftar</p>
-    )}
-  </div>
-</section>
 
+        <div
+          className="product-scroll-wrapper"
+          ref={scrollRef}
+          style={{
+            width: `${cardWidth * visibleCards + cardGap * (visibleCards - 1)}px`,
+            overflowX: "auto",
+            margin: "0 auto",
+            display: "flex",
+            gap: `${cardGap}px`,
+            padding: "10px",
+            userSelect: "none",
+            cursor: "grab",
+          }}
+        >
+          {pengacara.length > 0 ? (
+            pengacara.map((advokat, index) => (
+              <div
+                key={advokat.id || index}
+                className="product-item"
+                style={{ minWidth: `${cardWidth}px` }}
+              >
+                <div className="foto-advokat-container">
+                  {advokat.upload_foto ? (
+                    <img
+                      src={`http://localhost:5000/uploads/${advokat.upload_foto}`}
+                      alt={advokat.nama}
+                      className="foto-advokat"
+                    />
+                  ) : (
+                    <div
+                      style={{
+                        width: "90px",
+                        height: "90px",
+                        borderRadius: "50%",
+                        backgroundColor: "#eee",
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "center",
+                        margin: "0 auto 12px",
+                      }}
+                    >
+                      <span
+                        style={{
+                          color: "#999",
+                          fontSize: "12px",
+                          textAlign: "center",
+                        }}
+                      >
+                        Tidak ada foto
+                      </span>
+                    </div>
+                  )}
+                  <span className="online-indicator" title="Online" />
+                </div>
 
+                <h3>{advokat.nama}</h3>
+
+                <div className="info-bar-horizontal">
+                  <div className="info-bar info-box-border">
+                    <FaTags className="info-icon" />
+                    <span>{advokat.spesialisasi || "-"}</span>
+                  </div>
+                  <div className="info-bar info-box-border">
+                    <FaBriefcase className="info-icon" />
+                    <span>{advokat.pengalaman ?? 0} tahun</span>
+                  </div>
+                </div>
+
+                <div className="info-bar-horizontal">
+                  <div className="info-bar info-box-border">
+                    <FaMoneyBillWave className="info-icon" />
+                    <span>
+                      {advokat.harga_konsultasi != null
+                        ? `${advokat.harga_konsultasi.toLocaleString("id-ID")}`
+                        : "-"}
+                    </span>
+                  </div>
+                  <div className="info-bar info-box-border">
+                    <FaGraduationCap className="info-icon" />
+                    <span>{advokat.pendidikan || "-"}</span>
+                  </div>
+                </div>
+
+               <div className="rating-stars">
+                {(() => {
+                  const rating = Number(advokat.rating) || 0;
+                  const fullStars = Math.floor(rating);
+                  const hasHalfStar = rating - fullStars >= 0.25 && rating - fullStars < 0.75;
+                  const emptyStars = 5 - fullStars - (hasHalfStar ? 1 : 0);
+
+                  return (
+                    <>
+                      {[...Array(fullStars)].map((_, i) => (
+                        <span key={`full-${i}`} className="star full">★</span>
+                      ))}
+                      {hasHalfStar && (
+                        <span className="star half">⯪</span>
+                      )}
+                      {[...Array(emptyStars)].map((_, i) => (
+                        <span key={`empty-${i}`} className="star empty">★</span>
+                      ))}
+                    </>
+                  );
+                })()}
+                <span className="rating-number">
+                  ({isNaN(Number(advokat.rating)) ? "0.0" : Number(advokat.rating).toFixed(1)})
+                </span>
+              </div>
+
+                <Link to="/Login" state={{ pengacaraId: advokat.id }}>
+                  <button className="btn-konsultasi">Klik Konsultasi</button>
+                </Link>
+              </div>
+            ))
+          ) : (
+            <p>Belum ada advokat terdaftar</p>
+          )}
+        </div>
+      </section>
+
+      {/* Berita */}
       <section className="slideshow-section" style={{ marginTop: "60px" }}>
         <div className="slideshow-header">
           <h2 className="slideshow-heading">Berita Hukum Pilihan</h2>

@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.2.1
+-- version 5.2.0
 -- https://www.phpmyadmin.net/
 --
--- Host: 127.0.0.1
--- Waktu pembuatan: 10 Jun 2025 pada 11.01
--- Versi server: 10.4.28-MariaDB
--- Versi PHP: 8.2.4
+-- Host: localhost:3306
+-- Generation Time: Jun 17, 2025 at 06:59 AM
+-- Server version: 8.0.30
+-- PHP Version: 8.3.16
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -24,25 +24,25 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `admin`
+-- Table structure for table `admin`
 --
 
 CREATE TABLE `admin` (
-  `id` int(11) NOT NULL,
-  `name` varchar(100) NOT NULL,
-  `email` varchar(100) NOT NULL,
-  `phone` varchar(20) DEFAULT NULL,
-  `password` varchar(255) NOT NULL,
-  `gender` enum('laki-laki','perempuan') NOT NULL,
+  `id` int NOT NULL,
+  `name` varchar(100) COLLATE utf8mb4_general_ci NOT NULL,
+  `email` varchar(100) COLLATE utf8mb4_general_ci NOT NULL,
+  `phone` varchar(20) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `password` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
+  `gender` enum('laki-laki','perempuan') COLLATE utf8mb4_general_ci NOT NULL,
   `birthdate` date DEFAULT NULL,
-  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
-  `reset_token` varchar(255) DEFAULT NULL,
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `reset_token` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
   `reset_token_expiry` datetime DEFAULT NULL,
-  `upload_foto` varchar(255) DEFAULT NULL
+  `upload_foto` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data untuk tabel `admin`
+-- Dumping data for table `admin`
 --
 
 INSERT INTO `admin` (`id`, `name`, `email`, `phone`, `password`, `gender`, `birthdate`, `created_at`, `reset_token`, `reset_token_expiry`, `upload_foto`) VALUES
@@ -51,104 +51,105 @@ INSERT INTO `admin` (`id`, `name`, `email`, `phone`, `password`, `gender`, `birt
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `ajukan_kasus`
+-- Table structure for table `ajukan_kasus`
 --
 
 CREATE TABLE `ajukan_kasus` (
-  `id` int(11) NOT NULL,
-  `user_id` int(11) NOT NULL,
-  `nama` varchar(100) NOT NULL,
-  `email` varchar(100) NOT NULL,
-  `no_hp` varchar(20) NOT NULL,
-  `area_praktik` varchar(50) NOT NULL,
-  `jenis_pengerjaan` varchar(50) NOT NULL,
-  `biaya_min` int(11) NOT NULL,
+  `id` int NOT NULL,
+  `user_id` int NOT NULL,
+  `nama` varchar(100) COLLATE utf8mb4_general_ci NOT NULL,
+  `email` varchar(100) COLLATE utf8mb4_general_ci NOT NULL,
+  `no_hp` varchar(20) COLLATE utf8mb4_general_ci NOT NULL,
+  `area_praktik` varchar(50) COLLATE utf8mb4_general_ci NOT NULL,
+  `jenis_pengerjaan` varchar(50) COLLATE utf8mb4_general_ci NOT NULL,
+  `biaya_min` int NOT NULL,
   `biaya_pengacara` decimal(15,2) DEFAULT NULL,
-  `biaya_max` int(11) NOT NULL,
+  `biaya_max` int NOT NULL,
   `estimasi_selesai` date NOT NULL,
-  `lokasi` varchar(100) NOT NULL,
-  `deskripsi` text NOT NULL,
-  `status` varchar(20) DEFAULT 'Menunggu',
-  `bukti` varchar(255) DEFAULT NULL,
-  `created_at` timestamp NULL DEFAULT current_timestamp(),
-  `lawyer_id` int(11) DEFAULT NULL,
-  `is_transferred` tinyint(1) DEFAULT 0
+  `lokasi` varchar(100) COLLATE utf8mb4_general_ci NOT NULL,
+  `deskripsi` text COLLATE utf8mb4_general_ci NOT NULL,
+  `status` varchar(20) COLLATE utf8mb4_general_ci DEFAULT 'Menunggu',
+  `bukti` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  `lawyer_id` int DEFAULT NULL,
+  `is_transferred` tinyint(1) DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data untuk tabel `ajukan_kasus`
+-- Dumping data for table `ajukan_kasus`
 --
 
 INSERT INTO `ajukan_kasus` (`id`, `user_id`, `nama`, `email`, `no_hp`, `area_praktik`, `jenis_pengerjaan`, `biaya_min`, `biaya_pengacara`, `biaya_max`, `estimasi_selesai`, `lokasi`, `deskripsi`, `status`, `bukti`, `created_at`, `lawyer_id`, `is_transferred`) VALUES
-(1, 1, 'Azzikra Praqasta Kusuma', 'azzikrapraqasta2522@gmail.com', '081316443334', 'Perdata', 'Pembuatan Dokumen', 2000000, 1600000.00, 500000, '2025-05-10', 'Jakarta', 'Dokumen Perjanjian dengan perusahaan X', 'Menunggu', NULL, '2025-05-07 10:45:10', 1, 0),
-(2, 1, 'Joko', 'zikra@gmail.com', '081316443332', 'Pidana', 'Pembuatan Dokumen', 500000, 400000.00, 500000, '2025-05-19', 'Bandung', 'Dokumen Perjanjian dengan perusahaan Y', 'Menunggu', NULL, '2025-05-07 12:28:30', 1, 0),
-(3, 14, 'Vanes', 'vns@gmail.com', '085781086148', 'Perusahaan', 'Negosiasi', 500000, 400000.00, 500000, '2025-05-26', 'Surabaya', 'perusahaan yang memiliki sengketa akibat keterlambatan pembayaran', 'Menunggu', NULL, '2025-05-07 12:36:06', 1, 0),
-(4, 1, 'Agus', 'zikra00101@gmail.com', '085781086148', 'Perusahaan', 'Litigasi', 500000, 400000.00, 5000000, '2025-05-26', 'Jakarta', 'Tes', 'Menunggu', NULL, '2025-05-07 13:24:06', 1, 0),
-(5, 1, 'Azzikra Praqasta Kusuma', 'termiteindonesia@gmail.com', '085781086148', 'Perdata', 'Negosiasi', 1000000000, 800000000.00, 500000, '2025-06-01', 'Jakarta Barat', 'tes 3', 'Diproses', NULL, '2025-05-12 10:58:06', 1, 0),
-(6, 1, 'Umar Ali', 'sayaumarali@gmail.com', '085781086148', 'Keluarga', 'Pendampingan', 1000000, 800000.00, 50000000, '2025-06-01', 'Bandung', 'KDRT', 'Selesai', '1747053599169-Anggota1.pdf', '2025-05-12 12:39:59', 1, 1),
-(7, 2, 'fajri', 'fajri30.r@gmail.com', '085706125411', 'Perdata', 'Pembuatan Dokumen', 1000000, 800000.00, 2000000, '2025-05-14', 'Jakarta', 'Warisan', 'Selesai', '1747201804678-PENGUMUMAN Libur Hari Raya Waisak 2569 BE.pdf', '2025-05-14 05:50:04', 9, 1),
-(8, 2, 'fajri', 'fajri30.r@gmail.com', '085706125411', 'Pidana', 'Pendampingan', 1000000, 800000.00, 2000000, '2025-05-14', 'Jakarta', 'Pasal pasal', 'Selesai', '1747271588186-Laporan Zitline_Fajri Ramadhan.pdf', '2025-05-15 01:13:08', 9, 1),
-(9, 2, 'Gus samsudinn', 'samsudin@gmail.com', '089876654334', 'Pidana', 'Negosiasi', 30000000, 24000000.00, 40000000, '2025-05-01', 'Lampung', 'Tindak kasus pembunuhan ', 'Selesai', NULL, '2025-05-19 09:37:39', 3, 1),
-(10, 2, 'Jhoni', 'fajri30.r@gmail.com', '089876632332', 'Perdata', 'Pembuatan Dokumen', 1000000, 800000.00, 1200000, '2025-05-09', 'Tangerang', 'Data hak waris', 'Selesai', NULL, '2025-05-19 09:47:18', 3, 0),
-(11, 2, 'Sherly', 'sherly@gmail.com', '087656761212', 'Perusahaan', 'Pendampingan', 2000000, 1600000.00, 2500000, '2025-05-19', 'Jakarta', 'Kasus perusahaan', 'Menunggu', NULL, '2025-05-19 09:49:04', NULL, 0),
-(12, 2, 'Vernando', 'vernando@gmail.com', '08994335111', 'Keluarga', 'Konsultasi', 1500000, 1200000.00, 2000000, '2025-05-16', 'Depok', 'hak asuh anak', 'Menunggu', NULL, '2025-05-19 09:50:34', 3, 0),
-(13, 2, 'Sherly', 'fajri30.r@gmail.com', '087656761212', 'Perdata', 'Konsultasi', 2000000, 1600000.00, 2500000, '2025-05-19', 'Jakarta', 'konsul', 'Menunggu', NULL, '2025-05-19 11:07:56', NULL, 0),
-(14, 2, 'Sherly', 'fajri30.r@gmail.com', '087656761212', 'Keluarga', 'Negosiasi', 1000000, 800000.00, 2500000, '2025-05-19', 'Jakarta', 'good', 'Menunggu', NULL, '2025-05-19 11:14:50', NULL, 0),
-(15, 2, 'fajri', 'fajri30.r@gmail.com', '085706125411', 'Tenaga Kerja', 'Konsultasi', 1000000, 800000.00, 1500000, '2025-05-19', 'Jakarta', 'new', 'Menunggu', NULL, '2025-05-19 11:23:32', NULL, 0),
-(16, 2, 'Samsul', 'fajri30.r@gmail.com', '089876654334', 'Pidana', 'Pendampingan', 750000, 600000.00, 1000000, '2025-05-19', 'Lampung', 'Oke', 'Menunggu', NULL, '2025-05-19 11:31:49', NULL, 0),
-(17, 2, 'Jhoni', 'fajri30.r@gmail.com', '089876632332', 'Perusahaan', 'Pembuatan Dokumen', 500000, 400000.00, 599999, '2025-05-19', 'Jakarta', 'new', 'Menunggu', NULL, '2025-05-19 11:37:06', NULL, 0),
-(18, 2, 'fajri', 'fajri30.r@gmail.com', '085706125411', 'Pidana', 'Pembuatan Dokumen', 900000, 720000.00, 1500000, '2025-05-19', 'Jakarta', 'new', 'Menunggu', NULL, '2025-05-19 11:41:21', 3, 0),
-(19, 14, 'Ahmad Fauzi', 'vns@gmail.com', '987656789', 'Perdata', 'Pendampingan', 500000, 400000.00, 500000, '2222-02-22', 'jakarta', 'sdas', 'Menunggu', NULL, '2025-05-28 07:43:33', NULL, 0),
-(20, 14, 'vannes', 'vns@gmail.com', '987656789', 'Perdata', 'Konsultasi', 500000, 400000.00, 500000, '2006-02-22', 'jakarta', 'sa', 'Menunggu', NULL, '2025-05-28 08:55:11', NULL, 0),
-(21, 14, 'manusia dingin', 'vns@gmail.com', '987656789', 'Tenaga Kerja', 'Konsultasi', 500000, 400000.00, 500000, '2026-05-23', 'jakarta', 'testing', 'Menunggu', '1748423100876-LogoKecil.png', '2025-05-28 09:05:00', NULL, 0),
-(22, 14, 'manusia dingin', 'vns@gmail.com', '987656789', 'Pidana', 'Pendampingan', 500000, 400000.00, 500000, '2222-02-22', 'jakarta', 'sadsa', 'Menunggu', NULL, '2025-05-28 09:13:31', NULL, 0),
-(23, 14, 'Ahmad Fauzi', 'vns@gmail.com', '987656789', 'Pidana', 'Pendampingan', 500000, 400000.00, 500000, '2222-02-22', 'jakarta', 'aa', 'Menunggu', NULL, '2025-05-28 09:33:04', NULL, 0),
-(24, 14, 'vannes', 'vns@gmail.com', '987656789', 'Perdata', 'Pembuatan Dokumen', 500000, 400000.00, 500000, '4444-03-23', 'jakarta', 'sasa', 'Menunggu', NULL, '2025-05-28 09:39:01', NULL, 0),
-(25, 14, 'Ahmad Fauzi', 'vns@gmail.com', '987656789', 'Perdata', 'Pendampingan', 500000, 400000.00, 500000, '6332-02-21', 'jakarta', 'saaa', 'Menunggu', '1748425974795-WIN_20250526_11_01_41_Pro.jpg', '2025-05-28 09:52:54', NULL, 0),
-(26, 14, 'manusia dingin', 'vns@gmail.com', '987656789', 'Perdata', 'Pendampingan', 500000, 400000.00, 500000, '2005-04-22', 'jakarta', 'TES', 'Menunggu', '1748426627009-WIN_20250526_11_01_41_Pro.jpg', '2025-05-28 10:03:47', NULL, 0),
-(27, 14, 'manusia dingin', 'vns@gmail.com', '987656789', 'Perdata', 'Pendampingan', 500000, 400000.00, 500000, '2005-04-22', 'jakarta', 'TES', 'Menunggu', '1748426632451-WIN_20250526_11_01_41_Pro.jpg', '2025-05-28 10:03:52', NULL, 0),
-(28, 14, 'manusia dingin', 'vns@gmail.com', '987656789', 'Perdata', 'Pendampingan', 500000, 400000.00, 500000, '2005-04-22', 'jakarta', 'TES', 'Menunggu', '1748426733153-WIN_20250526_11_01_41_Pro.jpg', '2025-05-28 10:05:33', NULL, 0),
-(29, 14, 'manusia dingin', 'vns@gmail.com', '987656789', 'Perdata', 'Pendampingan', 500000, 400000.00, 500000, '2005-04-22', 'jakarta', 'TES', 'Menunggu', '1748426751151-WIN_20250526_11_01_41_Pro.jpg', '2025-05-28 10:05:51', NULL, 0),
-(30, 14, 'manusia dingin', 'vns@gmail.com', '987656789', 'Perdata', 'Pendampingan', 500000, 400000.00, 500000, '2005-04-22', 'jakarta', 'TES', 'Menunggu', '1748426762584-WIN_20250526_11_01_41_Pro.jpg', '2025-05-28 10:06:02', NULL, 0),
-(31, 14, 'manusia dingin', 'vns@gmail.com', '987656789', 'Perdata', 'Pendampingan', 500000, 400000.00, 500000, '2005-04-22', 'jakarta', 'TES', 'Menunggu', '1748426765810-WIN_20250526_11_01_41_Pro.jpg', '2025-05-28 10:06:05', NULL, 0),
-(32, 14, 'manusia dingin', 'vns@gmail.com', '987656789', 'Perdata', 'Konsultasi', 500000, 400000.00, 500000, '2222-02-22', 'jakarta', 'SAS', 'Menunggu', '1748426878184-WIN_20250526_11_01_41_Pro.jpg', '2025-05-28 10:07:58', NULL, 0),
-(33, 14, 'Ahmad Fauzi', 'vns@gmail.com', '333', 'Perdata', 'Pendampingan', 500000, 400000.00, 500000, '3333-03-01', 'jakarta', 'SAA', 'Menunggu', NULL, '2025-05-28 10:09:06', NULL, 0),
-(34, 14, 'Ahmad Fauzi', 'vns@gmail.com', '333', 'Perdata', 'Konsultasi', 500000, 400000.00, 500000, '2222-02-03', 'jakarta', '2', 'Menunggu', NULL, '2025-05-28 10:10:39', NULL, 0),
-(35, 14, 'vanes', 'vns@gmail.com', '0986544', 'Pidana', 'Pendampingan', 500000, 400000.00, 500000, '2222-02-22', 'jakarta ', 'sas', 'Menunggu', '1748429281335-WIN_20250526_11_01_41_Pro.jpg', '2025-05-28 10:48:01', NULL, 0),
-(36, 14, 'vanes', 'vns@gmail.com', '085781086148', 'Perdata', 'Pendampingan', 500000, 400000.00, 500000, '2222-02-22', 'jakarta ', 'sfas', 'Menunggu', NULL, '2025-05-28 10:55:25', NULL, 0),
-(37, 14, 'vanes', 'vns@gmail.com', '085781086148', 'Keluarga', 'Konsultasi', 500000, 400000.00, 500000, '2222-02-22', 'jakarta ', 'sa', 'Menunggu', NULL, '2025-05-28 11:43:16', NULL, 0),
-(38, 14, 'vanes', 'vns@gmail.com', '085781086148', 'Pidana', 'Konsultasi', 500000, 400000.00, 500000, '2222-02-22', 'jakarta ', 'sasa', 'Menunggu', '1748433123923-WIN_20250526_11_01_41_Pro.jpg', '2025-05-28 11:52:03', NULL, 0),
-(39, 14, 'vanes', 'vns@gmail.com', '0986544', 'Keluarga', 'Pendampingan', 500000, 400000.00, 500000, '2222-02-22', 'jakarta ', 'sas', 'Menunggu', NULL, '2025-05-28 11:55:40', NULL, 0),
-(40, 14, 'percobaan', 'vns@gmail.com', '085781086148', 'Perdata', 'Pendampingan', 500000, 400000.00, 500000, '2222-02-22', 'jakarta ', 'sadas', 'Menunggu', NULL, '2025-05-28 19:53:50', NULL, 0),
-(41, 14, 'vanes', 'vns@gmail.com', '0986544', 'Perusahaan', 'Litigasi', 500000, 400000.00, 500000, '9999-09-09', 'jakarta ', 'sas', 'Menunggu', NULL, '2025-05-28 19:55:22', NULL, 0),
-(42, 14, 'SENKA - Perfect Whip Berry Bright', 'vns@gmail.com', '085781086148', 'Perdata', 'Pendampingan', 500000, 400000.00, 500000, '3333-03-22', 'jakarta ', 'daf', 'Menunggu', NULL, '2025-05-28 19:58:02', NULL, 0),
-(43, 14, 'vanes', 'vns@gmail.com', '085781086148', 'Pidana', 'Konsultasi', 500000, 400000.00, 500000, '7584-02-22', 'jakarta ', 'testing setelah pull', 'Menunggu', NULL, '2025-05-29 10:24:02', NULL, 0),
-(44, 14, 'testing', 'vns@gmail.com', '085781086148', 'Perdata', 'Pendampingan', 500000, 400000.00, 500000, '2222-02-22', 'jakarta ', 'testing', 'Menunggu', NULL, '2025-05-29 11:20:56', NULL, 0),
-(45, 14, 'Perfect Whip Berry Bright', 'vns@gmail.com', '085781086148', 'testing', 'Pendampingan', 500000, 400000.00, 500000, '9990-09-08', 'jakarta ', 'testing\r\n', 'Menunggu', NULL, '2025-05-29 11:22:55', NULL, 0);
+(1, 1, 'Azzikra Praqasta Kusuma', 'azzikrapraqasta2522@gmail.com', '081316443334', 'Perdata', 'Pembuatan Dokumen', 2000000, '1600000.00', 500000, '2025-05-10', 'Jakarta', 'Dokumen Perjanjian dengan perusahaan X', 'Menunggu', NULL, '2025-05-07 10:45:10', 1, 0),
+(2, 1, 'Joko', 'zikra@gmail.com', '081316443332', 'Pidana', 'Pembuatan Dokumen', 500000, '400000.00', 500000, '2025-05-19', 'Bandung', 'Dokumen Perjanjian dengan perusahaan Y', 'Menunggu', NULL, '2025-05-07 12:28:30', 1, 0),
+(3, 14, 'Vanes', 'vns@gmail.com', '085781086148', 'Perusahaan', 'Negosiasi', 500000, '400000.00', 500000, '2025-05-26', 'Surabaya', 'perusahaan yang memiliki sengketa akibat keterlambatan pembayaran', 'Menunggu', NULL, '2025-05-07 12:36:06', 1, 0),
+(4, 1, 'Agus', 'zikra00101@gmail.com', '085781086148', 'Perusahaan', 'Litigasi', 500000, '400000.00', 5000000, '2025-05-26', 'Jakarta', 'Tes', 'Menunggu', NULL, '2025-05-07 13:24:06', 1, 0),
+(5, 1, 'Azzikra Praqasta Kusuma', 'termiteindonesia@gmail.com', '085781086148', 'Perdata', 'Negosiasi', 1000000000, '800000000.00', 500000, '2025-06-01', 'Jakarta Barat', 'tes 3', 'Diproses', NULL, '2025-05-12 10:58:06', 1, 0),
+(6, 1, 'Umar Ali', 'sayaumarali@gmail.com', '085781086148', 'Keluarga', 'Pendampingan', 1000000, '800000.00', 50000000, '2025-06-01', 'Bandung', 'KDRT', 'Selesai', '1747053599169-Anggota1.pdf', '2025-05-12 12:39:59', 1, 1),
+(7, 2, 'fajri', 'fajri30.r@gmail.com', '085706125411', 'Perdata', 'Pembuatan Dokumen', 1000000, '800000.00', 2000000, '2025-05-14', 'Jakarta', 'Warisan', 'Selesai', '1747201804678-PENGUMUMAN Libur Hari Raya Waisak 2569 BE.pdf', '2025-05-14 05:50:04', 9, 1),
+(8, 2, 'fajri', 'fajri30.r@gmail.com', '085706125411', 'Pidana', 'Pendampingan', 1000000, '800000.00', 2000000, '2025-05-14', 'Jakarta', 'Pasal pasal', 'Selesai', '1747271588186-Laporan Zitline_Fajri Ramadhan.pdf', '2025-05-15 01:13:08', 9, 1),
+(9, 2, 'Gus samsudinn', 'samsudin@gmail.com', '089876654334', 'Pidana', 'Negosiasi', 30000000, '24000000.00', 40000000, '2025-05-01', 'Lampung', 'Tindak kasus pembunuhan ', 'Selesai', NULL, '2025-05-19 09:37:39', 3, 1),
+(10, 2, 'Jhoni', 'fajri30.r@gmail.com', '089876632332', 'Perdata', 'Pembuatan Dokumen', 1000000, '800000.00', 1200000, '2025-05-09', 'Tangerang', 'Data hak waris', 'Selesai', NULL, '2025-05-19 09:47:18', 3, 0),
+(11, 2, 'Sherly', 'sherly@gmail.com', '087656761212', 'Perusahaan', 'Pendampingan', 2000000, '1600000.00', 2500000, '2025-05-19', 'Jakarta', 'Kasus perusahaan', 'Menunggu', NULL, '2025-05-19 09:49:04', NULL, 0),
+(12, 2, 'Vernando', 'vernando@gmail.com', '08994335111', 'Keluarga', 'Konsultasi', 1500000, '1200000.00', 2000000, '2025-05-16', 'Depok', 'hak asuh anak', 'Menunggu', NULL, '2025-05-19 09:50:34', 3, 0),
+(13, 2, 'Sherly', 'fajri30.r@gmail.com', '087656761212', 'Perdata', 'Konsultasi', 2000000, '1600000.00', 2500000, '2025-05-19', 'Jakarta', 'konsul', 'Menunggu', NULL, '2025-05-19 11:07:56', NULL, 0),
+(14, 2, 'Sherly', 'fajri30.r@gmail.com', '087656761212', 'Keluarga', 'Negosiasi', 1000000, '800000.00', 2500000, '2025-05-19', 'Jakarta', 'good', 'Menunggu', NULL, '2025-05-19 11:14:50', NULL, 0),
+(15, 2, 'fajri', 'fajri30.r@gmail.com', '085706125411', 'Tenaga Kerja', 'Konsultasi', 1000000, '800000.00', 1500000, '2025-05-19', 'Jakarta', 'new', 'Menunggu', NULL, '2025-05-19 11:23:32', NULL, 0),
+(16, 2, 'Samsul', 'fajri30.r@gmail.com', '089876654334', 'Pidana', 'Pendampingan', 750000, '600000.00', 1000000, '2025-05-19', 'Lampung', 'Oke', 'Menunggu', NULL, '2025-05-19 11:31:49', NULL, 0),
+(17, 2, 'Jhoni', 'fajri30.r@gmail.com', '089876632332', 'Perusahaan', 'Pembuatan Dokumen', 500000, '400000.00', 599999, '2025-05-19', 'Jakarta', 'new', 'Menunggu', NULL, '2025-05-19 11:37:06', NULL, 0),
+(18, 2, 'fajri', 'fajri30.r@gmail.com', '085706125411', 'Pidana', 'Pembuatan Dokumen', 900000, '720000.00', 1500000, '2025-05-19', 'Jakarta', 'new', 'Menunggu', NULL, '2025-05-19 11:41:21', 3, 0),
+(19, 14, 'Ahmad Fauzi', 'vns@gmail.com', '987656789', 'Perdata', 'Pendampingan', 500000, '400000.00', 500000, '2222-02-22', 'jakarta', 'sdas', 'Menunggu', NULL, '2025-05-28 07:43:33', NULL, 0),
+(20, 14, 'vannes', 'vns@gmail.com', '987656789', 'Perdata', 'Konsultasi', 500000, '400000.00', 500000, '2006-02-22', 'jakarta', 'sa', 'Menunggu', NULL, '2025-05-28 08:55:11', NULL, 0),
+(21, 14, 'manusia dingin', 'vns@gmail.com', '987656789', 'Tenaga Kerja', 'Konsultasi', 500000, '400000.00', 500000, '2026-05-23', 'jakarta', 'testing', 'Menunggu', '1748423100876-LogoKecil.png', '2025-05-28 09:05:00', NULL, 0),
+(22, 14, 'manusia dingin', 'vns@gmail.com', '987656789', 'Pidana', 'Pendampingan', 500000, '400000.00', 500000, '2222-02-22', 'jakarta', 'sadsa', 'Menunggu', NULL, '2025-05-28 09:13:31', NULL, 0),
+(23, 14, 'Ahmad Fauzi', 'vns@gmail.com', '987656789', 'Pidana', 'Pendampingan', 500000, '400000.00', 500000, '2222-02-22', 'jakarta', 'aa', 'Menunggu', NULL, '2025-05-28 09:33:04', NULL, 0),
+(24, 14, 'vannes', 'vns@gmail.com', '987656789', 'Perdata', 'Pembuatan Dokumen', 500000, '400000.00', 500000, '4444-03-23', 'jakarta', 'sasa', 'Menunggu', NULL, '2025-05-28 09:39:01', NULL, 0),
+(25, 14, 'Ahmad Fauzi', 'vns@gmail.com', '987656789', 'Perdata', 'Pendampingan', 500000, '400000.00', 500000, '6332-02-21', 'jakarta', 'saaa', 'Menunggu', '1748425974795-WIN_20250526_11_01_41_Pro.jpg', '2025-05-28 09:52:54', NULL, 0),
+(26, 14, 'manusia dingin', 'vns@gmail.com', '987656789', 'Perdata', 'Pendampingan', 500000, '400000.00', 500000, '2005-04-22', 'jakarta', 'TES', 'Menunggu', '1748426627009-WIN_20250526_11_01_41_Pro.jpg', '2025-05-28 10:03:47', NULL, 0),
+(27, 14, 'manusia dingin', 'vns@gmail.com', '987656789', 'Perdata', 'Pendampingan', 500000, '400000.00', 500000, '2005-04-22', 'jakarta', 'TES', 'Menunggu', '1748426632451-WIN_20250526_11_01_41_Pro.jpg', '2025-05-28 10:03:52', NULL, 0),
+(28, 14, 'manusia dingin', 'vns@gmail.com', '987656789', 'Perdata', 'Pendampingan', 500000, '400000.00', 500000, '2005-04-22', 'jakarta', 'TES', 'Menunggu', '1748426733153-WIN_20250526_11_01_41_Pro.jpg', '2025-05-28 10:05:33', NULL, 0),
+(29, 14, 'manusia dingin', 'vns@gmail.com', '987656789', 'Perdata', 'Pendampingan', 500000, '400000.00', 500000, '2005-04-22', 'jakarta', 'TES', 'Menunggu', '1748426751151-WIN_20250526_11_01_41_Pro.jpg', '2025-05-28 10:05:51', NULL, 0),
+(30, 14, 'manusia dingin', 'vns@gmail.com', '987656789', 'Perdata', 'Pendampingan', 500000, '400000.00', 500000, '2005-04-22', 'jakarta', 'TES', 'Menunggu', '1748426762584-WIN_20250526_11_01_41_Pro.jpg', '2025-05-28 10:06:02', NULL, 0),
+(31, 14, 'manusia dingin', 'vns@gmail.com', '987656789', 'Perdata', 'Pendampingan', 500000, '400000.00', 500000, '2005-04-22', 'jakarta', 'TES', 'Menunggu', '1748426765810-WIN_20250526_11_01_41_Pro.jpg', '2025-05-28 10:06:05', NULL, 0),
+(32, 14, 'manusia dingin', 'vns@gmail.com', '987656789', 'Perdata', 'Konsultasi', 500000, '400000.00', 500000, '2222-02-22', 'jakarta', 'SAS', 'Menunggu', '1748426878184-WIN_20250526_11_01_41_Pro.jpg', '2025-05-28 10:07:58', NULL, 0),
+(33, 14, 'Ahmad Fauzi', 'vns@gmail.com', '333', 'Perdata', 'Pendampingan', 500000, '400000.00', 500000, '3333-03-01', 'jakarta', 'SAA', 'Menunggu', NULL, '2025-05-28 10:09:06', NULL, 0),
+(34, 14, 'Ahmad Fauzi', 'vns@gmail.com', '333', 'Perdata', 'Konsultasi', 500000, '400000.00', 500000, '2222-02-03', 'jakarta', '2', 'Menunggu', NULL, '2025-05-28 10:10:39', NULL, 0),
+(35, 14, 'vanes', 'vns@gmail.com', '0986544', 'Pidana', 'Pendampingan', 500000, '400000.00', 500000, '2222-02-22', 'jakarta ', 'sas', 'Menunggu', '1748429281335-WIN_20250526_11_01_41_Pro.jpg', '2025-05-28 10:48:01', NULL, 0),
+(36, 14, 'vanes', 'vns@gmail.com', '085781086148', 'Perdata', 'Pendampingan', 500000, '400000.00', 500000, '2222-02-22', 'jakarta ', 'sfas', 'Menunggu', NULL, '2025-05-28 10:55:25', NULL, 0),
+(37, 14, 'vanes', 'vns@gmail.com', '085781086148', 'Keluarga', 'Konsultasi', 500000, '400000.00', 500000, '2222-02-22', 'jakarta ', 'sa', 'Menunggu', NULL, '2025-05-28 11:43:16', NULL, 0),
+(38, 14, 'vanes', 'vns@gmail.com', '085781086148', 'Pidana', 'Konsultasi', 500000, '400000.00', 500000, '2222-02-22', 'jakarta ', 'sasa', 'Menunggu', '1748433123923-WIN_20250526_11_01_41_Pro.jpg', '2025-05-28 11:52:03', NULL, 0),
+(39, 14, 'vanes', 'vns@gmail.com', '0986544', 'Keluarga', 'Pendampingan', 500000, '400000.00', 500000, '2222-02-22', 'jakarta ', 'sas', 'Menunggu', NULL, '2025-05-28 11:55:40', NULL, 0),
+(40, 14, 'percobaan', 'vns@gmail.com', '085781086148', 'Perdata', 'Pendampingan', 500000, '400000.00', 500000, '2222-02-22', 'jakarta ', 'sadas', 'Menunggu', NULL, '2025-05-28 19:53:50', NULL, 0),
+(41, 14, 'vanes', 'vns@gmail.com', '0986544', 'Perusahaan', 'Litigasi', 500000, '400000.00', 500000, '9999-09-09', 'jakarta ', 'sas', 'Menunggu', NULL, '2025-05-28 19:55:22', NULL, 0),
+(42, 14, 'SENKA - Perfect Whip Berry Bright', 'vns@gmail.com', '085781086148', 'Perdata', 'Pendampingan', 500000, '400000.00', 500000, '3333-03-22', 'jakarta ', 'daf', 'Menunggu', NULL, '2025-05-28 19:58:02', NULL, 0),
+(43, 14, 'vanes', 'vns@gmail.com', '085781086148', 'Pidana', 'Konsultasi', 500000, '400000.00', 500000, '7584-02-22', 'jakarta ', 'testing setelah pull', 'Menunggu', NULL, '2025-05-29 10:24:02', NULL, 0),
+(44, 14, 'testing', 'vns@gmail.com', '085781086148', 'Perdata', 'Pendampingan', 500000, '400000.00', 500000, '2222-02-22', 'jakarta ', 'testing', 'Menunggu', NULL, '2025-05-29 11:20:56', NULL, 0),
+(45, 14, 'Perfect Whip Berry Bright', 'vns@gmail.com', '085781086148', 'testing', 'Pendampingan', 500000, '400000.00', 500000, '9990-09-08', 'jakarta ', 'testing\r\n', 'Menunggu', NULL, '2025-05-29 11:22:55', NULL, 0),
+(46, 9, 'demo woi', 'demon@gmail.com', '1283187321723', 'Perdata', 'Pembuatan Dokumen', 5000000, '4000000.00', 500000, '2025-06-18', 'tes', 'tes', 'Selesai', NULL, '2025-06-17 03:25:57', 1, 0);
 
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `artikel`
+-- Table structure for table `artikel`
 --
 
 CREATE TABLE `artikel` (
-  `id` int(11) NOT NULL,
-  `judul` varchar(255) NOT NULL,
-  `deskripsi` varchar(10000) NOT NULL,
-  `jenis_hukum` enum('Pidana','Perdata','Internasional','Ketenagakerjaan','HAKI','Keluarga','Administrasi Negara') DEFAULT NULL,
-  `filePath` varchar(255) NOT NULL,
-  `coverPath` varchar(225) DEFAULT NULL,
-  `nomor` varchar(255) NOT NULL,
-  `tahun` int(11) NOT NULL,
-  `jenis_dokumen` varchar(255) NOT NULL,
-  `tempat_penetapan` varchar(255) NOT NULL,
-  `status` enum('Aktif','Tidak Aktif') NOT NULL DEFAULT 'Aktif',
+  `id` int NOT NULL,
+  `judul` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
+  `deskripsi` varchar(10000) COLLATE utf8mb4_general_ci NOT NULL,
+  `jenis_hukum` enum('Pidana','Perdata','Internasional','Ketenagakerjaan','HAKI','Keluarga','Administrasi Negara') COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `filePath` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
+  `coverPath` varchar(225) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `nomor` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
+  `tahun` int NOT NULL,
+  `jenis_dokumen` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
+  `tempat_penetapan` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
+  `status` enum('Aktif','Tidak Aktif') COLLATE utf8mb4_general_ci NOT NULL DEFAULT 'Aktif',
   `tanggal_penetapan` date NOT NULL DEFAULT '2000-01-01'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data untuk tabel `artikel`
+-- Dumping data for table `artikel`
 --
 
 INSERT INTO `artikel` (`id`, `judul`, `deskripsi`, `jenis_hukum`, `filePath`, `coverPath`, `nomor`, `tahun`, `jenis_dokumen`, `tempat_penetapan`, `status`, `tanggal_penetapan`) VALUES
@@ -165,21 +166,21 @@ INSERT INTO `artikel` (`id`, `judul`, `deskripsi`, `jenis_hukum`, `filePath`, `c
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `artikel_berita`
+-- Table structure for table `artikel_berita`
 --
 
 CREATE TABLE `artikel_berita` (
-  `id` int(11) NOT NULL,
-  `judul` varchar(255) NOT NULL,
-  `isi` text NOT NULL,
-  `gambar` varchar(255) DEFAULT NULL,
-  `kategori` varchar(100) DEFAULT NULL,
-  `created_at` timestamp NULL DEFAULT current_timestamp(),
-  `top_berita` tinyint(1) DEFAULT 0
+  `id` int NOT NULL,
+  `judul` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
+  `isi` text COLLATE utf8mb4_general_ci NOT NULL,
+  `gambar` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `kategori` varchar(100) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  `top_berita` tinyint(1) DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data untuk tabel `artikel_berita`
+-- Dumping data for table `artikel_berita`
 --
 
 INSERT INTO `artikel_berita` (`id`, `judul`, `isi`, `gambar`, `kategori`, `created_at`, `top_berita`) VALUES
@@ -195,21 +196,21 @@ INSERT INTO `artikel_berita` (`id`, `judul`, `isi`, `gambar`, `kategori`, `creat
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `faq_hukum`
+-- Table structure for table `faq_hukum`
 --
 
 CREATE TABLE `faq_hukum` (
-  `id` int(11) NOT NULL,
-  `intent` varchar(100) DEFAULT NULL,
-  `kategori` varchar(50) DEFAULT NULL,
-  `keywords` text DEFAULT NULL,
-  `contoh_pertanyaan` text DEFAULT NULL,
-  `response` text DEFAULT NULL,
-  `sumber_referensi` varchar(255) DEFAULT NULL
+  `id` int NOT NULL,
+  `intent` varchar(100) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `kategori` varchar(50) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `keywords` text COLLATE utf8mb4_general_ci,
+  `contoh_pertanyaan` text COLLATE utf8mb4_general_ci,
+  `response` text COLLATE utf8mb4_general_ci,
+  `sumber_referensi` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data untuk tabel `faq_hukum`
+-- Dumping data for table `faq_hukum`
 --
 
 INSERT INTO `faq_hukum` (`id`, `intent`, `kategori`, `keywords`, `contoh_pertanyaan`, `response`, `sumber_referensi`) VALUES
@@ -320,88 +321,88 @@ INSERT INTO `faq_hukum` (`id`, `intent`, `kategori`, `keywords`, `contoh_pertany
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `konsultasi`
+-- Table structure for table `konsultasi`
 --
 
 CREATE TABLE `konsultasi` (
-  `id` int(11) NOT NULL,
-  `id_pengguna` int(11) NOT NULL,
-  `id_pengacara` int(11) NOT NULL,
+  `id` int NOT NULL,
+  `id_pengguna` int NOT NULL,
+  `id_pengacara` int NOT NULL,
   `tanggal_konsultasi` datetime NOT NULL,
-  `status` enum('Dijadwalkan','Selesai','Dibatalkan') DEFAULT 'Dijadwalkan',
-  `catatan` text DEFAULT NULL
+  `status` enum('Dijadwalkan','Selesai','Dibatalkan') COLLATE utf8mb4_general_ci DEFAULT 'Dijadwalkan',
+  `catatan` text COLLATE utf8mb4_general_ci
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `konsultasi_session`
+-- Table structure for table `konsultasi_session`
 --
 
 CREATE TABLE `konsultasi_session` (
-  `id` int(11) NOT NULL,
-  `user_id` int(11) NOT NULL,
-  `pengacara_id` int(11) NOT NULL,
+  `id` int NOT NULL,
+  `user_id` int NOT NULL,
+  `pengacara_id` int NOT NULL,
   `start_time` datetime NOT NULL,
-  `duration` int(11) NOT NULL,
-  `biaya` int(11) NOT NULL DEFAULT 0,
+  `duration` int NOT NULL,
+  `biaya` int NOT NULL DEFAULT '0',
   `biaya_pengacara` decimal(15,2) DEFAULT NULL,
-  `status` enum('aktif','selesai') DEFAULT 'aktif',
-  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
-  `is_transferred` tinyint(1) DEFAULT 0
+  `status` enum('aktif','selesai') COLLATE utf8mb4_general_ci DEFAULT 'aktif',
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `is_transferred` tinyint(1) DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data untuk tabel `konsultasi_session`
+-- Dumping data for table `konsultasi_session`
 --
 
 INSERT INTO `konsultasi_session` (`id`, `user_id`, `pengacara_id`, `start_time`, `duration`, `biaya`, `biaya_pengacara`, `status`, `created_at`, `is_transferred`) VALUES
-(1, 2, 7, '2025-05-15 10:31:38', 60, 100000, 80000.00, 'selesai', '2025-05-15 03:31:38', 1),
-(2, 2, 9, '2025-05-19 17:42:46', 30, 50000, 40000.00, 'selesai', '2025-05-15 03:36:03', 1),
-(3, 2, 5, '2025-05-15 11:25:02', 30, 50000, 40000.00, 'selesai', '2025-05-15 04:25:02', 0),
-(4, 3, 9, '2025-05-15 12:45:53', 60, 100000, 80000.00, 'selesai', '2025-05-15 04:33:03', 1),
-(5, 3, 1, '2025-05-15 11:37:40', 30, 50000, 40000.00, 'selesai', '2025-05-15 04:37:40', 0),
-(6, 14, 1, '2025-05-15 20:34:28', 30, 50000, 40000.00, 'selesai', '2025-05-15 13:33:44', 1),
-(7, 2, 1, '2025-05-19 18:10:19', 30, 50000, 40000.00, 'selesai', '2025-05-19 11:10:19', 1),
-(8, 2, 3, '2025-05-23 11:09:03', 60, 100000, 80000.00, 'selesai', '2025-05-19 11:24:59', 0),
-(9, 2, 15, '2025-05-19 18:38:15', 30, 50000, 40000.00, 'selesai', '2025-05-19 11:38:15', 0),
-(11, 2, 9, '2025-05-31 23:30:37', 30, 50000, 40000.00, 'aktif', '2025-05-25 13:43:14', 1),
-(12, 3, 7, '2025-05-25 20:44:43', 60, 100000, 80000.00, 'aktif', '2025-05-25 13:44:43', 0),
-(13, 2, 20, '2025-05-27 16:17:58', 60, 100000, 80000.00, 'aktif', '2025-05-27 09:17:58', 0),
-(14, 2, 2, '2025-06-10 11:10:50', 30, 50000, 40000.00, 'aktif', '2025-05-27 09:41:09', 0),
-(15, 2, 3, '2025-05-27 16:50:58', 60, 100000, 80000.00, 'aktif', '2025-05-27 09:50:58', 0),
-(16, 14, 3, '2025-05-28 19:59:21', 30, 50000, 40000.00, 'selesai', '2025-05-27 10:46:29', 1),
-(17, 14, 2, '2025-05-28 17:42:27', 30, 50000, 40000.00, 'selesai', '2025-05-27 10:57:22', 1),
-(18, 14, 4, '2025-05-28 18:55:16', 30, 50000, 40000.00, 'selesai', '2025-05-27 13:36:41', 0),
-(19, 14, 20, '2025-05-29 00:10:06', 30, 50000, 40000.00, 'selesai', '2025-05-27 18:29:07', 0),
-(20, 14, 9, '2025-05-28 14:45:30', 30, 50000, 40000.00, 'selesai', '2025-05-27 19:07:22', 0),
-(21, 14, 8, '2025-05-28 17:53:39', 30, 50000, 40000.00, 'selesai', '2025-05-28 09:01:47', 0),
-(22, 14, 7, '2025-05-28 16:32:10', 30, 50000, 40000.00, 'selesai', '2025-05-28 09:32:10', 0),
-(24, 14, 13, '2025-05-28 17:48:15', 30, 50000, 40000.00, 'selesai', '2025-05-28 10:44:26', 0),
-(26, 14, 12, '2025-05-28 18:48:23', 30, 50000, 40000.00, 'selesai', '2025-05-28 11:48:23', 0),
-(27, 14, 19, '2025-05-28 20:04:00', 30, 50000, 40000.00, 'selesai', '2025-05-28 13:04:00', 0),
-(28, 14, 11, '2025-05-29 02:51:46', 30, 50000, 40000.00, 'selesai', '2025-05-28 19:50:28', 0),
-(30, 14, 16, '2025-05-29 14:05:00', 30, 50000, 40000.00, 'selesai', '2025-05-29 07:04:59', 0),
-(31, 14, 3, '2025-05-29 14:44:17', 30, 50000, 40000.00, 'selesai', '2025-05-29 07:06:16', 1),
-(32, 14, 2, '2025-05-29 17:14:12', 30, 50000, 40000.00, 'selesai', '2025-05-29 10:14:11', 1),
-(33, 14, 9, '2025-05-29 17:18:02', 30, 50000, 40000.00, 'selesai', '2025-05-29 10:17:58', 1),
-(35, 14, 13, '2025-05-29 17:21:32', 30, 50000, 40000.00, 'selesai', '2025-05-29 10:21:32', 1);
+(1, 2, 7, '2025-05-15 10:31:38', 60, 100000, '80000.00', 'selesai', '2025-05-15 03:31:38', 1),
+(2, 2, 9, '2025-05-19 17:42:46', 30, 50000, '40000.00', 'selesai', '2025-05-15 03:36:03', 1),
+(3, 2, 5, '2025-05-15 11:25:02', 30, 50000, '40000.00', 'selesai', '2025-05-15 04:25:02', 0),
+(4, 3, 9, '2025-05-15 12:45:53', 60, 100000, '80000.00', 'selesai', '2025-05-15 04:33:03', 1),
+(5, 3, 1, '2025-05-15 11:37:40', 30, 50000, '40000.00', 'selesai', '2025-05-15 04:37:40', 0),
+(6, 14, 1, '2025-05-15 20:34:28', 30, 50000, '40000.00', 'selesai', '2025-05-15 13:33:44', 1),
+(7, 2, 1, '2025-05-19 18:10:19', 30, 50000, '40000.00', 'selesai', '2025-05-19 11:10:19', 1),
+(8, 2, 3, '2025-05-23 11:09:03', 60, 100000, '80000.00', 'selesai', '2025-05-19 11:24:59', 0),
+(9, 2, 15, '2025-05-19 18:38:15', 30, 50000, '40000.00', 'selesai', '2025-05-19 11:38:15', 0),
+(11, 2, 9, '2025-05-31 23:30:37', 30, 50000, '40000.00', 'aktif', '2025-05-25 13:43:14', 1),
+(12, 3, 7, '2025-05-25 20:44:43', 60, 100000, '80000.00', 'aktif', '2025-05-25 13:44:43', 0),
+(13, 2, 20, '2025-05-27 16:17:58', 60, 100000, '80000.00', 'aktif', '2025-05-27 09:17:58', 0),
+(14, 2, 2, '2025-06-10 11:10:50', 30, 50000, '40000.00', 'aktif', '2025-05-27 09:41:09', 0),
+(15, 2, 3, '2025-05-27 16:50:58', 60, 100000, '80000.00', 'aktif', '2025-05-27 09:50:58', 0),
+(16, 14, 3, '2025-05-28 19:59:21', 30, 50000, '40000.00', 'selesai', '2025-05-27 10:46:29', 1),
+(17, 14, 2, '2025-05-28 17:42:27', 30, 50000, '40000.00', 'selesai', '2025-05-27 10:57:22', 1),
+(18, 14, 4, '2025-05-28 18:55:16', 30, 50000, '40000.00', 'selesai', '2025-05-27 13:36:41', 0),
+(19, 14, 20, '2025-05-29 00:10:06', 30, 50000, '40000.00', 'selesai', '2025-05-27 18:29:07', 0),
+(20, 14, 9, '2025-05-28 14:45:30', 30, 50000, '40000.00', 'selesai', '2025-05-27 19:07:22', 0),
+(21, 14, 8, '2025-05-28 17:53:39', 30, 50000, '40000.00', 'selesai', '2025-05-28 09:01:47', 0),
+(22, 14, 7, '2025-05-28 16:32:10', 30, 50000, '40000.00', 'selesai', '2025-05-28 09:32:10', 0),
+(24, 14, 13, '2025-05-28 17:48:15', 30, 50000, '40000.00', 'selesai', '2025-05-28 10:44:26', 0),
+(26, 14, 12, '2025-05-28 18:48:23', 30, 50000, '40000.00', 'selesai', '2025-05-28 11:48:23', 0),
+(27, 14, 19, '2025-05-28 20:04:00', 30, 50000, '40000.00', 'selesai', '2025-05-28 13:04:00', 0),
+(28, 14, 11, '2025-05-29 02:51:46', 30, 50000, '40000.00', 'selesai', '2025-05-28 19:50:28', 0),
+(30, 14, 16, '2025-05-29 14:05:00', 30, 50000, '40000.00', 'selesai', '2025-05-29 07:04:59', 0),
+(31, 14, 3, '2025-05-29 14:44:17', 30, 50000, '40000.00', 'selesai', '2025-05-29 07:06:16', 1),
+(32, 14, 2, '2025-05-29 17:14:12', 30, 50000, '40000.00', 'selesai', '2025-05-29 10:14:11', 1),
+(33, 14, 9, '2025-05-29 17:18:02', 30, 50000, '40000.00', 'selesai', '2025-05-29 10:17:58', 1),
+(35, 14, 13, '2025-05-29 17:21:32', 30, 50000, '40000.00', 'selesai', '2025-05-29 10:21:32', 1);
 
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `log_aktivitas`
+-- Table structure for table `log_aktivitas`
 --
 
 CREATE TABLE `log_aktivitas` (
-  `id` int(11) NOT NULL,
-  `id_pengguna` int(11) NOT NULL,
-  `aktivitas` text NOT NULL,
-  `waktu` timestamp NOT NULL DEFAULT current_timestamp()
+  `id` int NOT NULL,
+  `id_pengguna` int NOT NULL,
+  `aktivitas` text COLLATE utf8mb4_general_ci NOT NULL,
+  `waktu` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data untuk tabel `log_aktivitas`
+-- Dumping data for table `log_aktivitas`
 --
 
 INSERT INTO `log_aktivitas` (`id`, `id_pengguna`, `aktivitas`, `waktu`) VALUES
@@ -468,117 +469,121 @@ INSERT INTO `log_aktivitas` (`id`, `id_pengguna`, `aktivitas`, `waktu`) VALUES
 (77, 2, 'Status kasus ID 10 diperbarui menjadi \"Selesai\"', '2025-05-27 10:00:10'),
 (78, 2, 'Status kasus ID 10 diubah menjadi \'Selesai\'', '2025-05-27 10:00:10'),
 (79, 2, 'Status kasus ID 9 diperbarui menjadi \"Selesai\"', '2025-05-27 10:00:13'),
-(80, 2, 'Status kasus ID 9 diubah menjadi \'Selesai\'', '2025-05-27 10:00:13');
+(80, 2, 'Status kasus ID 9 diubah menjadi \'Selesai\'', '2025-05-27 10:00:13'),
+(81, 9, 'Status kasus ID 46 diperbarui menjadi \"Diproses\"', '2025-06-17 03:30:29'),
+(82, 9, 'Status kasus ID 46 diubah menjadi \'Diproses\'', '2025-06-17 03:30:29'),
+(83, 9, 'Status kasus ID 46 diperbarui menjadi \"Selesai\"', '2025-06-17 03:30:35'),
+(84, 9, 'Status kasus ID 46 diubah menjadi \'Selesai\'', '2025-06-17 03:30:35');
 
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `log_pertanyaan_user`
+-- Table structure for table `log_pertanyaan_user`
 --
 
 CREATE TABLE `log_pertanyaan_user` (
-  `id` int(11) NOT NULL,
-  `user_id` int(11) DEFAULT NULL,
-  `pertanyaan` text NOT NULL,
-  `intent_didapat` varchar(100) DEFAULT NULL,
+  `id` int NOT NULL,
+  `user_id` int DEFAULT NULL,
+  `pertanyaan` text COLLATE utf8mb4_general_ci NOT NULL,
+  `intent_didapat` varchar(100) COLLATE utf8mb4_general_ci DEFAULT NULL,
   `confidence_score` decimal(5,2) DEFAULT NULL,
-  `waktu` timestamp NULL DEFAULT current_timestamp()
+  `waktu` timestamp NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data untuk tabel `log_pertanyaan_user`
+-- Dumping data for table `log_pertanyaan_user`
 --
 
 INSERT INTO `log_pertanyaan_user` (`id`, `user_id`, `pertanyaan`, `intent_didapat`, `confidence_score`, `waktu`) VALUES
-(1, NULL, 'hallo', NULL, 0.00, '2025-05-16 09:16:05'),
-(2, NULL, 'hallo', NULL, 0.00, '2025-05-16 09:16:26'),
-(3, NULL, 'Kontrak kerja', 'kontrak kerja', 1.00, '2025-05-16 11:08:38'),
-(4, NULL, 'Apa itu KDRT', 'kdrt', 0.50, '2025-05-16 11:55:11'),
-(5, NULL, 'KDRT', 'kdrt', 1.00, '2025-05-16 11:55:21'),
-(6, NULL, 'tes', NULL, 0.00, '2025-05-16 13:08:27'),
-(7, NULL, 'tes', NULL, 0.00, '2025-05-16 13:10:03'),
-(8, NULL, 'hallo', NULL, 0.00, '2025-05-16 13:11:50'),
-(9, NULL, 'tes', NULL, 0.00, '2025-05-16 13:16:21'),
-(10, NULL, 'tes', NULL, 0.00, '2025-05-16 13:16:25'),
-(11, NULL, 'tes', NULL, 0.00, '2025-05-16 13:16:36'),
-(12, NULL, 'tes', NULL, 0.00, '2025-05-16 13:17:47'),
-(13, NULL, 'tes', NULL, 0.00, '2025-05-16 13:17:52'),
-(14, NULL, 'tes', NULL, 0.00, '2025-05-16 13:22:39'),
-(15, NULL, 'tes', NULL, 0.00, '2025-05-16 13:22:44'),
-(16, NULL, 'apa itu uu ite', 'ite', 0.57, '2025-05-16 13:26:42'),
-(17, NULL, 'a', NULL, 0.00, '2025-05-16 13:38:50'),
-(18, NULL, 'a', NULL, 0.00, '2025-05-16 13:38:53'),
-(19, NULL, 'sdasdas', NULL, 0.00, '2025-05-16 13:38:58'),
-(20, NULL, 'a', NULL, 0.00, '2025-05-16 13:42:38'),
-(21, NULL, 'a', NULL, 0.00, '2025-05-16 13:42:41'),
-(22, NULL, 'tes', NULL, 0.00, '2025-05-16 13:51:34'),
-(23, NULL, 'aaas', NULL, 0.00, '2025-05-16 14:01:26'),
-(24, NULL, 'apa itu KDRT', 'kdrt', 0.50, '2025-05-16 18:31:50'),
-(25, NULL, 'APA ITU uu ite', 'ite', 0.57, '2025-05-16 18:32:31'),
-(26, NULL, 'hallo', NULL, 0.00, '2025-05-16 18:32:40'),
-(27, NULL, 'hallo', NULL, 0.00, '2025-05-16 20:18:44'),
-(28, NULL, 'perceraian', 'perceraian', 1.00, '2025-05-16 21:26:04'),
-(29, NULL, 'saya punya masalah perceraian', 'perceraian', 0.53, '2025-05-16 21:26:26'),
-(30, NULL, 'berikan solusi nya', NULL, 0.00, '2025-05-16 21:26:35'),
-(31, NULL, 'apa itu uu ite', 'ite', 0.57, '2025-05-17 03:34:23'),
-(32, NULL, 'hukum', 'warisan', 0.62, '2025-05-18 12:28:09'),
-(33, NULL, 'halo', NULL, 0.00, '2025-05-18 12:28:20'),
-(34, NULL, 'kdrt', 'kdrt', 1.00, '2025-05-19 04:06:05'),
-(35, NULL, 'haki', 'hak cipta', 1.00, '2025-05-19 04:08:28'),
-(36, NULL, 'pidana', NULL, 0.00, '2025-05-19 04:10:30'),
-(37, NULL, 'perdata', NULL, 0.00, '2025-05-19 04:10:36'),
-(38, NULL, 'penipuan', 'penipuan', 1.00, '2025-05-19 04:20:12'),
-(39, NULL, 'apa hukum pidana', 'definisi_hukum_pidana', 0.83, '2025-05-19 04:22:49'),
-(40, NULL, 'perdata', 'definisi_hukum_perdata', 0.67, '2025-05-19 04:22:56'),
-(41, NULL, 'apa cerdas hukum', 'apa_itu_cerdas_hukum', 0.87, '2025-05-19 04:29:15'),
-(42, NULL, 'bagaimana cara pendaftaran advokat', 'cara_daftar_lawyer', 0.61, '2025-05-19 04:37:24'),
-(43, NULL, 'bagaimana verifikasi advokat', 'cara_forgot_password', 0.56, '2025-05-19 04:37:43'),
-(44, NULL, 'bagaimana alur login', 'cara_login', 0.51, '2025-05-19 04:37:58'),
-(45, NULL, 'berita', NULL, 0.00, '2025-05-19 04:38:24'),
-(46, NULL, 'bagaimana cara konsultasi', 'cara_konsultasi', 0.74, '2025-05-19 04:38:51'),
-(47, NULL, 'chat pengacara', 'fitur_chat_pengacara', 1.00, '2025-05-19 04:46:41'),
-(48, NULL, 'profil', 'cara_edit_profil', 0.71, '2025-05-19 04:47:15'),
-(49, NULL, 'kontol', NULL, 0.00, '2025-05-19 05:06:21'),
-(50, NULL, 'ajukan kasus', 'cara_ajukan_kasus', 0.83, '2025-05-19 05:06:28'),
-(51, NULL, 'bagaimana cara login', 'cara_login', 0.64, '2025-05-19 05:06:36'),
-(52, NULL, 'apa yang dimaksud hukum pidana', 'definisi_hukum_pidana', 0.59, '2025-05-19 08:38:51'),
-(53, NULL, 'bagaimana cara konsultasi', 'cara_konsultasi', 0.74, '2025-05-19 08:41:52'),
-(54, NULL, 'halo', NULL, 0.00, '2025-05-20 04:08:55'),
-(55, NULL, 'apa itu hukum?', 'definisi_hukum_adat', 0.83, '2025-05-20 04:16:21'),
-(56, NULL, 'hukum', 'hak_asasi_manusia', 0.73, '2025-05-20 04:16:31'),
-(57, NULL, 'siapa pendiri cerdas hukum', 'pendiri_cerdas_hukum', 0.87, '2025-05-20 04:20:45'),
-(58, NULL, 'cara ajukan kasus', 'cara_ajukan_kasus', 1.00, '2025-05-20 04:24:31'),
-(59, NULL, 'cara konsultasi', 'cara_konsultasi', 1.00, '2025-05-20 04:24:46'),
-(60, NULL, 'cara komsultasi', 'cara_konsultasi', 0.85, '2025-05-20 04:25:03'),
-(61, NULL, 'halo', 'sapaan_halo', 1.00, '2025-05-27 09:13:05'),
-(62, NULL, 'bagaimana cara konsultasi', 'cara_konsultasi', 0.74, '2025-05-27 09:13:18'),
-(63, NULL, 'tes', 'tes', 1.00, '2025-05-29 11:18:48'),
-(64, NULL, 'tes edit', 'tes edit', 1.00, '2025-05-29 11:19:21'),
-(65, NULL, 'halo', 'sapaan_halo', 1.00, '2025-06-06 13:24:23'),
-(66, NULL, 'apa itu hukum', 'definisi_hukum', 1.00, '2025-06-06 13:24:45'),
-(67, NULL, 'apa itu cerdas hukum', 'apa_itu_cerdas_hukum', 1.00, '2025-06-06 13:25:05'),
-(68, NULL, 'apa saja fitur cerdas hukum', 'fitur_platform', 0.81, '2025-06-06 13:25:37');
+(1, NULL, 'hallo', NULL, '0.00', '2025-05-16 09:16:05'),
+(2, NULL, 'hallo', NULL, '0.00', '2025-05-16 09:16:26'),
+(3, NULL, 'Kontrak kerja', 'kontrak kerja', '1.00', '2025-05-16 11:08:38'),
+(4, NULL, 'Apa itu KDRT', 'kdrt', '0.50', '2025-05-16 11:55:11'),
+(5, NULL, 'KDRT', 'kdrt', '1.00', '2025-05-16 11:55:21'),
+(6, NULL, 'tes', NULL, '0.00', '2025-05-16 13:08:27'),
+(7, NULL, 'tes', NULL, '0.00', '2025-05-16 13:10:03'),
+(8, NULL, 'hallo', NULL, '0.00', '2025-05-16 13:11:50'),
+(9, NULL, 'tes', NULL, '0.00', '2025-05-16 13:16:21'),
+(10, NULL, 'tes', NULL, '0.00', '2025-05-16 13:16:25'),
+(11, NULL, 'tes', NULL, '0.00', '2025-05-16 13:16:36'),
+(12, NULL, 'tes', NULL, '0.00', '2025-05-16 13:17:47'),
+(13, NULL, 'tes', NULL, '0.00', '2025-05-16 13:17:52'),
+(14, NULL, 'tes', NULL, '0.00', '2025-05-16 13:22:39'),
+(15, NULL, 'tes', NULL, '0.00', '2025-05-16 13:22:44'),
+(16, NULL, 'apa itu uu ite', 'ite', '0.57', '2025-05-16 13:26:42'),
+(17, NULL, 'a', NULL, '0.00', '2025-05-16 13:38:50'),
+(18, NULL, 'a', NULL, '0.00', '2025-05-16 13:38:53'),
+(19, NULL, 'sdasdas', NULL, '0.00', '2025-05-16 13:38:58'),
+(20, NULL, 'a', NULL, '0.00', '2025-05-16 13:42:38'),
+(21, NULL, 'a', NULL, '0.00', '2025-05-16 13:42:41'),
+(22, NULL, 'tes', NULL, '0.00', '2025-05-16 13:51:34'),
+(23, NULL, 'aaas', NULL, '0.00', '2025-05-16 14:01:26'),
+(24, NULL, 'apa itu KDRT', 'kdrt', '0.50', '2025-05-16 18:31:50'),
+(25, NULL, 'APA ITU uu ite', 'ite', '0.57', '2025-05-16 18:32:31'),
+(26, NULL, 'hallo', NULL, '0.00', '2025-05-16 18:32:40'),
+(27, NULL, 'hallo', NULL, '0.00', '2025-05-16 20:18:44'),
+(28, NULL, 'perceraian', 'perceraian', '1.00', '2025-05-16 21:26:04'),
+(29, NULL, 'saya punya masalah perceraian', 'perceraian', '0.53', '2025-05-16 21:26:26'),
+(30, NULL, 'berikan solusi nya', NULL, '0.00', '2025-05-16 21:26:35'),
+(31, NULL, 'apa itu uu ite', 'ite', '0.57', '2025-05-17 03:34:23'),
+(32, NULL, 'hukum', 'warisan', '0.62', '2025-05-18 12:28:09'),
+(33, NULL, 'halo', NULL, '0.00', '2025-05-18 12:28:20'),
+(34, NULL, 'kdrt', 'kdrt', '1.00', '2025-05-19 04:06:05'),
+(35, NULL, 'haki', 'hak cipta', '1.00', '2025-05-19 04:08:28'),
+(36, NULL, 'pidana', NULL, '0.00', '2025-05-19 04:10:30'),
+(37, NULL, 'perdata', NULL, '0.00', '2025-05-19 04:10:36'),
+(38, NULL, 'penipuan', 'penipuan', '1.00', '2025-05-19 04:20:12'),
+(39, NULL, 'apa hukum pidana', 'definisi_hukum_pidana', '0.83', '2025-05-19 04:22:49'),
+(40, NULL, 'perdata', 'definisi_hukum_perdata', '0.67', '2025-05-19 04:22:56'),
+(41, NULL, 'apa cerdas hukum', 'apa_itu_cerdas_hukum', '0.87', '2025-05-19 04:29:15'),
+(42, NULL, 'bagaimana cara pendaftaran advokat', 'cara_daftar_lawyer', '0.61', '2025-05-19 04:37:24'),
+(43, NULL, 'bagaimana verifikasi advokat', 'cara_forgot_password', '0.56', '2025-05-19 04:37:43'),
+(44, NULL, 'bagaimana alur login', 'cara_login', '0.51', '2025-05-19 04:37:58'),
+(45, NULL, 'berita', NULL, '0.00', '2025-05-19 04:38:24'),
+(46, NULL, 'bagaimana cara konsultasi', 'cara_konsultasi', '0.74', '2025-05-19 04:38:51'),
+(47, NULL, 'chat pengacara', 'fitur_chat_pengacara', '1.00', '2025-05-19 04:46:41'),
+(48, NULL, 'profil', 'cara_edit_profil', '0.71', '2025-05-19 04:47:15'),
+(49, NULL, 'kontol', NULL, '0.00', '2025-05-19 05:06:21'),
+(50, NULL, 'ajukan kasus', 'cara_ajukan_kasus', '0.83', '2025-05-19 05:06:28'),
+(51, NULL, 'bagaimana cara login', 'cara_login', '0.64', '2025-05-19 05:06:36'),
+(52, NULL, 'apa yang dimaksud hukum pidana', 'definisi_hukum_pidana', '0.59', '2025-05-19 08:38:51'),
+(53, NULL, 'bagaimana cara konsultasi', 'cara_konsultasi', '0.74', '2025-05-19 08:41:52'),
+(54, NULL, 'halo', NULL, '0.00', '2025-05-20 04:08:55'),
+(55, NULL, 'apa itu hukum?', 'definisi_hukum_adat', '0.83', '2025-05-20 04:16:21'),
+(56, NULL, 'hukum', 'hak_asasi_manusia', '0.73', '2025-05-20 04:16:31'),
+(57, NULL, 'siapa pendiri cerdas hukum', 'pendiri_cerdas_hukum', '0.87', '2025-05-20 04:20:45'),
+(58, NULL, 'cara ajukan kasus', 'cara_ajukan_kasus', '1.00', '2025-05-20 04:24:31'),
+(59, NULL, 'cara konsultasi', 'cara_konsultasi', '1.00', '2025-05-20 04:24:46'),
+(60, NULL, 'cara komsultasi', 'cara_konsultasi', '0.85', '2025-05-20 04:25:03'),
+(61, NULL, 'halo', 'sapaan_halo', '1.00', '2025-05-27 09:13:05'),
+(62, NULL, 'bagaimana cara konsultasi', 'cara_konsultasi', '0.74', '2025-05-27 09:13:18'),
+(63, NULL, 'tes', 'tes', '1.00', '2025-05-29 11:18:48'),
+(64, NULL, 'tes edit', 'tes edit', '1.00', '2025-05-29 11:19:21'),
+(65, NULL, 'halo', 'sapaan_halo', '1.00', '2025-06-06 13:24:23'),
+(66, NULL, 'apa itu hukum', 'definisi_hukum', '1.00', '2025-06-06 13:24:45'),
+(67, NULL, 'apa itu cerdas hukum', 'apa_itu_cerdas_hukum', '1.00', '2025-06-06 13:25:05'),
+(68, NULL, 'apa saja fitur cerdas hukum', 'fitur_platform', '0.81', '2025-06-06 13:25:37');
 
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `messages`
+-- Table structure for table `messages`
 --
 
 CREATE TABLE `messages` (
-  `id` int(11) NOT NULL,
-  `sender_id` int(11) NOT NULL,
-  `sender_role` enum('user','pengacara') NOT NULL,
-  `receiver_id` int(11) NOT NULL,
-  `receiver_role` enum('user','pengacara') NOT NULL,
-  `message` text NOT NULL,
-  `file` varchar(255) DEFAULT NULL,
-  `timestamp` datetime DEFAULT current_timestamp(),
-  `is_read` tinyint(1) DEFAULT 0
+  `id` int NOT NULL,
+  `sender_id` int NOT NULL,
+  `sender_role` enum('user','pengacara') COLLATE utf8mb4_general_ci NOT NULL,
+  `receiver_id` int NOT NULL,
+  `receiver_role` enum('user','pengacara') COLLATE utf8mb4_general_ci NOT NULL,
+  `message` text COLLATE utf8mb4_general_ci NOT NULL,
+  `file` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `timestamp` datetime DEFAULT CURRENT_TIMESTAMP,
+  `is_read` tinyint(1) DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data untuk tabel `messages`
+-- Dumping data for table `messages`
 --
 
 INSERT INTO `messages` (`id`, `sender_id`, `sender_role`, `receiver_id`, `receiver_role`, `message`, `file`, `timestamp`, `is_read`) VALUES
@@ -688,79 +693,79 @@ INSERT INTO `messages` (`id`, `sender_id`, `sender_role`, `receiver_id`, `receiv
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `pendaftaran_pengacara`
+-- Table structure for table `pendaftaran_pengacara`
 --
 
 CREATE TABLE `pendaftaran_pengacara` (
-  `id` int(11) NOT NULL,
-  `nama` varchar(100) NOT NULL,
-  `ktp` varchar(30) NOT NULL,
+  `id` int NOT NULL,
+  `nama` varchar(100) COLLATE utf8mb4_general_ci NOT NULL,
+  `ktp` varchar(30) COLLATE utf8mb4_general_ci NOT NULL,
   `tanggal_lahir` date NOT NULL,
-  `jenis_kelamin` enum('Laki-laki','Perempuan') NOT NULL,
-  `alamat` text NOT NULL,
-  `email` varchar(100) NOT NULL,
-  `no_hp` varchar(20) NOT NULL,
-  `nomor_induk_advokat` varchar(50) NOT NULL,
-  `universitas` varchar(100) NOT NULL,
-  `pendidikan` varchar(100) NOT NULL,
-  `spesialisasi` varchar(150) NOT NULL,
-  `pengalaman` int(11) NOT NULL,
-  `upload_ktp` varchar(255) DEFAULT NULL,
-  `upload_foto` varchar(255) DEFAULT NULL,
-  `upload_kartu_advokat` varchar(255) DEFAULT NULL,
-  `upload_pkpa` varchar(255) DEFAULT NULL,
-  `username` varchar(100) NOT NULL,
-  `password` varchar(255) NOT NULL,
-  `tanggal_daftar` datetime DEFAULT current_timestamp(),
-  `linkedin` varchar(255) DEFAULT NULL,
-  `instagram` varchar(255) DEFAULT NULL,
-  `twitter` varchar(255) DEFAULT NULL,
-  `resume_cv` varchar(255) DEFAULT NULL,
-  `portofolio` varchar(255) DEFAULT NULL
+  `jenis_kelamin` enum('Laki-laki','Perempuan') COLLATE utf8mb4_general_ci NOT NULL,
+  `alamat` text COLLATE utf8mb4_general_ci NOT NULL,
+  `email` varchar(100) COLLATE utf8mb4_general_ci NOT NULL,
+  `no_hp` varchar(20) COLLATE utf8mb4_general_ci NOT NULL,
+  `nomor_induk_advokat` varchar(50) COLLATE utf8mb4_general_ci NOT NULL,
+  `universitas` varchar(100) COLLATE utf8mb4_general_ci NOT NULL,
+  `pendidikan` varchar(100) COLLATE utf8mb4_general_ci NOT NULL,
+  `spesialisasi` varchar(150) COLLATE utf8mb4_general_ci NOT NULL,
+  `pengalaman` int NOT NULL,
+  `upload_ktp` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `upload_foto` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `upload_kartu_advokat` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `upload_pkpa` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `username` varchar(100) COLLATE utf8mb4_general_ci NOT NULL,
+  `password` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
+  `tanggal_daftar` datetime DEFAULT CURRENT_TIMESTAMP,
+  `linkedin` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `instagram` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `twitter` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `resume_cv` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `portofolio` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `pengacara`
+-- Table structure for table `pengacara`
 --
 
 CREATE TABLE `pengacara` (
-  `id` int(11) NOT NULL,
-  `nama` varchar(100) NOT NULL,
-  `ktp` varchar(30) NOT NULL,
+  `id` int NOT NULL,
+  `nama` varchar(100) COLLATE utf8mb4_general_ci NOT NULL,
+  `ktp` varchar(30) COLLATE utf8mb4_general_ci NOT NULL,
   `tanggal_lahir` date NOT NULL,
-  `jenis_kelamin` enum('Laki-laki','Perempuan') NOT NULL,
-  `alamat` text NOT NULL,
-  `email` varchar(100) NOT NULL,
-  `no_hp` varchar(20) NOT NULL,
-  `nomor_induk_advokat` varchar(50) NOT NULL,
-  `universitas` varchar(100) NOT NULL,
-  `pendidikan` varchar(100) NOT NULL,
-  `spesialisasi` varchar(150) NOT NULL,
-  `pengalaman` int(11) NOT NULL,
-  `upload_ktp` varchar(255) DEFAULT NULL,
-  `upload_foto` varchar(255) DEFAULT NULL,
-  `upload_kartu_advokat` varchar(255) DEFAULT NULL,
-  `upload_pkpa` varchar(255) DEFAULT NULL,
-  `username` varchar(50) NOT NULL,
-  `password` varchar(255) NOT NULL,
-  `tanggal_daftar` datetime DEFAULT current_timestamp(),
-  `linkedin` varchar(255) DEFAULT NULL,
-  `instagram` varchar(255) DEFAULT NULL,
-  `twitter` varchar(255) DEFAULT NULL,
-  `bank_name` varchar(100) DEFAULT NULL,
-  `account_name` varchar(255) DEFAULT NULL,
-  `account_number` varchar(50) DEFAULT NULL,
-  `resume_cv` varchar(255) DEFAULT NULL,
-  `portofolio` varchar(255) DEFAULT NULL,
-  `harga_konsultasi` int(11) NOT NULL DEFAULT 50000,
-  `reset_token` varchar(255) DEFAULT NULL,
+  `jenis_kelamin` enum('Laki-laki','Perempuan') COLLATE utf8mb4_general_ci NOT NULL,
+  `alamat` text COLLATE utf8mb4_general_ci NOT NULL,
+  `email` varchar(100) COLLATE utf8mb4_general_ci NOT NULL,
+  `no_hp` varchar(20) COLLATE utf8mb4_general_ci NOT NULL,
+  `nomor_induk_advokat` varchar(50) COLLATE utf8mb4_general_ci NOT NULL,
+  `universitas` varchar(100) COLLATE utf8mb4_general_ci NOT NULL,
+  `pendidikan` varchar(100) COLLATE utf8mb4_general_ci NOT NULL,
+  `spesialisasi` varchar(150) COLLATE utf8mb4_general_ci NOT NULL,
+  `pengalaman` int NOT NULL,
+  `upload_ktp` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `upload_foto` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `upload_kartu_advokat` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `upload_pkpa` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `username` varchar(50) COLLATE utf8mb4_general_ci NOT NULL,
+  `password` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
+  `tanggal_daftar` datetime DEFAULT CURRENT_TIMESTAMP,
+  `linkedin` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `instagram` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `twitter` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `bank_name` varchar(100) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `account_name` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `account_number` varchar(50) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `resume_cv` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `portofolio` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `harga_konsultasi` int NOT NULL DEFAULT '50000',
+  `reset_token` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
   `reset_token_expiry` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data untuk tabel `pengacara`
+-- Dumping data for table `pengacara`
 --
 
 INSERT INTO `pengacara` (`id`, `nama`, `ktp`, `tanggal_lahir`, `jenis_kelamin`, `alamat`, `email`, `no_hp`, `nomor_induk_advokat`, `universitas`, `pendidikan`, `spesialisasi`, `pengalaman`, `upload_ktp`, `upload_foto`, `upload_kartu_advokat`, `upload_pkpa`, `username`, `password`, `tanggal_daftar`, `linkedin`, `instagram`, `twitter`, `bank_name`, `account_name`, `account_number`, `resume_cv`, `portofolio`, `harga_konsultasi`, `reset_token`, `reset_token_expiry`) VALUES
@@ -789,74 +794,109 @@ INSERT INTO `pengacara` (`id`, `nama`, `ktp`, `tanggal_lahir`, `jenis_kelamin`, 
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `pengguna`
+-- Table structure for table `pengguna`
 --
 
 CREATE TABLE `pengguna` (
-  `id` int(11) NOT NULL,
-  `nama` varchar(100) NOT NULL,
-  `email` varchar(100) NOT NULL,
-  `password_hash` varchar(255) NOT NULL,
-  `no_hp` varchar(15) DEFAULT NULL,
-  `alamat` text DEFAULT NULL,
-  `tanggal_daftar` timestamp NOT NULL DEFAULT current_timestamp()
+  `id` int NOT NULL,
+  `nama` varchar(100) COLLATE utf8mb4_general_ci NOT NULL,
+  `email` varchar(100) COLLATE utf8mb4_general_ci NOT NULL,
+  `password_hash` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
+  `no_hp` varchar(15) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `alamat` text COLLATE utf8mb4_general_ci,
+  `tanggal_daftar` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `tanya_jawab`
+-- Table structure for table `review_pengacara`
+--
+
+CREATE TABLE `review_pengacara` (
+  `id` int NOT NULL,
+  `pengacara_id` int NOT NULL,
+  `user_id` int NOT NULL,
+  `kasus_id` int DEFAULT NULL,
+  `konsultasi_id` int DEFAULT NULL,
+  `rating` tinyint NOT NULL,
+  `komentar` text,
+  `tanggal_review` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+--
+-- Dumping data for table `review_pengacara`
+--
+
+INSERT INTO `review_pengacara` (`id`, `pengacara_id`, `user_id`, `kasus_id`, `konsultasi_id`, `rating`, `komentar`, `tanggal_review`) VALUES
+(1, 9, 2, 7, NULL, 5, 'Sangat profesional dan membantu saya memahami hak waris keluarga. Penjelasannya detail dan mudah dimengerti. Sangat direkomendasikan!', '2025-05-15 03:00:00'),
+(2, 3, 2, 10, NULL, 4, 'Proses pembuatan dokumen perjanjian berjalan lancar. Ada beberapa revisi kecil tapi secara keseluruhan pelayanannya memuaskan.', '2025-05-20 04:30:00'),
+(3, 1, 14, NULL, 6, 3, 'Sesi konsultasi cukup baik, tapi saya berharap bisa mendapatkan jawaban yang lebih mendalam. Terasa sedikit terburu-buru.', '2025-05-16 02:00:00'),
+(4, 2, 14, NULL, 17, 5, 'Luar biasa! Ibu Siti sangat ahli dalam hukum pidana. Saya merasa lebih tenang setelah berkonsultasi. Terima kasih banyak.', '2025-05-28 11:00:00'),
+(5, 7, 2, NULL, 1, 4, 'Pelayanan cepat dan tanggap. Memberikan pandangan hukum yang jelas untuk masalah bisnis saya.', '2025-05-15 07:00:00'),
+(6, 1, 1, 6, NULL, 5, 'Kasus KDRT yang saya ajukan ditangani dengan sangat baik dan penuh empati. Hasilnya juga memuaskan. Terima kasih Pak Fauzi.', '2025-05-13 08:00:00'),
+(7, 3, 14, NULL, 16, 2, 'Kurang puas, responnya agak lambat dan solusi yang diberikan terasa umum. Tidak sesuai ekspektasi saya.', '2025-05-28 13:15:00'),
+(8, 9, 2, 8, NULL, 5, 'Pendampingan yang sangat solid. Pak Andi selalu siap sedia memberikan update dan saran. Highly recommended!', '2025-05-16 10:00:00'),
+(9, 4, 1, NULL, NULL, 4, 'Ulasan untuk pengacara yang kasusnya tidak tercatat di sistem. Secara umum pelayanannya baik.', '2025-06-01 03:00:00'),
+(10, 2, 1, NULL, 14, 5, 'Konsultasi hukum pidana yang sangat berbobot. Semua pertanyaan saya terjawab tuntas.', '2025-06-10 07:00:00'),
+(11, 2, 2, NULL, NULL, 5, 'bagus tes te', '2025-06-16 16:44:11'),
+(12, 1, 9, 46, NULL, 5, 'tes', '2025-06-17 04:34:48');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tanya_jawab`
 --
 
 CREATE TABLE `tanya_jawab` (
-  `id` int(11) NOT NULL,
-  `id_pengguna` int(11) NOT NULL,
-  `id_pengacara` int(11) NOT NULL,
-  `pertanyaan` text NOT NULL,
-  `jawaban` text DEFAULT NULL,
-  `status` enum('Menunggu','Dijawab') DEFAULT 'Menunggu',
-  `tanggal_tanya` timestamp NOT NULL DEFAULT current_timestamp(),
+  `id` int NOT NULL,
+  `id_pengguna` int NOT NULL,
+  `id_pengacara` int NOT NULL,
+  `pertanyaan` text COLLATE utf8mb4_general_ci NOT NULL,
+  `jawaban` text COLLATE utf8mb4_general_ci,
+  `status` enum('Menunggu','Dijawab') COLLATE utf8mb4_general_ci DEFAULT 'Menunggu',
+  `tanggal_tanya` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `tanggal_jawab` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `transaksi`
+-- Table structure for table `transaksi`
 --
 
 CREATE TABLE `transaksi` (
-  `transaksi_id` int(11) NOT NULL,
-  `pengacara_id` int(11) NOT NULL,
-  `user_id` int(11) NOT NULL,
-  `amount` int(11) NOT NULL,
-  `status` enum('Pending','Success','Failed') NOT NULL DEFAULT 'Pending',
-  `tanggal_transaksi` datetime DEFAULT current_timestamp()
+  `transaksi_id` int NOT NULL,
+  `pengacara_id` int NOT NULL,
+  `user_id` int NOT NULL,
+  `amount` int NOT NULL,
+  `status` enum('Pending','Success','Failed') COLLATE utf8mb4_general_ci NOT NULL DEFAULT 'Pending',
+  `tanggal_transaksi` datetime DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `users`
+-- Table structure for table `users`
 --
 
 CREATE TABLE `users` (
-  `id` int(11) NOT NULL,
-  `name` varchar(100) NOT NULL,
-  `email` varchar(100) NOT NULL,
-  `phone` varchar(20) NOT NULL,
-  `password` varchar(255) NOT NULL,
-  `gender` enum('L','P') NOT NULL,
+  `id` int NOT NULL,
+  `name` varchar(100) COLLATE utf8mb4_general_ci NOT NULL,
+  `email` varchar(100) COLLATE utf8mb4_general_ci NOT NULL,
+  `phone` varchar(20) COLLATE utf8mb4_general_ci NOT NULL,
+  `password` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
+  `gender` enum('L','P') COLLATE utf8mb4_general_ci NOT NULL,
   `birthdate` date NOT NULL,
-  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
-  `address` varchar(255) DEFAULT NULL,
-  `photo` varchar(255) DEFAULT NULL,
-  `reset_token` varchar(255) DEFAULT NULL,
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `address` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `photo` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `reset_token` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
   `reset_token_expiry` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data untuk tabel `users`
+-- Dumping data for table `users`
 --
 
 INSERT INTO `users` (`id`, `name`, `email`, `phone`, `password`, `gender`, `birthdate`, `created_at`, `address`, `photo`, `reset_token`, `reset_token_expiry`) VALUES
@@ -884,38 +924,38 @@ INSERT INTO `users` (`id`, `name`, `email`, `phone`, `password`, `gender`, `birt
 --
 
 --
--- Indeks untuk tabel `admin`
+-- Indexes for table `admin`
 --
 ALTER TABLE `admin`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `email` (`email`);
 
 --
--- Indeks untuk tabel `ajukan_kasus`
+-- Indexes for table `ajukan_kasus`
 --
 ALTER TABLE `ajukan_kasus`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indeks untuk tabel `artikel`
+-- Indexes for table `artikel`
 --
 ALTER TABLE `artikel`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indeks untuk tabel `artikel_berita`
+-- Indexes for table `artikel_berita`
 --
 ALTER TABLE `artikel_berita`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indeks untuk tabel `faq_hukum`
+-- Indexes for table `faq_hukum`
 --
 ALTER TABLE `faq_hukum`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indeks untuk tabel `konsultasi`
+-- Indexes for table `konsultasi`
 --
 ALTER TABLE `konsultasi`
   ADD PRIMARY KEY (`id`),
@@ -923,54 +963,64 @@ ALTER TABLE `konsultasi`
   ADD KEY `id_pengacara` (`id_pengacara`);
 
 --
--- Indeks untuk tabel `konsultasi_session`
+-- Indexes for table `konsultasi_session`
 --
 ALTER TABLE `konsultasi_session`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `unik_session` (`user_id`,`pengacara_id`,`start_time`);
 
 --
--- Indeks untuk tabel `log_aktivitas`
+-- Indexes for table `log_aktivitas`
 --
 ALTER TABLE `log_aktivitas`
   ADD PRIMARY KEY (`id`),
   ADD KEY `id_pengguna` (`id_pengguna`);
 
 --
--- Indeks untuk tabel `log_pertanyaan_user`
+-- Indexes for table `log_pertanyaan_user`
 --
 ALTER TABLE `log_pertanyaan_user`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indeks untuk tabel `messages`
+-- Indexes for table `messages`
 --
 ALTER TABLE `messages`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indeks untuk tabel `pendaftaran_pengacara`
+-- Indexes for table `pendaftaran_pengacara`
 --
 ALTER TABLE `pendaftaran_pengacara`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `email` (`email`);
 
 --
--- Indeks untuk tabel `pengacara`
+-- Indexes for table `pengacara`
 --
 ALTER TABLE `pengacara`
   ADD PRIMARY KEY (`id`),
   ADD KEY `email` (`email`);
 
 --
--- Indeks untuk tabel `pengguna`
+-- Indexes for table `pengguna`
 --
 ALTER TABLE `pengguna`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `email` (`email`);
 
 --
--- Indeks untuk tabel `tanya_jawab`
+-- Indexes for table `review_pengacara`
+--
+ALTER TABLE `review_pengacara`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `idx_pengacara` (`pengacara_id`),
+  ADD KEY `idx_user` (`user_id`),
+  ADD KEY `fk_review_for_kasus` (`kasus_id`),
+  ADD KEY `fk_review_for_konsultasi` (`konsultasi_id`);
+
+--
+-- Indexes for table `tanya_jawab`
 --
 ALTER TABLE `tanya_jawab`
   ADD PRIMARY KEY (`id`),
@@ -978,7 +1028,7 @@ ALTER TABLE `tanya_jawab`
   ADD KEY `id_pengacara` (`id_pengacara`);
 
 --
--- Indeks untuk tabel `transaksi`
+-- Indexes for table `transaksi`
 --
 ALTER TABLE `transaksi`
   ADD PRIMARY KEY (`transaksi_id`),
@@ -986,138 +1036,153 @@ ALTER TABLE `transaksi`
   ADD KEY `user_id` (`user_id`);
 
 --
--- Indeks untuk tabel `users`
+-- Indexes for table `users`
 --
 ALTER TABLE `users`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `email` (`email`);
 
 --
--- AUTO_INCREMENT untuk tabel yang dibuang
+-- AUTO_INCREMENT for dumped tables
 --
 
 --
--- AUTO_INCREMENT untuk tabel `admin`
+-- AUTO_INCREMENT for table `admin`
 --
 ALTER TABLE `admin`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
--- AUTO_INCREMENT untuk tabel `ajukan_kasus`
+-- AUTO_INCREMENT for table `ajukan_kasus`
 --
 ALTER TABLE `ajukan_kasus`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=46;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=47;
 
 --
--- AUTO_INCREMENT untuk tabel `artikel`
+-- AUTO_INCREMENT for table `artikel`
 --
 ALTER TABLE `artikel`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=40;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=40;
 
 --
--- AUTO_INCREMENT untuk tabel `artikel_berita`
+-- AUTO_INCREMENT for table `artikel_berita`
 --
 ALTER TABLE `artikel_berita`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
--- AUTO_INCREMENT untuk tabel `faq_hukum`
+-- AUTO_INCREMENT for table `faq_hukum`
 --
 ALTER TABLE `faq_hukum`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=106;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=106;
 
 --
--- AUTO_INCREMENT untuk tabel `konsultasi`
+-- AUTO_INCREMENT for table `konsultasi`
 --
 ALTER TABLE `konsultasi`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT untuk tabel `konsultasi_session`
+-- AUTO_INCREMENT for table `konsultasi_session`
 --
 ALTER TABLE `konsultasi_session`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=36;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=36;
 
 --
--- AUTO_INCREMENT untuk tabel `log_aktivitas`
+-- AUTO_INCREMENT for table `log_aktivitas`
 --
 ALTER TABLE `log_aktivitas`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=81;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=85;
 
 --
--- AUTO_INCREMENT untuk tabel `log_pertanyaan_user`
+-- AUTO_INCREMENT for table `log_pertanyaan_user`
 --
 ALTER TABLE `log_pertanyaan_user`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=69;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=69;
 
 --
--- AUTO_INCREMENT untuk tabel `messages`
+-- AUTO_INCREMENT for table `messages`
 --
 ALTER TABLE `messages`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=103;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=103;
 
 --
--- AUTO_INCREMENT untuk tabel `pendaftaran_pengacara`
+-- AUTO_INCREMENT for table `pendaftaran_pengacara`
 --
 ALTER TABLE `pendaftaran_pengacara`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
--- AUTO_INCREMENT untuk tabel `pengacara`
+-- AUTO_INCREMENT for table `pengacara`
 --
 ALTER TABLE `pengacara`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
 
 --
--- AUTO_INCREMENT untuk tabel `pengguna`
+-- AUTO_INCREMENT for table `pengguna`
 --
 ALTER TABLE `pengguna`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT untuk tabel `tanya_jawab`
+-- AUTO_INCREMENT for table `review_pengacara`
+--
+ALTER TABLE `review_pengacara`
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+
+--
+-- AUTO_INCREMENT for table `tanya_jawab`
 --
 ALTER TABLE `tanya_jawab`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT untuk tabel `transaksi`
+-- AUTO_INCREMENT for table `transaksi`
 --
 ALTER TABLE `transaksi`
-  MODIFY `transaksi_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `transaksi_id` int NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT untuk tabel `users`
+-- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
 
 --
--- Ketidakleluasaan untuk tabel pelimpahan (Dumped Tables)
+-- Constraints for dumped tables
 --
 
 --
--- Ketidakleluasaan untuk tabel `konsultasi`
+-- Constraints for table `konsultasi`
 --
 ALTER TABLE `konsultasi`
   ADD CONSTRAINT `konsultasi_ibfk_1` FOREIGN KEY (`id_pengguna`) REFERENCES `pengguna` (`id`) ON DELETE CASCADE,
   ADD CONSTRAINT `konsultasi_ibfk_2` FOREIGN KEY (`id_pengacara`) REFERENCES `pengacara` (`id`) ON DELETE CASCADE;
 
 --
--- Ketidakleluasaan untuk tabel `log_aktivitas`
+-- Constraints for table `log_aktivitas`
 --
 ALTER TABLE `log_aktivitas`
   ADD CONSTRAINT `fk_log_user` FOREIGN KEY (`id_pengguna`) REFERENCES `users` (`id`) ON DELETE CASCADE;
 
 --
--- Ketidakleluasaan untuk tabel `tanya_jawab`
+-- Constraints for table `review_pengacara`
+--
+ALTER TABLE `review_pengacara`
+  ADD CONSTRAINT `fk_review_for_kasus` FOREIGN KEY (`kasus_id`) REFERENCES `ajukan_kasus` (`id`) ON DELETE SET NULL ON UPDATE CASCADE,
+  ADD CONSTRAINT `fk_review_for_konsultasi` FOREIGN KEY (`konsultasi_id`) REFERENCES `konsultasi_session` (`id`) ON DELETE SET NULL ON UPDATE CASCADE,
+  ADD CONSTRAINT `fk_review_from_user` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `fk_review_to_pengacara` FOREIGN KEY (`pengacara_id`) REFERENCES `pengacara` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `tanya_jawab`
 --
 ALTER TABLE `tanya_jawab`
   ADD CONSTRAINT `tanya_jawab_ibfk_1` FOREIGN KEY (`id_pengguna`) REFERENCES `pengguna` (`id`) ON DELETE CASCADE,
   ADD CONSTRAINT `tanya_jawab_ibfk_2` FOREIGN KEY (`id_pengacara`) REFERENCES `pengacara` (`id`) ON DELETE CASCADE;
 
 --
--- Ketidakleluasaan untuk tabel `transaksi`
+-- Constraints for table `transaksi`
 --
 ALTER TABLE `transaksi`
   ADD CONSTRAINT `fk_pengacara_id` FOREIGN KEY (`pengacara_id`) REFERENCES `pengacara` (`id`) ON DELETE CASCADE,
