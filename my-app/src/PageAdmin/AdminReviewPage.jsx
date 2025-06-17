@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import AdminLayout from "../components/AdminLayout";
 import '../CSS_Admin/AdminReview.css';
 
 const StarRating = ({ rating }) => {
@@ -88,6 +89,7 @@ const AdminReviewPage = () => {
     if (error) return <p style={{ color: 'red', textAlign: 'center' }}>{error}</p>;
 
     return (
+ <AdminLayout>
         <div className="admin-review-container">
             <h1>Manajemen Ulasan Pengacara</h1>
             <button onClick={() => setShowAddForm(!showAddForm)} className="add-review-button">
@@ -121,6 +123,7 @@ const AdminReviewPage = () => {
                  <form onSubmit={(e) => e.preventDefault()}><table><thead><tr><th>ID</th><th>Pengacara</th><th>Pengguna</th><th>Rating</th><th>Komentar</th><th>Tanggal</th><th style={{width: '180px'}}>Aksi</th></tr></thead><tbody>{filteredReviews.map(review => (<tr key={review.id}>{(editingReviewId === review.id) ? (<><td>{review.id}</td><td>{review.pengacara_name}</td><td>{review.user_name}</td><td><input type="number" name="rating" min="1" max="5" value={editFormData.rating} onChange={handleEditFormChange} style={{width: '50px'}} /></td><td><textarea name="komentar" value={editFormData.komentar} onChange={handleEditFormChange} rows="3" style={{width: '100%'}}></textarea></td><td>{new Date(review.tanggal_review).toLocaleDateString('id-ID')}</td><td><button type="button" className="save-button" onClick={() => handleUpdateSubmit(review.id)}>Simpan</button><button type="button" className="cancel-button" onClick={handleCancelClick}>Batal</button></td></>) : (<><td>{review.id}</td><td>{review.pengacara_name}</td><td>{review.user_name}</td><td><StarRating rating={review.rating} /></td><td>{review.komentar || '-'}</td><td>{new Date(review.tanggal_review).toLocaleDateString('id-ID')}</td><td><button type="button" className="edit-button" onClick={() => handleEditClick(review)}>Edit</button><button type="button" className="delete-button" onClick={() => handleDelete(review.id)}>Hapus</button></td></>)}</tr>))}</tbody></table></form>
             </div>
         </div>
+        </AdminLayout>
     );
 };
 

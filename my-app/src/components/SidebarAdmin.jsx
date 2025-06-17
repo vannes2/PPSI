@@ -1,13 +1,16 @@
 import { useEffect, useState } from "react";
 import {
+    // ... (ikon yang sudah ada)
     HiBars3, HiChevronDoubleLeft, HiChevronDoubleRight, HiOutlineHome, 
     HiOutlineUserGroup, HiOutlineDocumentText, HiOutlineNewspaper, 
     HiOutlineCurrencyDollar, HiOutlineQuestionMarkCircle, HiOutlineClock, 
-    HiOutlineArchiveBox, HiOutlineClipboardDocumentCheck
+    HiOutlineArchiveBox, HiOutlineClipboardDocumentCheck,
+    // --- TAMBAHKAN IKON BARU INI ---
+    HiOutlineChatBubbleBottomCenterText 
 } from "react-icons/hi2";
 import { Link, useLocation } from "react-router-dom";
 import axios from "axios";
-import "./SidebarAdmin.css"; // Pastikan file CSS ini yang digunakan
+import "./SidebarAdmin.css";
 
 const SidebarAdmin = () => {
     const [admin, setAdmin] = useState({ name: "", email: "", upload_foto: "" });
@@ -15,7 +18,9 @@ const SidebarAdmin = () => {
     const [openSubmenu, setOpenSubmenu] = useState({});
     
     const location = useLocation();
-    const activeTab = location.pathname.split('/').filter(Boolean).pop() || 'dashboard';
+    // Perbaikan kecil pada activeTab untuk menangani path admin
+    const pathParts = location.pathname.split('/').filter(Boolean);
+    const activeTab = pathParts.length > 1 ? pathParts[1] : pathParts[0] || 'dashboard';
 
     const menuItems = [
         { id: 'dashboard', label: 'Dashboard', icon: HiOutlineHome, path: '/admin/dashboard' },
@@ -28,6 +33,9 @@ const SidebarAdmin = () => {
                 { id: 'Transaksi', label: 'Transaksi Pengacara', path: '/Transaksi' },
             ]
         },
+        // --- TAMBAHKAN ITEM MENU BARU DI SINI ---
+        { id: 'AdminReviewPage', label: 'Manajemen Ulasan', icon: HiOutlineChatBubbleBottomCenterText, path: '/AdminReviewPage' },
+        // ---
         { id: 'TambahArtikel', label: 'Tambah Artikel', icon: HiOutlineDocumentText, path: '/TambahArtikel' },
         { id: 'ArtikelBeritaAdmin', label: 'Artikel Berita', icon: HiOutlineNewspaper, path: '/ArtikelBeritaAdmin' },
         { id: 'TransaksiKeuangan', label: 'Transaksi Keuangan', icon: HiOutlineCurrencyDollar, path: '/TransaksiKeuangan' },
@@ -41,7 +49,7 @@ const SidebarAdmin = () => {
         if (parentMenu) {
             setOpenSubmenu({ [parentMenu.id]: true });
         }
-    }, [location.pathname]); // Dijalankan hanya saat path berubah
+    }, [location.pathname]);
 
     useEffect(() => {
         const handleResize = () => {
@@ -65,8 +73,11 @@ const SidebarAdmin = () => {
 
     const toggleSidebar = () => setIsCollapsed(!isCollapsed);
     const handleLinkClick = () => { if (window.innerWidth <= 768) setIsCollapsed(true); };
-    const handleSubmenuToggle = (id) => setOpenSubmenu(prev => ({ [id]: !prev[id] }));
-    const isSubmenuActive = (item) => item.submenu?.some(sub => sub.id === activeTab);
+    const handleSubmenuToggle = (id) => setOpenSubmenu(prev => ({ ...prev, [id]: !prev[id] }));
+    const isSubmenuActive = (item) => item.submenu?.some(sub => {
+        const subPathId = sub.path.split('/').filter(Boolean).pop();
+        return subPathId === activeTab;
+    });
 
     return (
         <>
@@ -74,7 +85,6 @@ const SidebarAdmin = () => {
             {!isCollapsed && window.innerWidth <= 768 && <div className="overlay" onClick={toggleSidebar}></div>}
 
             <aside className={`sidebar ${isCollapsed ? "collapsed" : ""}`}>
-                {/* [PERBAIKAN] Area Brand/Logo dan Tombol Toggle digabung di atas */}
                 <div className="sidebar-brand">
                     {!isCollapsed && (
                         <button className="sidebar-toggle" onClick={toggleSidebar}>
@@ -86,7 +96,7 @@ const SidebarAdmin = () => {
                 <nav className="sidebar-nav">
                     <ul>
                         <li className="nav-item-profile">
-                             <Link to="/ProfilAdmin" className="profile-link" onClick={handleLinkClick}>
+                            <Link to="/ProfilAdmin" className="profile-link" onClick={handleLinkClick}>
                                 <img
                                     src={admin.upload_foto ? `http://localhost:5000/uploads/${admin.upload_foto}` : "/assets/images/admin-avatar.png"}
                                     alt="Admin Avatar"
@@ -100,10 +110,7 @@ const SidebarAdmin = () => {
                                 )}
                             </Link>
                         </li>
-
-                        {/* Pemisah visual */}
                         <li className="nav-separator"></li>
-
                         {menuItems.map(item => (
                             <li key={item.id} className={`nav-item ${item.submenu ? 'has-submenu' : ''} ${isSubmenuActive(item) ? "nav-active" : ""} ${openSubmenu[item.id] ? 'submenu-open' : ''}`}>
                                 {item.submenu ? (
@@ -115,13 +122,16 @@ const SidebarAdmin = () => {
                                         </button>
                                         {!isCollapsed && (
                                             <ul className="submenu-list">
-                                                {item.submenu.map(subItem => (
-                                                    <li key={subItem.id} className={activeTab === subItem.id ? "submenu-active" : ""}>
-                                                        <Link to={subItem.path} onClick={handleLinkClick}>
-                                                            {subItem.label}
-                                                        </Link>
-                                                    </li>
-                                                ))}
+                                                {item.submenu.map(subItem => {
+                                                    const subItemId = subItem.path.split('/').filter(Boolean).pop();
+                                                    return (
+                                                        <li key={subItem.id} className={activeTab === subItemId ? "submenu-active" : ""}>
+                                                            <Link to={subItem.path} onClick={handleLinkClick}>
+                                                                {subItem.label}
+                                                            </Link>
+                                                        </li>
+                                                    )
+                                                })}
                                             </ul>
                                         )}
                                     </>
@@ -136,7 +146,6 @@ const SidebarAdmin = () => {
                     </ul>
                 </nav>
 
-                {/* Tombol toggle saat sidebar diciutkan */}
                 {isCollapsed && (
                     <button className="sidebar-toggle-collapsed" onClick={toggleSidebar}>
                         <HiChevronDoubleRight />
