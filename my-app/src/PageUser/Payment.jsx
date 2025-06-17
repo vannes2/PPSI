@@ -1,14 +1,14 @@
 import { useEffect, useState } from "react";
-import { useLocation, useNavigate, Link } from "react-router-dom"; // Import Link
+import { useLocation, useNavigate, Link } from "react-router-dom";
 import HeaderAfter from "../components/HeaderAfter";
 import Footer from "../components/Footer";
 import "../CSS_User/Payment.css";
-
 import { Mail, BookText, GraduationCap, Briefcase } from "lucide-react";
 
 const Payment = () => {
   const { state } = useLocation();
   const [advokat, setAdvokat] = useState(null);
+  const [rating, setRating] = useState(0); // Tambahan rating state
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [duration, setDuration] = useState(30);
@@ -20,15 +20,17 @@ const Payment = () => {
 
     const getAdvokat = async () => {
       try {
-        // Asumsi endpoint ini mengembalikan array, dan kita mencari yang sesuai
         const res = await fetch("http://localhost:5000/api/profilpengacara");
         const data = await res.json();
         const found = data.find((p) => p.id === state.pengacaraId);
         if (found) {
           setAdvokat(found);
-          // Mengatur maxDuration berdasarkan pengalaman jika pengalaman adalah tahun
-          // 1 tahun pengalaman = 60 menit durasi maksimal
-          setMaxDuration(found.pengalaman * 60); 
+          setMaxDuration(found.pengalaman * 60);
+
+          // 🎯 Tambahkan fetch rating di sini
+          const ratingRes = await fetch(`http://localhost:5000/api/reviews/rating/${found.id}`);
+          const ratingData = await ratingRes.json();
+          setRating(ratingData.average_rating || 0);
         } else {
           setError("Advokat tidak ditemukan.");
         }
@@ -44,9 +46,7 @@ const Payment = () => {
 
   const handlePayment = () => {
     if (!advokat) return;
-
-    // Pastikan advokat.harga_konsultasi digunakan di sini. Fallback ke 50000 jika null/undefined
-    const hargaPerUnit = advokat.harga_konsultasi || 50000; 
+    const hargaPerUnit = advokat.harga_konsultasi || 50000;
     const totalPrice = (duration / 30) * hargaPerUnit;
 
     navigate("/PaymentCheckout", {
@@ -85,8 +85,33 @@ const Payment = () => {
                   ) : (
                     <div className="photo-placeholder">Tidak ada foto</div>
                   )}
+
                   <h3 className="photo-name">{advokat.nama}</h3>
-                  {/* Tombol detail tidak lagi di sini, dipindahkan ke button-wrapper */}
+
+                  {/* ⭐ RATING */}
+                  <div className="rating-stars">
+                    {(() => {
+                      const fullStars = Math.floor(rating);
+                      const hasHalfStar =
+                        rating - fullStars >= 0.25 && rating - fullStars < 0.75;
+                      const emptyStars = 5 - fullStars - (hasHalfStar ? 1 : 0);
+
+                      return (
+                        <>
+                          {[...Array(fullStars)].map((_, i) => (
+                            <span key={`full-${i}`} className="star full">★</span>
+                          ))}
+                          {hasHalfStar && <span className="star half">⯪</span>}
+                          {[...Array(emptyStars)].map((_, i) => (
+                            <span key={`empty-${i}`} className="star empty">★</span>
+                          ))}
+                        </>
+                      );
+                    })()}
+                    <span className="rating-number">
+                      ({isNaN(Number(rating)) ? "0.0" : Number(rating).toFixed(1)})
+                    </span>
+                  </div>
                 </div>
 
                 <div className="info-section">
@@ -129,11 +154,12 @@ const Payment = () => {
 
                     <div className="info-row total">
                       <span>Total Biaya:</span>
-                      <span>Rp {(duration / 30 * (advokat.harga_konsultasi || 50000)).toLocaleString("id-ID")}</span>
+                      <span>
+                        Rp {(duration / 30 * (advokat.harga_konsultasi || 50000)).toLocaleString("id-ID")}
+                      </span>
                     </div>
                   </div>
 
-                  {/* BUTTON WRAPPER - Tombol Bayar Sekarang dan Detail Advokat */}
                   <div className="button-wrapper button-group-horizontal">
                     <Link to={`/pengacara/detail/${advokat.id}`} className="btn-payment">
                       Detail Pengacara

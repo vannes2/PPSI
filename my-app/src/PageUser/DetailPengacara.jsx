@@ -12,6 +12,7 @@ import { faLinkedin, faInstagram, faTwitter } from "@fortawesome/free-brands-svg
 const DetailPengacara = () => {
   const { id } = useParams();
   const [pengacara, setPengacara] = useState(null);
+  const [rating, setRating] = useState(0); // ✅ Tambahan state rating
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
@@ -30,6 +31,12 @@ const DetailPengacara = () => {
         }
         const data = await response.json();
         setPengacara(data);
+
+        // ✅ Ambil rating
+        const ratingRes = await fetch(`http://localhost:5000/api/reviews/rating/${id}`);
+        const ratingData = await ratingRes.json();
+        setRating(ratingData.average_rating || 0);
+
         setError(null);
       } catch (err) {
         setError(err.message);
@@ -48,7 +55,7 @@ const DetailPengacara = () => {
   return (
     <div className="detail-page">
       <HeaderAfter />
-      <br /><br /><br /><br /><br /><br />
+      <br /><br /><br />
 
       <div className="detail-container">
         <div className="main-detail-card">
@@ -68,12 +75,37 @@ const DetailPengacara = () => {
                 }}
                 className="detail-photo"
               />
+              <h3 className="photo-name">{pengacara.nama}</h3>
+
+              {/* ⭐ RATING BINTANG */}
+              <div className="rating-stars">
+                {(() => {
+                  const fullStars = Math.floor(rating);
+                  const hasHalfStar = rating - fullStars >= 0.25 && rating - fullStars < 0.75;
+                  const emptyStars = 5 - fullStars - (hasHalfStar ? 1 : 0);
+
+                  return (
+                    <>
+                      {[...Array(fullStars)].map((_, i) => (
+                        <span key={`full-${i}`} className="star full">★</span>
+                      ))}
+                      {hasHalfStar && <span className="star half">⯪</span>}
+                      {[...Array(emptyStars)].map((_, i) => (
+                        <span key={`empty-${i}`} className="star empty">★</span>
+                      ))}
+                    </>
+                  );
+                })()}
+                <span className="rating-number">
+                  ({isNaN(Number(rating)) ? "0.0" : Number(rating).toFixed(1)})
+                </span>
+              </div>
             </div>
 
             {/* Informasi Pengacara */}
             <div className="detail-info">
-            <h2>Detail Pengacara</h2>
-            <br />
+              <h2>Detail Pengacara</h2>
+              <br />
               <div>
                 <p><strong>Nama:</strong> <span>{pengacara.nama}</span></p>
                 <p><strong>Jenis Kelamin:</strong> <span>{pengacara.jenis_kelamin}</span></p>
@@ -93,11 +125,9 @@ const DetailPengacara = () => {
           <div className="additional-info-card">
             <h3>Informasi Tambahan</h3>
             <div className="additional-info-content">
-              {/* Resume/CV */}
               {pengacara.resume_cv && (
                 <div className="resume-section">
                   <p className="info-item">
-                    <strong></strong>{" "}
                     <a
                       href={`http://localhost:5000/uploads/${pengacara.resume_cv}`}
                       target="_blank"
@@ -110,35 +140,19 @@ const DetailPengacara = () => {
                 </div>
               )}
 
-              {/* Media Sosial */}
               <div className="social-media-links">
                 {pengacara.linkedin && (
-                  <a
-                    href={pengacara.linkedin}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="social-icon-link"
-                  >
+                  <a href={pengacara.linkedin} target="_blank" rel="noopener noreferrer" className="social-icon-link">
                     <FontAwesomeIcon icon={faLinkedin} size="2x" className="linkedin-color" />
                   </a>
                 )}
                 {pengacara.instagram && (
-                  <a
-                    href={pengacara.instagram}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="social-icon-link"
-                  >
+                  <a href={pengacara.instagram} target="_blank" rel="noopener noreferrer" className="social-icon-link">
                     <FontAwesomeIcon icon={faInstagram} size="2x" className="instagram-color" />
                   </a>
                 )}
                 {pengacara.twitter && (
-                  <a
-                    href={pengacara.twitter}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="social-icon-link"
-                  >
+                  <a href={pengacara.twitter} target="_blank" rel="noopener noreferrer" className="social-icon-link">
                     <FontAwesomeIcon icon={faTwitter} size="2x" className="twitter-color" />
                   </a>
                 )}
@@ -147,8 +161,7 @@ const DetailPengacara = () => {
           </div>
         </div>
       </div>
-      <br /><br /><br /><br /><br /><br />
-      
+      <br /><br /><br />
       <div className="footer-separator"></div>
       <Footer />
     </div>
