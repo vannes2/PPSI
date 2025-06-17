@@ -2,23 +2,21 @@
 .daftar-kasus-page {
     background-color: #fefff0;
     padding-bottom: 2rem;
+    min-height: 100vh;
 }
 
 .daftar-kasus-page .daftar-kasus-wrapper {
     padding: 2.5rem;
-    background-color: #fefff0; /* Sama dengan body */
+    background-color: #fefff0;
     border-radius: 12px;
     margin: 3rem auto;
     max-width: 1100px;
-    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.07); /* Shadow biar gak nyatu */
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.07);
 }
 
-/* Layout Konten Utama (Tabel/Card List dan Info Samping) */
 .daftar-kasus-page .konten-kasus-layout {
-    display: flex; /* Menggunakan flexbox untuk layout utama */
-    gap: 2.5rem; /* Jarak antar kolom (tabel/card dan info samping) */
-    /* Di desktop, ini akan mengatur tabel/card dan info samping secara horizontal */
-    /* Di mobile, flex-direction akan diubah menjadi column */
+    display: flex;
+    gap: 2.5rem;
 }
 
 
@@ -96,8 +94,8 @@
 
 /* Styling Tabel Kasus (Default untuk Desktop) */
 .daftar-kasus-page .tabel-kasus-wrapper {
-    overflow-x: auto; /* Memungkinkan scroll horizontal jika tabel terlalu lebar */
-    flex-grow: 1; /* Biarkan wrapper tabel mengambil sisa ruang yang tersedia */
+    overflow-x: auto;
+    flex-grow: 1;
 }
 
 .daftar-kasus-page .tabel-kasus {
@@ -114,6 +112,7 @@
     padding: 14px 18px;
     text-align: left;
     border-bottom: 1px solid #eee;
+    vertical-align: middle;
 }
 
 .daftar-kasus-page .tabel-kasus th {
@@ -128,49 +127,49 @@
 
 /* Styling Card List (Defaultnya Disembunyikan di Desktop) */
 .daftar-kasus-page .card-list-wrapper {
-    display: none; /* Sembunyikan secara default di desktop */
-    flex-direction: column; /* Card akan disusun vertikal */
-    gap: 1rem; /* Jarak antar card */
-    flex-grow: 1; /* Biarkan wrapper card mengambil sisa ruang yang tersedia */
+    display: none;
+    flex-direction: column;
+    gap: 1rem;
+    flex-grow: 1;
 }
 
 .daftar-kasus-page .kasus-card {
-    background-color: #fff; /* Warna latar belakang putih */
-    border: 1px solid #eee; /* Border tipis abu-abu muda */
+    background-color: #fff;
+    border: 1px solid #eee;
     border-radius: 8px;
     padding: 1.5rem;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05); /* Shadow ringan */
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
     display: flex;
     flex-direction: column;
-    gap: 0.8rem; /* Jarak antar item di dalam card */
+    gap: 0.8rem;
 }
 
 .daftar-kasus-page .kasus-card:hover {
-    background-color: #fff6f6; /* Warna hover yang sudah ada */
-    border-color: #ffc6c6; /* Warna border hover yang sudah ada */
+    background-color: #fff6f6;
+    border-color: #ffc6c6;
 }
 
 .daftar-kasus-page .card-item {
     display: flex;
-    justify-content: space-between; /* Untuk meletakkan label dan value di sisi berlawanan */
+    justify-content: space-between;
     align-items: center;
-    padding-bottom: 0.5rem; /* Sedikit padding di bawah setiap item */
-    border-bottom: 1px dashed #eee; /* Garis putus-putus tipis antar item */
+    padding-bottom: 0.5rem;
+    border-bottom: 1px dashed #eee;
 }
 
 .daftar-kasus-page .card-item:last-child {
-    border-bottom: none; /* Hilangkan border bawah untuk item terakhir */
+    border-bottom: none;
     padding-bottom: 0;
 }
 
 .daftar-kasus-page .card-label {
     font-weight: 600;
-    color: #3b3b3b; /* Warna teks gelap */
+    color: #3b3b3b;
     font-size: 0.95rem;
 }
 
 .daftar-kasus-page .card-value {
-    color: #666; /* Warna teks abu-abu */
+    color: #666;
     font-size: 0.95rem;
     text-align: right;
 }
@@ -182,268 +181,112 @@
     background-color: #fff;
     border: 2px dashed #ccc;
     border-radius: 12px;
+    width: 100%;
 }
 
-.daftar-kasus-page .empty-icon {
-    width: 100px;
-    opacity: 0.4;
-}
-
-.daftar-kasus-page .empty-title {
-    font-size: 1.8rem;
-    margin-top: 1rem;
-    color: #3b3b3b;
-    font-weight: bold;
-}
-
-.daftar-kasus-page .empty-desc {
-    color: #666;
-    margin-bottom: 1rem;
-}
-
-.daftar-kasus-page .ajukan-btn-static {
-    background-color: #B31312;
-    color: #fff;
-    padding: 10px 22px;
-    border: none;
-    border-radius: 8px;
-    cursor: pointer;
-    font-weight: 600;
-    margin-top: 1rem;
-}
-
-.daftar-kasus-page .ajukan-btn-static:hover {
-    background-color: #fff;
-    color: #B31312;
-    border: 2px solid #B31312;
-}
+.daftar-kasus-page .empty-icon { width: 100px; opacity: 0.4; }
+.daftar-kasus-page .empty-title { font-size: 1.8rem; margin-top: 1rem; color: #3b3b3b; font-weight: bold; }
+.daftar-kasus-page .empty-desc { color: #666; margin-bottom: 1rem; }
+.daftar-kasus-page .ajukan-btn-static { background-color: #B31312; color: #fff; padding: 10px 22px; border: none; border-radius: 8px; cursor: pointer; font-weight: 600; margin-top: 1rem; }
+.daftar-kasus-page .ajukan-btn-static:hover { background-color: #fff; color: #B31312; border: 2px solid #B31312; }
 
 /* Styling Informasi Kasus Samping */
 .daftar-kasus-page .informasi-kasus-samping {
-    margin-top: 3rem; /* Akan di-reset di mobile */
+    margin-top: 0;
     background-color: #fff;
     border-left: 5px solid #B31312;
     padding: 1.5rem;
     border-radius: 10px;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.04);
+    align-self: flex-start; /* Agar tingginya sesuai konten */
 }
 
-.daftar-kasus-page .informasi-kasus-samping h3 {
-    color: #B31312;
-    margin-bottom: 1rem;
-    font-size: 1.4rem;
-}
+.daftar-kasus-page .informasi-kasus-samping h3 { color: #B31312; margin-bottom: 1rem; font-size: 1.4rem; }
+.daftar-kasus-page .informasi-kasus-samping li { color: #666; margin-bottom: 0.5rem; line-height: 1.6; font-size: 0.95rem; }
 
-.daftar-kasus-page .informasi-kasus-samping li {
-    color: #666;
-    margin-bottom: 0.5rem;
-    line-height: 1.6;
-    font-size: 0.95rem;
-}
-
-/* --- Media Queries untuk Responsive Design --- */
-
-/* Untuk layar lebih kecil dari 992px (tablet landscape dan ponsel besar) */
+/* --- Media Queries --- */
 @media (max-width: 992px) {
-    .daftar-kasus-page .daftar-kasus-wrapper {
-        padding: 2rem;
-        margin: 2rem auto;
-    }
-
-    .daftar-kasus-page .title {
-        font-size: 2rem;
-    }
-
-    .daftar-kasus-page .tab-container {
-        gap: 1rem;
-    }
-
-    .daftar-kasus-page .tab {
-        padding: 8px 15px;
-        font-size: 0.95rem;
-    }
-
-    .daftar-kasus-page .konten-kasus-layout {
-        flex-direction: column; /* Stack konten secara vertikal */
-        gap: 2.5rem;
-    }
-
-    .daftar-kasus-page .informasi-kasus-samping {
-        width: 100%; /* Ambil seluruh lebar */
-        order: -1; /* Pindahkan ke atas tabel/card (muncul duluan di mobile) */
-        margin-top: 0; /* Reset margin-top default */
-    }
-
-    /* Sembunyikan tabel desktop dan tampilkan card list di sini */
-    .daftar-kasus-page .tabel-kasus-wrapper {
-        display: none; /* Sembunyikan tabel tradisional */
-    }
-
-    .daftar-kasus-page .card-list-wrapper {
-        display: flex; /* Tampilkan card list */
-    }
-
-    .daftar-kasus-page .empty-state {
-        padding: 2rem;
-    }
-
-    .daftar-kasus-page .empty-title {
-        font-size: 1.6rem;
-    }
-
-    .daftar-kasus-page .empty-desc {
-        font-size: 0.9rem;
-    }
+    .daftar-kasus-page .daftar-kasus-wrapper { padding: 2rem; margin: 2rem auto; }
+    .daftar-kasus-page .title { font-size: 2rem; }
+    .daftar-kasus-page .tab-container { gap: 1rem; }
+    .daftar-kasus-page .tab { padding: 8px 15px; font-size: 0.95rem; }
+    .daftar-kasus-page .konten-kasus-layout { flex-direction: column; gap: 2.5rem; }
+    .daftar-kasus-page .informasi-kasus-samping { width: 100%; order: -1; margin-top: 0; }
+    .daftar-kasus-page .tabel-kasus-wrapper { display: none; }
+    .daftar-kasus-page .card-list-wrapper { display: flex; }
+    .daftar-kasus-page .empty-state { padding: 2rem; }
+    .daftar-kasus-page .empty-title { font-size: 1.6rem; }
+    .daftar-kasus-page .empty-desc { font-size: 0.9rem; }
 }
 
-/* Untuk layar lebih kecil dari 768px (tablet portrait dan ponsel) */
 @media (max-width: 768px) {
-    .daftar-kasus-page .daftar-kasus-wrapper {
-        padding: 1.5rem;
-        margin: 1.5rem auto;
-    }
-
-    .daftar-kasus-page .title {
-        font-size: 1.8rem;
-    }
-
-    .daftar-kasus-page .btn-ajukan-header {
-        padding: 10px 20px;
-        font-size: 0.9rem;
-    }
-
-    .daftar-kasus-page .tab-container {
-        flex-wrap: wrap; /* Memungkinkan tombol ke baris baru jika tidak cukup */
-        justify-content: center;
-        gap: 0.75rem;
-    }
-
-    .daftar-kasus-page .tab {
-        padding: 8px 12px;
-        font-size: 0.85rem;
-    }
-
-    /* Sesuaikan padding dan font size untuk card item */
-    .daftar-kasus-page .kasus-card {
-        padding: 1.2rem;
-        gap: 0.6rem;
-    }
-
-    .daftar-kasus-page .card-label {
-        font-size: 0.9rem;
-    }
-
-    .daftar-kasus-page .card-value {
-        font-size: 0.9rem;
-    }
-
-    .daftar-kasus-page .empty-icon {
-        width: 80px;
-    }
-
-    .daftar-kasus-page .empty-title {
-        font-size: 1.4rem;
-    }
-
-    .daftar-kasus-page .empty-desc {
-        font-size: 0.85rem;
-    }
-
-    .daftar-kasus-page .ajukan-btn-static {
-        padding: 8px 18px;
-        font-size: 0.9rem;
-    }
-
-    .daftar-kasus-page .informasi-kasus-samping h3 {
-        font-size: 1.2rem;
-    }
-
-    .daftar-kasus-page .informasi-kasus-samping li {
-        font-size: 0.85rem;
-    }
+    .daftar-kasus-page .daftar-kasus-wrapper { padding: 1.5rem; margin: 1.5rem auto; }
+    .daftar-kasus-page .title { font-size: 1.8rem; }
+    .daftar-kasus-page .btn-ajukan-header { padding: 10px 20px; font-size: 0.9rem; }
+    .daftar-kasus-page .tab-container { flex-wrap: wrap; justify-content: center; gap: 0.75rem; }
+    .daftar-kasus-page .tab { padding: 8px 12px; font-size: 0.85rem; }
+    .daftar-kasus-page .kasus-card { padding: 1.2rem; gap: 0.6rem; }
+    .daftar-kasus-page .card-label, .daftar-kasus-page .card-value { font-size: 0.9rem; }
+    .daftar-kasus-page .empty-icon { width: 80px; }
+    .daftar-kasus-page .empty-title { font-size: 1.4rem; }
+    .daftar-kasus-page .empty-desc { font-size: 0.85rem; }
+    .daftar-kasus-page .ajukan-btn-static { padding: 8px 18px; font-size: 0.9rem; }
+    .daftar-kasus-page .informasi-kasus-samping h3 { font-size: 1.2rem; }
+    .daftar-kasus-page .informasi-kasus-samping li { font-size: 0.85rem; }
 }
 
-/* Untuk layar lebih kecil dari 480px (mayoritas smartphone) */
 @media (max-width: 480px) {
-    .daftar-kasus-page .daftar-kasus-wrapper {
-        padding: 1rem;
-        margin: 1rem auto;
-    }
+    .daftar-kasus-page .daftar-kasus-wrapper { padding: 1rem; margin: 1rem auto; }
+    .daftar-kasus-page .title { font-size: 1.5rem; }
+    .daftar-kasus-page .btn-ajukan-header { width: 100%; margin-top: 1rem; }
+    .daftar-kasus-page .tab-container { flex-direction: row; flex-wrap: wrap; justify-content: center; gap: 0.5rem; }
+    .daftar-kasus-page .tab { padding: 10px 15px; border-radius: 8px; }
+    .daftar-kasus-page .kasus-card { padding: 1rem; gap: 0.5rem; }
+    .daftar-kasus-page .card-label, .daftar-kasus-page .card-value { font-size: 0.85rem; }
+    .daftar-kasus-page .empty-state { padding: 1.5rem; }
+    .daftar-kasus-page .empty-icon { width: 60px; }
+    .daftar-kasus-page .empty-title { font-size: 1.2rem; }
+    .daftar-kasus-page .empty-desc { font-size: 0.8rem; }
+    .daftar-kasus-page .ajukan-btn-static { width: 100%; padding: 10px 0; font-size: 1rem; }
+    .daftar-kasus-page .informasi-kasus-samping { padding: 1rem; }
+    .daftar-kasus-page .informasi-kasus-samping h3 { font-size: 1.1rem; text-align: center; }
+    .daftar-kasus-page .informasi-kasus-samping li { font-size: 0.8rem; }
+}
 
-    .daftar-kasus-page .title {
-        font-size: 1.5rem;
-    }
+/* --- STYLING BARU UNTUK TOMBOL ULASAN --- */
+/* Styling untuk Tombol Beri Ulasan */
+.daftar-kasus-page .btn-ulasan {
+    background-color: #B31312; /* DIUBAH: Warna merah primer */
+    color: #fff;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 6px;
+    font-weight: 500;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+    box-shadow: 0 2px 5px rgba(179, 19, 18, 0.2); /* DIUBAH: Shadow merah */
+}
 
-    .daftar-kasus-page .btn-ajukan-header {
-        width: 100%;
-        margin-top: 1rem;
-    }
+.daftar-kasus-page .btn-ulasan:hover {
+    background-color: #930f0e; /* DIUBAH: Warna merah lebih gelap saat hover */
+    box-shadow: 0 4px 10px rgba(179, 19, 18, 0.3);
+}
 
-    .daftar-kasus-page .tab-container {
-        /* Mengatur flex-direction menjadi row agar horizontal */
-        flex-direction: row;
-        /* Memungkinkan tombol untuk pindah ke baris baru jika tidak cukup ruang */
-        flex-wrap: wrap;
-        justify-content: center; /* Pusatkan tombol-tombol secara horizontal */
-        gap: 0.5rem; /* Jarak antar tombol di layar sangat kecil */
-        /* align-items: center; // Opsional: jika ingin tombol rata tengah secara vertikal di dalam container */
-    }
+.daftar-kasus-page .reviewed-text,
+.daftar-kasus-page table span.reviewed-text {
+    display: inline-block;
+    background-color: #e6f4ea; /* Warna hijau pucat */
+    color: #155724; /* Warna hijau tua untuk teks */
+    padding: 6px 12px;
+    border-radius: 15px; /* Bentuk pil */
+    font-weight: 500;
+    font-size: 0.85rem;
+}
 
-    .daftar-kasus-page .tab {
-        /* Hapus width: 90% agar tombol menyesuaikan lebarnya sendiri dan bisa berdampingan */
-        /* width: auto; */
-        text-align: center;
-        /* Sesuaikan padding horizontal agar tombol tidak terlalu sempit */
-        padding: 10px 15px;
-        border-radius: 8px;
-    }
-
-    /* Sesuaikan padding dan font size untuk card item di layar sangat kecil */
-    .daftar-kasus-page .kasus-card {
-        padding: 1rem;
-        gap: 0.5rem;
-    }
-
-    .daftar-kasus-page .card-label {
-        font-size: 0.85rem;
-    }
-
-    .daftar-kasus-page .card-value {
-        font-size: 0.85rem;
-    }
-
-    .daftar-kasus-page .empty-state {
-        padding: 1.5rem;
-    }
-
-    .daftar-kasus-page .empty-icon {
-        width: 60px;
-    }
-
-    .daftar-kasus-page .empty-title {
-        font-size: 1.2rem;
-    }
-
-    .daftar-kasus-page .empty-desc {
-        font-size: 0.8rem;
-    }
-
-    .daftar-kasus-page .ajukan-btn-static {
-        width: 100%;
-        padding: 10px 0;
-        font-size: 1rem;
-    }
-
-    .daftar-kasus-page .informasi-kasus-samping {
-        padding: 1rem;
-    }
-
-    .daftar-kasus-page .informasi-kasus-samping h3 {
-        font-size: 1.1rem;
-        text-align: center;
-    }
-
-    .daftar-kasus-page .informasi-kasus-samping li {
-        font-size: 0.8rem;
-    }
+.daftar-kasus-page .card-action {
+    margin-top: 1rem;
+    padding-top: 1rem;
+    border-top: 1px solid #eee;
+    text-align: right; /* Meletakkan tombol/status di sebelah kanan */
 }
