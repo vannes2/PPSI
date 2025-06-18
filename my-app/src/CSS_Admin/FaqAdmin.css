@@ -35,6 +35,7 @@
     background-color: var(--color-surface);
     border-radius: calc(var(--radius-main) * 1.5); /* Border radius lebih bulat */
     box-shadow: 0 6px 15px rgba(0, 0, 0, 0.25); /* Shadow lebih halus */
+    margin-left: 250px;
 }
 
 .faq-form .full-width {

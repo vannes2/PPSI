@@ -1,130 +1,332 @@
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import React, { useState, useEffect } from "react";
+import axios from "axios";
 import AdminLayout from "../components/AdminLayout";
-import '../CSS_Admin/AdminReview.css';
+import "../CSS_Admin/AdminReview.css";
 
-const StarRating = ({ rating }) => {
-    const stars = Array.from({ length: 5 }, (_, i) => (
-        <span key={i} style={{ color: i < rating ? '#ffc107' : '#e4e5e9' }}>&#9733;</span>
-    ));
-    return <div>{stars}</div>;
-};
+/* ───── Komponen Bintang ───── */
+const StarRating = ({ rating }) => (
+  <div className="star-rating">
+    {Array.from({ length: 5 }).map((_, i) => (
+      <span key={i} style={{ color: i < rating ? "#ffc107" : "#3d566e" }}>
+        &#9733;
+      </span>
+    ))}
+  </div>
+);
 
+/* ───── Halaman Admin Review ───── */
 const AdminReviewPage = () => {
-    const [allReviews, setAllReviews] = useState([]);
-    const [loading, setLoading] = useState(true);
-    const [error, setError] = useState(null);
-    const [searchTerm, setSearchTerm] = useState('');
-    const [editingReviewId, setEditingReviewId] = useState(null);
-    const [editFormData, setEditFormData] = useState({ rating: '', komentar: '' });
+  /* ---------- STATE ---------- */
+  const [allReviews, setAllReviews] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
-    const [showAddForm, setShowAddForm] = useState(false);
-    const [newReviewData, setNewReviewData] = useState({
-        pengacara_id: '',
-        user_id: '',
-        rating: 5,
-        komentar: ''
+  const [searchTerm, setSearchTerm] = useState("");
+  const [editingId, setEditingId] = useState(null);
+  const [editForm, setEditForm] = useState({ rating: "", komentar: "" });
+
+  const [showAddForm, setShowAddForm] = useState(false);
+  const [newReview, setNewReview] = useState({
+    pengacara_id: "",
+    user_id: "",
+    rating: 5,
+    komentar: "",
+  });
+
+  /* ---------- FETCH DATA ---------- */
+  useEffect(() => {
+    const controller = new AbortController();
+    (async () => {
+      try {
+        const res = await axios.get("http://localhost:5000/api/reviews/all", {
+          signal: controller.signal,
+        });
+        setAllReviews(res.data);
+      } catch (err) {
+        if (err.name !== "CanceledError") setError("Gagal memuat data ulasan.");
+      } finally {
+        setLoading(false);
+      }
+    })();
+    return () => controller.abort();
+  }, []);
+
+  /* ---------- HANDLER TAMBAH ---------- */
+  const handleNewChange = (e) =>
+    setNewReview({ ...newReview, [e.target.name]: e.target.value });
+
+  const handleNewSubmit = async (e) => {
+    e.preventDefault();
+    if (!newReview.pengacara_id || !newReview.user_id) {
+      return alert("Silakan isi ID Pengacara & ID Pengguna.");
+    }
+    try {
+      const { data } = await axios.post(
+        "http://localhost:5000/api/reviews/admin-create",
+        newReview
+      );
+      setAllReviews([data.review, ...allReviews]);
+      setShowAddForm(false);           // ← tutup form
+      setNewReview({ pengacara_id: "", user_id: "", rating: 5, komentar: "" });
+      alert("Ulasan berhasil ditambahkan!");
+    } catch {
+      alert("Gagal menambahkan ulasan.");
+    }
+  };
+
+  /* ---------- HANDLER EDIT ---------- */
+  const handleEditClick = (rv) => {
+    setEditingId(rv.id);
+    setEditForm({ rating: rv.rating, komentar: rv.komentar || "" });
+  };
+
+  const handleEditChange = (e) =>
+    setEditForm({
+      ...editForm,
+      [e.target.name]:
+        e.target.name === "rating" ? +e.target.value : e.target.value,
     });
 
-    useEffect(() => {
-        const controller = new AbortController();
-        const fetchAllReviews = async () => {
-            try {
-                setLoading(true);
-                // Hanya mengambil data ulasan
-                const response = await axios.get('http://localhost:5000/api/reviews/all', { signal: controller.signal });
-                setAllReviews(response.data);
-            } catch (err) {
-                if (err.name !== 'CanceledError') {
-                    setError('Gagal memuat data ulasan.');
-                }
-            } finally {
-                setLoading(false);
-            }
-        };
+  const handleUpdateSubmit = async (id) => {
+    try {
+      const { data } = await axios.put(
+        `http://localhost:5000/api/reviews/${id}`,
+        editForm
+      );
+      setAllReviews(
+        allReviews.map((rv) => (rv.id === id ? { ...rv, ...data.review } : rv))
+      );
+      setEditingId(null);
+      alert("Ulasan berhasil diperbarui.");
+    } catch {
+      alert("Gagal memperbarui ulasan.");
+    }
+  };
 
-        fetchAllReviews();
-        return () => { controller.abort(); };
-    }, []);
+  const handleCancel = () => setEditingId(null);
 
-    const handleNewReviewChange = (e) => {
-        const { name, value } = e.target;
-        setNewReviewData(prev => ({ ...prev, [name]: value }));
-    };
+  /* ---------- HANDLER DELETE ---------- */
+  const handleDelete = async (id) => {
+    if (!window.confirm("Apakah Anda yakin?")) return;
+    try {
+      await axios.delete(`http://localhost:5000/api/reviews/${id}`);
+      setAllReviews(allReviews.filter((rv) => rv.id !== id));
+      alert("Ulasan berhasil dihapus.");
+    } catch {
+      alert("Gagal menghapus ulasan.");
+    }
+  };
 
-    const handleNewReviewSubmit = async (e) => {
-        e.preventDefault();
-        if (!newReviewData.pengacara_id || !newReviewData.user_id) {
-            alert('Silakan isi ID Pengacara dan ID Pengguna.');
-            return;
-        }
-        try {
-            const response = await axios.post('http://localhost:5000/api/reviews/admin-create', newReviewData);
-            setAllReviews(prev => [response.data.review, ...prev]);
-            setShowAddForm(false);
-            setNewReviewData({ pengacara_id: '', user_id: '', rating: 5, komentar: '' });
-            alert('Ulasan baru berhasil ditambahkan!');
-        } catch (error) {
-            alert('Gagal menambahkan ulasan baru.');
-        }
-    };
-
-    const filteredReviews = allReviews.filter(review => {
-        const term = searchTerm.toLowerCase();
-        const hasKomentar = review.komentar && review.komentar.toLowerCase().includes(term);
-        const hasUserName = review.user_name && review.user_name.toLowerCase().includes(term);
-        const hasPengacaraName = review.pengacara_name && review.pengacara_name.toLowerCase().includes(term);
-        return hasKomentar || hasUserName || hasPengacaraName;
-    });
-
-    // ... (Fungsi handleEdit, handleCancel, handleUpdate, handleDelete tetap sama persis)
-    const handleEditClick = (review) => { setEditingReviewId(review.id); setEditFormData({ rating: review.rating, komentar: review.komentar || '' }); };
-    const handleCancelClick = () => { setEditingReviewId(null); };
-    const handleUpdateSubmit = async (reviewId) => { try { const response = await axios.put(`http://localhost:5000/api/reviews/${reviewId}`, editFormData); const updatedReview = response.data.review; setAllReviews(prev => prev.map(review => (review.id === reviewId ? { ...review, ...updatedReview } : review))); setEditingReviewId(null); alert('Ulasan berhasil diperbarui.'); } catch (error) { alert('Gagal memperbarui ulasan.'); } };
-    const handleEditFormChange = (e) => { const { name, value } = e.target; const processedValue = name === 'rating' ? parseInt(value, 10) || 0 : value; setEditFormData(prev => ({ ...prev, [name]: processedValue })); };
-    const handleDelete = async (reviewId) => { if (window.confirm('Apakah Anda yakin?')) { try { await axios.delete(`http://localhost:5000/api/reviews/${reviewId}`); setAllReviews(prev => prev.filter(review => review.id !== reviewId)); alert('Ulasan berhasil dihapus.'); } catch (err) { alert('Gagal menghapus ulasan.'); } } };
-
-
-    if (loading) return <p style={{ textAlign: 'center' }}>Memuat data...</p>;
-    if (error) return <p style={{ color: 'red', textAlign: 'center' }}>{error}</p>;
-
+  /* ---------- FILTER PENCARIAN ---------- */
+  const filtered = allReviews.filter((rv) => {
+    const t = searchTerm.toLowerCase();
     return (
- <AdminLayout>
-        <div className="admin-review-container">
-            <h1>Manajemen Ulasan Pengacara</h1>
-            <button onClick={() => setShowAddForm(!showAddForm)} className="add-review-button">
-                {showAddForm ? 'Tutup Form Tambah' : 'Tambah Ulasan Baru'}
-            </button>
-
-            {showAddForm && (
-                <div className="add-form-container">
-                    <h3>Form Tambah Ulasan Manual</h3>
-                    <form onSubmit={handleNewReviewSubmit}>
-                        <div className="form-grid">
-                            <input type="number" name="pengacara_id" placeholder="ID Pengacara" value={newReviewData.pengacara_id} onChange={handleNewReviewChange} required />
-                            <input type="number" name="user_id" placeholder="ID Pengguna" value={newReviewData.user_id} onChange={handleNewReviewChange} required />
-                            <input type="number" name="rating" min="1" max="5" value={newReviewData.rating} onChange={handleNewReviewChange} />
-                        </div>
-                        <textarea name="komentar" placeholder="Tulis komentar..." value={newReviewData.komentar} onChange={handleNewReviewChange} rows="3"></textarea>
-                        <button type="submit">Simpan Ulasan</button>
-                    </form>
-                </div>
-            )}
-
-            <input 
-                type="text"
-                placeholder="Cari ulasan..."
-                className="search-input"
-                value={searchTerm}
-                onChange={(e) => setSearchTerm(e.target.value)}
-            />
-            <div className="table-container">
-                 {/* ... (Isi tabel JSX tetap sama persis seperti kode sebelumnya) ... */}
-                 <form onSubmit={(e) => e.preventDefault()}><table><thead><tr><th>ID</th><th>Pengacara</th><th>Pengguna</th><th>Rating</th><th>Komentar</th><th>Tanggal</th><th style={{width: '180px'}}>Aksi</th></tr></thead><tbody>{filteredReviews.map(review => (<tr key={review.id}>{(editingReviewId === review.id) ? (<><td>{review.id}</td><td>{review.pengacara_name}</td><td>{review.user_name}</td><td><input type="number" name="rating" min="1" max="5" value={editFormData.rating} onChange={handleEditFormChange} style={{width: '50px'}} /></td><td><textarea name="komentar" value={editFormData.komentar} onChange={handleEditFormChange} rows="3" style={{width: '100%'}}></textarea></td><td>{new Date(review.tanggal_review).toLocaleDateString('id-ID')}</td><td><button type="button" className="save-button" onClick={() => handleUpdateSubmit(review.id)}>Simpan</button><button type="button" className="cancel-button" onClick={handleCancelClick}>Batal</button></td></>) : (<><td>{review.id}</td><td>{review.pengacara_name}</td><td>{review.user_name}</td><td><StarRating rating={review.rating} /></td><td>{review.komentar || '-'}</td><td>{new Date(review.tanggal_review).toLocaleDateString('id-ID')}</td><td><button type="button" className="edit-button" onClick={() => handleEditClick(review)}>Edit</button><button type="button" className="delete-button" onClick={() => handleDelete(review.id)}>Hapus</button></td></>)}</tr>))}</tbody></table></form>
-            </div>
-        </div>
-        </AdminLayout>
+      rv.komentar?.toLowerCase().includes(t) ||
+      rv.user_name?.toLowerCase().includes(t) ||
+      rv.pengacara_name?.toLowerCase().includes(t)
     );
+  });
+
+  /* ---------- UI LOADING / ERROR ---------- */
+  if (loading)
+    return (
+      <AdminLayout>
+        <div className="loading-state">Memuat data...</div>
+      </AdminLayout>
+    );
+  if (error)
+    return (
+      <AdminLayout>
+        <div className="error-state">{error}</div>
+      </AdminLayout>
+    );
+
+  /* ---------- RENDER ---------- */
+  return (
+    <AdminLayout>
+      <div className="admin-review-container">
+        <h1>Manajemen Ulasan Pengacara</h1>
+
+        {/* ===== Search & Add ===== */}
+        <div className="search-and-actions">
+          <input
+            className="search-input"
+            type="text"
+            placeholder="Cari ulasan..."
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+          />
+          <button
+            className="add-review-button"
+            onClick={() => setShowAddForm(!showAddForm)}
+          >
+            {showAddForm ? "Tutup Form" : "Tambah Ulasan Baru"}
+          </button>
+        </div>
+
+        {/* ===== Form Tambah (tampil jika showAddForm) ===== */}
+        {showAddForm && (
+          <div className="add-form-container">
+            <h3>Form Tambah Ulasan</h3>
+            <form onSubmit={handleNewSubmit}>
+              <div className="form-grid">
+                <input
+                  type="number"
+                  name="pengacara_id"
+                  placeholder="ID Pengacara"
+                  value={newReview.pengacara_id}
+                  onChange={handleNewChange}
+                  required
+                />
+                <input
+                  type="number"
+                  name="user_id"
+                  placeholder="ID Pengguna"
+                  value={newReview.user_id}
+                  onChange={handleNewChange}
+                  required
+                />
+                <input
+                  type="number"
+                  name="rating"
+                  min="1"
+                  max="5"
+                  value={newReview.rating}
+                  onChange={handleNewChange}
+                />
+              </div>
+              <textarea
+                name="komentar"
+                placeholder="Tulis komentar..."
+                rows="3"
+                value={newReview.komentar}
+                onChange={handleNewChange}
+              />
+              <button type="submit">Simpan Ulasan</button>
+            </form>
+          </div>
+        )}
+
+        {/* ===== Tabel (tampil hanya jika form TIDAK aktif) ===== */}
+        {!showAddForm && (
+          <div
+            className="table-container"
+            style={{ height: "70vh", minHeight: "600px" }}
+          >
+            <div className="table-responsive">
+              <table className="data-table">
+                <thead>
+                  <tr>
+                    <th>ID</th>
+                    <th>PENGACARA</th>
+                    <th>PENGGUNA</th>
+                    <th>RATING</th>
+                    <th>KOMENTAR</th>
+                    <th>TANGGAL</th>
+                    <th>AKSI</th>
+                  </tr>
+                </thead>
+
+                <tbody>
+                  {filtered.map((rv) => (
+                    <tr key={rv.id}>
+                      <td>{rv.id}</td>
+                      <td>{rv.pengacara_name}</td>
+                      <td>{rv.user_name}</td>
+
+                      <td>
+                        {editingId === rv.id ? (
+                          <input
+                            type="number"
+                            name="rating"
+                            min="1"
+                            max="5"
+                            value={editForm.rating}
+                            onChange={handleEditChange}
+                            style={{ width: 60 }}
+                          />
+                        ) : (
+                          <StarRating rating={rv.rating} />
+                        )}
+                      </td>
+
+                      <td className="comment-cell">
+                        {editingId === rv.id ? (
+                          <textarea
+                            name="komentar"
+                            rows="3"
+                            value={editForm.komentar}
+                            onChange={handleEditChange}
+                          />
+                        ) : (
+                          rv.komentar || "-"
+                        )}
+                      </td>
+
+                      <td>
+                        {new Date(rv.tanggal_review).toLocaleDateString("id-ID")}
+                      </td>
+
+                      <td className="action-cell">
+                        {editingId === rv.id ? (
+                          <div className="action-buttons">
+                            <button
+                              type="button"
+                              className="save-button"
+                              onClick={() => handleUpdateSubmit(rv.id)}
+                            >
+                              Simpan
+                            </button>
+                            <button
+                              type="button"
+                              className="cancel-button"
+                              onClick={handleCancel}
+                            >
+                              Batal
+                            </button>
+                          </div>
+                        ) : (
+                          <div className="action-buttons">
+                            <button
+                              type="button"
+                              className="edit-button"
+                              onClick={() => handleEditClick(rv)}
+                            >
+                              Edit
+                            </button>
+                            <button
+                              type="button"
+                              className="delete-button"
+                              onClick={() => handleDelete(rv.id)}
+                            >
+                              Hapus
+                            </button>
+                          </div>
+                        )}
+                      </td>
+                    </tr>
+                  ))}
+
+                  {/* Baris kosong agar tabel penuh 6 baris */}
+                  {Array.from({ length: Math.max(0, 6 - filtered.length) }).map(
+                    (_, i) => (
+                      <tr key={`empty-${i}`} className="empty-row">
+                        <td colSpan="7">&nbsp;</td>
+                      </tr>
+                    )
+                  )}
+                </tbody>
+              </table>
+            </div>
+
+            <div className="table-footer">
+              Menampilkan {filtered.length} dari {allReviews.length} ulasan
+            </div>
+          </div>
+        )}
+      </div>
+    </AdminLayout>
+  );
 };
 
 export default AdminReviewPage;

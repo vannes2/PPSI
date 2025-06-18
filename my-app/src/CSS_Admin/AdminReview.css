@@ -1,176 +1,447 @@
-/* --- Container & Layout Utama --- */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
+
+:root {
+    --color-background: #1f2b38;
+    --color-surface-1: #2c3e50;
+    --color-surface-2: #34495e;
+    --color-accent-1: #f39c12;
+    --color-accent-2: #e67e22;
+    --color-text-primary: #ecf0f1;
+    --color-text-secondary: #a3b1c2;
+    --color-border: #3d566e;
+    --color-success: #27ae60;
+    --color-danger: #c0392b;
+    --color-info: #3498db;
+    --radius-sm: 8px;
+    --radius-md: 14px;
+    --radius-lg: 20px;
+    --spacing-md: 1.5rem;
+    --spacing-lg: 2rem;
+    --transition-smooth: all 0.3s ease;
+    --shadow-soft: 0 4px 12px rgba(0,0,0,0.15);
+    --shadow-medium: 0 6px 18px rgba(0,0,0,0.20);
+}
+
+/* Container Utama */
 .admin-review-container {
-    max-width: 1200px;
-    margin: 2rem auto;
-    padding: 2rem;
-    background-color: #ffffff;
-    border-radius: 12px;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+    max-width: 1400px;
+    margin: var(--spacing-lg) auto;
+    padding: var(--spacing-lg);
+    background-color: var(--color-surface-1);
+    border-radius: var(--radius-lg);
+    border: 1px solid var(--color-border);
+    box-shadow: var(--shadow-soft);
     font-family: 'Poppins', sans-serif;
+    color: var(--color-text-primary);
+    min-height: 80vh;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
 }
 
 .admin-review-container h1 {
     text-align: center;
-    color: #333;
-    margin-bottom: 2rem;
+    margin-bottom: 1rem;
+    font-weight: 700;
+    font-size: 2rem;
+    background: linear-gradient(90deg,var(--color-accent-1),var(--color-accent-2));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
 }
 
-/* --- Form Tambah Data --- */
-.add-review-button {
-    display: block;
-    margin-bottom: 1.5rem;
-    padding: 10px 20px;
+/* Search dan Actions */
+.search-and-actions {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1.5rem;
+    margin-bottom: 1rem;
+}
+
+.search-input {
+    flex: 1;
+    padding: 0.8rem 1rem;
+    background: var(--color-surface-2);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-sm);
+    color: var(--color-text-primary);
     font-size: 1rem;
-    font-weight: 500;
-    color: #fff;
-    background-color: #007bff;
-    border: none;
-    border-radius: 6px;
-    cursor: pointer;
-    transition: background-color 0.2s ease-in-out;
 }
 
-.add-review-button:hover {
-    background-color: #0056b3;
+.search-input::placeholder {
+    color: var(--color-text-secondary);
 }
 
+.search-input:focus {
+    outline: none;
+    border-color: var(--color-accent-1);
+    box-shadow: 0 0 0 2px rgba(243,156,18,0.25);
+}
+
+.button-group {
+    display: flex;
+    gap: 1rem;
+}
+
+/* Form Tambah */
 .add-form-container {
-    padding: 1.5rem;
-    background-color: #f9fafb;
-    border: 1px solid #e5e7eb;
-    border-radius: 8px;
-    margin-bottom: 2rem;
+    background: var(--color-surface-2);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    padding: var(--spacing-md);
+    margin-bottom: var(--spacing-lg);
 }
 
 .add-form-container h3 {
-    margin-top: 0;
-    margin-bottom: 1.5rem;
+    margin: 0 0 1rem 0;
+    font-weight: 600;
+    color: var(--color-text-primary);
 }
 
 .form-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(200px,1fr));
     gap: 1rem;
     margin-bottom: 1rem;
 }
 
-/* --- Input & Tabel --- */
-.search-input {
-    width: 100%;
-    padding: 12px 15px;
-    font-size: 1rem;
-    margin-bottom: 1.5rem;
-    border: 1px solid #ccc;
-    border-radius: 6px;
-    box-sizing: border-box;
-}
-
-.table-container {
-    overflow-x: auto;
-}
-
-table {
-    width: 100%;
-    border-collapse: collapse;
-    font-size: 0.95rem;
-}
-
-th, td {
-    padding: 12px 15px;
-    text-align: left;
-    border-bottom: 1px solid #e5e7eb;
-    vertical-align: middle;
-}
-
-thead th {
-    background-color: #f3f4f6;
-    font-weight: 600;
-    color: #374151;
-}
-
-tbody tr:hover {
-    background-color: #f9fafb;
-}
-
-/* --- Tombol Aksi di dalam Tabel --- */
-td button {
-    padding: 6px 12px;
-    font-size: 0.875rem;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    color: white;
-    margin-right: 5px;
-    transition: opacity 0.2s;
-}
-
-td button:last-child {
-    margin-right: 0;
-}
-
-td button:hover {
-    opacity: 0.85;
-}
-
-.edit-button {
-    background-color: #17a2b8; /* Biru Info */
-}
-
-.delete-button {
-    background-color: #dc3545; /* Merah Bahaya */
-}
-
-.save-button {
-    background-color: #28a745; /* Hijau Sukses */
-}
-
-.cancel-button {
-    background-color: #6c757d; /* Abu-abu Sekunder */
-}
-
-/* --- Styling untuk Form di dalam Tabel (Mode Edit) --- */
-td input[type="number"],
-td textarea {
-    width: 100%;
-    padding: 8px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    box-sizing: border-box;
-    font-family: inherit;
-    font-size: 0.95rem;
-}
-
-td textarea {
-    resize: vertical;
-}
-
-/* --- Elemen Form Tambah --- */
-.add-form-container select,
 .add-form-container input,
 .add-form-container textarea {
     width: 100%;
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 6px;
-    box-sizing: border-box;
-    font-size: 1rem;
+    padding: 0.7rem 1rem;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-sm);
+    background: var(--color-surface-1);
+    color: var(--color-text-primary);
+    font-family: 'Poppins', sans-serif;
 }
 
 .add-form-container textarea {
-    margin-bottom: 1rem;
+    resize: vertical;
+    min-height: 100px;
 }
 
 .add-form-container button[type="submit"] {
     width: 100%;
-    padding: 12px;
-    font-size: 1rem;
-    background-color: #28a745;
+    padding: 0.9rem;
     border: none;
-    border-radius: 6px;
-    color: white;
+    border-radius: var(--radius-sm);
+    background: var(--color-success);
+    color: #fff;
+    font-weight: 600;
     cursor: pointer;
+    transition: var(--transition-smooth);
+    font-family: 'Poppins', sans-serif;
 }
 
 .add-form-container button[type="submit"]:hover {
-    background-color: #218838;
+    filter: brightness(115%);
+}
+
+/* Tombol */
+.add-review-button {
+    background: var(--color-info);
+    color: #fff;
+    padding: 0.65rem 1.4rem;
+    border: none;
+    border-radius: var(--radius-sm);
+    font-weight: 600;
+    cursor: pointer;
+    transition: var(--transition-smooth);
+    white-space: nowrap;
+}
+
+.add-review-button:hover {
+    filter: brightness(110%);
+    transform: translateY(-2px);
+}
+
+/* Tabel */
+.table-responsive {
+    max-height: 720px; /* cukup untuk 6 baris + header */
+    overflow-y: auto;
+    overflow-x: auto;
+    background: var(--color-surface-2);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+}
+
+/* Tambahkan ini agar isi tabel tidak terpotong */
+.data-table {
+    border-collapse: collapse;
+    width: 100%;
+}
+
+.data-table tbody {
+    display: table-row-group;
+}
+
+.data-table tbody tr {
+    height: auto;
+}
+
+
+.data-table {
+  width: 100%;
+  min-width: 1200px;
+  border-collapse: collapse;
+  flex: 1; /* Mengisi ruang vertikal */
+}
+
+/* Baris kosong */
+.empty-row {
+  height: 60px; /* Tinggi baris kosong */
+}
+
+.empty-row td {
+  border-bottom: 1px solid var(--color-border);
+}
+
+/* Footer tabel */
+.table-footer {
+  padding: 1rem;
+  text-align: center;
+  color: var(--color-text-secondary);
+  border-top: 1px solid var(--color-border);
+}
+
+.data-table thead th {
+    background: rgba(0,0,0,0.2);
+    color: var(--color-text-primary);
+    padding: 1rem 1.5rem;
+    text-transform: uppercase;
+    font-size: 0.9rem;
+    letter-spacing: 0.8px;
+    border-bottom: 2px solid var(--color-accent-1);
+    text-align: left;
+}
+
+.data-table tbody tr:nth-child(even) {
+    background: rgba(0,0,0,0.1);
+}
+
+.data-table tbody tr:hover {
+    background: var(--color-surface-1);
+}
+
+.data-table tbody td {
+    padding: 1.2rem 1.5rem;
+    border-bottom: 1px solid var(--color-border);
+    color: var(--color-text-secondary);
+    vertical-align: middle;
+    font-size: 1rem;
+}
+
+.data-table tbody tr:hover td {
+    color: var(--color-text-primary);
+}
+
+.data-table tbody tr:last-child td {
+    border-bottom: none;
+}
+
+.no-data {
+    text-align: center;
+    padding: 2rem;
+    color: var(--color-text-secondary);
+}
+
+/* Kolom spesifik */
+.data-table th:nth-child(1), 
+.data-table td:nth-child(1) { 
+    width: 80px; 
+}
+
+.data-table th:nth-child(2), 
+.data-table td:nth-child(2) { 
+    width: 200px; 
+}
+
+.data-table th:nth-child(3), 
+.data-table td:nth-child(3) { 
+    width: 200px; 
+}
+
+.data-table th:nth-child(4), 
+.data-table td:nth-child(4) { 
+    width: 120px; 
+}
+
+.data-table th:nth-child(5), 
+.data-table td:nth-child(5) { 
+    min-width: 300px; 
+}
+
+.data-table th:nth-child(6), 
+.data-table td:nth-child(6) { 
+    width: 150px; 
+}
+
+.data-table th:nth-child(7), 
+.data-table td:nth-child(7) { 
+    width: 200px; 
+}
+
+/* Star rating */
+.star-rating {
+    font-size: 1.2rem;
+    display: flex;
+    gap: 2px;
+}
+
+/* Tombol Aksi */
+.action-buttons {
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+  align-items: center;
+}
+
+.edit-button {
+    background: var(--color-info);
+}
+
+.delete-button {
+    background: var(--color-danger);
+}
+
+.save-button {
+    background: var(--color-success);
+}
+
+.cancel-button {
+    background: var(--color-surface-1);
+    color: var(--color-text-secondary);
+}
+
+.edit-button,
+.delete-button,
+.save-button,
+.cancel-button {
+    padding: 0.5rem 1rem;
+    border: none;
+    border-radius: var(--radius-sm);
+    font-size: 0.9rem;
+    font-weight: 600;
+    cursor: pointer;
+    color: #fff;
+    transition: var(--transition-smooth);
+    white-space: nowrap;
+}
+
+.edit-button:hover,
+.delete-button:hover,
+.save-button:hover,
+.cancel-button:hover {
+    filter: brightness(115%);
+}
+
+/* Input dalam mode edit */
+td input[type="number"],
+td textarea {
+    width: 100%;
+    padding: 0.8rem;
+    background: var(--color-surface-1);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-sm);
+    color: var(--color-text-primary);
+    font-family: inherit;
+    font-size: 0.9rem;
+}
+
+td textarea {
+    resize: vertical;
+    min-height: 100px;
+}
+
+/* Loading & Error */
+.loading-state,
+.error-state {
+    display: grid;
+    place-items: center;
+    min-height: 40vh;
+    font-size: 1.2rem;
+    color: var(--color-text-secondary);
+}
+
+
+
+/* Responsive */
+@media (max-width: 992px) {
+    .admin-review-container {
+        padding: var(--spacing-md);
+        margin: var(--spacing-md);
+    }
+    
+    .table-responsive {
+        border-radius: var(--radius-sm);
+    }
+    
+    .data-table thead th {
+        padding: 0.8rem 1rem;
+        font-size: 0.8rem;
+    }
+    
+    .data-table tbody td {
+        padding: 1rem;
+        font-size: 0.9rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .search-and-actions {
+        flex-direction: column;
+    }
+    
+    .search-input {
+        width: 100%;
+    }
+    
+    .button-group {
+        width: 100%;
+        justify-content: flex-end;
+    }
+    
+    .data-table thead {
+        display: none;
+    }
+    
+    .data-table, 
+    .data-table tbody, 
+    .data-table tr, 
+    .data-table td {
+        display: block;
+        width: 100%;
+        min-width: auto;
+    }
+    
+    .data-table tr {
+        margin-bottom: 1rem;
+        border: 1px solid var(--color-border);
+        border-radius: var(--radius-md);
+    }
+    
+    .data-table td {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 0.9rem;
+        border-bottom: 1px dashed var(--color-border);
+        text-align: right;
+    }
+    
+    .data-table td:last-child {
+        border-bottom: none;
+    }
+    
+    .data-table td::before {
+        content: attr(data-label);
+        font-weight: 600;
+        color: var(--color-text-primary);
+        margin-right: 1rem;
+    }
+    
+    .action-buttons {
+        justify-content: flex-end;
+    }
 }

@@ -348,7 +348,7 @@ const TableKasus = ({ data, onEdit, onDelete }) => (
 const FormFields = ({ form, onChange }) => (
   <>
     <div className="input-row">
-      <div className="input-group half">
+      <div className="input-group">
         <label>User ID *</label>
         <input
           type="number"
@@ -359,7 +359,8 @@ const FormFields = ({ form, onChange }) => (
           placeholder="ID Pengguna"
         />
       </div>
-      <div className="input-group half">
+
+      <div className="input-group">
         <label>Nama *</label>
         <input
           type="text"
@@ -367,13 +368,11 @@ const FormFields = ({ form, onChange }) => (
           value={form.nama}
           onChange={onChange}
           required
-          placeholder="Nama pengaju"
+          placeholder="Nama Pengaju"
         />
       </div>
-    </div>
 
-    <div className="input-row">
-      <div className="input-group half">
+      <div className="input-group">
         <label>Email *</label>
         <input
           type="email"
@@ -381,60 +380,66 @@ const FormFields = ({ form, onChange }) => (
           value={form.email}
           onChange={onChange}
           required
-          placeholder="Email pengaju"
+          placeholder="Email Pengaju"
         />
       </div>
-      <div className="input-group half">
-        <label>No HP</label>
-        <input type="text" name="noHp" value={form.noHp} onChange={onChange} placeholder="No HP" />
-      </div>
-    </div>
 
-    <div className="input-row">
-      <div className="input-group half">
+      <div className="input-group">
+        <label>No HP</label>
+        <input
+          type="text"
+          name="noHp"
+          value={form.noHp}
+          onChange={onChange}
+          placeholder="No HP"
+        />
+      </div>
+
+      <div className="input-group">
         <label>Area Praktik</label>
         <input
           type="text"
           name="areaPraktik"
           value={form.areaPraktik}
           onChange={onChange}
-          placeholder="Area praktik"
+          placeholder="Area Praktik"
         />
       </div>
-      <div className="input-group half">
+
+      <div className="input-group">
         <label>Jenis Pengerjaan</label>
         <input
           type="text"
           name="jenisPengerjaan"
           value={form.jenisPengerjaan}
           onChange={onChange}
-          placeholder="Jenis pengerjaan"
+          placeholder="Jenis Pengerjaan"
         />
       </div>
-    </div>
 
-    <div className="input-row">
-      <div className="input-group third">
+      <div className="input-group">
         <label>Biaya Min</label>
         <input
           type="number"
           name="biayaMin"
           value={form.biayaMin}
           onChange={onChange}
-          placeholder="Biaya minimum"
+          placeholder="Biaya Minimum"
         />
       </div>
-      <div className="input-group third">
+
+      <div className="input-group">
         <label>Biaya Max</label>
         <input
           type="number"
           name="biayaMax"
           value={form.biayaMax}
           onChange={onChange}
-          placeholder="Biaya maksimum"
+          placeholder="Biaya Maksimum"
         />
       </div>
-      <div className="input-group third">
+
+      <div className="input-group">
         <label>Estimasi Selesai</label>
         <input
           type="date"
@@ -443,57 +448,58 @@ const FormFields = ({ form, onChange }) => (
           onChange={onChange}
         />
       </div>
-    </div>
 
-    <div className="input-group">
-      <label>Lokasi</label>
-      <input
-        type="text"
-        name="lokasi"
-        value={form.lokasi}
-        onChange={onChange}
-        placeholder="Lokasi kasus"
-      />
-    </div>
+      <div className="input-group">
+        <label>Lokasi</label>
+        <input
+          type="text"
+          name="lokasi"
+          value={form.lokasi}
+          onChange={onChange}
+          placeholder="Lokasi Kasus"
+        />
+      </div>
 
-    <div className="input-group">
-      <label>Deskripsi</label>
-      <textarea
-        name="deskripsi"
-        value={form.deskripsi}
-        onChange={onChange}
-        placeholder="Deskripsi kasus"
-      />
-    </div>
+      <div className="input-group">
+        <label>Deskripsi</label>
+        <textarea
+          name="deskripsi"
+          value={form.deskripsi}
+          onChange={onChange}
+          placeholder="Deskripsi Kasus"
+        />
+      </div>
 
-    <div className="input-group">
-      <label>Status</label>
-      <select name="status" value={form.status} onChange={onChange}>
-        {STATUS_OPTIONS.map((s) => (
-          <option key={s} value={s}>
-            {s}
-          </option>
-        ))}
-      </select>
-    </div>
+      <div className="input-group">
+        <label>Status</label>
+        <select name="status" value={form.status} onChange={onChange}>
+          {STATUS_OPTIONS.map((s) => (
+            <option key={s} value={s}>
+              {s}
+            </option>
+          ))}
+        </select>
+      </div>
 
-    <div className="input-group">
-      <label>Lawyer ID</label>
-      <input
-        type="number"
-        name="lawyer_id"
-        value={form.lawyer_id}
-        onChange={onChange}
-        placeholder="ID pengacara (opsional)"
-      />
-    </div>
+      <div className="input-group">
+        <label>Lawyer ID</label>
+        <input
+          type="number"
+          name="lawyer_id"
+          value={form.lawyer_id}
+          onChange={onChange}
+          placeholder="ID Pengacara (opsional)"
+        />
+      </div>
 
-    <div className="input-group">
-      <label>Bukti (File)</label>
-      <input type="file" name="bukti" onChange={onChange} />
+      <div className="input-group">
+        <label>Bukti (File)</label>
+        <input type="file" name="bukti" onChange={onChange} />
+      </div>
     </div>
   </>
 );
+
 
 // Modal Edit Kasus
 const EditModal = ({ form, onChange, onClose, onSubmit, formError }) => (

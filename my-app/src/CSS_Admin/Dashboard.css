@@ -113,6 +113,7 @@ body {
   display: flex;
   flex-direction: column;
   gap: var(--spacing-md);
+  align-items: center;
 }
 
 .dashboard-page .stats-grid {
@@ -256,6 +257,22 @@ body {
   margin-bottom: 1rem;
 }
 
+/* Tooltip tanpa background putih + teks hitam */
+.custom-tooltip {
+  background-color:transparent!important;
+  border:none!important;
+  padding:0;
+  font-size:14px;
+}
+
+
+.custom-tooltip .tooltip-label,
+.custom-tooltip .tooltip-value{
+  color:#ffffff;
+  font-weight:bold;
+}
+
+
 /* Responsive for dashboard-page only */
 @media (min-width: 1440px) {
   .dashboard-page .section-pair .dashboard-section {
@@ -341,7 +358,6 @@ body {
     margin: 1rem;
   }
 }
-
 
 @media (max-width: 767px) {
   .dashboard-page .section-pair {

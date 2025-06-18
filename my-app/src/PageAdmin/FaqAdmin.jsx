@@ -275,7 +275,9 @@ const FaqAdmin = () => {
             Reset Filter
           </button>
         </div>
-
+        
+        <div className="table-wrapper">
+        <div className="table-container">
         <table className="faq-table">
           <thead>
             <tr>
@@ -324,6 +326,8 @@ const FaqAdmin = () => {
             )}
           </tbody>
         </table>
+      </div>
+      </div>
       </div>
     </AdminLayout>
   );

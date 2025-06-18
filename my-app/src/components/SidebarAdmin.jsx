@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import {
     // ... (ikon yang sudah ada)
-    HiBars3, HiChevronDoubleLeft, HiChevronDoubleRight, HiOutlineHome, 
+    HiBars3, HiOutlineHome, 
     HiOutlineUserGroup, HiOutlineDocumentText, HiOutlineNewspaper, 
     HiOutlineCurrencyDollar, HiOutlineQuestionMarkCircle, HiOutlineClock, 
     HiOutlineArchiveBox, HiOutlineClipboardDocumentCheck,
@@ -85,13 +85,6 @@ const SidebarAdmin = () => {
             {!isCollapsed && window.innerWidth <= 768 && <div className="overlay" onClick={toggleSidebar}></div>}
 
             <aside className={`sidebar ${isCollapsed ? "collapsed" : ""}`}>
-                <div className="sidebar-brand">
-                    {!isCollapsed && (
-                        <button className="sidebar-toggle" onClick={toggleSidebar}>
-                            <HiChevronDoubleLeft />
-                        </button>
-                    )}
-                </div>
 
                 <nav className="sidebar-nav">
                     <ul>
@@ -145,12 +138,6 @@ const SidebarAdmin = () => {
                         ))}
                     </ul>
                 </nav>
-
-                {isCollapsed && (
-                    <button className="sidebar-toggle-collapsed" onClick={toggleSidebar}>
-                        <HiChevronDoubleRight />
-                    </button>
-                )}
             </aside>
         </>
     );

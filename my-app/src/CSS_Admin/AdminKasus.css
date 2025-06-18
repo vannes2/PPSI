@@ -1,212 +1,342 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
 
-/* ===================================================================
-   CSS HALAMAN KELOLA KASUS
-   =================================================================== */
-
-/* --- Variabel Utama (Konsisten dengan halaman lain) --- */
 :root {
-    --color-background: #1f2b38;
-    --color-surface-1: #2c3e50;
-    --color-surface-2: #34495e;
-    --color-accent-1: #f39c12;
-    --color-accent-2: #e67e22;
-    --color-text-primary: #ecf0f1;
-    --color-text-secondary: #a3b1c2;
-    --color-border: #3d566e;
-    --color-success: #27ae60;
-    --color-warning: #f1c40f;
-    --color-danger: #c0392b;
-    --color-info: #3498db;
-    --font-family: 'Poppins', sans-serif;
-    --radius-sm: 8px;
-    --radius-md: 14px;
-    --radius-lg: 20px;
-    --spacing-md: 1.5rem;
-    --spacing-lg: 2rem;
-    --transition-smooth: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+  --color-background: #1f2b38;
+  --color-surface-1: #2c3e50;
+  --color-surface-2: #34495e;
+  --color-accent-1: #f39c12;
+  --color-accent-2: #e67e22;
+  --color-text-primary: #ecf0f1;
+  --color-text-secondary: #a3b1c2;
+  --color-border: #3d566e;
+  --color-success: #27ae60;
+  --color-warning: #f1c40f;
+  --color-danger: #c0392b;
+  --color-info: #3498db;
+  --font-family: 'Poppins', sans-serif;
+  --radius-sm: 8px;
+  --radius-md: 14px;
+  --radius-lg: 20px;
+  --spacing-md: 1.5rem;
+  --spacing-lg: 2rem;
+  --transition-smooth: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
 }
 
-/* --- 1. Struktur Halaman & Header --- */
 .admin-kasus-container {
-    padding: var(--spacing-lg);
-    font-family: var(--font-family);
-    color: var(--color-text-primary);
-    margin-left: auto;
+  padding: var(--spacing-lg);
+  font-family: var(--font-family);
+  color: var(--color-text-primary);
+  margin-left: auto;
 }
 
 .admin-kasus-container h2 {
-    font-size: 2.2rem;
-    font-weight: 700;
-    margin-bottom: var(--spacing-lg);
-    background: linear-gradient(90deg, var(--color-accent-1), var(--color-accent-2));
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    display: inline-block;
+  font-size: 2.2rem;
+  font-weight: 700;
+  margin-bottom: var(--spacing-lg);
+  background: linear-gradient(90deg, var(--color-accent-1), var(--color-accent-2));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  display: inline-block;
 }
 
-.table-title {
-    margin-top: var(--spacing-lg);
-    margin-bottom: 1rem;
-    color: var(--color-text-secondary);
-    font-weight: 500;
-    border-bottom: 1px solid var(--color-border);
-    padding-bottom: 0.5rem;
-    font-size: 1.2rem;
+.admin-kasus-container .table-title {
+  margin-top: var(--spacing-lg);
+  margin-bottom: 1rem;
+  color: var(--color-text-secondary);
+  font-weight: 500;
+  border-bottom: 1px solid var(--color-border);
+  padding-bottom: 0.5rem;
+  font-size: 1.2rem;
 }
 
-/* --- 2. Filter & Search --- */
-.filter-search {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 1rem;
-    align-items: center;
-    margin-bottom: var(--spacing-lg);
-    background-color: var(--color-surface-1);
-    padding: 1rem;
-    border-radius: var(--radius-md);
+.admin-kasus-container .filter-search {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  align-items: center;
+  margin-bottom: var(--spacing-lg);
+  background-color: var(--color-surface-1);
+  padding: 1rem;
+  border-radius: var(--radius-md);
 }
 
-.filter-search select,
-.filter-search input[type="search"] {
-    padding: 0.75rem 1rem;
-    background-color: var(--color-surface-2);
-    border: 1px solid var(--color-border);
-    color: var(--color-text-primary);
-    border-radius: var(--radius-sm);
-    font-size: 0.95rem;
-    transition: var(--transition-smooth);
-    font-family: var(--font-family);
-}
-.filter-search select:focus,
-.filter-search input[type="search"]:focus {
-    outline: none;
-    border-color: var(--color-accent-1);
-    box-shadow: 0 0 0 3px rgba(243, 156, 18, 0.2);
+.admin-kasus-container .filter-search select,
+.admin-kasus-container .filter-search input[type="search"] {
+  padding: 0.75rem 1rem;
+  background-color: var(--color-surface-2);
+  border: 1px solid var(--color-border);
+  color: var(--color-text-primary);
+  border-radius: var(--radius-sm);
+  font-size: 0.95rem;
+  transition: var(--transition-smooth);
+  font-family: var(--font-family);
 }
 
-.filter-search input[type="search"] {
-    flex-grow: 1;
+.admin-kasus-container .filter-search select:focus,
+.admin-kasus-container .filter-search input[type="search"]:focus {
+  outline: none;
+  border-color: var(--color-accent-1);
+  box-shadow: 0 0 0 3px rgba(243, 156, 18, 0.2);
 }
 
-/* --- 3. Tabel Kasus --- */
-.table-wrapper {
+.admin-kasus-container .filter-search input[type="search"] {
+  flex-grow: 1;
+}
+
+.admin-kasus-container .table-wrapper {
   overflow-x: auto;
   width: 100%;
-  padding-bottom: 1rem; /* opsional agar tidak mepet bawah */
+  padding-bottom: 1rem;
+  justify-content: flex-start;
 }
 
-.admin-kasus-table {
-    width: 100%;
-    border-collapse: collapse;
-    font-size: 0.9rem;
-    min-width: 1200px; /* Lebar minimum agar tidak terlalu sempit */
+.admin-kasus-container .admin-kasus-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.9rem;
+  min-width: 1200px;
 }
 
-.admin-kasus-table thead th {
-    background-color: var(--color-surface-2);
-    color: var(--color-text-primary);
-    font-weight: 600;
-    padding: 0.8rem 1rem;
-    text-align: left;
-    font-size: 0.8rem;
-    text-transform: uppercase;
-    letter-spacing: 0.8px;
-    border-bottom: 2px solid var(--color-accent-1);
+.admin-kasus-container .admin-kasus-table thead th {
+  background-color: var(--color-surface-2);
+  color: var(--color-text-primary);
+  font-weight: 600;
+  padding: 0.8rem 1rem;
+  text-align: left;
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  border-bottom: 2px solid var(--color-accent-1);
 }
 
-.admin-kasus-table tbody tr {
-    transition: background-color 0.2s ease;
-    border-bottom: 1px solid var(--color-border);
+.admin-kasus-container .admin-kasus-table tbody tr {
+  transition: background-color 0.2s ease;
+  border-bottom: 1px solid var(--color-border);
 }
 
-.admin-kasus-table tbody tr:last-child {
-    border-bottom: none;
+.admin-kasus-container .admin-kasus-table tbody tr:last-child {
+  border-bottom: none;
 }
 
-.admin-kasus-table tbody tr:hover {
-    background-color: var(--color-surface-1);
+.admin-kasus-container .admin-kasus-table tbody tr:hover {
+  background-color: var(--color-surface-1);
 }
 
-.admin-kasus-table tbody td {
-    color: var(--color-text-secondary);
-    padding: 0.9rem 1rem;
-    vertical-align: middle;
-}
-.admin-kasus-table tbody tr:hover td {
-    color: var(--color-text-primary);
+.admin-kasus-container .admin-kasus-table tbody td {
+  color: var(--color-text-secondary);
+  padding: 0.9rem 1rem;
+  vertical-align: middle;
 }
 
-.admin-kasus-table td a {
-    color: var(--color-info);
-    text-decoration: none;
-    font-weight: 600;
-}
-.admin-kasus-table td a:hover {
-    text-decoration: underline;
+.admin-kasus-container .admin-kasus-table tbody tr:hover td {
+  color: var(--color-text-primary);
 }
 
-
-.no-data {
-    background-color: var(--color-surface-1);
-    padding: 2rem;
-    text-align: center;
-    color: var(--color-text-secondary);
-    border-radius: var(--radius-md);
+.admin-kasus-container .admin-kasus-table td a {
+  color: var(--color-info);
+  text-decoration: none;
+  font-weight: 600;
 }
 
-
-/* --- 4. Status Badge & Tombol --- */
-.status-badge {
-    display: inline-block;
-    padding: 0.3rem 0.8rem;
-    border-radius: 50px;
-    font-size: 0.8rem;
-    font-weight: 600;
-    text-transform: capitalize;
-    border: 1px solid transparent;
-}
-.status-menunggu { background-color: rgba(241, 196, 15, 0.1); color: var(--color-warning); border-color: var(--color-warning); }
-.status-diproses { background-color: rgba(52, 152, 218, 0.1); color: var(--color-info); border-color: var(--color-info); }
-.status-selesai { background-color: rgba(39, 174, 96, 0.1); color: var(--color-success); border-color: var(--color-success); }
-
-
-.btn-primary, .btn-secondary, .btn-action {
-    padding: 0.6rem 1.2rem;
-    font-weight: 600;
-    border-radius: var(--radius-sm);
-    cursor: pointer;
-    transition: var(--transition-smooth);
-    text-align: center;
-    border: none;
-    font-family: var(--font-family);
+.admin-kasus-container .admin-kasus-table td a:hover {
+  text-decoration: underline;
 }
 
-.btn-primary {
-    background: linear-gradient(45deg, var(--color-accent-1), var(--color-accent-2));
-    color: #fff;
-}
-.btn-primary:hover { filter: brightness(1.1); transform: translateY(-2px); box-shadow: 0 4px 10px rgba(0,0,0,0.2); }
-
-.btn-secondary {
-    background-color: var(--color-surface-2);
-    color: var(--color-text-primary);
-    border: 1px solid var(--color-border);
-}
-.btn-secondary:hover { border-color: var(--color-accent-1); }
-
-.btn-action {
-    font-size: 0.85rem;
-    padding: 0.5rem 1rem;
-    margin-right: 0.5rem;
+.admin-kasus-container .no-data {
+  background-color: var(--color-surface-1);
+  padding: 2rem;
+  text-align: center;
+  color: var(--color-text-secondary);
+  border-radius: var(--radius-md);
 }
 
-.btn-edit { background-color: var(--color-info); color: #fff; }
-.btn-delete { background-color: var(--color-danger); color: #fff; }
+.admin-kasus-container .status-badge {
+  display: inline-block;
+  padding: 0.3rem 0.8rem;
+  border-radius: 50px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  text-transform: capitalize;
+  border: 1px solid transparent;
+}
 
-.btn-edit:hover, .btn-delete:hover { filter: brightness(1.2); }
+.admin-kasus-container .status-menunggu {
+  background-color: rgba(241, 196, 15, 0.1);
+  color: var(--color-warning);
+  border-color: var(--color-warning);
+}
+.admin-kasus-container .status-diproses {
+  background-color: rgba(52, 152, 218, 0.1);
+  color: var(--color-info);
+  border-color: var(--color-info);
+}
+.admin-kasus-container .status-selesai {
+  background-color: rgba(39, 174, 96, 0.1);
+  color: var(--color-success);
+  border-color: var(--color-success);
+}
 
-/* --- 5. Modal (Tambah/Edit) --- */
+.admin-kasus-container .btn-primary,
+.admin-kasus-container .btn-secondary,
+.admin-kasus-container .btn-action {
+  padding: 0.6rem 1.2rem;
+  font-weight: 600;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition: var(--transition-smooth);
+  text-align: center;
+  border: none;
+  font-family: var(--font-family);
+}
+
+.admin-kasus-container .btn-primary {
+  background: linear-gradient(45deg, var(--color-accent-1), var(--color-accent-2));
+  color: #fff;
+}
+.admin-kasus-container .btn-primary:hover {
+  filter: brightness(1.1);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.admin-kasus-container .btn-secondary {
+  background-color: var(--color-surface-2);
+  color: var(--color-text-primary);
+  border: 1px solid var(--color-border);
+}
+.admin-kasus-container .btn-secondary:hover {
+  border-color: var(--color-accent-1);
+}
+
+.admin-kasus-container .btn-action {
+  font-size: 0.85rem;
+  padding: 0.5rem 1rem;
+  margin-right: 0.5rem;
+}
+
+.admin-kasus-container .btn-edit {
+  background-color: var(--color-info);
+  color: #fff;
+}
+.admin-kasus-container .btn-delete {
+  background-color: var(--color-danger);
+  color: #fff;
+}
+.admin-kasus-container .btn-edit:hover,
+.admin-kasus-container .btn-delete:hover {
+  filter: brightness(1.2);
+}
+
+.admin-kasus-container .modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.75);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  animation: fadeIn 0.3s ease;
+  padding: 1rem;
+}
+
+.admin-kasus-container .modal-content {
+  background-color: var(--color-surface-1);
+  padding: var(--spacing-lg);
+  border-radius: var(--radius-lg);
+  border-top: 5px solid var(--color-accent-1);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+  width: 100%;
+  max-width: 700px;
+  max-height: 90vh;
+  overflow-y: auto;
+  animation: scaleUp 0.4s ease-out;
+  color: var(--color-text-primary);
+  font-family: var(--font-family);
+}
+
+.admin-kasus-container .modal-content h3 {
+  font-size: 1.75rem;
+  text-align: center;
+  margin-bottom: var(--spacing-md);
+  background: linear-gradient(90deg, var(--color-accent-1), var(--color-accent-2));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.admin-kasus-container .form-error {
+  color: var(--color-danger);
+  background-color: rgba(192, 57, 43, 0.1);
+  border: 1px solid var(--color-danger);
+  padding: 0.75rem;
+  border-radius: var(--radius-sm);
+  margin-bottom: 1rem;
+  text-align: center;
+}
+
+.admin-kasus-container .input-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.admin-kasus-container .input-group {
+  flex: 1 1 100%;
+  display: flex;
+  flex-direction: column;
+}
+.admin-kasus-container .input-group.half {
+  flex: 1 1 calc(50% - 0.5rem);
+}
+.admin-kasus-container .input-group.third {
+  flex: 1 1 calc(33.33% - 0.66rem);
+}
+
+.admin-kasus-container .input-group label {
+  font-weight: 500;
+  color: var(--color-text-secondary);
+  margin-bottom: 0.5rem;
+  font-size: 0.9rem;
+}
+
+.admin-kasus-container .input-group input,
+.admin-kasus-container .input-group textarea,
+.admin-kasus-container .input-group select {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 0.8rem 1rem;
+  background-color: var(--color-surface-1);
+  border: 1px solid var(--color-border);
+  color: var(--color-text-primary);
+  border-radius: var(--radius-sm);
+  font-size: 1rem;
+  transition: var(--transition-smooth);
+  font-family: var(--font-family);
+}
+
+.admin-kasus-container .input-group input:focus,
+.admin-kasus-container .input-group textarea:focus,
+.admin-kasus-container .input-group select:focus {
+  outline: none;
+  border-color: var(--color-accent-1);
+  box-shadow: 0 0 0 3px rgba(243, 156, 18, 0.2);
+}
+
+.admin-kasus-container .input-group textarea {
+  min-height: 100px;
+  resize: vertical;
+}
+
+.admin-kasus-container .form-buttons {
+  display: flex;
+  justify-content: flex-end;
+  gap: 1rem;
+  margin-top: 2rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--color-border);
+}
+
+/* Animasi */
 @keyframes fadeIn {
   from { opacity: 0; }
   to { opacity: 1; }
@@ -216,146 +346,37 @@
   to { transform: translate(-50%, -50%) scale(1); opacity: 1; }
 }
 
-.modal-overlay {
-    position: fixed;
-    inset: 0;
-    background: rgba(0, 0, 0, 0.75);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    z-index: 1000;
-    animation: fadeIn 0.3s ease;
-    padding: 1rem;
-}
-
-.modal-content {
-    background-color: var(--color-surface-2);
-    padding: var(--spacing-lg);
-    border-radius: var(--radius-lg);
-    border-top: 5px solid var(--color-accent-1);
-    box-shadow: 0 10px 30px rgba(0,0,0,0.3);
-    width: 100%;
-    max-width: 800px;
-    max-height: 90vh;
-    overflow-y: auto;
-    animation: scaleUp 0.4s ease-out;
-}
-
-.modal-content h3 {
-    font-size: 1.8rem;
-    color: var(--color-text-primary);
-    margin-bottom: var(--spacing-md);
-    text-align: center;
-}
-
-/* --- 6. Form di dalam Modal --- */
-.form-error {
-    color: var(--color-danger);
-    background-color: rgba(192, 57, 43, 0.1);
-    border: 1px solid var(--color-danger);
-    padding: 0.75rem;
-    border-radius: var(--radius-sm);
-    margin-bottom: 1rem;
-    text-align: center;
-}
-
-.input-row {
-    display: flex;
-    gap: 1.5rem;
-    margin-bottom: 1.5rem;
-}
-.input-group { flex: 1; display: flex; flex-direction: column; }
-.input-group.half { flex-basis: calc(50% - 0.75rem); }
-.input-group.third { flex-basis: calc(33.33% - 1rem); }
-
-.input-group label {
-    font-weight: 500;
-    color: var(--color-text-secondary);
-    margin-bottom: 0.5rem;
-    font-size: 0.9rem;
-}
-
-.input-group input,
-.input-group textarea,
-.input-group select {
-    width: 100%;
-    box-sizing: border-box;
-    padding: 0.8rem 1rem;
-    background-color: var(--color-surface-1);
-    border: 1px solid var(--color-border);
-    color: var(--color-text-primary);
-    border-radius: var(--radius-sm);
-    font-size: 1rem;
-    transition: var(--transition-smooth);
-    font-family: var(--font-family);
-}
-
-.input-group input:focus,
-.input-group textarea:focus,
-.input-group select:focus {
-    outline: none;
-    border-color: var(--color-accent-1);
-    box-shadow: 0 0 0 3px rgba(243, 156, 18, 0.2);
-}
-
-.input-group textarea {
-    min-height: 100px;
-    resize: vertical;
-}
-
-.form-buttons {
-    display: flex;
-    justify-content: flex-end;
-    gap: 1rem;
-    margin-top: var(--spacing-lg);
-    border-top: 1px solid var(--color-border);
-    padding-top: var(--spacing-md);
-}
-
-/* --- 7. Responsive --- */
+/* Responsive */
 @media (max-width: 1023px) and (min-width: 769px) {
   .admin-kasus-container {
     padding: var(--spacing-md);
   }
-
   .admin-kasus-container h2 {
     font-size: 1.8rem;
     text-align: center;
   }
-
-  .filter-search {
+  .admin-kasus-container .filter-search {
     flex-direction: column;
     align-items: stretch;
   }
-
-  .filter-search input[type="search"] {
+  .admin-kasus-container .filter-search input[type="search"] {
     width: 100%;
   }
-
-  .admin-kasus-table {
-    min-width: 1000px; /* biar masih bisa discroll */
+  .admin-kasus-container .admin-kasus-table {
+    min-width: 1000px;
     font-size: 0.85rem;
   }
-
-  .table-wrapper {
+  .admin-kasus-container .table-wrapper {
     overflow-x: auto;
   }
-
-  .modal-content {
+  .admin-kasus-container .modal-content {
     padding: var(--spacing-md);
   }
-
-  .input-row {
-    flex-wrap: wrap;
-    gap: 1rem;
-  }
-
-  .input-group.half,
-  .input-group.third {
+  .admin-kasus-container .input-group.half,
+  .admin-kasus-container .input-group.third {
     flex-basis: 100%;
   }
-
-  .form-buttons {
+  .admin-kasus-container .form-buttons {
     flex-direction: column;
     align-items: stretch;
   }
