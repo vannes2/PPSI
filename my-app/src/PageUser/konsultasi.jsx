@@ -3,7 +3,30 @@ import { useNavigate, useLocation } from "react-router-dom";
 import Footer from "../components/Footer";
 import HeaderAfter from "../components/HeaderAfter";
 import "../CSS_User/konsultasi.css";
-import { FaTags, FaBriefcase,  FaGraduationCap, FaMoneyBillWave } from "react-icons/fa";
+import { FaTags, FaBriefcase, FaGraduationCap, FaMoneyBillWave } from "react-icons/fa";
+
+// Komponen Star Rating
+const StarRating = ({ rating }) => {
+  const numericRating = Number(rating) || 0;
+  const fullStars = Math.floor(numericRating);
+  const hasHalfStar = numericRating - fullStars >= 0.5;
+  const maxStars = 5;
+
+  return (
+    <div className="star-rating" style={{ textAlign: "center", margin: "10px 0", fontSize: "22px" }}>
+      {[...Array(fullStars)].map((_, i) => (
+        <span key={`full-${i}`} className="star" style={{ color: "#f39c12" }}>★</span>
+      ))}
+      {hasHalfStar && <span className="star" style={{ color: "#f39c12" }}>⯪</span>}
+      {[...Array(maxStars - fullStars - (hasHalfStar ? 1 : 0))].map((_, i) => (
+        <span key={`empty-${i}`} className="star empty" style={{ color: "#ccc" }}>☆</span>
+      ))}
+      <span style={{ marginLeft: "6px", fontSize: "16px", color: "#555" }}>
+        ({numericRating.toFixed(1)})
+      </span>
+    </div>
+  );
+};
 
 const Konsultasi = () => {
   const { state } = useLocation();
@@ -14,34 +37,50 @@ const Konsultasi = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    fetch("http://localhost:5000/api/profilpengacara")
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error(`HTTP error! Status: ${response.status}`);
-        }
-        return response.json();
-      })
-      .then((data) => setPengacara(data))
-      .catch((error) => {
+    const fetchData = async () => {
+      try {
+        const response = await fetch("http://localhost:5000/api/profilpengacara");
+        if (!response.ok) throw new Error(`HTTP error! Status: ${response.status}`);
+        const data = await response.json();
+
+        const dataWithRating = await Promise.all(
+          data.map(async (advokat) => {
+            try {
+              const resRating = await fetch(`http://localhost:5000/api/reviews/rating/${advokat.id}`);
+              if (!resRating.ok) throw new Error("Failed to fetch rating");
+              const ratingData = await resRating.json();
+              return {
+                ...advokat,
+                rating: ratingData.average_rating || 0,
+              };
+            } catch {
+              return { ...advokat, rating: 0 };
+            }
+          })
+        );
+
+        setPengacara(dataWithRating);
+      } catch (error) {
         console.error("Error fetching data:", error);
         setError(error.message);
-      });
+      }
+    };
+
+    fetchData();
   }, []);
 
-  const spesialisasiList = [...new Set(pengacara.map((advokat) => advokat.spesialisasi))];
+  const spesialisasiList = [...new Set(pengacara.map((a) => a.spesialisasi))];
   const jenisHukum = state?.jenis_hukum || "";
 
   const filteredPengacara = pengacara.filter(
-    (advokat) =>
-      advokat.nama.toLowerCase().includes(searchTerm.toLowerCase()) &&
-      (selectedSpesialisasi === "" || advokat.spesialisasi === selectedSpesialisasi) &&
-      (jenisHukum === "" || advokat.spesialisasi.includes(jenisHukum))
+    (a) =>
+      a.nama.toLowerCase().includes(searchTerm.toLowerCase()) &&
+      (selectedSpesialisasi === "" || a.spesialisasi === selectedSpesialisasi) &&
+      (jenisHukum === "" || a.spesialisasi.includes(jenisHukum))
   );
 
-  const handleKonsultasiClick = (advokatId) => {
-    navigate("/payment", {
-      state: { pengacaraId: advokatId }
-    });
+  const handleKonsultasiClick = (pengacaraId) => {
+    navigate("/payment", { state: { pengacaraId } });
   };
 
   useEffect(() => {
@@ -82,13 +121,13 @@ const Konsultasi = () => {
           {error ? (
             <p style={{ color: "red" }}>Gagal mengambil data: {error}</p>
           ) : filteredPengacara.length > 0 ? (
-            filteredPengacara.map((advokat) => (
-              <div key={advokat.id} className="product-item">
+            filteredPengacara.map((a) => (
+              <div key={a.id} className="product-item">
                 <div className="foto-advokat-container">
-                  {advokat.upload_foto ? (
+                  {a.upload_foto ? (
                     <img
-                      src={`http://localhost:5000/uploads/${advokat.upload_foto}`}
-                      alt={advokat.nama}
+                      src={`http://localhost:5000/uploads/${a.upload_foto}`}
+                      alt={a.nama}
                       className="foto-advokat"
                     />
                   ) : (
@@ -105,13 +144,7 @@ const Konsultasi = () => {
                         overflow: "hidden",
                       }}
                     >
-                      <span
-                        style={{
-                          color: "#999",
-                          fontSize: "12px",
-                          textAlign: "center",
-                        }}
-                      >
+                      <span style={{ color: "#999", fontSize: "12px", textAlign: "center" }}>
                         Tidak ada foto
                       </span>
                     </div>
@@ -119,37 +152,21 @@ const Konsultasi = () => {
                   <span className="online-indicator" title="Online" />
                 </div>
 
-                <h3>{advokat.nama}</h3>
+                <h3>{a.nama}</h3>
 
                 <div className="info-bar-horizontal">
-                  <div className="info-bar">
-                    <FaTags className="info-icon" />
-                    <span>{advokat.spesialisasi || "-"}</span>
-                  </div>
-                  <div className="info-bar">
-                    <FaBriefcase className="info-icon" />
-                    <span>{advokat.pengalaman ?? 0} tahun</span>
-                  </div>
+                  <div className="info-bar"><FaTags className="info-icon" /><span>{a.spesialisasi || "-"}</span></div>
+                  <div className="info-bar"><FaBriefcase className="info-icon" /><span>{a.pengalaman ?? 0} tahun</span></div>
                 </div>
-                
+
                 <div className="info-bar-horizontal">
-                <div className="info-bar">
-                  <FaMoneyBillWave className="info-icon" />
-                  <span>
-                    {advokat.harga_konsultasi?.toLocaleString("id-ID") || "-"}
-                  </span>
+                  <div className="info-bar"><FaMoneyBillWave className="info-icon" /><span>{a.harga_konsultasi?.toLocaleString("id-ID") || "-"}</span></div>
+                  <div className="info-bar"><FaGraduationCap className="info-icon" /><span>{a.pendidikan || "-"}</span></div>
                 </div>
 
-                <div className="info-bar">
-                  <FaGraduationCap className="info-icon" />
-                  <span>{advokat.pendidikan || "-"}</span>
-                </div>
-                </div>
+                <StarRating rating={a.rating} />
 
-                <button
-                  className="btn-konsultasi"
-                  onClick={() => handleKonsultasiClick(advokat.id)}
-                >
+                <button className="btn-konsultasi" onClick={() => handleKonsultasiClick(a.id)}>
                   Klik Konsultasi
                 </button>
               </div>

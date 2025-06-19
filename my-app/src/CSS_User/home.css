@@ -407,6 +407,11 @@ body {
   margin-top: 20px;
 }
 
+.features-grid-home h2 {
+  margin-bottom: 30px;
+  font-size: 2rem;
+}
+
 .feature-item-home {
   background: #fefde9;
   padding: 20px;
@@ -418,6 +423,7 @@ body {
   text-align: center;
   transition: all 0.3s ease-in-out;
 }
+.feature-item-home
 
 /* Efek Hover Ditambahkan di sini */
 .feature-item-home:hover {

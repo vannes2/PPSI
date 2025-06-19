@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Jun 17, 2025 at 06:59 AM
+-- Generation Time: Jun 19, 2025 at 03:51 AM
 -- Server version: 8.0.30
 -- PHP Version: 8.3.16
 
@@ -29,16 +29,16 @@ SET time_zone = "+00:00";
 
 CREATE TABLE `admin` (
   `id` int NOT NULL,
-  `name` varchar(100) COLLATE utf8mb4_general_ci NOT NULL,
-  `email` varchar(100) COLLATE utf8mb4_general_ci NOT NULL,
-  `phone` varchar(20) COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `password` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
-  `gender` enum('laki-laki','perempuan') COLLATE utf8mb4_general_ci NOT NULL,
+  `name` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `email` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `phone` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `password` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `gender` enum('laki-laki','perempuan') CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `birthdate` date DEFAULT NULL,
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `reset_token` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `reset_token` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
   `reset_token_expiry` datetime DEFAULT NULL,
-  `upload_foto` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL
+  `upload_foto` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -57,19 +57,19 @@ INSERT INTO `admin` (`id`, `name`, `email`, `phone`, `password`, `gender`, `birt
 CREATE TABLE `ajukan_kasus` (
   `id` int NOT NULL,
   `user_id` int NOT NULL,
-  `nama` varchar(100) COLLATE utf8mb4_general_ci NOT NULL,
-  `email` varchar(100) COLLATE utf8mb4_general_ci NOT NULL,
-  `no_hp` varchar(20) COLLATE utf8mb4_general_ci NOT NULL,
-  `area_praktik` varchar(50) COLLATE utf8mb4_general_ci NOT NULL,
-  `jenis_pengerjaan` varchar(50) COLLATE utf8mb4_general_ci NOT NULL,
+  `nama` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `email` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `no_hp` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `area_praktik` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `jenis_pengerjaan` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `biaya_min` int NOT NULL,
   `biaya_pengacara` decimal(15,2) DEFAULT NULL,
   `biaya_max` int NOT NULL,
   `estimasi_selesai` date NOT NULL,
-  `lokasi` varchar(100) COLLATE utf8mb4_general_ci NOT NULL,
-  `deskripsi` text COLLATE utf8mb4_general_ci NOT NULL,
-  `status` varchar(20) COLLATE utf8mb4_general_ci DEFAULT 'Menunggu',
-  `bukti` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `lokasi` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `deskripsi` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `status` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT 'Menunggu',
+  `bukti` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   `lawyer_id` int DEFAULT NULL,
   `is_transferred` tinyint(1) DEFAULT '0'
@@ -83,8 +83,8 @@ INSERT INTO `ajukan_kasus` (`id`, `user_id`, `nama`, `email`, `no_hp`, `area_pra
 (1, 1, 'Azzikra Praqasta Kusuma', 'azzikrapraqasta2522@gmail.com', '081316443334', 'Perdata', 'Pembuatan Dokumen', 2000000, '1600000.00', 500000, '2025-05-10', 'Jakarta', 'Dokumen Perjanjian dengan perusahaan X', 'Menunggu', NULL, '2025-05-07 10:45:10', 1, 0),
 (2, 1, 'Joko', 'zikra@gmail.com', '081316443332', 'Pidana', 'Pembuatan Dokumen', 500000, '400000.00', 500000, '2025-05-19', 'Bandung', 'Dokumen Perjanjian dengan perusahaan Y', 'Menunggu', NULL, '2025-05-07 12:28:30', 1, 0),
 (3, 14, 'Vanes', 'vns@gmail.com', '085781086148', 'Perusahaan', 'Negosiasi', 500000, '400000.00', 500000, '2025-05-26', 'Surabaya', 'perusahaan yang memiliki sengketa akibat keterlambatan pembayaran', 'Menunggu', NULL, '2025-05-07 12:36:06', 1, 0),
-(4, 1, 'Agus', 'zikra00101@gmail.com', '085781086148', 'Perusahaan', 'Litigasi', 500000, '400000.00', 5000000, '2025-05-26', 'Jakarta', 'Tes', 'Menunggu', NULL, '2025-05-07 13:24:06', 1, 0),
-(5, 1, 'Azzikra Praqasta Kusuma', 'termiteindonesia@gmail.com', '085781086148', 'Perdata', 'Negosiasi', 1000000000, '800000000.00', 500000, '2025-06-01', 'Jakarta Barat', 'tes 3', 'Diproses', NULL, '2025-05-12 10:58:06', 1, 0),
+(4, 1, 'Agus', 'zikra00101@gmail.com', '085781086148', 'Perusahaan', 'Litigasi', 500000, '400000.00', 5000000, '2025-05-26', 'Jakarta', 'Tes', 'Selesai', NULL, '2025-05-07 13:24:06', 1, 0),
+(5, 1, 'Azzikra Praqasta Kusuma', 'termiteindonesia@gmail.com', '085781086148', 'Perdata', 'Negosiasi', 1000000000, '800000000.00', 500000, '2025-06-01', 'Jakarta Barat', 'tes 3', 'Selesai', NULL, '2025-05-12 10:58:06', 1, 0),
 (6, 1, 'Umar Ali', 'sayaumarali@gmail.com', '085781086148', 'Keluarga', 'Pendampingan', 1000000, '800000.00', 50000000, '2025-06-01', 'Bandung', 'KDRT', 'Selesai', '1747053599169-Anggota1.pdf', '2025-05-12 12:39:59', 1, 1),
 (7, 2, 'fajri', 'fajri30.r@gmail.com', '085706125411', 'Perdata', 'Pembuatan Dokumen', 1000000, '800000.00', 2000000, '2025-05-14', 'Jakarta', 'Warisan', 'Selesai', '1747201804678-PENGUMUMAN Libur Hari Raya Waisak 2569 BE.pdf', '2025-05-14 05:50:04', 9, 1),
 (8, 2, 'fajri', 'fajri30.r@gmail.com', '085706125411', 'Pidana', 'Pendampingan', 1000000, '800000.00', 2000000, '2025-05-14', 'Jakarta', 'Pasal pasal', 'Selesai', '1747271588186-Laporan Zitline_Fajri Ramadhan.pdf', '2025-05-15 01:13:08', 9, 1),
@@ -118,14 +118,15 @@ INSERT INTO `ajukan_kasus` (`id`, `user_id`, `nama`, `email`, `no_hp`, `area_pra
 (36, 14, 'vanes', 'vns@gmail.com', '085781086148', 'Perdata', 'Pendampingan', 500000, '400000.00', 500000, '2222-02-22', 'jakarta ', 'sfas', 'Menunggu', NULL, '2025-05-28 10:55:25', NULL, 0),
 (37, 14, 'vanes', 'vns@gmail.com', '085781086148', 'Keluarga', 'Konsultasi', 500000, '400000.00', 500000, '2222-02-22', 'jakarta ', 'sa', 'Menunggu', NULL, '2025-05-28 11:43:16', NULL, 0),
 (38, 14, 'vanes', 'vns@gmail.com', '085781086148', 'Pidana', 'Konsultasi', 500000, '400000.00', 500000, '2222-02-22', 'jakarta ', 'sasa', 'Menunggu', '1748433123923-WIN_20250526_11_01_41_Pro.jpg', '2025-05-28 11:52:03', NULL, 0),
-(39, 14, 'vanes', 'vns@gmail.com', '0986544', 'Keluarga', 'Pendampingan', 500000, '400000.00', 500000, '2222-02-22', 'jakarta ', 'sas', 'Menunggu', NULL, '2025-05-28 11:55:40', NULL, 0),
+(39, 14, 'vanes', 'vns@gmail.com', '0986544', 'Keluarga', 'Pendampingan', 500000, '400000.00', 500000, '2222-02-22', 'jakarta ', 'sas', 'Menunggu', NULL, '2025-05-28 11:55:40', 1, 0),
 (40, 14, 'percobaan', 'vns@gmail.com', '085781086148', 'Perdata', 'Pendampingan', 500000, '400000.00', 500000, '2222-02-22', 'jakarta ', 'sadas', 'Menunggu', NULL, '2025-05-28 19:53:50', NULL, 0),
 (41, 14, 'vanes', 'vns@gmail.com', '0986544', 'Perusahaan', 'Litigasi', 500000, '400000.00', 500000, '9999-09-09', 'jakarta ', 'sas', 'Menunggu', NULL, '2025-05-28 19:55:22', NULL, 0),
 (42, 14, 'SENKA - Perfect Whip Berry Bright', 'vns@gmail.com', '085781086148', 'Perdata', 'Pendampingan', 500000, '400000.00', 500000, '3333-03-22', 'jakarta ', 'daf', 'Menunggu', NULL, '2025-05-28 19:58:02', NULL, 0),
-(43, 14, 'vanes', 'vns@gmail.com', '085781086148', 'Pidana', 'Konsultasi', 500000, '400000.00', 500000, '7584-02-22', 'jakarta ', 'testing setelah pull', 'Menunggu', NULL, '2025-05-29 10:24:02', NULL, 0),
-(44, 14, 'testing', 'vns@gmail.com', '085781086148', 'Perdata', 'Pendampingan', 500000, '400000.00', 500000, '2222-02-22', 'jakarta ', 'testing', 'Menunggu', NULL, '2025-05-29 11:20:56', NULL, 0),
+(43, 14, 'vanes', 'vns@gmail.com', '085781086148', 'Pidana', 'Konsultasi', 500000, '400000.00', 500000, '7584-02-22', 'jakarta ', 'testing setelah pull', 'Selesai', NULL, '2025-05-29 10:24:02', 1, 0),
+(44, 14, 'testing', 'vns@gmail.com', '085781086148', 'Perdata', 'Pendampingan', 500000, '400000.00', 500000, '2222-02-22', 'jakarta ', 'testing', 'Selesai', NULL, '2025-05-29 11:20:56', 5, 0),
 (45, 14, 'Perfect Whip Berry Bright', 'vns@gmail.com', '085781086148', 'testing', 'Pendampingan', 500000, '400000.00', 500000, '9990-09-08', 'jakarta ', 'testing\r\n', 'Menunggu', NULL, '2025-05-29 11:22:55', NULL, 0),
-(46, 9, 'demo woi', 'demon@gmail.com', '1283187321723', 'Perdata', 'Pembuatan Dokumen', 5000000, '4000000.00', 500000, '2025-06-18', 'tes', 'tes', 'Selesai', NULL, '2025-06-17 03:25:57', 1, 0);
+(46, 9, 'demo woi', 'demon@gmail.com', '1283187321723', 'Perdata', 'Pembuatan Dokumen', 5000000, '4000000.00', 500000, '2025-06-18', 'tes', 'tes', 'Selesai', NULL, '2025-06-17 03:25:57', 1, 0),
+(47, 14, 'testing rating', 'vns@gmail.com', '085781086148', 'Perdata', 'Pendampingan', 500000, '400000.00', 500000, '2025-06-03', 'jakarta barat', 'testing ', 'Menunggu', NULL, '2025-06-17 08:13:28', NULL, 0);
 
 -- --------------------------------------------------------
 
@@ -135,16 +136,16 @@ INSERT INTO `ajukan_kasus` (`id`, `user_id`, `nama`, `email`, `no_hp`, `area_pra
 
 CREATE TABLE `artikel` (
   `id` int NOT NULL,
-  `judul` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
-  `deskripsi` varchar(10000) COLLATE utf8mb4_general_ci NOT NULL,
-  `jenis_hukum` enum('Pidana','Perdata','Internasional','Ketenagakerjaan','HAKI','Keluarga','Administrasi Negara') COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `filePath` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
-  `coverPath` varchar(225) COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `nomor` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
+  `judul` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `deskripsi` varchar(10000) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `jenis_hukum` enum('Pidana','Perdata','Internasional','Ketenagakerjaan','HAKI','Keluarga','Administrasi Negara') CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `filePath` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `coverPath` varchar(225) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `nomor` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `tahun` int NOT NULL,
-  `jenis_dokumen` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
-  `tempat_penetapan` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
-  `status` enum('Aktif','Tidak Aktif') COLLATE utf8mb4_general_ci NOT NULL DEFAULT 'Aktif',
+  `jenis_dokumen` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `tempat_penetapan` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `status` enum('Aktif','Tidak Aktif') CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL DEFAULT 'Aktif',
   `tanggal_penetapan` date NOT NULL DEFAULT '2000-01-01'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -171,10 +172,10 @@ INSERT INTO `artikel` (`id`, `judul`, `deskripsi`, `jenis_hukum`, `filePath`, `c
 
 CREATE TABLE `artikel_berita` (
   `id` int NOT NULL,
-  `judul` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
-  `isi` text COLLATE utf8mb4_general_ci NOT NULL,
-  `gambar` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `kategori` varchar(100) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `judul` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `isi` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `gambar` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `kategori` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   `top_berita` tinyint(1) DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
@@ -201,12 +202,12 @@ INSERT INTO `artikel_berita` (`id`, `judul`, `isi`, `gambar`, `kategori`, `creat
 
 CREATE TABLE `faq_hukum` (
   `id` int NOT NULL,
-  `intent` varchar(100) COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `kategori` varchar(50) COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `keywords` text COLLATE utf8mb4_general_ci,
-  `contoh_pertanyaan` text COLLATE utf8mb4_general_ci,
-  `response` text COLLATE utf8mb4_general_ci,
-  `sumber_referensi` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL
+  `intent` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `kategori` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `keywords` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci,
+  `contoh_pertanyaan` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci,
+  `response` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci,
+  `sumber_referensi` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -329,8 +330,8 @@ CREATE TABLE `konsultasi` (
   `id_pengguna` int NOT NULL,
   `id_pengacara` int NOT NULL,
   `tanggal_konsultasi` datetime NOT NULL,
-  `status` enum('Dijadwalkan','Selesai','Dibatalkan') COLLATE utf8mb4_general_ci DEFAULT 'Dijadwalkan',
-  `catatan` text COLLATE utf8mb4_general_ci
+  `status` enum('Dijadwalkan','Selesai','Dibatalkan') CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT 'Dijadwalkan',
+  `catatan` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -347,7 +348,7 @@ CREATE TABLE `konsultasi_session` (
   `duration` int NOT NULL,
   `biaya` int NOT NULL DEFAULT '0',
   `biaya_pengacara` decimal(15,2) DEFAULT NULL,
-  `status` enum('aktif','selesai') COLLATE utf8mb4_general_ci DEFAULT 'aktif',
+  `status` enum('aktif','selesai') CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT 'aktif',
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `is_transferred` tinyint(1) DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
@@ -386,7 +387,48 @@ INSERT INTO `konsultasi_session` (`id`, `user_id`, `pengacara_id`, `start_time`,
 (31, 14, 3, '2025-05-29 14:44:17', 30, 50000, '40000.00', 'selesai', '2025-05-29 07:06:16', 1),
 (32, 14, 2, '2025-05-29 17:14:12', 30, 50000, '40000.00', 'selesai', '2025-05-29 10:14:11', 1),
 (33, 14, 9, '2025-05-29 17:18:02', 30, 50000, '40000.00', 'selesai', '2025-05-29 10:17:58', 1),
-(35, 14, 13, '2025-05-29 17:21:32', 30, 50000, '40000.00', 'selesai', '2025-05-29 10:21:32', 1);
+(35, 14, 13, '2025-05-29 17:21:32', 30, 50000, '40000.00', 'selesai', '2025-05-29 10:21:32', 1),
+(36, 1, 2, '2025-06-19 07:14:04', 30, 50000, '40000.00', 'aktif', '2025-06-19 00:13:56', 0);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `laporan_kasus`
+--
+
+CREATE TABLE `laporan_kasus` (
+  `id` int NOT NULL,
+  `jenis_kasus` varchar(50) DEFAULT NULL,
+  `nama_korban` varchar(255) NOT NULL,
+  `tempat_lahir_korban` varchar(100) NOT NULL,
+  `tanggal_lahir_korban` date NOT NULL,
+  `usia_korban` int NOT NULL,
+  `jenis_kelamin_korban` enum('Laki-Laki','Perempuan') NOT NULL,
+  `alamat_ktp_korban` text NOT NULL,
+  `alamat_domisili_korban` text NOT NULL,
+  `agama_korban` varchar(50) DEFAULT NULL,
+  `pekerjaan_korban` varchar(100) NOT NULL,
+  `pendidikan_korban` varchar(100) NOT NULL,
+  `kewarganegaraan_korban` varchar(100) NOT NULL,
+  `no_hp_korban` varchar(25) NOT NULL,
+  `nama_pelaku` varchar(255) NOT NULL,
+  `tempat_lahir_pelaku` varchar(100) DEFAULT NULL,
+  `tanggal_lahir_pelaku` date DEFAULT NULL,
+  `usia_pelaku` int DEFAULT NULL,
+  `jenis_kelamin_pelaku` enum('Laki-Laki','Perempuan') NOT NULL,
+  `alamat_ktp_pelaku` text,
+  `alamat_domisili_pelaku` text,
+  `agama_pelaku` varchar(50) DEFAULT NULL,
+  `pekerjaan_pelaku` varchar(100) DEFAULT NULL,
+  `pendidikan_pelaku` varchar(100) DEFAULT NULL,
+  `tempat_kejadian` varchar(255) NOT NULL,
+  `waktu_kejadian` varchar(255) NOT NULL,
+  `kronologi` text NOT NULL,
+  `file_kk` varchar(255) DEFAULT NULL,
+  `file_ktp` varchar(255) DEFAULT NULL,
+  `status_laporan` enum('Baru','Diproses','Selesai') NOT NULL DEFAULT 'Baru',
+  `tanggal_laporan` timestamp NULL DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- --------------------------------------------------------
 
@@ -397,7 +439,7 @@ INSERT INTO `konsultasi_session` (`id`, `user_id`, `pengacara_id`, `start_time`,
 CREATE TABLE `log_aktivitas` (
   `id` int NOT NULL,
   `id_pengguna` int NOT NULL,
-  `aktivitas` text COLLATE utf8mb4_general_ci NOT NULL,
+  `aktivitas` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `waktu` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -473,7 +515,21 @@ INSERT INTO `log_aktivitas` (`id`, `id_pengguna`, `aktivitas`, `waktu`) VALUES
 (81, 9, 'Status kasus ID 46 diperbarui menjadi \"Diproses\"', '2025-06-17 03:30:29'),
 (82, 9, 'Status kasus ID 46 diubah menjadi \'Diproses\'', '2025-06-17 03:30:29'),
 (83, 9, 'Status kasus ID 46 diperbarui menjadi \"Selesai\"', '2025-06-17 03:30:35'),
-(84, 9, 'Status kasus ID 46 diubah menjadi \'Selesai\'', '2025-06-17 03:30:35');
+(84, 9, 'Status kasus ID 46 diubah menjadi \'Selesai\'', '2025-06-17 03:30:35'),
+(85, 14, 'Status kasus ID 43 diperbarui menjadi \"Diproses\"', '2025-06-17 07:36:00'),
+(86, 14, 'Status kasus ID 43 diubah menjadi \'Diproses\'', '2025-06-17 07:36:00'),
+(87, 1, 'Status kasus ID 4 diperbarui menjadi \"Diproses\"', '2025-06-17 07:36:02'),
+(88, 1, 'Status kasus ID 4 diubah menjadi \'Diproses\'', '2025-06-17 07:36:02'),
+(89, 14, 'Status kasus ID 43 diperbarui menjadi \"Selesai\"', '2025-06-17 07:36:07'),
+(90, 14, 'Status kasus ID 43 diubah menjadi \'Selesai\'', '2025-06-17 07:36:07'),
+(91, 1, 'Status kasus ID 5 diperbarui menjadi \"Selesai\"', '2025-06-17 07:36:11'),
+(92, 1, 'Status kasus ID 5 diubah menjadi \'Selesai\'', '2025-06-17 07:36:11'),
+(93, 1, 'Status kasus ID 4 diperbarui menjadi \"Selesai\"', '2025-06-17 07:36:11'),
+(94, 1, 'Status kasus ID 4 diubah menjadi \'Selesai\'', '2025-06-17 07:36:11'),
+(95, 14, 'Status kasus ID 44 diperbarui menjadi \"Diproses\"', '2025-06-17 08:15:12'),
+(96, 14, 'Status kasus ID 44 diubah menjadi \'Diproses\'', '2025-06-17 08:15:12'),
+(97, 14, 'Status kasus ID 44 diperbarui menjadi \"Selesai\"', '2025-06-17 08:15:16'),
+(98, 14, 'Status kasus ID 44 diubah menjadi \'Selesai\'', '2025-06-17 08:15:16');
 
 -- --------------------------------------------------------
 
@@ -484,8 +540,8 @@ INSERT INTO `log_aktivitas` (`id`, `id_pengguna`, `aktivitas`, `waktu`) VALUES
 CREATE TABLE `log_pertanyaan_user` (
   `id` int NOT NULL,
   `user_id` int DEFAULT NULL,
-  `pertanyaan` text COLLATE utf8mb4_general_ci NOT NULL,
-  `intent_didapat` varchar(100) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `pertanyaan` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `intent_didapat` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
   `confidence_score` decimal(5,2) DEFAULT NULL,
   `waktu` timestamp NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
@@ -573,11 +629,11 @@ INSERT INTO `log_pertanyaan_user` (`id`, `user_id`, `pertanyaan`, `intent_didapa
 CREATE TABLE `messages` (
   `id` int NOT NULL,
   `sender_id` int NOT NULL,
-  `sender_role` enum('user','pengacara') COLLATE utf8mb4_general_ci NOT NULL,
+  `sender_role` enum('user','pengacara') CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `receiver_id` int NOT NULL,
-  `receiver_role` enum('user','pengacara') COLLATE utf8mb4_general_ci NOT NULL,
-  `message` text COLLATE utf8mb4_general_ci NOT NULL,
-  `file` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `receiver_role` enum('user','pengacara') CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `message` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `file` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
   `timestamp` datetime DEFAULT CURRENT_TIMESTAMP,
   `is_read` tinyint(1) DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
@@ -698,30 +754,30 @@ INSERT INTO `messages` (`id`, `sender_id`, `sender_role`, `receiver_id`, `receiv
 
 CREATE TABLE `pendaftaran_pengacara` (
   `id` int NOT NULL,
-  `nama` varchar(100) COLLATE utf8mb4_general_ci NOT NULL,
-  `ktp` varchar(30) COLLATE utf8mb4_general_ci NOT NULL,
+  `nama` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `ktp` varchar(30) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `tanggal_lahir` date NOT NULL,
-  `jenis_kelamin` enum('Laki-laki','Perempuan') COLLATE utf8mb4_general_ci NOT NULL,
-  `alamat` text COLLATE utf8mb4_general_ci NOT NULL,
-  `email` varchar(100) COLLATE utf8mb4_general_ci NOT NULL,
-  `no_hp` varchar(20) COLLATE utf8mb4_general_ci NOT NULL,
-  `nomor_induk_advokat` varchar(50) COLLATE utf8mb4_general_ci NOT NULL,
-  `universitas` varchar(100) COLLATE utf8mb4_general_ci NOT NULL,
-  `pendidikan` varchar(100) COLLATE utf8mb4_general_ci NOT NULL,
-  `spesialisasi` varchar(150) COLLATE utf8mb4_general_ci NOT NULL,
+  `jenis_kelamin` enum('Laki-laki','Perempuan') CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `alamat` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `email` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `no_hp` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `nomor_induk_advokat` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `universitas` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `pendidikan` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `spesialisasi` varchar(150) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `pengalaman` int NOT NULL,
-  `upload_ktp` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `upload_foto` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `upload_kartu_advokat` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `upload_pkpa` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `username` varchar(100) COLLATE utf8mb4_general_ci NOT NULL,
-  `password` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
+  `upload_ktp` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `upload_foto` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `upload_kartu_advokat` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `upload_pkpa` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `username` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `password` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `tanggal_daftar` datetime DEFAULT CURRENT_TIMESTAMP,
-  `linkedin` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `instagram` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `twitter` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `resume_cv` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `portofolio` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL
+  `linkedin` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `instagram` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `twitter` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `resume_cv` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `portofolio` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -732,35 +788,35 @@ CREATE TABLE `pendaftaran_pengacara` (
 
 CREATE TABLE `pengacara` (
   `id` int NOT NULL,
-  `nama` varchar(100) COLLATE utf8mb4_general_ci NOT NULL,
-  `ktp` varchar(30) COLLATE utf8mb4_general_ci NOT NULL,
+  `nama` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `ktp` varchar(30) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `tanggal_lahir` date NOT NULL,
-  `jenis_kelamin` enum('Laki-laki','Perempuan') COLLATE utf8mb4_general_ci NOT NULL,
-  `alamat` text COLLATE utf8mb4_general_ci NOT NULL,
-  `email` varchar(100) COLLATE utf8mb4_general_ci NOT NULL,
-  `no_hp` varchar(20) COLLATE utf8mb4_general_ci NOT NULL,
-  `nomor_induk_advokat` varchar(50) COLLATE utf8mb4_general_ci NOT NULL,
-  `universitas` varchar(100) COLLATE utf8mb4_general_ci NOT NULL,
-  `pendidikan` varchar(100) COLLATE utf8mb4_general_ci NOT NULL,
-  `spesialisasi` varchar(150) COLLATE utf8mb4_general_ci NOT NULL,
+  `jenis_kelamin` enum('Laki-laki','Perempuan') CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `alamat` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `email` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `no_hp` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `nomor_induk_advokat` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `universitas` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `pendidikan` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `spesialisasi` varchar(150) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `pengalaman` int NOT NULL,
-  `upload_ktp` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `upload_foto` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `upload_kartu_advokat` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `upload_pkpa` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `username` varchar(50) COLLATE utf8mb4_general_ci NOT NULL,
-  `password` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
+  `upload_ktp` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `upload_foto` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `upload_kartu_advokat` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `upload_pkpa` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `username` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `password` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `tanggal_daftar` datetime DEFAULT CURRENT_TIMESTAMP,
-  `linkedin` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `instagram` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `twitter` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `bank_name` varchar(100) COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `account_name` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `account_number` varchar(50) COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `resume_cv` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `portofolio` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `linkedin` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `instagram` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `twitter` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `bank_name` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `account_name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `account_number` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `resume_cv` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `portofolio` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
   `harga_konsultasi` int NOT NULL DEFAULT '50000',
-  `reset_token` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `reset_token` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
   `reset_token_expiry` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -799,11 +855,11 @@ INSERT INTO `pengacara` (`id`, `nama`, `ktp`, `tanggal_lahir`, `jenis_kelamin`, 
 
 CREATE TABLE `pengguna` (
   `id` int NOT NULL,
-  `nama` varchar(100) COLLATE utf8mb4_general_ci NOT NULL,
-  `email` varchar(100) COLLATE utf8mb4_general_ci NOT NULL,
-  `password_hash` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
-  `no_hp` varchar(15) COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `alamat` text COLLATE utf8mb4_general_ci,
+  `nama` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `email` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `password_hash` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `no_hp` varchar(15) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `alamat` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci,
   `tanggal_daftar` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -840,7 +896,15 @@ INSERT INTO `review_pengacara` (`id`, `pengacara_id`, `user_id`, `kasus_id`, `ko
 (9, 4, 1, NULL, NULL, 4, 'Ulasan untuk pengacara yang kasusnya tidak tercatat di sistem. Secara umum pelayanannya baik.', '2025-06-01 03:00:00'),
 (10, 2, 1, NULL, 14, 5, 'Konsultasi hukum pidana yang sangat berbobot. Semua pertanyaan saya terjawab tuntas.', '2025-06-10 07:00:00'),
 (11, 2, 2, NULL, NULL, 5, 'bagus tes te', '2025-06-16 16:44:11'),
-(12, 1, 9, 46, NULL, 5, 'tes', '2025-06-17 04:34:48');
+(12, 1, 9, 46, NULL, 5, 'tes', '2025-06-17 04:34:48'),
+(13, 1, 14, 43, NULL, 5, 'tes', '2025-06-17 07:36:51'),
+(14, 5, 14, 44, NULL, 2, 'hasil nya bagus tapi karena gw jahat, gw aksri rating 2', '2025-06-17 08:15:53'),
+(15, 5, 1, NULL, 1, 5, 'Sangat membantu dan responsif, menjelaskan setiap langkah dengan jelas.', '2025-06-17 03:00:00'),
+(144, 2, 9, NULL, 14, 4, 'Konsultasi hukum keluarga cukup memuaskan, ada beberapa poin yang bisa lebih diperjelas.', '2025-06-17 04:30:00'),
+(145, 1, 14, 6, NULL, 5, 'Penanganan kasus warisan sangat profesional. Hasilnya sesuai harapan.', '2025-06-17 05:45:00'),
+(146, 3, 2, NULL, 6, 3, 'Agak lambat dalam merespon email, tapi ketika sudah konsultasi, penjelasannya cukup baik.', '2025-06-17 06:15:00'),
+(147, 7, 1, 7, NULL, 4, 'Pendampingan hukum bisnis yang solid, meskipun ada sedikit keterlambatan di awal proses.', '2025-06-17 07:00:00'),
+(148, 4, 14, 44, NULL, 2, 'Komentar ini hanya untuk menguji sistem. Sebenarnya pelayanan cukup baik.', '2025-06-17 08:00:00');
 
 -- --------------------------------------------------------
 
@@ -852,9 +916,9 @@ CREATE TABLE `tanya_jawab` (
   `id` int NOT NULL,
   `id_pengguna` int NOT NULL,
   `id_pengacara` int NOT NULL,
-  `pertanyaan` text COLLATE utf8mb4_general_ci NOT NULL,
-  `jawaban` text COLLATE utf8mb4_general_ci,
-  `status` enum('Menunggu','Dijawab') COLLATE utf8mb4_general_ci DEFAULT 'Menunggu',
+  `pertanyaan` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `jawaban` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci,
+  `status` enum('Menunggu','Dijawab') CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT 'Menunggu',
   `tanggal_tanya` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `tanggal_jawab` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
@@ -870,7 +934,7 @@ CREATE TABLE `transaksi` (
   `pengacara_id` int NOT NULL,
   `user_id` int NOT NULL,
   `amount` int NOT NULL,
-  `status` enum('Pending','Success','Failed') COLLATE utf8mb4_general_ci NOT NULL DEFAULT 'Pending',
+  `status` enum('Pending','Success','Failed') CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL DEFAULT 'Pending',
   `tanggal_transaksi` datetime DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -882,16 +946,16 @@ CREATE TABLE `transaksi` (
 
 CREATE TABLE `users` (
   `id` int NOT NULL,
-  `name` varchar(100) COLLATE utf8mb4_general_ci NOT NULL,
-  `email` varchar(100) COLLATE utf8mb4_general_ci NOT NULL,
-  `phone` varchar(20) COLLATE utf8mb4_general_ci NOT NULL,
-  `password` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
-  `gender` enum('L','P') COLLATE utf8mb4_general_ci NOT NULL,
+  `name` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `email` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `phone` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `password` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `gender` enum('L','P') CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `birthdate` date NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `address` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `photo` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `reset_token` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `address` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `photo` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `reset_token` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
   `reset_token_expiry` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -968,6 +1032,12 @@ ALTER TABLE `konsultasi`
 ALTER TABLE `konsultasi_session`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `unik_session` (`user_id`,`pengacara_id`,`start_time`);
+
+--
+-- Indexes for table `laporan_kasus`
+--
+ALTER TABLE `laporan_kasus`
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `log_aktivitas`
@@ -1056,7 +1126,7 @@ ALTER TABLE `admin`
 -- AUTO_INCREMENT for table `ajukan_kasus`
 --
 ALTER TABLE `ajukan_kasus`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=47;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=48;
 
 --
 -- AUTO_INCREMENT for table `artikel`
@@ -1086,13 +1156,19 @@ ALTER TABLE `konsultasi`
 -- AUTO_INCREMENT for table `konsultasi_session`
 --
 ALTER TABLE `konsultasi_session`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=36;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=38;
+
+--
+-- AUTO_INCREMENT for table `laporan_kasus`
+--
+ALTER TABLE `laporan_kasus`
+  MODIFY `id` int NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `log_aktivitas`
 --
 ALTER TABLE `log_aktivitas`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=85;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=99;
 
 --
 -- AUTO_INCREMENT for table `log_pertanyaan_user`
@@ -1128,7 +1204,7 @@ ALTER TABLE `pengguna`
 -- AUTO_INCREMENT for table `review_pengacara`
 --
 ALTER TABLE `review_pengacara`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=149;
 
 --
 -- AUTO_INCREMENT for table `tanya_jawab`
