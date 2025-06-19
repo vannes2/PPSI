@@ -224,6 +224,11 @@ const Home = () => {
             <h3>Berita & Artikel Hukum</h3>
             <p>Baca informasi hukum terkini secara lengkap.</p>
           </Link>
+          <Link to="/Login" className="feature-item-home">
+            <FaUserCheck className="icon-feature" />
+            <h3>Formulir Konsultasi</h3>
+            <p>Membantu Korban </p>
+          </Link>
         </div>
       </section>
 
