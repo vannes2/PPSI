@@ -22,6 +22,7 @@ import ResetPassword from "./PageUser/ResetPassword";
 import DetailBerita from "./PageUser/DetailBerita";
 import RiwayatKasus from "./PageUser/RiwayatKasus";
 import DetailPengacara from "./PageUser/DetailPengacara";
+import FormKonsultasiFree from "./PageUser/FormKonsultasiFree";
 
 
 // Admin Pages
@@ -144,6 +145,7 @@ function AppContent() {
         <Route path="/artikel/:id" element={<ArtikelDetail />} />
         <Route path="/RiwayatKasus" element={<RiwayatKasus />} />
         <Route path="/pengacara/detail/:id" element={<DetailPengacara />} />
+        <Route path="/FormKonsultasiFree" element={<FormKonsultasiFree/>}/>
 
         {/* ✅ Admin Routes */}
         <Route path="/HomeAdmin" element={<HomeAdmin />} />

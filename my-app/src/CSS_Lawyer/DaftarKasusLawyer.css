@@ -1,248 +1,295 @@
+/* === FONT & GLOBAL SETUP === */
 .DaftarKasusLawyer {
-  background-color: #f7f7f7;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
+    background-color: #f8f9fa;
+    min-height: 100vh;
 }
 
-.container-kasus {
-  padding: 40px 20px;
-  width: 95%;
-  max-width: 1400px;
-  margin: 50px auto;
-  background: white;
-  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.05);
-  border-radius: 12px;
-  overflow-x: auto;
+.container-kasus-baru {
+    width: 95%;
+    max-width: 1600px;
+    margin: 40px auto;
 }
 
-.container-kasus h2 {
-  text-align: center;
-  margin-bottom: 30px;
-  color: #B31312;
+/* === MAIN LAYOUT (2 KOLOM) === */
+.kasus-layout {
+    display: grid;
+    grid-template-columns: 350px 1fr;
+    gap: 30px;
+    min-height: 75vh;
 }
 
-.kasus-table {
-  width: 100%;
-  border-collapse: collapse;
-  font-size: 14px;
+/* === KOLOM KIRI: DAFTAR KASUS === */
+.kasus-list-panel {
+    background-color: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    display: flex;
+    flex-direction: column;
+    max-height: 80vh;
 }
 
-.kasus-table th,
-.kasus-table td {
-  padding: 12px 15px;
-  border: 1px solid #ddd;
-  text-align: center;
-  vertical-align: middle;
+.kasus-list-header {
+    padding: 20px;
+    border-bottom: 1px solid #e9ecef;
 }
 
-.kasus-table th {
-  background-color: #B31312;
-  color: white;
+.kasus-list-header h3 {
+    margin: 0 0 15px 0;
+    font-size: 1.5rem;
+    color: #343a40;
 }
 
-.kasus-table tr:nth-child(even) {
-  background-color: #f9f9f9;
-}
-
-/* Tab filter */
 .tab-kasus {
-  margin-bottom: 16px;
-  text-align: center;
-  flex-wrap: wrap;
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
 }
 
 .tab-btn {
-  padding: 6px 12px;
-  margin: 6px;
-  border: none;
-  border-radius: 4px;
-  background-color: #f0f0f0;
-  cursor: pointer;
-  transition: background-color 0.2s ease;
+    padding: 8px 16px;
+    border: 1px solid #dee2e6;
+    border-radius: 20px;
+    background-color: transparent;
+    color: #495057;
+    cursor: pointer;
+    font-weight: 500;
+    transition: all 0.3s ease;
+}
+
+.tab-btn:hover {
+    background-color: #f1f3f5;
+    border-color: #adb5bd;
 }
 
 .tab-btn.active {
-  background-color: #dc3545;
-  color: white;
+    background-color: #B31312;
+    color: white;
+    border-color: #B31312;
 }
 
-/* Tombol aksi */
-.action-buttons {
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-  align-items: center;
-  justify-content: center;
+.kasus-list {
+    overflow-y: auto;
+    padding: 10px;
 }
 
-@media (min-width: 768px) {
-  .action-buttons {
-    flex-direction: row;
+.kasus-list-item {
+    padding: 15px;
+    border-radius: 8px;
+    margin-bottom: 10px;
+    cursor: pointer;
+    border: 2px solid transparent;
+    transition: background-color 0.2s, border-color 0.2s;
+}
+
+.kasus-list-item:hover {
+    background-color: #f8f9fa;
+}
+
+.kasus-list-item.active {
+    background-color: #fff5f5;
+    border-color: #ffb8b8;
+}
+
+.item-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 5px;
+}
+
+.item-client-name {
+    font-weight: 600;
+    color: #212529;
+}
+
+.item-status {
+    font-size: 0.75rem;
+    padding: 3px 10px;
+    border-radius: 12px;
+    font-weight: 500;
+    text-transform: capitalize;
+}
+.status-selesai { background-color: #d4edda; color: #155724; }
+.status-diproses { background-color: #cce5ff; color: #004085; }
+.status-menunggu { background-color: #fff3cd; color: #856404; }
+.status-default { background-color: #e9ecef; color: #495057; }
+
+
+.item-case-type {
+    font-size: 0.9rem;
+    color: #6c757d;
+    margin: 5px 0;
+}
+
+.item-date {
+    font-size: 0.8rem;
+    color: #adb5bd;
+}
+
+.no-kasus-info {
+    padding: 20px;
+    text-align: center;
+    color: #6c757d;
+}
+
+
+/* === KOLOM KANAN: DETAIL KASUS === */
+.kasus-detail-panel {
+    background-color: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    padding: 30px;
+}
+
+.detail-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    border-bottom: 1px solid #e9ecef;
+    padding-bottom: 20px;
+    margin-bottom: 20px;
+}
+
+.detail-header h2 {
+    margin: 0;
+    font-size: 2rem;
+    color: #B31312;
+}
+
+.detail-header p {
+    margin: 5px 0 0 0;
+    color: #495057;
+    font-size: 1.1rem;
+}
+
+.export-btn {
+    background-color: #6c757d;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 6px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+.export-btn:hover {
+    background-color: #5a6268;
+}
+
+.detail-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+    margin-bottom: 25px;
+}
+
+.detail-item {
+    display: flex;
+    flex-direction: column;
+    background: #f8f9fa;
+    padding: 15px;
+    border-radius: 8px;
+}
+.detail-item span {
+    font-size: 0.9rem;
+    color: #6c757d;
+    margin-bottom: 5px;
+}
+.detail-item strong {
+    font-size: 1rem;
+    color: #212529;
+}
+
+.detail-description {
+    margin-bottom: 30px;
+}
+.detail-description h4 {
+    margin-bottom: 10px;
+    color: #343a40;
+}
+.detail-description p {
+    background-color: #f8f9fa;
+    padding: 15px;
+    border-radius: 8px;
+    line-height: 1.6;
+    color: #495057;
+    white-space: pre-wrap; /* Agar spasi dan enter terbaca */
+}
+
+.detail-actions {
+    display: flex;
+    gap: 15px;
     flex-wrap: wrap;
-  }
+    border-top: 1px solid #e9ecef;
+    padding-top: 20px;
+    margin-top: 20px;
 }
 
-.btn-update {
-  background-color: #198754;
-  color: white;
-  border: none;
-  padding: 5px 10px;
-  border-radius: 4px;
-  cursor: pointer;
-  font-size: 0.85rem;
-}
-.btn-update:hover {
-  background-color: #157347;
+.action-btn {
+    padding: 12px 25px;
+    border-radius: 6px;
+    border: none;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-size: 0.95rem;
 }
 
-.btn-detail {
-  background-color: #B31312;
-  color: white;
-  padding: 5px 10px;
-  border: none;
-  border-radius: 6px;
-  cursor: pointer;
-  font-size: 0.85rem;
+.action-btn.primary {
+    background-color: #198754;
+    color: white;
 }
-.btn-detail:hover {
-  background-color: #ff4b4b;
+.action-btn.primary:hover {
+    background-color: #157347;
 }
-
-.btn-riwayat {
-  background-color: #f0ad4e;
-  color: white;
-  border: none;
-  padding: 5px 10px;
-  border-radius: 4px;
-  cursor: pointer;
+.action-btn.secondary {
+    background-color: #e9ecef;
+    color: #343a40;
 }
-.btn-riwayat:hover {
-  background-color: #ec9a2f;
+.action-btn.secondary:hover {
+    background-color: #dee2e6;
 }
 
-/* Toast */
-.toast {
-  position: fixed;
-  top: 20px;
-  right: 20px;
-  padding: 12px 16px;
-  background-color: #28a745;
-  color: white;
-  border-radius: 6px;
-  z-index: 1000;
-  animation: fadein 0.3s ease;
-}
-.toast.error {
-  background-color: #dc3545;
-}
-@keyframes fadein {
-  from {
-    opacity: 0;
-    transform: translateY(-10px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-/* Modal overlay */
-.modal-overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-color: rgba(0,0,0,0.5);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  z-index: 999;
-}
-
-.modal-content {
-  background-color: #fff;
-  padding: 25px;
-  width: 90%;
-  max-width: 600px;
-  border-radius: 10px;
-  max-height: 80vh;
-  overflow-y: auto;
-  box-shadow: 0 0 10px rgba(0,0,0,0.3);
-  animation: fadein 0.3s ease;
-}
-
-.modal-content h3 {
-  margin-top: 0;
-  text-align: center;
-  color: #B31312;
-}
-
-.log-list {
-  list-style: none;
-  padding-left: 0;
-  margin-top: 15px;
-}
-
-.log-list li {
-  background-color: #f8f9fa;
-  border-left: 4px solid #B31312;
-  padding: 10px 12px;
-  margin-bottom: 8px;
-  border-radius: 4px;
-}
-
-.btn-close-modal {
-  display: block;
-  margin: 20px auto 0;
-  background: #B31312;
-  color: white;
-  padding: 8px 20px;
-  border: none;
-  border-radius: 6px;
-  cursor: pointer;
-}
-.btn-close-modal:hover {
-  background: #a00e0e;
+.no-selection {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    text-align: center;
+    color: #6c757d;
+    font-size: 1.2rem;
+    background: #f8f9fa;
+    border-radius: 8px;
 }
 
 
-/* Badge-style Riwayat */
-.badge-status {
-  display: inline-flex;
-  align-items: center;
-  padding: 5px 12px;
-  border-radius: 20px;
-  font-size: 0.85rem;
-  font-weight: 500;
-  background-color: #e9ecef;
-  color: #333;
-  cursor: pointer;
-  transition: all 0.2s ease-in-out;
-  margin: 2px;
-}
+/* --- MODAL & TOAST --- */
+.modal-overlay { position: fixed; top: 0; left: 0; right: 0; bottom: 0; background-color: rgba(0,0,0,0.6); display: flex; justify-content: center; align-items: center; z-index: 1001; }
+.modal-content { background-color: #fff; padding: 25px; width: 90%; max-width: 600px; border-radius: 10px; max-height: 80vh; overflow-y: auto; box-shadow: 0 5px 15px rgba(0,0,0,0.3); }
+.modal-content h3 { margin-top: 0; text-align: center; color: #B31312; }
+.log-list { list-style: none; padding-left: 0; margin-top: 15px; }
+.log-list li { background-color: #f8f9fa; border-left: 4px solid #B31312; padding: 10px 12px; margin-bottom: 8px; border-radius: 4px; }
+.btn-close-modal { display: block; margin: 20px auto 0; background: #B31312; color: white; padding: 8px 20px; border: none; border-radius: 6px; cursor: pointer; }
+.btn-close-modal:hover { background: #a00e0e; }
+.toast { position: fixed; top: 20px; right: 20px; padding: 12px 16px; color: white; border-radius: 6px; z-index: 1002; animation: fadein 0.3s ease; }
+.toast.success { background-color: #198754; }
+.toast.error { background-color: #dc3545; }
+@keyframes fadein { from { opacity: 0; transform: translateY(-10px); } to { opacity: 1; transform: translateY(0); } }
 
-.badge-status:hover {
-  background-color: #dcdcdc;
+/* --- RESPONSIVE --- */
+@media (max-width: 1200px) {
+    .kasus-layout {
+        grid-template-columns: 300px 1fr;
+    }
 }
-
-.dot-status {
-  height: 8px;
-  width: 8px;
-  border-radius: 50%;
-  margin-right: 6px;
-  display: inline-block;
-}
-
-.waiting .dot-status {
-  background-color: orange;
-}
-
-.processing .dot-status {
-  background-color: blue;
-}
-
-.done .dot-status {
-  background-color: green;
+@media (max-width: 992px) {
+    .kasus-layout {
+        grid-template-columns: 1fr;
+    }
+    .kasus-list-panel {
+        max-height: 40vh;
+    }
+    .kasus-detail-panel {
+        margin-top: 20px;
+    }
 }

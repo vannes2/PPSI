@@ -205,6 +205,11 @@ const HomeAfter = () => {
             <h3>Berita & Artikel Hukum</h3>
             <p>Baca informasi dan edukasi hukum terkini secara lengkap dan terpercaya.</p>
           </Link>
+          <Link to="/FormKonsultasiFree" className="feature-item-home">
+            <FaUserCheck className="icon-feature" />
+            <h3>Ajukan Kasus</h3>
+            <p>Dapatkan pendampingan hukum dari profesional.</p>
+          </Link>
         </div>
       </section>
 
