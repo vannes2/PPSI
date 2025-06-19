@@ -22,6 +22,7 @@
   --shadow-soft: 0 4px 12px rgba(0, 0, 0, 0.15);
   --shadow-strong: 0 10px 30px rgba(0, 0, 0, 0.25);
   --transition-smooth: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+  --shadow-medium: 0 6px 18px rgba(0, 0, 0, 0.2);
 }
 
 * {
@@ -118,9 +119,11 @@ body {
 
 .dashboard-page .stats-grid {
   display: flex;
+  flex-wrap: wrap; /* Izinkan wrapping untuk simetri */
   gap: var(--spacing-md);
-  overflow-x: auto;
   padding-bottom: 1rem;
+  justify-content: center; /* Pusatkan kartu saat wrapping */
+  width: 100%; /* Penting agar flex-basis berfungsi benar */
 }
 
 .dashboard-page .stat-card {
@@ -132,8 +135,9 @@ body {
   gap: 1.25rem;
   border: 1px solid var(--color-border);
   transition: var(--transition-smooth);
-  min-width: 270px;
-  flex-shrink: 0;
+  flex: 1 1 calc(33.33% - (2 * var(--spacing-md) / 3)); /* 3 kartu per baris */
+  max-width: calc(33.33% - (2 * var(--spacing-md) / 3)); /* Batasi agar tidak lebih dari 3 per baris */
+  box-sizing: border-box; /* Pastikan padding dan border masuk perhitungan lebar */
 }
 
 .dashboard-page .stat-card:hover {
@@ -169,11 +173,16 @@ body {
   font-size: 2rem;
 }
 
+/* START: Perubahan untuk Financial Cards agar selalu horizontal (scrollable) */
 .dashboard-page .financial-summary {
   display: flex;
+  flex-wrap: nowrap; /* KUNCI: Membuat semua item tetap dalam satu baris */
   gap: var(--spacing-md);
-  overflow-x: auto;
   padding-bottom: 1rem;
+  justify-content: flex-start; /* KUNCI: Sejajarkan ke kiri, bukan tengah */
+  width: 100%;
+  overflow-x: auto; /* KUNCI: Aktifkan scrolling horizontal jika lebar melebihi */
+  -webkit-overflow-scrolling: touch; /* Untuk scrolling yang lebih halus di iOS */
 }
 
 .dashboard-page .financial-card {
@@ -183,8 +192,10 @@ body {
   border: 1px solid var(--color-border);
   border-left: 5px solid var(--color-accent-1);
   transition: var(--transition-smooth);
-  min-width: 290px;
-  flex-shrink: 0;
+  /* Tidak lagi menggunakan flex-basis dan max-width untuk wrapping */
+  flex-shrink: 0; /* KUNCI: Mencegah kartu menyusut di bawah min-width */
+  min-width: 350px; /* Atur lebar minimum yang cukup agar angka tidak terpotong */
+  box-sizing: border-box;
 }
 
 .dashboard-page .financial-card:hover {
@@ -202,7 +213,15 @@ body {
   color: var(--color-text-primary);
   font-weight: 700;
   font-size: 2.2rem;
+  display: flex;
+  align-items: baseline;
+  gap: 0.5rem;
+  white-space: nowrap; /* Pastikan teks tidak memisah baris */
+  overflow: hidden; /* Sembunyikan overflow */
+  text-overflow: ellipsis; /* Tambahkan elipsis jika terpotong */
+  min-width: 0; /* Memungkinkan flex item ini menyusut jika perlu (di dalam financial-card) */
 }
+/* END: Perubahan untuk Financial Cards */
 
 .dashboard-page .section-pair {
   display: flex;
@@ -274,6 +293,9 @@ body {
 
 
 /* Responsive for dashboard-page only */
+/* Perhatikan: Dengan financial-summary yang scrollable,
+   banyak media query untuk financial-card tidak lagi diperlukan
+   karena mereka selalu di satu baris. */
 @media (min-width: 1440px) {
   .dashboard-page .section-pair .dashboard-section {
     min-width: 500px;
@@ -284,6 +306,13 @@ body {
   .dashboard-page .section-pair .dashboard-section {
     min-width: 350px;
   }
+
+  /* Stat-card tetap 3 kolom */
+  .dashboard-page .stat-card {
+    flex: 1 1 calc(33.33% - (2 * var(--spacing-md) / 3));
+    max-width: calc(33.33% - (2 * var(--spacing-md) / 3));
+  }
+  /* Financial-card sudah diatur oleh min-width dan flex-shrink:0 di atas */
 }
 
 @media (max-width: 1023px) and (min-width: 768px) {
@@ -300,9 +329,24 @@ body {
     scroll-snap-align: start;
     min-width: 0;
   }
+
+  /* Stat-card mungkin perlu aturan khusus jika Anda ingin mereka juga scrollable */
+  /* Tetapi jika Anda ingin mereka wrap pada breakpoint ini, biarkan seperti di bawah 1024px */
+  .dashboard-page .stats-grid {
+      overflow-x: hidden; /* Kembali ke wrapping */
+      flex-wrap: wrap;
+      justify-content: center;
+  }
+  .dashboard-page .stat-card {
+      flex: 1 1 45%; /* 2 kartu per baris */
+      min-width: 250px;
+      max-width: 48%;
+  }
+
+  /* Financial-summary sudah diatur agar selalu scrollable */
 }
 
-@media (max-width: 1024px) {
+@media (max-width: 1024px) { /* Ini akan mencakup tablet vertikal dan mobile */
   .dashboard-page .dashboard-header h1 {
     font-size: 2rem;
   }
@@ -311,27 +355,24 @@ body {
     font-size: 1rem;
   }
 
+  /* Stat-card: Kembali ke wrapping (2 kartu per baris) */
   .dashboard-page .stats-grid {
     flex-wrap: wrap;
     justify-content: center;
+    overflow-x: hidden; /* Tidak perlu scroll horizontal lagi di sini */
   }
-
   .dashboard-page .stat-card {
-    flex: 1 1 45%;
-    min-width: 250px;
-    max-width: 48%;
+    flex: 1 1 45%; /* 2 kartu per baris */
+    min-width: 250px; /* Pertahankan min-width untuk mencegah terlalu kecil */
+    max-width: 48%; /* Adjust to prevent squishing */
     margin-bottom: 1rem;
   }
 
-  .dashboard-page .financial-summary {
-    flex-wrap: wrap;
-    justify-content: center;
-  }
-
+  /* Financial-summary: Sudah diatur agar selalu scrollable,
+     jadi aturan di sini hanya untuk kartu jika mereka membutuhkan penyesuaian font/padding */
   .dashboard-page .financial-card {
-    flex: 1 1 45%;
-    max-width: 48%;
-    margin-bottom: 1rem;
+    /* min-width mungkin perlu disesuaikan lebih kecil lagi untuk layar mobile */
+    min-width: 280px; /* Sedikit lebih kecil untuk mobile */
   }
 
   .dashboard-page .charts-grid {
@@ -369,7 +410,29 @@ body {
     flex: 1 1 100%;
     min-width: 0;
   }
+
+  /* Stat-card: satu kartu per baris */
+  .dashboard-page .stat-card {
+      flex: 1 1 100%;
+      max-width: 100%;
+      min-width: unset;
+  }
+
+  /* Financial-card: sesuaikan min-width dan font-size untuk layar sangat kecil */
+  .dashboard-page .financial-card {
+    min-width: 250px; /* Bisa disetel lebih kecil jika diperlukan */
+  }
+  .dashboard-page .financial-card p {
+    font-size: 1.8rem; /* Sedikit perkecil font untuk mobile */
+    gap: 0.3rem; /* Sesuaikan gap */
+  }
+
+  .dashboard-page .stats-grid {
+      overflow-x: hidden;
+      flex-wrap: wrap;
+  }
 }
+
 
 /* Tetap global */
 .table-responsive {
@@ -506,4 +569,3 @@ body {
   overflow-y: auto;
   max-height: 400px;
 }
-
