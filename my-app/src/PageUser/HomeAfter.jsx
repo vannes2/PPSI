@@ -205,10 +205,11 @@ const HomeAfter = () => {
             <h3>Berita & Artikel Hukum</h3>
             <p>Baca informasi dan edukasi hukum terkini secara lengkap dan terpercaya.</p>
           </Link>
+          <center><h2>Membantu Korban Mendapatkan Bantuan Pendampingan dengan Lembaga Bantuan Hukum (LBH) </h2></center>
           <Link to="/FormKonsultasiFree" className="feature-item-home">
-            <FaUserCheck className="icon-feature" />
-            <h3>Ajukan Kasus</h3>
-            <p>Dapatkan pendampingan hukum dari profesional.</p>
+             <FaUserCheck className="icon-feature" />
+            <h3>Formulir Konsultasi Gratis</h3>
+            <p>Membantu Korban Mendapatkan Bantuan Pendampingan dengan Lembaga Bantuan Hukum (LBH) <spam>Lembaga Bantuan Hukum (LBH) adalah garda terdepan dalam memberikan akses keadilan bagi masyarakat yang tidak mampu dan termarjinalkan. Mendampingi korban untuk mendapatkan bantuan dari LBH adalah tindakan mulia yang memastikan hak-hak hukum mereka terlindungi. Proses ini memerlukan pemahaman tentang cara kerja LBH dan persiapan yang matang.</spam></p>
           </Link>
         </div>
       </section>
