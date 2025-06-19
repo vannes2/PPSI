@@ -1,8 +1,0 @@
-[phases.setup]
-nixpkgsArchive = "https://github.com/NixOS/nixpkgs/archive/91b899191c027ca9b109b1740d048de7b4dfd110.tar.gz"
-
-[phases.build]
-cmds = ["npm install", "npm run build"]
-
-[phases.start]
-cmds = ["npm run preview"]
