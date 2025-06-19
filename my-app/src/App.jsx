@@ -103,6 +103,7 @@ function AppContent() {
     '/ArtikelBeritaAdmin',
     '/TransaksiKeuangan',
     '/admin/kasus',
+    '/AdminReviewPage',
     '/ProfilAdmin'
   ];
 
