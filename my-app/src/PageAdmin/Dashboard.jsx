@@ -4,19 +4,7 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import "../CSS_Admin/Dashboard.css";
 import AdminLayout from "../components/AdminLayout";
-import {
-  BarChart,
-  Bar,
-  XAxis,
-  YAxis,
-  Tooltip,
-  ResponsiveContainer,
-  PieChart,
-  Pie,
-  Cell,
-  Legend,
-  Sector,
-} from "recharts";
+import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, PieChart, Pie, Cell, Legend, Sector } from "recharts";
 
 const API_BASE_URL = "http://localhost:5000";
 
@@ -70,27 +58,18 @@ function Dashboard() {
           financial: `${API_BASE_URL}/api/transaksi-keuangan/total`,
         };
 
-        const requests = Object.values(endpoints).map((url) =>
-          axios.get(url, { signal: controller.signal }).catch(() => ({ data: null }))
-        );
+        const requests = Object.values(endpoints).map((url) => axios.get(url, { signal: controller.signal }).catch(() => ({ data: null })));
 
-        const [
-          usersRes,
-          lawyersRes,
-          casesRes,
-          consultationsRes,
-          financialRes,
-        ] = await Promise.all(requests);
+        const [usersRes, lawyersRes, casesRes, consultationsRes, financialRes] = await Promise.all(requests);
 
         const users = usersRes.data || [];
         const lawyers = lawyersRes.data || [];
         const cases = casesRes.data || [];
-        const financial =
-          financialRes.data || {
-            total_kotor: 0,
-            pendapatan_bersih: 0,
-            total_pengeluaran: 0,
-          };
+        const financial = financialRes.data || {
+          total_kotor: 0,
+          pendapatan_bersih: 0,
+          total_pengeluaran: 0,
+        };
         const consultationList = consultationsRes.data ? consultationsRes.data.data : [];
         const totalConsultations = consultationsRes.data ? consultationsRes.data.total : 0;
 
@@ -101,9 +80,7 @@ function Dashboard() {
           totalConsultations,
           totalRevenue: financial.total_kotor,
           pendingCases: cases.filter((c) => c.status?.toLowerCase() === "menunggu").length,
-          activeConsultations: consultationList.filter(
-            (c) => c.status?.toLowerCase() === "aktif"
-          ).length,
+          activeConsultations: consultationList.filter((c) => c.status?.toLowerCase() === "aktif").length,
         });
 
         setRecentData({
@@ -132,9 +109,7 @@ function Dashboard() {
   const formatDate = (dateString) => {
     if (!dateString) return "-";
     const date = new Date(dateString);
-    return isNaN(date.getTime())
-      ? "-"
-      : date.toLocaleDateString("id-ID", { year: "numeric", month: "long", day: "numeric" });
+    return isNaN(date.getTime()) ? "-" : date.toLocaleDateString("id-ID", { year: "numeric", month: "long", day: "numeric" });
   };
 
   /* ------------------- DATA DISPLAY ------------------- */
@@ -157,12 +132,7 @@ function Dashboard() {
       title: "Kasus Terbaru",
       data: recentData.cases,
       columns: ["ID Kasus", "Nama Kasus", "Status", "Tanggal"],
-      renderRow: (k) => [
-        `#${k.id}`,
-        k.nama || "Tanpa Nama",
-        <span className={`status-badge ${k.status?.toLowerCase()}`}>{k.status || "N/A"}</span>,
-        formatDate(k.created_at),
-      ],
+      renderRow: (k) => [`#${k.id}`, k.nama || "Tanpa Nama", <span className={`status-badge ${k.status?.toLowerCase()}`}>{k.status || "N/A"}</span>, formatDate(k.created_at)],
       path: "/admin/kasus",
     },
     {
@@ -182,26 +152,14 @@ function Dashboard() {
       title: "Pengacara Terbaru",
       data: recentData.lawyers,
       columns: ["ID", "Nama", "Spesialisasi", "Status"],
-      renderRow: (p) => [
-        `#${p.id}`,
-        p.nama || "Tanpa Nama",
-        p.spesialisasi || "-",
-        <span className={`status-badge ${p.status?.toLowerCase() || "aktif"}`}>
-          {p.status || "Aktif"}
-        </span>,
-      ],
+      renderRow: (p) => [`#${p.id}`, p.nama || "Tanpa Nama", p.spesialisasi || "-", <span className={`status-badge ${p.status?.toLowerCase() || "aktif"}`}>{p.status || "Aktif"}</span>],
       path: "/HomeAdmin",
     },
     {
       title: "Pengguna Terbaru",
       data: recentData.users,
       columns: ["ID", "Nama", "Email", "Telepon"],
-      renderRow: (u) => [
-        `#${u.id}`,
-        u.name || u.nama || "-",
-        u.email || "-",
-        u.phone || u.no_hp || "-",
-      ],
+      renderRow: (u) => [`#${u.id}`, u.name || u.nama || "-", u.email || "-", u.phone || u.no_hp || "-"],
       path: "/UserManagement",
     },
   ];
@@ -218,13 +176,19 @@ function Dashboard() {
       <div className="table-responsive">
         <table className="data-table">
           <thead>
-            <tr>{section.columns.map((col, i) => <th key={i}>{col}</th>)}</tr>
+            <tr>
+              {section.columns.map((col, i) => (
+                <th key={i}>{col}</th>
+              ))}
+            </tr>
           </thead>
           <tbody>
             {section.data.length > 0 ? (
               section.data.map((item, i) => (
                 <tr key={item.id || i} onClick={() => navigate(`${section.path}/${item.id}`)}>
-                  {section.renderRow(item).map((cell, j) => <td key={j}>{cell}</td>)}
+                  {section.renderRow(item).map((cell, j) => (
+                    <td key={j}>{cell}</td>
+                  ))}
                 </tr>
               ))
             ) : (
@@ -241,40 +205,40 @@ function Dashboard() {
   );
 
   /* ------------------- CUSTOM BAR ------------------- */
-const renderCustomBar = (props) => {
-  const { x, y, width, height, index, fill } = props;
-  const isHovered = index === hoveredBarIndex;
-  const isSelected = index === selectedBarIndex;
+  const renderCustomBar = (props) => {
+    const { x, y, width, height, index, fill } = props;
+    const isHovered = index === hoveredBarIndex;
+    const isSelected = index === selectedBarIndex;
 
-  const extraHeight = isSelected ? 20 : isHovered ? 10 : 0;
-  const barHeight = height + extraHeight;
-  const barY = y - extraHeight;
+    const extraHeight = isSelected ? 20 : isHovered ? 10 : 0;
+    const barHeight = height + extraHeight;
+    const barY = y - extraHeight;
 
-  const handleClick = () => {
-    setSelectedBarIndex((prev) => (prev === index ? null : index));
+    const handleClick = () => {
+      setSelectedBarIndex((prev) => (prev === index ? null : index));
+    };
+
+    return (
+      <g onClick={handleClick}>
+        <rect
+          x={x}
+          y={barY}
+          width={width}
+          height={barHeight}
+          rx={6}
+          ry={6}
+          fill={fill}
+          stroke={isSelected ? "#ff4d4d" : "none"}
+          strokeWidth={isSelected ? 3 : 0}
+          style={{
+            filter: isSelected ? "drop-shadow(0 0 6px #ff4d4d)" : "none",
+            cursor: "pointer",
+            transition: "all 0.2s ease-out",
+          }}
+        />
+      </g>
+    );
   };
-
-  return (
-    <g onClick={handleClick}>
-      <rect
-        x={x}
-        y={barY}
-        width={width}
-        height={barHeight}
-        rx={6}
-        ry={6}
-        fill={fill}
-        stroke={isSelected ? "#ff4d4d" : "none"}
-        strokeWidth={isSelected ? 3 : 0}
-        style={{
-          filter: isSelected ? "drop-shadow(0 0 6px #ff4d4d)" : "none",
-          cursor: "pointer",
-          transition: "all 0.2s ease-out",
-        }}
-      />
-    </g>
-  );
-};
 
   /* ------------------- PIE COLORS ------------------- */
   const pieColors = ["#e74c3c", "#2ecc71"];
@@ -321,15 +285,11 @@ const renderCustomBar = (props) => {
                       <XAxis dataKey="name" stroke="#ccc" />
                       <YAxis stroke="#ccc" />
                       <Tooltip content={<CustomTooltip />} cursor={{ fill: "transparent" }} />
-                      <Bar
-                        dataKey="value"
-                        fill="#e74c3c"
-                        barSize={100}
-                        shape={renderCustomBar}
-                        radius={[6, 6, 0, 0]}
-                        onMouseOver={(_, i) => setHoveredBarIndex(i)}
-                        onMouseOut={() => setHoveredBarIndex(null)}
-                      />
+                      <Bar dataKey="value" barSize={100} shape={renderCustomBar} radius={[6, 6, 0, 0]} onMouseOver={(_, i) => setHoveredBarIndex(i)} onMouseOut={() => setHoveredBarIndex(null)}>
+                        {[stats.totalUsers, stats.totalLawyers, stats.totalCases, stats.totalConsultations].map((_, index) => (
+                          <Cell key={`cell-${index}`} fill={index % 2 === 0 ? "#e74c3c" : "#27ae60"} />
+                        ))}
+                      </Bar>
                     </BarChart>
                   </ResponsiveContainer>
                 </div>
@@ -348,13 +308,11 @@ const renderCustomBar = (props) => {
                         nameKey="name"
                         cx="50%"
                         cy="50%"
-                        outerRadius={95}     // naik dari 80
-                        innerRadius={60}     // naik dari 50
+                        outerRadius={95} // naik dari 80
+                        innerRadius={60} // naik dari 50
                         label
                         activeIndex={activePieIndex}
-                        activeShape={(props) => (
-                          <Sector {...props} outerRadius={props.outerRadius + 6} />
-                        )}
+                        activeShape={(props) => <Sector {...props} outerRadius={props.outerRadius + 6} />}
                         onMouseEnter={(_, i) => setActivePieIndex(i)}
                         onMouseLeave={() => setActivePieIndex(null)}
                       >
@@ -378,9 +336,7 @@ const renderCustomBar = (props) => {
                       textAlign: "center",
                     }}
                   >
-                    <div style={{ fontSize: "0.8rem", color: "var(--color-text-secondary)" }}>
-                      Total Kasus
-                    </div>
+                    <div style={{ fontSize: "0.8rem", color: "var(--color-text-secondary)" }}>Total Kasus</div>
                     <div style={{ fontSize: "1.3rem", fontWeight: "bold" }}>{stats.totalCases}</div>
                   </div>
                 </div>
@@ -449,4 +405,3 @@ const renderCustomBar = (props) => {
 }
 
 export default Dashboard;
-  
