@@ -324,7 +324,7 @@ const renderCustomBar = (props) => {
                       <Bar
                         dataKey="value"
                         fill="#e74c3c"
-                        barSize={40}
+                        barSize={100}
                         shape={renderCustomBar}
                         radius={[6, 6, 0, 0]}
                         onMouseOver={(_, i) => setHoveredBarIndex(i)}
@@ -449,3 +449,4 @@ const renderCustomBar = (props) => {
 }
 
 export default Dashboard;
+  
