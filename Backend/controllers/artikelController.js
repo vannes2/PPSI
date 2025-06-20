@@ -1,9 +1,21 @@
 const path = require("path");
-const { convert } = require("pdf-poppler");
+const os = require("os");
 const Artikel = require("../models/Artikel");
+
+// Cegah error di Railway Linux: hanya require pdf-poppler jika bukan Linux
+let convert = null;
+if (process.platform !== "linux") {
+  const poppler = require("pdf-poppler");
+  convert = poppler.convert;
+}
 
 // Fungsi untuk generate cover dari halaman pertama PDF
 const generatePDFCover = async (pdfPath, outputFolder, outputName) => {
+  if (process.platform === "linux") {
+    console.log("Skipping PDF cover generation on Linux (Railway)");
+    return null;
+  }
+
   const options = {
     format: "jpeg",
     out_dir: outputFolder,
