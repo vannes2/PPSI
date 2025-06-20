@@ -108,7 +108,7 @@ setInterval(() => {
   }, 5 * 60 * 1000); // 5 menit sekali
 
 // Jalankan server
-const PORT = 5000;
+const PORT = process.env.PORT || 5000;
 server.listen(PORT, () => {
     console.log(`Server berjalan di http://localhost:${PORT}`);
 });
