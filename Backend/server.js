@@ -107,6 +107,14 @@ setInterval(() => {
     lawyerController.autoRejectExpiredRegistrations();
   }, 5 * 60 * 1000); // 5 menit sekali
 
+  app.get("/", (req, res) => {
+    res.json({
+      status: "success",
+      message: "Backend API is live on Railway 🚀",
+      timestamp: new Date(),
+    });
+  });
+
 // Jalankan server
 const PORT = process.env.PORT || 5000;
 server.listen(PORT, () => {
