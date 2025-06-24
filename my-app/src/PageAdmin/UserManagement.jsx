@@ -25,7 +25,7 @@ const UserManagement = () => {
 
   const fetchUsers = useCallback(async () => {
     try {
-      const response = await axios.get("http://localhost:5000/api/simple-users");
+      const response = await axios.get("https://ppsi-production.up.railway.app/api/simple-users");
       setUsers(response.data);
       setUserCount(response.data.length);
       setErrorMessage("");
@@ -44,7 +44,7 @@ const UserManagement = () => {
     if (!confirmDelete) return;
 
     try {
-      await axios.delete(`http://localhost:5000/api/simple-users/${id}`);
+      await axios.delete(`https://ppsi-production.up.railway.app/api/simple-users/${id}`);
       alert("User deleted successfully.");
       setUsers((prev) => prev.filter((u) => u.id !== id));
     } catch (error) {
@@ -67,7 +67,7 @@ const UserManagement = () => {
     if (!editingUser) return;
 
     try {
-      await axios.put(`http://localhost:5000/api/simple-users/${editingUser.id}`, {
+      await axios.put(`https://ppsi-production.up.railway.app/api/simple-users/${editingUser.id}`, {
         ...formData,
       });
       alert("User updated successfully.");
@@ -88,7 +88,7 @@ const UserManagement = () => {
         birthdate: "2000-01-01",
       };
 
-      await axios.post("http://localhost:5000/api/simple-users", newUser);
+      await axios.post("https://ppsi-production.up.railway.app/api/simple-users", newUser);
       alert("User added successfully.");
       setIsAddModalOpen(false);
       setFormData({ name: "", email: "", phone: "", address: "" });

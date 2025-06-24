@@ -22,7 +22,7 @@ const VerifyOtp = () => {
     setPopup({ show: false, message: "", success: false });
 
     try {
-      const res = await fetch("http://localhost:5000/api/verify-otp", {
+      const res = await fetch("https://ppsi-production.up.railway.app/api/verify-otp", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email: state.email, otp }),

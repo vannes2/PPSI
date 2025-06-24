@@ -94,7 +94,7 @@ const AjukanKasus = () => {
 
     try {
       // Langkah 1: Kirim pengajuan kasus
-      const response = await fetch('http://localhost:5000/api/ajukan-kasus', {
+      const response = await fetch('https://ppsi-production.up.railway.app/api/ajukan-kasus', {
         method: 'POST',
         body: data,
       });
@@ -105,7 +105,7 @@ const AjukanKasus = () => {
       }
 
       // Langkah 2: Buat transaksi pembayaran
-      const paymentResponse = await fetch('http://localhost:5000/api/payment-kasus/transaction-kasus', {
+      const paymentResponse = await fetch('https://ppsi-production.up.railway.app/api/payment-kasus/transaction-kasus', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'

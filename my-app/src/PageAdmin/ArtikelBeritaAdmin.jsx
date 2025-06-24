@@ -17,13 +17,13 @@ const ArtikelBeritaAdmin = () => {
   }, []);
 
   const fetchData = () => {
-    axios.get('http://localhost:5000/api/artikel-berita')
+    axios.get('https://ppsi-production.up.railway.app/api/artikel-berita')
       .then((res) => setBerita(res.data))
       .catch((err) => console.error('Gagal memuat data:', err));
   };
 
   const fetchTopBerita = () => {
-    axios.get('http://localhost:5000/api/artikel-berita/top')
+    axios.get('https://ppsi-production.up.railway.app/api/artikel-berita/top')
       .then((res) => setTopBerita(res.data.map((b) => b.id)))
       .catch((err) => console.error('Gagal memuat top berita:', err));
   };
@@ -37,9 +37,9 @@ const ArtikelBeritaAdmin = () => {
 
     try {
       if (editId) {
-        await axios.put(`http://localhost:5000/api/artikel-berita/${editId}`, formData);
+        await axios.put(`https://ppsi-production.up.railway.app/api/artikel-berita/${editId}`, formData);
       } else {
-        await axios.post('http://localhost:5000/api/artikel-berita', formData);
+        await axios.post('https://ppsi-production.up.railway.app/api/artikel-berita', formData);
       }
       setForm({ judul: '', isi: '', gambar: null });
       setEditId(null);
@@ -59,7 +59,7 @@ const ArtikelBeritaAdmin = () => {
   const handleDelete = async (id) => {
     if (window.confirm('Yakin ingin menghapus artikel ini?')) {
       try {
-        await axios.delete(`http://localhost:5000/api/artikel-berita/${id}`);
+        await axios.delete(`https://ppsi-production.up.railway.app/api/artikel-berita/${id}`);
         fetchData();
         fetchTopBerita();
       } catch (err) {
@@ -76,7 +76,7 @@ const ArtikelBeritaAdmin = () => {
     }
 
     try {
-      await axios.put(`http://localhost:5000/api/artikel-berita/top/${id}`, {
+      await axios.put(`https://ppsi-production.up.railway.app/api/artikel-berita/top/${id}`, {
         top_berita: !isTopNow
       });
 
@@ -132,7 +132,7 @@ const ArtikelBeritaAdmin = () => {
             {beritaTopList.map((item) => (
               <div key={item.id} className="top-preview-item">
                 <div className="top-preview-item-left">
-                  <img src={`http://localhost:5000/uploads/${item.gambar}`} alt={item.judul} />
+                  <img src={`https://ppsi-production.up.railway.app/uploads/${item.gambar}`} alt={item.judul} />
                   <span>{item.judul}</span>
                 </div>
                 <button className="remove-top-btn" onClick={() => removeTop(item.id)}>×</button>
@@ -159,7 +159,7 @@ const ArtikelBeritaAdmin = () => {
                 className="top-checkbox"
               />
               {b.gambar && (
-                <img src={`http://localhost:5000/uploads/${b.gambar}`} alt={b.judul || 'Gambar Artikel'} />
+                <img src={`https://ppsi-production.up.railway.app/uploads/${b.gambar}`} alt={b.judul || 'Gambar Artikel'} />
               )}
               <div>
                 <h4>{b.judul}</h4>

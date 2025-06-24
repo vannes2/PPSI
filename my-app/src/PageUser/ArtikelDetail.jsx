@@ -13,7 +13,7 @@ const ArtikelDetail = () => {
   useEffect(() => {
     const fetchArtikelDetail = async () => {
       try {
-        const res = await axios.get(`http://localhost:5000/api/artikel/${id}`);
+        const res = await axios.get(`https://ppsi-production.up.railway.app/api/artikel/${id}`);
         setArtikel(res.data);
         setLoading(false);
       } catch (err) {
@@ -29,7 +29,7 @@ const ArtikelDetail = () => {
     if (!filePath) return alert("File tidak tersedia.");
 
     const fileName = filePath.split(/[\\/]/).pop();
-    const fileUrl = `http://localhost:5000/uploads/${fileName}`;
+    const fileUrl = `https://ppsi-production.up.railway.app/uploads/${fileName}`;
     window.open(fileUrl, "_blank");
   };
 
@@ -49,7 +49,7 @@ const ArtikelDetail = () => {
                 {artikel.coverPath && (
                   <div className="artikel-cover-wrapper">
                     <img
-                      src={`http://localhost:5000/${artikel.coverPath}`}
+                      src={`https://ppsi-production.up.railway.app/${artikel.coverPath}`}
                       alt="Cover PDF"
                       className="artikel-cover-image"
                       onError={(e) => {

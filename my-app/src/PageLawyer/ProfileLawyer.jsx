@@ -22,7 +22,7 @@ const ProfileLawyer = () => {
       return;
     }
 
-    fetch(`http://localhost:5000/api/lawyer/profile/${userId}`)
+    fetch(`https://ppsi-production.up.railway.app/api/lawyer/profile/${userId}`)
       .then((response) => {
         if (!response.ok) {
           throw new Error("Gagal mengambil data profil");
@@ -74,7 +74,7 @@ const ProfileLawyer = () => {
             <div className="profile-page-profile-picture">
               {profileData?.upload_foto ? (
                 <img
-                  src={`http://localhost:5000/uploads/${profileData.upload_foto}`}
+                  src={`https://ppsi-production.up.railway.app/uploads/${profileData.upload_foto}`}
                   alt="Pas Foto"
                   onError={(e) => {
                     e.target.onerror = null;

@@ -22,7 +22,7 @@ const DaftarKasus = () => {
             const parsed = JSON.parse(storedUser);
             setUser(parsed);
 
-            fetch(`http://localhost:5000/api/kasus/riwayat/${parsed.id}`)
+            fetch(`https://ppsi-production.up.railway.app/api/kasus/riwayat/${parsed.id}`)
                 .then((res) => {
                     if (!res.ok) {
                         if (res.status === 404) return [];

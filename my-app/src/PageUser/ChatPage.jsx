@@ -5,7 +5,7 @@ import { FaLocationArrow, FaPaperclip } from "react-icons/fa";
 import HeaderAfter from "../components/HeaderAfter";
 import "../CSS_User/ChatPage.css";
 
-const socket = io("http://localhost:5000");
+const socket = io("https://ppsi-production.up.railway.app");
 
 const ChatPage = () => {
   const { lawyerId: initialLawyerId } = useParams();
@@ -27,13 +27,13 @@ const ChatPage = () => {
   const [isLocked, setIsLocked] = useState(false);
 
   const fetchAllProfiles = async () => {
-    const res = await fetch("http://localhost:5000/api/profilpengacara");
+    const res = await fetch("https://ppsi-production.up.railway.app/api/profilpengacara");
     return await res.json();
   };
 
   const fetchSession = async (userId, pengacaraId) => {
     try {
-      const res = await fetch(`http://localhost:5000/api/konsultasi-session/session/${userId}/${pengacaraId}`);
+      const res = await fetch(`https://ppsi-production.up.railway.app/api/konsultasi-session/session/${userId}/${pengacaraId}`);
       if (!res.ok) throw new Error("Sesi konsultasi tidak ditemukan");
       const sessionData = await res.json();
 
@@ -59,7 +59,7 @@ const ChatPage = () => {
       return;
     }
 
-    fetch(`http://localhost:5000/api/chat/contacts/user/${user.id}`)
+    fetch(`https://ppsi-production.up.railway.app/api/chat/contacts/user/${user.id}`)
       .then((res) => res.json())
       .then(async (data) => {
         const profiles = await fetchAllProfiles();
@@ -83,7 +83,7 @@ const ChatPage = () => {
 
   useEffect(() => {
     if (activeLawyerId && !advokat) {
-      fetch("http://localhost:5000/api/profilpengacara")
+      fetch("https://ppsi-production.up.railway.app/api/profilpengacara")
         .then((res) => res.json())
         .then(async (profiles) => {
           const found = profiles.find((lawyer) => lawyer.id === parseInt(activeLawyerId));
@@ -98,7 +98,7 @@ const ChatPage = () => {
   useEffect(() => {
     if (!activeLawyerId) return;
 
-    fetch(`http://localhost:5000/api/chat/messages/pengacara/${activeLawyerId}?userId=${user.id}&userRole=user`)
+    fetch(`https://ppsi-production.up.railway.app/api/chat/messages/pengacara/${activeLawyerId}?userId=${user.id}&userRole=user`)
       .then((res) => res.json())
       .then((data) => setMessages(data))
       .catch(() => setError("Gagal mengambil pesan"));
@@ -140,7 +140,7 @@ const ChatPage = () => {
     if (isForThisChat) {
       try {
         const res = await fetch(
-          `http://localhost:5000/api/chat/messages/pengacara/${activeLawyerId}?userId=${user.id}&userRole=user`
+          `https://ppsi-production.up.railway.app/api/chat/messages/pengacara/${activeLawyerId}?userId=${user.id}&userRole=user`
         );
         const dataMessages = await res.json();
         setMessages(dataMessages);
@@ -151,11 +151,11 @@ const ChatPage = () => {
 
     try {
       const resContacts = await fetch(
-        `http://localhost:5000/api/chat/contacts/user/${user.id}`
+        `https://ppsi-production.up.railway.app/api/chat/contacts/user/${user.id}`
       );
       const dataContacts = await resContacts.json();
 
-      const resProfiles = await fetch("http://localhost:5000/api/profilpengacara");
+      const resProfiles = await fetch("https://ppsi-production.up.railway.app/api/profilpengacara");
       const profiles = await resProfiles.json();
 
       const mergedContacts = dataContacts.map((c) => {
@@ -194,7 +194,7 @@ const ChatPage = () => {
         formData.append("receiver_role", "pengacara");
         formData.append("message", input || "");
 
-        const res = await fetch("http://localhost:5000/api/chat/send-message-file", {
+        const res = await fetch("https://ppsi-production.up.railway.app/api/chat/send-message-file", {
           method: "POST",
           body: formData,
         });
@@ -243,7 +243,7 @@ const ChatPage = () => {
 
     await fetchSession(user.id, lawyer.id);
 
-    fetch(`http://localhost:5000/api/chat/messages/pengacara/${lawyer.id}?userId=${user.id}&userRole=user`)
+    fetch(`https://ppsi-production.up.railway.app/api/chat/messages/pengacara/${lawyer.id}?userId=${user.id}&userRole=user`)
       .then((res) => res.json())
       .then((data) => setMessages(data))
       .catch(() => setError("Gagal mengambil pesan"));
@@ -305,7 +305,7 @@ const ChatPage = () => {
                     {lawyer.upload_foto ? (
                       <img
                         className="contact-photo-img"
-                        src={`http://localhost:5000/uploads/${lawyer.upload_foto}`}
+                        src={`https://ppsi-production.up.railway.app/uploads/${lawyer.upload_foto}`}
                         alt={lawyer.nama}
                         onError={(e) => {
                           e.target.onerror = null;
@@ -333,7 +333,7 @@ const ChatPage = () => {
                 {advokat?.upload_foto ? (
                   <img
                     className="lawyer-photo"
-                    src={`http://localhost:5000/uploads/${advokat.upload_foto}`}
+                    src={`https://ppsi-production.up.railway.app/uploads/${advokat.upload_foto}`}
                     alt={advokat.nama}
                     onError={(e) => {
                       e.target.onerror = null;
@@ -371,7 +371,7 @@ const ChatPage = () => {
                         {/* Cek ekstensi file gambar untuk tampilkan preview */}
                         {/\.(jpg|jpeg|png|gif)$/i.test(msg.file) ? (
                           <img
-                            src={`http://localhost:5000/uploads/chat_files/${msg.file}`}
+                            src={`https://ppsi-production.up.railway.app/uploads/chat_files/${msg.file}`}
                             alt="gambar"
                             style={{ maxWidth: "200px", marginTop: "8px", borderRadius: "8px" }}
                             onError={(e) => {
@@ -380,7 +380,7 @@ const ChatPage = () => {
                           />
                         ) : (
                           <div style={{ marginTop: "8px" }}>
-                            <a href={`http://localhost:5000/uploads/chat_files/${msg.file}`} target="_blank" rel="noopener noreferrer">
+                            <a href={`https://ppsi-production.up.railway.app/uploads/chat_files/${msg.file}`} target="_blank" rel="noopener noreferrer">
                               📎 {msg.file}
                             </a>
                           </div>

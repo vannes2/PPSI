@@ -55,7 +55,7 @@ const RegisterBankAccount = () => {
 
     try {
       const response = await fetch(
-        `http://localhost:5000/api/pengacara/update-bank/${lawyer.id}`,
+        `https://ppsi-production.up.railway.app/api/pengacara/update-bank/${lawyer.id}`,
         {
           method: "PUT",
           headers: {

@@ -12,7 +12,7 @@ const ViewPengacara = () => {
   useEffect(() => {
     const fetchPengacaraById = async () => {
       try {
-        const response = await axios.get(`http://localhost:5000/api/pengacara/${id}`);
+        const response = await axios.get(`https://ppsi-production.up.railway.app/api/pengacara/${id}`);
         setPengacara(response.data);
       } catch (error) {
         console.error("Gagal mengambil data pengacara:", error);

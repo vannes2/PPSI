@@ -33,7 +33,7 @@ const TambahArtikel = () => {
 
   const fetchArtikelList = async () => {
     try {
-      const res = await axios.get("http://localhost:5000/api/artikel");
+      const res = await axios.get("https://ppsi-production.up.railway.app/api/artikel");
       setArtikelList(res.data);
     } catch (err) {
       console.error("Gagal ambil data artikel:", err);
@@ -60,12 +60,12 @@ const TambahArtikel = () => {
 
     try {
       if (editId) {
-        await axios.put(`http://localhost:5000/api/artikel/${editId}`, formData, {
+        await axios.put(`https://ppsi-production.up.railway.app/api/artikel/${editId}`, formData, {
           headers: { "Content-Type": "multipart/form-data" },
         });
         alert("Dokumen berhasil diperbarui");
       } else {
-        await axios.post("http://localhost:5000/api/artikel", formData, {
+        await axios.post("https://ppsi-production.up.railway.app/api/artikel", formData, {
           headers: { "Content-Type": "multipart/form-data" },
         });
         alert("Dokumen berhasil ditambahkan!");
@@ -82,7 +82,7 @@ const TambahArtikel = () => {
   const handleDeleteArtikel = async (id) => {
     if (!window.confirm("Apakah yakin ingin menghapus dokumen ini?")) return;
     try {
-      await axios.delete(`http://localhost:5000/api/artikel/${id}`);
+      await axios.delete(`https://ppsi-production.up.railway.app/api/artikel/${id}`);
       alert("Dokumen berhasil dihapus");
       fetchArtikelList();
     } catch (err) {
@@ -262,7 +262,7 @@ const TambahArtikel = () => {
                         <span className={`status-badge status-${item.status.toLowerCase().replace(" ", "-")}`}>{item.status}</span>
                       </td>
                       <td>
-                        <a href={`http://localhost:5000/uploads/${item.file_path}`} target="_blank" rel="noreferrer" className="table-link">Lihat PDF</a>
+                        <a href={`https://ppsi-production.up.railway.app/uploads/${item.file_path}`} target="_blank" rel="noreferrer" className="table-link">Lihat PDF</a>
                       </td>
                       <td className="table-actions">
                         <button className="btn-icon" onClick={() => handleEditArtikel(item)}>

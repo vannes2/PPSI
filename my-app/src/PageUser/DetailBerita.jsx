@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import axios from "axios";
 import HeaderAfter from "../components/HeaderAfter";
@@ -12,8 +12,8 @@ const DetailBerita = () => {
 
   useEffect(() => {
     window.scrollTo(0, 0); // scroll ke atas
-    axios
-      .get(`http://localhost:5000/api/artikel-berita/${id}`)
+    axios 
+      .get(`https://ppsi-production.up.railway.app/api/artikel-berita/${id}`)
       .then((res) => setBerita(res.data))
       .catch((err) => {
         console.error("Gagal memuat detail berita:", err);
@@ -48,7 +48,7 @@ const DetailBerita = () => {
       <div className="detail-container">
         <h1 className="detail-title">{berita.judul}</h1>
         <img
-          src={`http://localhost:5000/uploads/${berita.gambar}`}
+          src={`https://ppsi-production.up.railway.app/uploads/${berita.gambar}`}
           alt={berita.judul}
           className="detail-image"
         />

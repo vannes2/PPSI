@@ -43,7 +43,7 @@ const AdminKasus = () => {
     setLoading(true);
     setError(null);
     try {
-      const res = await fetch("http://localhost:5000/api/kasus");
+      const res = await fetch("https://ppsi-production.up.railway.app/api/kasus");
       if (!res.ok) throw new Error("Gagal mengambil data kasus");
       const data = await res.json();
       setKasusList(data);
@@ -88,7 +88,7 @@ const AdminKasus = () => {
     try {
       if (editingId) {
         // Update kasus
-        const res = await fetch(`http://localhost:5000/api/kasus/${editingId}`, {
+        const res = await fetch(`https://ppsi-production.up.railway.app/api/kasus/${editingId}`, {
           method: "PUT",
           body: formData,
         });
@@ -96,7 +96,7 @@ const AdminKasus = () => {
         setIsEditModalOpen(false);
       } else {
         // Tambah kasus baru
-        const res = await fetch("http://localhost:5000/api/kasus", {
+        const res = await fetch("https://ppsi-production.up.railway.app/api/kasus", {
           method: "POST",
           body: formData,
         });
@@ -158,7 +158,7 @@ const AdminKasus = () => {
   const handleDelete = async (id) => {
     if (!window.confirm("Yakin ingin menghapus kasus ini?")) return;
     try {
-      const res = await fetch(`http://localhost:5000/api/kasus/${id}`, {
+      const res = await fetch(`https://ppsi-production.up.railway.app/api/kasus/${id}`, {
         method: "DELETE",
       });
       if (!res.ok) throw new Error("Gagal menghapus kasus");
@@ -317,7 +317,7 @@ const TableKasus = ({ data, onEdit, onDelete }) => (
           <td data-label="Bukti">
             {kasus.bukti ? (
               <a
-                href={`http://localhost:5000/uploads/${kasus.bukti}`}
+                href={`https://ppsi-production.up.railway.app/uploads/${kasus.bukti}`}
                 target="_blank"
                 rel="noopener noreferrer"
               >

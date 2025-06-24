@@ -12,7 +12,7 @@ const RiwayatKasusPengacara = () => {
 
   useEffect(() => {
     if (pengacaraId) {
-      fetch(`http://localhost:5000/api/kasus/riwayat/pengacara/${pengacaraId}`)
+      fetch(`https://ppsi-production.up.railway.app/api/kasus/riwayat/pengacara/${pengacaraId}`)
         .then((res) => res.json())
         .then((data) => setKasusList(data))
         .catch((err) =>
@@ -20,7 +20,7 @@ const RiwayatKasusPengacara = () => {
         );
 
       fetch(
-        `http://localhost:5000/api/konsultasi_session/riwayat/pengacara/${pengacaraId}`
+        `https://ppsi-production.up.railway.app/api/konsultasi_session/riwayat/pengacara/${pengacaraId}`
       )
         .then((res) => res.json())
         .then((data) => setKonsultasiList(data))
@@ -33,7 +33,7 @@ const RiwayatKasusPengacara = () => {
   // Perbaikan di sini: Menyesuaikan path ke folder foto profil user
   const getFotoUserUrl = (fotoFilename) =>
     fotoFilename && fotoFilename !== "default-profile.png"
-      ? `http://localhost:5000/uploads/profile_photos/${fotoFilename}`
+      ? `https://ppsi-production.up.railway.app/uploads/profile_photos/${fotoFilename}`
       : null;
 
   const renderStatus = (item) => {

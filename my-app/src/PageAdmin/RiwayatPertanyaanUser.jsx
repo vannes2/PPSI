@@ -12,7 +12,7 @@ const RiwayatPertanyaanUser = () => {
         setLoading(true);
         setError(null);
         try {
-            const res = await axios.get("http://localhost:5000/api/log-pertanyaan");
+            const res = await axios.get("https://ppsi-production.up.railway.app/api/log-pertanyaan");
             // Mengurutkan data dari yang terbaru
             const sortedData = res.data.sort((a, b) => new Date(b.waktu) - new Date(a.waktu));
             setLogData(sortedData);

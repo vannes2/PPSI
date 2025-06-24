@@ -13,8 +13,8 @@ const TransaksiPengacara = () => {
     const fetchData = async () => {
       try {
         const [kasusRes, konsultasiRes] = await Promise.all([
-          axios.get('http://localhost:5000/api/transaksi/ajukan-kasus'),
-          axios.get('http://localhost:5000/api/transaksi/konsultasi-session')
+          axios.get('https://ppsi-production.up.railway.app/api/transaksi/ajukan-kasus'),
+          axios.get('https://ppsi-production.up.railway.app/api/transaksi/konsultasi-session')
         ]);
   
         setKasus(kasusRes.data.filter(item => item.status.toLowerCase() === 'selesai'));

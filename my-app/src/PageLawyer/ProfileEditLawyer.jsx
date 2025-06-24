@@ -28,12 +28,12 @@ const ProfileEditLawyer = () => {
       return;
     }
 
-    fetch(`http://localhost:5000/api/lawyer/profile/${userId}`)
+    fetch(`https://ppsi-production.up.railway.app/api/lawyer/profile/${userId}`)
       .then(res => res.json())
       .then(data => {
         setProfileData(data);
         if (data.upload_foto) {
-          setPreviewFoto(`http://localhost:5000/uploads/${data.upload_foto}`);
+          setPreviewFoto(`https://ppsi-production.up.railway.app/uploads/${data.upload_foto}`);
         }
         setLoading(false);
       })
@@ -71,7 +71,7 @@ const ProfileEditLawyer = () => {
     }
 
     try {
-      const response = await fetch(`http://localhost:5000/api/lawyer/profile/update/${userId}`, {
+      const response = await fetch(`https://ppsi-production.up.railway.app/api/lawyer/profile/update/${userId}`, {
         method: "PUT",
         body: formData
       });

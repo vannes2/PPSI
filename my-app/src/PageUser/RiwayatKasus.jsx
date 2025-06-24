@@ -15,7 +15,7 @@ const RiwayatKasus = () => {
   useEffect(() => {
     if (user && user.id) {
       /* --- Riwayat Kasus --- */
-      fetch(`http://localhost:5000/api/kasus/riwayat/${user.id}`)
+      fetch(`https://ppsi-production.up.railway.app/api/kasus/riwayat/${user.id}`)
         .then((res) => res.json())
         .then((data) => {
           console.log("Data Riwayat Kasus:", data); // 👈 Cek di console
@@ -24,7 +24,7 @@ const RiwayatKasus = () => {
         .catch((err) => console.error("Gagal mengambil data kasus:", err));
 
       /* --- Riwayat Konsultasi --- */
-      fetch(`http://localhost:5000/api/konsultasi_session/riwayat/${user.id}`)
+      fetch(`https://ppsi-production.up.railway.app/api/konsultasi_session/riwayat/${user.id}`)
         .then((res) => res.json())
         .then((data) => {
           console.log("Data Riwayat Konsultasi:", data); // 👈 Cek di console
@@ -39,7 +39,7 @@ const RiwayatKasus = () => {
   /* -------------------------------------------------------------------------- */
   const getFotoPengacaraUrl = (foto) =>
     foto && foto !== "default-profile.png"
-      ? `http://localhost:5000/uploads/${foto}`
+      ? `https://ppsi-production.up.railway.app/uploads/${foto}`
       : null;
 
   const isFotoDefault = (foto) => !foto || foto === "default-profile.png";

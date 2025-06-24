@@ -13,11 +13,11 @@ const ArtikelBerita = () => {
     // ✅ Auto scroll ke atas saat masuk halaman
     window.scrollTo({ top: 0, behavior: 'smooth' });
 
-    axios.get('http://localhost:5000/api/artikel-berita')
+    axios.get('https://ppsi-production.up.railway.app/api/artikel-berita')
       .then((res) => setBeritaList(res.data))
       .catch((err) => console.error('Gagal memuat artikel:', err));
 
-    axios.get('http://localhost:5000/api/artikel-berita/top')
+    axios.get('https://ppsi-production.up.railway.app/api/artikel-berita/top')
       .then((res) => {
         console.log("Top Berita dari API:", res.data);
         setTopBerita(res.data);
@@ -44,7 +44,7 @@ const ArtikelBerita = () => {
           <div className="main-highlight">
             <div className="highlight-box fade">
               <img
-                src={`http://localhost:5000/uploads/${topBerita[slideIndex]?.gambar || 'default.jpg'}`}
+                src={`https://ppsi-production.up.railway.app/uploads/${topBerita[slideIndex]?.gambar || 'default.jpg'}`}
                 alt={topBerita[slideIndex]?.judul || 'Top Berita'}
               />
               <div className="highlight-caption">
@@ -57,7 +57,7 @@ const ArtikelBerita = () => {
           <div className="side-articles">
             {topBerita.map((item) => (
               <div className="side-article-item" key={item.id}>
-                <img src={`http://localhost:5000/uploads/${item.gambar}`} alt={item.judul} />
+                <img src={`https://ppsi-production.up.railway.app/uploads/${item.gambar}`} alt={item.judul} />
                 <div className="side-article-info">
                   <a href={`/DetailBerita/${item.id}`}>{item.judul}</a>
                   <span className="label">Berita</span>
@@ -74,7 +74,7 @@ const ArtikelBerita = () => {
         <div className="berita-grid">
           {beritaList.map((item) => (
             <div className="berita-card" key={item.id}>
-              <img src={`http://localhost:5000/uploads/${item.gambar}`} alt={item.judul} />
+              <img src={`https://ppsi-production.up.railway.app/uploads/${item.gambar}`} alt={item.judul} />
               <h4>{item.judul}</h4>
               <p>{item.isi?.slice(0, 100)}...</p>
               <a href={`/DetailBerita/${item.id}`} className="btn-detail">Lihat Selengkapnya</a>

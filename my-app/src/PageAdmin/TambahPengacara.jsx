@@ -13,7 +13,7 @@ const TambahPengacara = () => {
 
   const fetchPengacaras = useCallback(async () => {
     try {
-      const response = await axios.get("http://localhost:5000/api/pengacara");
+      const response = await axios.get("https://ppsi-production.up.railway.app/api/pengacara");
       setPengacaras(response.data);
     } catch (error) {
       console.error("Gagal mengambil data pengacara:", error);
@@ -22,7 +22,7 @@ const TambahPengacara = () => {
 
   const fetchRegistrations = useCallback(async () => {
     try {
-      const response = await axios.get("http://localhost:5000/api/lawyers/registrations");
+      const response = await axios.get("https://ppsi-production.up.railway.app/api/lawyers/registrations");
       const now = new Date();
       const regs = response.data.map(reg => {
         const registrationDate = new Date(reg.tanggal_daftar);
@@ -45,7 +45,7 @@ const TambahPengacara = () => {
 
   const handleApprove = async (id) => {
     try {
-      await axios.post(`http://localhost:5000/api/lawyers/approve/${id}`);
+      await axios.post(`https://ppsi-production.up.railway.app/api/lawyers/approve/${id}`);
       alert("Pendaftaran berhasil disetujui!");
       fetchRegistrations();
       fetchPengacaras();
@@ -59,7 +59,7 @@ const TambahPengacara = () => {
     const confirmReject = window.confirm("Yakin ingin menolak dan menghapus pendaftaran ini?");
     if (!confirmReject) return;
     try {
-      await axios.delete(`http://localhost:5000/api/lawyers/reject/${id}`);
+      await axios.delete(`https://ppsi-production.up.railway.app/api/lawyers/reject/${id}`);
       alert("Pendaftaran telah ditolak dan dihapus.");
       fetchRegistrations();
     } catch (error) {
@@ -151,10 +151,10 @@ const TambahPengacara = () => {
                         <small>{lawyer.universitas}</small>
                       </td>
                       <td>
-                        <a href={`http://localhost:5000/uploads/${lawyer.upload_ktp}`} target="_blank" rel="noopener noreferrer">KTP</a> |{" "}
-                        <a href={`http://localhost:5000/uploads/${lawyer.upload_kartu_advokat}`} target="_blank" rel="noopener noreferrer">Kartu</a> |{" "}
-                        <a href={`http://localhost:5000/uploads/${lawyer.upload_pkpa}`} target="_blank" rel="noopener noreferrer">PKPA</a> |{" "}
-                        <a href={`http://localhost:5000/uploads/${lawyer.resume_cv}`} target="_blank" rel="noopener noreferrer">CV</a>
+                        <a href={`https://ppsi-production.up.railway.app/uploads/${lawyer.upload_ktp}`} target="_blank" rel="noopener noreferrer">KTP</a> |{" "}
+                        <a href={`https://ppsi-production.up.railway.app/uploads/${lawyer.upload_kartu_advokat}`} target="_blank" rel="noopener noreferrer">Kartu</a> |{" "}
+                        <a href={`https://ppsi-production.up.railway.app/uploads/${lawyer.upload_pkpa}`} target="_blank" rel="noopener noreferrer">PKPA</a> |{" "}
+                        <a href={`https://ppsi-production.up.railway.app/uploads/${lawyer.resume_cv}`} target="_blank" rel="noopener noreferrer">CV</a>
                       </td>
                       <td>
                         {lawyer.linkedin && <a href={lawyer.linkedin} target="_blank" rel="noopener noreferrer">LinkedIn</a>}

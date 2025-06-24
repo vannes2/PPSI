@@ -6,7 +6,7 @@ import HeaderLawyer from "../components/HeaderLawyer"; // Pastikan path ini bena
 import SnackbarNotification from "../components/SnackbarNotification"; // Pastikan path ini benar
 import "../CSS_Lawyer/KonsultasiLawyer.css"; // Pastikan path ini benar
 
-const socket = io("http://localhost:5000");
+const socket = io("https://ppsi-production.up.railway.app");
 
 const KonsultasiLawyer = () => {
   const location = useLocation();
@@ -34,7 +34,7 @@ const KonsultasiLawyer = () => {
         return;
       }
       const res = await fetch(
-        `http://localhost:5000/api/pengacara/check-bank/${lawyer.id}`
+        `https://ppsi-production.up.railway.app/api/pengacara/check-bank/${lawyer.id}`
       );
       if (!res.ok) throw new Error("Gagal cek data bank");
       const data = await res.json();
@@ -53,7 +53,7 @@ const KonsultasiLawyer = () => {
   const fetchSession = async (userId, pengacaraId) => {
     try {
       const res = await fetch(
-        `http://localhost:5000/api/konsultasi-session/session/${userId}/${pengacaraId}`
+        `https://ppsi-production.up.railway.app/api/konsultasi-session/session/${userId}/${pengacaraId}`
       );
       if (!res.ok) throw new Error("Sesi konsultasi tidak ditemukan");
       const sessionData = await res.json();
@@ -83,7 +83,7 @@ const KonsultasiLawyer = () => {
 
     try {
       const contactsRes = await fetch(
-        `http://localhost:5000/api/chat/contacts/lawyer/${lawyer.id}`
+        `https://ppsi-production.up.railway.app/api/chat/contacts/lawyer/${lawyer.id}`
       );
       if (!contactsRes.ok) {
         console.error("Gagal mengambil daftar kontak dasar. Status:", contactsRes.status);
@@ -94,7 +94,7 @@ const KonsultasiLawyer = () => {
 
       if (initialContacts && initialContacts.length > 0) {
         const profilePromises = initialContacts.map(contact =>
-          fetch(`http://localhost:5000/api/profile/id/${contact.id}`)
+          fetch(`https://ppsi-production.up.railway.app/api/profile/id/${contact.id}`)
             .then(response => {
               if (!response.ok) {
                 console.warn(`Gagal mengambil profil untuk user ID: ${contact.id}. Status: ${response.status}`);
@@ -144,7 +144,7 @@ const KonsultasiLawyer = () => {
       if (selectedUser && data.sender_id === selectedUser.id) {
         try {
           const res = await fetch(
-            `http://localhost:5000/api/chat/messages/user/${selectedUser.id}?userId=${lawyer.id}&userRole=pengacara`
+            `https://ppsi-production.up.railway.app/api/chat/messages/user/${selectedUser.id}?userId=${lawyer.id}&userRole=pengacara`
           );
           const newMessages = await res.json();
           setMessages(newMessages);
@@ -198,7 +198,7 @@ const KonsultasiLawyer = () => {
     setError("");
     try {
       const res = await fetch(
-        `http://localhost:5000/api/chat/messages/user/${user.id}?userId=${lawyer.id}&userRole=pengacara`
+        `https://ppsi-production.up.railway.app/api/chat/messages/user/${user.id}?userId=${lawyer.id}&userRole=pengacara`
       );
       if (!res.ok) throw new Error("Gagal mengambil pesan untuk user: " + user.name);
       const data = await res.json();
@@ -221,7 +221,7 @@ const KonsultasiLawyer = () => {
         formData.append("receiver_id", selectedUser.id);
         formData.append("receiver_role", "user");
         formData.append("message", input || "");
-        const res = await fetch("http://localhost:5000/api/chat/send-message-file", {
+        const res = await fetch("https://ppsi-production.up.railway.app/api/chat/send-message-file", {
           method: "POST",
           body: formData,
         });
@@ -324,7 +324,7 @@ const KonsultasiLawyer = () => {
                   <div className="contact-photo-container">
                     {user.upload_foto ? ( // Properti 'upload_foto' ini sekarang diisi dari profileData.photo
                       <img
-                        src={`http://localhost:5000/uploads/profile_photos/${user.upload_foto}`}
+                        src={`https://ppsi-production.up.railway.app/uploads/profile_photos/${user.upload_foto}`}
                         alt={user.name}
                         className="contact-photo-img"
                         onError={(e) => {
@@ -380,15 +380,15 @@ const KonsultasiLawyer = () => {
                         <>
                           {/\.(jpg|jpeg|png|gif)$/i.test(msg.file) ? (
                             <img
-                              src={`http://localhost:5000/uploads/chat_files/${msg.file}`}
+                              src={`https://ppsi-production.up.railway.app/uploads/chat_files/${msg.file}`}
                               alt="lampiran gambar"
                               style={{ maxWidth: "200px", marginTop: "8px", borderRadius: "8px", cursor: "pointer" }}
-                              onClick={() => window.open(`http://localhost:5000/uploads/chat_files/${msg.file}`, '_blank')}
+                              onClick={() => window.open(`https://ppsi-production.up.railway.app/uploads/chat_files/${msg.file}`, '_blank')}
                               onError={(e) => { e.target.style.display = "none"; }}
                             />
                           ) : (
                             <div style={{ marginTop: "8px" }}>
-                              <a href={`http://localhost:5000/uploads/chat_files/${msg.file}`} target="_blank" rel="noopener noreferrer">
+                              <a href={`https://ppsi-production.up.railway.app/uploads/chat_files/${msg.file}`} target="_blank" rel="noopener noreferrer">
                                 📎 {msg.file_original_name || msg.file}
                               </a>
                             </div>

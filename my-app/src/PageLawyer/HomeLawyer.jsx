@@ -21,7 +21,7 @@ const HomeLawyer = () => {
       return;
     }
 
-    fetch(`http://localhost:5000/api/pengacara/check-bank/${lawyer.id}`)
+    fetch(`https://ppsi-production.up.railway.app/api/pengacara/check-bank/${lawyer.id}`)
       .then(async (res) => {
         const text = await res.text();
         try {

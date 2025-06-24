@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useMemo } from 'react';
+import { useEffect, useState, useMemo } from 'react';
 import axios from 'axios';
 import * as XLSX from "xlsx";
 import { saveAs } from "file-saver";
@@ -44,10 +44,10 @@ const useLawyerDashboardData = (lawyerId) => {
       setError(null);
       try {
         const [summaryRes, grafikRes, transaksiRes, monthlyCountsRes] = await Promise.all([
-          axios.get(`http://localhost:5000/api/dashboard-pengacara/${lawyerId}`),
-          axios.get(`http://localhost:5000/api/dashboard-pengacara/${lawyerId}/grafik`),
-          axios.get(`http://localhost:5000/api/dashboard-pengacara/${lawyerId}/transaksi`),
-          axios.get(`http://localhost:5000/api/dashboard-pengacara/${lawyerId}/monthly-counts`)
+          axios.get(`https://ppsi-production.up.railway.app/api/dashboard-pengacara/${lawyerId}`),
+          axios.get(`https://ppsi-production.up.railway.app/api/dashboard-pengacara/${lawyerId}/grafik`),
+          axios.get(`https://ppsi-production.up.railway.app/api/dashboard-pengacara/${lawyerId}/transaksi`),
+          axios.get(`https://ppsi-production.up.railway.app/api/dashboard-pengacara/${lawyerId}/monthly-counts`)
         ]);
 
         setData({

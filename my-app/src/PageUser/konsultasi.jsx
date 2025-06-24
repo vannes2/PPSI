@@ -39,14 +39,14 @@ const Konsultasi = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch("http://localhost:5000/api/profilpengacara");
+        const response = await fetch("https://ppsi-production.up.railway.app/api/profilpengacara");
         if (!response.ok) throw new Error(`HTTP error! Status: ${response.status}`);
         const data = await response.json();
 
         const dataWithRating = await Promise.all(
           data.map(async (advokat) => {
             try {
-              const resRating = await fetch(`http://localhost:5000/api/reviews/rating/${advokat.id}`);
+              const resRating = await fetch(`https://ppsi-production.up.railway.app/api/reviews/rating/${advokat.id}`);
               if (!resRating.ok) throw new Error("Failed to fetch rating");
               const ratingData = await resRating.json();
               return {
@@ -126,7 +126,7 @@ const Konsultasi = () => {
                 <div className="foto-advokat-container">
                   {a.upload_foto ? (
                     <img
-                      src={`http://localhost:5000/uploads/${a.upload_foto}`}
+                      src={`https://ppsi-production.up.railway.app/uploads/${a.upload_foto}`}
                       alt={a.nama}
                       className="foto-advokat"
                     />

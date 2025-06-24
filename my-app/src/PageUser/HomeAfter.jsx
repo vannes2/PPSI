@@ -33,7 +33,7 @@ const HomeAfter = () => {
   useEffect(() => {
     const fetchPengacaraWithRating = async () => {
       try {
-        const res = await fetch("http://localhost:5000/api/profilpengacara");
+        const res = await fetch("https://ppsi-production.up.railway.app/api/profilpengacara");
         if (!res.ok) throw new Error("Gagal ambil data");
         const data = await res.json();
 
@@ -41,7 +41,7 @@ const HomeAfter = () => {
           data.map(async (pengacara) => {
             try {
               const ratingRes = await fetch(
-                `http://localhost:5000/api/reviews/rating/${pengacara.id}`
+                `https://ppsi-production.up.railway.app/api/reviews/rating/${pengacara.id}`
               );
               const ratingData = await ratingRes.json();
               return {
@@ -64,7 +64,7 @@ const HomeAfter = () => {
 
     fetchPengacaraWithRating();
 
-    fetch("http://localhost:5000/api/artikel-berita/top")
+    fetch("https://ppsi-production.up.railway.app/api/artikel-berita/top")
       .then((res) => res.json())
       .then((data) => setBeritaTop(data))
       .catch((err) => console.error("Gagal fetch top berita:", err));
@@ -257,7 +257,7 @@ const HomeAfter = () => {
               <div className="foto-advokat-container">
                 {advokat.upload_foto ? (
                   <img
-                    src={`http://localhost:5000/uploads/${advokat.upload_foto}`}
+                    src={`https://ppsi-production.up.railway.app/uploads/${advokat.upload_foto}`}
                     alt={advokat.nama}
                     className="foto-advokat"
                   />
@@ -358,7 +358,7 @@ const HomeAfter = () => {
             {beritaTop.map((item) => (
               <div className="slide" key={item.id}>
                 <Link to={`/DetailBerita/${item.id}`}>
-                  <img src={`http://localhost:5000/uploads/${item.gambar}`} alt={item.judul} className="slide-img" />
+                  <img src={`https://ppsi-production.up.railway.app/uploads/${item.gambar}`} alt={item.judul} className="slide-img" />
                   <div className="slide-caption">
                     <h3 className="slide-title">{item.judul}</h3>
                   </div>

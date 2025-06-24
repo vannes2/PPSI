@@ -20,7 +20,7 @@ const Payment = () => {
 
     const getAdvokat = async () => {
       try {
-        const res = await fetch("http://localhost:5000/api/profilpengacara");
+        const res = await fetch("https://ppsi-production.up.railway.app/api/profilpengacara");
         const data = await res.json();
         const found = data.find((p) => p.id === state.pengacaraId);
         if (found) {
@@ -28,7 +28,7 @@ const Payment = () => {
           setMaxDuration(found.pengalaman * 60);
 
           // 🎯 Tambahkan fetch rating di sini
-          const ratingRes = await fetch(`http://localhost:5000/api/reviews/rating/${found.id}`);
+          const ratingRes = await fetch(`https://ppsi-production.up.railway.app/api/reviews/rating/${found.id}`);
           const ratingData = await ratingRes.json();
           setRating(ratingData.average_rating || 0);
         } else {
@@ -75,7 +75,7 @@ const Payment = () => {
                 <div className="photo-section">
                   {advokat.upload_foto ? (
                     <img
-                      src={`http://localhost:5000/uploads/${advokat.upload_foto}`}
+                      src={`https://ppsi-production.up.railway.app/uploads/${advokat.upload_foto}`}
                       alt={advokat.nama}
                       onError={(e) => {
                         e.target.onerror = null;

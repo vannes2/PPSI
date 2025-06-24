@@ -37,7 +37,7 @@ const Login = () => {
       await new Promise(resolve => setTimeout(resolve, 2000)); // 2. Delay sekarang 2 detik
 
       // 3. Lanjutkan dengan proses fetch
-      const response = await fetch("http://localhost:5000/api/login", {
+      const response = await fetch("https://ppsi-production.up.railway.app/api/login", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email, password }),

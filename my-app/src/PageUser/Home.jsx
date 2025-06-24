@@ -34,7 +34,7 @@ const Home = () => {
   useEffect(() => {
     const fetchPengacaraWithRating = async () => {
       try {
-        const res = await fetch("http://localhost:5000/api/profilpengacara");
+        const res = await fetch("https://ppsi-production.up.railway.app/api/profilpengacara");
         if (!res.ok) throw new Error("Gagal ambil data pengacara");
         const data = await res.json();
 
@@ -42,7 +42,7 @@ const Home = () => {
           data.map(async (p) => {
             try {
               const ratingRes = await fetch(
-                `http://localhost:5000/api/reviews/rating/${p.id}`
+                `https://ppsi-production.up.railway.app/api/reviews/rating/${p.id}`
               );
               const ratingData = await ratingRes.json();
               return {
@@ -73,7 +73,7 @@ const Home = () => {
   useEffect(() => {
     const fetchBerita = async () => {
       try {
-        const res = await fetch("http://localhost:5000/api/artikel-berita/top");
+        const res = await fetch("https://ppsi-production.up.railway.app/api/artikel-berita/top");
         const berita = await res.json();
         setBeritaTop(berita);
       } catch (err) {
@@ -287,7 +287,7 @@ const Home = () => {
                 <div className="foto-advokat-container">
                   {advokat.upload_foto ? (
                     <img
-                      src={`http://localhost:5000/uploads/${advokat.upload_foto}`}
+                      src={`https://ppsi-production.up.railway.app/uploads/${advokat.upload_foto}`}
                       alt={advokat.nama}
                       className="foto-advokat"
                     />
@@ -405,7 +405,7 @@ const Home = () => {
               <div className="slide" key={item.id}>
                 <Link to="/Login">
                   <img
-                    src={`http://localhost:5000/uploads/${item.gambar}`}
+                    src={`https://ppsi-production.up.railway.app/uploads/${item.gambar}`}
                     alt={item.judul}
                     className="slide-img"
                   />

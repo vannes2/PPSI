@@ -94,9 +94,9 @@ const TransaksiKeuangan = () => {
         setError(null);
         try {
             const [resKeuangan, resKasus, resKonsultasi] = await Promise.all([
-                axios.get("http://localhost:5000/api/transaksi-keuangan/total"),
-                axios.get("http://localhost:5000/api/transaksi/ajukan-kasus"),
-                axios.get("http://localhost:5000/api/transaksi/konsultasi-session"),
+                axios.get("https://ppsi-production.up.railway.app/api/transaksi-keuangan/total"),
+                axios.get("https://ppsi-production.up.railway.app/api/transaksi/ajukan-kasus"),
+                axios.get("https://ppsi-production.up.railway.app/api/transaksi/konsultasi-session"),
             ]);
             setData(resKeuangan.data);
             setKasus(resKasus.data);
@@ -155,7 +155,7 @@ const TransaksiKeuangan = () => {
             setKonsultasi(prev => prev.map(item => item.id === id ? { ...item, is_transferred: true } : item));
         }
         try {
-            await axios.put(`http://localhost:5000/api/transaksi/transfer/${type}/${id}`);
+            await axios.put(`https://ppsi-production.up.railway.app/api/transaksi/transfer/${type}/${id}`);
         } catch (err) {
             alert("Gagal memperbarui status transfer. Mengembalikan ke status semula.");
             console.error(err);

@@ -22,7 +22,7 @@ const ProfileView = () => {
       return;
     }
 
-    fetch(`http://localhost:5000/api/profile/id/${userId}`)
+    fetch(`https://ppsi-production.up.railway.app/api/profile/id/${userId}`)
       .then((response) => {
         if (!response.ok) throw new Error("Gagal mengambil data profil");
         return response.json();
@@ -61,7 +61,7 @@ const ProfileView = () => {
             <div className="profile-picture">
               {profileData.photo_url ? (
                 <img
-                  src={`http://localhost:5000${profileData.photo_url}`}
+                  src={`https://ppsi-production.up.railway.app${profileData.photo_url}`}
                   alt="Foto Profil"
                   onError={(e) => {
                     e.target.onerror = null;

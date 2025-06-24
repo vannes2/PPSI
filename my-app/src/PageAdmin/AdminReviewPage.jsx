@@ -38,7 +38,7 @@ const AdminReviewPage = () => {
     const controller = new AbortController();
     (async () => {
       try {
-        const res = await axios.get("http://localhost:5000/api/reviews/all", {
+        const res = await axios.get("https://ppsi-production.up.railway.app/api/reviews/all", {
           signal: controller.signal,
         });
         setAllReviews(res.data);
@@ -62,7 +62,7 @@ const AdminReviewPage = () => {
     }
     try {
       const { data } = await axios.post(
-        "http://localhost:5000/api/reviews/admin-create",
+        "https://ppsi-production.up.railway.app/api/reviews/admin-create",
         newReview
       );
       setAllReviews([data.review, ...allReviews]);
@@ -90,7 +90,7 @@ const AdminReviewPage = () => {
   const handleUpdateSubmit = async (id) => {
     try {
       const { data } = await axios.put(
-        `http://localhost:5000/api/reviews/${id}`,
+        `https://ppsi-production.up.railway.app/api/reviews/${id}`,
         editForm
       );
       setAllReviews(
@@ -109,7 +109,7 @@ const AdminReviewPage = () => {
   const handleDelete = async (id) => {
     if (!window.confirm("Apakah Anda yakin?")) return;
     try {
-      await axios.delete(`http://localhost:5000/api/reviews/${id}`);
+      await axios.delete(`https://ppsi-production.up.railway.app/api/reviews/${id}`);
       setAllReviews(allReviews.filter((rv) => rv.id !== id));
       alert("Ulasan berhasil dihapus.");
     } catch {

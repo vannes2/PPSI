@@ -25,7 +25,7 @@ const ProfilAdmin = () => {
   useEffect(() => {
     const fetchAdminData = async () => {
       try {
-        const response = await axios.get("http://localhost:5000/api/admin/profile");
+        const response = await axios.get("https://ppsi-production.up.railway.app/api/admin/profile");
         setAdminData(response.data);
         setFormData({
           name: response.data.name || "",
@@ -74,7 +74,7 @@ const ProfilAdmin = () => {
       return;
     }
     try {
-      await axios.put("http://localhost:5000/api/admin/profile/update", {
+      await axios.put("https://ppsi-production.up.railway.app/api/admin/profile/update", {
         ...formData,
         password: password
       });
@@ -82,7 +82,7 @@ const ProfilAdmin = () => {
       if (selectedFile) {
         const fileData = new FormData();
         fileData.append("foto", selectedFile);
-        await axios.put("http://localhost:5000/api/admin/profile/upload-foto", fileData, {
+        await axios.put("https://ppsi-production.up.railway.app/api/admin/profile/upload-foto", fileData, {
           headers: { "Content-Type": "multipart/form-data" }
         });
       }
@@ -111,7 +111,7 @@ const ProfilAdmin = () => {
                 <img
                   src={
                     adminData.upload_foto
-                      ? `http://localhost:5000/uploads/${adminData.upload_foto}`
+                      ? `https://ppsi-production.up.railway.app/uploads/${adminData.upload_foto}`
                       : "/assets/images/admin-avatar.png"
                   }
                   alt="Foto Admin"

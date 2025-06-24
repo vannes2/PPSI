@@ -62,7 +62,7 @@ const SidebarAdmin = () => {
     useEffect(() => {
         const fetchAdmin = async () => {
             try {
-                const res = await axios.get("http://localhost:5000/api/admin/profile");
+                const res = await axios.get("https://ppsi-production.up.railway.app/api/admin/profile");
                 setAdmin(res.data);
             } catch (err) {
                 console.error("❌ Gagal mengambil data admin:", err);
@@ -91,7 +91,7 @@ const SidebarAdmin = () => {
                         <li className="nav-item-profile">
                             <Link to="/ProfilAdmin" className="profile-link" onClick={handleLinkClick}>
                                 <img
-                                    src={admin.upload_foto ? `http://localhost:5000/uploads/${admin.upload_foto}` : "/assets/images/admin-avatar.png"}
+                                    src={admin.upload_foto ? `https://ppsi-production.up.railway.app/uploads/${admin.upload_foto}` : "/assets/images/admin-avatar.png"}
                                     alt="Admin Avatar"
                                     className="profile-avatar"
                                 />

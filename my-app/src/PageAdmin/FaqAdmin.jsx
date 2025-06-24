@@ -30,7 +30,7 @@ const FaqAdmin = () => {
 
   const fetchFAQ = async () => {
     try {
-      const res = await axios.get("http://localhost:5000/api/faq");
+      const res = await axios.get("https://ppsi-production.up.railway.app/api/faq");
       setFaqData(res.data);
     } catch (err) {
       console.error("Gagal memuat data FAQ:", err);
@@ -81,9 +81,9 @@ const FaqAdmin = () => {
 
     try {
       if (editId) {
-        await axios.put(`http://localhost:5000/api/faq/${editId}`, form);
+        await axios.put(`https://ppsi-production.up.railway.app/api/faq/${editId}`, form);
       } else {
-        await axios.post("http://localhost:5000/api/faq", form);
+        await axios.post("https://ppsi-production.up.railway.app/api/faq", form);
       }
       resetForm();
       fetchFAQ();
@@ -109,7 +109,7 @@ const FaqAdmin = () => {
   const handleDelete = async (id) => {
     if (!window.confirm("Yakin ingin menghapus FAQ ini?")) return;
     try {
-      await axios.delete(`http://localhost:5000/api/faq/${id}`);
+      await axios.delete(`https://ppsi-production.up.railway.app/api/faq/${id}`);
       if (editId === id) resetForm();
       fetchFAQ();
     } catch (error) {

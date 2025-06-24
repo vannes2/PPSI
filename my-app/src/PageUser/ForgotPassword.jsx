@@ -15,7 +15,7 @@ const ForgotPassword = () => {
     setPopup({ show: false, message: "", success: false });
 
     try {
-      const res = await fetch("http://localhost:5000/api/forgot-password", {
+      const res = await fetch("https://ppsi-production.up.railway.app/api/forgot-password", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email }),
@@ -27,7 +27,7 @@ const ForgotPassword = () => {
       if (res.ok) {
         setTimeout(() => navigate("/verify-otp", { state: { email } }), 1500);
       }
-    } catch (error) {
+    } catch (err) {
       setPopup({ show: true, message: "Terjadi kesalahan saat menghubungi server", success: false });
     } finally {
       setLoading(false);

@@ -17,7 +17,7 @@ const Artikel = () => {
 
   const fetchArtikels = async () => {
     try {
-      const res = await axios.get("http://localhost:5000/api/artikel");
+      const res = await axios.get("https://ppsi-production.up.railway.app/api/artikel");
       setArtikels(res.data);
       setLoading(false);
     } catch (err) {
@@ -34,7 +34,7 @@ const Artikel = () => {
 
   const handleDownload = (filePath) => {
     const fileName = filePath.split(/[\\/]/).pop();
-    window.open(`http://localhost:5000/uploads/${fileName}`, "_blank");
+    window.open(`https://ppsi-production.up.railway.app/uploads/${fileName}`, "_blank");
   };
 
   return (

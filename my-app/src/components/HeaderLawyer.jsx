@@ -15,7 +15,7 @@ const HeaderLawyer = () => {
         const parsedUser = JSON.parse(storedUser);
         setUser(parsedUser);
 
-        fetch(`http://localhost:5000/api/pengacara/${parsedUser.id}`)
+        fetch(`https://ppsi-production.up.railway.app/api/pengacara/${parsedUser.id}`)
           .then((res) => res.json())
           .then((data) => {
             setUser(data);
@@ -36,7 +36,7 @@ const HeaderLawyer = () => {
     if (user?.upload_foto) {
       return (
         <img
-          src={`http://localhost:5000/uploads/${user.upload_foto}`}
+          src={`https://ppsi-production.up.railway.app/uploads/${user.upload_foto}`}
           alt={`${user.nama || "Profil"} Foto`}
           width={size}
           height={size}

@@ -42,7 +42,7 @@ const RegisterLawyerPage = () => {
         }
       }
 
-      const response = await fetch("http://localhost:5000/api/lawyers/register", {
+      const response = await fetch("https://ppsi-production.up.railway.app/api/lawyers/register", {
         method: "POST",
         body: dataToSend,
       });

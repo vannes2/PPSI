@@ -13,7 +13,7 @@ const ArtikelDetail = () => {
   useEffect(() => {
     const fetchArtikelDetail = async () => {
       try {
-        const res = await axios.get(`http://localhost:5000/api/artikel/${id}`);
+        const res = await axios.get(`https://ppsi-production.up.railway.app/api/artikel/${id}`);
         setArtikel(res.data);
         setLoading(false);
       } catch (err) {
@@ -27,7 +27,7 @@ const ArtikelDetail = () => {
 
   const handleDownload = (filePath) => {
     const fileName = filePath.split(/[\\/]/).pop();
-    window.open(`http://localhost:5000/uploads/${fileName}`, "_blank");
+    window.open(`https://ppsi-production.up.railway.app/uploads/${fileName}`, "_blank");
   };
 
   return (

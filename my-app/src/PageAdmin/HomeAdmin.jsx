@@ -33,7 +33,7 @@ const HomeAdmin = () => {
 
   const fetchPengacara = () => {
     axios
-      .get("http://localhost:5000/api/pengacara")
+      .get("https://ppsi-production.up.railway.app/api/pengacara")
       .then((response) => {
         setPengacara(response.data);
       })
@@ -45,7 +45,7 @@ const HomeAdmin = () => {
   const handleDelete = (id) => {
     if (window.confirm("Apakah Anda yakin ingin menghapus data ini?")) {
       axios
-        .delete(`http://localhost:5000/api/pengacara/${id}`)
+        .delete(`https://ppsi-production.up.railway.app/api/pengacara/${id}`)
         .then(() => {
           alert("Data berhasil dihapus");
           fetchPengacara();
@@ -157,7 +157,7 @@ const HomeAdmin = () => {
                         <td>
                           {lawyer.upload_foto ? (
                             <img
-                              src={`http://localhost:5000/uploads/${lawyer.upload_foto}`}
+                              src={`https://ppsi-production.up.railway.app/uploads/${lawyer.upload_foto}`}
                               alt="foto"
                               width="40"
                               style={{ borderRadius: "4px", verticalAlign: "middle" }}

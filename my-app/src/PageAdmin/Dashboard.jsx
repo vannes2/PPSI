@@ -6,7 +6,7 @@ import "../CSS_Admin/Dashboard.css";
 import AdminLayout from "../components/AdminLayout";
 import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, PieChart, Pie, Cell, Legend, Sector } from "recharts";
 
-const API_BASE_URL = "http://localhost:5000";
+const API_BASE_URL = "https://ppsi-production.up.railway.app";
 
 /* ---------- Tooltip kustom (tanpa background, teks putih) ---------- */
 const CustomTooltip = ({ active, payload, label }) => {

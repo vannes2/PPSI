@@ -30,10 +30,10 @@ const PaymentCheckout = () => {
     }
     // Jika itu foto pengacara, gunakan path "uploads/"
     if (isAdvokat) {
-      return `http://localhost:5000/uploads/${photoFilename}`;
+      return `https://ppsi-production.up.railway.app/uploads/${photoFilename}`;
     }
     // Jika itu foto pengguna, gunakan path "uploads/profile_photos/${photoFilename}"
-    return `http://localhost:5000/uploads/profile_photos/${photoFilename}`;
+    return `https://ppsi-production.up.railway.app/uploads/profile_photos/${photoFilename}`;
   };
 
   // Fetch user profile data
@@ -43,7 +43,7 @@ const PaymentCheckout = () => {
       if (!user) return;
 
       try {
-        const response = await fetch(`http://localhost:5000/api/profile/id/${user.id}`);
+        const response = await fetch(`https://ppsi-production.up.railway.app/api/profile/id/${user.id}`);
         if (!response.ok) throw new Error("Gagal mengambil data profil");
         
         const data = await response.json();
@@ -78,7 +78,7 @@ const PaymentCheckout = () => {
             return;
           }
 
-          paymentResponse = await fetch("http://localhost:5000/api/payment/transaction", {
+          paymentResponse = await fetch("https://ppsi-production.up.railway.app/api/payment/transaction", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({
@@ -96,7 +96,7 @@ const PaymentCheckout = () => {
             return;
           }
 
-          paymentResponse = await fetch("http://localhost:5000/api/payment-kasus/transaction-kasus", {
+          paymentResponse = await fetch("https://ppsi-production.up.railway.app/api/payment-kasus/transaction-kasus", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({

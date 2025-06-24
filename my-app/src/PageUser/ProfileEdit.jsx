@@ -35,7 +35,7 @@ const ProfileEdit = () => {
       return;
     }
 
-    fetch(`http://localhost:5000/api/profile/id/${userId}`)
+    fetch(`https://ppsi-production.up.railway.app/api/profile/id/${userId}`)
       .then((response) => {
         if (!response.ok) throw new Error("Gagal mengambil data profil");
         return response.json();
@@ -48,7 +48,7 @@ const ProfileEdit = () => {
           address: data.address || "",
         });
         if (data.photo_url) {
-          setPhotoPreview(`http://localhost:5000${data.photo_url}`);
+          setPhotoPreview(`https://ppsi-production.up.railway.app${data.photo_url}`);
         }
         setLoading(false);
       })
@@ -84,7 +84,7 @@ const ProfileEdit = () => {
       formData.append("photo", photoFile); // field 'photo' harus sama dengan multer di backend
     }
 
-    fetch(`http://localhost:5000/api/profile/update/${userId}`, {
+    fetch(`https://ppsi-production.up.railway.app/api/profile/update/${userId}`, {
       method: "PUT",
       body: formData,
       // Jangan set Content-Type, biarkan browser atur multipart/form-data otomatis

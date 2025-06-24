@@ -6,7 +6,7 @@ const LawyerRegistrations = () => {
 
   const fetchRegistrations = async () => {
     try {
-      const response = await axios.get("http://localhost:5000/api/lawyers/registrations");
+      const response = await axios.get("https://ppsi-production.up.railway.app/api/lawyers/registrations");
       setRegistrations(response.data);
     } catch (error) {
       console.error("Error fetching registrations:", error);
@@ -15,7 +15,7 @@ const LawyerRegistrations = () => {
 
   const handleApprove = async (id) => {
     try {
-      await axios.post(`http://localhost:5000/api/lawyers/approve/${id}`);
+      await axios.post(`https://ppsi-production.up.railway.app/api/lawyers/approve/${id}`);
       alert("Pendaftaran berhasil disetujui!");
       fetchRegistrations();
     } catch (error) {
@@ -29,7 +29,7 @@ const LawyerRegistrations = () => {
     if (!confirmReject) return;
 
     try {
-      await axios.delete(`http://localhost:5000/api/lawyers/reject/${id}`);
+      await axios.delete(`https://ppsi-production.up.railway.app/api/lawyers/reject/${id}`);
       alert("Pendaftaran telah ditolak dan dihapus.");
       fetchRegistrations();
     } catch (error) {
@@ -97,22 +97,22 @@ const LawyerRegistrations = () => {
                 <td>{lawyer.pengalaman} tahun</td>
                 <td>{lawyer.nomor_induk_advokat}</td>
                 <td>
-                  <a href={`http://localhost:5000/uploads/${lawyer.upload_ktp}`} target="_blank" rel="noopener noreferrer">
+                  <a href={`https://ppsi-production.up.railway.app/uploads/${lawyer.upload_ktp}`} target="_blank" rel="noopener noreferrer">
                     Lihat
                   </a>
                 </td>
                 <td>
-                  <a href={`http://localhost:5000/uploads/${lawyer.upload_foto}`} target="_blank" rel="noopener noreferrer">
+                  <a href={`https://ppsi-production.up.railway.app/uploads/${lawyer.upload_foto}`} target="_blank" rel="noopener noreferrer">
                     Lihat
                   </a>
                 </td>
                 <td>
-                  <a href={`http://localhost:5000/uploads/${lawyer.upload_kartu_advokat}`} target="_blank" rel="noopener noreferrer">
+                  <a href={`https://ppsi-production.up.railway.app/uploads/${lawyer.upload_kartu_advokat}`} target="_blank" rel="noopener noreferrer">
                     Lihat
                   </a>
                 </td>
                 <td>
-                  <a href={`http://localhost:5000/uploads/${lawyer.upload_pkpa}`} target="_blank" rel="noopener noreferrer">
+                  <a href={`https://ppsi-production.up.railway.app/uploads/${lawyer.upload_pkpa}`} target="_blank" rel="noopener noreferrer">
                     Lihat
                   </a>
                 </td>

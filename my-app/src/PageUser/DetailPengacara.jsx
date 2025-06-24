@@ -12,7 +12,7 @@ import { faLinkedin, faInstagram, faTwitter } from "@fortawesome/free-brands-svg
 const DetailPengacara = () => {
   const { id } = useParams();
   const [pengacara, setPengacara] = useState(null);
-  const [rating, setRating] = useState(0); // ✅ Tambahan state rating
+  const [rating, setRating] = useState(0);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
@@ -25,15 +25,17 @@ const DetailPengacara = () => {
 
     const fetchPengacara = async () => {
       try {
-        const response = await fetch(`http://localhost:5000/api/pengacara/${id}`);
-        if (!response.ok) {
-          throw new Error("Pengacara tidak ditemukan");
+        const response = await fetch(`https://ppsi-production.up.railway.app/api/pengacara/${id}`);
+        const contentType = response.headers.get("content-type");
+
+        if (!response.ok || !contentType?.includes("application/json")) {
+          throw new Error("Pengacara tidak ditemukan atau data tidak valid");
         }
+
         const data = await response.json();
         setPengacara(data);
 
-        // ✅ Ambil rating
-        const ratingRes = await fetch(`http://localhost:5000/api/reviews/rating/${id}`);
+        const ratingRes = await fetch(`https://ppsi-production.up.railway.app/api/reviews/rating/${id}`);
         const ratingData = await ratingRes.json();
         setRating(ratingData.average_rating || 0);
 
@@ -60,24 +62,22 @@ const DetailPengacara = () => {
       <div className="detail-container">
         <div className="main-detail-card">
           <div className="detail-card">
-            {/* Foto Pengacara */}
             <div className="detail-photo-container">
               <img
                 src={
                   pengacara.upload_foto
-                    ? `http://localhost:5000/uploads/${pengacara.upload_foto}`
-                    : "http://localhost:5000/assets/default-lawyer.png"
+                    ? `https://ppsi-production.up.railway.app/uploads/${pengacara.upload_foto}`
+                    : "https://ppsi-production.up.railway.app/assets/default-lawyer.png"
                 }
                 alt={pengacara.nama}
                 onError={(e) => {
                   e.target.onerror = null;
-                  e.target.src = "http://localhost:5000/assets/default-lawyer.png";
+                  e.target.src = "https://ppsi-production.up.railway.app/assets/default-lawyer.png";
                 }}
                 className="detail-photo"
               />
-              <h3 className="photo-name">{pengacara.nama}</h3>
+              <h3 className="photo-name">{pengacara.nama || "Tidak diketahui"}</h3>
 
-              {/* ⭐ RATING BINTANG */}
               <div className="rating-stars">
                 {(() => {
                   const fullStars = Math.floor(rating);
@@ -102,34 +102,32 @@ const DetailPengacara = () => {
               </div>
             </div>
 
-            {/* Informasi Pengacara */}
             <div className="detail-info">
               <h2>Detail Pengacara</h2>
               <br />
               <div>
-                <p><strong>Nama:</strong> <span>{pengacara.nama}</span></p>
-                <p><strong>Jenis Kelamin:</strong> <span>{pengacara.jenis_kelamin}</span></p>
-                <p><strong>Alamat:</strong> <span>{pengacara.alamat}</span></p>
-                <p><strong>Pengalaman:</strong> <span>{pengacara.pengalaman} tahun</span></p>
+                <p><strong>Nama:</strong> <span>{pengacara.nama || "Tidak tersedia"}</span></p>
+                <p><strong>Jenis Kelamin:</strong> <span>{pengacara.jenis_kelamin || "Tidak tersedia"}</span></p>
+                <p><strong>Alamat:</strong> <span>{pengacara.alamat || "Tidak tersedia"}</span></p>
+                <p><strong>Pengalaman:</strong> <span>{pengacara.pengalaman || 0} tahun</span></p>
               </div>
               <div>
-                <p><strong>NIA:</strong> <span>{pengacara.nomor_induk_advokat}</span></p>
-                <p><strong>Universitas:</strong> <span>{pengacara.universitas}</span></p>
-                <p><strong>Pendidikan:</strong> <span>{pengacara.pendidikan}</span></p>
-                <p><strong>Spesialisasi:</strong> <span>{pengacara.spesialisasi}</span></p>
+                <p><strong>NIA:</strong> <span>{pengacara.nomor_induk_advokat || "-"}</span></p>
+                <p><strong>Universitas:</strong> <span>{pengacara.universitas || "-"}</span></p>
+                <p><strong>Pendidikan:</strong> <span>{pengacara.pendidikan || "-"}</span></p>
+                <p><strong>Spesialisasi:</strong> <span>{pengacara.spesialisasi || "-"}</span></p>
               </div>
             </div>
           </div>
 
-          {/* Informasi Tambahan */}
           <div className="additional-info-card">
             <h3>Informasi Tambahan</h3>
             <div className="additional-info-content">
-              {pengacara.resume_cv && (
+              {pengacara.resume_cv ? (
                 <div className="resume-section">
                   <p className="info-item">
                     <a
-                      href={`http://localhost:5000/uploads/${pengacara.resume_cv}`}
+                      href={`https://ppsi-production.up.railway.app/uploads/${pengacara.resume_cv}`}
                       target="_blank"
                       rel="noopener noreferrer"
                       className="info-link"
@@ -138,6 +136,8 @@ const DetailPengacara = () => {
                     </a>
                   </p>
                 </div>
+              ) : (
+                <p className="info-item">Resume belum tersedia.</p>
               )}
 
               <div className="social-media-links">
@@ -155,6 +155,12 @@ const DetailPengacara = () => {
                   <a href={pengacara.twitter} target="_blank" rel="noopener noreferrer" className="social-icon-link">
                     <FontAwesomeIcon icon={faTwitter} size="2x" className="twitter-color" />
                   </a>
+                )}
+
+                {!pengacara.linkedin && !pengacara.instagram && !pengacara.twitter && (
+                  <p className="info-item" style={{ fontStyle: "italic", color: "#777" }}>
+                    Tidak ada media sosial tersedia.
+                  </p>
                 )}
               </div>
             </div>
