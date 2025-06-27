@@ -11,10 +11,12 @@ import { faLinkedin, faInstagram, faTwitter } from "@fortawesome/free-brands-svg
 
 const DetailPengacara = () => {
   const { id } = useParams();
-  const [pengacara, setPengacara] = useState(null);
+  const [pengacara, setPengacara] = useState({});
   const [rating, setRating] = useState(0);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+
+  const BASE_URL = "https://ppsi-production.up.railway.app";
 
   useEffect(() => {
     if (!id) {
@@ -23,36 +25,37 @@ const DetailPengacara = () => {
       return;
     }
 
-    const fetchPengacara = async () => {
+    const fetchData = async () => {
       try {
-        const response = await fetch(`https://ppsi-production.up.railway.app/api/pengacara/${id}`);
-        const contentType = response.headers.get("content-type");
-
-        if (!response.ok || !contentType?.includes("application/json")) {
-          throw new Error("Pengacara tidak ditemukan atau data tidak valid");
+        const res = await fetch(`${BASE_URL}/api/pengacara/${id}`);
+        const contentType = res.headers.get("content-type");
+        if (!res.ok || !contentType?.includes("application/json")) {
+          throw new Error("Data pengacara tidak ditemukan.");
         }
-
-        const data = await response.json();
+        const data = await res.json();
         setPengacara(data);
 
-        const ratingRes = await fetch(`https://ppsi-production.up.railway.app/api/reviews/rating/${id}`);
-        const ratingData = await ratingRes.json();
-        setRating(ratingData.average_rating || 0);
+        const ratingRes = await fetch(`${BASE_URL}/api/reviews/rating/${id}`);
+        const ratingType = ratingRes.headers.get("content-type");
+        if (ratingRes.ok && ratingType?.includes("application/json")) {
+          const ratingData = await ratingRes.json();
+          setRating(ratingData.average_rating || 0);
+        }
 
         setError(null);
       } catch (err) {
         setError(err.message);
-        setPengacara(null);
+        setPengacara({});
       } finally {
         setLoading(false);
       }
     };
 
-    fetchPengacara();
+    fetchData();
   }, [id]);
 
   if (loading) return <p>Loading...</p>;
-  if (error) return <p>{error}</p>;
+  if (error) return <p style={{ color: "red" }}>{error}</p>;
 
   return (
     <div className="detail-page">
@@ -66,13 +69,13 @@ const DetailPengacara = () => {
               <img
                 src={
                   pengacara.upload_foto
-                    ? `https://ppsi-production.up.railway.app/uploads/${pengacara.upload_foto}`
-                    : "https://ppsi-production.up.railway.app/assets/default-lawyer.png"
+                    ? `${BASE_URL}/uploads/${pengacara.upload_foto}`
+                    : `${BASE_URL}/assets/default-lawyer.png`
                 }
-                alt={pengacara.nama}
+                alt={pengacara.nama || "Foto Pengacara"}
                 onError={(e) => {
                   e.target.onerror = null;
-                  e.target.src = "https://ppsi-production.up.railway.app/assets/default-lawyer.png";
+                  e.target.src = `${BASE_URL}/assets/default-lawyer.png`;
                 }}
                 className="detail-photo"
               />
@@ -127,7 +130,7 @@ const DetailPengacara = () => {
                 <div className="resume-section">
                   <p className="info-item">
                     <a
-                      href={`https://ppsi-production.up.railway.app/uploads/${pengacara.resume_cv}`}
+                      href={`${BASE_URL}/uploads/${pengacara.resume_cv}`}
                       target="_blank"
                       rel="noopener noreferrer"
                       className="info-link"
@@ -167,6 +170,7 @@ const DetailPengacara = () => {
           </div>
         </div>
       </div>
+
       <br /><br /><br />
       <div className="footer-separator"></div>
       <Footer />
