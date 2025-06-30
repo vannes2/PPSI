@@ -89,10 +89,6 @@ const ProfileLawyer = () => {
               )}
             </div>
 
-            <p className="profile-page-profile-balance">
-              {profileData.balance ? `${profileData.balance} AYUNE COINS` : "0 AYUNE COINS"}
-            </p>
-
             <button className="profile-page-edit-profile-btn" onClick={handleEditProfile}>
               Edit Profil
             </button>

@@ -13,15 +13,21 @@ const HeaderLawyer = () => {
     if (storedUser) {
       try {
         const parsedUser = JSON.parse(storedUser);
-        setUser(parsedUser);
+        const userId = parsedUser.id;
 
-        fetch(`https://ppsi-production.up.railway.app/api/pengacara/${parsedUser.id}`)
-          .then((res) => res.json())
+        // Ambil data profil lawyer yang lengkap seperti di ProfileLawyer.jsx
+        fetch(`https://ppsi-production.up.railway.app/api/lawyer/profile/${userId}`)
+          .then((res) => {
+            if (!res.ok) {
+              throw new Error("Gagal mengambil data profil lawyer");
+            }
+            return res.json();
+          })
           .then((data) => {
             setUser(data);
           })
           .catch((err) => {
-            console.error("Gagal fetch data pengacara:", err);
+            console.error("Gagal fetch data lawyer:", err);
           });
       } catch (err) {
         console.error("Gagal parsing user dari localStorage:", err);
@@ -49,7 +55,7 @@ const HeaderLawyer = () => {
         />
       );
     }
-    // Jika tidak ada foto, tampilkan icon User
+
     return <User size={size} color="#B31312" className={className} />;
   };
 
@@ -81,21 +87,11 @@ const HeaderLawyer = () => {
 
       <nav className={`drawer ${menuOpen ? "active" : ""}`}>
         <ul onClick={closeDrawer}>
-          <li>
-            <Link to="/HomeLawyer">BERANDA</Link>
-          </li>
-          <li>
-            <Link to="/KonsultasiLawyer">KONSULTASI</Link>
-          </li>
-          <li>
-            <Link to="/RiwayatKasusPengacara">RIWAYAT</Link>
-          </li>
-          <li>
-            <Link to="/ArtikelLawyer">DOKUMEN</Link>
-          </li>
-          <li>
-            <Link to="/AboutLawyer">TENTANG KAMI</Link>
-          </li>
+          <li><Link to="/HomeLawyer">BERANDA</Link></li>
+          <li><Link to="/KonsultasiLawyer">KONSULTASI</Link></li>
+          <li><Link to="/RiwayatKasusPengacara">RIWAYAT</Link></li>
+          <li><Link to="/ArtikelLawyer">DOKUMEN</Link></li>
+          <li><Link to="/AboutLawyer">TENTANG KAMI</Link></li>
 
           <li className="drawer-profile-btn">
             <Link to="/ProfileLawyer" onClick={closeDrawer} title="Profil">

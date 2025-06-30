@@ -11,12 +11,10 @@ import { faLinkedin, faInstagram, faTwitter } from "@fortawesome/free-brands-svg
 
 const DetailPengacara = () => {
   const { id } = useParams();
-  const [pengacara, setPengacara] = useState({});
-  const [rating, setRating] = useState(0);
+  const [pengacara, setPengacara] = useState(null);
+  const [rating, setRating] = useState(0); // ✅ Tambahan state rating
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-
-  const BASE_URL = "https://ppsi-production.up.railway.app";
 
   useEffect(() => {
     if (!id) {
@@ -25,37 +23,34 @@ const DetailPengacara = () => {
       return;
     }
 
-    const fetchData = async () => {
+    const fetchPengacara = async () => {
       try {
-        const res = await fetch(`${BASE_URL}/api/pengacara/${id}`);
-        const contentType = res.headers.get("content-type");
-        if (!res.ok || !contentType?.includes("application/json")) {
-          throw new Error("Data pengacara tidak ditemukan.");
+        const response = await fetch(`https://ppsi-production.up.railway.app/api/lawyer/profile/${id}`);
+        if (!response.ok) {
+          throw new Error("Pengacara tidak ditemukan");
         }
-        const data = await res.json();
+        const data = await response.json();
         setPengacara(data);
 
-        const ratingRes = await fetch(`${BASE_URL}/api/reviews/rating/${id}`);
-        const ratingType = ratingRes.headers.get("content-type");
-        if (ratingRes.ok && ratingType?.includes("application/json")) {
-          const ratingData = await ratingRes.json();
-          setRating(ratingData.average_rating || 0);
-        }
+        // ✅ Ambil rating
+        const ratingRes = await fetch(`https://ppsi-production.up.railway.app/api/reviews/rating/${id}`);
+        const ratingData = await ratingRes.json();
+        setRating(ratingData.average_rating || 0);
 
         setError(null);
       } catch (err) {
         setError(err.message);
-        setPengacara({});
+        setPengacara(null);
       } finally {
         setLoading(false);
       }
     };
 
-    fetchData();
+    fetchPengacara();
   }, [id]);
 
   if (loading) return <p>Loading...</p>;
-  if (error) return <p style={{ color: "red" }}>{error}</p>;
+  if (error) return <p>{error}</p>;
 
   return (
     <div className="detail-page">
@@ -65,22 +60,24 @@ const DetailPengacara = () => {
       <div className="detail-container">
         <div className="main-detail-card">
           <div className="detail-card">
+            {/* Foto Pengacara */}
             <div className="detail-photo-container">
               <img
                 src={
                   pengacara.upload_foto
-                    ? `${BASE_URL}/uploads/${pengacara.upload_foto}`
-                    : `${BASE_URL}/assets/default-lawyer.png`
+                    ? `https://ppsi-production.up.railway.app//uploads/${pengacara.upload_foto}`
+                    : "https://ppsi-production.up.railway.app//assets/default-lawyer.png"
                 }
-                alt={pengacara.nama || "Foto Pengacara"}
+                alt={pengacara.nama}
                 onError={(e) => {
                   e.target.onerror = null;
-                  e.target.src = `${BASE_URL}/assets/default-lawyer.png`;
+                  e.target.src = "https://ppsi-production.up.railway.app/assets/default-lawyer.png";
                 }}
                 className="detail-photo"
               />
-              <h3 className="photo-name">{pengacara.nama || "Tidak diketahui"}</h3>
+              <h3 className="photo-name">{pengacara.nama}</h3>
 
+              {/* ⭐ RATING BINTANG */}
               <div className="rating-stars">
                 {(() => {
                   const fullStars = Math.floor(rating);
@@ -105,32 +102,34 @@ const DetailPengacara = () => {
               </div>
             </div>
 
+            {/* Informasi Pengacara */}
             <div className="detail-info">
               <h2>Detail Pengacara</h2>
               <br />
               <div>
-                <p><strong>Nama:</strong> <span>{pengacara.nama || "Tidak tersedia"}</span></p>
-                <p><strong>Jenis Kelamin:</strong> <span>{pengacara.jenis_kelamin || "Tidak tersedia"}</span></p>
-                <p><strong>Alamat:</strong> <span>{pengacara.alamat || "Tidak tersedia"}</span></p>
-                <p><strong>Pengalaman:</strong> <span>{pengacara.pengalaman || 0} tahun</span></p>
+                <p><strong>Nama:</strong> <span>{pengacara.nama}</span></p>
+                <p><strong>Jenis Kelamin:</strong> <span>{pengacara.jenis_kelamin}</span></p>
+                <p><strong>Alamat:</strong> <span>{pengacara.alamat}</span></p>
+                <p><strong>Pengalaman:</strong> <span>{pengacara.pengalaman} tahun</span></p>
               </div>
               <div>
-                <p><strong>NIA:</strong> <span>{pengacara.nomor_induk_advokat || "-"}</span></p>
-                <p><strong>Universitas:</strong> <span>{pengacara.universitas || "-"}</span></p>
-                <p><strong>Pendidikan:</strong> <span>{pengacara.pendidikan || "-"}</span></p>
-                <p><strong>Spesialisasi:</strong> <span>{pengacara.spesialisasi || "-"}</span></p>
+                <p><strong>NIA:</strong> <span>{pengacara.nomor_induk_advokat}</span></p>
+                <p><strong>Universitas:</strong> <span>{pengacara.universitas}</span></p>
+                <p><strong>Pendidikan:</strong> <span>{pengacara.pendidikan}</span></p>
+                <p><strong>Spesialisasi:</strong> <span>{pengacara.spesialisasi}</span></p>
               </div>
             </div>
           </div>
 
+          {/* Informasi Tambahan */}
           <div className="additional-info-card">
             <h3>Informasi Tambahan</h3>
             <div className="additional-info-content">
-              {pengacara.resume_cv ? (
+              {pengacara.resume_cv && (
                 <div className="resume-section">
                   <p className="info-item">
                     <a
-                      href={`${BASE_URL}/uploads/${pengacara.resume_cv}`}
+                      href={`https://ppsi-production.up.railway.app/uploads/${pengacara.resume_cv}`}
                       target="_blank"
                       rel="noopener noreferrer"
                       className="info-link"
@@ -139,8 +138,6 @@ const DetailPengacara = () => {
                     </a>
                   </p>
                 </div>
-              ) : (
-                <p className="info-item">Resume belum tersedia.</p>
               )}
 
               <div className="social-media-links">
@@ -159,18 +156,11 @@ const DetailPengacara = () => {
                     <FontAwesomeIcon icon={faTwitter} size="2x" className="twitter-color" />
                   </a>
                 )}
-
-                {!pengacara.linkedin && !pengacara.instagram && !pengacara.twitter && (
-                  <p className="info-item" style={{ fontStyle: "italic", color: "#777" }}>
-                    Tidak ada media sosial tersedia.
-                  </p>
-                )}
               </div>
             </div>
           </div>
         </div>
       </div>
-
       <br /><br /><br />
       <div className="footer-separator"></div>
       <Footer />
