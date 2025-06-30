@@ -136,7 +136,7 @@ const ChatPage = () => {
       data.sender_id.toString() === activeLawyerId?.toString() &&
       data.receiver_id === user.id &&
       data.receiver_role === "user";
-
+      
     if (isForThisChat) {
       try {
         const res = await fetch(

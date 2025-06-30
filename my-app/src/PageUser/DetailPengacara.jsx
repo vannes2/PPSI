@@ -64,14 +64,14 @@ const DetailPengacara = () => {
             <div className="detail-photo-container">
               <img
                 src={
-                  pengacara.upload_foto
-                    ? `https://ppsi-production.up.railway.app//uploads/${pengacara.upload_foto}`
-                    : "https://ppsi-production.up.railway.app//assets/default-lawyer.png"
+                  pengacara?.upload_foto
+                    ? `https://ppsi-production.up.railway.app/uploads/${pengacara.upload_foto}`
+                    : "/assets/images/emptyprofile.png"
                 }
                 alt={pengacara.nama}
                 onError={(e) => {
                   e.target.onerror = null;
-                  e.target.src = "https://ppsi-production.up.railway.app/assets/default-lawyer.png";
+                  e.target.src = "/assets/images/emptyprofile.png";
                 }}
                 className="detail-photo"
               />
